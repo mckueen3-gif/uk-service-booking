@@ -494,3 +494,19 @@ model Message {
   @@index([conversationId])
   @@index([senderId])
 }
+
+model AiDiagnosis {
+  id                  String   @id @default(cuid())
+  userId              String?
+  imageUrl            String
+  category            String   // e.g. "Plumbing", "Automotive"
+  issue               String   @db.Text
+  suggestedFix        String   @db.Text
+  estimatedPriceRange String   // e.g. "£150 - £250"
+  confidence          Float
+  rawAIResponse       String?  @db.Text
+  createdAt           DateTime @default(now())
+
+  @@index([userId])
+  @@index([category])
+}

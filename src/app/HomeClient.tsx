@@ -76,6 +76,45 @@ export default function HomeClient() {
         <RecommendationEngine />
       </div>
 
+      {/* NEW: AI Instant Diagnosis CTA */}
+      <section className="container reveal stagger-1" style={{ maxWidth: '1200px', marginTop: '4rem' }}>
+        <div className="glass-panel" style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: '3rem', 
+          padding: '3rem',
+          background: 'linear-gradient(135deg, #ffffff 0%, #ecfdf5 100%)',
+          flexWrap: 'wrap',
+          overflow: 'hidden',
+          position: 'relative'
+        }}>
+          {/* Decorative Background Element */}
+          <div style={{ position: 'absolute', top: '-10%', right: '-5%', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, var(--emerald-100) 0%, transparent 70%)', opacity: 0.5 }}></div>
+
+          <div style={{ flex: '1 1 400px', zIndex: 1 }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'var(--emerald-600)', color: 'white', padding: '0.4rem 1rem', borderRadius: '2rem', fontSize: '0.75rem', fontWeight: 800, marginBottom: '1.5rem', boxShadow: '0 4px 12px rgba(5, 150, 105, 0.2)' }}>
+              <Sparkles size={14} /> NEW: AI POWERED
+            </div>
+            <h2 style={{ fontSize: '3rem', fontWeight: 950, marginBottom: '1.5rem', lineHeight: 1.1 }}>
+              Got a Repair? <br />
+              <span style={{ color: 'var(--emerald-600)' }}>Get an Instant Diagnosis.</span>
+            </h2>
+            <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', marginBottom: '2.5rem', lineHeight: 1.6, fontWeight: 500 }}>
+              Upload a photo of your problem and our AI will identify the issue and give you a UK price estimate in seconds.
+            </p>
+            <Link href="/diagnosis">
+              <button className="btn btn-primary" style={{ padding: '1.25rem 2.5rem', fontSize: '1.1rem' }}>
+                Try AI Diagnosis Free <ChevronRight size={20} />
+              </button>
+            </Link>
+          </div>
+          
+          <div style={{ flex: '1 1 300px', height: '400px', zIndex: 1, borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: 'var(--shadow-lg)' }}>
+             <img src="/images/ai-diagnosis-hero.png" alt="AI Diagnosis" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+        </div>
+      </section>
+
       {/* Directory Navigation */}
       <section className="container reveal stagger-2" style={{ maxWidth: '1200px', padding: '4rem 0' }}>
         <div style={{ 
@@ -134,13 +173,13 @@ export default function HomeClient() {
 
       {/* Service Sections */}
       {[
-        { id: 'plumbing', data: t.home.sections.plumbing, bg: 'var(--bg-primary)', img1: 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?q=80&w=800&auto=format&fit=crop', img2: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=800&auto=format&fit=crop' },
-        { id: 'repairs', data: t.home.sections.repairs, bg: 'var(--bg-secondary)', img1: 'https://images.unsplash.com/photo-1581244277943-fe4a9c777189?q=80&w=800&auto=format&fit=crop', img2: 'https://images.unsplash.com/photo-1595814433015-e6f5cd69614e?q=80&w=800&auto=format&fit=crop' },
-        { id: 'accounting', data: t.home.sections.accounting, bg: 'var(--bg-primary)', fullImg: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1200&auto=format&fit=crop' },
-        { id: 'renovation', data: t.home.sections.renovation, bg: 'var(--bg-secondary)', fullImg: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200&auto=format&fit=crop' },
-        { id: 'education', data: t.home.sections.education, bg: 'var(--bg-primary)', fullImg: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=1200&auto=format&fit=crop' },
-        { id: 'cleaning', data: t.home.sections.cleaning, bg: 'var(--bg-secondary)', fullImg: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=1200&auto=format&fit=crop' },
-        { id: 'legal', data: t.home.sections.legal, bg: 'var(--bg-primary)', fullImg: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=1200&auto=format&fit=crop' },
+        { id: 'plumbing', data: t.home.sections.plumbing, bg: 'var(--bg-primary)', img1: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop', img2: 'https://images.unsplash.com/photo-1504148455328-497c5efdf13d?q=80&w=800&auto=format&fit=crop' },
+        { id: 'repairs', data: t.home.sections.repairs, bg: 'var(--bg-secondary)', img1: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=800&auto=format&fit=crop', img2: 'https://images.unsplash.com/photo-1595814433015-e6f5cd69614e?q=80&w=800&auto=format&fit=crop' },
+        { id: 'accounting', data: t.home.sections.accounting, bg: 'var(--bg-primary)', fullImg: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1200&auto=format&fit=crop' },
+        { id: 'renovation', data: t.home.sections.renovation, bg: 'var(--bg-secondary)', fullImg: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop' },
+        { id: 'education', data: t.home.sections.education, bg: 'var(--bg-primary)', fullImg: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop' },
+        { id: 'cleaning', data: t.home.sections.cleaning, bg: 'var(--bg-secondary)', fullImg: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=1200&auto=format&fit=crop' },
+        { id: 'legal', data: t.home.sections.legal, bg: 'var(--bg-primary)', fullImg: 'https://images.unsplash.com/photo-1505664194779-8beaceb93744?q=80&w=1200&auto=format&fit=crop' },
         { id: 'commercial', data: t.home.sections.commercial, bg: 'var(--bg-secondary)', fullImg: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop' }
       ].map((sec, idx) => (
         <section key={sec.id} id={`section-${sec.id}`} style={{ backgroundColor: sec.bg, padding: '8rem 0', overflow: 'hidden' }}>
