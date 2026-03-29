@@ -22,14 +22,14 @@ export default function HomeClient() {
 
   const getIcons = () => [
     { id: 'plumbing', label: t.home.categories.plumbing, icon: <Droplets size={28} strokeWidth={1.5} />, category: 'Plumbing' },
-    { id: 'repairs', label: t.home.categories.repairs, icon: <Wrench size={28} strokeWidth={1.5} />, category: 'Repair' },
-    { id: 'renovation', label: t.home.categories.renovation, icon: <PenTool size={28} strokeWidth={1.5} />, category: 'Home' },
+    { id: 'repairs', label: t.home.categories.repairs, icon: <Wrench size={28} strokeWidth={1.5} />, category: 'Repairs' },
+    { id: 'renovation', label: t.home.categories.renovation, icon: <PenTool size={28} strokeWidth={1.5} />, category: 'Renovation' },
     { id: 'education', label: t.home.categories.education, icon: <GraduationCap size={28} strokeWidth={1.5} />, category: 'Education' },
     { id: 'accounting', label: t.home.categories.accounting, icon: <Calculator size={28} strokeWidth={1.5} />, category: 'Accounting' },
     { id: 'legal', label: t.home.categories.legal, icon: <Scale size={28} strokeWidth={1.5} />, category: 'Legal' },
     { id: 'commercial', label: t.home.categories.commercial, icon: <Briefcase size={28} strokeWidth={1.5} />, category: 'Commercial' },
     { id: 'cleaning', label: t.home.categories.cleaning, icon: <Sparkles size={28} strokeWidth={1.5} />, category: 'Cleaning' },
-    { id: 'car', label: t.home.categories.car, icon: <Car size={28} strokeWidth={1.5} />, category: 'Auto' },
+    { id: 'car', label: t.home.categories.car, icon: <Car size={28} strokeWidth={1.5} />, category: 'Automotive' },
   ];
 
   useEffect(() => {
