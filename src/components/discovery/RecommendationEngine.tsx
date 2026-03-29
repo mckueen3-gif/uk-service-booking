@@ -29,16 +29,18 @@ export default function RecommendationEngine() {
   }, [city]);
 
   if (loading) return (
-     <div style={{ padding: '2rem', display: 'flex', gap: '1.5rem', overflowX: 'hidden', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
-        {[1,2,3].map(i => (
+     <div style={{ padding: '2rem', display: 'flex', gap: '1.5rem', overflowX: 'hidden', flexDirection: isRTL ? 'row-reverse' : 'row', marginTop: '1rem' }}>
+        {[1,2,3,4].map(i => (
           <div key={i} className="animate-pulse" style={{ 
             width: '320px', 
-            height: '220px', 
+            height: '240px', 
             borderRadius: '24px', 
             flexShrink: 0, 
-            backgroundColor: 'var(--surface-2)',
-            opacity: 0.6,
-            border: '1.5px solid var(--border-color)'
+            backgroundColor: 'rgba(255, 255, 255, 0.3)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)',
+            border: '1.5px solid rgba(255, 255, 255, 0.5)',
+            boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.07)'
           }} />
         ))}
      </div>

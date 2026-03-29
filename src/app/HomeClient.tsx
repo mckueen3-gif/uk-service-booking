@@ -162,7 +162,15 @@ export default function HomeClient() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '1.5rem' }}>
           {loading ? (
              [1,2,3,4].map(i => (
-               <div key={i} className="animate-pulse" style={{ backgroundColor: '#f1f5f9', borderRadius: '16px', height: '300px' }} />
+               <div key={i} className="animate-pulse" style={{ 
+                 backgroundColor: 'rgba(255, 255, 255, 0.4)', 
+                 borderRadius: '24px', 
+                 height: '320px',
+                 border: '1.5px solid rgba(255, 255, 255, 0.5)',
+                 backdropFilter: 'blur(8px)',
+                 WebkitBackdropFilter: 'blur(8px)',
+                 boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.05)'
+               }} />
              ))
           ) : merchants.length > 0 ? merchants.map(m => (
             <Link href={`/merchant/${m.id}`} key={m.id} style={{ display: 'block', textDecoration: 'none' }}>
