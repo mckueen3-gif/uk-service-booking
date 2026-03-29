@@ -21,9 +21,16 @@ export default function RecommendationEngine() {
   useEffect(() => {
     async function fetch() {
       setLoading(true);
-      const res = await getPersonalizedFeed(city);
-      if (res.recommendations) setRecommendations(res.recommendations);
-      setLoading(false);
+      try {
+        const res = await getPersonalizedFeed(city);
+        if (res && res.recommendations) {
+          setRecommendations(res.recommendations);
+        }
+      } catch (err) {
+        console.error("Failed to fetch recommendations:", err);
+      } finally {
+        setLoading(false);
+      }
     }
     fetch();
   }, [city]);
