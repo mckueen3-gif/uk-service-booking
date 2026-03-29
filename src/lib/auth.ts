@@ -53,5 +53,5 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/auth/login",
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET || "UK_SERVICE_HUB_FALLBACK_SECRET_2024",
 };
