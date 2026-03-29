@@ -3,16 +3,28 @@
 import React, { useState, useEffect } from 'react';
 import { X, ShieldCheck, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import { useTranslation } from "@/components/LanguageContext";
 
 export default function CookieBanner() {
+  const { t, isRTL } = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Check for existing consent
     const consent = localStorage.getItem('cookie-consent');
     if (!consent) {
-      const timer = setTimeout(() => setIsVisible(true), 1500);
-      return () => clearTimeout(timer);
+       const timer = setTimeout(() => setIsVisible(true), 1500);
+       return () => clearTimeout(timer);
     }
+  }, []);
+
+  useEffect(() => {
+    // Simple resize listener for responsive layout without Tailwind
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const handleAccept = () => {
@@ -27,50 +39,135 @@ export default function CookieBanner() {
 
   if (!isVisible) return null;
 
+  const containerStyle: React.CSSProperties = {
+    position: 'fixed',
+    bottom: '2rem',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    width: '90%',
+    maxWidth: '960px',
+    zIndex: 1000,
+    backgroundColor: 'var(--glass-bg)',
+    backdropFilter: 'blur(20px)',
+    WebkitBackdropFilter: 'blur(20px)',
+    border: '1.5px solid var(--glass-border)',
+    borderRadius: '2rem',
+    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+    padding: isMobile ? '1.5rem' : '1.5rem 2.5rem',
+    display: 'flex',
+    flexDirection: isMobile ? 'column' : 'row',
+    alignItems: 'center',
+    gap: isMobile ? '1rem' : '2rem',
+    direction: isRTL ? 'rtl' : 'ltr',
+    animation: 'fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+  };
+
+  const iconContainerStyle: React.CSSProperties = {
+    flexShrink: 0,
+    width: '56px',
+    height: '56px',
+    background: 'linear-gradient(135deg, var(--accent-color), #4f46e5)',
+    borderRadius: '1.25rem',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxShadow: '0 10px 15px -3px rgba(59, 130, 246, 0.3)'
+  };
+
+  const textContainerStyle: React.CSSProperties = {
+    flexGrow: 1,
+    textAlign: isMobile ? 'center' : 'inherit'
+  };
+
+  const buttonGroupStyle: React.CSSProperties = {
+    display: 'flex',
+    flexDirection: isMobile ? 'column' : 'row',
+    alignItems: 'center',
+    gap: '0.75rem',
+    width: isMobile ? '100%' : 'auto'
+  };
+
+  const closeButtonStyle: React.CSSProperties = {
+    position: 'absolute',
+    top: '1rem',
+    right: isRTL ? 'auto' : '1.25rem',
+    left: isRTL ? '1.25rem' : 'auto',
+    background: 'none',
+    border: 'none',
+    color: 'var(--text-muted)',
+    cursor: 'pointer',
+    padding: '0.5rem',
+    transition: 'color 0.2s'
+  };
+
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-[110] p-4 md:p-8 pointer-events-none animate-in fade-in slide-in-from-bottom-8 duration-700">
-      <div className="max-w-4xl mx-auto bg-white/80 backdrop-blur-2xl border border-white/40 shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-[2rem] p-6 md:p-8 pointer-events-auto flex flex-col md:flex-row items-center gap-6 md:gap-12 group overflow-hidden relative">
-        {/* Abstract Background Glow */}
-        <div className="absolute -right-20 -top-20 w-40 h-40 bg-blue-400/10 blur-[80px] rounded-full group-hover:bg-blue-400/20 transition-all duration-700"></div>
-        
-        <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/20">
-          <ShieldCheck className="w-8 h-8 text-white" />
-        </div>
+    <div style={containerStyle}>
+      <button 
+        onClick={() => setIsVisible(false)} 
+        style={closeButtonStyle}
+        className="hover-text-primary"
+      >
+        <X size={20} />
+      </button>
 
-        <div className="flex-grow space-y-2 text-center md:text-left">
-          <h3 className="text-lg font-bold text-slate-900 tracking-tight">
-            我們重視您的隱私 (We value your privacy)
-          </h3>
-          <p className="text-slate-600 leading-relaxed text-sm">
-            我們使用 Cookie 來優化您的預約體驗並分析站點流量。點擊「接受」即表示您同意我們的 
-            <Link href="/legal/cookies" className="text-blue-600 font-semibold hover:underline ml-1">Cookie 政策</Link>。
-          </p>
-        </div>
+      <div style={iconContainerStyle}>
+        <ShieldCheck color="white" size={32} />
+      </div>
 
-        <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
-          <button 
-            onClick={handleDecline}
-            className="px-6 py-3 text-sm font-semibold text-slate-500 hover:text-slate-900 transition-colors order-2 sm:order-1"
-          >
-            拒絕 (Decline)
-          </button>
-          <button 
-            onClick={handleAccept}
-            className="w-full sm:w-auto px-8 py-3 bg-slate-900 text-white text-sm font-bold rounded-xl hover:bg-black transition-all shadow-lg hover:shadow-slate-900/20 flex items-center justify-center gap-2 group/btn order-1 sm:order-2"
-          >
-            全部接受 (Accept All)
-            <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-          </button>
-        </div>
+      <div style={textContainerStyle}>
+        <h3 style={{ fontSize: '1.1rem', fontWeight: 900, marginBottom: '0.25rem', color: 'var(--text-primary)' }}>
+          我們重視您的隱私 (We value your privacy)
+        </h3>
+        <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+          我們使用 Cookie 來優化您的預約體驗並分析站點流量。點擊「接受」即表示您同意我們的 
+          <Link href="/legal/cookies" style={{ color: 'var(--accent-color)', fontWeight: 700, marginLeft: '4px', textDecoration: 'underline' }}>
+            Cookie 政策
+          </Link>。
+        </p>
+      </div>
 
+      <div style={buttonGroupStyle}>
         <button 
-          onClick={() => setIsVisible(false)}
-          className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-900 transition-colors"
-          aria-label="Close"
+          onClick={handleDecline}
+          style={{ 
+            padding: '0.75rem 1.5rem', 
+            fontSize: '0.9rem', 
+            fontWeight: 700, 
+            color: 'var(--text-muted)', 
+            background: 'none', 
+            border: 'none', 
+            cursor: 'pointer',
+            order: isMobile ? 2 : 1
+          }}
+          className="hover-text-primary"
         >
-          <X className="w-5 h-5" />
+          拒絕 (Decline)
+        </button>
+        <button 
+          onClick={handleAccept}
+          className="btn btn-primary"
+          style={{ 
+            padding: '0.75rem 2rem', 
+            fontSize: '0.9rem', 
+            fontWeight: 800, 
+            width: isMobile ? '100%' : 'auto',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            order: isMobile ? 1 : 2
+          }}
+        >
+          全部接受 (Accept All) <ArrowRight size={16} />
         </button>
       </div>
+
+      <style jsx>{`
+        .hover-text-primary:hover { color: var(--text-primary) !important; }
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translate(-50%, 20px); }
+          to { opacity: 1; transform: translate(-50%, 0); }
+        }
+      `}</style>
     </div>
   );
 }
