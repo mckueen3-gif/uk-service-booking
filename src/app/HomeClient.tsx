@@ -135,10 +135,10 @@ export default function HomeClient() {
       {/* Service Sections */}
       {[
         { id: 'plumbing', data: t.home.sections.plumbing, bg: 'var(--bg-primary)', img1: 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?q=80&w=800&auto=format&fit=crop', img2: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=800&auto=format&fit=crop' },
-        { id: 'repairs', data: t.home.sections.repairs, bg: 'var(--bg-secondary)', img1: 'https://images.unsplash.com/photo-1581244277943-fe4a9c777189?q=80&w=800&auto=format&fit=crop', img2: 'https://images.unsplash.com/photo-1517646281691-137603c5ec76?q=80&w=800&auto=format&fit=crop' },
+        { id: 'repairs', data: t.home.sections.repairs, bg: 'var(--bg-secondary)', img1: 'https://images.unsplash.com/photo-1581244277943-fe4a9c777189?q=80&w=800&auto=format&fit=crop', img2: 'https://images.unsplash.com/photo-1595814433015-e6f5cd69614e?q=80&w=800&auto=format&fit=crop' },
         { id: 'accounting', data: t.home.sections.accounting, bg: 'var(--bg-primary)', fullImg: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1200&auto=format&fit=crop' },
         { id: 'renovation', data: t.home.sections.renovation, bg: 'var(--bg-secondary)', fullImg: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200&auto=format&fit=crop' },
-        { id: 'education', data: t.home.sections.education, bg: 'var(--bg-primary)', fullImg: 'https://images.unsplash.com/photo-1516321321775-9e22197cf73b?q=80&w=1200&auto=format&fit=crop' },
+        { id: 'education', data: t.home.sections.education, bg: 'var(--bg-primary)', fullImg: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=1200&auto=format&fit=crop' },
         { id: 'cleaning', data: t.home.sections.cleaning, bg: 'var(--bg-secondary)', fullImg: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=1200&auto=format&fit=crop' },
         { id: 'legal', data: t.home.sections.legal, bg: 'var(--bg-primary)', fullImg: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=1200&auto=format&fit=crop' },
         { id: 'commercial', data: t.home.sections.commercial, bg: 'var(--bg-secondary)', fullImg: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop' }
