@@ -1,6 +1,7 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const apiKey = process.env.RESEND_API_KEY;
+const resend = (apiKey && apiKey.length > 5) ? new Resend(apiKey) : null;
 
 interface MailOptions {
   to: string;
@@ -15,6 +16,10 @@ export async function sendEmail({ to, subject, html }: MailOptions) {
   }
 
   try {
+    if (!resend) {
+      console.log('[MAIL_MOCK] Skip sending as Resend client is not initialized');
+      return null;
+    }
     const { data, error } = await resend.emails.send({
       from: 'ServiceHub <onboarding@resend.dev>', // Use verified domain late
       to,
