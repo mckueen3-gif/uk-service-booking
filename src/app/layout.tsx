@@ -30,6 +30,8 @@ export const viewport = {
   maximumScale: 1,
 };
 
+import { AuthProvider } from "@/app/components/AuthProvider";
+
 export default async function RootLayout({
   children,
 }: {
@@ -45,18 +47,20 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)', padding: 0, margin: 0, transition: 'background-color 0.3s ease' }}>
-        <LanguageProvider>
-          <LocationProvider>
-            <AppNavbar session={session} />
-            <main style={{ minHeight: 'calc(100vh - 80px)', paddingTop: '80px' }}>
-              {children}
-            </main>
-            <AppFooter />
-            <AIChatbot />
-            <CookieBanner />
-            <NotificationHub /> 
-          </LocationProvider>
-        </LanguageProvider>
+        <AuthProvider>
+          <LanguageProvider>
+            <LocationProvider>
+              <AppNavbar session={session} />
+              <main style={{ minHeight: 'calc(100vh - 80px)', paddingTop: '80px' }}>
+                {children}
+              </main>
+              <AppFooter />
+              <AIChatbot />
+              <CookieBanner />
+              <NotificationHub /> 
+            </LocationProvider>
+          </LanguageProvider>
+        </AuthProvider>
       </body>
     </html>
   );
