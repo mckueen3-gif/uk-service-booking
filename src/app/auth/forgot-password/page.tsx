@@ -2,22 +2,34 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Mail, ArrowLeft, CheckCircle2 } from "lucide-react";
+import { Mail, ArrowLeft, CheckCircle2, AlertCircle } from "lucide-react";
+import { requestPasswordReset } from "@/app/actions/auth";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
+    setError("");
     
-    // Simulate API call for now
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setSubmitted(true);
-    setLoading(false);
+    try {
+      const res = await requestPasswordReset(email);
+      
+      if (res.error) {
+        setError(res.error);
+        setLoading(false);
+      } else {
+        setSubmitted(true);
+        setLoading(false);
+      }
+    } catch (err) {
+      setError("An unexpected error occurred. Please try again.");
+      setLoading(false);
+    }
   }
 
   if (submitted) {
@@ -31,8 +43,7 @@ export default function ForgotPasswordPage() {
           </div>
           <h1 className="title" style={{ fontSize: '2rem' }}>Check your email</h1>
           <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-            We&apos;ve sent a password reset link to <strong>{email}</strong>. 
-            Please check your inbox and follow the instructions.
+            If an account exists for <strong>{email}</strong>, you will receive a password reset link shortly.
           </p>
           <div style={{ marginTop: '1rem' }}>
             <Link href="/auth/login" className="btn btn-secondary" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
@@ -53,6 +64,13 @@ export default function ForgotPasswordPage() {
             Enter your email address and we&apos;ll send you a link to reset your password.
           </p>
         </div>
+
+        {error && (
+          <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', padding: '0.75rem', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
+            <AlertCircle size={18} />
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '1rem' }}>
           <div>

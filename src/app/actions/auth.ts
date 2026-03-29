@@ -2,6 +2,8 @@
 
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
+import { sendEmail } from "@/lib/mail";
 
 // Helper to generate a unique-ish referral code
 function generateReferralCode(name: string): string {
@@ -84,3 +86,84 @@ export async function registerUser(formData: FormData) {
   }
 }
 
+export async function requestPasswordReset(emailInput: string) {
+  const email = emailInput.toLowerCase();
+  
+  try {
+    const user = await prisma.user.findUnique({ where: { email } });
+    
+    // For security, always return success even if user doesn't exist
+    if (!user) {
+      console.log(`[AUTH_LOG] Reset requested for non-existent email: ${email}`);
+      return { success: true };
+    }
+
+    const token = crypto.randomBytes(32).toString("hex");
+    const expires = new Date(Date.now() + 3600000); // 1 hour from now
+
+    await prisma.passwordResetToken.upsert({
+      where: { token },
+      update: { token, expires }, 
+      create: {
+        email,
+        token,
+        expires,
+      }
+    });
+
+    const resetUrl = `${process.env.NEXTAUTH_URL || 'https://uk-service-booking.vercel.app'}/auth/reset-password?token=${token}`;
+
+    await sendEmail({
+      to: email,
+      subject: "Reset your UK Service Hub password",
+      html: `
+        <div style="font-family: sans-serif; padding: 20px;">
+          <h2>Password Reset Request</h2>
+          <p>You requested a password reset for your UK Service Hub account.</p>
+          <p>Click the link below to set a new password. This link will expire in 1 hour.</p>
+          <a href="${resetUrl}" style="display: inline-block; padding: 10px 20px; background-color: #0f172a; color: white; text-decoration: none; border-radius: 5px; margin: 20px 0;">Reset Password</a>
+          <p>If you didn't request this, you can safely ignore this email.</p>
+        </div>
+      `
+    });
+
+    console.log(`[AUTH_LOG] Reset link generated for ${email}: ${resetUrl}`);
+    return { success: true };
+  } catch (e) {
+    console.error("Password reset request error:", e);
+    return { error: "Failed to process reset request" };
+  }
+}
+
+export async function resetPassword(token: string, newPassword: string) {
+  if (newPassword.length < 6) {
+    return { error: "Password must be at least 6 characters" };
+  }
+
+  try {
+    const resetToken = await prisma.passwordResetToken.findUnique({
+      where: { token }
+    });
+
+    if (!resetToken || resetToken.expires < new Date()) {
+      return { error: "Invalid or expired reset link" };
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    await prisma.$transaction([
+      prisma.user.update({
+        where: { email: resetToken.email },
+        data: { password: hashedPassword }
+      }),
+      prisma.passwordResetToken.delete({
+        where: { token }
+      })
+    ]);
+
+    return { success: true };
+  } catch (e) {
+    console.error("Password reset error:", e);
+    return { error: "Failed to reset password" };
+  }
+}
