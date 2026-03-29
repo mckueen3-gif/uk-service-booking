@@ -59,7 +59,7 @@ export async function searchMerchants(filters: SearchFilters) {
         }
       }
     });
-    console.log('[Search Action] Query:', query, 'Found Merchants:', merchants.length);
+    console.log('[Search Action] Query:', query, 'Category:', category, 'Location:', location, 'Found Merchants:', merchants.length);
 
     // Fallback: If no results found with location + query, try searching without location
     if (merchants.length === 0 && location && query) {

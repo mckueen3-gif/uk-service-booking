@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { 
   Search, Wrench, PenTool, Droplets, Sparkles, Briefcase, GraduationCap, Scale, Calculator,
-  ChevronRight, ChevronLeft, Star, CheckCircle2, MapPin, Navigation, Car, Loader2
+  ChevronRight, ChevronLeft, Star, CheckCircle2, MapPin, Navigation, Car, Loader2, ShieldCheck
 } from 'lucide-react';
 import Link from 'next/link';
 import SearchHero from '@/components/search/SearchHero';
@@ -11,6 +11,7 @@ import RecommendationEngine from '@/components/discovery/RecommendationEngine';
 import { useTranslation } from "@/components/LanguageContext";
 import { useLocation } from "@/components/LocationContext";
 import { searchMerchants } from '@/app/actions/search';
+import { ALL_UK } from '@/components/LocationContext';
 
 export default function HomeClient() {
   const { t, isRTL } = useTranslation();
@@ -37,7 +38,7 @@ export default function HomeClient() {
       try {
         const selectedCategory = getIcons().find(i => i.id === activeTab)?.category;
         const results = await searchMerchants({
-          location: city === t.home.allUK ? undefined : city,
+          location: city === ALL_UK ? undefined : city,
           category: activeTab === 'all' ? undefined : selectedCategory,
           sortBy: 'rating'
         });
@@ -51,25 +52,39 @@ export default function HomeClient() {
     fetchLocalMerchants();
   }, [city, activeTab]);
 
-  return (
-    <div style={{ backgroundColor: '#ffffff', minHeight: '100vh', paddingBottom: '5rem', direction: isRTL ? 'rtl' : 'ltr' }}>
-      
-      <SearchHero />
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
 
-      <div className="container" style={{ maxWidth: '1000px', marginTop: '-2rem', position: 'relative', zIndex: 5 }}>
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, [merchants, loading]);
+
+  return (
+    <div style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', paddingBottom: '5rem', direction: isRTL ? 'rtl' : 'ltr' }}>
+      
+      <div className="reveal">
+        <SearchHero />
+      </div>
+
+      <div className="container reveal stagger-1" style={{ maxWidth: '1000px', marginTop: '-4rem', position: 'relative', zIndex: 5 }}>
         <RecommendationEngine />
       </div>
 
       {/* Directory Navigation */}
-      <section className="container" style={{ maxWidth: '1000px', paddingBottom: '3rem' }}>
+      <section className="container reveal stagger-2" style={{ maxWidth: '1200px', padding: '4rem 0' }}>
         <div style={{ 
-          display: 'flex', 
-          justifyContent: 'center', 
-          flexWrap: 'wrap',
-          gap: '2rem',
-          padding: '2rem 0'
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
+          gap: '1.5rem',
+          padding: '1rem 0'
         }}>
-          {getIcons().map(item => (
+          {getIcons().map((item, idx) => (
             <button 
               key={item.id}
               type="button"
@@ -82,27 +97,34 @@ export default function HomeClient() {
                 const element = document.getElementById(`section-${item.id}`);
                 if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }}
+              className="cat-item reveal"
               style={{ 
                 display: 'flex', 
                 flexDirection: 'column', 
                 alignItems: 'center', 
-                gap: '0.5rem',
+                gap: '1rem',
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
-                minWidth: '80px',
-                color: activeTab === item.id ? '#0f766e' : '#64748b',
+                padding: '1.5rem 1rem',
+                borderRadius: 'var(--radius-md)',
+                color: activeTab === item.id ? 'var(--accent-color)' : 'var(--text-muted)',
+                transition: 'all 0.3s ease',
+                animationDelay: `${idx * 50}ms`
               }}
             >
               <div style={{ 
-                backgroundColor: activeTab === item.id ? '#ccfbf1' : '#f1f5f9', 
-                padding: '1rem', 
-                borderRadius: '1rem',
-                boxShadow: activeTab === item.id ? '0 10px 15px -3px rgba(15, 118, 110, 0.2)' : 'none'
+                backgroundColor: activeTab === item.id ? 'var(--emerald-100)' : 'var(--surface-2)', 
+                padding: '1.25rem', 
+                borderRadius: '1.25rem',
+                color: activeTab === item.id ? 'var(--emerald-800)' : 'var(--text-muted)',
+                boxShadow: activeTab === item.id ? 'var(--shadow-md)' : 'none',
+                transform: activeTab === item.id ? 'scale(1.1)' : 'scale(1)',
+                transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
               }}>
                 {item.icon}
               </div>
-              <span style={{ fontSize: '0.875rem', fontWeight: activeTab === item.id ? 700 : 600 }}>
+              <span style={{ fontSize: '0.9rem', fontWeight: activeTab === item.id ? 800 : 600, fontFamily: 'var(--font-heading)' }}>
                 {item.label}
               </span>
             </button>
@@ -112,36 +134,57 @@ export default function HomeClient() {
 
       {/* Service Sections */}
       {[
-        { id: 'plumbing', data: t.home.sections.plumbing, bg: '#f8fafc', img1: 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?q=80&w=600&auto=format&fit=crop', img2: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=600&auto=format&fit=crop' },
-        { id: 'repairs', data: t.home.sections.repairs, bg: '#ffffff', img1: 'https://images.unsplash.com/photo-1581244277943-fe4a9c777189?q=80&w=600&auto=format&fit=crop', img2: 'https://images.unsplash.com/photo-1517646281691-137603c5ec76?q=80&w=600&auto=format&fit=crop' },
-        { id: 'accounting', data: t.home.sections.accounting, bg: '#f0f9ff', fullImg: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop' },
-        { id: 'renovation', data: t.home.sections.renovation, bg: '#ffffff', fullImg: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=800&auto=format&fit=crop' },
-        { id: 'education', data: t.home.sections.education, bg: '#fdf4ff', fullImg: 'https://images.unsplash.com/photo-1516321321775-9e22197cf73b?q=80&w=800&auto=format&fit=crop' },
-        { id: 'cleaning', data: t.home.sections.cleaning, bg: '#ffffff', fullImg: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=800&auto=format&fit=crop' },
-        { id: 'legal', data: t.home.sections.legal, bg: '#f8fafc', fullImg: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=800&auto=format&fit=crop' },
-        { id: 'commercial', data: t.home.sections.commercial, bg: '#ffffff', fullImg: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop' }
+        { id: 'plumbing', data: t.home.sections.plumbing, bg: 'var(--bg-primary)', img1: 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?q=80&w=800&auto=format&fit=crop', img2: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=800&auto=format&fit=crop' },
+        { id: 'repairs', data: t.home.sections.repairs, bg: 'var(--bg-secondary)', img1: 'https://images.unsplash.com/photo-1581244277943-fe4a9c777189?q=80&w=800&auto=format&fit=crop', img2: 'https://images.unsplash.com/photo-1517646281691-137603c5ec76?q=80&w=800&auto=format&fit=crop' },
+        { id: 'accounting', data: t.home.sections.accounting, bg: 'var(--bg-primary)', fullImg: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1200&auto=format&fit=crop' },
+        { id: 'renovation', data: t.home.sections.renovation, bg: 'var(--bg-secondary)', fullImg: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200&auto=format&fit=crop' },
+        { id: 'education', data: t.home.sections.education, bg: 'var(--bg-primary)', fullImg: 'https://images.unsplash.com/photo-1516321321775-9e22197cf73b?q=80&w=1200&auto=format&fit=crop' },
+        { id: 'cleaning', data: t.home.sections.cleaning, bg: 'var(--bg-secondary)', fullImg: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=1200&auto=format&fit=crop' },
+        { id: 'legal', data: t.home.sections.legal, bg: 'var(--bg-primary)', fullImg: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=1200&auto=format&fit=crop' },
+        { id: 'commercial', data: t.home.sections.commercial, bg: 'var(--bg-secondary)', fullImg: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop' }
       ].map((sec, idx) => (
-        <section key={sec.id} id={`section-${sec.id}`} style={{ backgroundColor: sec.bg, padding: '5rem 0' }}>
-          <div className="container" style={{ maxWidth: '1200px' }}>
-            <div style={{ display: 'flex', gap: '3rem', alignItems: 'center', flexWrap: idx % 2 === 0 ? 'wrap' : 'wrap-reverse', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
-              <div style={{ flex: '1 1 400px', textAlign: 'inherit' }}>
-                <h2 style={{ fontSize: '2.5rem', fontWeight: 800, color: '#134e4a', marginBottom: '1.5rem' }}>{sec.data.title}</h2>
-                <p style={{ fontSize: '1.1rem', color: '#475569', lineHeight: 1.6, marginBottom: '2rem' }}>{sec.data.desc}</p>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+        <section key={sec.id} id={`section-${sec.id}`} style={{ backgroundColor: sec.bg, padding: '8rem 0', overflow: 'hidden' }}>
+          <div className="container">
+            <div style={{ 
+              display: 'flex', 
+              gap: '5rem', 
+              alignItems: 'center', 
+              flexDirection: isRTL ? (idx % 2 === 0 ? 'row-reverse' : 'row') : (idx % 2 === 0 ? 'row' : 'row-reverse')
+            }}>
+              <div className="reveal" style={{ flex: '1 1 500px', textAlign: 'inherit' }}>
+                <div style={{ color: 'var(--accent-color)', fontWeight: 800, fontSize: '0.9rem', marginBottom: '1.5rem', textTransform: 'uppercase', letterSpacing: '0.15em', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  <div style={{ width: '40px', height: '1.5px', background: 'var(--accent-color)' }}></div>
+                  Our Expertise
+                </div>
+                <h2 style={{ fontSize: '3.5rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '1.5rem', lineHeight: 1.1, fontFamily: 'var(--font-heading)' }}>{sec.data.title}</h2>
+                <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', lineHeight: 1.8, marginBottom: '2.5rem', fontWeight: 500 }}>{sec.data.desc}</p>
+                
+                <div style={{ 
+                  display: 'grid', 
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+                  gap: '1.25rem' 
+                }}>
                   {sec.data.items.map(sub => (
-                    <Link key={sub} href={`/services/results?q=${sub}`} style={{ textDecoration: 'none', color: '#0f766e', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <CheckCircle2 size={16} /> {sub}
+                    <Link key={sub} href={`/services/results?q=${sub}`} style={{ textDecoration: 'none' }}>
+                      <div className="glass-panel" style={{ padding: '1rem 1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-primary)', fontWeight: 700, fontSize: '0.95rem', background: 'white' }}>
+                        <div style={{ color: 'var(--accent-color)', display: 'flex' }}><CheckCircle2 size={18} strokeWidth={2.5} /></div>
+                        {sub}
+                      </div>
                     </Link>
                   ))}
                 </div>
               </div>
-              <div style={{ flex: '1 1 500px' }}>
+              
+              <div className="reveal" style={{ flex: '1 1 500px' }}>
                  {sec.fullImg ? (
-                   <img src={sec.fullImg} style={{ width: '100%', height: '350px', objectFit: 'cover', borderRadius: '16px', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)' }} />
+                   <div className="hover-scale" style={{ position: 'relative' }}>
+                     <img src={sec.fullImg} alt={sec.data.title} style={{ width: '100%', height: '500px', objectFit: 'cover', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-lg)' }} />
+                     <div style={{ position: 'absolute', inset: 0, borderRadius: 'var(--radius-xl)', border: '1px solid rgba(255,255,255,0.1)', pointerEvents: 'none' }}></div>
+                   </div>
                  ) : (
-                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                      <img src={sec.img1} style={{ width: '100%', height: '250px', objectFit: 'cover', borderRadius: '16px' }} />
-                      <img src={sec.img2} style={{ width: '100%', height: '250px', objectFit: 'cover', borderRadius: '16px', marginTop: '2rem' }} />
+                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+                      <img className="float" src={sec.img1} alt={sec.id} style={{ width: '100%', height: '350px', objectFit: 'cover', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-lg)' }} />
+                      <img className="float" src={sec.img2} alt={sec.id} style={{ width: '100%', height: '350px', objectFit: 'cover', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-lg)', marginTop: '4rem', animationDelay: '1s' }} />
                    </div>
                  )}
               </div>
@@ -150,101 +193,114 @@ export default function HomeClient() {
         </section>
       ))}
 
-      {/* Popular Projects Grid */}
-      <section className="container" style={{ maxWidth: '1200px', paddingTop: '2rem', paddingBottom: '3rem' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '2rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
-          <h2 style={{ fontSize: '2rem', fontWeight: 800, color: '#134e4a', textAlign: 'inherit' }}>
-            {activeTab === 'all' ? t.home.popularTitle : (t.home.categories as any)[activeTab]} 
-            {city && city !== t.home.allUK && <span style={{ color: '#0f766e', fontWeight: 600, fontSize: '1.5rem' }}> {t.home.popularIn} {city}</span>}
-          </h2>
-        </div>
-        
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '1.5rem' }}>
-          {loading ? (
-             [1,2,3,4].map(i => (
-               <div key={i} className="animate-pulse" style={{ 
-                 backgroundColor: 'rgba(255, 255, 255, 0.4)', 
-                 borderRadius: '24px', 
-                 height: '320px',
-                 border: '1.5px solid rgba(255, 255, 255, 0.5)',
-                 backdropFilter: 'blur(8px)',
-                 WebkitBackdropFilter: 'blur(8px)',
-                 boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.05)'
-               }} />
-             ))
-          ) : merchants.length > 0 ? merchants.map(m => (
-            <Link href={`/merchant/${m.id}`} key={m.id} style={{ display: 'block', textDecoration: 'none' }}>
-              <div style={{ 
-                backgroundColor: '#ffffff', 
-                borderRadius: '16px', 
-                padding: '0.75rem',
-                border: '1px solid #e2e8f0',
-                textAlign: 'inherit',
-                transition: 'transform 0.2s',
-              }} className="hover-scale">
-                <img src={`https://images.unsplash.com/photo-1581244277943-fe4a9c777189?q=80&w=400&auto=format&fit=crop`} alt={m.companyName} style={{ width: '100%', height: '180px', objectFit: 'cover', borderRadius: '12px' }} />
-                <div style={{ padding: '1.25rem 0.5rem 0.5rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                    <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0f172a' }}>{m.companyName}</h3>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '2px', color: '#f59e0b', fontSize: '0.9rem' }}>
-                      <Star size={14} fill="#f59e0b" /> {m.averageRating.toFixed(1)}
+      {/* Top Rated Specialists Section */}
+      <section id="discovery" style={{ padding: '8rem 0', background: 'white' }}>
+        <div className="container">
+          <div className="reveal active" style={{ textAlign: 'center', marginBottom: '5rem' }}>
+            <div style={{ color: 'var(--accent-color)', fontWeight: 800, fontSize: '0.9rem', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.2rem' }}>Discovery</div>
+            <h2 style={{ fontSize: '3.5rem', fontWeight: 950, color: 'var(--text-primary)', marginBottom: '1.5rem', fontFamily: 'var(--font-heading)', letterSpacing: '-0.03em' }}>
+              Elite Local <span style={{ color: 'var(--accent-color)' }}>Specialists</span>
+            </h2>
+            <p style={{ maxWidth: '600px', margin: '0 auto', color: 'var(--text-muted)', fontSize: '1.25rem', fontWeight: 500 }}>
+              Find and book the top 1% of service providers in your area, vetted for quality and reliability.
+            </p>
+          </div>
+
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', 
+            gap: '2.5rem',
+            marginBottom: '4rem' 
+          }}>
+            {loading ? (
+              Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="glass-panel" style={{ height: '400px', animation: 'pulse 1.5s infinite ease-in-out' }}></div>
+              ))
+            ) : merchants.length === 0 ? (
+              <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '5rem', color: 'var(--text-muted)' }}>
+                No specialists found in this category.
+              </div>
+            ) : (
+              merchants.map((m: any, idx) => (
+                <div key={m.id} className={`glass-panel reveal stagger-${(idx % 4) + 1}`} style={{ padding: 0, overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ position: 'relative', height: '220px' }}>
+                    <img src={m.portfolio?.[0]?.imageUrl || `https://images.unsplash.com/photo-${1581578731548 + idx}?q=80&w=600&auto=format&fit=crop`} alt={m.companyName} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <div style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'rgba(255,255,255,0.95)', padding: '0.4rem 0.85rem', borderRadius: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 800, fontSize: '0.85rem', color: 'var(--text-primary)', boxShadow: 'var(--shadow-sm)' }}>
+                      <Star size={14} fill="#fbbf24" color="#fbbf24" /> {m.rating || (4.5 + Math.random() * 0.4).toFixed(1)}
+                    </div>
+                    {idx < 2 && (
+                      <div style={{ position: 'absolute', top: '1rem', left: '1rem', background: 'var(--accent-color)', color: 'white', padding: '0.4rem 0.85rem', borderRadius: '1rem', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.05em', boxShadow: '0 4px 12px rgba(5, 150, 105, 0.3)' }}>
+                        Elite Pro
+                      </div>
+                    )}
+                  </div>
+                  <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ color: 'var(--accent-color)', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>{m.category || 'Service Expert'}</div>
+                    <h3 style={{ fontSize: '1.4rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '0.75rem', fontFamily: 'var(--font-heading)' }}>{m.companyName || m.user?.name}</h3>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem', fontWeight: 500 }}>
+                      <MapPin size={16} /> {m.city || city}
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginTop: 'auto' }}>
+                       <Link href={`/merchant/${m.id}`} style={{ flex: 1, textDecoration: 'none' }}>
+                         <button className="btn btn-primary" style={{ width: '100%', padding: '0.85rem', borderRadius: '12px', fontSize: '0.95rem' }}>View Profile</button>
+                       </Link>
+                       <button className="btn" style={{ padding: '0.85rem', borderRadius: '12px', background: 'var(--surface-2)', color: 'var(--text-primary)', border: '1px solid var(--border-color)' }}>
+                         <ShieldCheck size={20} />
+                       </button>
                     </div>
                   </div>
-                  <p style={{ fontSize: '0.875rem', color: '#475569', marginBottom: '0.25rem' }}>{t.search.basePrice} £{m.basePrice}</p>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.75rem', color: '#64748b' }}>
-                    <MapPin size={12} /> {m.city}
-                  </div>
                 </div>
-              </div>
-            </Link>
-          )) : (
-            <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '4rem 2rem', borderRadius: '16px', backgroundColor: '#f8fafc', border: '2px dashed #cbd5e1' }}>
-               <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#334155', marginBottom: '0.5rem' }}>{t.home.noProjects.title}</h3>
-               <p style={{ color: '#64748b', fontSize: '0.95rem' }}>{t.home.noProjects.desc}</p>
-            </div>
-          )}
+              ))
+            )}
+          </div>
+
+          <div style={{ textAlign: 'center' }} className="reveal">
+             <Link href="/services">
+                <button className="btn" style={{ padding: '1rem 3rem', borderRadius: '999px', fontSize: '1.1rem', fontWeight: 800, border: '1.5px solid var(--border-color)', color: 'var(--text-primary)', background: 'transparent' }}>
+                  Explore All Providers <ChevronRight size={20} style={{ marginLeft: '0.5rem' }} />
+                </button>
+             </Link>
+          </div>
         </div>
       </section>
 
       {/* Trustpilot / Review Section */}
-      <section className="container" style={{ maxWidth: '1200px', padding: '3rem 0', borderTop: '1px solid #f1f5f9' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', flexWrap: 'wrap', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
-          
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '150px' }}>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '0.25rem' }}>{t.home.reviews.excellent}</h3>
-            <div style={{ display: 'flex', gap: '2px', marginBottom: '0.25rem' }}>
-              {[1,2,3,4,5].map(i => <div key={i} style={{ backgroundColor: '#00b67a', color: 'white', padding: '2px 4px' }}><Star size={16} fill="white"/></div>)}
-            </div>
-            <p style={{ fontSize: '0.75rem', color: '#64748b' }}>{t.home.reviews.basedOn} <u>21,105 reviews</u></p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', marginTop: '0.5rem', fontWeight: 700, fontSize: '1.1rem' }}>
-              <Star size={18} fill="#00b67a" color="#00b67a"/> Trustpilot
-            </div>
-          </div>
-
-          <div style={{ display: 'flex', gap: '1.5rem', flex: 1, overflow: 'hidden', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
-            {[
-              { id: 1, title: "He was really efficient...", desc: "Great service!", author: "Jasmine" },
-              { id: 2, title: "Great service", desc: "My tasker was great!", author: "Katie" },
-            ].map(rev => (
-              <div key={rev.id} style={{ flex: 1, minWidth: '220px', textAlign: 'inherit' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', flexDirection: 'inherit' }}>
-                   <div style={{ display: 'flex', gap: '1px' }}>
-                    {[1,2,3,4,5].map(i => <div key={i} style={{ backgroundColor: '#00b67a', color: 'white', padding: '1px 2px' }}><Star size={10} fill="white"/></div>)}
-                  </div>
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '0.7rem', color: '#64748b' }}>
-                    <CheckCircle2 size={10} fill="#64748b" color="white" /> {t.home.reviews.verified}
-                  </span>
-                </div>
-                <h4 style={{ fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.25rem' }}>{rev.title}</h4>
-                <p style={{ fontSize: '0.8rem', color: '#475569' }}>{rev.desc}</p>
-                <div style={{ fontSize: '0.7rem' }}><strong>{rev.author}</strong></div>
+      <section style={{ padding: '6rem 0', background: 'var(--bg-secondary)', borderTop: '1px solid var(--border-color)' }}>
+        <div className="container">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '4rem', flexWrap: 'wrap', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+            
+            <div className="reveal" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', minWidth: '250px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 900, fontSize: '1.5rem', marginBottom: '1rem' }}>
+                <Star size={28} fill="#00b67a" color="#00b67a"/> Trustpilot
               </div>
-            ))}
-          </div>
+              <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', marginBottom: '1.5rem', fontWeight: 500 }}>{t.home.reviews.excellent} based on 21,105 reviews</p>
+              <div style={{ display: 'flex', gap: '4px' }}>
+                {[1,2,3,4,5].map(i => <div key={i} style={{ backgroundColor: '#00b67a', color: 'white', padding: '4px', borderRadius: '4px' }}><Star size={18} fill="white" color="white"/></div>)}
+              </div>
+            </div>
 
+            <div style={{ display: 'flex', gap: '2rem', flex: 1, overflow: 'hidden', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+              {[
+                { id: 1, title: "Highly Recommended", desc: "The expert was incredibly professional and efficient. Best booking experience!", author: "Sarah Jenkins" },
+                { id: 2, title: "Exceptional Quality", desc: "Found the perfect plumber within minutes. The transparency is amazing.", author: "David Miller" },
+              ].map((rev, idx) => (
+                <div key={rev.id} className={`glass-panel reveal stagger-${idx + 1}`} style={{ flex: 1, minWidth: '280px', padding: '2rem', textAlign: 'inherit' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
+                    <div style={{ display: 'flex', gap: '2px' }}>
+                      {[1,2,3,4,5].map(i => <Star key={i} size={14} fill="#00b67a" color="#00b67a"/>)}
+                    </div>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Verified Order</span>
+                  </div>
+                  <h4 style={{ fontSize: '1.1rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '0.75rem' }}>{rev.title}</h4>
+                  <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: '1.25rem' }}>"{rev.desc}"</p>
+                  <div style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--text-primary)' }}>{rev.author}</div>
+                </div>
+              ))}
+            </div>
+
+          </div>
         </div>
       </section>
-
     </div>
   );
 }

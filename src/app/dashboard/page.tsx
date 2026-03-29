@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { TrendingUp, Clock, CheckCircle2, Star, ShieldCheck, Wallet, Banknote, CalendarHeart, MapPin, MessageCircle, Wrench, Camera, Plus, ArrowRight, Car, Home } from "lucide-react";
+import { TrendingUp, Clock, CheckCircle2, Star, ShieldCheck, Wallet, Banknote, CalendarHeart, MapPin, MessageCircle, Wrench, Camera, Plus, ArrowRight, Car, Home, Sparkles } from "lucide-react";
 import StripeConnectButton from "./components/StripeConnectButton";
 import ReviewButton from "./components/ReviewModal";
 import VariationCustomerAlert from "./components/VariationCustomerAlert";
@@ -56,134 +56,136 @@ export default async function DashboardOverview() {
 
     // Fully Featured Customer Dashboard UI
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
         {/* Welcome Header */}
-        <div style={{ padding: '1rem 0' }} className="animate-fade-up">
-          <h1 style={{ fontSize: '2.8rem', fontWeight: 800, color: '#f8fafc', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>
+        <div className="reveal active">
+          <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '0.5rem', letterSpacing: '-0.03em', fontFamily: 'var(--font-heading)' }}>
             午安，{user.name || "貴賓"} 👋
           </h1>
-          <p style={{ color: '#94a3b8', fontSize: '1.2rem' }}>
-            您目前有 {bookings.filter(b => b.status !== 'COMPLETED').length} 筆進行中的服務。
+          <p style={{ color: 'var(--text-muted)', fontSize: '1.25rem', fontWeight: 500 }}>
+            您目前有 <span style={{ color: 'var(--accent-color)', fontWeight: 800 }}>{bookings.filter(b => b.status !== 'COMPLETED').length}</span> 筆進行中的服務。
           </p>
         </div>
 
-        {/* Variations are temporarily disabled in the overview list to fix Prisma sync issues */}
-        {/* We can fetch them per-booking in the repair tracker page instead */}
-
         {/* Action Highlights */}
-        <div className="animate-fade-up delay-200" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 reveal stagger-1">
           
           {/* Upcoming Booking Card */}
           {activeBooking ? (
-            <div className="glass-panel" style={{ padding: '1.5rem', borderRadius: '16px', borderLeft: '4px solid var(--accent-color)', backgroundColor: 'var(--bg-secondary)' }}>
-               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
+            <div className="glass-panel" style={{ padding: '2rem', borderLeft: '6px solid var(--accent-color)', background: 'var(--surface-1)' }}>
+               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
                  <div>
-                    <div style={{ color: 'var(--accent-color)', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                      <CalendarHeart size={16} /> 近期服務 (Upcoming)
+                    <div style={{ color: 'var(--accent-color)', fontWeight: 800, fontSize: '0.85rem', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                      <CalendarHeart size={16} /> 近期服務 Upcoming
                     </div>
-                    <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>{activeBooking.service?.name}</h3>
-                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{activeBooking.merchant?.user?.name}</p>
+                    <h3 style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>{activeBooking.service?.name}</h3>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '1rem', fontWeight: 500 }}>{activeBooking.merchant?.user?.name}</p>
                  </div>
-                 <span style={{ backgroundColor: 'rgba(37, 99, 235, 0.1)', color: 'var(--accent-color)', padding: '0.35rem 0.75rem', borderRadius: '2rem', fontSize: '0.8rem', fontWeight: 700 }}>
+                 <span style={{ backgroundColor: 'var(--emerald-50)', color: 'var(--emerald-700)', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.85rem', fontWeight: 800 }}>
                    {activeBooking.status}
                  </span>
                </div>
                
-               <div style={{ padding: '1rem', backgroundColor: 'rgba(255, 255, 255, 0.05)', borderRadius: '8px', marginBottom: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-primary)', fontSize: '0.9rem' }}>
-                   <Clock size={16} color="var(--text-secondary)" /> {new Date(activeBooking.createdAt).toLocaleDateString()}
+               <div style={{ padding: '1.25rem', backgroundColor: 'var(--surface-2)', borderRadius: '12px', marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', color: 'var(--text-secondary)', fontSize: '0.95rem', fontWeight: 600 }}>
+                   <Clock size={18} color="var(--accent-color)" /> {new Date(activeBooking.createdAt).toLocaleDateString()}
                  </div>
-                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-primary)', fontSize: '0.9rem' }}>
-                   <MapPin size={16} color="var(--text-secondary)" /> {(activeBooking as any).postcode || "Location"}
+                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', color: 'var(--text-secondary)', fontSize: '0.95rem', fontWeight: 600 }}>
+                   <MapPin size={18} color="var(--accent-color)" /> {(activeBooking as any).postcode || "Location"}
                  </div>
                </div>
                
-               <div style={{ display: 'flex', gap: '0.75rem', flexDirection: 'column' }}>
+               <div style={{ display: 'flex', gap: '1rem', flexDirection: 'column' }}>
                  {(activeBooking as any).vehicleReg && (
                    <Link href={`/dashboard/repair/${activeBooking.id}`} style={{ width: '100%', textDecoration: 'none' }}>
-                     <button style={{ width: '100%', padding: '0.85rem', borderRadius: '8px', backgroundColor: 'var(--accent-color)', color: 'white', fontWeight: 700, border: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
-                       <Wrench size={18} /> Track My Repair / 追蹤維修進度
+                     <button className="btn btn-primary" style={{ width: '100%', borderRadius: '12px' }}>
+                       <Wrench size={18} /> 追蹤維修進度 Track Repair
                      </button>
                    </Link>
                  )}
-                 <div style={{ display: 'flex', gap: '0.75rem' }}>
-                    <button style={{ flex: 1, padding: '0.75rem', borderRadius: '8px', backgroundColor: 'rgba(255,255,255,0.1)', color: 'var(--text-primary)', fontWeight: 600, border: '1px solid var(--border-color)', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+                 <div style={{ display: 'flex', gap: '1rem' }}>
+                    <button className="btn" style={{ flex: 1, backgroundColor: 'var(--surface-2)', color: 'var(--text-primary)', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
                       <MessageCircle size={18} /> 聯絡專家
                     </button>
-                    <button style={{ flex: 1, padding: '0.75rem', borderRadius: '8px', backgroundColor: 'transparent', color: 'var(--text-secondary)', fontWeight: 600, border: '1px solid var(--border-color)', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+                    <button className="btn" style={{ flex: 1, backgroundColor: 'transparent', color: 'var(--text-muted)', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
                       管理預約
                     </button>
                  </div>
                </div>
             </div>
           ) : (
-             <div className="glass-panel" style={{ padding: '2rem', borderRadius: '16px', border: '1px dashed var(--border-color)', textAlign: 'center' }}>
-                <CalendarHeart size={32} color="var(--text-secondary)" style={{ marginBottom: '1rem' }} />
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)' }}>暫無進行中的服務</h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>預約您的下一個專業服務吧！</p>
-             </div>
+            <div className="glass-panel" style={{ padding: '3rem', borderRadius: '24px', border: '2px dashed var(--border-color)', textAlign: 'center', background: 'transparent' }}>
+                <div style={{ backgroundColor: 'var(--surface-2)', width: '64px', height: '64px', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto 1.5rem' }}>
+                  <CalendarHeart size={32} color="var(--text-muted)" />
+                </div>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>暫無進行中的服務</h3>
+                <p style={{ color: 'var(--text-muted)', fontSize: '1rem' }}>預約您的下一個專業服務吧！</p>
+            </div>
           )}
 
           {/* Start New Booking CTA */}
-          <div className="glass-panel" style={{ padding: '1.5rem', borderRadius: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', border: '2px dashed #e2e8f0', backgroundColor: 'transparent', cursor: 'pointer', transition: 'all 0.2s' }}>
-             <div style={{ width: '60px', height: '60px', borderRadius: '50%', backgroundColor: '#f1f5f9', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '1rem' }}>
-               <Wrench size={28} color="#64748b" />
+          <div className="glass-panel hover-scale" style={{ padding: '2rem', borderRadius: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', border: '2px dashed var(--accent-soft)', background: 'var(--emerald-50)', cursor: 'pointer' }}>
+             <div className="float" style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '1.5rem', boxShadow: 'var(--shadow-md)' }}>
+               <Sparkles size={36} color="var(--accent-color)" />
              </div>
-             <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0f172a', marginBottom: '0.5rem' }}>需要其他居家協助嗎？</h3>
-             <p style={{ color: '#64748b', fontSize: '0.9rem', marginBottom: '1.5rem', maxWidth: '200px' }}>尋找超過 500+ 位經過嚴格認證的本地服務專家。</p>
+             <h3 style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>需要其他居家協助嗎？</h3>
+             <p style={{ color: 'var(--text-muted)', fontSize: '1rem', marginBottom: '2rem', maxWidth: '300px', fontWeight: 500 }}>尋找超過 500+ 位經過嚴格認證的本地服務專家。</p>
              <Link href="/services?city=London">
-                <button className="btn btn-primary" style={{ padding: '0.6rem 1.5rem', borderRadius: '2rem' }}>瀏覽服務目錄</button>
+                <button className="btn btn-primary" style={{ padding: '0.85rem 2.5rem' }}>瀏覽服務目錄 Explore</button>
              </Link>
           </div>
         </div>
 
         {/* Maintenance Timeline Section */}
-        <div className="animate-fade-up delay-300" style={{ marginTop: '1rem' }}>
+        <div className="reveal stagger-2">
           <MaintenanceTimeline />
         </div>
 
         {/* Past Bookings & History */}
-        <div className="glass-panel animate-fade-up delay-400" style={{ padding: '2rem', borderRadius: '16px', marginTop: '1rem' }}>
-          <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '1.5rem' }}>歷史預約與付款憑證 (History)</h2>
+        <div className="glass-panel reveal stagger-3" style={{ padding: '2.5rem', borderRadius: '24px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>歷史預約與付款憑證 History</h2>
+            <button style={{ backgroundColor: 'var(--emerald-50)', border: 'none', color: 'var(--accent-color)', padding: '0.5rem 1rem', borderRadius: '8px', fontWeight: 800, fontSize: '0.85rem', cursor: 'pointer' }}>查看全部 View All</button>
+          </div>
           
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
               <thead>
-                <tr style={{ borderBottom: '1px solid var(--border-color)', color: '#94a3b8', fontSize: '0.875rem' }}>
-                  <th style={{ paddingBottom: '1rem', fontWeight: 600 }}>服務項目 (Service)</th>
-                  <th style={{ paddingBottom: '1rem', fontWeight: 600 }}>日期 (Date)</th>
-                  <th style={{ paddingBottom: '1rem', fontWeight: 600 }}>總金額 (Total)</th>
-                  <th style={{ paddingBottom: '1rem', fontWeight: 600 }}>狀態 (Status)</th>
-                  <th style={{ paddingBottom: '1rem', fontWeight: 600 }}>行動/評價 (Action)</th>
+                <tr style={{ borderBottom: '2px solid var(--surface-2)', color: 'var(--text-muted)', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  <th style={{ padding: '1rem 0', fontWeight: 800 }}>服務與專家 Service</th>
+                  <th style={{ padding: '1rem 0', fontWeight: 800 }}>日期 Date</th>
+                  <th style={{ padding: '1rem 0', fontWeight: 800 }}>總金額 Total</th>
+                  <th style={{ padding: '1rem 0', fontWeight: 800 }}>狀態 Status</th>
+                  <th style={{ padding: '1rem 0', fontWeight: 800 }}></th>
                 </tr>
               </thead>
               <tbody>
                 {bookings.length === 0 ? (
                   <tr>
-                    <td colSpan={5} style={{ padding: '3rem', textAlign: 'center', color: '#94a3b8' }}>目前無歷史預約紀錄</td>
+                    <td colSpan={5} style={{ padding: '4rem', textAlign: 'center', color: 'var(--text-muted)' }}>目前無歷史預約紀錄</td>
                   </tr>
                 ) : (
                   bookings.map((booking: any) => (
-                    <tr key={booking.id} style={{ borderBottom: '1px solid var(--border-color)' }}>
-                      <td style={{ padding: '1.25rem 0' }}>
-                        <div style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{booking.service?.name}</div>
-                        <div style={{ fontSize: '0.8rem', color: '#94a3b8' }}>{booking.merchant?.companyName}</div>
+                    <tr key={booking.id} style={{ borderBottom: '1px solid var(--surface-2)' }} className="hover-scale">
+                      <td style={{ padding: '1.5rem 0' }}>
+                        <div style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '1.1rem' }}>{booking.service?.name}</div>
+                        <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 500 }}>{booking.merchant?.companyName}</div>
                       </td>
-                      <td style={{ padding: '1.25rem 0', color: '#94a3b8' }}>{new Date(booking.scheduledDate).toLocaleDateString()}</td>
-                      <td style={{ padding: '1.25rem 0', fontWeight: 700, color: 'var(--text-primary)' }}>£{booking.totalAmount.toFixed(2)}</td>
-                      <td style={{ padding: '1.25rem 0' }}>
+                      <td style={{ padding: '1.5rem 0', color: 'var(--text-secondary)', fontWeight: 600 }}>{new Date(booking.scheduledDate).toLocaleDateString()}</td>
+                      <td style={{ padding: '1.5rem 0', fontWeight: 900, color: 'var(--text-primary)', fontSize: '1.1rem' }}>£{booking.totalAmount.toFixed(2)}</td>
+                      <td style={{ padding: '1.5rem 0' }}>
                         <span style={{ 
-                          backgroundColor: booking.status === 'COMPLETED' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(255,255,255,0.05)', 
-                          color: booking.status === 'COMPLETED' ? '#10b981' : 'var(--text-primary)', 
-                          padding: '0.35rem 0.75rem', 
-                          borderRadius: '1rem', 
-                          fontSize: '0.75rem', 
-                          fontWeight: 600 
+                          backgroundColor: booking.status === 'COMPLETED' ? 'var(--emerald-50)' : 'var(--surface-2)', 
+                          color: booking.status === 'COMPLETED' ? 'var(--emerald-700)' : 'var(--text-muted)', 
+                          padding: '0.5rem 1rem', 
+                          borderRadius: '2rem', 
+                          fontSize: '0.8rem', 
+                          fontWeight: 800 
                         }}>
                           {booking.status}
                         </span>
                       </td>
-                      <td style={{ padding: '1.25rem 0' }}>
+                      <td style={{ padding: '1.5rem 0', textAlign: 'right' }}>
                         {booking.status === 'COMPLETED' ? (
                           <ReviewButton 
                             bookingId={booking.id} 
@@ -191,8 +193,8 @@ export default async function DashboardOverview() {
                             serviceName={booking.service?.name} 
                           />
                         ) : (
-                          <Link href={`/dashboard/repair/${booking.id}`} style={{ color: 'var(--accent-color)', fontSize: '0.85rem', fontWeight: 700, textDecoration: 'none' }}>
-                            查看詳情
+                          <Link href={`/dashboard/repair/${booking.id}`} style={{ color: 'var(--accent-color)', fontSize: '0.9rem', fontWeight: 800, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.25rem', justifyContent: 'flex-end' }}>
+                            查看詳情 <ArrowRight size={16} />
                           </Link>
                         )}
                       </td>
@@ -205,124 +207,87 @@ export default async function DashboardOverview() {
         </div>
 
         {/* My Account & Rewards Section */}
-        <div style={{ marginTop: '2.5rem', padding: '2rem', borderRadius: '24px', background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.05)' }} className="animate-fade-up delay-500">
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#f8fafc', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <Wallet size={28} color="#6366f1" /> 帳戶設定與獎勵 (My Account & Rewards)
+        <div className="reveal stagger-4" style={{ marginTop: '1rem', padding: '3rem', borderRadius: '32px', background: 'var(--surface-2)', border: '1px solid var(--border-color)' }}>
+          <h2 style={{ fontSize: '1.75rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '1rem', fontFamily: 'var(--font-heading)' }}>
+            <div style={{ backgroundColor: 'var(--accent-color)', padding: '0.75rem', borderRadius: '12px' }}>
+              <Wallet size={28} color="white" />
+            </div>
+            帳戶設定與獎勵 Account & Rewards
           </h2>
           
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
             {/* Referral Info Card */}
             <div style={{ 
-              background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(168, 85, 247, 0.15) 100%)',
-              border: '1px solid rgba(99, 102, 241, 0.2)',
-              padding: '2rem',
-              borderRadius: '1.5rem',
+              background: 'linear-gradient(135deg, var(--emerald-700) 0%, var(--emerald-950) 100%)',
+              padding: '2.5rem',
+              borderRadius: '2rem',
               color: 'white',
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'space-between'
+              justifyContent: 'space-between',
+              boxShadow: 'var(--shadow-lg)'
             }}>
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                  <Star size={20} fill="#818cf8" color="#818cf8" />
-                  <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>推薦親友獎勵計畫</span>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
+                  <div style={{ backgroundColor: 'rgba(255,255,255,0.2)', padding: '0.5rem', borderRadius: '8px' }}>
+                    <Star size={24} fill="white" color="white" />
+                  </div>
+                  <span style={{ fontWeight: 800, fontSize: '1.25rem', fontFamily: 'var(--font-heading)' }}>推薦親友獎勵計畫</span>
                 </div>
                 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '1rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '1.5rem' }}>
                   <div>
-                    <p style={{ color: '#94a3b8', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', marginBottom: '0.25rem' }}>推薦代碼</p>
+                    <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.5rem', letterSpacing: '0.05em' }}>您的推薦代碼</p>
                     <div style={{ 
-                      fontSize: '1.5rem', 
+                      fontSize: '1.75rem', 
                       fontWeight: 900, 
-                      letterSpacing: '0.1em',
-                      color: '#f8fafc',
-                      background: 'rgba(255,255,255,0.1)',
-                      padding: '0.2rem 0.6rem',
-                      borderRadius: '0.5rem'
+                      letterSpacing: '0.15em',
+                      color: 'white',
+                      background: 'rgba(255,255,255,0.15)',
+                      padding: '0.5rem 1rem',
+                      borderRadius: '12px',
+                      border: '1px solid rgba(255,255,255,0.2)'
                     }}>{(dbUser as any)?.referralCode}</div>
                   </div>
                   <div style={{ textAlign: 'right' }}>
-                    <p style={{ color: '#94a3b8', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', marginBottom: '0.25rem' }}>可用點數</p>
-                    <div style={{ fontSize: '2rem', fontWeight: 900, color: '#818cf8' }}>£{(dbUser as any)?.referralCredits?.toFixed(2)}</div>
+                    <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.5rem', letterSpacing: '0.05em' }}>可用點數</p>
+                    <div style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--emerald-100)' }}>£{(dbUser as any)?.referralCredits?.toFixed(2)}</div>
                   </div>
                 </div>
               </div>
-              <p style={{ fontSize: '0.85rem', color: '#cbd5e1', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1rem', marginTop: '1rem' }}>
-                分享給好友，雙方皆享有完工金額 <span style={{ color: '#f8fafc', fontWeight: 700 }}>3% 回饋</span>！
+              <p style={{ fontSize: '0.95rem', color: 'var(--emerald-100)', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1.5rem', fontWeight: 500 }}>
+                分享代碼給好友，雙方皆可享有完工金額 <span style={{ color: 'white', fontWeight: 900 }}>3% 重複回饋</span>！
               </p>
             </div>
 
-            {/* My Garage Link Card */}
-            <Link href="/dashboard/garage" style={{ textDecoration: 'none' }}>
-              <div style={{ 
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                padding: '2rem',
-                borderRadius: '1.5rem',
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                textAlign: 'center',
-                transition: 'all 0.3s',
-                cursor: 'pointer'
-              }} className="hover-scale">
-                <div style={{ background: 'rgba(99, 102, 241, 0.1)', padding: '1.25rem', borderRadius: '50%', marginBottom: '1.25rem', border: '1px solid rgba(99, 102, 241, 0.2)' }}>
-                  <Car size={32} color="#6366f1" />
-                </div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#f8fafc', marginBottom: '0.5rem' }}>我的車庫 (My Garage)</h3>
-                <p style={{ color: '#94a3b8', fontSize: '0.9rem', maxWidth: '240px' }}>管理您的所有車輛，追蹤維修日誌與 MOT</p>
-              </div>
-            </Link>
-
-            {/* My Properties Link Card */}
-            <Link href="/dashboard/properties" style={{ textDecoration: 'none' }}>
-              <div style={{ 
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 241, 0.1)',
-                padding: '2rem',
-                borderRadius: '1.5rem',
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                textAlign: 'center',
-                transition: 'all 0.3s',
-                cursor: 'pointer'
-              }} className="hover-scale">
-                <div style={{ background: 'rgba(244, 63, 94, 0.1)', padding: '1.25rem', borderRadius: '50%', marginBottom: '1.25rem', border: '1px solid rgba(244, 63, 94, 0.2)' }}>
-                  <Home size={32} color="#f43f5e" />
-                </div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#f8fafc', marginBottom: '0.5rem' }}>我的房產 (Properties)</h3>
-                <p style={{ color: '#94a3b8', fontSize: '0.9rem', maxWidth: '240px' }}>管理多個服務地址，記錄設施維修細節</p>
-              </div>
-            </Link>
-
-            {/* Voucher Redemption & Wallet Link Card */}
-            <Link href="/dashboard/wallet" style={{ textDecoration: 'none' }}>
-              <div style={{ 
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                padding: '2rem',
-                borderRadius: '1.5rem',
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                textAlign: 'center',
-                transition: 'all 0.3s',
-                cursor: 'pointer'
-              }} className="hover-scale">
-                <div style={{ background: 'rgba(16, 185, 129, 0.1)', padding: '1.25rem', borderRadius: '50%', marginBottom: '1.25rem', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
-                  <Banknote size={32} color="#10b981" />
-                </div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#f8fafc', marginBottom: '0.5rem' }}>我的錢包與獎勵 (Wallet)</h3>
-                <p style={{ color: '#94a3b8', fontSize: '0.9rem', maxWidth: '240px' }}>管理點數、兌換優惠券並查看推薦回饋</p>
-              </div>
-            </Link>
+            {/* Quick Link Cards */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+              {[
+                { href: '/dashboard/garage', icon: <Car size={28} />, title: '我的車庫', desc: '維修日誌與 MOT', color: 'var(--emerald-600)' },
+                { href: '/dashboard/properties', icon: <Home size={28} />, title: '我的房產', desc: '設施維修細節', color: '#10b981' },
+                { href: '/dashboard/wallet', icon: <Banknote size={28} />, title: '錢包獎勵', desc: '管理點數與回饋', color: '#34d399' },
+                { href: '/dashboard/settings', icon: <Plus size={28} />, title: '帳戶設定', desc: '個人資料與安全性', color: '#64748b' },
+              ].map((item, idx) => (
+                <Link href={item.href} key={idx} style={{ textDecoration: 'none' }}>
+                  <div className="glass-panel hover-scale" style={{ 
+                    padding: '1.5rem',
+                    borderRadius: '20px',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    background: 'white'
+                  }}>
+                    <div style={{ color: item.color, marginBottom: '0.75rem' }}>
+                      {item.icon}
+                    </div>
+                    <h3 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>{item.title}</h3>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', fontWeight: 500 }}>{item.desc}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -349,129 +314,151 @@ export default async function DashboardOverview() {
   }) : [];
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
       
       {/* Verification Banner */}
       {!merchant?.isVerified && (
-        <div style={{ backgroundColor: '#fffbeb', border: '1px solid #fde68a', borderRadius: '12px', padding: '1.25rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div>
-            <h3 style={{ color: '#b45309', fontWeight: 700, marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <ShieldCheck size={20} /> 需要您的行動：執照與身份人工審核 (Verification)
-            </h3>
-            <p style={{ color: '#92400e', fontSize: '0.875rem' }}>為了讓客戶能搜尋並預約您的服務，您必須依照英國商用指引上傳您的專業證照供 AI 初審。</p>
+        <div className="reveal active" style={{ backgroundColor: '#fffbeb', border: '1.5px solid #fde68a', borderRadius: '16px', padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: 'var(--shadow-sm)' }}>
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+            <div style={{ backgroundColor: '#fef3c7', padding: '0.75rem', borderRadius: '12px', color: '#b45309' }}>
+               <ShieldCheck size={24} />
+            </div>
+            <div>
+              <h3 style={{ color: '#92400e', fontWeight: 900, marginBottom: '0.25rem', fontSize: '1.15rem' }}>
+                需要您的行動：執照與身份人工審核 Verification
+              </h3>
+              <p style={{ color: '#b45309', fontSize: '0.95rem', fontWeight: 500 }}>為了讓客戶能搜尋並預約您的服務，您必須依照英國商用指引上傳您的專業證照供 AI 初審。</p>
+            </div>
           </div>
-          <Link href="/dashboard/verification" style={{ textDecoration: 'none', display: 'inline-block', backgroundColor: '#d97706', color: 'white', border: 'none', padding: '0.6rem 1.25rem', borderRadius: '6px', fontWeight: 600, cursor: 'pointer', transition: 'background-color 0.2s' }}>
-            前往上傳證件
+          <Link href="/dashboard/verification" style={{ textDecoration: 'none' }}>
+            <button className="btn btn-primary" style={{ backgroundColor: '#d97706', padding: '0.75rem 1.5rem' }}>前往上傳證件</button>
           </Link>
         </div>
       )}
 
       {/* Stripe Onboarding Banner */}
       {merchant?.isVerified && !merchant?.stripeAccountId && (
-        <div style={{ backgroundColor: '#e0e7ff', border: '1px solid #c7d2fe', borderRadius: '12px', padding: '1.25rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div>
-            <h3 style={{ color: '#3730a3', fontWeight: 700, marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Banknote size={20} /> 綁定收款銀行帳戶 (Stripe Connect)
-            </h3>
-            <p style={{ color: '#312e81', fontSize: '0.875rem' }}>恭喜您通過身分審查！為了能順利收取客人的信用卡訂金，請建立您的 Stripe 收款帳戶。</p>
+        <div className="reveal active" style={{ backgroundColor: 'var(--emerald-50)', border: '1.5px solid var(--emerald-100)', borderRadius: '16px', padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: 'var(--shadow-sm)' }}>
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+            <div style={{ backgroundColor: 'var(--emerald-100)', padding: '0.75rem', borderRadius: '12px', color: 'var(--emerald-700)' }}>
+               <Banknote size={24} />
+            </div>
+            <div>
+              <h3 style={{ color: 'var(--emerald-800)', fontWeight: 900, marginBottom: '0.25rem', fontSize: '1.15rem' }}>
+                綁定收款銀行帳戶 Stripe Connect
+              </h3>
+              <p style={{ color: 'var(--emerald-700)', fontSize: '0.95rem', fontWeight: 500 }}>恭喜您通過身分審查！為了能順利收取客人的信用卡訂金，請建立您的 Stripe 收款帳戶。</p>
+            </div>
           </div>
           <StripeConnectButton />
         </div>
       )}
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '1.5rem' }}>
-        <h1 style={{ fontSize: '2.4rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.025em' }}>商家績效中心 <span style={{ color: 'var(--accent-color)' }}>Analytics</span></h1>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1rem', backgroundColor: 'var(--bg-secondary)', borderRadius: '12px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', fontSize: '0.85rem', fontWeight: 700 }}>
-          <Clock size={16} /> Data Refresh: Just Now
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 0' }} className="reveal">
+        <div>
+          <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 3rem)', fontWeight: 950, color: 'var(--text-primary)', letterSpacing: '-0.04em', lineHeight: 1, fontFamily: 'var(--font-heading)' }}>
+            商家績效中心 <span style={{ color: 'var(--accent-color)' }}>Analytics</span>
+          </h1>
+          <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', marginTop: '0.5rem', fontWeight: 500 }}>管理您的業務增長、訂單與客戶回饋。</p>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.6rem 1.25rem', backgroundColor: 'var(--surface-2)', borderRadius: '999px', border: '1.5px solid var(--border-color)', color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: 800 }}>
+          <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10b981', boxShadow: '0 0 0 4px rgba(16, 185, 129, 0.2)' }}></div>
+          Real-time Sync Active
         </div>
       </div>
 
       {/* Advanced Analytics Suite */}
-      <MerchantAnalytics />
+      <div className="reveal stagger-1">
+        <MerchantAnalytics />
+      </div>
 
-      <div style={{ marginTop: '2rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
-        <div className="glass-panel animate-fade-up delay-200" style={{ padding: '2rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', display: 'flex', flexDirection: 'column', gap: '0.75rem', border: '1.5px solid var(--border-color)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)', fontSize: '0.9rem', fontWeight: 800 }}>
-            <Wallet size={18} color="#10b981" /> 可提現餘額
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
+        <div className="glass-panel reveal stagger-2" style={{ padding: '2.5rem', borderRadius: '24px', background: 'var(--surface-1)', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-muted)', fontSize: '0.95rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <Wallet size={20} color="var(--emerald-600)" /> 可提現餘額
           </div>
-          <div style={{ fontSize: '2.4rem', fontWeight: 900, color: 'var(--text-primary)' }}>£{merchant?.wallet?.availableBalance?.toFixed(2) || "0.00"}</div>
-          <Link href="/dashboard/merchant/wallet" style={{ fontSize: '0.9rem', color: '#10b981', fontWeight: 800, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
-            管理提現 Manage Withdrawals <ArrowRight size={14} />
+          <div style={{ fontSize: '3.5rem', fontWeight: 950, color: 'var(--text-primary)', letterSpacing: '-0.02em', fontFamily: 'var(--font-heading)' }}>£{merchant?.wallet?.availableBalance?.toFixed(2) || "0.00"}</div>
+          <Link href="/dashboard/merchant/wallet" style={{ fontSize: '1rem', color: 'var(--emerald-700)', fontWeight: 900, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '1rem' }}>
+            管理提現 Withdraw <ArrowRight size={18} />
           </Link>
         </div>
 
-        <div className="glass-panel" style={{ padding: '2rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', display: 'flex', alignItems: 'center', gap: '1.5rem', border: '1.5px solid var(--border-color)' }}>
-           <div style={{ backgroundColor: 'var(--accent-soft)', padding: '1.25rem', borderRadius: '1.25rem' }}>
-             <Camera size={36} color="var(--accent-color)" />
+        <div className="glass-panel reveal stagger-3" style={{ padding: '2.5rem', borderRadius: '24px', background: 'var(--surface-1)', display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+           <div style={{ backgroundColor: 'var(--emerald-50)', padding: '1.5rem', borderRadius: '20px', color: 'var(--emerald-700)' }}>
+             <Camera size={42} />
            </div>
            <div style={{ flex: 1 }}>
-             <h3 style={{ fontSize: '1.15rem', fontWeight: 900, color: 'var(--text-primary)' }}>作品集展示 ({merchant?.portfolio?.length || 0})</h3>
-             <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>上傳您的完工照片以提升轉化率。</p>
+             <h3 style={{ fontSize: '1.35rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>作品集展示 Portfolio</h3>
+             <p style={{ color: 'var(--text-muted)', fontSize: '1rem', fontWeight: 500 }}>已上傳 <span style={{ color: 'var(--text-primary)', fontWeight: 800 }}>{merchant?.portfolio?.length || 0}</span> 個案例。</p>
+             <button className="btn btn-primary" style={{ padding: '0.6rem 1.25rem', borderRadius: '12px', fontSize: '0.85rem', marginTop: '1rem' }}>
+               <Plus size={18} /> 新增完工案例
+             </button>
            </div>
-           <button style={{ backgroundColor: 'var(--accent-color)', color: 'white', border: 'none', padding: '0.75rem 1.25rem', borderRadius: '12px', fontWeight: 800, fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-             <Plus size={18} /> 新增案例
-           </button>
         </div>
 
-        <AISuggestionBox />
+        <div className="reveal stagger-4">
+          <AISuggestionBox />
+        </div>
       </div>
 
-      {/* Recent Bookings Table - Keep it legacy for balance or move to a separate tab later */}
-      <div className="glass-panel" style={{ padding: '2.5rem', borderRadius: '32px', marginTop: '3rem', border: '1.5px solid var(--border-color)', backgroundColor: 'var(--surface-1)' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
-           <h2 style={{ fontSize: '1.6rem', fontWeight: 900, color: 'var(--text-primary)' }}>最新預約請求 (Recent Requests)</h2>
-           <Link href="/dashboard/bookings" style={{ fontSize: '0.9rem', fontWeight: 800, color: 'var(--accent-color)', textDecoration: 'none' }}>查看全部列表 View All</Link>
+      {/* Recent Bookings Table */}
+      <div className="glass-panel reveal" style={{ padding: '3rem', borderRadius: '32px', marginTop: '2rem', background: 'var(--surface-1)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
+           <h2 style={{ fontSize: '1.8rem', fontWeight: 950, color: 'var(--text-primary)', letterSpacing: '-0.02em', fontFamily: 'var(--font-heading)' }}>最新預約請求 Recent Requests</h2>
+           <Link href="/dashboard/bookings" className="btn" style={{ padding: '0.6rem 1.5rem', backgroundColor: 'var(--surface-2)', color: 'var(--text-primary)', fontSize: '0.9rem', borderRadius: '12px', border: '1px solid var(--border-color)' }}>查看全部 View All</Link>
         </div>
         
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
-              <tr style={{ borderBottom: '1px solid var(--border-color)', color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
-                <th style={{ paddingBottom: '0.75rem', fontWeight: 600 }}>客戶名稱 (Customer)</th>
-                <th style={{ paddingBottom: '0.75rem', fontWeight: 600 }}>服務項目 (Service)</th>
-                <th style={{ paddingBottom: '0.75rem', fontWeight: 600 }}>服務日期 (Date)</th>
-                <th style={{ paddingBottom: '0.75rem', fontWeight: 600 }}>金額 (Amount)</th>
-                <th style={{ paddingBottom: '0.75rem', fontWeight: 600 }}>訂單狀態 (Status)</th>
-                <th style={{ paddingBottom: '0.75rem', fontWeight: 600 }}></th>
+              <tr style={{ borderBottom: '2px solid var(--surface-2)', color: 'var(--text-muted)', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <th style={{ padding: '1rem 0', fontWeight: 800 }}>客戶 Customer</th>
+                <th style={{ padding: '1rem 0', fontWeight: 800 }}>服務 Service</th>
+                <th style={{ padding: '1rem 0', fontWeight: 800 }}>日期 Date</th>
+                <th style={{ padding: '1rem 0', fontWeight: 800 }}>金額 Amount</th>
+                <th style={{ padding: '1rem 0', fontWeight: 800 }}>狀態 Status</th>
+                <th style={{ padding: '1rem 0', fontWeight: 800 }}></th>
               </tr>
             </thead>
             <tbody>
               {merchantBookings.length === 0 ? (
                 <tr>
-                  <td colSpan={6} style={{ padding: '3rem', textAlign: 'center', color: '#94a3b8' }}>目前尚無預約請求</td>
+                  <td colSpan={6} style={{ padding: '5rem', textAlign: 'center', color: 'var(--text-muted)', fontWeight: 600 }}>目前尚無預約請求</td>
                 </tr>
               ) : (
                 merchantBookings.map((booking: any) => (
-                  <tr key={booking.id} style={{ borderBottom: '1px solid var(--border-color)' }}>
-                    <td style={{ padding: '1rem 0' }}>
-                      <div style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{booking.customer?.name}</div>
-                      <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>{booking.customer?.city || "London"}</div>
+                  <tr key={booking.id} style={{ borderBottom: '1px solid var(--surface-2)' }} className="hover-scale">
+                    <td style={{ padding: '1.5rem 0' }}>
+                      <div style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '1.1rem' }}>{booking.customer?.name}</div>
+                      <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 500 }}>{booking.customer?.city || "London"}</div>
                     </td>
-                    <td style={{ padding: '1rem 0', color: 'var(--text-secondary)', fontWeight: 500 }}>{booking.service?.name}</td>
-                    <td style={{ padding: '1rem 0', color: 'var(--text-secondary)' }}>{new Date(booking.scheduledDate).toLocaleString()}</td>
-                    <td style={{ padding: '1rem 0', fontWeight: 700, color: 'var(--text-primary)' }}>£{booking.totalAmount.toFixed(2)}</td>
-                    <td style={{ padding: '1rem 0' }}>
+                    <td style={{ padding: '1.5rem 0', color: 'var(--text-secondary)', fontWeight: 600 }}>{booking.service?.name}</td>
+                    <td style={{ padding: '1.5rem 0', color: 'var(--text-secondary)', fontWeight: 500 }}>{new Date(booking.scheduledDate).toLocaleString()}</td>
+                    <td style={{ padding: '1.5rem 0', fontWeight: 900, color: 'var(--text-primary)', fontSize: '1.15rem' }}>£{booking.totalAmount.toFixed(2)}</td>
+                    <td style={{ padding: '1.5rem 0' }}>
                       <span style={{ 
-                        backgroundColor: booking.status === 'PENDING' ? '#fef3c7' : '#ccfbf1', 
-                        color: booking.status === 'PENDING' ? '#b45309' : '#0f766e', 
-                        padding: '0.35rem 0.75rem', 
-                        borderRadius: '1rem', 
-                        fontSize: '0.75rem', 
-                        fontWeight: 600 
+                        backgroundColor: booking.status === 'PENDING' ? '#fffbeb' : 'var(--emerald-50)', 
+                        color: booking.status === 'PENDING' ? '#b45309' : 'var(--emerald-700)', 
+                        padding: '0.5rem 1rem', 
+                        borderRadius: '2rem', 
+                        fontSize: '0.8rem', 
+                        fontWeight: 800 
                       }}>
                         {booking.status}
                       </span>
                     </td>
-                    <td style={{ padding: '1.25rem 0', textAlign: 'right', display: 'flex', gap: '0.75rem', justifyContent: 'flex-end', alignItems: 'center' }}>
-                       {booking.status === 'PENDING' && (
-                         <div style={{ display: 'flex', gap: '0.5rem' }}>
-                           <BookingStatusActions bookingId={booking.id} currentStatus={booking.status} />
-                           <VariationMerchantButton bookingId={booking.id} />
-                         </div>
-                       )}
-                       <Link href={`/dashboard/merchant/bookings/${booking.id}`} style={{ textDecoration: 'none' }}>
-                          <button style={{ backgroundColor: 'transparent', color: 'var(--text-primary)', border: '1px solid var(--border-color)', padding: '0.5rem 1rem', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 700, cursor: 'pointer' }}>查看細節 Details</button>
-                       </Link>
+                    <td style={{ padding: '1.5rem 0', textAlign: 'right' }}>
+                       <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end', alignItems: 'center' }}>
+                         {booking.status === 'PENDING' && (
+                           <div style={{ display: 'flex', gap: '0.5rem' }}>
+                             <BookingStatusActions bookingId={booking.id} currentStatus={booking.status} />
+                             <VariationMerchantButton bookingId={booking.id} />
+                           </div>
+                         )}
+                         <Link href={`/dashboard/merchant/bookings/${booking.id}`} style={{ textDecoration: 'none' }}>
+                            <button className="btn" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem', backgroundColor: 'var(--surface-2)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}>查看細節</button>
+                         </Link>
+                       </div>
                     </td>
                   </tr>
                 ))

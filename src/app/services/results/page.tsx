@@ -9,11 +9,12 @@ import VerifiedBadge from '@/app/components/VerifiedBadge';
 import { useTranslation } from "@/components/LanguageContext";
 import { useLocation } from "@/components/LocationContext";
 import MapView from '@/components/MapView';
+import { ALL_UK } from '@/components/LocationContext';
 
 function SearchResults() {
   const searchParams = useSearchParams();
   const { t, isRTL } = useTranslation();
-  const { city } = useLocation();
+  const { city, setCity } = useLocation();
   
   const [results, setResults] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -31,10 +32,18 @@ function SearchResults() {
     setLoading(true);
     try {
       const activeLocation = overrideLocation !== undefined ? overrideLocation : (location || city);
+      
+      // Update global context if user manually changed sidebar location
+      if (activeLocation && activeLocation !== city) {
+        setCity(activeLocation);
+      } else if (!activeLocation && city !== ALL_UK) {
+        setCity(ALL_UK);
+      }
+
       const data = await searchMerchants({
         query,
         category,
-        location: activeLocation === t.home.allUK ? undefined : activeLocation,
+        location: activeLocation === ALL_UK || !activeLocation ? undefined : activeLocation,
         minRating,
         isVerified: verifiedOnly,
         sortBy
@@ -48,28 +57,36 @@ function SearchResults() {
   };
 
   useEffect(() => {
-    // If no location in URL, and we have a city from context, use it
-    if (!searchParams.get('location') && city && !location) {
-        setLocation(city);
-        performSearch(city);
-    } else {
-        performSearch();
+    // Handle initial load and city context synchronization
+    const urlLocation = searchParams.get('location');
+    const urlCategory = searchParams.get('cat');
+    const urlQuery = searchParams.get('q');
+    
+    // Sync UI state with URL or Context
+    if (urlLocation) {
+      setLocation(urlLocation);
+    } else if (city && !location) {
+      setLocation(city === ALL_UK ? "" : city);
     }
-  }, [category, minRating, verifiedOnly, sortBy, city]);
+
+    // Perform search once on mount or when city changes
+    const activeLocation = urlLocation || (city === ALL_UK ? undefined : city);
+    performSearch(activeLocation);
+  }, [city]); // Recalculate when city changes from header
 
   return (
     <div className="container" style={{ paddingTop: '5rem', paddingBottom: '10rem', direction: isRTL ? 'rtl' : 'ltr' }}>
       <div className="search-results-grid" style={{ 
         display: 'grid', 
-        gridTemplateColumns: '300px 1fr', 
-        gap: '2rem' 
+        gridTemplateColumns: 'minmax(280px, 300px) 1fr', 
+        gap: '2.5rem' 
       }}>
         
         {/* Sidebar Filters */}
         <aside className="glass-panel" style={{ 
           padding: '2rem', 
           borderRadius: '1.5rem', 
-          backgroundColor: 'var(--bg-secondary)', 
+          backgroundColor: 'white', 
           border: '1px solid var(--border-color)', 
           height: 'fit-content' 
         }}>
@@ -89,7 +106,7 @@ function SearchResults() {
                     onChange={(e) => setQuery(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && performSearch()}
                     placeholder="..." 
-                    style={{ width: '100%', padding: `0.75rem ${isRTL ? '2.5rem' : '1rem'} 0.75rem ${isRTL ? '1rem' : '2.5rem'}`, backgroundColor: 'var(--bg-primary)', border: '1px solid var(--border-color)', borderRadius: '0.75rem', color: 'var(--text-primary)', textAlign: 'inherit' }}
+                    style={{ width: '100%', padding: `0.75rem ${isRTL ? '2.5rem' : '1rem'} 0.75rem ${isRTL ? '1rem' : '2.5rem'}`, backgroundColor: 'var(--bg-primary)', border: '1px solid var(--border-color)', borderRadius: '0.75rem', color: 'var(--text-primary)', textAlign: 'inherit', outline: 'none' }}
                   />
                   <Search size={16} style={{ position: 'absolute', [isRTL ? 'right' : 'left']: '0.75rem', top: '50%', transform: 'translateY(-50%)', opacity: 0.5 }} />
                </div>
@@ -105,7 +122,7 @@ function SearchResults() {
                     onChange={(e) => setLocation(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && performSearch()}
                     placeholder="..." 
-                    style={{ width: '100%', padding: '0.75rem 2.5rem', backgroundColor: 'var(--bg-primary)', border: '1px solid var(--border-color)', borderRadius: '0.75rem', color: 'var(--text-primary)', textAlign: 'inherit' }}
+                    style={{ width: '100%', padding: `0.75rem ${isRTL ? '2.5rem' : '1rem'} 0.75rem ${isRTL ? '1rem' : '2.5rem'}`, backgroundColor: 'var(--bg-primary)', border: '1px solid var(--border-color)', borderRadius: '0.75rem', color: 'var(--text-primary)', textAlign: 'inherit', outline: 'none' }}
                   />
                   <MapPin size={16} style={{ position: 'absolute', [isRTL ? 'right' : 'left']: '0.75rem', top: '50%', transform: 'translateY(-50%)', opacity: 0.5 }} />
                </div>
@@ -117,15 +134,19 @@ function SearchResults() {
                 <select 
                  value={category} 
                  onChange={(e) => setCategory(e.target.value)}
-                 style={{ width: '100%', padding: '0.75rem', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)', borderRadius: '0.75rem', color: 'var(--text-primary)', textAlign: 'inherit', outline: 'none' }}
-                >
-                  <option value="All" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>All Categories</option>
-                  <option value="Accounting" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>Accounting & Tax</option>
-                  <option value="Education" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>Education & Learning</option>
-                  <option value="Cleaning" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>Cleaning</option>
-                  <option value="Plumbing" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>Plumbing</option>
-                  <option value="Automotive" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>Automotive</option>
-                </select>
+                 style={{ width: '100%', padding: '0.75rem', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)', borderRadius: '0.75rem', color: 'var(--text-primary)', textAlign: 'inherit', outline: 'none', cursor: 'pointer' }}
+                 >
+                   <option value="All">{t.search.category}</option>
+                   <option value="Plumbing">{t.home.categories.plumbing}</option>
+                   <option value="Repairs">{t.home.categories.repairs}</option>
+                   <option value="Renovation">{t.home.categories.renovation}</option>
+                   <option value="Education">{t.home.categories.education}</option>
+                   <option value="Accounting">{t.home.categories.accounting}</option>
+                   <option value="Legal">{t.home.categories.legal}</option>
+                   <option value="Commercial">{t.home.categories.commercial}</option>
+                   <option value="Cleaning">{t.home.categories.cleaning}</option>
+                   <option value="Automotive">{t.home.categories.car}</option>
+                 </select>
             </div>
 
             {/* Min Rating */}
@@ -136,7 +157,7 @@ function SearchResults() {
                     <button 
                       key={r} 
                       onClick={() => setMinRating(minRating === r ? 0 : r)}
-                      style={{ flex: 1, padding: '0.5rem', borderRadius: '0.5rem', border: '1px solid var(--border-color)', backgroundColor: minRating === r ? 'var(--accent-color)' : 'transparent', color: minRating === r ? 'white' : 'var(--text-primary)', fontSize: '0.85rem' }}
+                      style={{ flex: 1, padding: '0.6rem', borderRadius: '0.75rem', border: '1px solid var(--border-color)', backgroundColor: minRating === r ? 'var(--accent-color)' : 'transparent', color: minRating === r ? 'white' : 'var(--text-primary)', fontSize: '0.85rem', fontWeight: 700, transition: '0.2s' }}
                     >
                       {r}+ ⭐
                     </button>

@@ -19,10 +19,12 @@ const UK_CITIES = [
   "York", "Gloucester", "Derby", "Preston", "Bath", "Chester"
 ];
 
+export const ALL_UK = "All UK";
+
 const LocationContext = createContext<LocationContextType | undefined>(undefined);
 
 export function LocationProvider({ children }: { children: React.ReactNode }) {
-  const [city, setCityState] = useState<string>('London');
+  const [city, setCityState] = useState<string>(ALL_UK);
   const [isLocating, setIsLocating] = useState(false);
 
   // Initialize from localStorage
@@ -49,12 +51,17 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
           async (position) => {
             try {
               const { latitude, longitude } = position.coords;
-              const res = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`);
-              const data = await res.json();
-              const detectedCity = data.city || data.locality || "London";
-              setCity(detectedCity);
+                const res = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`);
+                const data = await res.json();
+                const detectedCity = data.city || data.locality;
+                if (detectedCity && UK_CITIES.includes(detectedCity)) {
+                  setCity(detectedCity);
+                } else {
+                  setCity(ALL_UK);
+                }
             } catch (error) {
               console.error("Location detection error:", error);
+              setCity(ALL_UK);
             } finally {
               setIsLocating(false);
               resolve();

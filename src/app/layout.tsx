@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import { getServerSession } from "next-auth/next";
@@ -10,11 +10,16 @@ import ChatWidget from "@/components/chat/ChatWidget";
 import NavbarSearch from "@/app/components/NavbarSearch";
 import CookieBanner from "@/components/legal/CookieBanner";
 import NotificationHub from "@/components/dashboard/NotificationHub";
+import ScrollProgress from "@/app/components/ScrollProgress";
 import { User } from "lucide-react";
 
 import { LanguageProvider } from "@/components/LanguageContext";
 import { LocationProvider } from "@/components/LocationContext";
 import { AppNavbar, AppFooter } from "@/app/components/ClientLayout";
+import { AuthProvider } from "@/app/components/AuthProvider";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-body" });
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-heading" });
 
 export const metadata: Metadata = {
   title: "ServiceHub | Professional UK Service Booking",
@@ -30,8 +35,6 @@ export const viewport = {
   maximumScale: 1,
 };
 
-import { AuthProvider } from "@/app/components/AuthProvider";
-
 export default async function RootLayout({
   children,
 }: {
@@ -45,13 +48,14 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="en">
-      <body style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)', padding: 0, margin: 0, transition: 'background-color 0.3s ease' }}>
+    <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
+      <body>
+        <ScrollProgress />
         <AuthProvider>
           <LanguageProvider>
             <LocationProvider>
               <AppNavbar session={session} />
-              <main style={{ minHeight: 'calc(100vh - 80px)', paddingTop: '80px' }}>
+              <main className="main-content" style={{ paddingTop: '80px' }}>
                 {children}
               </main>
               <AppFooter />

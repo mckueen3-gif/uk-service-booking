@@ -6,12 +6,14 @@ import { useTranslation } from "@/components/LanguageContext";
 import { Globe, User, MapPin, Mail, Phone, LifeBuoy, ChevronRight, Navigation } from "lucide-react";
 import NavbarSearch from "@/app/components/NavbarSearch";
 import NotificationHub from "@/components/dashboard/NotificationHub";
-import { useLocation } from "@/components/LocationContext";
+import { useLocation, ALL_UK } from "@/components/LocationContext";
 
 export function AppNavbar({ session }: { session: any }) {
   const { t, locale, setLocale, isRTL } = useTranslation();
   const { city, setCity, supportedCities, detectLocation } = useLocation();
   const [showCities, setShowCities] = React.useState(false);
+
+  const displayCity = city === ALL_UK ? t.home.allUK : city;
 
   return (
     <header style={{ 
@@ -51,7 +53,7 @@ export function AppNavbar({ session }: { session: any }) {
                }}
                className="hover-bg"
              >
-               {city}
+               {displayCity}
                <ChevronRight size={14} style={{ transform: showCities ? 'rotate(-90deg)' : 'rotate(90deg)', transition: '0.2s' }} />
              </div>
 
@@ -99,12 +101,12 @@ export function AppNavbar({ session }: { session: any }) {
                    ))}
                    <div 
                       key="all"
-                      onClick={() => { setCity(t.home.allUK); setShowCities(false); }}
+                      onClick={() => { setCity(ALL_UK); setShowCities(false); }}
                       style={{ 
                         gridColumn: 'span 3', padding: '0.6rem', borderRadius: '0.75rem', cursor: 'pointer',
                         fontSize: '0.8rem', textAlign: 'center', transition: '0.2s', marginTop: '0.4rem',
-                        backgroundColor: city === t.home.allUK ? 'var(--accent-color)' : 'var(--surface-2)',
-                        color: city === t.home.allUK ? 'white' : 'var(--text-secondary)',
+                        backgroundColor: city === ALL_UK ? 'var(--accent-color)' : 'var(--surface-2)',
+                        color: city === ALL_UK ? 'white' : 'var(--text-secondary)',
                         fontWeight: 800
                       }}
                    >
