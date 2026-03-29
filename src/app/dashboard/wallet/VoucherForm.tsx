@@ -16,7 +16,7 @@ export default function VoucherForm() {
     setLoading(true);
     setMessage(null);
 
-    const result = await redeemVoucher(code);
+    const result = await redeemVoucher(code) as any;
     setLoading(false);
 
     if (result.success) {

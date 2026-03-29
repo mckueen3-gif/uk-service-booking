@@ -7,15 +7,15 @@ import { sendStatusUpdateEmail } from "@/lib/mail";
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { bookingId: string } }
+  { params }: { params: Promise<{ bookingId: string }> }
 ) {
+  const { bookingId } = await params;
   const session = (await getServerSession(authOptions)) as any;
   if (!session || session.user.role !== "MERCHANT") {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const { status } = await req.json();
-  const bookingId = params.bookingId;
 
   if (!Object.values(BookingStatus).includes(status)) {
     return NextResponse.json({ error: "Invalid status" }, { status: 400 });

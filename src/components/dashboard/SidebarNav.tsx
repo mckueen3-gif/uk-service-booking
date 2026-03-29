@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { 
   Home, Calendar, Wallet, User, Settings, ShieldCheck, 
   Car, Home as HomeIcon, BarChart3, LayoutDashboard, ScrollText,
-  MessageSquare, Clock
+  MessageSquare, Clock, Briefcase
 } from "lucide-react";
 
 interface SidebarNavProps {
