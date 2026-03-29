@@ -64,6 +64,18 @@ export async function registerUser(formData: FormData) {
         }
       }
 
+      // If registering as a Merchant, create the Merchant profile record
+      if (role === 'MERCHANT') {
+        await tx.merchant.create({
+          data: {
+            userId: user.id,
+            companyName: name, // Default to user's name
+            city: "London",    // Default starting city for UK platform
+            isVerified: false,
+          }
+        });
+      }
+
       return { success: true, userId: user.id };
     });
   } catch (e: any) {

@@ -2,8 +2,8 @@ import { PrismaClient } from "@prisma/client";
 import { Pool } from "pg";
 import { PrismaPg } from "@prisma/adapter-pg";
 
-const connectionString = "postgresql://postgres.nrufveuqktjkyqeidnta:CnP%_UQdpYNKa9x@aws-1-eu-west-1.pooler.supabase.com:5432/postgres";
-console.log('[Prisma Init] HARDCODED URL ACTIVE');
+const connectionString = process.env.DATABASE_URL || "postgresql://postgres.nrufveuqktjkyqeidnta:CnP%25_UQdpYNKa9x@aws-1-eu-west-1.pooler.supabase.com:5432/postgres";
+console.log(`[Prisma Init] Using ${process.env.DATABASE_URL ? 'Environment Variable' : 'Hardcoded URL'}`);
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
