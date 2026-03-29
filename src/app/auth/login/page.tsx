@@ -65,7 +65,7 @@ function LoginForm() {
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
               <label style={{ fontWeight: 500, fontSize: '0.875rem' }}>Password</label>
-              <Link href="#" style={{ fontSize: '0.875rem', color: 'var(--accent-color)' }}>Forgot password?</Link>
+              <Link href="/auth/forgot-password" style={{ fontSize: '0.875rem', color: 'var(--accent-color)' }}>Forgot password?</Link>
             </div>
             <input type="password" name="password" className="input-field" placeholder="••••••••" required disabled={loading} />
           </div>

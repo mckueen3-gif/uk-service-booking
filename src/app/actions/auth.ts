@@ -13,7 +13,7 @@ function generateReferralCode(name: string): string {
 export async function registerUser(formData: FormData) {
   const firstName = formData.get("firstName") as string;
   const lastName = formData.get("lastName") as string;
-  const email = formData.get("email") as string;
+  const email = (formData.get("email") as string)?.toLowerCase();
   const password = formData.get("password") as string;
   const role = formData.get("role") as "CUSTOMER" | "MERCHANT";
   const referredBy = formData.get("referredBy") as string; // Optional referral code
