@@ -92,6 +92,40 @@ export const SERVICE_TEMPLATES: ServiceTemplate[] = [
     description: 'Legislative safety check for rental properties.',
     defaultPrice: 75,
     isMonthly: false
+  },
+
+  // Education & Learning
+  {
+    id: 'edu_academic',
+    category: 'Education',
+    name: '1-on-1 GCSE/A-Level Tutoring',
+    description: 'Personalized academic support for UK national curriculum subjects.',
+    defaultPrice: 40,
+    isMonthly: false
+  },
+  {
+    id: 'edu_ielts',
+    category: 'Education',
+    name: 'IELTS/TOEFL English Prep',
+    description: 'Intensive English language preparation for international exams.',
+    defaultPrice: 45,
+    isMonthly: false
+  },
+  {
+    id: 'edu_music',
+    category: 'Education',
+    name: 'Piano/Guitar Lesson (60 min)',
+    description: 'Private music tuition for all levels with experienced instructors.',
+    defaultPrice: 35,
+    isMonthly: false
+  },
+  {
+    id: 'edu_coding',
+    category: 'Education',
+    name: 'Coding Bootcamp Part-time (Monthly)',
+    description: 'Guided project-based learning in Python, Java, or Web Development.',
+    defaultPrice: 250,
+    isMonthly: true
   }
 ];
 

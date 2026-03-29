@@ -46,7 +46,7 @@ async function main() {
             }
         });
 
-        const categories = ['Accounting', 'Home', 'Cleaning', 'Automotive'];
+        const categories = ['Accounting', 'Education', 'Cleaning', 'Automotive', 'Plumbing'];
         const primaryCategory = categories[i % categories.length];
         
         const merchant = await prisma.merchant.upsert({
@@ -58,14 +58,18 @@ async function main() {
             },
             create: {
                 userId: user.id,
-                companyName: primaryCategory === 'Accounting' ? `${borough.name} Tax Partners` : `${borough.name} ${primaryCategory} Pro`,
+                companyName: primaryCategory === 'Accounting' ? `${borough.name} Tax Partners` 
+                           : primaryCategory === 'Education' ? `${borough.name} Learning Academy`
+                           : `${borough.name} ${primaryCategory} Pro`,
                 description: primaryCategory === 'Accounting' 
                     ? `Professional ACCA regulated accounting and tax services in ${borough.name}.`
+                    : primaryCategory === 'Education'
+                    ? `Premier ${borough.name} tutoring center. DBS Checked and experienced mentors.`
                     : `Top-rated ${primaryCategory} services serving the ${borough.name} area.`,
                 city: 'London',
                 latitude: lat,
                 longitude: lng,
-                isVerified: true, // Professionals are usually verified
+                isVerified: true, 
                 averageRating: 4.5 + Math.random() * 0.5,
                 totalReviews: Math.floor(Math.random() * 80) + 20
             }
@@ -78,6 +82,13 @@ async function main() {
                 { category: 'Accounting', name: 'VAT Return Filing', price: 150, description: 'Quarterly submission (MTD compliant).' },
                 { category: 'Accounting', name: 'Self-Assessment', price: 195, description: 'Personal tax return filing.' },
                 { category: 'Accounting', name: 'Monthly Bookkeeping', price: 85, description: 'Ongoing reconciliation (Per Month).' }
+            ];
+        } else if (primaryCategory === 'Education') {
+            servicesData = [
+                { category: 'Education', name: '1-on-1 GCSE Tutoring', price: 45, description: 'Personalized curriculum support.' },
+                { category: 'Education', name: 'IELTS English Prep', price: 55, description: 'Exam focus and speaking practice.' },
+                { category: 'Education', name: 'Music Lesson (60 min)', price: 40, description: 'Piano, Guitar, or Voice.' },
+                { category: 'Education', name: 'Coding Bootcamp (Monthly)', price: 299, description: 'Weekend project-based learning.' }
             ];
         } else {
             servicesData = [

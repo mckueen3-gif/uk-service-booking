@@ -48,6 +48,11 @@ export default function MerchantProfileClient({ merchant, currentMerchantId }: M
                              ACCA Regulated
                           </span>
                         )}
+                        {merchant.services.some((s: any) => s.category === 'Education') && (
+                          <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', backgroundColor: '#dcfce7', color: '#166534', padding: '0.2rem 0.75rem', borderRadius: '2rem', fontSize: '0.875rem', fontWeight: 800, border: '1px solid #bbf7d0' }}>
+                             DBS Checked
+                          </span>
+                        )}
                       </div>
                     )}
                 </div>
@@ -131,7 +136,9 @@ export default function MerchantProfileClient({ merchant, currentMerchantId }: M
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
                          <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
                             <span style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>£{svc.price}</span>
-                            {svc.description?.includes('Per Month') && <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>/月 month</span>}
+                            {(svc.description?.toLowerCase().includes('per month') || svc.description?.toLowerCase().includes('monthly')) && (
+                               <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>/月 month</span>
+                             )}
                          </div>
                          <span style={{ color: '#10b981', fontSize: '0.75rem', fontWeight: 700 }}>{t.merchant.guarantee}</span>
                       </div>

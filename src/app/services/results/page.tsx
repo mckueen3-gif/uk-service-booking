@@ -121,6 +121,7 @@ function SearchResults() {
                 >
                   <option value="All" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>All Categories</option>
                   <option value="Accounting" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>Accounting & Tax</option>
+                  <option value="Education" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>Education & Learning</option>
                   <option value="Cleaning" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>Cleaning</option>
                   <option value="Plumbing" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>Plumbing</option>
                   <option value="Automotive" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>Automotive</option>
