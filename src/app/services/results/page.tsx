@@ -1,0 +1,314 @@
+"use client";
+
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { searchMerchants } from '@/app/actions/search';
+import { Search, Filter, MapPin, Star, ShieldCheck, ArrowUpDown, Loader2, Navigation as NavIcon, LayoutGrid, Map as MapIcon } from 'lucide-react';
+import Link from 'next/link';
+import VerifiedBadge from '@/app/components/VerifiedBadge';
+import { useTranslation } from "@/components/LanguageContext";
+import { useLocation } from "@/components/LocationContext";
+import MapView from '@/components/MapView';
+
+function SearchResults() {
+  const searchParams = useSearchParams();
+  const { t, isRTL } = useTranslation();
+  const { city } = useLocation();
+  
+  const [results, setResults] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [viewMode, setViewMode] = useState<'list' | 'map'>('list');
+  
+  // Filter states
+  const [query, setQuery] = useState(searchParams.get('q') || "");
+  const [location, setLocation] = useState(searchParams.get('location') || "");
+  const [category, setCategory] = useState(searchParams.get('cat') || "All");
+  const [minRating, setMinRating] = useState(0);
+  const [verifiedOnly, setVerifiedOnly] = useState(false);
+  const [sortBy, setSortBy] = useState<'rating' | 'jobs' | 'distance' | 'price'>('rating');
+
+  const performSearch = async (overrideLocation?: string) => {
+    setLoading(true);
+    try {
+      const activeLocation = overrideLocation !== undefined ? overrideLocation : (location || city);
+      const data = await searchMerchants({
+        query,
+        category,
+        location: activeLocation === t.home.allUK ? undefined : activeLocation,
+        minRating,
+        isVerified: verifiedOnly,
+        sortBy
+      });
+      setResults(data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    // If no location in URL, and we have a city from context, use it
+    if (!searchParams.get('location') && city && !location) {
+        setLocation(city);
+        performSearch(city);
+    } else {
+        performSearch();
+    }
+  }, [category, minRating, verifiedOnly, sortBy, city]);
+
+  return (
+    <div className="container" style={{ paddingTop: '5rem', paddingBottom: '10rem', direction: isRTL ? 'rtl' : 'ltr' }}>
+      <div className="search-results-grid" style={{ 
+        display: 'grid', 
+        gridTemplateColumns: '300px 1fr', 
+        gap: '2rem' 
+      }}>
+        
+        {/* Sidebar Filters */}
+        <aside className="glass-panel" style={{ 
+          padding: '2rem', 
+          borderRadius: '1.5rem', 
+          backgroundColor: 'var(--bg-secondary)', 
+          border: '1px solid var(--border-color)', 
+          height: 'fit-content' 
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '2rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+            <Filter size={20} color="var(--accent-color)" />
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>{t.search.filters}</h2>
+          </div>
+
+          <div style={{ display: 'grid', gap: '2rem' }}>
+            {/* Keyword Search */}
+            <div>
+               <label style={{ display: 'block', fontWeight: 700, marginBottom: '0.75rem', fontSize: '0.9rem', textAlign: 'inherit' }}>{t.search.keyword}</label>
+               <div style={{ position: 'relative' }}>
+                  <input 
+                    type="text" 
+                    value={query} 
+                    onChange={(e) => setQuery(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && performSearch()}
+                    placeholder="..." 
+                    style={{ width: '100%', padding: `0.75rem ${isRTL ? '2.5rem' : '1rem'} 0.75rem ${isRTL ? '1rem' : '2.5rem'}`, backgroundColor: 'var(--bg-primary)', border: '1px solid var(--border-color)', borderRadius: '0.75rem', color: 'var(--text-primary)', textAlign: 'inherit' }}
+                  />
+                  <Search size={16} style={{ position: 'absolute', [isRTL ? 'right' : 'left']: '0.75rem', top: '50%', transform: 'translateY(-50%)', opacity: 0.5 }} />
+               </div>
+            </div>
+
+            {/* Location Search */}
+            <div>
+               <label style={{ display: 'block', fontWeight: 700, marginBottom: '0.75rem', fontSize: '0.9rem', textAlign: 'inherit' }}>{t.search.location}</label>
+               <div style={{ position: 'relative' }}>
+                  <input 
+                    type="text" 
+                    value={location} 
+                    onChange={(e) => setLocation(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && performSearch()}
+                    placeholder="..." 
+                    style={{ width: '100%', padding: '0.75rem 2.5rem', backgroundColor: 'var(--bg-primary)', border: '1px solid var(--border-color)', borderRadius: '0.75rem', color: 'var(--text-primary)', textAlign: 'inherit' }}
+                  />
+                  <MapPin size={16} style={{ position: 'absolute', [isRTL ? 'right' : 'left']: '0.75rem', top: '50%', transform: 'translateY(-50%)', opacity: 0.5 }} />
+               </div>
+            </div>
+
+            {/* Category Select */}
+            <div>
+               <label style={{ display: 'block', fontWeight: 700, marginBottom: '0.75rem', fontSize: '0.9rem', textAlign: 'inherit' }}>{t.search.category}</label>
+                <select 
+                 value={category} 
+                 onChange={(e) => setCategory(e.target.value)}
+                 style={{ width: '100%', padding: '0.75rem', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)', borderRadius: '0.75rem', color: 'var(--text-primary)', textAlign: 'inherit', outline: 'none' }}
+                >
+                  <option value="All" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>All Categories</option>
+                  <option value="Accounting" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>Accounting & Tax</option>
+                  <option value="Cleaning" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>Cleaning</option>
+                  <option value="Plumbing" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>Plumbing</option>
+                  <option value="Automotive" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>Automotive</option>
+                </select>
+            </div>
+
+            {/* Min Rating */}
+            <div>
+               <label style={{ display: 'block', fontWeight: 700, marginBottom: '0.75rem', fontSize: '0.9rem', textAlign: 'inherit' }}>{t.search.minRating}</label>
+               <div style={{ display: 'flex', gap: '0.5rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+                  {[3, 4, 4.5].map(r => (
+                    <button 
+                      key={r} 
+                      onClick={() => setMinRating(minRating === r ? 0 : r)}
+                      style={{ flex: 1, padding: '0.5rem', borderRadius: '0.5rem', border: '1px solid var(--border-color)', backgroundColor: minRating === r ? 'var(--accent-color)' : 'transparent', color: minRating === r ? 'white' : 'var(--text-primary)', fontSize: '0.85rem' }}
+                    >
+                      {r}+ ⭐
+                    </button>
+                  ))}
+               </div>
+            </div>
+
+            {/* Verification Toggle */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', backgroundColor: 'rgba(37,99,235,0.05)', borderRadius: '0.75rem', cursor: 'pointer', flexDirection: isRTL ? 'row-reverse' : 'row' }} onClick={() => setVerifiedOnly(!verifiedOnly)}>
+               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+                  <ShieldCheck size={18} color="#2563eb" />
+                  <span style={{ fontSize: '0.9rem', fontWeight: 700 }}>{t.search.verifiedOnly}</span>
+               </div>
+               <div style={{ width: '40px', height: '20px', borderRadius: '10px', backgroundColor: verifiedOnly ? '#2563eb' : 'var(--border-color)', position: 'relative' }}>
+                  <div style={{ width: '16px', height: '16px', borderRadius: '50%', backgroundColor: 'white', position: 'absolute', top: '2px', [isRTL ? 'right' : 'left']: verifiedOnly ? '22px' : '2px', transition: '0.3s' }} />
+               </div>
+            </div>
+
+            <button onClick={() => performSearch()} className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
+              {t.search.apply}
+            </button>
+          </div>
+        </aside>
+
+        {/* Results Main */}
+        <main>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <h1 style={{ fontSize: '1.75rem', fontWeight: 900 }}>
+                  {loading ? t.search.searching : `${results.length} ${t.search.foundCount}`}
+                </h1>
+                
+                {/* View Mode Toggle */}
+                {!loading && results.length > 0 && (
+                  <div style={{ 
+                    display: 'flex', backgroundColor: 'var(--surface-2)', 
+                    padding: '0.25rem', borderRadius: '0.75rem', border: '1px solid var(--border-color)' 
+                  }}>
+                    <button 
+                      onClick={() => setViewMode('list')}
+                      style={{ 
+                        display: 'flex', alignItems: 'center', gap: '6px', padding: '0.4rem 0.8rem', borderRadius: '0.6rem',
+                        border: 'none', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 700,
+                        backgroundColor: viewMode === 'list' ? 'var(--surface-1)' : 'transparent',
+                        color: viewMode === 'list' ? 'var(--accent-color)' : 'var(--text-muted)',
+                        boxShadow: viewMode === 'list' ? 'var(--shadow-sm)' : 'none',
+                        transition: '0.2s'
+                      }}
+                    >
+                      <LayoutGrid size={16} /> {t.search.listView}
+                    </button>
+                    <button 
+                      onClick={() => setViewMode('map')}
+                      style={{ 
+                        display: 'flex', alignItems: 'center', gap: '6px', padding: '0.4rem 0.8rem', borderRadius: '0.6rem',
+                        border: 'none', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 700,
+                        backgroundColor: viewMode === 'map' ? 'var(--surface-1)' : 'transparent',
+                        color: viewMode === 'map' ? 'var(--accent-color)' : 'var(--text-muted)',
+                        boxShadow: viewMode === 'map' ? 'var(--shadow-sm)' : 'none',
+                        transition: '0.2s'
+                      }}
+                    >
+                      <MapIcon size={16} /> {t.search.mapView}
+                    </button>
+                  </div>
+                )}
+             </div>
+             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+                <ArrowUpDown size={18} style={{ opacity: 0.5 }} />
+                <select 
+                  value={sortBy} 
+                  onChange={(e) => setSortBy(e.target.value as any)}
+                  style={{ backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)', borderRadius: '0.5rem', padding: '0.2rem 0.5rem', color: 'var(--accent-color)', fontWeight: 700, outline: 'none', cursor: 'pointer', textAlign: 'inherit' }}
+                >
+                  <option value="rating" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>{t.search.sortRating}</option>
+                  <option value="jobs" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>{t.search.sortJobs}</option>
+                  <option value="distance" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>{t.search.sortDistance}</option>
+                  <option value="price" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>{t.search.sortPrice}</option>
+                </select>
+             </div>
+          </div>
+
+          {loading ? (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '10rem 0', opacity: 0.5 }}>
+              <Loader2 className="animate-spin" size={48} />
+              <p style={{ marginTop: '1rem' }}>{t.search.searching}</p>
+            </div>
+          ) : results.length === 0 ? (
+            <div className="glass-panel" style={{ padding: '5rem 2rem', textAlign: 'center', borderRadius: '2rem' }}>
+              <Search size={40} style={{ color: 'var(--text-secondary)', opacity: 0.5, marginBottom: '1.5rem' }} />
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '0.5rem' }}>{t.search.noResults}</h3>
+              <button 
+                onClick={() => {
+                  setCategory("All");
+                  setVerifiedOnly(false);
+                  setMinRating(0);
+                  performSearch();
+                }}
+                className="btn btn-secondary" 
+                style={{ marginTop: '1.5rem' }}
+              >
+                {t.search.clearFilters}
+              </button>
+            </div>
+          ) : viewMode === 'map' ? (
+            <MapView merchants={results} />
+          ) : (
+            <div style={{ display: 'grid', gap: '1.5rem' }}>
+              {results.map((merchant: any) => (
+                <Link key={merchant.id} href={`/merchant/${merchant.id}`} style={{ 
+                  display: 'grid', 
+                  gridTemplateColumns: isRTL ? '120px 1fr 150px' : '150px 1fr 120px', 
+                  gap: '1.5rem', 
+                  padding: '1.5rem', 
+                  backgroundColor: 'var(--bg-secondary)', 
+                  borderRadius: '1.5rem', 
+                  textDecoration: 'none', 
+                  color: 'inherit',
+                  border: merchant.isAiRecommended ? '2px solid #fde68a' : '1px solid var(--border-color)',
+                  boxShadow: merchant.isAiRecommended ? '0 10px 15px -3px rgba(251, 188, 4, 0.1)' : 'none',
+                  transition: 'transform 0.2s',
+                  direction: isRTL ? 'rtl' : 'ltr',
+                  position: 'relative'
+                }}>
+                  {merchant.isAiRecommended && (
+                    <div style={{ 
+                      position: 'absolute', top: '-12px', left: '20px', 
+                      backgroundColor: '#fbbc04', color: 'white', padding: '2px 10px', 
+                      borderRadius: '20px', fontSize: '0.65rem', fontWeight: 900, 
+                      boxShadow: '0 4px 6px rgba(0,0,0,0.1)', zIndex: 5,
+                      display: 'flex', alignItems: 'center', gap: '4px'
+                    }}>
+                       ✨ AI BEST MATCH
+                    </div>
+                  )}
+                  <div style={{ width: '100%', aspectRatio: '1', borderRadius: '1rem', overflow: 'hidden' }}>
+                    <img src={`https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=200&auto=format&fit=crop`} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  </div>
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', flexDirection: 'inherit' }}>
+                      <h2 style={{ fontSize: '1.2rem', fontWeight: 800 }}>{merchant.companyName}</h2>
+                      {merchant.isVerified && <VerifiedBadge size={16} />}
+                    </div>
+                    <div style={{ display: 'flex', gap: '1rem', color: 'var(--text-secondary)', fontSize: '0.85rem', flexDirection: 'inherit' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                        <Star size={14} color="#f59e0b" fill="#f59e0b" />
+                        <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{merchant.averageRating.toFixed(1)}</span>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                        <MapPin size={14} />
+                        <span>{merchant.city}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-end', gap: '0.5rem' }}>
+                    <div style={{ fontSize: '0.75rem', opacity: 0.6 }}>{t.search.basePrice}</div>
+                    <div style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--accent-color)' }}>£{merchant.basePrice}</div>
+                    <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)' }}>{t.search.viewDetails}</div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </main>
+      </div>
+    </div>
+  );
+}
+
+export default function SearchResultsPage() {
+  return (
+    <Suspense fallback={<div style={{ padding: '10rem', textAlign: 'center' }}>Loading...</div>}>
+      <SearchResults />
+    </Suspense>
+  );
+}

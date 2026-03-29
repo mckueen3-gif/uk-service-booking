@@ -1,0 +1,319 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+}
+
+enum Role {
+  CUSTOMER
+  MERCHANT
+  ADMIN
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  HELD
+  TRANSFERRED
+  REFUNDED
+}
+
+enum VariationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  DISPUTED
+}
+
+enum DisputeStatus {
+  OPEN
+  REVIEWING
+  RESOLVED
+}
+
+enum ResolutionDecision {
+  PENDING
+  REFUND_CUSTOMER
+  FORCE_PAYOUT
+  SPLIT_COST
+  ESCALATE_TO_HUMAN
+}
+
+model User {
+  id                 String    @id @default(cuid())
+  name               String?
+  email              String    @unique
+  emailVerified      DateTime?
+  image              String?
+  password           String?
+  role               Role      @default(CUSTOMER)
+  phone              String?
+  city               String?
+  addressLine1       String?
+  addressLine2       String?
+  postcode           String?
+  referralCode       String?   @unique
+  referralCredits    Float     @default(0)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  merchantProfile    Merchant?
+  bookings           Booking[]
+  reviews            Review[]
+  vehicles           Vehicle[]
+  properties         Property[]
+  referralsMade      Referral[] @relation("Referrer")
+  referralReceived   Referral?  @relation("Referee")
+}
+
+model Vehicle {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  make         String
+  model        String
+  year         String
+  reg          String?
+  motDate      DateTime?
+  lastService  DateTime?
+  notes        String?
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Property {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  address      String
+  type         String   // e.g. "Flat", "Detached House"
+  boilerAge    Int?
+  roofType     String?
+  notes        String?
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Merchant {
+  id                 String    @id @default(cuid())
+  userId             String    @unique
+  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyName        String
+  description        String?
+  registrationNumber String?
+  licenseUrl         String?   // For AI validation
+  isVerified         Boolean   @default(false)
+  city               String    // Merchant covers this UK city
+  latitude           Float?
+  longitude          Float?
+  stripeAccountId    String?   // Stripe Connect ID
+  averageRating      Float     @default(0.0)
+  totalReviews       Int       @default(0)
+  completedJobsCount Int       @default(0)
+  
+  // Bank Details (UK)
+  bankSortCode       String?
+  bankAccountNumber  String?
+  
+  slotDuration       Int       @default(60) // Default 60 minutes per slot
+  maxDailyBookings   Int       @default(8)   // Capacity limit
+  
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  services     Service[]
+  bookings     Booking[]
+  reviews      Review[]
+  availability MerchantAvailability[]
+  wallet       MerchantWallet?
+  withdrawals  WithdrawalRequest[]
+}
+
+model MerchantWallet {
+  id               String   @id @default(cuid())
+  merchantId       String   @unique
+  merchant         Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  
+  totalEarned      Float    @default(0.0)
+  availableBalance Float    @default(0.0)
+  pendingBalance   Float    @default(0.0) // Funds from non-completed or held bookings
+  
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model WithdrawalRequest {
+  id               String   @id @default(cuid())
+  merchantId       String
+  merchant         Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  
+  amount           Float
+  status           String   @default("PENDING") // PENDING, APPROVED, REJECTED, COMPLETED
+  adminNotes       String?
+  
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model MerchantAvailability {
+  id           String   @id @default(cuid())
+  merchantId   String
+  merchant     Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  
+  dayOfWeek    Int      // 0 (Sun) to 6 (Sat)
+  startTime    String   @default("09:00")
+  endTime      String   @default("17:00")
+  isOpen       Boolean  @default(true)
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([merchantId, dayOfWeek])
+}
+
+model Service {
+  id          String    @id @default(cuid())
+  merchantId  String
+  merchant    Merchant  @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  category    String    // e.g. "Plumbing", "Renovation", "Education"
+  name        String
+  description String?
+  price       Float     // Base or flat price
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  bookings Booking[]
+}
+
+model Booking {
+  id            String   @id @default(cuid())
+  customerId    String
+  customer      User     @relation(fields: [customerId], references: [id])
+  merchantId    String
+  merchant      Merchant @relation(fields: [merchantId], references: [id])
+  serviceId     String
+  service       Service  @relation(fields: [serviceId], references: [id])
+  
+  scheduledDate DateTime
+  status        BookingStatus @default(PENDING)
+  totalAmount   Float
+  platformFee   Float    @default(0)
+  merchantAmount Float    @default(0)
+  stripePaymentIntentId String? @unique
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  payment Payment?
+  review  Review?
+  variations Variation[]
+  dispute Dispute?
+
+  // 汽車服務相關欄位
+  vehicleReg       String?
+  vehicleMake      String?
+  vehicleModel     String?
+  vehicleYear      String?
+  vehicleNotes     String?
+}
+
+model Variation {
+  id          String   @id @default(cuid())
+  bookingId   String
+  booking     Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  amount      Float
+  description String
+  photoUrl    String   // Mandatory photo proof requirement
+  status      VariationStatus @default(PENDING)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Payment {
+  id            String   @id @default(cuid())
+  bookingId     String   @unique
+  booking       Booking  @relation(fields: [bookingId], references: [id])
+  stripePaymentIntentId String @unique
+  amount        Float
+  platformFee   Float
+  merchantPayout Float
+  status        PaymentStatus @default(PENDING)
+  stripeTransferId String?   // Populated 2 days after service completion
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Review {
+  id          String   @id @default(cuid())
+  bookingId   String   @unique
+  booking     Booking  @relation(fields: [bookingId], references: [id])
+  customerId  String
+  customer    User     @relation(fields: [customerId], references: [id])
+  merchantId  String
+  merchant    Merchant @relation(fields: [merchantId], references: [id])
+  rating      Int      // 1-5
+  comment     String?
+  
+  // AI Insights
+  sentiment   String?  // POSITIVE, NEUTRAL, NEGATIVE
+  keywords    String?  // Comma-separated or JSON
+  
+  // Merchant Interaction
+  reply       String?
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Dispute {
+  id          String   @id @default(cuid())
+  bookingId   String   @unique
+  booking     Booking  @relation(fields: [bookingId], references: [id])
+  openedById  String   // userId of whoever triggered the dispute
+  
+  reason      String   // Original reason for rejecting variation or opening dispute
+  status      DisputeStatus @default(OPEN)
+  
+  // AI Arbiter fields
+  aiDecision  ResolutionDecision @default(PENDING)
+  aiReasoning String?  @db.Text
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  evidence    Evidence[]
+}
+
+model Evidence {
+  id          String   @id @default(cuid())
+  disputeId   String
+  dispute     Dispute  @relation(fields: [disputeId], references: [id], onDelete: Cascade)
+  uploadedById String  // User or Merchant ID
+  
+  fileUrl     String
+  type        String   // e.g. "IMAGE", "DOCUMENT", "CHAT_LOG"
+  description String?
+  
+  createdAt   DateTime @default(now())
+}
+
+model Referral {
+  id          String   @id @default(cuid())
+  referrerId  String
+  referrer    User     @relation("Referrer", fields: [referrerId], references: [id])
+  refereeId   String   @unique
+  referee     User     @relation("Referee", fields: [refereeId], references: [id])
+  createdAt   DateTime @default(now())
+}

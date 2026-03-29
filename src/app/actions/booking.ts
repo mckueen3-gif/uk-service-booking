@@ -1,0 +1,99 @@
+"use server";
+
+import { revalidatePath } from 'next/cache';
+import { sendBookingConfirmationEmail, sendMerchantJobAlert } from '@/lib/mail';
+import { prisma } from '@/lib/prisma';
+import { stripe } from '@/lib/stripe';
+
+export async function finalizeBooking(sessionId: string) {
+  try {
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    if (session.payment_status !== 'paid') {
+      return { error: "Payment not completed" };
+    }
+
+    const { merchantId, customerId, scheduledDate, serviceId, serviceName, vehicleInfo } = session.metadata || {};
+
+    if (!merchantId || !customerId) {
+        return { error: "Missing metadata in session" };
+    }
+
+    // Check if booking already exists for this session to avoid duplicates
+    const existing = await prisma.booking.findUnique({
+      where: { stripePaymentIntentId: session.payment_intent as string }
+    });
+
+    if (existing) return { success: true, bookingId: existing.id };
+
+    // Find the service ID (or create a generic one if missing)
+    let service;
+    if (serviceId) {
+      service = await prisma.service.findUnique({ where: { id: serviceId } });
+    }
+    
+    if (!service) {
+      service = await prisma.service.findFirst({
+        where: { merchantId, name: serviceName }
+      });
+    }
+
+    if (!service) {
+      service = await prisma.service.create({
+        data: {
+          merchantId,
+          name: serviceName || "General Service",
+          category: "General",
+          price: (session.amount_total || 0) / 100
+        }
+      });
+    }
+
+    const vehicle = JSON.parse(vehicleInfo || "{}");
+
+    const booking = await (prisma.booking as any).create({
+      data: {
+        customerId,
+        merchantId,
+        serviceId: service.id,
+        scheduledDate: new Date(scheduledDate || Date.now()),
+        status: 'PENDING',
+        totalAmount: (session.amount_total || 0) / 100,
+        stripePaymentIntentId: session.payment_intent as string,
+        vehicleReg: vehicle.reg || null,
+        vehicleMake: vehicle.make || null,
+        vehicleModel: vehicle.model || null,
+        vehicleYear: vehicle.year || null,
+      }
+    });
+
+    // 🚀 NEW: Trigger Real-world Communications (Post-Prisma creation)
+    const [fullCustomer, fullMerchant] = await Promise.all([
+      prisma.user.findUnique({ where: { id: customerId }, select: { email: true, name: true } }),
+      prisma.merchant.findUnique({ where: { id: merchantId }, include: { user: { select: { email: true, name: true } } } })
+    ]);
+
+    if (fullCustomer?.email && fullMerchant?.user?.email) {
+       // Fire-and-forget emails (don't block the UI)
+       sendBookingConfirmationEmail(fullCustomer.email, {
+         customerName: fullCustomer.name || "Customer",
+         serviceName: service.name,
+         date: new Date(scheduledDate || Date.now()).toLocaleDateString(),
+         price: (session.amount_total || 0) / 100
+       }).catch(console.error);
+
+       sendMerchantJobAlert(fullMerchant.user.email, {
+         merchantName: fullMerchant.user.name || fullMerchant.companyName,
+         serviceName: service.name,
+         customerName: fullCustomer.name || "Customer",
+         date: new Date(scheduledDate || Date.now()).toLocaleDateString()
+       }).catch(console.error);
+    }
+
+    revalidatePath('/dashboard');
+    return { success: true, bookingId: booking.id };
+
+  } catch (err: any) {
+    console.error("Finalize Booking Error:", err);
+    return { error: err.message };
+  }
+}
