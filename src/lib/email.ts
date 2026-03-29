@@ -1,7 +1,8 @@
 import { Resend } from 'resend';
 
-// Only instantiate if the API key exists, prevents crashing in local dev without keys
-export const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+// Only instantiate if the API key exists and is a valid format, prevents crashing in build/dev
+const apiKey = process.env.RESEND_API_KEY;
+export const resend = (apiKey && apiKey.length > 5) ? new Resend(apiKey) : null;
 
 export async function sendPlatformEmail({
   to,
