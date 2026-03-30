@@ -83,7 +83,7 @@ export default function HomeClient() {
           alignItems: 'center', 
           gap: '3rem', 
           padding: '3rem',
-          background: 'linear-gradient(135deg, #ffffff 0%, #ecfdf5 100%)',
+          background: 'var(--soft-gradient)',
           flexWrap: 'wrap',
           overflow: 'hidden',
           position: 'relative'
@@ -93,18 +93,18 @@ export default function HomeClient() {
 
           <div style={{ flex: '1 1 400px', zIndex: 1 }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'var(--emerald-600)', color: 'white', padding: '0.4rem 1rem', borderRadius: '2rem', fontSize: '0.75rem', fontWeight: 800, marginBottom: '1.5rem', boxShadow: '0 4px 12px rgba(5, 150, 105, 0.2)' }}>
-              <Sparkles size={14} /> NEW: AI POWERED
+              <Sparkles size={14} /> {t.home.aiCTA.badge}
             </div>
             <h2 style={{ fontSize: '3rem', fontWeight: 950, marginBottom: '1.5rem', lineHeight: 1.1 }}>
-              Got a Repair? <br />
-              <span style={{ color: 'var(--emerald-600)' }}>Get an Instant Diagnosis.</span>
+              {t.home.aiCTA.title1} <br />
+              <span style={{ color: 'var(--emerald-600)' }}>{t.home.aiCTA.title2}</span>
             </h2>
             <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', marginBottom: '2.5rem', lineHeight: 1.6, fontWeight: 500 }}>
-              Upload a photo of your problem and our AI will identify the issue and give you a UK price estimate in seconds.
+              {t.home.aiCTA.subtitle}
             </p>
             <Link href="/diagnosis">
               <button className="btn btn-primary" style={{ padding: '1.25rem 2.5rem', fontSize: '1.1rem' }}>
-                Try AI Diagnosis Free <ChevronRight size={20} />
+                {t.home.aiCTA.button} <ChevronRight size={20} />
               </button>
             </Link>
           </div>
@@ -153,10 +153,10 @@ export default function HomeClient() {
               }}
             >
               <div style={{ 
-                backgroundColor: activeTab === item.id ? 'var(--emerald-100)' : 'var(--surface-2)', 
+                backgroundColor: activeTab === item.id ? 'var(--accent-soft)' : 'var(--surface-2)', 
                 padding: '1.25rem', 
                 borderRadius: '1.25rem',
-                color: activeTab === item.id ? 'var(--emerald-800)' : 'var(--text-muted)',
+                color: activeTab === item.id ? 'var(--accent-color)' : 'var(--text-muted)',
                 boxShadow: activeTab === item.id ? 'var(--shadow-md)' : 'none',
                 transform: activeTab === item.id ? 'scale(1.1)' : 'scale(1)',
                 transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
@@ -193,7 +193,7 @@ export default function HomeClient() {
               <div className="reveal" style={{ flex: '1 1 500px', textAlign: 'inherit' }}>
                 <div style={{ color: 'var(--accent-color)', fontWeight: 800, fontSize: '0.9rem', marginBottom: '1.5rem', textTransform: 'uppercase', letterSpacing: '0.15em', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                   <div style={{ width: '40px', height: '1.5px', background: 'var(--accent-color)' }}></div>
-                  Our Expertise
+                  {t.merchant.background}
                 </div>
                 <h2 style={{ fontSize: '3.5rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '1.5rem', lineHeight: 1.1, fontFamily: 'var(--font-heading)' }}>{sec.data.title}</h2>
                 <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', lineHeight: 1.8, marginBottom: '2.5rem', fontWeight: 500 }}>{sec.data.desc}</p>
@@ -205,7 +205,7 @@ export default function HomeClient() {
                 }}>
                   {sec.data.items.map(sub => (
                     <Link key={sub} href={`/services/results?q=${sub}`} style={{ textDecoration: 'none' }}>
-                      <div className="glass-panel" style={{ padding: '1rem 1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-primary)', fontWeight: 700, fontSize: '0.95rem', background: 'white' }}>
+                      <div className="glass-panel" style={{ padding: '1rem 1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-primary)', fontWeight: 700, fontSize: '0.95rem', background: 'var(--surface-1)' }}>
                         <div style={{ color: 'var(--accent-color)', display: 'flex' }}><CheckCircle2 size={18} strokeWidth={2.5} /></div>
                         {sub}
                       </div>
@@ -233,15 +233,15 @@ export default function HomeClient() {
       ))}
 
       {/* Top Rated Specialists Section */}
-      <section id="discovery" style={{ padding: '8rem 0', background: 'white' }}>
+      <section id="discovery" style={{ padding: '8rem 0', background: 'var(--bg-primary)' }}>
         <div className="container">
           <div className="reveal active" style={{ textAlign: 'center', marginBottom: '5rem' }}>
-            <div style={{ color: 'var(--accent-color)', fontWeight: 800, fontSize: '0.9rem', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.2rem' }}>Discovery</div>
+            <div style={{ color: 'var(--accent-color)', fontWeight: 800, fontSize: '0.9rem', marginBottom: '1.5rem', textTransform: 'uppercase', letterSpacing: '0.2rem' }}>{t.home.recommendation.title2}</div>
             <h2 style={{ fontSize: '3.5rem', fontWeight: 950, color: 'var(--text-primary)', marginBottom: '1.5rem', fontFamily: 'var(--font-heading)', letterSpacing: '-0.03em' }}>
-              Elite Local <span style={{ color: 'var(--accent-color)' }}>Specialists</span>
+              Elite Local <span style={{ color: 'var(--accent-color)' }}>{t.search.filters}</span>
             </h2>
             <p style={{ maxWidth: '600px', margin: '0 auto', color: 'var(--text-muted)', fontSize: '1.25rem', fontWeight: 500 }}>
-              Find and book the top 1% of service providers in your area, vetted for quality and reliability.
+              {t.home.hero.subtitle}
             </p>
           </div>
 
@@ -264,7 +264,7 @@ export default function HomeClient() {
                 <div key={m.id} className={`glass-panel reveal stagger-${(idx % 4) + 1}`} style={{ padding: 0, overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}>
                   <div style={{ position: 'relative', height: '220px' }}>
                     <img src={m.portfolio?.[0]?.imageUrl || `https://images.unsplash.com/photo-${1581578731548 + idx}?q=80&w=600&auto=format&fit=crop`} alt={m.companyName} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    <div style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'rgba(255,255,255,0.95)', padding: '0.4rem 0.85rem', borderRadius: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 800, fontSize: '0.85rem', color: 'var(--text-primary)', boxShadow: 'var(--shadow-sm)' }}>
+                    <div style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'var(--glass-bg)', padding: '0.4rem 0.85rem', borderRadius: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 800, fontSize: '0.85rem', color: 'var(--text-primary)', boxShadow: 'var(--shadow-sm)' }}>
                       <Star size={14} fill="#fbbf24" color="#fbbf24" /> {m.rating || (4.5 + Math.random() * 0.4).toFixed(1)}
                     </div>
                     {idx < 2 && (
@@ -296,7 +296,7 @@ export default function HomeClient() {
           <div style={{ textAlign: 'center' }} className="reveal">
              <Link href="/services">
                 <button className="btn" style={{ padding: '1rem 3rem', borderRadius: '999px', fontSize: '1.1rem', fontWeight: 800, border: '1.5px solid var(--border-color)', color: 'var(--text-primary)', background: 'transparent' }}>
-                  Explore All Providers <ChevronRight size={20} style={{ marginLeft: '0.5rem' }} />
+                  {t.footer.explore} <ChevronRight size={20} style={{ marginLeft: '0.5rem' }} />
                 </button>
              </Link>
           </div>
@@ -312,7 +312,7 @@ export default function HomeClient() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 900, fontSize: '1.5rem', marginBottom: '1rem' }}>
                 <Star size={28} fill="#00b67a" color="#00b67a"/> Trustpilot
               </div>
-              <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', marginBottom: '1.5rem', fontWeight: 500 }}>{t.home.reviews.excellent} based on 21,105 reviews</p>
+              <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', marginBottom: '1.5rem', fontWeight: 500 }}>{t.home.reviews.excellent} {t.home.reviews.basedOn} 21,105 reviews</p>
               <div style={{ display: 'flex', gap: '4px' }}>
                 {[1,2,3,4,5].map(i => <div key={i} style={{ backgroundColor: '#00b67a', color: 'white', padding: '4px', borderRadius: '4px' }}><Star size={18} fill="white" color="white"/></div>)}
               </div>
@@ -328,7 +328,7 @@ export default function HomeClient() {
                     <div style={{ display: 'flex', gap: '2px' }}>
                       {[1,2,3,4,5].map(i => <Star key={i} size={14} fill="#00b67a" color="#00b67a"/>)}
                     </div>
-                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Verified Order</span>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{t.home.reviews.verified}</span>
                   </div>
                   <h4 style={{ fontSize: '1.1rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '0.75rem' }}>{rev.title}</h4>
                   <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: '1.25rem' }}>"{rev.desc}"</p>

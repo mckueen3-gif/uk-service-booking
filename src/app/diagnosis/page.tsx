@@ -19,7 +19,7 @@ export default function DiagnosisPage() {
              alignItems: 'center', 
              gap: '0.75rem', 
              padding: '0.5rem 1.25rem', 
-             background: 'white', 
+             background: 'var(--surface-1)', 
              borderRadius: '2rem', 
              boxShadow: 'var(--shadow-sm)',
              fontSize: '0.9rem',
@@ -54,24 +54,24 @@ export default function DiagnosisPage() {
           maxWidth: '1200px',
           margin: '0 auto'
         }}>
-           <div className="glass-panel stagger-2 reveal active" style={{ padding: '2rem', background: 'white' }}>
-              <div style={{ width: '50px', height: '50px', borderRadius: '1rem', background: 'var(--emerald-50)', color: 'var(--emerald-600)', display: 'flex', alignItems: 'center', justifyItems: 'center', marginBottom: '1.5rem' }}>
+           <div className="glass-panel stagger-2 reveal active" style={{ padding: '2rem', background: 'var(--surface-1)' }}>
+              <div style={{ width: '50px', height: '50px', borderRadius: '1rem', background: 'var(--accent-soft)', color: 'var(--emerald-600)', display: 'flex', alignItems: 'center', justifyItems: 'center', marginBottom: '1.5rem' }}>
                  <Zap size={28} style={{ margin: 'auto' }} />
               </div>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.75rem' }}>Instant Insights</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>No more waiting for callbacks. Get a technical breakdown of the issue immediately after uploading.</p>
            </div>
 
-           <div className="glass-panel stagger-3 reveal active" style={{ padding: '2rem', background: 'white' }}>
-              <div style={{ width: '50px', height: '50px', borderRadius: '1rem', background: 'var(--emerald-50)', color: 'var(--emerald-600)', display: 'flex', alignItems: 'center', justifyItems: 'center', marginBottom: '1.5rem' }}>
+           <div className="glass-panel stagger-3 reveal active" style={{ padding: '2rem', background: 'var(--surface-1)' }}>
+              <div style={{ width: '50px', height: '50px', borderRadius: '1rem', background: 'var(--accent-soft)', color: 'var(--emerald-600)', display: 'flex', alignItems: 'center', justifyItems: 'center', marginBottom: '1.5rem' }}>
                  <PoundSterling size={28} style={{ margin: 'auto' }} />
               </div>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.75rem' }}>Fair Market Pricing</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>We use real-time UK service data to give you an accurate price range for your specific region.</p>
            </div>
 
-           <div className="glass-panel stagger-4 reveal active" style={{ padding: '2rem', background: 'white' }}>
-              <div style={{ width: '50px', height: '50px', borderRadius: '1rem', background: 'var(--emerald-50)', color: 'var(--emerald-600)', display: 'flex', alignItems: 'center', justifyItems: 'center', marginBottom: '1.5rem' }}>
+           <div className="glass-panel stagger-4 reveal active" style={{ padding: '2rem', background: 'var(--surface-1)' }}>
+              <div style={{ width: '50px', height: '50px', borderRadius: '1rem', background: 'var(--accent-soft)', color: 'var(--emerald-600)', display: 'flex', alignItems: 'center', justifyItems: 'center', marginBottom: '1.5rem' }}>
                  <ShieldCheck size={28} style={{ margin: 'auto' }} />
               </div>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.75rem' }}>Verified Booking</h3>

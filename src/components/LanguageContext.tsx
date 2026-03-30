@@ -36,19 +36,19 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('user-locale', newLocale);
     // Update document dir and lang for SEO and accessibility
     document.documentElement.lang = newLocale;
-    document.documentElement.dir = newLocale === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.dir = (newLocale === 'ar' || newLocale === 'ur') ? 'rtl' : 'ltr';
   };
 
   useEffect(() => {
     document.documentElement.lang = locale;
-    document.documentElement.dir = locale === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.dir = (locale === 'ar' || locale === 'ur') ? 'rtl' : 'ltr';
   }, [locale]);
 
   const value = {
     locale,
     t: dictionaries[locale],
     setLocale,
-    isRTL: locale === 'ar'
+    isRTL: locale === 'ar' || locale === 'ur'
   };
 
   return (

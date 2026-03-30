@@ -15,6 +15,7 @@ import { User } from "lucide-react";
 
 import { LanguageProvider } from "@/components/LanguageContext";
 import { LocationProvider } from "@/components/LocationContext";
+import { ThemeProvider } from "@/components/ThemeContext";
 import { AppNavbar, AppFooter } from "@/app/components/ClientLayout";
 import { AuthProvider } from "@/app/components/AuthProvider";
 
@@ -52,18 +53,20 @@ export default async function RootLayout({
       <body>
         <ScrollProgress />
         <AuthProvider>
-          <LanguageProvider>
-            <LocationProvider>
-              <AppNavbar session={session} />
-              <main className="main-content" style={{ paddingTop: '80px' }}>
-                {children}
-              </main>
-              <AppFooter />
-              <AIChatbot />
-              <CookieBanner />
-              <NotificationHub /> 
-            </LocationProvider>
-          </LanguageProvider>
+          <ThemeProvider>
+            <LanguageProvider>
+              <LocationProvider>
+                <AppNavbar session={session} />
+                <main className="main-content" style={{ paddingTop: '80px' }}>
+                  {children}
+                </main>
+                <AppFooter />
+                <AIChatbot />
+                <CookieBanner />
+                <NotificationHub /> 
+              </LocationProvider>
+            </LanguageProvider>
+          </ThemeProvider>
         </AuthProvider>
       </body>
     </html>

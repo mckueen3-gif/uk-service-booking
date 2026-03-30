@@ -82,7 +82,7 @@ export default function DiagnosisTool() {
   return (
     <div className="glass-panel reveal active" style={{ padding: '2.5rem', maxWidth: '800px', margin: '0 auto' }}>
       <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-        <div style={{ display: 'inline-flex', padding: '1.25rem', borderRadius: '1.25rem', background: 'var(--emerald-50)', color: 'var(--emerald-600)', marginBottom: '1.25rem' }}>
+        <div style={{ display: 'inline-flex', padding: '1.25rem', borderRadius: '1.25rem', background: 'var(--accent-soft)', color: 'var(--accent-color)', marginBottom: '1.25rem' }}>
           <Sparkles size={36} strokeWidth={1.5} />
         </div>
         <h2 style={{ fontSize: '2.5rem', fontWeight: 950, marginBottom: '0.75rem', letterSpacing: '-0.02em' }}>Instant AI Diagnosis</h2>
@@ -120,7 +120,7 @@ export default function DiagnosisTool() {
               </>
             ) : (
               <>
-                <div style={{ padding: '2rem', borderRadius: '50%', background: 'white', boxShadow: 'var(--shadow-md)', color: 'var(--emerald-600)' }}>
+                <div style={{ padding: '2rem', borderRadius: '50%', background: 'var(--surface-1)', boxShadow: 'var(--shadow-md)', color: 'var(--accent-color)' }}>
                   <Camera size={40} strokeWidth={1.5} />
                 </div>
                 <div style={{ textAlign: 'center' }}>
@@ -152,9 +152,9 @@ export default function DiagnosisTool() {
                   padding: '1.5rem 1rem',
                   borderRadius: '1.5rem',
                   border: '2px solid',
-                  borderColor: category === cat.id ? 'var(--emerald-600)' : 'var(--border-color)',
-                  background: category === cat.id ? 'var(--emerald-50)' : 'white',
-                  color: category === cat.id ? 'var(--emerald-950)' : 'var(--text-primary)',
+                  borderColor: category === cat.id ? 'var(--accent-color)' : 'var(--border-color)',
+                  background: category === cat.id ? 'var(--accent-soft)' : 'var(--surface-1)',
+                  color: category === cat.id ? 'var(--accent-color)' : 'var(--text-primary)',
                   cursor: 'pointer',
                   transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                   display: 'flex',
@@ -191,7 +191,7 @@ export default function DiagnosisTool() {
               resize: 'none',
               outline: 'none',
               transition: 'all 0.2s ease',
-              background: 'white',
+              background: 'var(--surface-1)',
               color: 'var(--text-primary)'
             }}
           />

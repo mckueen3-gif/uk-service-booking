@@ -3,14 +3,16 @@
 import React from 'react';
 import Link from 'next/link';
 import { useTranslation } from "@/components/LanguageContext";
-import { Globe, User, MapPin, Mail, Phone, LifeBuoy, ChevronRight, Navigation } from "lucide-react";
+import { Globe, User, MapPin, Mail, Phone, LifeBuoy, ChevronRight, Navigation, PenTool, Sun, Moon } from "lucide-react";
 import NavbarSearch from "@/app/components/NavbarSearch";
 import NotificationHub from "@/components/dashboard/NotificationHub";
 import { useLocation, ALL_UK } from "@/components/LocationContext";
+import { useTheme } from "@/components/ThemeContext";
 
 export function AppNavbar({ session }: { session: any }) {
   const { t, locale, setLocale, isRTL } = useTranslation();
   const { city, setCity, supportedCities, detectLocation } = useLocation();
+  const { theme, toggleTheme } = useTheme();
   const [showCities, setShowCities] = React.useState(false);
 
   const displayCity = city === ALL_UK ? t.home.allUK : city;
@@ -149,18 +151,55 @@ export function AppNavbar({ session }: { session: any }) {
                <option value="ar" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>العربية (AR)</option>
                <option value="ja" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>日本語 (JA)</option>
                <option value="ko" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>한국어 (KO)</option>
+               <option value="pl" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>Polski (PL)</option>
+               <option value="ro" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>Română (RO)</option>
+               <option value="ur" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>اردو (UR)</option>
              </select>
           </div>
 
+          {/* Theme Toggle */}
+          <button 
+            onClick={toggleTheme}
+            style={{ 
+              background: 'var(--surface-2)', 
+              border: '1px solid var(--border-color)', 
+              borderRadius: '0.75rem', 
+              padding: '0.4rem', 
+              cursor: 'pointer', 
+              color: 'var(--accent-color)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'all 0.3s ease',
+              boxShadow: 'var(--shadow-sm)'
+            }}
+            className="hover-scale"
+            title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+          >
+            {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+          </button>
+
           <Link href="/services" style={{ color: 'var(--text-primary)', fontWeight: 700, textDecoration: 'none', fontSize: '1.05rem' }}>
             {t.nav.browse}
+          </Link>
+
+          <Link href="/diagnosis" style={{ 
+            color: 'var(--accent-color)', 
+            fontWeight: 800, 
+            textDecoration: 'none', 
+            fontSize: '1.05rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.4rem'
+          }}>
+            <PenTool size={18} /> {t.nav.aiDiagnosis}
           </Link>
           
           {session?.user ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
               <NotificationHub />
-              <Link href="/dashboard" style={{ color: '#0f766e', fontWeight: 600, textDecoration: 'none' }}>
-                <span style={{ backgroundColor: '#ccfbf1', padding: '0.4rem 0.8rem', borderRadius: '2rem', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Link href="/dashboard" style={{ color: 'var(--accent-color)', fontWeight: 600, textDecoration: 'none' }}>
+                <span style={{ backgroundColor: 'var(--accent-soft)', padding: '0.4rem 0.8rem', borderRadius: '2rem', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <User size={16} /> {session.user.name} 
                 </span>
               </Link>
@@ -217,6 +256,9 @@ export function AppFooter() {
                  </Link>
                  <Link href="/services?category=Automotive" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.95rem', fontWeight: 500 }}>
                    {t.faq.categories.disputes} - Automotive
+                 </Link>
+                 <Link href="/diagnosis" style={{ color: 'var(--accent-color)', textDecoration: 'none', fontSize: '0.95rem', fontWeight: 700 }}>
+                   {t.footer.aiDiagnosis} ✨
                  </Link>
               </div>
            </div>

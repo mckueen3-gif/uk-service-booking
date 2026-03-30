@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { searchMerchants } from '@/app/actions/search';
-import { Search, Filter, MapPin, Star, ShieldCheck, ArrowUpDown, Loader2, Navigation as NavIcon, LayoutGrid, Map as MapIcon } from 'lucide-react';
+import { Search, Filter, MapPin, Star, ShieldCheck, ArrowUpDown, Loader2, Navigation as NavIcon, LayoutGrid, Map as MapIcon, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import VerifiedBadge from '@/app/components/VerifiedBadge';
 import { useTranslation } from "@/components/LanguageContext";
@@ -86,7 +86,7 @@ function SearchResults() {
         <aside className="glass-panel" style={{ 
           padding: '2rem', 
           borderRadius: '1.5rem', 
-          backgroundColor: 'white', 
+          backgroundColor: 'var(--surface-1)', 
           border: '1px solid var(--border-color)', 
           height: 'fit-content' 
         }}>
@@ -166,19 +166,46 @@ function SearchResults() {
             </div>
 
             {/* Verification Toggle */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', backgroundColor: 'rgba(37,99,235,0.05)', borderRadius: '0.75rem', cursor: 'pointer', flexDirection: isRTL ? 'row-reverse' : 'row' }} onClick={() => setVerifiedOnly(!verifiedOnly)}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', backgroundColor: 'var(--accent-soft)', borderRadius: '0.75rem', cursor: 'pointer', flexDirection: isRTL ? 'row-reverse' : 'row' }} onClick={() => setVerifiedOnly(!verifiedOnly)}>
                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
-                  <ShieldCheck size={18} color="#2563eb" />
+                  <ShieldCheck size={18} color="var(--accent-color)" />
                   <span style={{ fontSize: '0.9rem', fontWeight: 700 }}>{t.search.verifiedOnly}</span>
                </div>
-               <div style={{ width: '40px', height: '20px', borderRadius: '10px', backgroundColor: verifiedOnly ? '#2563eb' : 'var(--border-color)', position: 'relative' }}>
-                  <div style={{ width: '16px', height: '16px', borderRadius: '50%', backgroundColor: 'white', position: 'absolute', top: '2px', [isRTL ? 'right' : 'left']: verifiedOnly ? '22px' : '2px', transition: '0.3s' }} />
+               <div style={{ width: '40px', height: '20px', borderRadius: '10px', backgroundColor: verifiedOnly ? 'var(--accent-color)' : 'var(--border-color)', position: 'relative' }}>
+                  <div style={{ width: '16px', height: '16px', borderRadius: '50%', backgroundColor: 'var(--surface-1)', position: 'absolute', top: '2px', [isRTL ? 'right' : 'left']: verifiedOnly ? '22px' : '2px', transition: '0.3s' }} />
                </div>
             </div>
 
             <button onClick={() => performSearch()} className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
               {t.search.apply}
             </button>
+
+            {/* AI Diagnosis CTA */}
+            <div className="glass-panel" style={{ 
+              marginTop: '1.5rem', 
+              padding: '1.25rem', 
+              background: 'var(--premium-gradient)', 
+              borderRadius: '1rem',
+              color: 'white',
+              textAlign: 'center'
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.75rem' }}>
+                <div style={{ backgroundColor: 'rgba(255,255,255,0.2)', padding: '0.5rem', borderRadius: '50%' }}>
+                   <Sparkles size={24} />
+                </div>
+              </div>
+              <h3 style={{ fontSize: '1rem', fontWeight: 900, marginBottom: '0.5rem', color: 'white' }}>Not sure what's wrong?</h3>
+              <p style={{ fontSize: '0.75rem', opacity: 0.9, marginBottom: '1rem', lineHeight: 1.4 }}>Upload a photo and let our AI diagnose the issue and estimate costs.</p>
+              <Link href="/diagnosis">
+                <button style={{ 
+                  width: '100%', padding: '0.6rem', borderRadius: '0.75rem', 
+                  backgroundColor: 'white', color: 'var(--emerald-800)', 
+                  border: 'none', fontWeight: 900, fontSize: '0.8rem', cursor: 'pointer' 
+                }}>
+                  Start AI Diagnosis
+                </button>
+              </Link>
+            </div>
           </div>
         </aside>
 
@@ -276,8 +303,8 @@ function SearchResults() {
                   borderRadius: '1.5rem', 
                   textDecoration: 'none', 
                   color: 'inherit',
-                  border: merchant.isAiRecommended ? '2px solid #fde68a' : '1px solid var(--border-color)',
-                  boxShadow: merchant.isAiRecommended ? '0 10px 15px -3px rgba(251, 188, 4, 0.1)' : 'none',
+                  border: merchant.isAiRecommended ? '2px solid var(--accent-color)' : '1px solid var(--border-color)',
+                  boxShadow: merchant.isAiRecommended ? '0 10px 15px -3px var(--accent-soft)' : 'none',
                   transition: 'transform 0.2s',
                   direction: isRTL ? 'rtl' : 'ltr',
                   position: 'relative'
@@ -285,9 +312,9 @@ function SearchResults() {
                   {merchant.isAiRecommended && (
                     <div style={{ 
                       position: 'absolute', top: '-12px', left: '20px', 
-                      backgroundColor: '#fbbc04', color: 'white', padding: '2px 10px', 
+                      backgroundColor: 'var(--accent-color)', color: 'white', padding: '2px 10px', 
                       borderRadius: '20px', fontSize: '0.65rem', fontWeight: 900, 
-                      boxShadow: '0 4px 6px rgba(0,0,0,0.1)', zIndex: 5,
+                      boxShadow: 'var(--shadow-md)', zIndex: 5,
                       display: 'flex', alignItems: 'center', gap: '4px'
                     }}>
                        ✨ AI BEST MATCH

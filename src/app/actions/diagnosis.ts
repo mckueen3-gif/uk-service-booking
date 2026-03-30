@@ -42,14 +42,24 @@ export async function getAIDiagnosis(imageUrl: string, category: string, descrip
     `;
 
     // Fetch image and convert to base64
-    const imageResp = await fetch(imageUrl);
-    if (!imageResp.ok) throw new Error("Failed to fetch image from URL");
-    const buffer = await imageResp.arrayBuffer();
-    const base64Image = Buffer.from(buffer).toString('base64');
+    let base64Image;
+    let mimeType = "image/jpeg";
+
+    if (imageUrl.startsWith('data:')) {
+      const parts = imageUrl.split(',');
+      base64Image = parts[1];
+      const mimeMatch = parts[0].match(/:(.*?);/);
+      if (mimeMatch) mimeType = mimeMatch[1];
+    } else {
+      const imageResp = await fetch(imageUrl);
+      if (!imageResp.ok) throw new Error("Failed to fetch image from URL");
+      const buffer = await imageResp.arrayBuffer();
+      base64Image = Buffer.from(buffer).toString('base64');
+    }
 
     const result = await model.generateContent([
       prompt,
-      { inlineData: { data: base64Image, mimeType: "image/jpeg" } },
+      { inlineData: { data: base64Image, mimeType: mimeType } },
     ]);
 
     const text = result.response.text();

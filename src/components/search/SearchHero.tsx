@@ -52,22 +52,23 @@ export default function SearchHero() {
   return (
     <section style={{ 
       position: 'relative', 
-      padding: '8rem 2rem 6rem', 
+      padding: '10rem 2rem 8rem', 
       textAlign: 'center',
-      background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)', 
+      background: 'var(--soft-gradient)', 
       overflow: 'hidden',
       direction: isRTL ? 'rtl' : 'ltr'
     }}>
-      <div style={{ position: 'absolute', top: '-10%', right: '-5%', width: '400px', height: '400px', background: 'rgba(37, 99, 235, 0.05)', borderRadius: '50%', filter: 'blur(80px)' }} />
-      <div style={{ position: 'absolute', bottom: '-10%', left: '-5%', width: '300px', height: '300px', background: 'rgba(37, 99, 235, 0.03)', borderRadius: '50%', filter: 'blur(60px)' }} />
+      <div style={{ position: 'absolute', top: '-10%', right: '-5%', width: '400px', height: '400px', background: 'var(--accent-soft)', borderRadius: '50%', filter: 'blur(80px)', opacity: 0.3 }} />
+      <div style={{ position: 'absolute', bottom: '-10%', left: '-5%', width: '300px', height: '300px', background: 'var(--accent-soft)', borderRadius: '50%', filter: 'blur(60px)', opacity: 0.4 }} />
 
-      <div className="container" style={{ maxWidth: '900px', position: 'relative', zIndex: 1 }}>
+      <div className="container" style={{ maxWidth: '1000px', position: 'relative', zIndex: 1 }}>
         <div style={{ 
           display: 'inline-flex', alignItems: 'center', gap: '0.6rem', 
-          padding: '0.6rem 1.4rem', backgroundColor: 'white', 
-          color: '#2563eb', borderRadius: '2rem', fontSize: '0.9rem', 
-          fontWeight: 800, marginBottom: '2rem',
-          boxShadow: '0 4px 15px rgba(37, 99, 235, 0.1)',
+          padding: '0.6rem 1.4rem', backgroundColor: 'var(--surface-1)', 
+          color: 'var(--emerald-700)', borderRadius: '2rem', fontSize: '0.9rem', 
+          fontWeight: 800, marginBottom: '2.5rem',
+          boxShadow: 'var(--shadow-md)',
+          border: '1px solid var(--border-color)',
           flexDirection: isRTL ? 'row-reverse' : 'row'
         }}>
           <Sparkles size={16} />
@@ -75,27 +76,28 @@ export default function SearchHero() {
         </div>
 
         <h1 style={{ 
-          fontSize: '4.5rem', 
-          fontWeight: 900, 
-          lineHeight: 1.1, 
-          marginBottom: '1.5rem', 
+          fontSize: '5rem', 
+          fontWeight: 950, 
+          lineHeight: 1, 
+          marginBottom: '2rem', 
           letterSpacing: '-0.04em',
-          color: '#0f172a' 
+          color: 'var(--text-primary)' 
         }}>
           {t.home.hero.title1} <br/>
           <span style={{ 
-            background: 'linear-gradient(to right, #2563eb, #4f46e5)', 
+            background: 'linear-gradient(to right, var(--emerald-600), var(--emerald-800))', 
             WebkitBackgroundClip: 'text', 
             WebkitTextFillColor: 'transparent' 
           }}>{t.home.hero.title2}</span>
         </h1>
 
         <p style={{ 
-          fontSize: '1.25rem', 
-          color: '#475569', 
-          maxWidth: '650px', 
-          margin: '0 auto 3.5rem',
-          lineHeight: 1.6
+          fontSize: '1.4rem', 
+          color: 'var(--text-muted)', 
+          maxWidth: '750px', 
+          margin: '0 auto 4rem',
+          lineHeight: 1.6,
+          fontWeight: 500
         }}>
           {t.home.hero.subtitle}
         </p>
@@ -106,18 +108,18 @@ export default function SearchHero() {
           style={{ 
             display: 'flex', 
             gap: '1rem', 
-            padding: '1rem', 
-            borderRadius: '1.5rem', 
-            boxShadow: '0 20px 40px rgba(0,0,0,0.08)',
-            border: '1px solid rgba(255,255,255,0.6)',
-            backgroundColor: 'rgba(255,255,255,0.8)',
-            backdropFilter: 'blur(10px)',
+            padding: '1.25rem', 
+            borderRadius: 'var(--radius-xl)', 
+            boxShadow: 'var(--shadow-lg)',
+            border: '1px solid var(--glass-border)',
+            backgroundColor: 'var(--glass-bg)',
+            backdropFilter: 'blur(15px)',
             flexWrap: 'wrap',
             flexDirection: isRTL ? 'row-reverse' : 'row'
           }}
         >
           <div style={{ flex: 2, minWidth: '280px', position: 'relative', display: 'flex', alignItems: 'center' }}>
-             <Search size={22} style={{ position: 'absolute', [isRTL ? 'right' : 'left']: '1.25rem', color: '#64748b' }} />
+             <Search size={22} style={{ position: 'absolute', [isRTL ? 'right' : 'left']: '1.5rem', color: 'var(--text-muted)' }} />
              <input 
                 type="text" 
                 value={query}
@@ -125,14 +127,16 @@ export default function SearchHero() {
                 placeholder={t.home.hero.searchPlaceholder}
                 style={{ 
                   width: '100%', 
-                  padding: `1.25rem ${isRTL ? '3.5rem' : '10rem'} 1.25rem ${isRTL ? '10rem' : '3.5rem'} `, 
-                  backgroundColor: 'white', 
-                  border: '1px solid #e2e8f0', 
-                  borderRadius: '1rem', 
-                  color: '#0f172a', 
-                  fontSize: '1.1rem', 
+                  padding: `1.5rem ${isRTL ? '4rem' : '10rem'} 1.5rem ${isRTL ? '10rem' : '4.5rem'} `, 
+                  backgroundColor: 'var(--surface-2)', 
+                  border: '1px solid var(--border-color)', 
+                  borderRadius: '1.25rem', 
+                  color: 'var(--text-primary)', 
+                  fontSize: '1.15rem', 
                   outline: 'none',
-                  textAlign: 'inherit'
+                  textAlign: 'inherit',
+                  fontWeight: 600,
+                  boxShadow: 'var(--shadow-sm)'
                 }} 
              />
               <button 
@@ -141,11 +145,12 @@ export default function SearchHero() {
                 disabled={isAiLoading || !query}
                 style={{ 
                   position: 'absolute', [isRTL ? 'left' : 'right']: '0.75rem', 
-                  backgroundColor: '#eff6ff', color: '#2563eb', 
-                  border: 'none', borderRadius: '0.75rem', padding: '0.5rem', 
-                  cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.4rem',
-                  fontSize: '0.75rem', fontWeight: 900,
-                  flexDirection: isRTL ? 'row-reverse' : 'row'
+                  backgroundColor: 'var(--accent-soft)', color: 'var(--accent-color)', 
+                  border: 'none', borderRadius: '0.85rem', padding: '0.65rem 1rem', 
+                  cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem',
+                  fontSize: '0.8rem', fontWeight: 900,
+                  flexDirection: isRTL ? 'row-reverse' : 'row',
+                  transition: 'all 0.2s ease'
                 }}
               >
                 {isAiLoading ? <Loader2 size={16} className="animate-spin" /> : <Sparkles size={16} />}
@@ -154,7 +159,7 @@ export default function SearchHero() {
            </div>
 
           <div style={{ flex: 1, minWidth: '220px', position: 'relative', display: 'flex', alignItems: 'center' }}>
-             <MapPin size={22} style={{ position: 'absolute', [isRTL ? 'right' : 'left']: '1.25rem', color: '#64748b' }} />
+             <MapPin size={22} style={{ position: 'absolute', [isRTL ? 'right' : 'left']: '1.5rem', color: 'var(--text-muted)' }} />
              <input 
                 type="text" 
                 value={city}
@@ -165,25 +170,27 @@ export default function SearchHero() {
                 placeholder={t.home.hero.locationPlaceholder}
                 style={{ 
                   width: '100%', 
-                  padding: '1.25rem 3.5rem', 
-                  backgroundColor: 'white', 
-                  border: '1px solid #e2e8f0', 
-                  borderRadius: '1rem', 
-                  color: '#0f172a', 
-                  fontSize: '1.1rem', 
+                  padding: '1.5rem 4rem', 
+                  backgroundColor: 'var(--surface-2)', 
+                  border: '1px solid var(--border-color)', 
+                  borderRadius: '1.25rem', 
+                  color: 'var(--text-primary)', 
+                  fontSize: '1.15rem', 
                   outline: 'none',
-                  textAlign: 'inherit'
+                  textAlign: 'inherit',
+                  fontWeight: 600,
+                  boxShadow: 'var(--shadow-sm)'
                 }} 
              />
              <div 
                 onClick={detectLocation}
                 style={{ 
-                  position: 'absolute', [isRTL ? 'left' : 'right']: '1rem', 
-                  color: isLocating ? '#2563eb' : '#64748b',
+                  position: 'absolute', [isRTL ? 'left' : 'right']: '1.25rem', 
+                  color: isLocating ? 'var(--accent-color)' : 'var(--text-muted)',
                   cursor: 'pointer'
                 }}
               >
-                 {isLocating ? <Loader2 size={18} className="animate-spin" /> : <NavIcon size={18} />}
+                 {isLocating ? <Loader2 size={20} className="animate-spin" /> : <NavIcon size={20} />}
               </div>
           </div>
 
@@ -191,29 +198,30 @@ export default function SearchHero() {
             type="submit"
             className="btn btn-primary" 
             style={{ 
-              padding: '0 2.5rem', 
-              borderRadius: '1rem', 
+              padding: '0 3rem', 
+              borderRadius: '1.25rem', 
               fontSize: '1.1rem', 
-              fontWeight: 800, 
+              fontWeight: 900, 
               display: 'flex', 
               alignItems: 'center', 
-              gap: '0.75rem',
+              gap: '1rem',
               height: 'auto',
-              minHeight: '60px',
-              background: 'linear-gradient(135deg, #2563eb, #4f46e5)',
+              minHeight: '75px',
+              background: 'linear-gradient(135deg, var(--emerald-600), var(--emerald-800))',
               flex: '0 0 auto',
-              flexDirection: isRTL ? 'row-reverse' : 'row'
+              flexDirection: isRTL ? 'row-reverse' : 'row',
+              boxShadow: '0 10px 25px -5px rgba(4, 120, 87, 0.4)'
             }}
           >
-             {t.home.hero.searchBtn} <ArrowRight size={20} style={{ transform: isRTL ? 'rotate(180deg)' : 'none' }} />
+             {t.home.hero.searchBtn} <ArrowRight size={22} style={{ transform: isRTL ? 'rotate(180deg)' : 'none' }} />
           </button>
         </form>
 
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '2.5rem', marginTop: '3rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '2.5rem', marginTop: '4rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
            {['MOT Testing', 'Oil Change', 'Deep Cleaning', 'Legal Aid'].map(tag => (
-             <span key={tag} style={{ fontSize: '0.9rem', cursor: 'pointer', color: '#64748b' }} onClick={() => setQuery(tag)}>
+             <span key={tag} style={{ fontSize: '0.9rem', cursor: 'pointer', color: 'var(--text-muted)' }} onClick={() => setQuery(tag)}>
                {isRTL ? '' : 'Popular: '} 
-               <strong style={{ textDecoration: 'underline', color: '#2563eb' }}>{tag}</strong>
+               <strong style={{ textDecoration: 'underline', color: 'var(--accent-color)' }}>{tag}</strong>
                {isRTL ? ' :شائع' : ''}
              </span>
            ))}

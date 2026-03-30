@@ -55,29 +55,33 @@ export default function RecommendationEngine() {
 
   return (
     <section className="animate-fade-up" style={{ padding: '2rem 0', direction: isRTL ? 'rtl' : 'ltr' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '1.5rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
-         <div style={{ textAlign: 'inherit' }}>
-            <h2 style={{ fontSize: '1.8rem', fontWeight: 900, marginBottom: '0.4rem', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.6rem', flexDirection: 'inherit' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '3rem' }}>
+         <div>
+            <h2 style={{ fontSize: '2.5rem', fontWeight: 950, marginBottom: '1rem', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.8rem', letterSpacing: '-0.02em' }}>
                {t.home.recommendation.title1} <span style={{ color: 'var(--accent-color)' }}>{t.home.recommendation.title2}</span>
-               <Sparkles size={20} color="var(--accent-color)" />
+               <Sparkles size={28} color="var(--accent-color)" />
             </h2>
-            <p style={{ color: 'var(--text-muted)', fontWeight: 600, fontSize: '1rem', letterSpacing: '0.01em' }}>
+            <p style={{ color: 'var(--text-muted)', fontWeight: 600, fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto' }}>
                {t.home.recommendation.subtitle}
             </p>
          </div>
       </div>
 
-      <div style={{ display: 'flex', gap: '1.5rem', overflowX: 'auto', paddingBottom: '1rem', scrollbarWidth: 'none', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
+        gap: '2rem', 
+        paddingBottom: '2rem' 
+      }}>
          {recommendations.map(rec => (
            <Link 
              key={rec.id} 
              href={`/services?category=${rec.category}&q=${rec.query}`}
              className="glass-panel hover-scale"
              style={{ 
-               width: '320px', 
-               padding: '1.5rem', 
+               width: '100%', 
+               padding: '2rem', 
                borderRadius: '24px', 
-               flexShrink: 0, 
                backgroundColor: 'var(--surface-1)', 
                border: '1.5px solid var(--border-color)',
                display: 'flex',
