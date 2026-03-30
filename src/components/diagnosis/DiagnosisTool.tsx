@@ -7,16 +7,19 @@ import {
 } from 'lucide-react';
 import { getAIDiagnosis } from '@/app/actions/diagnosis';
 import DiagnosisResult from './DiagnosisResult';
-
-const CATEGORIES = [
-  { id: 'Plumbing', label: 'Plumbing & Heating', icon: '🚰' },
-  { id: 'Automotive', label: 'Car Repair & Service', icon: '🚗' },
-  { id: 'Renovation', label: 'Home Renovation', icon: '🏠' },
-  { id: 'Electrical', label: 'Electrical Work', icon: '⚡' },
-  { id: 'Cleaning', label: 'Professional Cleaning', icon: '✨' },
-];
+import { useTranslation } from '@/components/LanguageContext';
 
 export default function DiagnosisTool() {
+  const { t } = useTranslation();
+  
+  const CATEGORIES = [
+    { id: 'Plumbing', label: t.diagnosis.tool.categories.plumbing, icon: '🚰' },
+    { id: 'Automotive', label: t.diagnosis.tool.categories.auto, icon: '🚗' },
+    { id: 'Renovation', label: t.diagnosis.tool.categories.renovation, icon: '🏠' },
+    { id: 'Electrical', label: t.diagnosis.tool.categories.electrical, icon: '⚡' },
+    { id: 'Cleaning', label: t.diagnosis.tool.categories.cleaning, icon: '✨' },
+  ];
+
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [category, setCategory] = useState('');
@@ -72,7 +75,7 @@ export default function DiagnosisTool() {
           className="btn" 
           style={{ marginBottom: '1.5rem', background: 'var(--surface-2)', color: 'var(--text-primary)', fontSize: '0.9rem', padding: '0.6rem 1.2rem' }}
         >
-          <ArrowLeft size={16} /> New Diagnosis
+          <ArrowLeft size={16} /> {t.diagnosis.tool.newDiagnosis}
         </button>
         <DiagnosisResult diagnosis={result} />
       </div>
@@ -85,14 +88,14 @@ export default function DiagnosisTool() {
         <div style={{ display: 'inline-flex', padding: '1.25rem', borderRadius: '1.25rem', background: 'var(--accent-soft)', color: 'var(--accent-color)', marginBottom: '1.25rem' }}>
           <Sparkles size={36} strokeWidth={1.5} />
         </div>
-        <h2 style={{ fontSize: '2.5rem', fontWeight: 950, marginBottom: '0.75rem', letterSpacing: '-0.02em' }}>Instant AI Diagnosis</h2>
-        <p style={{ color: 'var(--text-muted)', fontSize: '1.15rem', fontWeight: 500 }}>Upload a photo and let our AI estimate the repair cost & scope.</p>
+        <h2 style={{ fontSize: '2.5rem', fontWeight: 950, marginBottom: '0.75rem', letterSpacing: '-0.02em' }}>{t.diagnosis.tool.title}</h2>
+        <p style={{ color: 'var(--text-muted)', fontSize: '1.15rem', fontWeight: 500 }}>{t.diagnosis.tool.subtitle}</p>
       </div>
 
       <div style={{ display: 'grid', gap: '2.5rem' }}>
         {/* Step 1: Upload */}
         <div>
-          <label style={{ display: 'block', fontWeight: 900, marginBottom: '1.25rem', color: 'var(--text-primary)', fontSize: '1.1rem' }}>1. Upload Photo Proof</label>
+          <label style={{ display: 'block', fontWeight: 900, marginBottom: '1.25rem', color: 'var(--text-primary)', fontSize: '1.1rem' }}>{t.diagnosis.tool.step1}</label>
           <div 
             onClick={() => fileInputRef.current?.click()}
             style={{ 
@@ -115,7 +118,7 @@ export default function DiagnosisTool() {
               <>
                 <img src={preview} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                 <div style={{ position: 'absolute', bottom: '1.5rem', right: '1.5rem', background: 'rgba(0,0,0,0.7)', color: 'white', padding: '0.75rem 1.25rem', borderRadius: '2rem', fontSize: '0.85rem', fontWeight: 700, backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.1)' }}>
-                  Click to replace photo
+                  {t.diagnosis.tool.replaceHint}
                 </div>
               </>
             ) : (
@@ -124,7 +127,7 @@ export default function DiagnosisTool() {
                   <Camera size={40} strokeWidth={1.5} />
                 </div>
                 <div style={{ textAlign: 'center' }}>
-                  <p style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '1.2rem', marginBottom: '0.25rem' }}>Take a photo or upload</p>
+                  <p style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '1.2rem', marginBottom: '0.25rem' }}>{t.diagnosis.tool.uploadHint}</p>
                   <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 500 }}>Supports high-quality JPG, PNG (Max 5MB)</p>
                 </div>
               </>
@@ -141,7 +144,7 @@ export default function DiagnosisTool() {
 
         {/* Step 2: Category */}
         <div>
-          <label style={{ display: 'block', fontWeight: 900, marginBottom: '1.25rem', color: 'var(--text-primary)', fontSize: '1.1rem' }}>2. Select Category</label>
+          <label style={{ display: 'block', fontWeight: 900, marginBottom: '1.25rem', color: 'var(--text-primary)', fontSize: '1.1rem' }}>{t.diagnosis.tool.step2}</label>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '1.25rem' }}>
             {CATEGORIES.map(cat => (
               <button
@@ -175,7 +178,7 @@ export default function DiagnosisTool() {
 
         {/* Step 3: Description */}
         <div>
-          <label style={{ display: 'block', fontWeight: 900, marginBottom: '1.25rem', color: 'var(--text-primary)', fontSize: '1.1rem' }}>3. Describe the issue (Optional)</label>
+          <label style={{ display: 'block', fontWeight: 900, marginBottom: '1.25rem', color: 'var(--text-primary)', fontSize: '1.1rem' }}>{t.diagnosis.tool.step3}</label>
           <textarea 
             placeholder="e.g. My kitchen sink has been dripping since yesterday morning..."
             value={description}
@@ -217,18 +220,18 @@ export default function DiagnosisTool() {
         >
           {loading ? (
             <>
-              <Loader2 className="animate-spin" size={24} /> Generating AI Insights...
+              <Loader2 className="animate-spin" size={24} /> {t.diagnosis.tool.loading}
             </>
           ) : (
             <>
-              Generate Free AI Diagnosis <ChevronRight size={20} />
+              {t.diagnosis.tool.submit} <ChevronRight size={20} />
             </>
           )}
         </button>
         
         <div style={{ textAlign: 'center', fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 500, padding: '0.5rem' }}>
           <Info size={16} style={{ verticalAlign: 'middle', marginRight: '6px', opacity: 0.7 }} /> 
-          AI estimates are provided for guidance. Verified quotes are provided by specialists.
+          {t.diagnosis.tool.disclaimer}
         </div>
       </div>
       

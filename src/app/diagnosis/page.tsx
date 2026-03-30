@@ -1,14 +1,13 @@
-import { Metadata } from 'next';
+"use client";
+
+import { useTranslation } from '@/components/LanguageContext';
 import DiagnosisTool from '@/components/diagnosis/DiagnosisTool';
 import { Sparkles, ArrowRight, ShieldCheck, Zap, PoundSterling } from 'lucide-react';
 import Link from 'next/link';
 
-export const metadata: Metadata = {
-  title: 'AI Instant Diagnosis | ServiceHub UK',
-  description: 'Get an instant AI-powered diagnosis and price estimate for your home or car repairs. Professional insights in seconds.',
-};
-
 export default function DiagnosisPage() {
+  const { t } = useTranslation();
+
   return (
     <div style={{ backgroundColor: 'var(--bg-secondary)', minHeight: '100vh', padding: '6rem 0' }}>
       <div className="container">
@@ -28,16 +27,16 @@ export default function DiagnosisPage() {
              marginBottom: '1.5rem',
              border: '1px solid var(--border-color)'
            }}>
-             <Sparkles size={18} /> POWERED BY GEMINI AI
+             <Sparkles size={18} /> {t.diagnosis.badge}
            </div>
            
            <h1 style={{ fontSize: '4rem', fontWeight: 950, color: 'var(--text-primary)', marginBottom: '1.5rem', letterSpacing: '-0.03em', lineHeight: 1 }}>
-             Professional Repairs <br />
-             <span style={{ color: 'var(--emerald-600)' }}>Identified In Seconds</span>
+             {t.diagnosis.title1} <br />
+             <span style={{ color: 'var(--emerald-600)' }}>{t.diagnosis.title2}</span>
            </h1>
            
            <p style={{ maxWidth: '700px', margin: '0 auto', fontSize: '1.25rem', color: 'var(--text-muted)', fontWeight: 500, lineHeight: 1.7 }}>
-             Skip the guesswork. Our AI analyzes your photos to provide instant insights, repair scopes, and fair UK price estimates before you book.
+             {t.diagnosis.subtitle}
            </p>
         </div>
 
@@ -58,24 +57,24 @@ export default function DiagnosisPage() {
               <div style={{ width: '50px', height: '50px', borderRadius: '1rem', background: 'var(--accent-soft)', color: 'var(--emerald-600)', display: 'flex', alignItems: 'center', justifyItems: 'center', marginBottom: '1.5rem' }}>
                  <Zap size={28} style={{ margin: 'auto' }} />
               </div>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.75rem' }}>Instant Insights</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>No more waiting for callbacks. Get a technical breakdown of the issue immediately after uploading.</p>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.75rem' }}>{t.diagnosis.features.instant.title}</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>{t.diagnosis.features.instant.desc}</p>
            </div>
 
            <div className="glass-panel stagger-3 reveal active" style={{ padding: '2rem', background: 'var(--surface-1)' }}>
               <div style={{ width: '50px', height: '50px', borderRadius: '1rem', background: 'var(--accent-soft)', color: 'var(--emerald-600)', display: 'flex', alignItems: 'center', justifyItems: 'center', marginBottom: '1.5rem' }}>
                  <PoundSterling size={28} style={{ margin: 'auto' }} />
               </div>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.75rem' }}>Fair Market Pricing</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>We use real-time UK service data to give you an accurate price range for your specific region.</p>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.75rem' }}>{t.diagnosis.features.pricing.title}</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>{t.diagnosis.features.pricing.desc}</p>
            </div>
 
            <div className="glass-panel stagger-4 reveal active" style={{ padding: '2rem', background: 'var(--surface-1)' }}>
               <div style={{ width: '50px', height: '50px', borderRadius: '1rem', background: 'var(--accent-soft)', color: 'var(--emerald-600)', display: 'flex', alignItems: 'center', justifyItems: 'center', marginBottom: '1.5rem' }}>
                  <ShieldCheck size={28} style={{ margin: 'auto' }} />
               </div>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.75rem' }}>Verified Booking</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>Once diagnosed, connect with the top 1% of UK experts who are specialized in your exact problem.</p>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.75rem' }}>{t.diagnosis.features.verified.title}</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>{t.diagnosis.features.verified.desc}</p>
            </div>
         </div>
 
@@ -83,7 +82,7 @@ export default function DiagnosisPage() {
         <div style={{ textAlign: 'center', marginTop: '6rem' }} className="reveal active">
           <Link href="/services">
              <button className="btn" style={{ background: 'transparent', color: 'var(--text-primary)', border: '1.5px solid var(--border-color)', padding: '1rem 3rem' }}>
-               Browse All Services <ArrowRight size={20} />
+               {t.diagnosis.cta} <ArrowRight size={20} />
              </button>
           </Link>
         </div>
