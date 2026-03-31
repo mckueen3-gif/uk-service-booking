@@ -97,12 +97,20 @@ function RegisterForm() {
               <input type="password" name="password" className="premium-input" placeholder="Minimum 6 characters" required minLength={6} disabled={loading} />
             </div>
           </div>
+
+          <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '325ms' }}>
+            <label>Referral Code (Optional)</label>
+            <div className="input-wrapper">
+              <User className="input-icon" size={18} />
+              <input type="text" name="referredBy" className="premium-input" placeholder="e.g. ABC1234" defaultValue={searchParams.get('ref') || ''} disabled={loading} />
+            </div>
+          </div>
           
           <button 
             type="submit" 
             className={`btn btn-primary ${revealed ? 'revealed' : ''}`} 
             disabled={loading} 
-            style={{ width: '100%', padding: '1rem', marginTop: '0.5rem', animationDelay: '350ms' }}
+            style={{ width: '100%', padding: '1rem', marginTop: '1.5rem', animationDelay: '350ms' }}
           >
             {loading ? "Establishing Account..." : "Join ServiceHub"}
             <ChevronRight size={20} />
