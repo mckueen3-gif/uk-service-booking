@@ -38,18 +38,10 @@ export default async function RepairTracker({ params }: { params: Promise<{ id: 
   
   booking.variations = variations;
 
-  // Fetch merchant's completed jobs for commission (needed for payout calculation)
-  const completedJobsCount = await prisma.booking.count({
-    where: {
-      merchantId: booking.merchantId,
-      status: 'COMPLETED'
-    }
-  });
-
   const payout = calculateCarRepairPayout(
     booking.totalAmount - booking.variations.reduce((acc: number, v: any) => acc + v.amount, 0),
     booking.variations,
-    completedJobsCount
+    booking.merchant
   );
 
   const stages = [
