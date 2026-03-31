@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import { 
   Search, Wrench, PenTool, Droplets, Sparkles, Briefcase, GraduationCap, Scale, Calculator,
-  ChevronRight, ChevronLeft, Star, CheckCircle2, MapPin, Navigation, Car, Loader2, ShieldCheck
+  ChevronRight, ChevronLeft, Star, CheckCircle2, MapPin, Navigation, Car, Loader2, ShieldCheck,
+  Users, TrendingUp
 } from 'lucide-react';
 import Link from 'next/link';
 import SearchHero from '@/components/search/SearchHero';
@@ -111,6 +112,79 @@ export default function HomeClient() {
           
           <div style={{ flex: '1 1 300px', height: '400px', zIndex: 1, borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: 'var(--shadow-lg)' }}>
              <img src="/images/ai-diagnosis-hero.png" alt="AI Diagnosis" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+        </div>
+      </section>
+      {/* NEW: Referral Program Passive Income CTA */}
+      <section className="container reveal stagger-1" style={{ maxWidth: '1200px', marginTop: '4rem' }}>
+        <div className="glass-panel" style={{ 
+          padding: '4rem',
+          background: 'linear-gradient(135deg, var(--surface-2) 0%, var(--bg-secondary) 100%)',
+          borderRadius: 'var(--radius-xl)',
+          position: 'relative',
+          overflow: 'hidden',
+          border: '1px solid var(--border-color)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '4rem',
+          flexWrap: 'wrap'
+        }}>
+          {/* Decorative elements */}
+          <div style={{ position: 'absolute', top: '-20px', left: '-20px', width: '100px', height: '100px', borderRadius: '50%', background: 'var(--accent-soft)', opacity: 0.1, zIndex: 0 }}></div>
+          <div style={{ position: 'absolute', bottom: '-40px', right: '-40px', width: '200px', height: '200px', borderRadius: '50%', background: 'var(--accent-soft)', opacity: 0.05, zIndex: 0 }}></div>
+
+          <div style={{ flex: '1 1 500px', zIndex: 1, textAlign: 'inherit' }}>
+            <div style={{ 
+              display: 'inline-flex', 
+              alignItems: 'center', 
+              gap: '0.6rem', 
+              background: 'rgba(5, 150, 105, 0.1)', 
+              color: 'var(--accent-color)', 
+              padding: '0.5rem 1.25rem', 
+              borderRadius: '2rem', 
+              fontSize: '0.85rem', 
+              fontWeight: 800, 
+              marginBottom: '1.5rem',
+              letterSpacing: '0.05em'
+            }}>
+              <Users size={16} /> {t.home.referralCTA.badge}
+            </div>
+            <h2 style={{ fontSize: '3.2rem', fontWeight: 950, marginBottom: '1.5rem', lineHeight: 1.1, color: 'var(--text-primary)', fontFamily: 'var(--font-heading)' }}>
+              {t.home.referralCTA.title}
+            </h2>
+            <p style={{ fontSize: '1.25rem', color: 'var(--text-muted)', marginBottom: '2.5rem', lineHeight: 1.6, fontWeight: 500 }}>
+              {t.home.referralCTA.subtitle}
+            </p>
+            <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
+              <Link href="/dashboard/wallet">
+                <button className="btn btn-primary" style={{ padding: '1.25rem 2.5rem', fontSize: '1.1rem', boxShadow: '0 10px 25px -5px rgba(5, 150, 105, 0.4)' }}>
+                  {t.home.referralCTA.button} <ChevronRight size={20} />
+                </button>
+              </Link>
+            </div>
+          </div>
+
+          <div style={{ flex: '1 1 300px', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1 }}>
+            <div style={{ position: 'relative', width: '100%', maxWidth: '400px' }}>
+               <div className="glass-panel float" style={{ 
+                 background: 'var(--surface-1)', 
+                 padding: '2.5rem', 
+                 borderRadius: '2rem', 
+                 boxShadow: 'var(--shadow-xl)',
+                 display: 'flex',
+                 flexDirection: 'column',
+                 alignItems: 'center',
+                 gap: '1.5rem'
+               }}>
+                 <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'var(--accent-soft)', color: 'var(--accent-color)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <TrendingUp size={40} />
+                 </div>
+                 <div style={{ textAlign: 'center' }}>
+                    <div style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--text-primary)' }}>2%</div>
+                    <div style={{ fontSize: '1rem', color: 'var(--text-muted)', fontWeight: 600 }}>{t.home.referralCTA.badge}</div>
+                 </div>
+               </div>
+            </div>
           </div>
         </div>
       </section>

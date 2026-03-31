@@ -17,53 +17,95 @@ import MaintenanceTimeline from "@/components/dashboard/MaintenanceTimeline";
 import DynamicGreeting from "@/components/dashboard/DynamicGreeting";
 
 export default async function DashboardOverview() {
-  const session = (await getServerSession(authOptions)) as any;
-  
-  if (!session || !session.user) redirect("/auth/login");
-  
-  const user = session.user as any;
-  const isMerchant = user.role === "MERCHANT";
+  try {
+    const session = (await getServerSession(authOptions)) as any;
+    if (!session || !session.user) redirect("/auth/login");
+    const user = session.user as any;
+    const isMerchant = user.role === "MERCHANT";
 
-  // Parallelize data fetching
-  const [dbUser, bookings] = await Promise.all([
-    prisma.user.findUnique({
-      where: { id: user.id },
-      select: { name: true, referralCode: true, referralCredits: true } as any
-    }),
-    prisma.booking.findMany({
-      where: isMerchant ? { merchantId: (await (prisma.merchant as any).findUnique({ where: { userId: user.id } }))?.id } : { customerId: user.id },
-      include: {
-        service: true,
-        customer: true,
-        merchant: { include: { user: true } }
-      },
-      orderBy: { createdAt: 'desc' },
-      take: 20
-    })
-  ]) as [any, any[]];
+    // 1. Get Merchant ID if applicable (Safe check)
+    let merchantId = null;
+    if (isMerchant) {
+      try {
+        const merchantRecord = await (prisma.merchant as any).findUnique({
+          where: { userId: user.id },
+          select: { id: true }
+        });
+        merchantId = merchantRecord?.id;
+      } catch (e) {
+        console.error("Merchant lookup failed:", e);
+      }
+    }
 
-  const merchant = isMerchant ? await (prisma.merchant as any).findUnique({
-    where: { userId: user.id },
-    include: { wallet: true, portfolio: true }
-  }) : null;
+    // 2. Data fetching with safety for new Referral fields
+    // If the DB columns are missing, this query might fail. We wrap it.
+    let dbUser: any = null;
+    let bookings: any[] = [];
+    
+    try {
+      const [u, b] = await Promise.all([
+        prisma.user.findUnique({
+          where: { id: user.id },
+          select: { name: true, referralCode: true, referralCredits: true }
+        }),
+        prisma.booking.findMany({
+          where: isMerchant ? { merchantId: merchantId || "" } : { customerId: user.id },
+          include: {
+            service: true,
+            customer: true,
+            merchant: { include: { user: true } }
+          },
+          orderBy: { createdAt: 'desc' },
+          take: 20
+        })
+      ]);
+      dbUser = u;
+      bookings = b || [];
+    } catch (dbErr) {
+      console.error("Primary DB fetch failed (checking for missing referral columns):", dbErr);
+      // Fallback query without referral fields
+      const [uF, bF] = await Promise.all([
+        prisma.user.findUnique({
+          where: { id: user.id },
+          select: { name: true }
+        }),
+        prisma.booking.findMany({
+          where: isMerchant ? { merchantId: merchantId || "" } : { customerId: user.id },
+          include: {
+            service: true,
+            customer: true,
+            merchant: { include: { user: true } }
+          },
+          orderBy: { createdAt: 'desc' },
+          take: 20
+        })
+      ]);
+      dbUser = { ...uF, referralCredits: 0, referralCode: null };
+      bookings = bF || [];
+    }
 
-  if (!isMerchant) {
-    const activeBooking = bookings.find(b => b.status === 'PENDING' || b.status === 'CONFIRMED');
+    const merchant = isMerchant ? await (prisma.merchant as any).findUnique({
+      where: { userId: user.id },
+      include: { wallet: true, portfolio: true }
+    }).catch(() => null) : null;
 
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
-        {/* Maintenance Advisory Banner */}
-        <div className="glass-panel hover-lift" style={{ 
-          background: 'linear-gradient(135deg, #fff 0%, #fffaf0 100%)', 
-          borderLeft: '5px solid #f59e0b', 
-          padding: '1.5rem 2rem', 
-          borderRadius: '24px', 
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          boxShadow: '0 10px 30px -5px rgba(245, 158, 11, 0.1)',
-          animation: 'fadeIn 0.5s ease-out'
-        }}>
+    if (!isMerchant) {
+      const activeBooking = bookings?.find(b => b.status === 'PENDING' || b.status === 'CONFIRMED');
+
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+          {/* Maintenance Advisory Banner */}
+          <div className="glass-panel hover-lift" style={{ 
+            background: 'linear-gradient(135deg, #fff 0%, #fffaf0 100%)', 
+            borderLeft: '5px solid #f59e0b', 
+            padding: '1.5rem 2rem', 
+            borderRadius: '24px', 
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            boxShadow: '0 10px 30px -5px rgba(245, 158, 11, 0.1)',
+            animation: 'fadeIn 0.5s ease-out'
+          }}>
           <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
             <div style={{ padding: '0.8rem', backgroundColor: '#fef3c7', borderRadius: '16px' }}>
               <AlertTriangle color="#d97706" size={28} />
@@ -225,19 +267,19 @@ export default async function DashboardOverview() {
                     </td>
                   </tr>
                 ))}
-              </tbody>
-            </table>
+                  </tbody>
+                </table>
+              </div>
+            </section>
           </div>
-        </section>
-      </div>
-    );
-  }
+        );
+      }
 
-  // --- Merchant Dashboard (Expert View) ---
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
-      
-      {/* Verification & Stripe Alerts */}
+      // --- Merchant Dashboard (Expert View) ---
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+          
+          {/* Verification & Stripe Alerts */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         {!merchant?.isVerified && (
           <div style={{ background: '#fff7ed', border: '1px solid #ffedd5', borderRadius: '20px', padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -371,4 +413,29 @@ export default async function DashboardOverview() {
       </section>
     </div>
   );
+  } catch (error) {
+    console.error("Dashboard data fetching error:", error);
+    return (
+      <div style={{ padding: '4rem', textAlign: 'center', background: 'var(--surface-1)', borderRadius: '24px', margin: '2rem' }}>
+        <div style={{ backgroundColor: 'var(--error-soft)', width: '64px', height: '64px', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto 1.5rem' }}>
+          <AlertTriangle size={32} color="var(--error-color)" />
+        </div>
+        <h2 style={{ fontSize: '1.8rem', fontWeight: 900, marginBottom: '1rem', color: 'var(--text-primary)' }}>暫時無法載入控制面板</h2>
+        <p style={{ color: 'var(--text-muted)', marginBottom: '2.5rem', maxWidth: '500px', margin: '0 auto 2.5rem' }}>
+          我們在獲取您的數據時遇到一點技術問題。這通常是由於系統同步中，請嘗試重新整理。
+        </p>
+        <Link href="/dashboard" style={{ 
+          backgroundColor: 'var(--accent-color)', 
+          color: 'white', 
+          padding: '0.8rem 2rem', 
+          borderRadius: '12px', 
+          textDecoration: 'none', 
+          fontWeight: 800,
+          boxShadow: '0 4px 12px var(--accent-soft)'
+        }}>
+          重新整理嘗試
+        </Link>
+      </div>
+    );
+  }
 }

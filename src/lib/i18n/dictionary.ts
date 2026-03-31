@@ -36,6 +36,10 @@ export interface Dictionary {
     aiCTA: {
       badge: string; title1: string; title2: string; subtitle: string; button: string;
     };
+      
+    referralCTA: {
+      badge: string; title: string; subtitle: string; button: string;
+    };
     categories: {
       plumbing: string; repairs: string; renovation: string; education: string; accounting: string; legal: string; commercial: string; cleaning: string; car: string;
     };
@@ -178,6 +182,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         subtitle: "Upload a photo of your problem and our AI will identify the issue and give you a UK price estimate in seconds.",
         button: "Try AI Diagnosis Free"
       },
+      referralCTA: { badge: "Refer & Earn", title: "Earn 2% Passive Income", subtitle: "Refer a friend and get 2% on every booking they make for the next 5 years (up to £200 per friend).", button: "Start Earning Passive Income" },
       categories: { plumbing: "Plumbing", repairs: "Repairs", renovation: "Renovation", education: "Education", accounting: "Accounting", legal: "Legal", commercial: "Commercial", cleaning: "Cleaning", car: "Car Services" },
       sections: {
         plumbing: { title: "Plumbing & Electrical", desc: "From emergency leaks to full rewiring, we connect you with UK-certified experts.", items: ["Pipe Repair", "Rewiring", "Installation", "Boiler Service", "Switches", "Smart Home"] },
@@ -307,6 +312,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         subtitle: "上傳您的問題照片，我們的 AI 將在幾秒鐘內識別問題並為您提供英國市場價格預估。",
         button: "免費體驗 AI 診斷"
       },
+      referralCTA: { badge: "推薦獎勵", title: "賺取 2% 被動收入", subtitle: "推薦朋友，之後 5 年內每單您都有 2% 被動佣金（每位朋友最高 £200）。", button: "開始賺取被動佣金" },
       categories: { plumbing: "水電工程", repairs: "居家維修", renovation: "房屋裝修", education: "教育學習", accounting: "會計稅務", legal: "法律諮詢", commercial: "商用服務", cleaning: "清潔打掃", car: "汽車服務" },
       sections: {
         plumbing: { title: "水電工程 (Plumbing)", desc: "從緊急水管漏水、馬桶換修到全屋電路重拉，我們連結全英認證的專業師傅。", items: ["水管維修", "電路重拉", "安裝電器", "熱水器修繕", "開關插座", "智能家居"] },
@@ -429,6 +435,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         subtitle: "अपनी समस्या की फोटो अपलोड करें और हमारा AI सेकंडों में समस्या की पहचान करेगा और आपको कीमत का अनुमान देगा।",
         button: "मुफ्त AI निदान आजमाएं"
       },
+      referralCTA: { badge: "रेफर करें और कमाएं", title: "2% पैसिव इनकम कमाएं", subtitle: "किसी दोस्त को रेफर करें और 5 साल तक उनकी हर बुकिंग पर 2% पाएं (प्रति मित्र £200 तक)।", button: "कमाना शुरू करें" },
       categories: { plumbing: "प्लंबिंग", repairs: "मरम्मत", renovation: "नवीनीकरण", education: "शिक्षा", accounting: "लेखांकन", legal: "कानूनी", commercial: "वाणिज्यिक", cleaning: "सफाई", car: "ऑटोमोबाइल" },
       sections: {
         plumbing: { title: "प्लंबिंग और बिजली", desc: "विशेषज्ञ सेवाएं।", items: ["मरम्मत", "वायरिंग", "स्थापना", "बॉयलर", "स्विच", "स्मार्ट होम"] },
@@ -550,6 +557,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         subtitle: "قم بتحميل صورة لمشكلتك وسيقوم الذكاء الاصطناعي لدينا بتحديد المشكلة وإعطائك تقديرًا للسعر في ثوانٍ.",
         button: "جرب التشخيص المجاني"
       },
+      referralCTA: { badge: "رشح واربح", title: "اربح 2% دخل سلبي", subtitle: "رشح صديقًا واحصل على 2% من كل حجز يقوم به لمدة 5 سنوات (حتى 200 جنيه إسترليني لكل صديق).", button: "ابدأ الكسب" },
       categories: { plumbing: "سباكة", repairs: "إصلاحات", renovation: "ترميم", education: "تعليم", accounting: "محاسبة", legal: "قانون", commercial: "تجاري", cleaning: "تنظيف", car: "سيارات" },
       sections: {
         plumbing: { title: "السباكة والكهرباء", desc: "خبراء معتمدون.", items: ["إصلاح الأنابيب", "توصيلات", "تركيب", "غلايات", "مفاتيح", "منزل ذكي"] },
@@ -671,6 +679,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         subtitle: "問題を写真でアップロードするだけで、AIが原因を特定し、数秒で修理費用の目安を提示します。",
         button: "無料AI診断を試す"
       },
+      referralCTA: { badge: "紹介して稼ぐ", title: "2%の不労所得を獲得", subtitle: "友人を紹介すると、今後5年間のすべての予約で2%（1人あたり最大200ポンド）を受け取れます。", button: "不労所得を開始する" },
       categories: { plumbing: "水道・電気", repairs: "修理", renovation: "リフォーム", education: "教育", accounting: "会計", legal: "法律", commercial: "商用", cleaning: "掃除", car: "自動車" },
       sections: {
         plumbing: { title: "水道と電気", desc: "認証済みの専門家。", items: ["配管修理", "配線", "設置", "ボイラー", "スイッチ", "スマートホーム"] },
@@ -792,6 +801,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         subtitle: "사진을 업로드하면 AI가 문제를 식별하고 몇 초 안에 예상 수리 비용을 알려드립니다.",
         button: "무료 AI 진단 시작"
       },
+      referralCTA: { badge: "추천하고 수익 창출", title: "2% 패시브 인컴 창출", subtitle: "친구를 추천하고 5년 동안 친구의 모든 예약에서 2%를 받으세요 (친구당 최대 £200).", button: "수익 창출 시작" },
       categories: { plumbing: "배관·전기", repairs: "수리", renovation: "리모델링", education: "교육", accounting: "회계", legal: "법률", commercial: "상업", cleaning: "청소", car: "자동차" },
       sections: {
         plumbing: { title: "배관 및 전기", desc: "공인된 전문가 서비스.", items: ["수리", "배선", "설치", "보일러", "스위치", "스마트홈"] },
@@ -913,6 +923,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         subtitle: "Wgraj zdjęcie, a nasza AI zidentyfikuje problem i poda szacunkowy koszt naprawy w kilka sekund.",
         button: "Wypróbuj bezpłatną diagnozę"
       },
+      referralCTA: { badge: "Polecaj i zarabiaj", title: "Zarabiaj 2% dochodu pasywnego", subtitle: "Poleć znajomego i otrzymuj 2% z każdej jego rezerwacji przez 5 lat (do 200 funtów na osobę).", button: "Zacznij zarabiać" },
       categories: { plumbing: "Hydraulika", repairs: "Naprawy", renovation: "Remonty", education: "Edukacja", accounting: "Księgowość", legal: "Prawo", commercial: "Komercyjne", cleaning: "Sprzątanie", car: "Samochody" },
       sections: {
         plumbing: { title: "Hydraulika i elektryka", desc: "Zweryfikowani eksperci.", items: ["Naprawa rur", "Okablowanie", "Instalacje", "Serwis bojlerów", "Włączniki", "Smart Home"] },
@@ -1028,6 +1039,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       hero: { badge: "Cea mai de încredere piață de servicii din UK", title1: "Găsește și Rezervă Experți", title2: "În Secunde.", subtitle: "De la reparații auto de urgență la renovări - profesioniști verificați.", searchPlaceholder: "Ce serviciu aveți nevoie?", locationPlaceholder: "Oraș sau Cod Poștal", aiMatch: "Potrivire AI", searchBtn: "Căutare" },
       recommendation: { title1: "Recomandări Smart", title2: "Descoperire AI", subtitle: "Potrivire precisă a serviciilor", browse: "Răsfoiește Acum" },
       aiCTA: { badge: "NOU: AI POWERED", title1: "Aveți o Reparație?", title2: "Obțineți un Diagnostic Instant.", subtitle: "Încărcați o fotografie și AI-ul nostru va identifica problema și vă va oferi o estimare de preț în secunde.", button: "Încearcă Diagnostic AI Gratuit" },
+      referralCTA: { badge: "Recomandă și câștigă", title: "Câștigă 2% venit pasiv", subtitle: "Recomandă un prieten și primești 2% din fiecare rezervare a sa timp de 5 ani (până la 200 £ per prieten).", button: "Începe să câștigi" },
       categories: { plumbing: "Instalații", repairs: "Reparații", renovation: "Renovări", education: "Educație", accounting: "Contabilitate", legal: "Legal", commercial: "Comercial", cleaning: "Curățenie", car: "Auto" },
       sections: {
         plumbing: { title: "Instalații și Electricitate", desc: "Experți certificați în UK.", items: ["Reparații Tevi", "Cablare", "Instalare", "Service Boiler", "Întrerupătoare", "Smart Home"] },
@@ -1137,6 +1149,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       hero: { badge: "برطانیہ کا سب سے قابل اعتماد سروس مارکیٹ پلیس", title1: "مقامی ماہرین تلاش کریں", title2: "سیکنڈوں میں۔", subtitle: "گاڑی کی مرمت سے لے کر گھر کی تزئین و آرائش تک۔", searchPlaceholder: "آپ کو کیا سروس چاہیے؟", locationPlaceholder: "شہر یا پوسٹ کوڈ", aiMatch: "AI میچ", searchBtn: "تلاش کریں" },
       recommendation: { title1: "اسمارٹ تجاویز", title2: "AI دریافت", subtitle: "آپ کی ضروریات کے مطابق بہترین سروس", browse: "ابھی دیکھیں" },
       aiCTA: { badge: "نیا: AI سے لیس", title1: "مرمت کی ضرورت ہے؟", title2: "فوری AI تشخیص حاصل کریں۔", subtitle: "صرف ایک تصویر اپ لوڈ کریں اور ہمارا AI سیکنڈوں میں مسئلہ پہچان کر قیمت کا اندازہ دے گا۔", button: "مفت AI تشخیص آزمائیں" },
+      referralCTA: { badge: "ریفر کریں اور کمائیں", title: "2% غیر فعال آمدنی کمائیں", subtitle: "دوست کو ریفر کریں اور 5 سال تک ان کی ہر بکنگ پر 2% حاصل کریں (فی دوست £200 تک)۔", button: "کمانا شروع کریں" },
       categories: { plumbing: "پلمبنگ", repairs: "مرمت", renovation: "تزئین و آرائش", education: "تعلیم", accounting: "اکاؤنٹنگ", legal: "قانونی", commercial: "تجارتی", cleaning: "صفائی", car: "گاڑی کی سروس" },
       sections: {
         plumbing: { title: "پلمبنگ اور بجلی", desc: "تصدیق شدہ ماہرین۔", items: ["پائپ کی مرمت", "وائرنگ", "انسٹالیشن", "بوائلر سروس", "سوئچز", "اسمارٹ ہوم"] },
@@ -1254,6 +1267,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       hero: { badge: "ਯੂਕੇ ਦਾ ਸਭ ਤੋਂ ਭਰੋਸੇਮੰਦ ਸਰਵਿਸ ਮਾਰਕੀਟਪਲੇਸ", title1: "ਸਥਾਨਕ ਮਾਹਰ ਲੱਭੋ", title2: "ਸਕਿੰਟਾਂ ਵਿੱਚ।", subtitle: "ਕਾਰ ਦੀ ਮੁਰੰਮਤ ਤੋਂ ਲੈ ਕੇ ਘਰ ਦੀ ਸਜਾਵਟ ਤੱਕ।", searchPlaceholder: "ਤੁਹਾਨੂੰ ਕੀ ਚਾਹੀਦਾ ਹੈ?", locationPlaceholder: "ਸ਼ਹਿਰ ਜਾਂ ਪੋਸਟ ਕੋਡ", aiMatch: "AI ਮੈਚ", searchBtn: "ਖੋਜ" },
       recommendation: { title1: "ਸਮਾਰਟ ਸਿਫਾਰਸ਼ਾਂ", title2: "AI ਖੋਜ", subtitle: "ਤੁਹਾਡੀਆਂ ਜ਼ਰੂਰਤਾਂ ਦੇ ਅਨੁਸਾਰ", browse: "ਹੁਣੇ ਦੇਖੋ" },
       aiCTA: { badge: "ਨਵਾਂ: AI ਦੁਆਰਾ ਸੰਚਾਲਿਤ", title1: "ਮੁਰੰਮਤ ਦੀ ਲੋੜ ਹੈ?", title2: "ਤੁਰੰਤ AI ਨਿਦਾਨ ਪ੍ਰਾਪਤ ਕਰੋ।", subtitle: "ਇੱਕ ਫੋਟੋ ਅਪਲੋਡ ਕਰੋ ਅਤੇ ਸਾਡਾ AI ਸਕਿੰਟਾਂ ਵਿੱਚ ਸਮੱਸਿਆ ਦੀ ਪਛਾਣ ਕਰੇਗਾ।", button: "ਮੁਫਤ AI ਨਿਦਾਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ" },
+      referralCTA: { badge: "ਰੈਫਰ ਕਰੋ ਅਤੇ ਕਮਾਓ", title: "2% ਪੈਸਿਵ ਇਨਕਮ ਕਮਾਓ", subtitle: "ਕਿਸੇ ਦੋਸਤ ਨੂੰ ਰੈਫਰ ਕਰੋ ਅਤੇ 5 ਸਾਲਾਂ ਤੱਕ ਉਨ੍ਹਾਂ ਦੀ ਹਰ ਬੁਕਿੰਗ 'ਤੇ 2% ਪ੍ਰਾਪਤ ਕਰੋ (ਪ੍ਰਤੀ ਦੋਸਤ £200 ਤੱਕ)।", button: "ਕਮਾਉਣਾ ਸ਼ੁਰੂ ਕਰੋ" },
       categories: { plumbing: "ਪਲੰਬਿੰਗ", repairs: "ਮੁਰੰਮਤ", renovation: "ਸਜਾਵਟ", education: "ਸਿੱਖਿਆ", accounting: "ਲੇਖਾਕਾਰੀ", legal: "ਕਾਨੂੰਨੀ", commercial: "ਵਪਾਰਕ", cleaning: "ਸਫਾਈ", car: "ਕਾਰ ਸੇਵਾਵਾਂ" },
       sections: {
         plumbing: { title: "ਪਲੰਬਿੰਗ ਅਤੇ ਬਿਜਲੀ", desc: "ਪ੍ਰਮਾਣਿਤ ਮਾਹਰ।", items: ["ਮੁਰੰਮਤ", "ਵਾਇਰਿੰਗ", "ਸਥਾਪਨਾ", "ਬੋਇਲਰ", "ਸਵਿੱਚ", "ਸਮਾਰਟ ਹੋਮ"] },
