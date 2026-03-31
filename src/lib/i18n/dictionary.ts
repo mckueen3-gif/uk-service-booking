@@ -257,9 +257,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "Please scroll to the bottom of the agreement to confirm your acceptance.",
         agree: "I have read and agree to the Expert Services Agreement",
         clauses: {
-          commission: { title: "1. Service Fees & Commission", body: "ServiceHub charges a fixed 10% commission on successful bookings. Payments are processed securely via the platform." },
-          service: { title: "2. Quality Standards", body: "Experts must maintain a minimum rating of 4.0 and respond to inquiries within 24 hours to remain active." },
-          disputes: { title: "3. Dispute Resolution", body: "All disputes are mediated by our AI Arbiter. Evidence from the job record and photos will be used for final decisions." }
+          commission: { title: "1. Platform Service Fees & Growth Incentives", body: "ServiceHub applies a competitive 8% platform access fee on successful bookings. To support your business growth, your first 5 orders are 100% commission-free. Fees are automatically deducted from the final payout." },
+          service: { title: "2. Service Excellence & UK Compliance", body: "Partners must maintain a minimum rating of 4.2 and respond to inquiries within 24 hours. You certify that you hold all valid UK licenses and insurance relevant to your trade." },
+          disputes: { title: "3. AI-Powered Dispute Resolution & Smart Matching", body: "Our proprietary AI Arbiter provides instant and impartial resolution. Through AI Smart Matching technology, we ensure you receive the most accurate local instant booking orders." }
         }
       },
       buttons: { start: "Get Started", next: "Continue", back: "Go Back", submit: "Sign and Join" }
@@ -386,9 +386,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "請滾動至合約底部以確認接受條款。",
         agree: "我已閱讀並同意專家服務協議",
         clauses: {
-          commission: { title: "1. 服務費用與佣金", body: "ServiceHub 對成功的預約收取固定 10% 的佣金。款項將經由平台安全處理。" },
-          service: { title: "2. 服務品質標準", body: "專家必須保持 4.0 以上的評分，並在 24 小時內回覆諮詢以維持活躍狀態。" },
-          disputes: { title: "3. 糾紛處理機制", body: "所有爭議均由 AI 裁決器調解。工作記錄與照片將作為最終判決的證據。" }
+          commission: { title: "1. 平台服務費與增長激勵", body: "ServiceHub 對成功的預約收取具競爭力的 8% 平台訪問費。為了支持您的業務成長，您的前 5 筆訂單 100% 免佣金。費用將從最終結算中自動扣除。" },
+          service: { title: "2. 卓越服務與英國合規性", body: "合作夥伴必須保持 4.2 以上的評分，並在 24 小時內回覆諮詢。您證明您持有與您的行業相關的所有有效英國執照與保險。" },
+          disputes: { title: "3. AI 驅動的糾紛解決與智能匹配", body: "我們專有的 AI 裁決器提供即時且公正的調解。透過 AI 智能匹配技術，我們確保您收到最精確的在地即時預約訂單。" }
         }
       },
       buttons: { start: "立即開始", next: "繼續下一步", back: "返回", submit: "簽署並入駐" }
@@ -508,9 +508,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "कृपया अपनी स्वीकृति की पुष्टि करने के लिए अनुबंध के नीचे तक स्क्रॉल करें।",
         agree: "मैंने विशेषज्ञ सेवा अनुबंध पढ़ लिया है और मैं इससे सहमत हूँ",
         clauses: {
-          commission: { title: "1. सेवा शुल्क और कमीशन", body: "ServiceHub सफल बुकिंग पर 10% का निश्चित कमीशन लेता है। भुगतान सुरक्षित रूप से प्लेटफ़ॉर्म के माध्यम से संसाधित किए जाते हैं।" },
-          service: { title: "2. गुणवत्ता मानक", body: "विशेषज्ञों को सक्रिय रहने के लिए 4.0 की न्यूनतम रेटिंग बनाए रखनी होगी और 24 घंटों के भीतर पूछताछ का जवाब देना होगा।" },
-          disputes: { title: "3. विवाद समाधान", body: "सभी विवादों की मध्यस्थता हमारे AI मध्यस्थ द्वारा की जाती है। कार्य रिकॉर्ड और तस्वीरों के साक्ष्यों का उपयोग अंतिम निर्णयों के लिए किया जाएगा।" }
+          commission: { title: "1. प्लेटफ़ॉर्म सेवा शुल्क और विकास प्रोत्साहन", body: "ServiceHub सफल बुकिंग पर प्रतिस्पर्धी 8% प्लेटफ़ॉर्म एक्सेस शुल्क लागू करता है। आपके व्यवसाय के विकास का समर्थन करने के लिए, आपके पहले 5 ऑर्डर 100% कमीशन-मुक्त हैं। शुल्क स्वचालित रूप से अंतिम भुगतान से काट लिए जाते हैं।" },
+          service: { title: "2. सेवा उत्कृष्टता और यूके अनुपालन", body: "साझेदारों को न्यूनतम 4.2 की रेटिंग बनाए रखनी चाहिए और 24 घंटों के भीतर पूछताछ का जवाब देना चाहिए। आप प्रमाणित करते हैं कि आपके पास अपने व्यापार से संबंधित सभी वैध यूके लाइसेंस और बीमा हैं।" },
+          disputes: { title: "3. AI-संचालित विवाद समाधान और स्मार्ट मैचिंग", body: "हमारा प्रोप्रायटरी AI मध्यस्थ त्वरित और निष्पक्ष समाधान प्रदान करता है। AI स्मार्ट मैचिंग तकनीक के माध्यम سے, हम सुनिश्चित करते हैं कि आपको सबसे सटीक स्थानीय तत्काल बुकिंग ऑर्डर प्राप्त हों।" }
         }
       },
       buttons: { start: "शुरू करें", next: "जारी रखें", back: "पीछे जाएं", submit: "हस्ताक्षर करें और शामिल हों" }
@@ -629,9 +629,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "يرجى التمرير إلى أسفل الاتفاقية لتأكيد قبولك.",
         agree: "لقد قرأت وأوافق على اتفاقية خدمات الخبراء",
         clauses: {
-          commission: { title: "1. رسوم الخدمة والعمولة", body: "تتقاضى ServiceHub عمولة ثابتة بنسبة 10% على الحجوزات الناجحة. يتم معالجة المدفوعات بشكل آمن عبر المنصة." },
-          service: { title: "2. معايير الجودة", body: "يجب على الخبراء الحفاظ على حد أدنى للتقييم يبلغ 4.0 والرد على الاستفسارات في غضون 24 ساعة للبقاء نشطين." },
-          disputes: { title: "3. حل النزاعات", body: "تتم الوساطة في جميع النزاعات بواسطة محكم الذكاء الاصطناعي الخاص بنا. سيتم استخدام الأدلة من سجل الوظيفة والصور لاتخاذ القرارات النهائية." }
+          commission: { title: "1. رسوم خدمة المنصة وحوافز النمو", body: "تطبق ServiceHub رسوم وصول تنافسية بنسبة 8% على الحجوزات الناجحة. لدعم نمو عملك، تكون أول 5 طلبات لك معفية من العمولات بنسبة 100%. يتم خصم الرسوم تلقائيًا من الدفعة النهائية." },
+          service: { title: "2. التميز في الخدمة والامتثال في المملكة المتحدة", body: "يجب على الشركاء الحفاظ على حد أدنى للتقييم يبلغ 4.2 والرد على الاستفسارات في غضون 24 ساعة. أنت تقر بأنك تحمل جميع التراخيص والتأمينات الصالحة في المملكة المتحدة والمتعلقة بمهنتك." },
+          disputes: { title: "3. حل النزاعات المدعوم بالذكاء الاصطناعي والمطابقة الذكية", body: "يوفر محكم الذكاء الاصطناعي الخاص بنا حلاً فوريًا وغير متحيز. من خلال تقنية AI Smart Matching، نضمن حصولك على أدق طلبات الحجز الفوري المحلية." }
         }
       },
       buttons: { start: "ابدأ الآن", next: "متابعة", back: "رجوع", submit: "التوقيع والانضمام" }
@@ -750,9 +750,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "同意を確認するため、契約書の最後までスクロールしてください。",
         agree: "専門家サービス契約を読み、同意します",
         clauses: {
-          commission: { title: "1. サービス料と手数料", body: "ServiceHubは予約成功時に一律10%の手数料を申し受けます。お支払いはプラットフォームを通じて安全に処理されます。" },
-          service: { title: "2. 品質基準", body: "専門家は活動を継続するために、最低評価4.0を維持し、問い合わせには24時間以内に回答する必要があります。" },
-          disputes: { title: "3. 紛争解決", body: "すべての紛争は当社のAI仲裁者によって調停されます。最終的な決定には、業務記録と写真の証拠が使用されます。" }
+          commission: { title: "1. プラットフォーム利用料と成長支援インセンティブ", body: "ServiceHubでは、成約時に競争力のある8%のプラットフォーム利用料を適用しています。皆様のビジネス成長を支援するため、最初の5件の注文については、100%手数料無料（0%）とさせていただきます。手数料は最終的な支払いから自動的に差し引かれます。" },
+          service: { title: "2. サービス品質と英国コンプライアンス", body: "パートナーは活動を継続するために、最低評価4.2を維持し、問い合わせには24時間以内に回答する必要があります。また、ご自身の職種に関連する有効な英国のライセンスと保険を保持していることを保証するものとします。" },
+          disputes: { title: "3. AI仲裁とスマートマッチングによる紛争解決", body: "当社独自のAI仲裁者が、迅速かつ公平な解決策を提供します。AIスマートマッチング技術を通じて、最も正確な地元の即時予約注文を確実に受け取れるようにします。" }
         }
       },
       buttons: { start: "始める", next: "次へ", back: "戻る", submit: "署名して参加" }
@@ -871,9 +871,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "동의를 확인하려면 약관의 맨 아래로 스크롤하십시오.",
         agree: "전문가 서비스 약관을 읽었으며 이에 동의합니다",
         clauses: {
-          commission: { title: "1. 서비스 요금 및 수수료", body: "ServiceHub은 예약 성공 시 10%의 고정 수수료를 부과합니다. 결제는 플랫폼을 통해 안전하게 처리됩니다." },
-          service: { title: "2. 품질 표준", body: "전문가는 활동을 유지하기 위해 최소 평점 4.0을 유지하고 문의에 24시간 이내에 응답해야 합니다." },
-          disputes: { title: "3. 분쟁 해결", body: "모든 분쟁은 당사의 AI 중재자가 조정합니다. 최종 결정에는 작업 기록 및 사진 증거가 사용됩니다." }
+          commission: { title: "1. 플랫폼 서비스 수수료 및 성장 인센티브", body: "ServiceHub은 예약 성공 시 경쟁력 있는 8%의 플랫폼 이용료를 적용합니다. 귀하의 비즈니스 성장을 지원하기 위해 처음 5개의 주문에 대해서는 수수료가 100% 면제됩니다. 수수료는 최종 지급액에서 자동으로 차감됩니다." },
+          service: { title: "2. 서비스 우수성 및 영국 규정 준수", body: "파트너는 4.2점 이상의 최소 평점을 유지하고 24시간 이내에 문의에 응답해야 합니다. 귀하는 해당 업종과 관련된 모든 유효한 영국 라이선스 및 보험을 보유하고 있음을 인증해야 합니다." },
+          disputes: { title: "3. AI 기반 분쟁 해결 및 스마트 매칭", body: "당사의 독점적인 AI 중재자가 즉각적이고 공정한 해결책을 제공합니다. AI 스마트 매칭 기술을 통해 가장 정확한 현지 실시간 예약 주문을 받을 수 있습니다." }
         }
       },
       buttons: { start: "시작하기", next: "계속하기", back: "뒤로 가기", submit: "서명 및 가입" }
@@ -992,9 +992,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "Przewiń do dołu umowy, aby potwierdzić akceptację.",
         agree: "Przeczytałem i zgadzam się na Umowę o świadczenie usług eksperckich",
         clauses: {
-          commission: { title: "1. Opłaty i prowizje", body: "ServiceHub pobiera stałą prowizję w wysokości 10% od udanych rezerwacji. Płatności są przetwarzane bezpiecznie za pośrednictwem platformy." },
-          service: { title: "2. Standardy jakości", body: "Eksperci muszą utrzymywać minimalną ocenę 4,0 i odpowiadać na zapytania w ciągu 24 godzin, aby pozostać aktywnymi." },
-          disputes: { title: "3. Rozstrzyganie sporów", body: "Wszystkie spory są rozstrzygane przez naszego arbitra AI. Dowody z rejestru prac i zdjęcia będą wykorzystywane do podejmowania ostatecznych decyzji." }
+          commission: { title: "1. Opłaty serwisowe i zachęty do wzrostu", body: "ServiceHub stosuje konkurencyjną opłatę za dostęp do platformy w wysokości 8% od udanych rezerwacji. Aby wspierać rozwój Twojego biznesu, Twoje pierwsze 5 zamówień jest w 100% wolne od prowizji. Opłaty są automatycznie potrącane z ostatecznej wypłaty." },
+          service: { title: "2. Doskonałość usług i zgodność z przepisami UK", body: "Partnerzy muszą utrzymywać minimalną ocenę 4,2 i odpowiadać na zapytania w ciągu 24 godzin. Potwierdzasz, że posiadasz wszystkie ważne licencje i ubezpieczenia w Wielkiej Brytanii odpowiednie dla Twojego zawodu." },
+          disputes: { title: "3. Rozstrzyganie sporów wspomagane przez AI i inteligentne dopasowanie", body: "Nasz autorski arbiter AI zapewnia natychmiastowe i bezstronne rozstrzygnięcie. Dzięki technologii AI Smart Matching zapewniamy otrzymywanie najdokładniejszych lokalnych zamówień natychmiastowych." }
         }
       },
       buttons: { start: "Zacznij teraz", next: "Kontynuuj", back: "Wróć", submit: "Podpisz i dołącz" }
@@ -1101,9 +1101,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "Vă rugăm să derulați până la sfârșitul acordului pentru a confirma acceptarea.",
         agree: "Am citit și sunt de acord cu Acordul de Servicii pentru Experți",
         clauses: {
-          commission: { title: "1. Taxe de servicii și Comision", body: "ServiceHub percepe un comision fix de 10% pentru rezervările reușite. Plățile sunt procesate în siguranță prin intermediul platformei." },
-          service: { title: "2. Standarde de Calitate", body: "Experții trebuie să mențină un rating minim de 4,0 și să răspundă la întrebări în termen de 24 de ore pentru a rămâne activi." },
-          disputes: { title: "3. Rezolvarea Disputelor", body: "Toate disputele sunt intermediate de Arbitrul nostru AI. Probele din evidența lucrărilor și fotografiile vor fi folosite pentru deciziile finale." }
+          commission: { title: "1. Taxă de acces la platformă și stimulente de creștere", body: "ServiceHub aplică o taxă de acces la platformă competitivă de 8% pentru rezervările reușite. Pentru a sprijini creșterea afacerii tale, primele 5 comenzi sunt 100% fără comision. Taxele sunt deduse automat din plata finală." },
+          service: { title: "2. Excelență în servicii și conformitate cu reglementările UK", body: "Partenerii trebuie să mențină un rating minim de 4.2 și să răspundă la solicitări în termen de 24 de ore. Certifici că deții toate licențele și asigurările valabile în Regatul Unit relevante pentru profesia ta." },
+          disputes: { title: "3. Rezolvarea disputelor prin AI și potrivire inteligentă", body: "Arbitrul nostru AI proprietar oferă o rezoluție instantanee și imparțială. Prin tehnologia AI Smart Matching, ne asigurăm că primești cele mai precise comenzi de rezervare instantanee la nivel local." }
         }
       },
       buttons: { start: "Începe acum", next: "Continuă", back: "Înapoi", submit: "Semnează și Alătură-te" }
@@ -1210,9 +1210,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "براہ کرم اپنی قبولیت کی تصدیق کے لیے معاہدے کے آخر تک سکرول کریں۔",
         agree: "میں نے ماہر سروسز کا معاہدہ پڑھ لیا ہے اور میں اس سے متفق ہوں",
         clauses: {
-          commission: { title: "1. سروس فیس اور کمیشن", body: "ServiceHub کامیاب بکنگ پر 10% کا مقررہ کمیشن لیتا ہے۔ ادائیگیاں پلیٹ فارم کے ذریعے محفوظ طریقے سے کی جاتی ہیں۔" },
-          service: { title: "2. معیار کے معیارات", body: "ماہرین کو فعال رہنے کے لیے 4.0 کی کم از کم ریٹنگ برقرار رکھنی ہوگی اور 24 گھنٹے کے اندر پوچھ گچھ کا جواب دینا ہوگا۔" },
-          disputes: { title: "3. تنازعات کا حل", body: "تمام تنازعات کی ثالثی ہمارے AI ثالث کے ذریعے کی جاتی ہے۔ کام کے ریکارڈ اور تصاویر کے ثبوت حتمی فیصلوں کے لیے استعمال کیے جائیں گے۔" }
+          commission: { title: "1. پلیٹ فارم سروس فیس اور گروتھ کے مراعات", body: "سروس ہب کامیاب بکنگ پر 8 فیصد پلیٹ فارم رسائی فیس لاگو کرتا ہے۔ آپ کے کاروبار کی ترقی میں مدد کے لیے، آپ کے پہلے 5 آرڈرز 100 فیصد کمیشن سے پاک ہیں۔ فیسیں خود بخود آخری ادائیگی سے منہا کر دی جاتی ہیں۔" },
+          service: { title: "2. سروس کی عمدگی اور برطانیہ کی تعمیل", body: "شراکت داروں کو کم از کم 4.2 کی درجہ بندی برقرار رکھنی چاہیے اور 24 گھنٹے کے اندر پوچھ گچھ کا جواب دینا چاہیے۔ آپ تصدیق کرتے ہیں کہ آپ کے پاس برطانیہ کے تمام درست لائسنس اور انشورنس موجود ہیں۔" },
+          disputes: { title: "3. AI سے چلنے والے تنازعات کا حل اور اسمارٹ میچنگ", body: "ہمارا اپنا AI ثالث فوری اور منصفانہ حل فراہم کرتا ہے۔ AI اسمارٹ میچنگ ٹیکنالوجی کے ذریعے، ہم اس بات کو یقینی بناتے ہیں کہ آپ کو مقامی فوری بکنگ کے درست ترین آرڈرز ملیں۔" }
         }
       },
       buttons: { start: "شروع کریں", next: "جاری رکھیں", back: "پیچھے جائیں", submit: "سائن کریں اور شامل ہوں" }
@@ -1222,12 +1222,20 @@ export const dictionaries: Record<Locale, Dictionary> = {
     nav: { browse: "ਸੇਵਾਵਾਂ ਦੇਖੋ", join: "ਮਾਹਰ ਵਜੋਂ ਸ਼ਾਮਲ ਹੋਵੋ", login: "ਲੌਗਇਨ", logout: "ਲੌਗਆਊਟ", dashboard: "ਡੈਸ਼ਬੋਰਡ", aiDiagnosis: "AI ਨਿਦਾਨ" },
     hero: { title: "ਅਸੀਂ ਤੁਹਾਡੀ ਕੀ ਮਦਦ ਕਰ ਸਕਦੇ ਹਾਂ?", subtitle: "FAQ ਖੋਜੋ ਅਤੇ ਤੁਰੰਤ ਸਹਾਇਤਾ ਪ੍ਰਾਪਤ ਕਰੋ।", searchPlaceholder: "ਰਿਫੰਡ, ਝਗੜੇ, ਬੁਕਿੰਗ ਮੁੱਦਿਆਂ ਦੀ ਖੋਜ ਕਰੋ...", badge: "ਸਹਾਇਤਾ ਕੇਂਦਰ" },
     faq: { 
-      title: "ਸਮਾਰਟ FAQ", subtitle: "ਭੁਗਤਾਨਾਂ ਅਤੇ ਝਗੜਿਆਂ ਬਾਰੇ ਅਧਿਕਾਰਤ ਜਵਾਬ।", categories: { payments: "ਭੁਗਤਾਨ", disputes: "ਝਗੜੇ", bookings: "ਭੁਗਤਾਨ" }, 
-      aura: { title: "ਹੋਰ ਸਹਾਇਤਾ ਚਾਹੀਦੀ ਹੈ?", subtitle: "Aura AI 1-ਨਾਲ-1 ਮਾਰਗਦਰਸ਼ਨ ਪ੍ਰਦਾਨ ਕਰਦਾ ਹੈ।", cta: "ਹੁਣੇ ਗੱਲ ਕਰੋ" },
+      title: "ਸਮਾਰਟ FAQ", subtitle: "ਭੁਗਤਾਨਾਂ, ਸੁਰੱਖਿਆ ਅਤੇ ਝਗੜਿਆਂ ਬਾਰੇ ਅਧਿਕਾਰਤ ਜਵਾਬ।", categories: { payments: "ਭੁਗਤਾਨ", disputes: "ਝਗੜੇ", bookings: "ਬੁਕਿੰਗ" }, 
+      aura: { title: "ਹੋਰ ਸਹਾਇਤਾ ਚਾਹੀਦੀ ਹੈ?", subtitle: "Aura AI 1-ਨਾਲ-1 ਕਾਨੂੰਨੀ ਅਤੇ ਸੇਵਾ ਮਾਰਗਦਰਸ਼ਨ ਪ੍ਰਦਾਨ ਕਰਦਾ ਹੈ।", cta: "ਹੁਣੇ ਗੱਲ ਕਰੋ" },
       questions: {
-        payments: [{ q: "ਕੀ ਮੈਂ ਕ੍ਰੈਡਿਟ ਕਾਰਡ ਨਾਲ ਭੁਗਤਾਨ ਕਰ ਸਕਦਾ ਹਾਂ?", a: "ਹਾਂ, ਅਸੀਂ ਸਾਰੇ ਪ੍ਰਮੁੱਖ ਕਾਰਡਾਂ ਦਾ ਸਮਰਥਨ ਕਰਦੇ ਹਾਂ।" }, { q: "ਰਿਫੰਡ ਲਈ ਕਿਵੇਂ ਅਪਲਾਈ ਕਰੀਏ?", a: "ਤੁਸੀਂ 24 ਘੰਟਿਆਂ ਦੇ ਅੰਦਰ ਸਿਸਟਮ ਰਾਹੀਂ ਅਪਲਾਈ ਕਰ ਸਕਦੇ ਹੋ।" }],
-        disputes: [{ q: "ਜੇ ਮਾਹਰ ਨਾ ਆਵੇ?", a: "ਰਿਫੰਡ ਲਈ ਆਰਡਰ ਪੰਨੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।" }, { q: "ਵਾਧੂ ਖਰਚੇ ਲਾਜ਼ਮੀ ਹਨ?", a: "ਨਹੀਂ। ਤੁਹਾਡੀ ਪੁਸ਼ਟੀ ਤੋਂ ਬਿਨਾਂ ਨਹੀਂ।" }],
-        bookings: [{ q: "ਤਰੀਕ ਕਿਵੇਂ ਬਦਲੀਏ?", a: "48 ਘੰਟੇ ਪਹਿਲਾਂ ਮੁਫਤ ਤਬਦੀਲੀ।" }]
+        payments: [
+          { q: "ਕੀ ਮੈਂ ਕ੍ਰੈਡਿਟ ਕਾਰਡ ਨਾਲ ਭੁਗਤਾਨ ਕਰ ਸਕਦਾ ਹਾਂ?", a: "ਹਾਂ, ਅਸੀਂ ਸਾਰੇ ਪ੍ਰਮੁੱਖ ਕ੍ਰੈਡਿਟ/ਡੈਬਿਟ ਕਾਰਡਾਂ ਦਾ ਸਮਰਥਨ ਕਰਦੇ ਹਾਂ।" },
+          { q: "ਰਿਫੰਡ ਲਈ ਕਿਵੇਂ ਅਪਲਾਈ ਕਰੀਏ?", a: "ਤੁਸੀਂ ਕੰਮ ਪੂਰਾ ਹੋਣ ਦੇ 24 ਘੰਟਿਆਂ ਦੇ ਅੰਦਰ ਸਿਸਟਮ ਰਾਹੀਂ ਅਪਲਾਈ ਕਰ ਸਕਦੇ ਹੋ।" }
+        ],
+        disputes: [
+          { q: "ਜੇ ਮਾਹਰ ਨਾ ਆਵੇ ਤਾਂ ਕੀ ਕਰੀਏ?", a: "ਰਿਫੰਡ ਪ੍ਰਕਿਰਿਆ ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਆਰਡਰ ਪੰਨੇ 'ਤੇ 'ਮਰਚੈਂਟ ਨੋ-ਸ਼ੋਅ' 'ਤੇ ਕਲਿੱਕ ਕਰੋ।" },
+          { q: "ਕੀ ਵਾਧੂ ਲਾਗਤਾਂ ਲਾਜ਼ਮੀ ਹਨ?", a: "ਨਹੀਂ। ਵਾਧੂ ਖਰਚੇ ਸਿਸਟਮ ਰਾਹੀਂ ਜਮ੍ਹਾ ਕੀਤੇ ਜਾਣੇ ਚਾਹੀਦੇ ਹਨ ਅਤੇ ਤੁਹਾਡੇ ਦੁਆਰਾ ਪੁਸ਼ਟੀ ਕੀਤੇ ਜਾਣੇ ਚਾਹੀਦੇ ਹਨ।" }
+        ],
+        bookings: [
+          { q: "ਬੁਕਿੰਗ ਦਾ ਸਮਾਂ ਕਿਵੇਂ ਬਦਲੀਏ?", a: "ਤੁਸੀਂ 48 ਘੰਟੇ ਪਹਿਲਾਂ ਮੁਫਤ ਵਿੱਚ ਸਮਾਂ ਬਦਲ ਸਕਦੇ ਹੋ।" }
+        ]
       }
     },
     footer: { tagline: "ਯੂਕੇ ਦੀ ਪ੍ਰੀਮੀਅਮ ਸਰਵਿਸ ਮਾਰਕੀਟਪਲੇਸ।", explore: "ਸੇਵਾਵਾਂ ਦੀ ਪੜਚੋਲ ਕਰੋ", legal: "ਕਾਨੂੰਨੀ ਅਤੇ ਪਾਲਣਾ", support: "ਗਾਹਕ ਸਹਾਇਤਾ", rights: "ਸਾਰੇ ਹੱਕ ਰਾਖਵੇਂ ਹਨ।", terms: "ਸ਼ਰਤਾਂ", privacy: "ਪਰਾਈਵੇਸੀ", cookies: "ਕੂਕੀਜ਼", help: "ਸਹਾਇਤਾ ਕੇਂਦਰ", contact: "ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ", aiDiagnosis: "AI ਨਿਦਾਨ", homeCleaning: "ਘਰ ਦੀ ਸਫਾਈ", plumbingServices: "ਪਲੰਬਿੰਗ ਸੇਵਾਵਾਂ", automotiveServices: "ਆਟੋਮੋਟਿਵ ਸੇਵਾਵਾਂ" },
@@ -1319,9 +1327,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀ ਸਵੀਕ੍ਰਿਤੀ ਦੀ ਪੁਸ਼ਟੀ ਕਰਨ ਲਈ ਇਕਰਾਰਨਾਮੇ ਦੇ ਹੇਠਾਂ ਤੱਕ ਸਕ੍ਰੋਲ ਕਰੋ।",
         agree: "ਮੈਂ ਮਾਹਰ ਸੇਵਾਵਾਂ ਦਾ ਇਕਰਾਰਨਾਮਾ ਪੜ੍ਹ ਲਿਆ ਹੈ ਅਤੇ ਮੈਂ ਇਸ ਨਾਲ ਸਹਿਮਤ ਹਾਂ",
         clauses: {
-          commission: { title: "1. ਸੇਵਾ ਫੀਸ ਅਤੇ ਕਮਿਸ਼ਨ", body: "ServiceHub ਸਫਲ ਬੁਕਿੰਗਾਂ 'ਤੇ 10% ਦਾ ਨਿਸ਼ਚਿਤ ਕਮਿਸ਼ਨ ਲੈਂਦਾ ਹੈ। ਭੁਗਤਾਨ ਪਲੇਟਫਾਰਮ ਰਾਹੀਂ ਸੁਰੱਖਿਅਤ ਢੰਗ ਨਾਲ ਕੀਤੇ ਜਾਂਦੇ ਹਨ।" },
-          service: { title: "2. ਗੁਣਵੱਤਾ ਮਿਆਰ", body: "ਮਾਹਰਾਂ ਨੂੰ ਸਰਗਰਮ ਰਹਿਣ ਲਈ 4.0 ਦੀ ਘੱਟੋ-ਘੱਟ ਰੇਟਿੰਗ ਬਣਾਈ ਰੱਖਣੀ ਚਾਹੀਦੀ ਹੈ ਅਤੇ 24 ਘੰਟਿਆਂ ਦੇ ਅੰਦਰ ਪੁੱਛਗਿੱਛ ਦਾ ਜਵਾਬ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ।" },
-          disputes: { title: "3. ਝਗੜਿਆਂ ਦਾ ਹੱਲ", body: "ਸਾਰੇ ਝਗੜਿਆਂ ਦੀ ਵਿਚੋਲਗੀ ਸਾਡੇ AI ਆਰਬੀਟਰ ਦੁਆرا ਕੀਤੀ ਜਾਂਦੀ ਹੈ। ਕੰਮ ਦੇ ਰਿਕਾਰਡ ਅਤੇ ਫੋਟੋਆਂ ਦੇ ਸਬੂਤ ਅੰਤਿਮ ਫੈਸਲਿਆਂ ਲਈ ਵਰਤੇ ਜਾਣਗੇ।" }
+          commission: { title: "1. ਪਲੇਟਫਾਰਮ ਸੇਵਾ ਫੀਸ ਅਤੇ ਵਿਕਾਸ ਪ੍ਰੋਤਸਾਹਨ", body: "ServiceHub ਸਫਲ ਬੁਕਿੰਗਾਂ 'ਤੇ ਇਕ ਪ੍ਰਤੀਯੋਗੀ 8% ਪਲੇਟਫਾਰਮ ਪਹੁੰਚ ਫੀਸ ਲਾਗੂ ਕਰਦਾ ਹੈ। ਤੁਹਾਡੇ ਕਾਰੋਬਾਰ ਦੇ ਵਿਕਾਸ ਵਿੱਚ ਸਹਾਇਤਾ ਲਈ, ਤੁਹਾਡੇ ਪਹਿਲੇ 5 ਆਰਡਰ 100% ਕਮਿਸ਼ਨ-ਮੁਕਤ ਹਨ। ਫੀਸਾਂ ਅੰਤਿਮ ਭੁਗਤਾਨ ਵਿੱਚੋਂ ਆਪਣੇ ਆਪ ਕੱਟੀਆਂ ਜਾਂਦੀਆਂ ਹਨ।" },
+          service: { title: "2. ਸੇਵਾ ਉੱਤਮਤਾ ਅਤੇ ਯੂਕੇ ਪਾਲਣਾ", body: "ਭਾਈਵਾਲਾਂ ਨੂੰ ਘੱਟੋ-ਘੱਟ 4.2 ਦੀ ਰੇਟਿੰਗ ਬਣਾਈ ਰੱਖਣੀ ਚਾਹੀਦੀ ਹੈ ਅਤੇ 24 ਘੰਟਿਆਂ ਦੇ ਅੰਦਰ ਪੁੱਛਗਿੱਛ ਦਾ ਜਵਾਬ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ। ਤੁਸੀਂ ਤਸਦੀਕ ਕਰਦੇ ਹੋ ਕਿ ਤੁਹਾਡੇ ਕੋਲ ਆਪਣੇ ਵਪਾਰ ਨਾਲ ਸਬੰਧਤ ਸਾਰੇ ਵੈਧ ਯੂਕੇ ਲਾਇਸੈਂਸ ਅਤੇ ਬੀਮਾ ਹਨ।" },
+          disputes: { title: "3. AI-ਪਾਵਰਡ ਡਿਸਪਿਊਟ ਰੈਜ਼ੋਲੂਸ਼ਨ ਅਤੇ ਸਮਾਰਟ ਮੈਚਿੰਗ", body: "ਸਾਰੇ ਝਗੜਿਆਂ ਦੀ ਵਿਚੋਲਗੀ ਸਾਡੇ AI ਆਰਬੀਟਰ ਦੁਆرا ਕੀਤੀ ਜਾਂਦੀ ਹੈ। ਕੰਮ ਦੇ ਰਿਕਾਰਡ ਅਤੇ ਫੋਟੋਆਂ ਦੇ ਸਬੂਤ ਅੰਤਿਮ ਫੈਸਲਿਆਂ ਲਈ ਵਰਤੇ ਜਾਣਗੇ।" }
         }
       },
       buttons: { start: "ਸ਼ੁਰੂ ਕਰੋ", next: "ਜਾਰੀ ਰੱਖੋ", back: "ਪਿੱਛੇ ਜਾਓ", submit: "ਸਾਈਨ ਕਰੋ ਅਤੇ ਸ਼ਾਮਲ ਹੋਵੋ" }

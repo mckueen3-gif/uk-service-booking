@@ -1,15 +1,14 @@
-import OpenAI from "openai";
-
-const XAI_API_KEY = process.env.XAI_API_KEY || "";
-
 // Lazy instance holder
-let _grok: OpenAI | null = null;
+let _grok: any = null;
 
-function getGrokClient() {
-  if (!XAI_API_KEY) throw new Error("XAI_API_KEY is missing");
+async function getGrokClient() {
+  const apiKey = process.env.XAI_API_KEY;
+  if (!apiKey) throw new Error("XAI_API_KEY is missing");
+  
   if (!_grok) {
+    const { default: OpenAI } = await import("openai");
     _grok = new OpenAI({
-      apiKey: XAI_API_KEY,
+      apiKey: apiKey,
       baseURL: "https://api.x.ai/v1",
     });
   }
@@ -37,13 +36,14 @@ export async function getGrokDiagnosis(
   description: string,
   locale: string
 ): Promise<GrokDiagnosisOutput | null> {
-  if (!XAI_API_KEY) {
+  if (!process.env.XAI_API_KEY) {
     console.warn("[Grok] API Key missing, skipping Grok diagnosis.");
     return null;
   }
 
   try {
-    const response = await getGrokClient().chat.completions.create({
+    const client = await getGrokClient();
+    const response = await client.chat.completions.create({
       model: "grok-2-vision-1212",
       messages: [
         {

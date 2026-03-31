@@ -1,25 +1,29 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import OpenAI from "openai";
-
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY || "";
-const XAI_API_KEY = process.env.XAI_API_KEY || "";
-
 // Lazy instance holders
-let _genAI: GoogleGenerativeAI | null = null;
-let _xai: OpenAI | null = null;
+let _genAI: any = null;
+let _xai: any = null;
 
-function getGeminiClient() {
-  if (!GEMINI_API_KEY) throw new Error("GEMINI_API_KEY is missing");
-  if (!_genAI) _genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+async function getGeminiClient() {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) throw new Error("GEMINI_API_KEY is missing");
+  
+  if (!_genAI) {
+    const { GoogleGenerativeAI } = await import("@google/generative-ai");
+    _genAI = new GoogleGenerativeAI(apiKey);
+  }
   return _genAI;
 }
 
-function getXAIClient() {
-  if (!XAI_API_KEY) throw new Error("XAI_API_KEY is missing");
-  if (!_xai) _xai = new OpenAI({ 
-    apiKey: XAI_API_KEY, 
-    baseURL: "https://api.x.ai/v1" 
-  });
+async function getXAIClient() {
+  const apiKey = process.env.XAI_API_KEY;
+  if (!apiKey) throw new Error("XAI_API_KEY is missing");
+
+  if (!_xai) {
+    const { default: OpenAI } = await import("openai");
+    _xai = new OpenAI({ 
+      apiKey: apiKey, 
+      baseURL: "https://api.x.ai/v1" 
+    });
+  }
   return _xai;
 }
 
@@ -72,7 +76,7 @@ export async function generateAIContent(req: AIRequest): Promise<string> {
   }
 
   // 1. Try Grok (Primary)
-  if (XAI_API_KEY) {
+  if (process.env.XAI_API_KEY) {
     try {
       console.info("[AI Provider] Attempting Primary (xAI Grok)...");
       const grokMessages: any[] = [];
@@ -97,7 +101,8 @@ export async function generateAIContent(req: AIRequest): Promise<string> {
         }
       }
 
-      const response = await getXAIClient().chat.completions.create({
+      const client = await getXAIClient();
+      const response = await client.chat.completions.create({
         model: req.image ? "grok-2-vision-1212" : "grok-2-1212",
         messages: grokMessages,
         response_format: req.jsonMode ? { type: "json_object" } : undefined,
@@ -112,12 +117,13 @@ export async function generateAIContent(req: AIRequest): Promise<string> {
   }
 
   // 2. Fallback to Gemini (Secondary)
-  if (!GEMINI_API_KEY) {
+  if (!process.env.GEMINI_API_KEY) {
     throw new Error("No AI API Keys configured (XAI_API_KEY and GEMINI_API_KEY are missing)");
   }
 
   console.info("[AI Provider] Attempting Fallback (Google Gemini 1.5 Flash)...");
-  const model = getGeminiClient().getGenerativeModel({ model: "gemini-1.5-flash" });
+  const geminiClient = await getGeminiClient();
+  const model = geminiClient.getGenerativeModel({ model: "gemini-1.5-flash" });
 
   const contents = messages.map((m, idx) => {
     const parts: any[] = [{ text: m.content }];

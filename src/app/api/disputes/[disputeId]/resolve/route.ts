@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { generateAIContent } from '@/lib/ai-provider';
+
+export const dynamic = "force-dynamic";
 import { sendPlatformEmail, getDisputeResolvedTemplate } from '@/lib/email';
 
 // This endpoint represents the revolutionary AI Arbiter logic
 export async function POST(req: Request, { params }: { params: Promise<{ disputeId: string }> }) {
-  const ai = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
   try {
     const { disputeId } = await params;
     const body = await req.json();
@@ -35,18 +36,16 @@ export async function POST(req: Request, { params }: { params: Promise<{ dispute
       RULES:
       - If Merchant demands > 200% of base price without extraordinary reason, lean REFUND_CUSTOMER.
       - If Customer rejects logically justified physical damage (like broken hidden pipes) that has photo proof, lean FORCE_PAYOUT (pay the merchant for call-out or parts).
-      - Do NOT use markdown code blocks like \`\`\`json. Just output the raw JSON string.
     `;
 
-    // Invoke Gemini 1.5 Pro (The Arbiter)
-    const model = ai.getGenerativeModel({ model: 'gemini-1.5-flash' });
-    const result = await model.generateContent(systemPrompt);
-    const response = await result.response;
-    const textOutput = response.text() || "{}";
+    // Invoke unified AI provider (The Arbiter)
+    const textOutput = await generateAIContent({
+      prompt: "Perform dispute arbitration based on the provided context.",
+      systemPrompt,
+      jsonMode: true
+    });
     
-    // Clean potential markdown blocks
-    const cleanedJson = textOutput.replace(/```json/g, '').replace(/```/g, '').trim();
-    const verdict = JSON.parse(cleanedJson);
+    const verdict = JSON.parse(textOutput);
 
     // Update the database with the AI's ruling
     // await prisma.dispute.update({

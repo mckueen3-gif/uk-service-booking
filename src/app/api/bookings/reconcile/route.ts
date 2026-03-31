@@ -1,9 +1,7 @@
 import { NextResponse } from 'next/server';
-import Stripe from 'stripe';
+import { getStripeClient } from '@/lib/stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-01-27' as any,
-});
+export const dynamic = "force-dynamic";
 
 /**
  * API for Booking Reconciliation (Automated Refund on Price Decrease)
@@ -13,6 +11,7 @@ export async function POST(
   req: Request
 ) {
   try {
+    const stripe = await getStripeClient();
     const { finalPrice, escrowAmount, paymentIntentId, bookingId } = await req.json();
 
     if (finalPrice >= escrowAmount) {

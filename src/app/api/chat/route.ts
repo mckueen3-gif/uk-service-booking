@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
-import { GoogleGenerativeAI } from '@google/generative-ai';
 import { getMaintenanceTimeline } from '@/app/actions/maintenance';
+import { generateAIContent } from '@/lib/ai-provider';
+
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
-  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
   try {
     const { messages } = await req.json();
     
@@ -45,27 +46,17 @@ export async function POST(req: Request) {
       - If unsure about a specific legal liability, always refer to the full Terms of Service.
     `;
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-    // Format history for Gemini
-    const chat = model.startChat({
-      history: messages.slice(0, -1).map((m: any) => ({
-        role: m.role === 'user' ? 'user' : 'model',
-        parts: [{ text: m.content }],
+    // Use unified AI provider (Lazy Loaded & Build-Safe)
+    const content = await generateAIContent({
+      messages: messages.map((m: any) => ({
+        role: m.role,
+        content: m.content
       })),
-      generationConfig: {
-        maxOutputTokens: 500,
-      },
+      systemPrompt,
+      jsonMode: false
     });
 
-    const userMessage = messages[messages.length - 1].content;
-    const prompt = `System Instructions: ${systemPrompt}\n\nUser: ${userMessage}`;
-    
-    const result = await chat.sendMessage(prompt);
-    const response = await result.response;
-    const text = response.text();
-
-    return NextResponse.json({ content: text });
+    return NextResponse.json({ content });
   } catch (error) {
     console.error('Chat API Error:', error);
     return NextResponse.json({ error: 'Failed to generate response' }, { status: 500 });

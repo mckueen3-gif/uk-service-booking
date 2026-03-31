@@ -3,10 +3,11 @@
 import { revalidatePath } from 'next/cache';
 import { sendBookingConfirmationEmail, sendMerchantJobAlert } from '@/lib/mail';
 import { prisma } from '@/lib/prisma';
-import { stripe } from '@/lib/stripe';
+import { getStripeClient } from '@/lib/stripe';
 
 export async function finalizeBooking(sessionId: string) {
   try {
+    const stripe = await getStripeClient();
     const session = await stripe.checkout.sessions.retrieve(sessionId);
     if (session.payment_status !== 'paid') {
       return { error: "Payment not completed" };

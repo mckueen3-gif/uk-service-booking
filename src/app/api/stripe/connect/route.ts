@@ -2,10 +2,13 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
-import { stripe } from '@/lib/stripe';
+import { getStripeClient } from '@/lib/stripe';
+
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {
+    const stripe = await getStripeClient();
     const session = await getServerSession(authOptions);
     const user = session?.user as any;
     
