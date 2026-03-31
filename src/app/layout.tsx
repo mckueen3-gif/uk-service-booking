@@ -18,6 +18,7 @@ import { LocationProvider } from "@/components/LocationContext";
 import { ThemeProvider } from "@/components/ThemeContext";
 import { AppNavbar, AppFooter } from "@/app/components/ClientLayout";
 import { AuthProvider } from "@/app/components/AuthProvider";
+import { GoogleMapsProvider } from "@/components/GoogleMapProvider";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-body" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-heading" });
@@ -52,22 +53,24 @@ export default async function RootLayout({
     <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
       <body>
         <ScrollProgress />
-        <AuthProvider>
-          <ThemeProvider>
-            <LanguageProvider>
-              <LocationProvider>
-                <AppNavbar session={session} />
-                <main className="main-content" style={{ paddingTop: '80px' }}>
-                  {children}
-                </main>
-                <AppFooter />
-                <AIChatbot />
-                <CookieBanner />
-                <NotificationHub /> 
-              </LocationProvider>
-            </LanguageProvider>
-          </ThemeProvider>
-        </AuthProvider>
+        <GoogleMapsProvider>
+          <AuthProvider>
+            <ThemeProvider>
+              <LanguageProvider>
+                <LocationProvider>
+                  <AppNavbar session={session} />
+                  <main className="main-content" style={{ paddingTop: '80px' }}>
+                    {children}
+                  </main>
+                  <AppFooter />
+                  <AIChatbot />
+                  <CookieBanner />
+                  <NotificationHub /> 
+                </LocationProvider>
+              </LanguageProvider>
+            </ThemeProvider>
+          </AuthProvider>
+        </GoogleMapsProvider>
       </body>
     </html>
   );

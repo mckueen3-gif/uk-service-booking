@@ -1,9 +1,12 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
-import { MapPin, Star, X, ExternalLink, Navigation } from 'lucide-react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import { GoogleMap, OverlayView, OverlayViewF } from '@react-google-maps/api';
+import { MapPin, Star, X, ExternalLink, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslation } from "@/components/LanguageContext";
+import { useGoogleMaps, MAP_STYLES } from './GoogleMapProvider';
+import SimulatedMap from './SimulatedMap';
 
 interface Merchant {
   id: string;
@@ -13,42 +16,90 @@ interface Merchant {
   totalReviews: number;
   latitude?: number;
   longitude?: number;
+  city: string;
   isAiRecommended?: boolean;
-  aiScore?: number;
+  isVerified?: boolean;
 }
 
 interface MapViewProps {
   merchants: Merchant[];
+  onSearchInBounds?: (bounds: { sw: { lat: number, lng: number }, ne: { lat: number, lng: number } }) => void;
 }
 
-export default function MapView({ merchants }: MapViewProps) {
+const MAP_CONTAINER_STYLE = {
+  width: '100%',
+  height: '100%',
+};
+
+const DEFAULT_CENTER = {
+  lat: 51.5074, // London
+  lng: -0.1278
+};
+
+export default function MapView({ merchants, onSearchInBounds }: MapViewProps) {
   const { t, isRTL } = useTranslation();
+  const { isLoaded, loadError } = useGoogleMaps();
   const [selectedMerchant, setSelectedMerchant] = useState<Merchant | null>(null);
+  const [map, setMap] = useState<google.maps.Map | null>(null);
+  const [showSearchButton, setShowSearchButton] = useState(false);
 
-  // Helper to map real coordinates to SVG 0-100% space
-  const mappedMerchants = useMemo(() => {
-    if (merchants.length === 0) return [];
+  // Filter valid coordinates
+  const validMerchants = useMemo(() => {
+    return merchants.filter(m => m.latitude && m.longitude);
+  }, [merchants]);
+
+  // Calculate center of all merchants
+  const center = useMemo(() => {
+    if (validMerchants.length === 0) return DEFAULT_CENTER;
     
-    // Find min/max bounds or use a fixed city-center bound
-    const lats = merchants.map(m => m.latitude).filter(l => l !== null) as number[];
-    const lngs = merchants.map(m => m.longitude).filter(l => l !== null) as number[];
+    const lats = validMerchants.map(m => m.latitude as number);
+    const lngs = validMerchants.map(m => m.longitude as number);
     
-    // Default bounds covering common UK cities if data is missing
-    const minLat = lats.length > 0 ? Math.min(...lats) - 0.05 : 51.3;
-    const maxLat = lats.length > 0 ? Math.max(...lats) + 0.05 : 51.7;
-    const minLng = lngs.length > 0 ? Math.min(...lngs) - 0.05 : -0.2;
-    const maxLng = lngs.length > 0 ? Math.max(...lngs) + 0.05 : 0.2;
+    return {
+      lat: (Math.min(...lats) + Math.max(...lats)) / 2,
+      lng: (Math.min(...lngs) + Math.max(...lngs)) / 2
+    };
+  }, [validMerchants]);
 
-    const latRange = maxLat - minLat || 0.1;
-    const lngRange = maxLng - minLng || 0.1;
+  const onMapLoad = useCallback((mapInstance: google.maps.Map) => {
+    setMap(mapInstance);
+    
+    // Auto-fit bounds if multiple merchants found
+    if (validMerchants.length > 1) {
+      const bounds = new google.maps.LatLngBounds();
+      validMerchants.forEach(m => {
+        bounds.extend({ lat: m.latitude!, lng: m.longitude! });
+      });
+      mapInstance.fitBounds(bounds);
+    }
+  }, [validMerchants]);
 
-    return merchants.map((m, idx) => {
-      // Map coordinates to 10-90% to avoid edge clipping
-      const y = 90 - (( (m.latitude || (minLat + latRange * (0.2 + (idx % 5) / 10))) - minLat) / latRange) * 80;
-      const x = 10 + (((m.longitude || (minLng + lngRange * (0.2 + (idx % 7) / 10))) - minLng) / lngRange) * 80;
-      
-      return { ...m, x, y };
+  const handleHandleCameraMove = () => {
+    if (onSearchInBounds) {
+      setShowSearchButton(true);
+    }
+  };
+
+  const executeSearchInBounds = () => {
+    if (!map || !onSearchInBounds) return;
+    
+    const bounds = map.getBounds();
+    if (!bounds) return;
+
+    const sw = bounds.getSouthWest();
+    const ne = bounds.getNorthEast();
+
+    onSearchInBounds({
+      sw: { lat: sw.lat(), lng: sw.lng() },
+      ne: { lat: ne.lat(), lng: ne.lng() }
     });
+    
+    setShowSearchButton(false);
+  };
+
+  // Reset search button when merchants update from outside
+  useEffect(() => {
+    setShowSearchButton(false);
   }, [merchants]);
 
   return (
@@ -56,86 +107,133 @@ export default function MapView({ merchants }: MapViewProps) {
       position: 'relative', 
       width: '100%', 
       height: '650px', 
-      backgroundColor: 'var(--surface-1)', 
       borderRadius: '2rem', 
       overflow: 'hidden',
       border: '2px solid var(--border-color)',
       boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.1)',
-      direction: 'ltr' // Always LTR for the coordinate system
+      direction: 'ltr'
     }}>
-      {/* Google Style Map Background */}
-      <div style={{ 
-        position: 'absolute', 
-        inset: 0, 
-        backgroundColor: '#f8f9fa' // Google Land Color
-      }} />
-      
-      {/* Simulated Road Grid */}
-      <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} viewBox="0 0 100 100" preserveAspectRatio="none">
-        <defs>
-          <pattern id="roadGrid" width="20" height="20" patternUnits="userSpaceOnUse">
-             <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#ffffff" strokeWidth="2" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#roadGrid)" />
-        
-        {/* River (Thames-like) */}
-        <path d="M 0 60 Q 30 70 50 60 T 100 50" stroke="#aadaff" strokeWidth="8" fill="none" opacity="0.8" />
-        
-        {/* Parks */}
-        <rect x="10" y="10" width="15" height="15" fill="#e6f4ea" rx="2" />
-        <rect x="70" y="20" width="20" height="10" fill="#e6f4ea" rx="2" />
-        <circle cx="40" cy="30" r="5" fill="#e6f4ea" />
-      </svg>
+      {!isLoaded ? (
+        <div className="glass-panel" style={{ padding: '5rem', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+           Loading Google Maps Engine...
+        </div>
+      ) : loadError ? (
+        <SimulatedMap 
+          merchants={validMerchants} 
+          selectedMerchant={selectedMerchant}
+          onSelect={(m: Merchant) => setSelectedMerchant(m)}
+          onClose={() => setSelectedMerchant(null)}
+        />
+      ) : (
+        <>
+          <GoogleMap
+            mapContainerStyle={MAP_CONTAINER_STYLE}
+            center={center}
+            zoom={12}
+            onLoad={onMapLoad}
+            onDragStart={() => handleHandleCameraMove()}
+            onZoomChanged={() => handleHandleCameraMove()}
+            options={{
+              styles: MAP_STYLES,
+              disableDefaultUI: false,
+              zoomControl: true,
+              streetViewControl: true,
+              mapTypeControl: false,
+              fullscreenControl: true,
+            }}
+          >
+            {validMerchants.map(m => (
+              <OverlayViewF
+                key={m.id}
+                position={{ lat: m.latitude!, lng: m.longitude! }}
+                mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+              >
+                <div style={{ transform: 'translate(-50%, -100%)', position: 'absolute' }}>
+                  <button
+                    onClick={() => setSelectedMerchant(m)}
+                    className={`map-pin-btn ${m.isAiRecommended ? 'ai-pulse' : ''}`}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      padding: 0,
+                      cursor: 'pointer',
+                      zIndex: m.isAiRecommended ? 25 : (selectedMerchant?.id === m.id ? 20 : 10),
+                      transition: 'all 0.3s cubic-bezier(0.19, 1, 0.22, 1)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center'
+                    }}
+                  >
+                    {/* Premium Price Tag */}
+                    <div style={{ 
+                      backgroundColor: 'white', 
+                      color: 'var(--text-primary)',
+                      padding: '4px 12px',
+                      borderRadius: '2rem',
+                      fontWeight: 800,
+                      fontSize: '0.85rem',
+                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                      border: `1.5px solid ${m.isAiRecommended ? '#fbbc04' : (selectedMerchant?.id === m.id ? 'var(--accent-color)' : 'rgba(16, 185, 129, 0.1)')}`,
+                      marginBottom: '2px',
+                      transition: 'all 0.2s',
+                      zIndex: 2,
+                      whiteSpace: 'nowrap'
+                    }}>
+                      £{m.basePrice}
+                    </div>
 
-      {/* Pins */}
-      {mappedMerchants.map(m => (
-        <button
-          key={m.id}
-          onClick={() => setSelectedMerchant(m)}
-          className={`map-pin-btn ${m.isAiRecommended ? 'ai-pulse' : ''}`}
-          style={{
-            position: 'absolute',
-            left: `${m.x}%`,
-            top: `${m.y}%`,
-            transform: 'translate(-50%, -100%)',
-            background: 'none',
-            border: 'none',
-            padding: 0,
-            cursor: 'pointer',
-            zIndex: m.isAiRecommended ? 25 : (selectedMerchant?.id === m.id ? 20 : 10),
-            transition: 'all 0.3s cubic-bezier(0.19, 1, 0.22, 1)'
-          }}
-        >
-          <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            {/* Price Tag (Google Style) */}
-            <div style={{ 
-              backgroundColor: 'white', 
-              color: 'var(--text-primary)',
-              padding: '4px 10px',
-              borderRadius: '2rem',
-              fontWeight: 800,
-              fontSize: '0.85rem',
-              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-              border: `1px solid var(--border-color)`,
-              marginBottom: '2px',
-              transition: 'all 0.2s',
-              zIndex: 2
-            }}>
-              £{m.basePrice}
-            </div>
+                    {/* Professional Pin */}
+                    <div style={{ 
+                        color: m.isAiRecommended ? '#fbbc04' : (selectedMerchant?.id === m.id ? 'var(--accent-color)' : '#ea4335'),
+                        transform: selectedMerchant?.id === m.id ? 'scale(1.2)' : 'scale(1)',
+                        transition: 'transform 0.2s'
+                    }}>
+                        <MapPin size={34} fill="currentColor" stroke="white" strokeWidth={1.5} />
+                    </div>
+                  </button>
+                </div>
+              </OverlayViewF>
+            ))}
+          </GoogleMap>
 
-            {/* Pin Icon */}
-            <div style={{ 
-                color: m.isAiRecommended ? '#fbbc04' : (selectedMerchant?.id === m.id ? 'var(--accent-color)' : '#ea4335'),
-                transform: selectedMerchant?.id === m.id ? 'scale(1.2)' : 'scale(1)',
-                transition: 'transform 0.2s'
-            }}>
-                <MapPin size={32} fill="currentColor" stroke="white" strokeWidth={1.5} />
-            </div>
-          </div>
-        </button>
-      ))}
+          {/* Search This Area Button */}
+          {showSearchButton && (
+            <button
+              onClick={executeSearchInBounds}
+              style={{
+                position: 'absolute',
+                top: '20px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                backgroundColor: 'var(--surface-1)',
+                color: 'var(--accent-color)',
+                padding: '0.75rem 1.5rem',
+                borderRadius: '2rem',
+                border: '1px solid var(--accent-color)',
+                boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1)',
+                fontWeight: 800,
+                fontSize: '0.9rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                cursor: 'pointer',
+                zIndex: 40,
+                transition: 'all 0.2s'
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--accent-color)';
+                e.currentTarget.style.color = 'white';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--surface-1)';
+                e.currentTarget.style.color = 'var(--accent-color)';
+              }}
+            >
+              <RefreshCw size={16} /> {t.search.searchThisArea || 'Search this area'}
+            </button>
+          )}
+        </>
+      )}
 
       {/* Info Card Overlay */}
       {selectedMerchant && (
@@ -153,7 +251,7 @@ export default function MapView({ merchants }: MapViewProps) {
           overflow: 'hidden',
           zIndex: 30,
           border: '1px solid var(--border-color)',
-          backdropFilter: 'blur(10px)',
+          backdropFilter: 'blur(12px)',
           direction: isRTL ? 'rtl' : 'ltr'
         }}>
           <div style={{ width: '120px', height: '140px', backgroundColor: 'var(--accent-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -179,7 +277,7 @@ export default function MapView({ merchants }: MapViewProps) {
                     backgroundColor: '#fef3c7', color: '#92400e', padding: '2px 8px', borderRadius: '4px', fontSize: '0.7rem', fontWeight: 800,
                     display: 'flex', alignItems: 'center', gap: '4px', border: '1px solid #fde68a'
                 }}>
-                   ✨ AI 最佳匹配 (Best Match)
+                   ✨ AI BEST MATCH
                 </span>
               )}
             </div>
@@ -208,17 +306,18 @@ export default function MapView({ merchants }: MapViewProps) {
       )}
 
       {/* Map Tooltips */}
-      <div style={{ position: 'absolute', top: '24px', [isRTL ? 'left' : 'right']: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-        <div style={{ 
-          padding: '0.6rem 1.25rem', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)', 
-          borderRadius: '1rem', boxShadow: 'var(--shadow-md)', display: 'flex', alignItems: 'center', gap: '8px' 
-        }}>
-           <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: 'var(--accent-color)' }} />
-           <span style={{ fontSize: '0.85rem', fontWeight: 700 }}>{merchants.length} {t.search.foundCount}</span>
+      {!selectedMerchant && (
+        <div style={{ position: 'absolute', top: '24px', [isRTL ? 'left' : 'right']: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div style={{ 
+            padding: '0.6rem 1.25rem', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)', 
+            borderRadius: '1rem', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', display: 'flex', alignItems: 'center', gap: '8px' 
+          }}>
+            <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: 'var(--accent-color)' }} />
+            <span style={{ fontSize: '0.85rem', fontWeight: 700 }}>{merchants.length} {t.search.foundCount}</span>
+          </div>
         </div>
-      </div>
+      )}
       
-      {/* Style Overrides and Animations */}
       <style jsx>{`
         .map-pin-btn:hover {
           transform: translate(-50%, -105%) scale(1.1) !important;

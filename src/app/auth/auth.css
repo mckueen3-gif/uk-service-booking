@@ -1,0 +1,201 @@
+/* Auth Premium Mesh Background */
+.auth-page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 1.5rem;
+  background-color: var(--bg-primary);
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(160, 84%, 39%, 0.18) 0px, transparent 50%),
+    radial-gradient(at 50% 0%, hsla(168, 71%, 34%, 0.12) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(160, 84%, 39%, 0.18) 0px, transparent 50%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Abstract Grid Overlay - Sharpened Emerald Tint */
+.auth-page-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(16, 185, 129, 0.08) 1.5px, transparent 1.5px), 
+    linear-gradient(90deg, rgba(16, 185, 129, 0.08) 1.5px, transparent 1.5px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(circle at center, black, transparent 90%);
+  /* opacity: 0.08; REMOVED as we colorized the grid directly */
+  pointer-events: none;
+}
+
+/* Premium Card - Enhanced Glassmorphism */
+.auth-card {
+  width: 100%;
+  max-width: 500px;
+  padding: 3rem;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  box-shadow: 
+    0 30px 60px -12px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(16, 185, 129, 0.1);
+  animation: cardAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: var(--font-heading), sans-serif; /* APPLY OUTFIT */
+}
+
+@keyframes cardAppear {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Hero Title Tweaks */
+.hero-title {
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  font-weight: 800;
+}
+
+/* Premium Input Group */
+.input-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.input-group.revealed {
+  animation: fieldFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fieldFadeIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  color: var(--text-secondary);
+  transition: color 0.3s;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 1.15rem;
+  color: #64748b;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.premium-input {
+  width: 100%;
+  padding: 1rem 1.15rem 1rem 3.15rem;
+  /* Premium frosted-white box color */
+  background: rgba(16, 185, 129, 0.04);
+  border: 1.5px solid rgba(16, 185, 129, 0.12);
+  border-radius: 14px;
+  font-family: var(--font-heading), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.premium-input::placeholder {
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+.premium-input:focus {
+  outline: none;
+  background: white;
+  border-color: var(--accent-color);
+  box-shadow: 
+    0 0 0 4px rgba(16, 185, 129, 0.12),
+    0 10px 15px -3px rgba(16, 185, 129, 0.1);
+  transform: translateY(-2px);
+}
+
+.input-wrapper:focus-within .input-icon {
+  color: var(--accent-color);
+  transform: scale(1.15) translateX(2px);
+}
+
+/* Enhanced Primary Button */
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-color), #047857) !important;
+  border: none !important;
+  color: white !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  box-shadow: 0 10px 20px -10px rgba(16, 185, 129, 0.4);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 15px 25px -10px rgba(16, 185, 129, 0.5);
+}
+
+/* Fancy OR Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.75rem 0;
+}
+
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1.5px;
+  background: rgba(16, 185, 129, 0.12);
+}
+
+.divider span {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* Glass Social Button */
+.btn-social {
+  width: 100%;
+  background: white;
+  border: 1.5px solid rgba(16, 185, 129, 0.12);
+  color: var(--text-primary);
+  padding: 1rem;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.btn-social:hover {
+  background: rgba(16, 185, 129, 0.03);
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px -5px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 640px) {
+  .auth-card {
+    padding: 2.5rem 1.75rem;
+  }
+}

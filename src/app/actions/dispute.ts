@@ -90,7 +90,7 @@ export async function runAIArbiter(disputeId: string) {
 
   try {
     // Stage 1: Call Gemini Vision
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
     let aiOutput = null;
 

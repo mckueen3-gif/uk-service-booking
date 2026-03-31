@@ -7,13 +7,14 @@ import { authOptions } from "@/lib/auth";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 
-export async function getAIDiagnosis(imageUrl: string, category: string, description?: string) {
+export async function getAIDiagnosis(imageUrl: string, category: string, locale: string = 'en', description?: string) {
   try {
     const session = (await getServerSession(authOptions)) as any;
     const userId = session?.user?.id;
 
-    // Use Gemini 1.5 Flash for speed and multi-modal capabilities
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+    // Using 'gemini-flash-latest' as recommended for stable API access
+    console.info(`[AI Diagnosis] Running diagnosis for category: ${category}, locale: ${locale}, using model: gemini-flash-latest`);
+    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
     const prompt = `
       You are an expert AI Diagnostic Assistant for a premium UK Service Marketplace (ServiceHub).
@@ -31,11 +32,12 @@ export async function getAIDiagnosis(imageUrl: string, category: string, descrip
       4. Provide a confidence score (0.0 to 1.0).
 
       IMPORTANT: Be professional, concise, and helpful. 
+      You MUST provide the values for "issue" and "suggestedFix" in the following language: ${locale}.
 
       Return a JSON response ONLY (no markdown blocks or preamble):
       {
-        "issue": "Specific problem identified",
-        "suggestedFix": "Detailed professional advice",
+        "issue": "Specific problem identified in ${locale}",
+        "suggestedFix": "Detailed professional advice in ${locale}",
         "estimatedPriceRange": "£X - £Y",
         "confidence": 0.85
       }

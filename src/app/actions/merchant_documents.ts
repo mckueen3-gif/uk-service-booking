@@ -50,7 +50,7 @@ export async function processLicenseWithAI(documentId: string) {
   if (!doc || !doc.fileUrl) return;
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
     
     // Fetch image
     const response = await fetch(doc.fileUrl);

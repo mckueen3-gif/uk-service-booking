@@ -9,15 +9,27 @@ import { getAIDiagnosis } from '@/app/actions/diagnosis';
 import DiagnosisResult from './DiagnosisResult';
 import { useTranslation } from '@/components/LanguageContext';
 
+interface AIDiagnosisResult {
+  id: string;
+  category: string;
+  issue: string;
+  suggestedFix: string;
+  estimatedPriceRange: string;
+  confidence: number;
+  imageUrl: string;
+  createdAt: Date;
+}
+
 export default function DiagnosisTool() {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   
+  // Reactive categories to ensure language switching works instantly
   const CATEGORIES = [
-    { id: 'Plumbing', label: t.diagnosis.tool.categories.plumbing, icon: '🚰' },
-    { id: 'Automotive', label: t.diagnosis.tool.categories.auto, icon: '🚗' },
-    { id: 'Renovation', label: t.diagnosis.tool.categories.renovation, icon: '🏠' },
-    { id: 'Electrical', label: t.diagnosis.tool.categories.electrical, icon: '⚡' },
-    { id: 'Cleaning', label: t.diagnosis.tool.categories.cleaning, icon: '✨' },
+    { id: 'Plumbing', label: t.diagnosis?.tool?.categories?.plumbing || "水電工程", icon: '🚰' },
+    { id: 'Automotive', label: t.diagnosis?.tool?.categories?.auto || "汽車維修", icon: '🚗' },
+    { id: 'Renovation', label: t.diagnosis?.tool?.categories?.renovation || "房屋裝修", icon: '🏠' },
+    { id: 'Electrical', label: t.diagnosis?.tool?.categories?.electrical || "電力工程", icon: '⚡' },
+    { id: 'Cleaning', label: t.diagnosis?.tool?.categories?.cleaning || "專業清潔", icon: '✨' },
   ];
 
   const [file, setFile] = useState<File | null>(null);
@@ -25,7 +37,7 @@ export default function DiagnosisTool() {
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<AIDiagnosisResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -40,7 +52,7 @@ export default function DiagnosisTool() {
 
   const handleSubmit = async () => {
     if (!preview || !category) {
-      setError("Please upload a photo and select a category.");
+      setError(t.diagnosis.tool.errorPhotoCategory);
       return;
     }
 
@@ -52,17 +64,18 @@ export default function DiagnosisTool() {
       reader.readAsDataURL(file!);
       reader.onloadend = async () => {
         const base64data = reader.result as string;
-        const res = await getAIDiagnosis(base64data, category, description);
+        const res = await getAIDiagnosis(base64data, category, locale, description);
         
         if (res.error) {
           setError(res.error);
-        } else {
+        } else if (res.diagnosis) {
           setResult(res.diagnosis);
         }
         setLoading(false);
       };
-    } catch (err: any) {
-      setError("An unexpected error occurred: " + err.message);
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      setError(t.diagnosis.tool.errorUnexpected + errorMessage);
       setLoading(false);
     }
   };
@@ -111,24 +124,27 @@ export default function DiagnosisTool() {
               overflow: 'hidden',
               position: 'relative',
               backgroundColor: preview ? 'black' : 'var(--bg-secondary)',
-              transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
+              transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+              boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.05)'
             }}
+            onMouseOver={(e) => !preview && (e.currentTarget.style.borderColor = 'var(--accent-color)')}
+            onMouseOut={(e) => !preview && (e.currentTarget.style.borderColor = 'var(--border-color)')}
           >
             {preview ? (
               <>
                 <img src={preview} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-                <div style={{ position: 'absolute', bottom: '1.5rem', right: '1.5rem', background: 'rgba(0,0,0,0.7)', color: 'white', padding: '0.75rem 1.25rem', borderRadius: '2rem', fontSize: '0.85rem', fontWeight: 700, backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                <div style={{ position: 'absolute', bottom: '1.5rem', right: '1.5rem', background: 'rgba(0,0,0,0.8)', color: 'white', padding: '0.75rem 1.25rem', borderRadius: '2rem', fontSize: '0.85rem', fontWeight: 700, backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.2)', boxShadow: '0 8px 32px rgba(0,0,0,0.3)', pointerEvents: 'none' }}>
                   {t.diagnosis.tool.replaceHint}
                 </div>
               </>
             ) : (
               <>
-                <div style={{ padding: '2rem', borderRadius: '50%', background: 'var(--surface-1)', boxShadow: 'var(--shadow-md)', color: 'var(--accent-color)' }}>
+                <div style={{ padding: '2rem', borderRadius: '50%', background: 'var(--surface-1)', boxShadow: 'var(--shadow-lg)', color: 'var(--accent-color)', transition: '0.3s' }} className="icon-pulse">
                   <Camera size={40} strokeWidth={1.5} />
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <p style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '1.2rem', marginBottom: '0.25rem' }}>{t.diagnosis.tool.uploadHint}</p>
-                  <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 500 }}>Supports high-quality JPG, PNG (Max 5MB)</p>
+                  <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 500 }}>{t.diagnosis.tool.uploadFormatHint}</p>
                 </div>
               </>
             )}
@@ -180,7 +196,7 @@ export default function DiagnosisTool() {
         <div>
           <label style={{ display: 'block', fontWeight: 900, marginBottom: '1.25rem', color: 'var(--text-primary)', fontSize: '1.1rem' }}>{t.diagnosis.tool.step3}</label>
           <textarea 
-            placeholder="e.g. My kitchen sink has been dripping since yesterday morning..."
+            placeholder={t.diagnosis.tool.descriptionPlaceholder}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             style={{
@@ -209,23 +225,26 @@ export default function DiagnosisTool() {
         <button 
           onClick={handleSubmit}
           disabled={loading || !preview || !category}
-          className="btn btn-primary"
+          className={`btn ${loading ? '' : 'btn-primary'}`}
           style={{ 
             width: '100%', 
             padding: '1.5rem', 
             fontSize: '1.1rem', 
+            position: 'relative',
+            overflow: 'hidden',
             opacity: (loading || !preview || !category) ? 0.6 : 1,
             cursor: (loading || !preview || !category) ? 'not-allowed' : 'pointer'
           }}
         >
           {loading ? (
-            <>
-              <Loader2 className="animate-spin" size={24} /> {t.diagnosis.tool.loading}
-            </>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
+              <Loader2 className="animate-spin" size={24} />
+              <span className="loading-dots">{t.diagnosis.tool.loading}</span>
+            </div>
           ) : (
-            <>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
               {t.diagnosis.tool.submit} <ChevronRight size={20} />
-            </>
+            </div>
           )}
         </button>
         
@@ -240,8 +259,28 @@ export default function DiagnosisTool() {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
         }
+        @keyframes pulse-soft {
+          0% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.05); opacity: 0.8; }
+          100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes dots {
+          0% { content: '.'; }
+          33% { content: '..'; }
+          66% { content: '...'; }
+        }
         .animate-spin {
           animation: spin 1s linear infinite;
+        }
+        .icon-pulse {
+          animation: pulse-soft 3s ease-in-out infinite;
+        }
+        .loading-dots::after {
+          content: '.';
+          animation: dots 1.5s steps(3, end) infinite;
+        }
+        .hover-scale:hover {
+          transform: scale(1.02);
         }
       `}</style>
     </div>

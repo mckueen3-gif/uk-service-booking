@@ -1,100 +1,113 @@
-"use client";
+'use client';
 
-import { useState, Suspense } from "react";
-import Link from "next/link";
-import { signIn } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useEffect, Suspense } from 'react';
+import Link from 'next/link';
+import { signIn } from 'next-auth/react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Mail, Lock, LogIn, ChevronRight, AlertCircle, CheckCircle2 } from 'lucide-react';
+import '../auth.css';
 
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const isRegistered = searchParams.get("registered");
+  const isRegistered = searchParams.get('registered');
+  const callbackUrl = searchParams.get('callbackUrl') || '/';
   
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [revealed, setRevealed] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => setRevealed(true), 100);
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
-    setError("");
+    setError('');
 
     const formData = new FormData(e.currentTarget);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
 
-    const result = await signIn("credentials", {
+    const result = await signIn('credentials', {
       email,
       password,
       redirect: false,
     });
 
     if (result?.error) {
-      setError("Invalid email or password. Please try again.");
+      setError('Invalid email or password. Please try again.');
       setLoading(false);
     } else {
-      router.push("/");
-      router.refresh(); // Refresh layout to grab new session
+      router.push(callbackUrl);
+      router.refresh();
     }
   }
 
   return (
-    <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 'calc(100vh - 200px)', padding: '4rem 1.5rem' }}>
-      <div className="glass-panel" style={{ width: '100%', maxWidth: '400px', display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: '2.5rem' }}>
-        <div style={{ textAlign: 'center' }}>
-          <h1 className="title" style={{ fontSize: '2.25rem', marginBottom: '0.5rem' }}>Welcome Back</h1>
-          <p style={{ color: 'var(--text-secondary)' }}>Sign in to access your UK Service Hub account.</p>
+    <div className="auth-page-wrapper">
+      <div className="auth-card">
+        <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+          <h1 className="hero-title" style={{ fontSize: '2.5rem', marginBottom: '0.75rem', display: 'block' }}>Welcome Back</h1>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
+            Reconnect with the UK's leading expert hub.
+          </p>
         </div>
         
         {isRegistered && !error && (
-           <div style={{ backgroundColor: '#d1fae5', color: '#047857', padding: '0.75rem', borderRadius: '6px', fontSize: '0.875rem', border: '1px solid #6ee7b7', textAlign: 'center', fontWeight: 500 }}>
-             Account created successfully! Please sign in.
+           <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ backgroundColor: 'rgba(52, 211, 153, 0.05)', color: '#059669', padding: '1rem', borderRadius: '12px', fontSize: '0.875rem', border: '1px solid rgba(52, 211, 153, 0.2)', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+             <CheckCircle2 size={18} />
+             Account created! Please sign in.
            </div>
         )}
 
         {error && (
-           <div style={{ backgroundColor: '#fee2e2', color: '#b91c1c', padding: '0.75rem', borderRadius: '6px', fontSize: '0.875rem', border: '1px solid #fca5a5' }}>
+           <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ backgroundColor: 'rgba(219, 39, 119, 0.05)', color: '#db2777', padding: '1rem', borderRadius: '12px', fontSize: '0.875rem', border: '1px solid rgba(219, 39, 119, 0.2)', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+             <AlertCircle size={18} />
              {error}
            </div>
         )}
 
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-          <div>
-            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.875rem' }}>Email Address</label>
-            <input type="email" name="email" className="input-field" placeholder="you@example.com" required disabled={loading} />
-          </div>
-          <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-              <label style={{ fontWeight: 500, fontSize: '0.875rem' }}>Password</label>
-              <Link href="/auth/forgot-password" style={{ fontSize: '0.875rem', color: 'var(--accent-color)' }}>Forgot password?</Link>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
+          <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '100ms' }}>
+            <label>Email Address</label>
+            <div className="input-wrapper">
+              <Mail className="input-icon" size={18} />
+              <input type="email" name="email" className="premium-input" placeholder="you@example.com" required disabled={loading} />
             </div>
-            <input type="password" name="password" className="input-field" placeholder="••••••••" required disabled={loading} />
           </div>
           
-          <button type="submit" className="btn btn-primary" disabled={loading} style={{ width: '100%', marginTop: '0.5rem', padding: '0.875rem', opacity: loading ? 0.7 : 1 }}>
-            {loading ? "Signing in..." : "Sign In"}
+          <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '150ms' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+              <label style={{ marginBottom: 0 }}>Secret Password</label>
+              <Link href="/auth/forgot-password" style={{ fontSize: '0.85rem', color: 'var(--accent-color)', fontWeight: 600 }}>Forgot?</Link>
+            </div>
+            <div className="input-wrapper">
+              <Lock className="input-icon" size={18} />
+              <input type="password" name="password" className="premium-input" placeholder="Your password" required disabled={loading} />
+            </div>
+          </div>
+          
+          <button 
+            type="submit" 
+            className={`btn btn-primary ${revealed ? 'revealed' : ''}`} 
+            disabled={loading} 
+            style={{ width: '100%', padding: '1rem', marginTop: '0.5rem', animationDelay: '200ms' }}
+          >
+            {loading ? "Authenticating..." : "Sign In to Hub"}
+            <LogIn size={20} />
           </button>
         </form>
 
-        <div style={{ display: 'flex', alignItems: 'center', margin: '0.5rem 0', gap: '1rem' }}>
-          <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--border-color)', opacity: 0.5 }}></div>
-          <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>or</span>
-          <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--border-color)', opacity: 0.5 }}></div>
+        <div className="divider">
+          <span>{revealed ? 'or' : ''}</span>
         </div>
 
         <button 
-          onClick={() => signIn("google", { callbackUrl: "/" })}
-          className="btn btn-secondary" 
-          style={{ 
-            width: '100%', 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center', 
-            gap: '0.75rem',
-            padding: '0.75rem',
-            backgroundColor: 'rgba(255, 255, 255, 0.05)',
-            border: '1px solid var(--border-color)',
-            transition: 'all 0.2s ease'
-          }}
+          onClick={() => signIn('google', { callbackUrl })}
+          className="btn-social" 
+          style={{ opacity: revealed ? 1 : 0, transitionDelay: '250ms' }}
         >
           <svg width="20" height="20" viewBox="0 0 24 24">
             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -105,8 +118,8 @@ function LoginForm() {
           Continue with Google
         </button>
         
-        <div style={{ textAlign: 'center', fontSize: '0.875rem', color: 'var(--text-secondary)', marginTop: '1rem' }}>
-          Don&apos;t have an account? <Link href="/auth/register" style={{ color: 'var(--accent-color)', fontWeight: 600 }}>Sign up</Link>
+        <div style={{ textAlign: 'center', fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '2rem' }}>
+          New to the platform? <Link href="/auth/register" style={{ color: 'var(--accent-color)', fontWeight: 800 }}>Create account</Link>
         </div>
       </div>
     </div>
@@ -115,7 +128,7 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div style={{ textAlign: 'center', padding: '4rem' }}>Loading form...</div>}>
+    <Suspense fallback={<div className="auth-page-wrapper"><div className="auth-card" style={{ textAlign: 'center' }}>Loading Hub...</div></div>}>
       <LoginForm />
     </Suspense>
   );

@@ -32,7 +32,7 @@ export async function submitDocumentForVerification(fileUrl: string, type: Docum
 
   // 2. Trigger AI Vision Analysis
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
     
     // Fetch image
     const imageResp = await fetch(fileUrl);

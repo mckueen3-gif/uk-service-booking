@@ -72,7 +72,7 @@ export async function processChatMessage(messages: { role: 'user' | 'assistant' 
     if (!GEMINI_API_KEY) throw new Error("No API Key");
 
     // FALLBACK HIERARCHY
-    const modelsToTry = ["gemini-1.5-flash", "gemini-pro"];
+    const modelsToTry = ["gemini-flash-latest", "gemini-1.5-pro"];
     let lastError = "";
 
     for (const model of modelsToTry) {

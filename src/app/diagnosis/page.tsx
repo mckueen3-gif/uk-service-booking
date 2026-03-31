@@ -6,7 +6,7 @@ import { Sparkles, ArrowRight, ShieldCheck, Zap, PoundSterling } from 'lucide-re
 import Link from 'next/link';
 
 export default function DiagnosisPage() {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
 
   return (
     <div style={{ backgroundColor: 'var(--bg-secondary)', minHeight: '100vh', padding: '6rem 0' }}>
@@ -42,7 +42,7 @@ export default function DiagnosisPage() {
 
         {/* Main Tool */}
         <div className="stagger-1 reveal active" style={{ marginBottom: '6rem' }}>
-          <DiagnosisTool />
+          <DiagnosisTool key={locale} />
         </div>
 
         {/* Features / Why AI? */}

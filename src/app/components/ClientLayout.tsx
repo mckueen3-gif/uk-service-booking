@@ -154,6 +154,7 @@ export function AppNavbar({ session }: { session: any }) {
                <option value="pl" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>Polski (PL)</option>
                <option value="ro" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>Română (RO)</option>
                <option value="ur" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>اردو (UR)</option>
+               <option value="pa" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>ਪੰਜਾਬੀ (PA)</option>
              </select>
           </div>
 
@@ -207,7 +208,7 @@ export function AppNavbar({ session }: { session: any }) {
             </div>
           ) : (
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-              <Link href="/auth/register" style={{ color: 'var(--text-primary)', fontWeight: 700, textDecoration: 'none', fontSize: '1.05rem' }}>{t.nav.join}</Link>
+              <Link href="/join" style={{ color: 'var(--text-primary)', fontWeight: 700, textDecoration: 'none', fontSize: '1.05rem' }}>{t.nav.join}</Link>
               <Link href="/auth/login" className="btn btn-primary" style={{ textDecoration: 'none', padding: '0.5rem 1rem', fontSize: '0.9rem' }}>{t.nav.login}</Link>
             </div>
           )}
@@ -242,6 +243,18 @@ export function AppFooter() {
                 ServiceHub<span style={{ color: 'var(--accent-color)' }}>.</span>
               </Link>
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.6 }}>{t.footer.tagline}</p>
+              <Link href="/join" style={{ 
+                marginTop: '0.5rem',
+                color: 'var(--accent-color)', 
+                fontWeight: 700, 
+                textDecoration: 'none', 
+                fontSize: '0.9rem',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px'
+              }}>
+                {t.nav.join} <ChevronRight size={14} />
+              </Link>
            </div>
 
            {/* Services Column */}

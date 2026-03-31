@@ -28,6 +28,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       else if (browserLang === 'ar') setLocaleState('ar');
       else if (browserLang === 'ja') setLocaleState('ja');
       else if (browserLang === 'ko') setLocaleState('ko');
+      else if (browserLang === 'pa') setLocaleState('pa');
     }
   }, []);
 

@@ -5,15 +5,19 @@ import {
 import { useTranslation } from "@/components/LanguageContext";
 import Link from 'next/link';
 
+interface AIDiagnosisResult {
+  id: string;
+  category: string;
+  issue: string;
+  suggestedFix: string;
+  estimatedPriceRange: string;
+  confidence: number;
+  imageUrl: string;
+  createdAt: Date;
+}
+
 interface Props {
-  diagnosis: {
-    category: string;
-    issue: string;
-    suggestedFix: string;
-    estimatedPriceRange: string;
-    confidence: number;
-    imageUrl: string;
-  };
+  diagnosis: AIDiagnosisResult;
 }
 
 export default function DiagnosisResult({ diagnosis }: Props) {

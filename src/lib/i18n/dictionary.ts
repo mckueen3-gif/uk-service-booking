@@ -1,4 +1,4 @@
-export type Locale = 'en' | 'zh-TW' | 'hi' | 'ar' | 'ja' | 'ko' | 'pl' | 'ro' | 'ur';
+export type Locale = 'en' | 'zh-TW' | 'hi' | 'ar' | 'ja' | 'ko' | 'pl' | 'ro' | 'ur' | 'pa';
 
 export interface Dictionary {
   nav: { browse: string; join: string; login: string; logout: string; dashboard: string; aiDiagnosis: string; };
@@ -14,8 +14,8 @@ export interface Dictionary {
       bookings: { q: string; a: string; }[];
     }
   };
-  footer: { tagline: string; explore: string; legal: string; support: string; rights: string; terms: string; privacy: string; cookies: string; help: string; contact: string; aiDiagnosis: string; };
-  search: { filters: string; keyword: string; location: string; category: string; minRating: string; verifiedOnly: string; apply: string; sortBy: string; sortRating: string; sortJobs: string; sortDistance: string; sortPrice: string; foundCount: string; searching: string; noResults: string; clearFilters: string; basePrice: string; viewDetails: string; listView: string; mapView: string; };
+  footer: { tagline: string; explore: string; legal: string; support: string; rights: string; terms: string; privacy: string; cookies: string; help: string; contact: string; aiDiagnosis: string; homeCleaning: string; plumbingServices: string; automotiveServices: string; };
+  search: { filters: string; keyword: string; location: string; category: string; minRating: string; verifiedOnly: string; apply: string; sortBy: string; sortRating: string; sortJobs: string; sortDistance: string; sortPrice: string; foundCount: string; searching: string; noResults: string; clearFilters: string; basePrice: string; viewDetails: string; listView: string; mapView: string; searchThisArea: string; };
   booking: {
     steps: { details: string; schedule: string; confirmation: string; };
     titles: { details: string; schedule: string; confirm: string; success: string; };
@@ -104,7 +104,32 @@ export interface Dictionary {
       disputeResolution: string;
       fastTurnaround: string;
       responseHours: string;
+      errorPhotoCategory: string;
+      errorUnexpected: string;
+      uploadFormatHint: string;
+      descriptionPlaceholder: string;
     };
+  };
+  onboarding: {
+    hero: { title: string; subtitle: string; };
+    steps: { profile: string; credentials: string; contract: string; };
+    sectors: {
+      title: string;
+      professional: { title: string; desc: string; industries: string[]; };
+      education: { title: string; desc: string; industries: string[]; };
+      technical: { title: string; desc: string; industries: string[]; };
+    };
+    contract: {
+      title: string;
+      scrollingNotice: string;
+      agree: string;
+      clauses: {
+        commission: { title: string; body: string; };
+        service: { title: string; body: string; };
+        disputes: { title: string; body: string; };
+      };
+    };
+    buttons: { start: string; next: string; back: string; submit: string; };
   };
 }
 
@@ -129,8 +154,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
         ]
       }
     },
-    footer: { tagline: "Premium UK service marketplace connecting you with verified local experts.", explore: "Explore Services", legal: "Legal & Compliance", support: "Customer Support", rights: "All rights reserved. Premium Service Architecture.", terms: "Terms", privacy: "Privacy", cookies: "Cookies", help: "Help Center", contact: "Contact Us", aiDiagnosis: "AI Diagnosis" },
-    search: { filters: "Filters", keyword: "Keyword", location: "Location", category: "Category", minRating: "Min Rating", verifiedOnly: "Verified Pros Only", apply: "Apply Filters", sortBy: "Sort by", sortRating: "Rating", sortJobs: "Jobs Done", sortDistance: "Distance", sortPrice: "Price: Low to High", foundCount: "experts found", searching: "Searching...", noResults: "No matching merchants found", clearFilters: "Clear all filters", basePrice: "From", viewDetails: "View Details", listView: "List View", mapView: "Map View" },
+    footer: { tagline: "Premium UK service marketplace connecting you with verified local experts.", explore: "Explore Services", legal: "Legal & Compliance", support: "Customer Support", rights: "All rights reserved. Premium Service Architecture.", terms: "Terms", privacy: "Privacy", cookies: "Cookies", help: "Help Center", contact: "Contact Us", aiDiagnosis: "AI Diagnosis", homeCleaning: "Home Cleaning", plumbingServices: "Plumbing Services", automotiveServices: "Automotive Services" },
+    search: { filters: "Filters", keyword: "Keyword", location: "Location", category: "Category", minRating: "Min Rating", verifiedOnly: "Verified Pros Only", apply: "Apply Filters", sortBy: "Sort by", sortRating: "Rating", sortJobs: "Jobs Done", sortDistance: "Distance", sortPrice: "Price: Low to High", foundCount: "experts found", searching: "Searching...", noResults: "No matching merchants found", clearFilters: "Clear all filters", basePrice: "From", viewDetails: "View Details", listView: "List View", mapView: "Map View", searchThisArea: "Search this area" },
     booking: {
       steps: { details: "Details", schedule: "Schedule", confirmation: "Review" },
       titles: { details: "Booking Details", schedule: "Schedule Appointment", confirm: "Confirm & Pay", success: "Booking Confirmed!" },
@@ -211,8 +236,33 @@ export const dictionaries: Record<Locale, Dictionary> = {
         guaranteedRepairs: "Guaranteed Repairs",
         disputeResolution: "All bookings include our AI-driven dispute resolution for peace of mind.",
         fastTurnaround: "Fast Turnaround",
-        responseHours: "Most {category} specialists respond within 2 hours."
+        responseHours: "Most {category} specialists respond within 2 hours.",
+        errorPhotoCategory: "Please upload a photo and select a category.",
+        errorUnexpected: "An unexpected error occurred: ",
+        uploadFormatHint: "Supports high-quality JPG, PNG (Max 5MB)",
+        descriptionPlaceholder: "e.g. My kitchen sink has been dripping since yesterday morning..."
       }
+    },
+    onboarding: {
+      hero: { title: "Grow Your Business with ServiceHub", subtitle: "Join the UK's leading marketplace for professionals in Education, Accounting, Repairs, and more." },
+      steps: { profile: "Business Profile", credentials: "Qualifications", contract: "Review Contract" },
+      sectors: {
+        title: "Choose Your Expertise",
+        professional: { title: "Professional Services", desc: "For certified experts handling complex documentation & advice.", industries: ["Accounting", "Legal", "Financial Advice"] },
+        education: { title: "Education & Tutors", desc: "For teachers, skill trainers, and academic mentors.", industries: ["Language Tutors", "Exam Prep", "Skill Training"] },
+        technical: { title: "Technical & Maintenance", desc: "For skilled tradespeople and essential home/car services.", industries: ["Plumbing", "Electrical", "Auto Repair", "Renovation"] }
+      },
+      contract: {
+        title: "Expert Services Agreement",
+        scrollingNotice: "Please scroll to the bottom of the agreement to confirm your acceptance.",
+        agree: "I have read and agree to the Expert Services Agreement",
+        clauses: {
+          commission: { title: "1. Service Fees & Commission", body: "ServiceHub charges a fixed 10% commission on successful bookings. Payments are processed securely via the platform." },
+          service: { title: "2. Quality Standards", body: "Experts must maintain a minimum rating of 4.0 and respond to inquiries within 24 hours to remain active." },
+          disputes: { title: "3. Dispute Resolution", body: "All disputes are mediated by our AI Arbiter. Evidence from the job record and photos will be used for final decisions." }
+        }
+      },
+      buttons: { start: "Get Started", next: "Continue", back: "Go Back", submit: "Sign and Join" }
     }
   },
   'zh-TW': {
@@ -235,8 +285,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
         ]
       }
     },
-    footer: { tagline: "優質英國居家與汽車維修預約平台。", explore: "探索服務", legal: "法律與合規", support: "客戶支援", rights: "保留所有權利。", terms: "服務條款", privacy: "隱私政策", cookies: "Cookie 政策", help: "幫助中心", contact: "聯繫我們", aiDiagnosis: "AI 診斷" },
-    search: { filters: "搜索過濾", keyword: "關鍵字", location: "地點", category: "服務分類", minRating: "最低評分", verifiedOnly: "僅看認證職人", apply: "應用過濾器", sortBy: "排序方式", sortRating: "按評分", sortJobs: "按完工數", sortDistance: "按距離", sortPrice: "按價格", foundCount: "個匹配的商家", searching: "搜尋中...", noResults: "找不到匹配的商戶", clearFilters: "清除所有過濾條件", basePrice: "起步價", viewDetails: "查看詳情", listView: "列表模式", mapView: "地圖模式" },
+    footer: { tagline: "優質英國居家與汽車維修預約平台。", explore: "探索服務", legal: "法律與合規", support: "客戶支援", rights: "保留所有權利。", terms: "服務條款", privacy: "隱私政策", cookies: "Cookie 政策", help: "幫助中心", contact: "聯繫我們", aiDiagnosis: "AI 診斷", homeCleaning: "居家清潔", plumbingServices: "水電維修", automotiveServices: "汽車維修" },
+    search: { filters: "搜索過濾", keyword: "關鍵字", location: "地點", category: "服務分類", minRating: "最低評分", verifiedOnly: "僅看認證職人", apply: "應用過濾器", sortBy: "排序方式", sortRating: "按評分", sortJobs: "按完工數", sortDistance: "按距離", sortPrice: "按價格", foundCount: "個匹配的商家", searching: "搜尋中...", noResults: "找不到匹配的商戶", clearFilters: "清除所有過濾條件", basePrice: "起步價", viewDetails: "查看詳情", listView: "列表模式", mapView: "地圖模式", searchThisArea: "搜尋此區域" },
     booking: {
       steps: { details: "詳情", schedule: "預約", confirmation: "確認" },
       titles: { details: "填寫預約詳情", schedule: "選擇預約時間", confirm: "確認並支付", success: "預約成功！" },
@@ -315,8 +365,33 @@ export const dictionaries: Record<Locale, Dictionary> = {
         guaranteedRepairs: "維修保障",
         disputeResolution: "所有預約均包含我們的 AI 驅動爭議解決方案，讓您安心。",
         fastTurnaround: "快速響應",
-        responseHours: "大多數 {category} 專家會在 2 小時內回覆。"
+        responseHours: "大多數 {category} 專家會在 2 小時內回覆。",
+        errorPhotoCategory: "請上傳照片並選擇分類。",
+        errorUnexpected: "發生預期外的錯誤：",
+        uploadFormatHint: "支援高畫質 JPG, PNG (最大 5MB)",
+        descriptionPlaceholder: "例如：我的廚房水槽從昨天早上開始一直滴水..."
       }
+    },
+    onboarding: {
+      hero: { title: "在 ServiceHub 擴展您的業務", subtitle: "加入全英領先的專業人才市場，涵蓋教育、會計、維修等多元行業。" },
+      steps: { profile: "商家檔案", credentials: "資質驗證", contract: "審閱合約" },
+      sectors: {
+        title: "選擇您的專業領域",
+        professional: { title: "專業服務", desc: "適用於處理複雜文件與諮詢的認證專家。", industries: ["會計稅務", "法律諮詢", "財務建議"] },
+        education: { title: "教育培訓", desc: "適用於老師、技能培訓師與學術導師。", industries: ["語言家教", "考試準備", "技能訓練"] },
+        technical: { title: "技術與維修", desc: "適用於技師及各類居家、汽車維修專家。", industries: ["水電工程", "電力工程", "汽車維修", "房屋裝修"] }
+      },
+      contract: {
+        title: "專家服務協議",
+        scrollingNotice: "請滾動至合約底部以確認接受條款。",
+        agree: "我已閱讀並同意專家服務協議",
+        clauses: {
+          commission: { title: "1. 服務費用與佣金", body: "ServiceHub 對成功的預約收取固定 10% 的佣金。款項將經由平台安全處理。" },
+          service: { title: "2. 服務品質標準", body: "專家必須保持 4.0 以上的評分，並在 24 小時內回覆諮詢以維持活躍狀態。" },
+          disputes: { title: "3. 糾紛處理機制", body: "所有爭議均由 AI 裁決器調解。工作記錄與照片將作為最終判決的證據。" }
+        }
+      },
+      buttons: { start: "立即開始", next: "繼續下一步", back: "返回", submit: "簽署並入駐" }
     }
   },
   // Other languages will be added via separate calls to avoid token limits
@@ -332,8 +407,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
         bookings: [{ q: "रीशेड्यूल?", a: "48 घंटे पहले।" }]
       }
     },
-    footer: { tagline: "सत्यापित विशेषज्ञों से जुड़ें।", explore: "सेवाएं", legal: "कानूनी", support: "सहायता", rights: "सर्वाधिकार सुरक्षित।", terms: "नियम", privacy: "गोपनीयता", cookies: "कुकीज़", help: "सहायता केंद्र", contact: "संपर्क", aiDiagnosis: "AI निदान" },
-    search: { filters: "फ़िल्टर", keyword: "कीवर्ड", location: "स्थान", category: "श्रेणी", minRating: "रेटिंग", verifiedOnly: "सत्यापित", apply: "लागू करें", sortBy: "क्रमबद्ध करें", sortRating: "रेटिंग", sortJobs: "कार्य", sortDistance: "दूरी", sortPrice: "कीमत", foundCount: "विशेषज्ञ मिले", searching: "खोज...", noResults: "नहीं मिला", clearFilters: "साफ़ करें", basePrice: "से", viewDetails: "विवरण", listView: "सूची दृश्य", mapView: "मानचित्र दृश्य" },
+    footer: { tagline: "सत्यापित विशेषज्ञों से जुड़ें।", explore: "सेवाएं", legal: "कानूनी", support: "सहायता", rights: "सर्वाधिकार सुरक्षित।", terms: "नियम", privacy: "गोपनीयता", cookies: "कुकीज़", help: "सहायता केंद्र", contact: "संपرك", aiDiagnosis: "AI निदान", homeCleaning: "घर की सफाई", plumbingServices: "प्लंबिंग सेवाएं", automotiveServices: "ऑटोमोबाइल सेवाएं" },
+    search: { filters: "फ़िल्टर", keyword: "कीवर्ड", location: "स्थान", category: "श्रेणी", minRating: "रेटिंग", verifiedOnly: "सत्यापित", apply: "लागू करें", sortBy: "क्रमबद्ध करें", sortRating: "रेटिंग", sortJobs: "कार्य", sortDistance: "दूरी", sortPrice: "कीमत", foundCount: "विशेषज्ञ मिले", searching: "खोज...", noResults: "नहीं मिला", clearFilters: "साफ़ करें", basePrice: "से", viewDetails: "विवरण", listView: "सूची दृश्य", mapView: "मानचित्र दृश्य", searchThisArea: "इस क्षेत्र में खोजें" },
     booking: {
       steps: { details: "विवरण", schedule: "शेड्यूल", confirmation: "समीक्षा" },
       titles: { details: "बुकिंग विवरण", schedule: "समय चुनें", confirm: "पुष्टि करें", success: "पुष्टि हो गई!" },
@@ -345,7 +420,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       verified: "सत्यापित", background: "पेशेवर पृष्ठभूमि", portfolio: "पोर्टफोलियो", reviewTitle: "समीक्षा", realReviews: "प्रतिक्रिया", verifiedBooking: "सत्यापित", pricingAnalysis: "मुख्य विशेषताएं", bookingChannel: "बुकिंग चैनल", viewServices: "सेवाएं देखें", guarantee: "गारंटी", fastResponse: "तेजी से प्रतिक्रिया", contactExpert: "विशेषज्ञ से पूछें", noReviews: "कोई समीक्षा नहीं", reply: "प्रतिक्रिया"
     },
     home: {
-      hero: { badge: "यूके का सबसे भरोसेमंद सर्विस मार्केटप्लेस", title1: "स्थानीय विशेषज्ञों को खोजें", title2: "सेकंड में।", subtitle: "इमरजेंसी कार रिपेयर से लेकर घर की تزئین व آرائش तक।", searchPlaceholder: "आपको क्या सेवा चाहिए?", locationPlaceholder: "शहर या पिनकोड", aiMatch: "AI मैच", searchBtn: "खोजें" },
+      hero: { badge: "यूके का सबसे भरोसेमंद सर्विस मार्केटप्लेस", title1: "स्थानीय विशेषज्ञों को खोजें", title2: "सेकंड में।", subtitle: "इमरजेंसी कार रिपेयर से लेकर घर के नवीनीकरण तक।", searchPlaceholder: "आपको क्या सेवा चाहिए?", locationPlaceholder: "शहर या पिनकोड", aiMatch: "AI मैच", searchBtn: "खोजें" },
       recommendation: { title1: "स्मार्ट सिफारिश", title2: "AI डिस्कवरी", subtitle: "सेवाओं का सटीक मिलान", browse: "अभी देखें" },
       aiCTA: {
         badge: "नया: AI संचालित",
@@ -401,7 +476,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
           cleaning: "सफाई"
         },
         resultTitle: "AI मरम्मत अंतर्दृष्टि",
-        detectedIssue: "पहचानी گئی مشکل",
+        detectedIssue: "पहचानी गई समस्या",
         recommendedSolution: "अनुशंसित समाधान",
         estimatedCostLabel: "अनुमानित लागत",
         ukStandard: "यूके सर्विस स्टैंडर्ड",
@@ -412,8 +487,33 @@ export const dictionaries: Record<Locale, Dictionary> = {
         guaranteedRepairs: "गारंटीकृत मरम्मत",
         disputeResolution: "मन की शांति के लिए सभी बुकिंग में हमारे AI-संचालित विवाद समाधान शामिल हैं।",
         fastTurnaround: "तेजी से बदलाव",
-        responseHours: "अधिकांश {category} विशेषज्ञ 2 घंटे के भीतर जवाब देते हैं।"
+        responseHours: "अधिकांश {category} विशेषज्ञ 2 घंटे के भीतर जवाब देते हैं।",
+        errorPhotoCategory: "कृपया एक फोटो अपलोड करें और श्रेणी चुनें।",
+        errorUnexpected: "एक अप्रत्याशित त्रुटि हुई: ",
+        uploadFormatHint: "उच्च गुणवत्ता वाले JPG, PNG (अधिकतम 5MB) का समर्थन करता है",
+        descriptionPlaceholder: "जैसे: सिंक कल सुबह से टपक रहा है..."
       }
+    },
+    onboarding: {
+      hero: { title: "Grow Your Business with ServiceHub", subtitle: "Join the UK's leading marketplace for professionals in Education, Accounting, Repairs, and more." },
+      steps: { profile: "Business Profile", credentials: "Qualifications", contract: "Review Contract" },
+      sectors: {
+        title: "Choose Your Expertise",
+        professional: { title: "Professional Services", desc: "For certified experts handling complex documentation & advice.", industries: ["Accounting", "Legal", "Financial Advice"] },
+        education: { title: "Education & Tutors", desc: "For teachers, skill trainers, and academic mentors.", industries: ["Language Tutors", "Exam Prep", "Skill Training"] },
+        technical: { title: "Technical & Maintenance", desc: "For skilled tradespeople and essential home/car services.", industries: ["Plumbing", "Electrical", "Auto Repair", "Renovation"] }
+      },
+      contract: {
+        title: "Expert Services Agreement",
+        scrollingNotice: "Please scroll to the bottom of the agreement to confirm your acceptance.",
+        agree: "I have read and agree to the Expert Services Agreement",
+        clauses: {
+          commission: { title: "1. Service Fees & Commission", body: "ServiceHub charges a fixed 10% commission on successful bookings. Payments are processed securely via the platform." },
+          service: { title: "2. Quality Standards", body: "Experts must maintain a minimum rating of 4.0 and respond to inquiries within 24 hours to remain active." },
+          disputes: { title: "3. Dispute Resolution", body: "All disputes are mediated by our AI Arbiter. Evidence from the job record and photos will be used for final decisions." }
+        }
+      },
+      buttons: { start: "Get Started", next: "Continue", back: "Go Back", submit: "Sign and Join" }
     }
   },
   ar: {
@@ -428,8 +528,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
         bookings: [{ q: "إعادة جدولة؟", a: "قبل 48 ساعة." }]
       }
     },
-    footer: { tagline: "خبراء محليون.", explore: "استكشاف", legal: "قانوني", support: "دعم", rights: "حقوق محفوظة.", terms: "شروط", privacy: "خصوصية", cookies: "ملفات التعريف", help: "مساعدة", contact: "اتصل بنا", aiDiagnosis: "تشخيص الذكاء الاصطناعي" },
-    search: { filters: "فلاتر", keyword: "كلمة", location: "موقع", category: "فئة", minRating: "تقييم", verifiedOnly: "معتمد", apply: "تطبيق", sortBy: "فرز", sortRating: "تقييم", sortJobs: "وظائف", sortDistance: "مسافة", sortPrice: "سعر", foundCount: "خبراء", searching: "بحث...", noResults: "لا يوجد", clearFilters: "مسح", basePrice: "من", viewDetails: "تفاصيل", listView: "عرض القائمة", mapView: "عرض الخريطة" },
+    footer: { tagline: "خبراء محليون.", explore: "استكشاف", legal: "قانوني", support: "دعم", rights: "حقوق محفوظة.", terms: "شروط", privacy: "خصوصية", cookies: "ملفات التعريف", help: "مساعدة", contact: "اتصل بنا", aiDiagnosis: "تشخيص الذكاء الاصطناعي", homeCleaning: "تنظيف المنزل", plumbingServices: "خدمات السباكة", automotiveServices: "خدمات السيارات" },
+    search: { filters: "فلاتر", keyword: "كلمة", location: "موقع", category: "فئة", minRating: "تقييم", verifiedOnly: "معتمد", apply: "تطبيق", sortBy: "فرز", sortRating: "تقييم", sortJobs: "وظائف", sortDistance: "مسافة", sortPrice: "سعر", foundCount: "خبراء", searching: "بحث...", noResults: "لا يوجد", clearFilters: "مسح", basePrice: "من", viewDetails: "تفاصيل", listView: "عرض القائمة", mapView: "عرض الخريطة", searchThisArea: "البحث في هذه المنطقة" },
     booking: {
       steps: { details: "تفاصيل", schedule: "جدول", confirmation: "مراجعة" },
       titles: { details: "تفاصيل الحجز", schedule: "اختر وقت", confirm: "تأكيد", success: "تم بنجاح!" },
@@ -508,8 +608,33 @@ export const dictionaries: Record<Locale, Dictionary> = {
         guaranteedRepairs: "إصلاحات مضمونة",
         disputeResolution: "تشمل جميع الحجوزات حل النزاعات المدعوم بالذكاء الاصطناعي لراحة البال.",
         fastTurnaround: "سرعة الإنجاز",
-        responseHours: "يستجيب معظم متخصصي {category} في غضون ساعتين."
+        responseHours: "يستجيب معظم متخصصي {category} في غضون ساعتين.",
+        errorPhotoCategory: "يرجى تحميل صورة واختيار الفئة.",
+        errorUnexpected: "حدث خطأ غير متوقع: ",
+        uploadFormatHint: "يدعم صور JPG و PNG عالية الجودة (بحد أقصى 5 ميجابايت)",
+        descriptionPlaceholder: "مثال: صنبور المطبخ يقطر منذ صباح أمس..."
       }
+    },
+    onboarding: {
+      hero: { title: "Grow Your Business with ServiceHub", subtitle: "Join the UK's leading marketplace for professionals in Education, Accounting, Repairs, and more." },
+      steps: { profile: "Business Profile", credentials: "Qualifications", contract: "Review Contract" },
+      sectors: {
+        title: "Choose Your Expertise",
+        professional: { title: "Professional Services", desc: "For certified experts handling complex documentation & advice.", industries: ["Accounting", "Legal", "Financial Advice"] },
+        education: { title: "Education & Tutors", desc: "For teachers, skill trainers, and academic mentors.", industries: ["Language Tutors", "Exam Prep", "Skill Training"] },
+        technical: { title: "Technical & Maintenance", desc: "For skilled tradespeople and essential home/car services.", industries: ["Plumbing", "Electrical", "Auto Repair", "Renovation"] }
+      },
+      contract: {
+        title: "Expert Services Agreement",
+        scrollingNotice: "Please scroll to the bottom of the agreement to confirm your acceptance.",
+        agree: "I have read and agree to the Expert Services Agreement",
+        clauses: {
+          commission: { title: "1. Service Fees & Commission", body: "ServiceHub charges a fixed 10% commission on successful bookings. Payments are processed securely via the platform." },
+          service: { title: "2. Quality Standards", body: "Experts must maintain a minimum rating of 4.0 and respond to inquiries within 24 hours to remain active." },
+          disputes: { title: "3. Dispute Resolution", body: "All disputes are mediated by our AI Arbiter. Evidence from the job record and photos will be used for final decisions." }
+        }
+      },
+      buttons: { start: "Get Started", next: "Continue", back: "Go Back", submit: "Sign and Join" }
     }
   },
   ja: {
@@ -524,12 +649,12 @@ export const dictionaries: Record<Locale, Dictionary> = {
         bookings: [{ q: "変更？", a: "48時間前" }]
       }
     },
-    footer: { tagline: "エキスパート", explore: "探索", legal: "法的事項", support: "サポート", rights: "All rights reserved.", terms: "規約", privacy: "プライバシー", cookies: "Cookie", help: "ヘルプ", contact: "連絡", aiDiagnosis: "AI 診断" },
-    search: { filters: "フィルタ", keyword: "ワード", location: "場所", category: "カテゴリ", minRating: "評価", verifiedOnly: "認定済", apply: "適用", sortBy: "順序", sortRating: "評価", sortJobs: "実績", sortDistance: "距離", sortPrice: "価格", foundCount: "件", searching: "検索中...", noResults: "なし", clearFilters: "クリア", basePrice: "から", viewDetails: "詳細", listView: "リスト表示", mapView: "マップ表示" },
+    footer: { tagline: "エキスパート", explore: "探索", legal: "法的事項", support: "サポート", rights: "全著作権所有。", terms: "規約", privacy: "プライバシー", cookies: "Cookie", help: "ヘルプ", contact: "連絡", aiDiagnosis: "AI 診断", homeCleaning: "ハウスクリーニング", plumbingServices: "水道修理サービス", automotiveServices: "自動車修理サービス" },
+    search: { filters: "フィルタ", keyword: "ワード", location: "場所", category: "カテゴリ", minRating: "評価", verifiedOnly: "認定済", apply: "適用", sortBy: "順序", sortRating: "評価", sortJobs: "実績", sortDistance: "距離", sortPrice: "価格", foundCount: "件", searching: "検索中...", noResults: "なし", clearFilters: "クリア", basePrice: "から", viewDetails: "詳細", listView: "リスト表示", mapView: "マップ表示", searchThisArea: "このエリアで検索" },
     booking: {
       steps: { details: "詳細", schedule: "予約", confirmation: "確認" },
       titles: { details: "詳細入力", schedule: "日時選択", confirm: "確認", success: "完了！" },
-      labels: { date: "日付", time: "時間", make: "メーカー", model: "モデル", address: "住所", notes: "備考", agree: "同意", summary: "要約", paid: "支払", merchant: "店", service: "名" },
+      labels: { date: "日付", time: "時間", make: "メーカー", model: "モデル", address: "住所", notes: "備考", agree: "同意", summary: "要約", paid: "支払", merchant: "店", service: "サービス" },
       buttons: { next: "次へ", prev: "戻る", pay: "予約", home: "ホーム", dashboard: "状況" },
       messages: { finalizing: "確定中...", wait: "待機", contact24h: "24時間以内", safety: "保証", noReviews: "なし", recommended: "推奨", replyFromMaster: "返信" }
     },
@@ -604,8 +729,33 @@ export const dictionaries: Record<Locale, Dictionary> = {
         guaranteedRepairs: "修理保証",
         disputeResolution: "すべての予約には、安心のための AI 駆動の紛争解決が含まれています。",
         fastTurnaround: "迅速な対応",
-        responseHours: "ほとんどの {category} スペシャリストは 2 時間以内に返信します。"
+        responseHours: "ほとんどの {category} スペシャリストは 2 時間以内に返信します。",
+        errorPhotoCategory: "写真をアップロードし、カテゴリを選択してください。",
+        errorUnexpected: "予期しないエラーが発生しました：",
+        uploadFormatHint: "高品質な JPG, PNG (最大 5MB) をサポート",
+        descriptionPlaceholder: "例：キッチンの蛇口が昨日の朝から水漏れしています..."
       }
+    },
+    onboarding: {
+      hero: { title: "Grow Your Business with ServiceHub", subtitle: "Join the UK's leading marketplace for professionals in Education, Accounting, Repairs, and more." },
+      steps: { profile: "Business Profile", credentials: "Qualifications", contract: "Review Contract" },
+      sectors: {
+        title: "Choose Your Expertise",
+        professional: { title: "Professional Services", desc: "For certified experts handling complex documentation & advice.", industries: ["Accounting", "Legal", "Financial Advice"] },
+        education: { title: "Education & Tutors", desc: "For teachers, skill trainers, and academic mentors.", industries: ["Language Tutors", "Exam Prep", "Skill Training"] },
+        technical: { title: "Technical & Maintenance", desc: "For skilled tradespeople and essential home/car services.", industries: ["Plumbing", "Electrical", "Auto Repair", "Renovation"] }
+      },
+      contract: {
+        title: "Expert Services Agreement",
+        scrollingNotice: "Please scroll to the bottom of the agreement to confirm your acceptance.",
+        agree: "I have read and agree to the Expert Services Agreement",
+        clauses: {
+          commission: { title: "1. Service Fees & Commission", body: "ServiceHub charges a fixed 10% commission on successful bookings. Payments are processed securely via the platform." },
+          service: { title: "2. Quality Standards", body: "Experts must maintain a minimum rating of 4.0 and respond to inquiries within 24 hours to remain active." },
+          disputes: { title: "3. Dispute Resolution", body: "All disputes are mediated by our AI Arbiter. Evidence from the job record and photos will be used for final decisions." }
+        }
+      },
+      buttons: { start: "Get Started", next: "Continue", back: "Go Back", submit: "Sign and Join" }
     }
   },
   ko: {
@@ -620,12 +770,12 @@ export const dictionaries: Record<Locale, Dictionary> = {
         bookings: [{ q: "변경?", a: "48시간" }]
       }
     },
-    footer: { tagline: "전문가", explore: "탐색", legal: "법률", support: "지원", rights: "Rights reserved.", terms: "약관", privacy: "개인정보", cookies: "쿠کی", help: "센터", contact: "문의", aiDiagnosis: "AI 진단" },
-    search: { filters: "필터", keyword: "단어", location: "위치", category: "범주", minRating: "평점", verifiedOnly: "인증", apply: "적용", sortBy: "정렬", sortRating: "평점", sortJobs: "완료", sortDistance: "거리", sortPrice: "가격", foundCount: "명", searching: "검색중...", noResults: "없음", clearFilters: "초기화", basePrice: "부터", viewDetails: "상세", listView: "목록 보기", mapView: "지도 보기" },
+    footer: { tagline: "전문가", explore: "탐색", legal: "법률", support: "지원", rights: "모든 권리 보유。", terms: "약관", privacy: "개인정보", cookies: "쿠키", help: "센터", contact: "문의", aiDiagnosis: "AI 진단", homeCleaning: "가정 청소", plumbingServices: "배관 서비스", automotiveServices: "자동차 서비스" },
+    search: { filters: "필터", keyword: "단어", location: "위치", category: "범주", minRating: "평점", verifiedOnly: "인증", apply: "적용", sortBy: "정렬", sortRating: "평점", sortJobs: "완료", sortDistance: "거리", sortPrice: "가격", foundCount: "명", searching: "검색중...", noResults: "없음", clearFilters: "초기화", basePrice: "부터", viewDetails: "상세", listView: "목록 보기", mapView: "지도 보기", searchThisArea: "이 지역에서 검색" },
     booking: {
       steps: { details: "상세", schedule: "일정", confirmation: "검토" },
       titles: { details: "정보입력", schedule: "시간선택", confirm: "확인", success: "확정!" },
-      labels: { date: "날짜", time: "시간", make: "브랜드", model: "모델", address: "주소", notes: "비고", agree: "동의", summary: "요약", paid: "결제", merchant: "업체", service: "명" },
+      labels: { date: "날짜", time: "시간", make: "브랜드", model: "모델", address: "주소", notes: "비고", agree: "동의", summary: "요약", paid: "결제", merchant: "업체", service: "서비스" },
       buttons: { next: "다음", prev: "이전", pay: "예약", home: "홈", dashboard: "보기" },
       messages: { finalizing: "확정중...", wait: "대기", contact24h: "24시간", safety: "보장", noReviews: "없음", recommended: "추천", replyFromMaster: "답글" }
     },
@@ -636,7 +786,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       hero: { badge: "영국 최고의 서비스 마켓", title1: "현지 전문가 예약", title2: "순식간에.", subtitle: "자동차 수리부터 리모델링까지.", searchPlaceholder: "서비스 검색", locationPlaceholder: "도시 또는 우편번호", aiMatch: "AI 매칭", searchBtn: "검색" },
       recommendation: { title1: "스마트 추천", title2: "AI Discovery", subtitle: "자산 및 니즈에 따른 매칭", browse: "지금 보기" },
       aiCTA: {
-        badge: "جديد: AI 기반",
+        badge: "신규: AI 기반",
         title1: "수리가 필요하신가요?",
         title2: "즉각적인 AI 진단.",
         subtitle: "사진을 업로드하면 AI가 문제를 식별하고 몇 초 안에 예상 수리 비용을 알려드립니다.",
@@ -700,8 +850,33 @@ export const dictionaries: Record<Locale, Dictionary> = {
         guaranteedRepairs: "수리 보장",
         disputeResolution: "모든 예약에는 안심할 수 있는 AI 기반 분쟁 해결이 포함되어 있습니다.",
         fastTurnaround: "빠른 처리",
-        responseHours: "대부분의 {category} 전문가는 2시간 이내에 응답합니다."
+        responseHours: "대부분의 {category} 전문가는 2시간 이내에 응답합니다.",
+        errorPhotoCategory: "사진을 업로드하고 카테고리를 선택하세요.",
+        errorUnexpected: "예기치 않은 오류가 발생했습니다: ",
+        uploadFormatHint: "고화질 JPG, PNG(최대 5MB) 지원",
+        descriptionPlaceholder: "예: 어제 아침부터 싱크대에서 물이 샙니다..."
       }
+    },
+    onboarding: {
+      hero: { title: "Grow Your Business with ServiceHub", subtitle: "Join the UK's leading marketplace for professionals in Education, Accounting, Repairs, and more." },
+      steps: { profile: "Business Profile", credentials: "Qualifications", contract: "Review Contract" },
+      sectors: {
+        title: "Choose Your Expertise",
+        professional: { title: "Professional Services", desc: "For certified experts handling complex documentation & advice.", industries: ["Accounting", "Legal", "Financial Advice"] },
+        education: { title: "Education & Tutors", desc: "For teachers, skill trainers, and academic mentors.", industries: ["Language Tutors", "Exam Prep", "Skill Training"] },
+        technical: { title: "Technical & Maintenance", desc: "For skilled tradespeople and essential home/car services.", industries: ["Plumbing", "Electrical", "Auto Repair", "Renovation"] }
+      },
+      contract: {
+        title: "Expert Services Agreement",
+        scrollingNotice: "Please scroll to the bottom of the agreement to confirm your acceptance.",
+        agree: "I have read and agree to the Expert Services Agreement",
+        clauses: {
+          commission: { title: "1. Service Fees & Commission", body: "ServiceHub charges a fixed 10% commission on successful bookings. Payments are processed securely via the platform." },
+          service: { title: "2. Quality Standards", body: "Experts must maintain a minimum rating of 4.0 and respond to inquiries within 24 hours to remain active." },
+          disputes: { title: "3. Dispute Resolution", body: "All disputes are mediated by our AI Arbiter. Evidence from the job record and photos will be used for final decisions." }
+        }
+      },
+      buttons: { start: "Get Started", next: "Continue", back: "Go Back", submit: "Sign and Join" }
     }
   },
   pl: {
@@ -716,8 +891,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
         bookings: [{ q: "Zmiana terminu?", a: "Darmowa do 48h przed." }]
       }
     },
-    footer: { tagline: "Platforma usługowa premium w Wielkiej Brytanii, łącząca Cię z lokalnymi ekspertami.", explore: "Eksploruj usługi", legal: "Zgodność prawna", support: "Wsparcie klienta", rights: "Wszelkie prawa zastrzeżone.", terms: "Regulamin", privacy: "Prywatność", cookies: "Cookies", help: "Centrum pomocy", contact: "Kontakt", aiDiagnosis: "Diagnoza AI" },
-    search: { filters: "Filtry", keyword: "Słowo kluczowe", location: "Lokalizacja", category: "Kategoria", minRating: "Min. ocena", verifiedOnly: "Tylko zweryfikowani", apply: "Zastosuj", sortBy: "Sortuj według", sortRating: "Ocena", sortJobs: "Wykonane prace", sortDistance: "Dystans", sortPrice: "Cena: rosnąco", foundCount: "znalezionych ekspertów", searching: "Szukanie...", noResults: "Nie znaleziono wykonawców", clearFilters: "Wyczyść filtry", basePrice: "Od", viewDetails: "Szczegóły", listView: "Lista", mapView: "Mapa" },
+    footer: { tagline: "Platforma usługowa premium w Wielkiej Brytanii, łącząca Cię z lokalnymi ekspertami.", explore: "Eksploruj usługi", legal: "Zgodność prawna", support: "Wsparcie klienta", rights: "Wszelkie prawa zastrzeżone.", terms: "Regulamin", privacy: "Prywatność", cookies: "Cookies", help: "Centrum pomocy", contact: "Kontakt", aiDiagnosis: "Diagnoza AI", homeCleaning: "Sprzątanie domu", plumbingServices: "Usługi hydrauliczne", automotiveServices: "Usługi motoryzacyjne" },
+    search: { filters: "Filtry", keyword: "Słowo kluczowe", location: "Lokalizacja", category: "Kategoria", minRating: "Min. ocena", verifiedOnly: "Tylko zweryfikowani", apply: "Zastosuj", sortBy: "Sortuj według", sortRating: "Ocena", sortJobs: "Wykonane prace", sortDistance: "Dystans", sortPrice: "Cena: rosnąco", foundCount: "znalezionych ekspertów", searching: "Szukanie...", noResults: "Nie znaleziono wykonawców", clearFilters: "Wyczyść filtry", basePrice: "Od", viewDetails: "Szczegóły", listView: "Lista", mapView: "Mapa", searchThisArea: "Szukaj w tym obszarze" },
     booking: {
       steps: { details: "Szczegóły", schedule: "Harmonogram", confirmation: "Przegląd" },
       titles: { details: "Dane rezerwacji", schedule: "Wybierz termin", confirm: "Potwierdź i zapłać", success: "Rezerwacja potwierdzona!" },
@@ -796,8 +971,33 @@ export const dictionaries: Record<Locale, Dictionary> = {
         guaranteedRepairs: "Gwarantowane naprawy",
         disputeResolution: "Wszystkie rezerwacje obejmują nasze rozwiązanie sporów oparte na AI dla Twojego spokoju.",
         fastTurnaround: "Szybki czas realizacji",
-        responseHours: "Większość specjalistów {category} odpowiada w ciągu 2 godzin."
+        responseHours: "Większość specjalistów {category} odpowiada w ciągu 2 godzin.",
+        errorPhotoCategory: "Proszę przesłać zdjęcie i wybrać kategorię.",
+        errorUnexpected: "Wystąpił nieoczekiwany błąd: ",
+        uploadFormatHint: "Obsługuje wysokiej jakości JPG, PNG (Max 5MB)",
+        descriptionPlaceholder: "np. Mój zlew w kuchni przecieka od wczoraj rana..."
       }
+    },
+    onboarding: {
+      hero: { title: "Grow Your Business with ServiceHub", subtitle: "Join the UK's leading marketplace for professionals in Education, Accounting, Repairs, and more." },
+      steps: { profile: "Business Profile", credentials: "Qualifications", contract: "Review Contract" },
+      sectors: {
+        title: "Choose Your Expertise",
+        professional: { title: "Professional Services", desc: "For certified experts handling complex documentation & advice.", industries: ["Accounting", "Legal", "Financial Advice"] },
+        education: { title: "Education & Tutors", desc: "For teachers, skill trainers, and academic mentors.", industries: ["Language Tutors", "Exam Prep", "Skill Training"] },
+        technical: { title: "Technical & Maintenance", desc: "For skilled tradespeople and essential home/car services.", industries: ["Plumbing", "Electrical", "Auto Repair", "Renovation"] }
+      },
+      contract: {
+        title: "Expert Services Agreement",
+        scrollingNotice: "Please scroll to the bottom of the agreement to confirm your acceptance.",
+        agree: "I have read and agree to the Expert Services Agreement",
+        clauses: {
+          commission: { title: "1. Service Fees & Commission", body: "ServiceHub charges a fixed 10% commission on successful bookings. Payments are processed securely via the platform." },
+          service: { title: "2. Quality Standards", body: "Experts must maintain a minimum rating of 4.0 and respond to inquiries within 24 hours to remain active." },
+          disputes: { title: "3. Dispute Resolution", body: "All disputes are mediated by our AI Arbiter. Evidence from the job record and photos will be used for final decisions." }
+        }
+      },
+      buttons: { start: "Get Started", next: "Continue", back: "Go Back", submit: "Sign and Join" }
     }
   },
   ro: {
@@ -812,8 +1012,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
         bookings: [{ q: "Cum reprogramez?", a: "Gratuit cu 48h înainte." }]
       }
     },
-    footer: { tagline: "Platformă premium de servicii în UK, conectându-vă cu experți locali verificați.", explore: "Explorați Servicii", legal: "Legal și Conformitate", support: "Suport Clienți", rights: "Toate drepturile rezervate.", terms: "Termeni", privacy: "Confidențialitate", cookies: "Cookie-uri", help: "Ajutor", contact: "Contact", aiDiagnosis: "Diagnostic AI" },
-    search: { filters: "Filtre", keyword: "Cuvânt cheie", location: "Locație", category: "Categorie", minRating: "Rating minim", verifiedOnly: "Doar verificați", apply: "Aplică", sortBy: "Sortează după", sortRating: "Rating", sortJobs: "Lucrări", sortDistance: "Distanță", sortPrice: "Preț: mic la mare", foundCount: "experți găsiți", searching: "Căutare...", noResults: "Nu s-au găsit comercianți", clearFilters: "Șterge filtrele", basePrice: "De la", viewDetails: "Detalii", listView: "Listă", mapView: "Hartă" },
+    footer: { tagline: "Platformă premium de servicii în UK, conectându-vă cu experți locali verificați.", explore: "Explorați Servicii", legal: "Legal și Conformitate", support: "Suport Clienți", rights: "Toate drepturile rezervate.", terms: "Termeni", privacy: "Confidențialitate", cookies: "Cookie-uri", help: "Ajutor", contact: "Contact", aiDiagnosis: "Diagnostic AI", homeCleaning: "Curățenie Casă", plumbingServices: "Servicii Instalații", automotiveServices: "Servicii Auto" },
+    search: { filters: "Filtre", keyword: "Cuvânt cheie", location: "Locație", category: "Categorie", minRating: "Rating minim", verifiedOnly: "Doar verificați", apply: "Aplică", sortBy: "Sortează după", sortRating: "Rating", sortJobs: "Lucrări", sortDistance: "Distanță", sortPrice: "Preț: mic la mare", foundCount: "experți găsiți", searching: "Căutare...", noResults: "Nu s-au găsit comercianți", clearFilters: "Șterge filtrele", basePrice: "De la", viewDetails: "Detalii", listView: "Listă", mapView: "Hartă", searchThisArea: "Caută în această zonă" },
     booking: {
       steps: { details: "Detalii", schedule: "Programare", confirmation: "Revizuire" },
       titles: { details: "Detalii Rezervare", schedule: "Programați Vizita", confirm: "Confirmă și Plătește", success: "Rezervare Confirmată!" },
@@ -880,8 +1080,33 @@ export const dictionaries: Record<Locale, Dictionary> = {
         guaranteedRepairs: "Reparații Garantate",
         disputeResolution: "Toate rezervările includ rezolvarea disputelor prin AI.",
         fastTurnaround: "Răspuns Rapid",
-        responseHours: "Majoritatea specialiștilor în {category} răspund în 2 ore."
+        responseHours: "Majoritatea specialiștilor în {category} răspund în 2 ore.",
+        errorPhotoCategory: "Vă rugăm să încărcați o fotografie și să selectați o categorie.",
+        errorUnexpected: "A apărut o eroare neașteptată: ",
+        uploadFormatHint: "Suportă JPG, PNG de înaltă calitate (Max 5MB)",
+        descriptionPlaceholder: "ex: Chiuveta mea de bucătărie picură de ieri dimineață..."
       }
+    },
+    onboarding: {
+      hero: { title: "Grow Your Business with ServiceHub", subtitle: "Join the UK's leading marketplace for professionals in Education, Accounting, Repairs, and more." },
+      steps: { profile: "Business Profile", credentials: "Qualifications", contract: "Review Contract" },
+      sectors: {
+        title: "Choose Your Expertise",
+        professional: { title: "Professional Services", desc: "For certified experts handling complex documentation & advice.", industries: ["Accounting", "Legal", "Financial Advice"] },
+        education: { title: "Education & Tutors", desc: "For teachers, skill trainers, and academic mentors.", industries: ["Language Tutors", "Exam Prep", "Skill Training"] },
+        technical: { title: "Technical & Maintenance", desc: "For skilled tradespeople and essential home/car services.", industries: ["Plumbing", "Electrical", "Auto Repair", "Renovation"] }
+      },
+      contract: {
+        title: "Expert Services Agreement",
+        scrollingNotice: "Please scroll to the bottom of the agreement to confirm your acceptance.",
+        agree: "I have read and agree to the Expert Services Agreement",
+        clauses: {
+          commission: { title: "1. Service Fees & Commission", body: "ServiceHub charges a fixed 10% commission on successful bookings. Payments are processed securely via the platform." },
+          service: { title: "2. Quality Standards", body: "Experts must maintain a minimum rating of 4.0 and respond to inquiries within 24 hours to remain active." },
+          disputes: { title: "3. Dispute Resolution", body: "All disputes are mediated by our AI Arbiter. Evidence from the job record and photos will be used for final decisions." }
+        }
+      },
+      buttons: { start: "Get Started", next: "Continue", back: "Go Back", submit: "Sign and Join" }
     }
   },
   ur: {
@@ -896,8 +1121,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
         bookings: [{ q: "تاریخ کیسے بدلیں؟", a: "48 گھنٹے پہلے مفت تبدیلی۔" }]
       }
     },
-    footer: { tagline: "برطانیہ کی بہترین سروس مارکیٹ پلیس۔", explore: "خدمات", legal: "قانونی", support: "سپورٹ", rights: "جملہ حقوق محفوظ ہیں۔", terms: "شرائط", privacy: "رازداری", cookies: "کوکیز", help: "مدد", contact: "رابطہ", aiDiagnosis: "AI تشخیص" },
-    search: { filters: "فلٹرز", keyword: "کلیدی لفظ", location: "مقام", category: "زمرہ", minRating: "کم از کم ریٹنگ", verifiedOnly: "صرف تصدیق شدہ", apply: "فلٹر لگائیں", sortBy: "ترتیب دیں", sortRating: "ریٹنگ", sortJobs: "کام", sortDistance: "فاصلہ", sortPrice: "قیمت", foundCount: "ماہرین ملے", searching: "تلاش جاری ہے...", noResults: "کوئی نہیں ملا", clearFilters: "صاف کریں", basePrice: "سے", viewDetails: "تفصیل دیکھیں", listView: "لسٹ ویو", mapView: "میپ ویو" },
+    footer: { tagline: "برطانیہ کی بہترین سروس مارکیٹ پلیس۔", explore: "خدمات", legal: "قانونی", support: "سپورٹ", rights: "جملہ حقوق محفوظ ہیں۔", terms: "شرائط", privacy: "رازداری", cookies: "کوکیز", help: "مدد", contact: "رابطہ", aiDiagnosis: "AI تشخیص", homeCleaning: "گھر کی صفائی", plumbingServices: "پلمبنگ کی خدمات", automotiveServices: "گاڑیوں کی خدمات" },
+    search: { filters: "فلٹرز", keyword: "کلیدی لفظ", location: "مقام", category: "زمرہ", minRating: "کم از کم ریٹنگ", verifiedOnly: "صرف تصدیق شدہ", apply: "فلٹر لگائیں", sortBy: "ترتیب دیں", sortRating: "ریٹنگ", sortJobs: "کام", sortDistance: "فاصلہ", sortPrice: "قیمت", foundCount: "ماہرین ملے", searching: "تلاش جاری ہے...", noResults: "کوئی نہیں ملا", clearFilters: "صاف کریں", basePrice: "سے", viewDetails: "تفصیل دیکھیں", listView: "لسٹ ویو", mapView: "میپ ویو", searchThisArea: "اس علاقے میں تلاش کریں" },
     booking: {
       steps: { details: "تفصیلات", schedule: "شیڈول", confirmation: "جائزہ" },
       titles: { details: "بکنگ کی تفصیلات", schedule: "وقت کا انتخاب", confirm: "تصدیق اور ادائیگی", success: "بکنگ کی تصدیق ہوگئی!" },
@@ -964,8 +1189,143 @@ export const dictionaries: Record<Locale, Dictionary> = {
         guaranteedRepairs: "ضمانت شدہ مرمت",
         disputeResolution: "تمام بکنگز میں AI کے ذریعے تنازعات کا حل شامل ہے۔",
         fastTurnaround: "فوری جواب",
-        responseHours: "زیادہ تر {category} ماہرین 2 گھنٹے میں جواب دیتے ہیں۔"
+        responseHours: "زیادہ تر {category} ماہرین 2 گھنٹے میں جواب دیتے ہیں۔",
+        errorPhotoCategory: "براہ کرم تصویر اپ لوڈ کریں اور زمرہ منتخب کریں۔",
+        errorUnexpected: "غیر متوقع غلطی ہوئی ہے: ",
+        uploadFormatHint: "اعلیٰ معیار کی JPG، PNG (زیادہ سے زیادہ 5MB) کو سپورٹ کرتا ہے",
+        descriptionPlaceholder: "مثال کے طور پر: میرا کچن سنک کل صبح سے ٹپک رہا ہے..."
       }
+    },
+    onboarding: {
+      hero: { title: "Grow Your Business with ServiceHub", subtitle: "Join the UK's leading marketplace for professionals in Education, Accounting, Repairs, and more." },
+      steps: { profile: "Business Profile", credentials: "Qualifications", contract: "Review Contract" },
+      sectors: {
+        title: "Choose Your Expertise",
+        professional: { title: "Professional Services", desc: "For certified experts handling complex documentation & advice.", industries: ["Accounting", "Legal", "Financial Advice"] },
+        education: { title: "Education & Tutors", desc: "For teachers, skill trainers, and academic mentors.", industries: ["Language Tutors", "Exam Prep", "Skill Training"] },
+        technical: { title: "Technical & Maintenance", desc: "For skilled tradespeople and essential home/car services.", industries: ["Plumbing", "Electrical", "Auto Repair", "Renovation"] }
+      },
+      contract: {
+        title: "Expert Services Agreement",
+        scrollingNotice: "Please scroll to the bottom of the agreement to confirm your acceptance.",
+        agree: "I have read and agree to the Expert Services Agreement",
+        clauses: {
+          commission: { title: "1. Service Fees & Commission", body: "ServiceHub charges a fixed 10% commission on successful bookings. Payments are processed securely via the platform." },
+          service: { title: "2. Quality Standards", body: "Experts must maintain a minimum rating of 4.0 and respond to inquiries within 24 hours to remain active." },
+          disputes: { title: "3. Dispute Resolution", body: "All disputes are mediated by our AI Arbiter. Evidence from the job record and photos will be used for final decisions." }
+        }
+      },
+      buttons: { start: "Get Started", next: "Continue", back: "Go Back", submit: "Sign and Join" }
+    }
+  },
+  pa: {
+    nav: { browse: "ਸੇਵਾਵਾਂ ਦੇਖੋ", join: "ਮਾਹਰ ਵਜੋਂ ਸ਼ਾਮਲ ਹੋਵੋ", login: "ਲੌਗਇਨ", logout: "ਲੌਗਆਊਟ", dashboard: "ਡੈਸ਼ਬੋਰਡ", aiDiagnosis: "AI ਨਿਦਾਨ" },
+    hero: { title: "ਅਸੀਂ ਤੁਹਾਡੀ ਕੀ ਮਦਦ ਕਰ ਸਕਦੇ ਹਾਂ?", subtitle: "FAQ ਖੋਜੋ ਅਤੇ ਤੁਰੰਤ ਸਹਾਇਤਾ ਪ੍ਰਾਪਤ ਕਰੋ।", searchPlaceholder: "ਰਿਫੰਡ, ਝਗੜੇ, ਬੁਕਿੰਗ ਮੁੱਦਿਆਂ ਦੀ ਖੋਜ ਕਰੋ...", badge: "ਸਹਾਇਤਾ ਕੇਂਦਰ" },
+    faq: { 
+      title: "ਸਮਾਰਟ FAQ", subtitle: "ਭੁਗਤਾਨਾਂ ਅਤੇ ਝਗੜਿਆਂ ਬਾਰੇ ਅਧਿਕਾਰਤ ਜਵਾਬ।", categories: { payments: "ਭੁਗਤਾਨ", disputes: "ਝਗੜੇ", bookings: "ਭੁਗਤਾਨ" }, 
+      aura: { title: "ਹੋਰ ਸਹਾਇਤਾ ਚਾਹੀਦੀ ਹੈ?", subtitle: "Aura AI 1-ਨਾਲ-1 ਮਾਰਗਦਰਸ਼ਨ ਪ੍ਰਦਾਨ ਕਰਦਾ ਹੈ।", cta: "ਹੁਣੇ ਗੱਲ ਕਰੋ" },
+      questions: {
+        payments: [{ q: "ਕੀ ਮੈਂ ਕ੍ਰੈਡਿਟ ਕਾਰਡ ਨਾਲ ਭੁਗਤਾਨ ਕਰ ਸਕਦਾ ਹਾਂ?", a: "ਹਾਂ, ਅਸੀਂ ਸਾਰੇ ਪ੍ਰਮੁੱਖ ਕਾਰਡਾਂ ਦਾ ਸਮਰਥਨ ਕਰਦੇ ਹਾਂ।" }, { q: "ਰਿਫੰਡ ਲਈ ਕਿਵੇਂ ਅਪਲਾਈ ਕਰੀਏ?", a: "ਤੁਸੀਂ 24 ਘੰਟਿਆਂ ਦੇ ਅੰਦਰ ਸਿਸਟਮ ਰਾਹੀਂ ਅਪਲਾਈ ਕਰ ਸਕਦੇ ਹੋ।" }],
+        disputes: [{ q: "ਜੇ ਮਾਹਰ ਨਾ ਆਵੇ?", a: "ਰਿਫੰਡ ਲਈ ਆਰਡਰ ਪੰਨੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।" }, { q: "ਵਾਧੂ ਖਰਚੇ ਲਾਜ਼ਮੀ ਹਨ?", a: "ਨਹੀਂ। ਤੁਹਾਡੀ ਪੁਸ਼ਟੀ ਤੋਂ ਬਿਨਾਂ ਨਹੀਂ।" }],
+        bookings: [{ q: "ਤਰੀਕ ਕਿਵੇਂ ਬਦਲੀਏ?", a: "48 ਘੰਟੇ ਪਹਿਲਾਂ ਮੁਫਤ ਤਬਦੀਲੀ।" }]
+      }
+    },
+    footer: { tagline: "ਯੂਕੇ ਦੀ ਪ੍ਰੀਮੀਅਮ ਸਰਵਿਸ ਮਾਰਕੀਟਪਲੇਸ।", explore: "ਸੇਵਾਵਾਂ ਦੀ ਪੜਚੋਲ ਕਰੋ", legal: "ਕਾਨੂੰਨੀ ਅਤੇ ਪਾਲਣਾ", support: "ਗਾਹਕ ਸਹਾਇਤਾ", rights: "ਸਾਰੇ ਹੱਕ ਰਾਖਵੇਂ ਹਨ।", terms: "ਸ਼ਰਤਾਂ", privacy: "ਪਰਾਈਵੇਸੀ", cookies: "ਕੂਕੀਜ਼", help: "ਸਹਾਇਤਾ ਕੇਂਦਰ", contact: "ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ", aiDiagnosis: "AI ਨਿਦਾਨ", homeCleaning: "ਘਰ ਦੀ ਸਫਾਈ", plumbingServices: "ਪਲੰਬਿੰਗ ਸੇਵਾਵਾਂ", automotiveServices: "ਆਟੋਮੋਟਿਵ ਸੇਵਾਵਾਂ" },
+    search: { filters: "ਫਿਲਟਰ", keyword: "ਕੀਵਰਡ", location: "ਸਥਾਨ", category: "ਸ਼੍ਰੇਣੀ", minRating: "ਰੇਟਿੰਗ", verifiedOnly: "ਸਿਰਫ ਪ੍ਰਮਾਣਿਤ", apply: "ਫਿਲਟਰ ਲਾਗੂ ਕਰੋ", sortBy: "ਕ੍ਰਮਬੱਧ ਕਰੋ", sortRating: "ਰੇਟਿੰਗ", sortJobs: "ਕੰਮ", sortDistance: "ਦੂਰੀ", sortPrice: "ਕੀਮਤ", foundCount: "ਮਾਹਰ ਮਿਲੇ", searching: "ਖੋਜ ਜਾਰੀ ਹੈ...", noResults: "ਕੋਈ ਨਹੀਂ ਮਿਲਿਆ", clearFilters: "ਸਾਫ਼ ਕਰੋ", basePrice: "ਤੋਂ", viewDetails: "ਵੇਰਵੇ ਦੇਖੋ", listView: "ਸੂਚੀ ਦ੍ਰਿਸ਼", mapView: "ਨਕਸ਼ਾ ਦ੍ਰਿਸ਼", searchThisArea: "ਇਸ ਖੇਤਰ ਵਿੱਚ ਖੋਜੋ" },
+    booking: {
+      steps: { details: "ਵੇਰਵੇ", schedule: "ਸ਼ਡਿਊਲ", confirmation: "ਸਮੀਖਿਆ" },
+      titles: { details: "ਬੁਕਿੰਗ ਵੇਰਵੇ", schedule: "ਸਮਾਂ ਚੁਣੋ", confirm: "ਪੁਸ਼ਟੀ ਅਤੇ ਭੁਗਤਾਨ", success: "ਬੁਕਿੰਗ ਦੀ ਪੁਸ਼ਟੀ ਹੋ ਗਈ!" },
+      labels: { date: "ਤਾਰੀਖ ਚੁਣੋ", time: "ਸਮਾਂ ਚੁਣੋ", make: "ਕੰਪਨੀ", model: "ਮਾਡਲ", address: "ਪਤਾ", notes: "ਨੋਟਸ", agree: "ਮੈਂ ਸ਼ਰਤਾਂ ਨਾਲ ਸਹਿਮਤ ਹਾਂ", summary: "ਸਾਰ", paid: "ਭੁਗਤਾਨ ਕੀਤਾ", merchant: "ਵਪਾਰੀ", service: "ਸੇਵਾ" },
+      buttons: { next: "ਅਗਲਾ ਕਦਮ", prev: "ਪਿਛਲਾ", pay: "ਹੁਣੇ ਬੁੱਕ ਕਰੋ", home: "ਹੋਮ", dashboard: "ਮੇਰੀ ਬੁਕਿੰਗ" },
+      messages: { finalizing: "ਅੰਤਿਮ ਰੂਪ ਦਿੱਤਾ ਜਾ ਰਿਹਾ ਹੈ...", wait: "ਕਿਰਪਾ ਕਰਕੇ ਉਡੀਕ ਕਰੋ।", contact24h: "ਮਾਹਰ 24 ਘੰਟਿਆਂ ਵਿੱਚ ਸੰਪਰਕ ਕਰੇਗਾ।", safety: "ਸੁਰੱਖਿਅਤ ਭੁਗਤਾਨ ਦੀ ਗਾਰੰਟੀ", noReviews: "ਕੋਈ ਸਮੀਖਿਆ ਨਹੀਂ।", recommended: "ਸਿਫਾਰਸ਼ ਕੀਤੀ", replyFromMaster: "ਜਵਾਬ" }
+    },
+    merchant: {
+      verified: "ਪ੍ਰਮਾਣਿਤ", background: "ਪੇਸ਼ੇਵਰ ਪਿਛੋਕੜ", portfolio: "ਪੋਰਟਫੋਲੀਓ", reviewTitle: "ਗਾਹਕ ਸਮੀਖਿਆਵਾਂ", realReviews: "ਅਸਲੀ ਫੀਡਬੈਕ", verifiedBooking: "ਪ੍ਰਮਾਣਿਤ ਬੁਕਿੰਗ", pricingAnalysis: "ਮੁੱਖ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ", bookingChannel: "ਤੁਰੰਤ ਬੁਕਿੰਗ", viewServices: "ਸੇਵਾਵਾਂ ਦੇਖੋ", guarantee: "ਪਲੇਟਫਾਰਮ ਗਾਰੰਟੀ", fastResponse: "ਤੁਰੰਤ ਜਵਾਬ", contactExpert: "ਮਾਹਰ ਨੂੰ ਪੁੱਛੋ", noReviews: "ਕੋਈ ਸਮੀਖਿਆ ਨਹੀਂ", reply: "ਸਰਕਾਰੀ ਜਵਾਬ"
+    },
+    home: {
+      hero: { badge: "ਯੂਕੇ ਦਾ ਸਭ ਤੋਂ ਭਰੋਸੇਮੰਦ ਸਰਵਿਸ ਮਾਰਕੀਟਪਲੇਸ", title1: "ਸਥਾਨਕ ਮਾਹਰ ਲੱਭੋ", title2: "ਸਕਿੰਟਾਂ ਵਿੱਚ।", subtitle: "ਕਾਰ ਦੀ ਮੁਰੰਮਤ ਤੋਂ ਲੈ ਕੇ ਘਰ ਦੀ ਸਜਾਵਟ ਤੱਕ।", searchPlaceholder: "ਤੁਹਾਨੂੰ ਕੀ ਚਾਹੀਦਾ ਹੈ?", locationPlaceholder: "ਸ਼ਹਿਰ ਜਾਂ ਪੋਸਟ ਕੋਡ", aiMatch: "AI ਮੈਚ", searchBtn: "ਖੋਜ" },
+      recommendation: { title1: "ਸਮਾਰਟ ਸਿਫਾਰਸ਼ਾਂ", title2: "AI ਖੋਜ", subtitle: "ਤੁਹਾਡੀਆਂ ਜ਼ਰੂਰਤਾਂ ਦੇ ਅਨੁਸਾਰ", browse: "ਹੁਣੇ ਦੇਖੋ" },
+      aiCTA: { badge: "ਨਵਾਂ: AI ਦੁਆਰਾ ਸੰਚਾਲਿਤ", title1: "ਮੁਰੰਮਤ ਦੀ ਲੋੜ ਹੈ?", title2: "ਤੁਰੰਤ AI ਨਿਦਾਨ ਪ੍ਰਾਪਤ ਕਰੋ।", subtitle: "ਇੱਕ ਫੋਟੋ ਅਪਲੋਡ ਕਰੋ ਅਤੇ ਸਾਡਾ AI ਸਕਿੰਟਾਂ ਵਿੱਚ ਸਮੱਸਿਆ ਦੀ ਪਛਾਣ ਕਰੇਗਾ।", button: "ਮੁਫਤ AI ਨਿਦਾਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ" },
+      categories: { plumbing: "ਪਲੰਬਿੰਗ", repairs: "ਮੁਰੰਮਤ", renovation: "ਸਜਾਵਟ", education: "ਸਿੱਖਿਆ", accounting: "ਲੇਖਾਕਾਰੀ", legal: "ਕਾਨੂੰਨੀ", commercial: "ਵਪਾਰਕ", cleaning: "ਸਫਾਈ", car: "ਕਾਰ ਸੇਵਾਵਾਂ" },
+      sections: {
+        plumbing: { title: "ਪਲੰਬਿੰਗ ਅਤੇ ਬਿਜਲੀ", desc: "ਪ੍ਰਮਾਣਿਤ ਮਾਹਰ।", items: ["ਮੁਰੰਮਤ", "ਵਾਇਰਿੰਗ", "ਸਥਾਪਨਾ", "ਬੋਇਲਰ", "ਸਵਿੱਚ", "ਸਮਾਰਟ ਹੋਮ"] },
+        repairs: { title: "ਹੋਮ ਹੈਂਡੀਮੈਨ", desc: "ਘਰ ਦੇ ਕੰਮਾਂ ਲਈ।", items: ["ਅਸੈਂਬਲੀ", "ਦਰਵਾਜ਼ੇ/ਖਿੜਕੀਆਂ", "ਦੀਵਾਰ ਦੀ ਮੁਰੰਮਤ", "ਸ਼ੈਲਫਿੰਗ", "ਪੇਂਟਿੰਗ", "ਵਿਭਿੰਨ"] },
+        accounting: { title: "ਲੇਖਾਕਾਰੀ ਅਤੇ ਟੈਕਸ", desc: "ਕਾਰੋਬਾਰੀ ਅਤੇ ਰਿਹਾਇਸ਼ੀ।", items: ["ਟੈਕਸ ਰਿਟਰਨ", "ਸਾਲਾਨਾ ਖਾਤੇ", "ਵੈਟ", "ਪੇਰੋਲ", "ਸਲਾਹ", "ਵਿਸ਼ਲੇਸ਼ਣ"] },
+        renovation: { title: "ਘਰ ਦੀ ਸਜਾਵਟ", desc: "ਗੁਣਵੱਤਾ ਦੀ ਗਾਰੰਟੀ।", items: ["ਰਸੋਈ/ਬਾਥ", "ਵਿਸਤਾਰ", "ਡਿਜ਼ਾਈਨ", "ਪੇਂਟਿੰਗ", "ਫਲੋਰਿੰਗ", "ਬਾਗਬਾਨੀ"] },
+        education: { title: "ਸਿੱਖਿਆ ਅਤੇ ਸਿਖਲਾਈ", desc: "ਭਾਸ਼ਾ ਅਤੇ ਹੁਨਰ ਸਿਖਲਾਈ।", items: ["ਭਾਸ਼ਾ ਟਿਊਟਰ", "IELTS/TOEFL", "ਪ੍ਰੋਗਰਾਮਿੰਗ", "ਸੰਗੀਤ", "ਬਿਜ਼ਨਸ ਸਕਿੱਲ", "ਅਕਾਦਮਿਕ ਮਦਦ"] },
+        cleaning: { title: "ਸਫਾਈ ਸੇਵਾਵਾਂ", desc: "ਪੇਸ਼ੇਵਰ ਸਫਾਈ।", items: ["ਘਰ ਦੀ ਸਫਾਈ", "ਡੀਪ ਕਲੀਨ", "ਕਾਲੀਨ ਦੀ ਸਫਾਈ", "ਖਿੜਕੀਆਂ ਦੀ ਸਫਾਈ", "ਆਫਿਸ ਕਲੀਨਿੰਗ", "ਰੋਗਾਣੂ ਮੁਕਤ"] },
+        legal: { title: "ਕਾਨੂੰਨੀ ਸਲਾਹ", desc: "ਪ੍ਰਮਾਣਿਤ ਮਾਹਰ।", items: ["ਕਰਾਰ", "ਵੀਜ਼ਾ", "ਪ੍ਰਾਪਰਟੀ ਕਾਨੂੰਨ", "ਝਗੜੇ", "ਬਿਜ਼ਨਸ ਲਾਅ", "ਨੋਟਰੀ"] },
+        commercial: { title: "ਵਪਾਰਕ ਸੇਵਾਵਾਂ", desc: "ਵਪਾਰਕ ਸਥਾਨਾਂ ਲਈ।", items: ["ਸ਼ਾਪ ਡਿਜ਼ਾਈਨ", "ਆਫਿਸ ਤਬਦੀਲੀ", "ਬਿਜਲੀ", "ਫਾਇਰ ਸੇਫਟੀ", "ਆਈਟੀ ਨੈੱਟਵਰਕ", "HVAC"] }
+      },
+      popularTitle: "ਪ੍ਰਸਿੱਧ ਪ੍ਰੋਜੈਕਟ", popularIn: "ਵਿੱਚ", allUK: "ਸਾਰਾ ਯੂਕੇ",
+      noProjects: { title: "ਕੋਈ ਪ੍ਰੋਜੈਕਟ ਨਹੀਂ ਮਿਲਿਆ", desc: "ਅਸੀਂ ਨਵੇਂ ਮਾਹਰ ਸ਼ਾਮਲ ਕਰ ਰਹੇ ਹਾਂ।" },
+      reviews: { excellent: "ਸ਼ਾਨਦਾਰ", basedOn: "ਦੇ ਅਧਾਰ 'ਤੇ", verified: "ਪ੍ਰਮਾਣਿਤ" }
+    },
+    location: { selectCity: "ਸ਼ਹਿਰ ਚੁਣੋ", detecting: "ਪਛਾਣ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ...", switch: "ਬਦਲੋ", nearby: "ਨੇੜਲੀ ਸੇਵਾਵਾਂ" },
+    diagnosis: {
+      badge: "GEMINI AI ਦੁਆਰਾ ਸੰਚਾਲਿਤ",
+      title1: "ਪੇਸ਼ੇਵਰ ਮੁਰੰਮਤ",
+      title2: "ਸਕਿੰਟਾਂ ਵਿੱਚ ਪਛਾਣ",
+      subtitle: "ਸਾਡਾ AI ਫੋਰਟੋਆਂ ਦਾ ਵਿਸ਼ਲੇਸ਼ਣ ਕਰਕੇ ਤੁਰੰਤ ਮੁਰੰਮਤ ਦੀ ਲਾਗਤ ਦਾ ਅੰਦਾਜ਼ਾ ਦਿੰਦਾ ਹੈ।",
+      features: {
+        instant: { title: "ਤੁਰੰਤ ਜਾਣਕਾਰੀ", desc: "ਅਪਲੋਡ ਕਰਨ ਤੋਂ ਤੁਰੰਤ ਬਾਅਦ ਤਕਨੀਕੀ ਵੇਰਵੇ ਪ੍ਰਾਪਤ ਕਰੋ।" },
+        pricing: { title: "ਵਾਜਬ ਕੀਮਤ", desc: "ਅਸੀਂ ਸਹੀ ਕੀਮਤ ਦੇਣ ਲਈ ਯੂਕੇ ਦੇ ਮਾਰਕੀਟ ਡੇਟਾ ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਹਾਂ।" },
+        verified: { title: "ਪ੍ਰਮਾਣਿਤ ਬੁਕਿੰਗ", desc: "ਆਪਣੀ ਸਮੱਸਿਆ ਦੇ ਵਧੀਆ ਮਾਹਰ ਨਾਲ ਸੰਪਰਕ ਕਰੋ।" }
+      },
+      cta: "ਸਾਰੀਆਂ ਸੇਵਾਵਾਂ ਦੇਖੋ",
+      tool: {
+        title: "ਤੁਰੰਤ AI ਨਿਦਾਨ",
+        subtitle: "ਫੋਟੋ ਅਪਲੋਡ ਕਰੋ ਅਤੇ AI ਨੂੰ ਲਾਗਤ ਦਾ ਅੰਦਾਜ਼ਾ ਲਗਾਉਣ ਦਿਓ।",
+        step1: "1. ਫੋਟੋ ਅਪਲੋਡ ਕਰੋ",
+        step2: "2. ਸ਼੍ਰੇਣੀ ਚੁਣੋ",
+        step3: "3. ਸਮੱਸਿਆ ਬਾਰੇ ਦੱਸੋ (ਵੈਕਲਪਿਕ)",
+        uploadHint: "ਫੋਟੋ ਲਓ ਜਾਂ ਅਪਲੋਡ ਕਰੋ",
+        replaceHint: "ਫੋਟੋ ਬਦਲਣ ਲਈ ਕਲਿੱਕ ਕਰੋ",
+        submit: "ਮੁਫਤ AI ਨਿਦਾਨ ਕਰੋ",
+        loading: "AI ਵਿਸ਼ਲੇਸ਼ਣ ਕਰ ਰਿਹਾ ਹੈ...",
+        disclaimer: "AI ਅੰਦਾਜ਼ੇ ਸਿਰਫ ਮਾਰਗਦਰਸ਼ਨ ਲਈ ਹਨ। ਅੰਤਿਮ ਕੀਮਤ ਮਾਹਰ ਦੁਆਰਾ ਦਿੱਤੀ ਜਾਵੇਗੀ।",
+        newDiagnosis: "ਨਵਾਂ ਨਿਦਾਨ",
+        categories: { plumbing: "ਪਲੰਬਿੰਗ", auto: "ਕਾਰ ਦੀ ਮੁਰੰਮਤ", renovation: "ਘਰ ਦੀ ਸਜਾਵਟ", electrical: "ਬਿਜਲੀ ਦਾ ਕੰਮ", cleaning: "ਪੇਸ਼ੇਵਰ ਸਫਾਈ" },
+        resultTitle: "AI ਮੁਰੰਮਤ ਦੀ ਜਾਣਕਾਰੀ",
+        detectedIssue: "ਪਛਾਣੀ ਗਈ ਸਮੱਸਿਆ",
+        recommendedSolution: "ਸਿਫਾਰਸ਼ੀ ਹੱਲ",
+        estimatedCostLabel: "ਅੰਦਾਜ਼ਨ ਕੀਮਤ",
+        ukStandard: "ਯੂਕੇ ਸਰਵਿਸ ਮਿਆਰ",
+        includesLabor: "ਮਜ਼ਦੂਰੀ ਅਤੇ ਪਾਰਟਸ ਸ਼ਾਮਲ ਹਨ",
+        bookSpecialist: "ਪ੍ਰਮਾਣਿਤ ਮਾਹਰ ਬੁੱਕ ਕਰੋ",
+        confidence: "ਭਰੋਸਾ",
+        analyzedPhoto: "ਵਿਸ਼ਲੇਸ਼ਣ ਕੀਤੀ ਫੋਟੋ",
+        guaranteedRepairs: "ਗਾਰੰਟੀਸ਼ੁਦਾ ਮੁਰੰਮਤ",
+        disputeResolution: "ਸਾਰੀਆਂ ਬੁਕਿੰਗਾਂ ਵਿੱਚ AI ਦੁਆਰਾ ਝਗੜਿਆਂ ਦਾ ਹੱਲ ਸ਼ਾਮਲ ਹੈ।",
+        fastTurnaround: "ਤੁਰੰਤ ਜਵਾਬ",
+        responseHours: "ਜ਼ਿਆਦਾਤਰ {category} ਮਾਹਰ 2 ਘੰਟੇ ਵਿੱਚ ਜਵਾਬ ਦਿੰਦੇ ਹਨ।",
+        errorPhotoCategory: "ਕਿਰਪਾ ਕਰਕੇ ਫੋਟੋ ਅਪਲੋਡ ਕਰੋ ਅਤੇ ਸ਼੍ਰੇਣੀ ਚੁਣੋ।",
+        errorUnexpected: "ਗਲਤੀ ਆਈ ਹੈ: ",
+        uploadFormatHint: "ਉੱਚ ਗੁਣਵੱਤਾ ਵਾਲੀ JPG, PNG (ਵੱਧ ਤੋਂ ਵੱਧ 5MB) ਦਾ ਸਮਰਥਨ ਕਰਦਾ ਹੈ",
+        descriptionPlaceholder: "ਜਿਵੇਂ ਕਿ: ਮੇਰਾ ਰਸੋਈ ਸਿੰਕ ਕੱੱਲ੍ਹ ਸਵੇਰ ਤੋਂ ਟਪਕ ਰਿਹਾ ਹੈ..."
+      }
+    },
+    onboarding: {
+      hero: { title: "Grow Your Business with ServiceHub", subtitle: "Join the UK's leading marketplace for professionals in Education, Accounting, Repairs, and more." },
+      steps: { profile: "Business Profile", credentials: "Qualifications", contract: "Review Contract" },
+      sectors: {
+        title: "Choose Your Expertise",
+        professional: { title: "Professional Services", desc: "For certified experts handling complex documentation & advice.", industries: ["Accounting", "Legal", "Financial Advice"] },
+        education: { title: "Education & Tutors", desc: "For teachers, skill trainers, and academic mentors.", industries: ["Language Tutors", "Exam Prep", "Skill Training"] },
+        technical: { title: "Technical & Maintenance", desc: "For skilled tradespeople and essential home/car services.", industries: ["Plumbing", "Electrical", "Auto Repair", "Renovation"] }
+      },
+      contract: {
+        title: "Expert Services Agreement",
+        scrollingNotice: "Please scroll to the bottom of the agreement to confirm your acceptance.",
+        agree: "I have read and agree to the Expert Services Agreement",
+        clauses: {
+          commission: { title: "1. Service Fees & Commission", body: "ServiceHub charges a fixed 10% commission on successful bookings. Payments are processed securely via the platform." },
+          service: { title: "2. Quality Standards", body: "Experts must maintain a minimum rating of 4.0 and respond to inquiries within 24 hours to remain active." },
+          disputes: { title: "3. Dispute Resolution", body: "All disputes are mediated by our AI Arbiter. Evidence from the job record and photos will be used for final decisions." }
+        }
+      },
+      buttons: { start: "Get Started", next: "Continue", back: "Go Back", submit: "Sign and Join" }
     }
   }
 };
+

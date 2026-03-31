@@ -13,10 +13,14 @@ export type SearchFilters = {
   userLat?: number;
   userLon?: number;
   sortBy?: 'rating' | 'jobs' | 'distance' | 'price';
+  bounds?: {
+    sw: { lat: number; lng: number };
+    ne: { lat: number; lng: number };
+  };
 };
 
 export async function searchMerchants(filters: SearchFilters) {
-  const { query, category, location, minRating, isVerified, userLat, userLon, sortBy } = filters;
+  const { query, category, location, minRating, isVerified, userLat, userLon, sortBy, bounds } = filters;
   // ... rest of the function ...
 
     // 1. Build the where clause for Prisma
@@ -38,6 +42,11 @@ export async function searchMerchants(filters: SearchFilters) {
 
     if (location && location !== 'All') {
       where.city = { contains: location, mode: 'insensitive' };
+    }
+
+    if (bounds) {
+      where.latitude = { gte: bounds.sw.lat, lte: bounds.ne.lat };
+      where.longitude = { gte: bounds.sw.lng, lte: bounds.ne.lng };
     }
 
     if (query) {

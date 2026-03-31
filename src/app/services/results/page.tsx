@@ -19,6 +19,7 @@ function SearchResults() {
   const [results, setResults] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<'list' | 'map'>('list');
+  const [bounds, setBounds] = useState<{ sw: { lat: number, lng: number }, ne: { lat: number, lng: number } } | undefined>(undefined);
   
   // Filter states
   const [query, setQuery] = useState(searchParams.get('q') || "");
@@ -28,7 +29,7 @@ function SearchResults() {
   const [verifiedOnly, setVerifiedOnly] = useState(false);
   const [sortBy, setSortBy] = useState<'rating' | 'jobs' | 'distance' | 'price'>('rating');
 
-  const performSearch = async (overrideLocation?: string) => {
+  const performSearch = async (overrideLocation?: string, overrideBounds?: any) => {
     setLoading(true);
     try {
       const activeLocation = overrideLocation !== undefined ? overrideLocation : (location || city);
@@ -46,7 +47,8 @@ function SearchResults() {
         location: activeLocation === ALL_UK || !activeLocation ? undefined : activeLocation,
         minRating,
         isVerified: verifiedOnly,
-        sortBy
+        sortBy,
+        bounds: overrideBounds !== undefined ? overrideBounds : bounds
       });
       setResults(data);
     } catch (err) {
@@ -72,7 +74,14 @@ function SearchResults() {
     // Perform search once on mount or when city changes
     const activeLocation = urlLocation || (city === ALL_UK ? undefined : city);
     performSearch(activeLocation);
+    // Reset bounds when city changes to avoid conflicting with new location search
+    setBounds(undefined);
   }, [city]); // Recalculate when city changes from header
+
+  const handleSearchInBounds = (newBounds: any) => {
+    setBounds(newBounds);
+    performSearch(location || city, newBounds);
+  };
 
   return (
     <div className="container" style={{ paddingTop: '5rem', paddingBottom: '10rem', direction: isRTL ? 'rtl' : 'ltr' }}>
@@ -290,7 +299,7 @@ function SearchResults() {
               </button>
             </div>
           ) : viewMode === 'map' ? (
-            <MapView merchants={results} />
+            <MapView merchants={results} onSearchInBounds={handleSearchInBounds} />
           ) : (
             <div style={{ display: 'grid', gap: '1.5rem' }}>
               {results.map((merchant: any) => (
