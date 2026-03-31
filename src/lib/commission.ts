@@ -1,61 +1,47 @@
 /**
- * Tiered Merchant Commission Logic
- * Phase 1: 0-5 jobs = 0%
- * Phase 2: >5 jobs = 8% (base)
- * Escalation: Increases by 1% for every 50 additional jobs, capped at 12%
+ * Unified Merchant Commission Logic
+ * This module is the single source of truth for all platform commission calculations.
+ * 
+ * Rules:
+ * 1. If merchant has freeOrdersLeft > 0, commission is 0%.
+ * 2. Otherwise, use the merchant's stored commissionRate (Default 8%).
  */
-
-export const MERCHANT_COMMISSION_TIERS = {
-  FREE_JOBS_LIMIT: 5,
-  BASE_RATE: 0.08,
-  MAX_RATE: 0.12,
-  ESCALATION_STEP: 50,
-  ESCALATION_RATE: 0.01,
-};
 
 /**
- * Calculates the platform commission rate based on completed jobs count.
- * @param completedJobsCount The number of jobs completed by the merchant.
+ * Calculates the platform commission rate based on merchant settings.
+ * @param merchant The merchant object from the database with required fields.
  * @returns The commission rate as a decimal (e.g., 0.08 for 8%).
  */
-export function getCommissionRate(completedJobsCount: number): number {
-  const { FREE_JOBS_LIMIT, BASE_RATE, MAX_RATE, ESCALATION_STEP, ESCALATION_RATE } = MERCHANT_COMMISSION_TIERS;
-
-  if (completedJobsCount <= FREE_JOBS_LIMIT) {
+export function getCommissionRate(merchant: { commissionRate: number; freeOrdersLeft: number }): number {
+  if (merchant.freeOrdersLeft > 0) {
     return 0;
   }
-
-  // Calculate tiers after the free period
-  // We subtract 6 to ensure the first 50 jobs (6-55) are in tier 0
-  const tiers = Math.floor((completedJobsCount - 6) / ESCALATION_STEP);
-  
-  const calculatedRate = BASE_RATE + (tiers * ESCALATION_RATE);
-  
-  return Math.min(calculatedRate, MAX_RATE);
+  return merchant.commissionRate;
 }
 
 /**
  * Calculates the platform fee for a given amount.
  * @param amount The total labor amount.
- * @param completedJobsCount The number of jobs completed by the merchant.
+ * @param merchant The merchant object.
  * @returns The platform fee amount.
  */
-export function calculatePlatformFee(amount: number, completedJobsCount: number): number {
-  const rate = getCommissionRate(completedJobsCount);
+export function calculatePlatformFee(amount: number, merchant: { commissionRate: number; freeOrdersLeft: number }): number {
+  const rate = getCommissionRate(merchant);
   return amount * rate;
 }
 
 /**
  * Specialized payout calculation for Car Repairs.
- * Parts (marked with [PART] in description) have 0% commission.
- * Labor (Base amount + variations with [LABOR]) have standard commission.
+ * @param baseAmount The original labor estimate.
+ * @param variations Additional variations (parts/labor).
+ * @param merchant The merchant object.
  */
 export function calculateCarRepairPayout(
   baseAmount: number, 
   variations: { description: string; amount: number }[],
-  completedJobsCount: number
+  merchant: { commissionRate: number; freeOrdersLeft: number }
 ) {
-  const rate = getCommissionRate(completedJobsCount);
+  const rate = getCommissionRate(merchant);
   
   let partsTotal = 0;
   let laborTotal = baseAmount;

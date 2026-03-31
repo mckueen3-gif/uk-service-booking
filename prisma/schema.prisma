@@ -162,7 +162,7 @@ model Merchant {
   
   // New Commercial Fields
   commissionRate     Float     @default(0.08) // Default 8%
-  freeOrdersLeft     Int       @default(5)    // First 5 orders free
+  freeOrdersLeft     Int       @default(0)    // No free orders by default (Admin-controlled)
   
   // Bank Details (UK)
   bankSortCode       String?

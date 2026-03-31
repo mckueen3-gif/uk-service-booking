@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getStripeClient } from '@/lib/stripe';
+import { getCommissionRate } from '@/lib/commission';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 
@@ -25,8 +26,7 @@ export async function POST(req: Request) {
     const priceAmount = parseInt(basePriceStr.replace(/[^0-9]/g, ''), 10);
     const amountInPence = priceAmount * 100;
     
-    // 12% platform fee (ServiceHub Commission)
-    const applicationFeeInPence = Math.round(amountInPence * 0.12);
+    // (Fee calculation moved after merchant fetch)
 
     // Developer Bypass: If they clicked the Mock "LondonFix" dummy UI card, 
     // automatically find YOUR real onboarded merchant account and route the money there!
@@ -45,6 +45,10 @@ export async function POST(req: Request) {
     if (!merchant || !merchant.stripeAccountId) {
       return NextResponse.json({ error: 'Merchant is not fully onboarded with Stripe to receive payments.' }, { status: 400 });
     }
+
+    // Dynamic Platform Fee Calculation
+    const commissionRate = getCommissionRate(merchant);
+    const applicationFeeInPence = Math.round(amountInPence * commissionRate);
 
     let checkoutSession;
     

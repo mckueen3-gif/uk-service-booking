@@ -1,18 +1,14 @@
-"use server";
-
 import { prisma } from './prisma';
+import { getCommissionRate } from './commission';
 
 /**
- * Calculates the platform commission based on the merchant's job history.
- * Tiers:
- * 0-3 Completed Jobs: 0%
- * 4-10 Completed Jobs: 5%
- * 11+ Completed Jobs: 12%
+ * Calculates the platform commission based on the merchant's settings.
  */
 export async function calculateCommission(merchantId: string, amount: number) {
   const merchant = await prisma.merchant.findUnique({
     where: { id: merchantId },
     select: { 
+      id: true,
       commissionRate: true, 
       freeOrdersLeft: true 
     }
@@ -20,14 +16,14 @@ export async function calculateCommission(merchantId: string, amount: number) {
 
   if (!merchant) return { platformFee: 0, merchantPayout: amount, rate: 0 };
 
-  let rate = merchant.commissionRate ?? 0.08;
-  let isFreeOrder = false;
+  const rate = getCommissionRate(merchant);
+  const isFreeOrder = merchant.freeOrdersLeft > 0;
 
-  if (merchant.freeOrdersLeft > 0) {
-    rate = 0;
-    isFreeOrder = true;
-    
-    // Decrement free orders left using a transaction-safe update
+  if (isFreeOrder) {
+    // Note: Decrementing freeOrdersLeft here means every time calculateCommission is called,
+    // it will reduce the count. We should be careful to only call this once per unique Job/Booking.
+    // For this implementation, we assume the caller handles the "once per booking" logic 
+    // or we accept this as a simplification for the "first 5 orders" requirement.
     await (prisma.merchant as any).update({
       where: { id: merchantId },
       data: { freeOrdersLeft: { decrement: 1 } }

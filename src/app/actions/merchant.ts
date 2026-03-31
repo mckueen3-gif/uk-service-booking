@@ -11,7 +11,7 @@ export async function createMerchantAction(data: any) {
     }
 
     // 2. Determine Free Orders & Commission Rate
-    let freeOrders = 5; // Default: First 5 Orders Free
+    let freeOrders = 0; // Default: No free orders (Admin/Code controlled)
     let commissionRate = 0.08; // Default: 8%
 
     if (data.promoCode) {
