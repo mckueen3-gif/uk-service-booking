@@ -12,7 +12,14 @@ export default async function WalletPage() {
   const { stats, error } = await getWalletStats() as any;
   const referralCode = await ensureReferralCode();
 
-  if (error) return <div>Error loading wallet: {error}</div>;
+  if (error || !stats) {
+    return (
+      <div style={{ padding: '4rem', textAlign: 'center', backgroundColor: '#fef2f2', borderRadius: '24px', border: '1px solid #fee2e2' }}>
+        <h2 style={{ color: '#991b1b', marginBottom: '1rem' }}>抱歉，載入錢包數據時出錯</h2>
+        <p style={{ color: '#b91c1c' }}>{error || "找不到您的錢包資訊。請稍後再試或聯繫客服。"}</p>
+      </div>
+    );
+  }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
@@ -46,7 +53,7 @@ export default async function WalletPage() {
           
           <div style={{ marginBottom: '2.5rem' }}>
             <span style={{ fontSize: '1.5rem', fontWeight: 600, verticalAlign: 'top', marginRight: '0.5rem' }}>£</span>
-            <span style={{ fontSize: '4rem', fontWeight: 900, lineHeight: 1 }}>{stats.referralCredits.toFixed(2)}</span>
+            <span style={{ fontSize: '4rem', fontWeight: 900, lineHeight: 1 }}>{stats?.referralCredits?.toFixed(2) || "0.00"}</span>
           </div>
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>

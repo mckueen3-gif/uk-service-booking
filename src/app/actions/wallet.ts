@@ -11,22 +11,39 @@ async function getUserId() {
 }
 
 export async function getWalletStats() {
-  const userId = await getUserId();
-  if (!userId) return { error: "Not authenticated" };
+  try {
+    const userId = await getUserId();
+    if (!userId) return { error: "Not authenticated" };
 
-  const user = await prisma.user.findUnique({
-    where: { id: userId },
-    select: { 
-      referralCredits: true, 
-      referralCode: true,
-      creditTransactions: {
-        orderBy: { createdAt: 'desc' },
-        take: 10
-      }
-    } as any
-  });
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { 
+        referralCredits: true, 
+        referralCode: true,
+        creditTransactions: {
+          orderBy: { createdAt: 'desc' },
+          take: 10
+        }
+      } as any
+    });
 
-  return { stats: user };
+    if (!user) {
+      return { 
+        stats: { referralCredits: 0, referralCode: null, creditTransactions: [] } 
+      };
+    }
+
+    return { 
+      stats: {
+        ...user,
+        referralCredits: user.referralCredits || 0,
+        creditTransactions: user.creditTransactions || []
+      } 
+    };
+  } catch (err: any) {
+    console.error("Wallet stats fetch error:", err);
+    return { error: "Failed to fetch wallet data", stats: { referralCredits: 0, referralCode: null, creditTransactions: [] } };
+  }
 }
 
 export async function redeemVoucher(code: string) {

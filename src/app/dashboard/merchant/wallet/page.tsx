@@ -12,10 +12,19 @@ export default async function MerchantWalletPage() {
 
   const { wallet, recentBookings, recentWithdrawals, merchant, error } = await getEarningsStats() as any;
 
-  if (error) return <div>Error loading wallet: {error}</div>;
+  if (error || !merchant) {
+    return (
+      <div style={{ padding: '4rem', textAlign: 'center', backgroundColor: '#fef2f2', borderRadius: '24px', border: '1px solid #fee2e2' }}>
+        <h1 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '1rem', color: '#991b1b' }}>
+          營收頁面加載失敗 <span style={{ color: 'var(--accent-color)' }}>Earnings</span>
+        </h1>
+        <p style={{ color: '#b91c1c' }}>{error || "商家資料初始化中或無法獲取。請確定您已完成專家註冊。"}</p>
+      </div>
+    );
+  }
 
   // Commission Logic Tiers
-  const jobs = merchant.completedJobsCount || 0;
+  const jobs = merchant?.completedJobsCount || 0;
   let currentRate = 12;
   let nextGoal = 0;
   let nextRate = 0;
