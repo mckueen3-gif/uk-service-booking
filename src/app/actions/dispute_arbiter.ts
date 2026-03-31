@@ -1,13 +1,11 @@
 'use server';
 
 import { prisma } from '@/lib/prisma';
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import { VariationStatus, DisputeStatus } from '@prisma/client';
 import { updateMerchantWallet, movePendingToAvailable } from '@/lib/finance';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
+import { generateAIContent } from "@/lib/ai-provider";
 
 export async function proposeVariation(formData: FormData) {
   const bookingId = formData.get('bookingId') as string;
@@ -76,8 +74,6 @@ export async function runAIArbiter(variationId: string) {
 
     if (!variation || !variation.photoUrl) return { error: "Variation or photo not found" };
 
-    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
-
     const prompt = `
       You are an expert impartial AI Arbiter for UK Service Marketplace.
       A merchant is performing a "${variation.booking.service.name}" service.
@@ -102,15 +98,15 @@ export async function runAIArbiter(variationId: string) {
     const imageResp = await fetch(variation.photoUrl);
     const buffer = await imageResp.arrayBuffer();
     const base64Image = Buffer.from(buffer).toString('base64');
+    const mimeType = imageResp.headers.get("Content-Type") || "image/jpeg";
 
-    const result = await model.generateContent([
+    const responseText = await generateAIContent({
       prompt,
-      { inlineData: { data: base64Image, mimeType: "image/jpeg" } },
-    ]);
+      image: { base64: base64Image, mimeType },
+      jsonMode: true
+    });
 
-    const text = result.response.text();
-    const jsonStr = text.replace(/```json|```/g, "").trim();
-    const decision = JSON.parse(jsonStr);
+    const decision = JSON.parse(responseText.replace(/```json|```/g, "").trim());
 
     // Final amount to add
     const finalVariationAmount = decision.decision === 'REFUND_CUSTOMER' ? 0 : (decision.adjustedAmount || variation.amount);

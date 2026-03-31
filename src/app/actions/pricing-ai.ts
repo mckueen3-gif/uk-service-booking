@@ -1,10 +1,9 @@
 "use server";
 
 import { prisma } from '@/lib/prisma';
+import { generateAIContent } from '@/lib/ai-provider';
 
 export async function getPricingBenchmark(serviceName: string, city: string) {
-  const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-  if (!GEMINI_API_KEY) return { error: "API Key missing" };
 
   const prompt = `
     Provide current UK market pricing (GBP) for the service "${serviceName}" in the city of "${city}".
@@ -18,18 +17,12 @@ export async function getPricingBenchmark(serviceName: string, city: string) {
   `;
 
   try {
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${encodeURIComponent(GEMINI_API_KEY)}`;
-    const res = await fetch(apiUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { responseMimeType: "application/json" }
-      })
+    const responseText = await generateAIContent({
+      prompt,
+      jsonMode: true
     });
 
-    const data = await res.json();
-    const aiResponse = JSON.parse(data.candidates?.[0]?.content?.parts?.[0]?.text || "{}");
+    const aiResponse = JSON.parse(responseText.replace(/```json|```/g, "").trim());
     
     return {
       benchmark: aiResponse

@@ -1,11 +1,10 @@
 "use server";
-
+ 
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
+import { generateAIContent } from "@/lib/ai-provider";
 
 export async function generateProjectDescription(title: string, category?: string) {
-  const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-  if (!GEMINI_API_KEY) return { error: "API Key missing" };
 
   const session = await getServerSession(authOptions);
   if (!session?.user) return { error: "Unauthorized" };
@@ -28,17 +27,12 @@ export async function generateProjectDescription(title: string, category?: strin
   `;
 
   try {
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${encodeURIComponent(GEMINI_API_KEY)}`;
-    const res = await fetch(apiUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }]
-      })
+    const systemPrompt = "You are a professional copywriting assistant for UK service providers (mechanics, plumbers, etc.).";
+    const description = await generateAIContent({
+      prompt,
+      systemPrompt,
+      jsonMode: false
     });
-
-    const data = await res.json();
-    const description = data.candidates?.[0]?.content?.parts?.[0]?.text || "AI 暫時無法生成描述。";
     
     return { success: true, description: description.trim() };
   } catch (error) {

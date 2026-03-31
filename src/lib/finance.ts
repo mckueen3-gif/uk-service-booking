@@ -10,20 +10,28 @@ import { prisma } from './prisma';
  * 11+ Completed Jobs: 12%
  */
 export async function calculateCommission(merchantId: string, amount: number) {
-  const merchant = await (prisma.merchant as any).findUnique({
+  const merchant = await prisma.merchant.findUnique({
     where: { id: merchantId },
-    select: { completedJobsCount: true }
+    select: { 
+      commissionRate: true, 
+      freeOrdersLeft: true 
+    }
   });
 
   if (!merchant) return { platformFee: 0, merchantPayout: amount, rate: 0 };
 
-  const jobs = merchant.completedJobsCount || 0;
-  let rate = 0.12; // Default 12%
+  let rate = merchant.commissionRate ?? 0.08;
+  let isFreeOrder = false;
 
-  if (jobs <= 3) {
+  if (merchant.freeOrdersLeft > 0) {
     rate = 0;
-  } else if (jobs <= 10) {
-    rate = 0.05;
+    isFreeOrder = true;
+    
+    // Decrement free orders left using a transaction-safe update
+    await (prisma.merchant as any).update({
+      where: { id: merchantId },
+      data: { freeOrdersLeft: { decrement: 1 } }
+    });
   }
 
   const platformFee = amount * rate;
@@ -32,7 +40,8 @@ export async function calculateCommission(merchantId: string, amount: number) {
   return { 
     platformFee, 
     merchantPayout, 
-    rate: rate * 100 // as percentage
+    rate: rate * 100, // as percentage
+    isFreeOrder
   };
 }
 

@@ -5,11 +5,14 @@ import { useTranslation } from '@/components/LanguageContext';
 import OnboardingHero from '@/components/joining/OnboardingHero';
 import SectorSelector from '@/components/joining/SectorSelector';
 import MerchantContract from '@/components/joining/MerchantContract';
-import { ChevronRight, ChevronLeft, CheckCircle2, Building2, Mail, Globe, User } from 'lucide-react';
+import { ChevronRight, ChevronLeft, CheckCircle2, Building2, Mail, Globe, User, Loader2 } from 'lucide-react';
+import { createMerchantAction } from '@/app/actions/merchant';
 
 export default function JoinPage() {
   const { t, locale } = useTranslation();
   const [step, setStep] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [selectedSector, setSelectedSector] = useState<string | null>(null);
   const [contractAccepted, setContractAccepted] = useState(false);
   const [formData, setFormData] = useState({
@@ -17,7 +20,8 @@ export default function JoinPage() {
     email: '',
     website: '',
     bio: '',
-    credentials: ''
+    credentials: '',
+    promoCode: ''
   });
 
   const nextStep = () => {
@@ -31,6 +35,26 @@ export default function JoinPage() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await createMerchantAction({
+        ...formData,
+        sector: selectedSector as string
+      });
+      if (res.error) {
+        setError(res.error);
+      } else {
+        setStep(4);
+      }
+    } catch (err) {
+      setError("An unexpected error occurred. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const isFormValid = formData.businessName && formData.email;
@@ -129,6 +153,17 @@ export default function JoinPage() {
                       rows={3}
                     />
                   </div>
+                  <div className="input-group full">
+                    <label style={{ color: 'var(--accent-color)' }}><CheckCircle2 size={16} /> Promo Code (Optional)</label>
+                    <input 
+                      type="text" 
+                      name="promoCode" 
+                      value={formData.promoCode} 
+                      onChange={handleInputChange} 
+                      placeholder="e.g. FREE10 or JOIN5"
+                      style={{ border: '2px dashed var(--accent-color)', background: 'rgba(99, 102, 241, 0.05)' }}
+                    />
+                  </div>
                 </div>
 
                 <div className="controls">
@@ -153,16 +188,23 @@ export default function JoinPage() {
                 accepted={contractAccepted} 
                 onAccept={(val) => setContractAccepted(val)} 
               />
+              
+              {error && (
+                <div style={{ color: '#ef4444', textAlign: 'center', marginTop: '1rem', fontWeight: 600 }}>
+                  {error}
+                </div>
+              )}
+
               <div className="controls">
                 <button className="btn btn-ghost" onClick={prevStep}>
                   <ChevronLeft size={20} /> {t.onboarding.buttons.back}
                 </button>
                 <button 
-                  className={`btn btn-primary ${!contractAccepted ? 'disabled' : ''}`}
-                  onClick={() => setStep(4)}
-                  disabled={!contractAccepted}
+                  className={`btn btn-primary ${!contractAccepted || loading ? 'disabled' : ''}`}
+                  onClick={handleSubmit}
+                  disabled={!contractAccepted || loading}
                 >
-                  {t.onboarding.buttons.submit} <CheckCircle2 size={20} />
+                  {loading ? <Loader2 className="animate-spin" /> : <>{t.onboarding.buttons.submit} <CheckCircle2 size={20} /></>}
                 </button>
               </div>
             </div>
@@ -323,6 +365,15 @@ export default function JoinPage() {
           opacity: 0.5;
           cursor: not-allowed;
           pointer-events: none;
+        }
+
+        .animate-spin {
+          animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
 
         @media (max-width: 640px) {

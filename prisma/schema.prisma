@@ -160,6 +160,10 @@ model Merchant {
   totalReviews       Int       @default(0)
   completedJobsCount Int       @default(0)
   
+  // New Commercial Fields
+  commissionRate     Float     @default(0.08) // Default 8%
+  freeOrdersLeft     Int       @default(5)    // First 5 orders free
+  
   // Bank Details (UK)
   bankSortCode       String?
   bankAccountNumber  String?
@@ -182,6 +186,27 @@ model Merchant {
 
   @@index([city])
   @@index([isVerified])
+}
+
+model PlatformSettings {
+  id                   String   @id @default("global")
+  defaultCommissionRate Float    @default(0.08)
+  defaultFreeOrders    Int      @default(5)
+  updatedAt            DateTime @updatedAt
+}
+
+model PromoCode {
+  id              String   @id @default(cuid())
+  code            String   @unique
+  freeOrdersCount Int      @default(10)
+  maxUses         Int?     // Total platform-wide uses allowed
+  currentUses     Int      @default(0)
+  expiresAt       DateTime?
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([code])
 }
 
 model MerchantPortfolio {

@@ -5,9 +5,7 @@ import { revalidatePath } from 'next/cache';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { DocumentType, DocumentStatus } from '@prisma/client';
-import { GoogleGenerativeAI } from "@google/generative-ai";
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
+import { generateAIContent } from "@/lib/ai-provider";
 
 export async function submitDocumentForVerification(fileUrl: string, type: DocumentType) {
   const session = await getServerSession(authOptions);
@@ -32,12 +30,11 @@ export async function submitDocumentForVerification(fileUrl: string, type: Docum
 
   // 2. Trigger AI Vision Analysis
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
-    
     // Fetch image
     const imageResp = await fetch(fileUrl);
     const buffer = await imageResp.arrayBuffer();
     const base64Image = Buffer.from(buffer).toString('base64');
+    const mimeType = imageResp.headers.get("Content-Type") || "image/jpeg";
 
     const prompt = `
       You are an expert UK Compliance Auditor. Analyze this document:
@@ -59,14 +56,13 @@ export async function submitDocumentForVerification(fileUrl: string, type: Docum
       }
     `;
 
-    const result = await model.generateContent([
+    const responseText = await generateAIContent({
       prompt,
-      { inlineData: { data: base64Image, mimeType: "image/jpeg" } },
-    ]);
+      image: { base64: base64Image, mimeType },
+      jsonMode: true
+    });
 
-    const text = result.response.text();
-    const jsonStr = text.replace(/```json|```/g, "").trim();
-    const analysis = JSON.parse(jsonStr);
+    const analysis = JSON.parse(responseText.replace(/```json|```/g, "").trim());
 
     // 3. Update Document with AI Results
     const isApproved = analysis.isValid && analysis.confidence > 0.7;

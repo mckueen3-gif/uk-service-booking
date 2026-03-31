@@ -495,25 +495,25 @@ export const dictionaries: Record<Locale, Dictionary> = {
       }
     },
     onboarding: {
-      hero: { title: "Grow Your Business with ServiceHub", subtitle: "Join the UK's leading marketplace for professionals in Education, Accounting, Repairs, and more." },
-      steps: { profile: "Business Profile", credentials: "Qualifications", contract: "Review Contract" },
+      hero: { title: "ServiceHub के साथ अपना व्यवसाय बढ़ाएं", subtitle: "शिक्षा, लेखा, मरम्मत और अन्य क्षेत्रों के पेशेवरों के लिए यूके के अग्रणी मार्केटप्लेस में शामिल हों।" },
+      steps: { profile: "व्यवसाय प्रोफ़ाइल", credentials: "गुणवत्ता प्रमाणन", contract: "अनुबंध समीक्षा" },
       sectors: {
-        title: "Choose Your Expertise",
-        professional: { title: "Professional Services", desc: "For certified experts handling complex documentation & advice.", industries: ["Accounting", "Legal", "Financial Advice"] },
-        education: { title: "Education & Tutors", desc: "For teachers, skill trainers, and academic mentors.", industries: ["Language Tutors", "Exam Prep", "Skill Training"] },
-        technical: { title: "Technical & Maintenance", desc: "For skilled tradespeople and essential home/car services.", industries: ["Plumbing", "Electrical", "Auto Repair", "Renovation"] }
+        title: "अपनी विशेषज्ञता चुनें",
+        professional: { title: "पेशेवर सेवाएँ", desc: "जटिल दस्तावेज़ीकरण और सलाह संभालने वाले प्रमाणित विशेषज्ञों के लिए।", industries: ["लेखांकन", "कानूनी", "वित्तीय सलाह"] },
+        education: { title: "शिक्षा और शिक्षक", desc: "शिक्षकों, कौशल प्रशिक्षकों और शैक्षणिक सलाहकारों के लिए।", industries: ["भाषा शिक्षक", "परीक्षा तैयारी", "कौशल प्रशिक्षण"] },
+        technical: { title: "तकनीकी और रखरखाव", desc: "कुशल कारीगरों और आवश्यक घरेलू/कार सेवाओं के लिए।", industries: ["प्लंबिंग", "इलेक्ट्रिकल", "ऑटो मरम्मत", "नवीनीकरण"] }
       },
       contract: {
-        title: "Expert Services Agreement",
-        scrollingNotice: "Please scroll to the bottom of the agreement to confirm your acceptance.",
-        agree: "I have read and agree to the Expert Services Agreement",
+        title: "विशेषज्ञ सेवा अनुबंध",
+        scrollingNotice: "कृपया अपनी स्वीकृति की पुष्टि करने के लिए अनुबंध के नीचे तक स्क्रॉल करें।",
+        agree: "मैंने विशेषज्ञ सेवा अनुबंध पढ़ लिया है और मैं इससे सहमत हूँ",
         clauses: {
-          commission: { title: "1. Service Fees & Commission", body: "ServiceHub charges a fixed 10% commission on successful bookings. Payments are processed securely via the platform." },
-          service: { title: "2. Quality Standards", body: "Experts must maintain a minimum rating of 4.0 and respond to inquiries within 24 hours to remain active." },
-          disputes: { title: "3. Dispute Resolution", body: "All disputes are mediated by our AI Arbiter. Evidence from the job record and photos will be used for final decisions." }
+          commission: { title: "1. सेवा शुल्क और कमीशन", body: "ServiceHub सफल बुकिंग पर 10% का निश्चित कमीशन लेता है। भुगतान सुरक्षित रूप से प्लेटफ़ॉर्म के माध्यम से संसाधित किए जाते हैं।" },
+          service: { title: "2. गुणवत्ता मानक", body: "विशेषज्ञों को सक्रिय रहने के लिए 4.0 की न्यूनतम रेटिंग बनाए रखनी होगी और 24 घंटों के भीतर पूछताछ का जवाब देना होगा।" },
+          disputes: { title: "3. विवाद समाधान", body: "सभी विवादों की मध्यस्थता हमारे AI मध्यस्थ द्वारा की जाती है। कार्य रिकॉर्ड और तस्वीरों के साक्ष्यों का उपयोग अंतिम निर्णयों के लिए किया जाएगा।" }
         }
       },
-      buttons: { start: "Get Started", next: "Continue", back: "Go Back", submit: "Sign and Join" }
+      buttons: { start: "शुरू करें", next: "जारी रखें", back: "पीछे जाएं", submit: "हस्ताक्षर करें और शामिल हों" }
     }
   },
   ar: {
@@ -616,25 +616,25 @@ export const dictionaries: Record<Locale, Dictionary> = {
       }
     },
     onboarding: {
-      hero: { title: "Grow Your Business with ServiceHub", subtitle: "Join the UK's leading marketplace for professionals in Education, Accounting, Repairs, and more." },
-      steps: { profile: "Business Profile", credentials: "Qualifications", contract: "Review Contract" },
+      hero: { title: "نمِّ أعمالك مع ServiceHub", subtitle: "انضم إلى السوق الرائدة في المملكة المتحدة للمهنيين في مجالات التعليم والمحاسبة والإصلاحات وغيرها." },
+      steps: { profile: "ملف الأعمال", credentials: "المؤهلات", contract: "مراجعة العقد" },
       sectors: {
-        title: "Choose Your Expertise",
-        professional: { title: "Professional Services", desc: "For certified experts handling complex documentation & advice.", industries: ["Accounting", "Legal", "Financial Advice"] },
-        education: { title: "Education & Tutors", desc: "For teachers, skill trainers, and academic mentors.", industries: ["Language Tutors", "Exam Prep", "Skill Training"] },
-        technical: { title: "Technical & Maintenance", desc: "For skilled tradespeople and essential home/car services.", industries: ["Plumbing", "Electrical", "Auto Repair", "Renovation"] }
+        title: "اختر خبرتك",
+        professional: { title: "الخدمات المهنية", desc: "للخبراء المعتمدين الذين يتعاملون مع الوثائق والاستشارات المعقدة.", industries: ["المحاسبة", "القانون", "الاستشارات المالية"] },
+        education: { title: "التعليم والمعلمون", desc: "للمدرسين ومدربي المهارات والموجهين الأكاديميين.", industries: ["مدرسي اللغات", "التحضير للامتحانات", "تدريب المهارات"] },
+        technical: { title: "الخدمات الفنية والصيانة", desc: "لأصحاب المهن الماهرة وخدمات المنزل والسيارات الأساسية.", industries: ["السباكة", "الكهرباء", "إصلاح السيارات", "الترميم"] }
       },
       contract: {
-        title: "Expert Services Agreement",
-        scrollingNotice: "Please scroll to the bottom of the agreement to confirm your acceptance.",
-        agree: "I have read and agree to the Expert Services Agreement",
+        title: "اتفاقية خدمات الخبراء",
+        scrollingNotice: "يرجى التمرير إلى أسفل الاتفاقية لتأكيد قبولك.",
+        agree: "لقد قرأت وأوافق على اتفاقية خدمات الخبراء",
         clauses: {
-          commission: { title: "1. Service Fees & Commission", body: "ServiceHub charges a fixed 10% commission on successful bookings. Payments are processed securely via the platform." },
-          service: { title: "2. Quality Standards", body: "Experts must maintain a minimum rating of 4.0 and respond to inquiries within 24 hours to remain active." },
-          disputes: { title: "3. Dispute Resolution", body: "All disputes are mediated by our AI Arbiter. Evidence from the job record and photos will be used for final decisions." }
+          commission: { title: "1. رسوم الخدمة والعمولة", body: "تتقاضى ServiceHub عمولة ثابتة بنسبة 10% على الحجوزات الناجحة. يتم معالجة المدفوعات بشكل آمن عبر المنصة." },
+          service: { title: "2. معايير الجودة", body: "يجب على الخبراء الحفاظ على حد أدنى للتقييم يبلغ 4.0 والرد على الاستفسارات في غضون 24 ساعة للبقاء نشطين." },
+          disputes: { title: "3. حل النزاعات", body: "تتم الوساطة في جميع النزاعات بواسطة محكم الذكاء الاصطناعي الخاص بنا. سيتم استخدام الأدلة من سجل الوظيفة والصور لاتخاذ القرارات النهائية." }
         }
       },
-      buttons: { start: "Get Started", next: "Continue", back: "Go Back", submit: "Sign and Join" }
+      buttons: { start: "ابدأ الآن", next: "متابعة", back: "رجوع", submit: "التوقيع والانضمام" }
     }
   },
   ja: {
@@ -737,25 +737,25 @@ export const dictionaries: Record<Locale, Dictionary> = {
       }
     },
     onboarding: {
-      hero: { title: "Grow Your Business with ServiceHub", subtitle: "Join the UK's leading marketplace for professionals in Education, Accounting, Repairs, and more." },
-      steps: { profile: "Business Profile", credentials: "Qualifications", contract: "Review Contract" },
+      hero: { title: "ServiceHubでビジネスを拡大しましょう", subtitle: "教育、会計、修理などの分野で英国をリードする専門家向けマーケットプレイスに参加してください。" },
+      steps: { profile: "ビジネスプロフィール", credentials: "資格証明", contract: "契約書の確認" },
       sectors: {
-        title: "Choose Your Expertise",
-        professional: { title: "Professional Services", desc: "For certified experts handling complex documentation & advice.", industries: ["Accounting", "Legal", "Financial Advice"] },
-        education: { title: "Education & Tutors", desc: "For teachers, skill trainers, and academic mentors.", industries: ["Language Tutors", "Exam Prep", "Skill Training"] },
-        technical: { title: "Technical & Maintenance", desc: "For skilled tradespeople and essential home/car services.", industries: ["Plumbing", "Electrical", "Auto Repair", "Renovation"] }
+        title: "専門分野の選択",
+        professional: { title: "専門サービス", desc: "複雑な書類作成やアドバイスを行う認定専門家向け。", industries: ["会計", "法務", "財務アドバイス"] },
+        education: { title: "教育・講師", desc: "教師、スキル疑トレーナー、学術メンター向け。", industries: ["語学講師", "試験対策", "スキル・トレーニング"] },
+        technical: { title: "技術・メンテナンス", desc: "熟練した職人や不可欠な家庭・自動車サービス向け。", industries: ["配管", "電気", "自動車修理", "リフォーム"] }
       },
       contract: {
-        title: "Expert Services Agreement",
-        scrollingNotice: "Please scroll to the bottom of the agreement to confirm your acceptance.",
-        agree: "I have read and agree to the Expert Services Agreement",
+        title: "専門家サービス契約",
+        scrollingNotice: "同意を確認するため、契約書の最後までスクロールしてください。",
+        agree: "専門家サービス契約を読み、同意します",
         clauses: {
-          commission: { title: "1. Service Fees & Commission", body: "ServiceHub charges a fixed 10% commission on successful bookings. Payments are processed securely via the platform." },
-          service: { title: "2. Quality Standards", body: "Experts must maintain a minimum rating of 4.0 and respond to inquiries within 24 hours to remain active." },
-          disputes: { title: "3. Dispute Resolution", body: "All disputes are mediated by our AI Arbiter. Evidence from the job record and photos will be used for final decisions." }
+          commission: { title: "1. サービス料と手数料", body: "ServiceHubは予約成功時に一律10%の手数料を申し受けます。お支払いはプラットフォームを通じて安全に処理されます。" },
+          service: { title: "2. 品質基準", body: "専門家は活動を継続するために、最低評価4.0を維持し、問い合わせには24時間以内に回答する必要があります。" },
+          disputes: { title: "3. 紛争解決", body: "すべての紛争は当社のAI仲裁者によって調停されます。最終的な決定には、業務記録と写真の証拠が使用されます。" }
         }
       },
-      buttons: { start: "Get Started", next: "Continue", back: "Go Back", submit: "Sign and Join" }
+      buttons: { start: "始める", next: "次へ", back: "戻る", submit: "署名して参加" }
     }
   },
   ko: {
@@ -858,25 +858,25 @@ export const dictionaries: Record<Locale, Dictionary> = {
       }
     },
     onboarding: {
-      hero: { title: "Grow Your Business with ServiceHub", subtitle: "Join the UK's leading marketplace for professionals in Education, Accounting, Repairs, and more." },
-      steps: { profile: "Business Profile", credentials: "Qualifications", contract: "Review Contract" },
+      hero: { title: "ServiceHub과 함께 비즈니스를 성장시키세요", subtitle: "영국 최고의 전문가 마켓플레이스인 교육, 회계, 수리 등에 참여하세요." },
+      steps: { profile: "비즈니스 프로필", credentials: "자격 증명", contract: "계약서 검토" },
       sectors: {
-        title: "Choose Your Expertise",
-        professional: { title: "Professional Services", desc: "For certified experts handling complex documentation & advice.", industries: ["Accounting", "Legal", "Financial Advice"] },
-        education: { title: "Education & Tutors", desc: "For teachers, skill trainers, and academic mentors.", industries: ["Language Tutors", "Exam Prep", "Skill Training"] },
-        technical: { title: "Technical & Maintenance", desc: "For skilled tradespeople and essential home/car services.", industries: ["Plumbing", "Electrical", "Auto Repair", "Renovation"] }
+        title: "전문 분야 선택",
+        professional: { title: "전문 서비스", desc: "복잡한 문서 및 자문 전문가용.", industries: ["회계", "법률", "금융 자문"] },
+        education: { title: "교육 및 튜터", desc: "교사, 기술 트레이너 및 학문적 멘토용.", industries: ["언어 튜터", "시험 준비", "기술 교육"] },
+        technical: { title: "기술 및 유지보수", desc: "숙련된 기술자 및 필수 가정/자동차 서비스용.", industries: ["배관", "전기", "자동차 수리", "리모델링"] }
       },
       contract: {
-        title: "Expert Services Agreement",
-        scrollingNotice: "Please scroll to the bottom of the agreement to confirm your acceptance.",
-        agree: "I have read and agree to the Expert Services Agreement",
+        title: "전문가 서비스 약관",
+        scrollingNotice: "동의를 확인하려면 약관의 맨 아래로 스크롤하십시오.",
+        agree: "전문가 서비스 약관을 읽었으며 이에 동의합니다",
         clauses: {
-          commission: { title: "1. Service Fees & Commission", body: "ServiceHub charges a fixed 10% commission on successful bookings. Payments are processed securely via the platform." },
-          service: { title: "2. Quality Standards", body: "Experts must maintain a minimum rating of 4.0 and respond to inquiries within 24 hours to remain active." },
-          disputes: { title: "3. Dispute Resolution", body: "All disputes are mediated by our AI Arbiter. Evidence from the job record and photos will be used for final decisions." }
+          commission: { title: "1. 서비스 요금 및 수수료", body: "ServiceHub은 예약 성공 시 10%의 고정 수수료를 부과합니다. 결제는 플랫폼을 통해 안전하게 처리됩니다." },
+          service: { title: "2. 품질 표준", body: "전문가는 활동을 유지하기 위해 최소 평점 4.0을 유지하고 문의에 24시간 이내에 응답해야 합니다." },
+          disputes: { title: "3. 분쟁 해결", body: "모든 분쟁은 당사의 AI 중재자가 조정합니다. 최종 결정에는 작업 기록 및 사진 증거가 사용됩니다." }
         }
       },
-      buttons: { start: "Get Started", next: "Continue", back: "Go Back", submit: "Sign and Join" }
+      buttons: { start: "시작하기", next: "계속하기", back: "뒤로 가기", submit: "서명 및 가입" }
     }
   },
   pl: {
@@ -979,25 +979,25 @@ export const dictionaries: Record<Locale, Dictionary> = {
       }
     },
     onboarding: {
-      hero: { title: "Grow Your Business with ServiceHub", subtitle: "Join the UK's leading marketplace for professionals in Education, Accounting, Repairs, and more." },
-      steps: { profile: "Business Profile", credentials: "Qualifications", contract: "Review Contract" },
+      hero: { title: "Rozwijaj swój biznes z ServiceHub", subtitle: "Dołącz do wiodącej platformy w Wielkiej Brytanii dla specjalistów z branży edukacji, księgowości, napraw i innych." },
+      steps: { profile: "Profil Firmy", credentials: "Poświadczenia", contract: "Przegląd Umowy" },
       sectors: {
-        title: "Choose Your Expertise",
-        professional: { title: "Professional Services", desc: "For certified experts handling complex documentation & advice.", industries: ["Accounting", "Legal", "Financial Advice"] },
-        education: { title: "Education & Tutors", desc: "For teachers, skill trainers, and academic mentors.", industries: ["Language Tutors", "Exam Prep", "Skill Training"] },
-        technical: { title: "Technical & Maintenance", desc: "For skilled tradespeople and essential home/car services.", industries: ["Plumbing", "Electrical", "Auto Repair", "Renovation"] }
+        title: "Wybierz swoją branżę",
+        professional: { title: "Usługi Profesjonalne", desc: "Dla certyfikowanych ekspertów zajmujących się dokumentacją i doradztwem.", industries: ["Księgowość", "Prawo", "Doradztwo Finansowe"] },
+        education: { title: "Edukacja i Korepetycje", desc: "Dla nauczycieli, trenerów umiejętności i mentorów akademickich.", industries: ["Lektorzy Języków", "Przygotowanie do Egzaminów", "Trening Umiejętności"] },
+        technical: { title: "Techniczne i Konserwacja", desc: "Dla wykwalifikowanych rzemieślników i usług domowych/samochodowych.", industries: ["Hydraulika", "Elektryka", "Naprawa Aut", "Renowacja"] }
       },
       contract: {
-        title: "Expert Services Agreement",
-        scrollingNotice: "Please scroll to the bottom of the agreement to confirm your acceptance.",
-        agree: "I have read and agree to the Expert Services Agreement",
+        title: "Umowa o świadczenie usług eksperckich",
+        scrollingNotice: "Przewiń do dołu umowy, aby potwierdzić akceptację.",
+        agree: "Przeczytałem i zgadzam się na Umowę o świadczenie usług eksperckich",
         clauses: {
-          commission: { title: "1. Service Fees & Commission", body: "ServiceHub charges a fixed 10% commission on successful bookings. Payments are processed securely via the platform." },
-          service: { title: "2. Quality Standards", body: "Experts must maintain a minimum rating of 4.0 and respond to inquiries within 24 hours to remain active." },
-          disputes: { title: "3. Dispute Resolution", body: "All disputes are mediated by our AI Arbiter. Evidence from the job record and photos will be used for final decisions." }
+          commission: { title: "1. Opłaty i prowizje", body: "ServiceHub pobiera stałą prowizję w wysokości 10% od udanych rezerwacji. Płatności są przetwarzane bezpiecznie za pośrednictwem platformy." },
+          service: { title: "2. Standardy jakości", body: "Eksperci muszą utrzymywać minimalną ocenę 4,0 i odpowiadać na zapytania w ciągu 24 godzin, aby pozostać aktywnymi." },
+          disputes: { title: "3. Rozstrzyganie sporów", body: "Wszystkie spory są rozstrzygane przez naszego arbitra AI. Dowody z rejestru prac i zdjęcia będą wykorzystywane do podejmowania ostatecznych decyzji." }
         }
       },
-      buttons: { start: "Get Started", next: "Continue", back: "Go Back", submit: "Sign and Join" }
+      buttons: { start: "Zacznij teraz", next: "Kontynuuj", back: "Wróć", submit: "Podpisz i dołącz" }
     }
   },
   ro: {
@@ -1088,25 +1088,25 @@ export const dictionaries: Record<Locale, Dictionary> = {
       }
     },
     onboarding: {
-      hero: { title: "Grow Your Business with ServiceHub", subtitle: "Join the UK's leading marketplace for professionals in Education, Accounting, Repairs, and more." },
-      steps: { profile: "Business Profile", credentials: "Qualifications", contract: "Review Contract" },
+      hero: { title: "Dezvoltă-ți afacerea cu ServiceHub", subtitle: "Alătură-te principalei piețe din Marea Britanie pentru profesioniști în educație, contabilitate, reparații și multe altele." },
+      steps: { profile: "Profil Afacere", credentials: "Calificări", contract: "Revizuire Contract" },
       sectors: {
-        title: "Choose Your Expertise",
-        professional: { title: "Professional Services", desc: "For certified experts handling complex documentation & advice.", industries: ["Accounting", "Legal", "Financial Advice"] },
-        education: { title: "Education & Tutors", desc: "For teachers, skill trainers, and academic mentors.", industries: ["Language Tutors", "Exam Prep", "Skill Training"] },
-        technical: { title: "Technical & Maintenance", desc: "For skilled tradespeople and essential home/car services.", industries: ["Plumbing", "Electrical", "Auto Repair", "Renovation"] }
+        title: "Alegeți specializarea",
+        professional: { title: "Servicii Profesionale", desc: "Pentru experți certificați care se ocupă de documentație complexă și consultanță.", industries: ["Contabilitate", "Legal", "Consultanță Financiară"] },
+        education: { title: "Educație și Tutori", desc: "Pentru profesori, instructori de abilități și mentori academici.", industries: ["Tutori Limbi", "Pregătire Examene", "Instruire Abilități"] },
+        technical: { title: "Tehnic și Întreținere", desc: "For profesioniști calificați și servicii esențiale pentru casă/mașină.", industries: ["Instalații", "Electricitate", "Reparații Auto", "Renovare"] }
       },
       contract: {
-        title: "Expert Services Agreement",
-        scrollingNotice: "Please scroll to the bottom of the agreement to confirm your acceptance.",
-        agree: "I have read and agree to the Expert Services Agreement",
+        title: "Acord de Servicii pentru Experți",
+        scrollingNotice: "Vă rugăm să derulați până la sfârșitul acordului pentru a confirma acceptarea.",
+        agree: "Am citit și sunt de acord cu Acordul de Servicii pentru Experți",
         clauses: {
-          commission: { title: "1. Service Fees & Commission", body: "ServiceHub charges a fixed 10% commission on successful bookings. Payments are processed securely via the platform." },
-          service: { title: "2. Quality Standards", body: "Experts must maintain a minimum rating of 4.0 and respond to inquiries within 24 hours to remain active." },
-          disputes: { title: "3. Dispute Resolution", body: "All disputes are mediated by our AI Arbiter. Evidence from the job record and photos will be used for final decisions." }
+          commission: { title: "1. Taxe de servicii și Comision", body: "ServiceHub percepe un comision fix de 10% pentru rezervările reușite. Plățile sunt procesate în siguranță prin intermediul platformei." },
+          service: { title: "2. Standarde de Calitate", body: "Experții trebuie să mențină un rating minim de 4,0 și să răspundă la întrebări în termen de 24 de ore pentru a rămâne activi." },
+          disputes: { title: "3. Rezolvarea Disputelor", body: "Toate disputele sunt intermediate de Arbitrul nostru AI. Probele din evidența lucrărilor și fotografiile vor fi folosite pentru deciziile finale." }
         }
       },
-      buttons: { start: "Get Started", next: "Continue", back: "Go Back", submit: "Sign and Join" }
+      buttons: { start: "Începe acum", next: "Continuă", back: "Înapoi", submit: "Semnează și Alătură-te" }
     }
   },
   ur: {
@@ -1197,25 +1197,25 @@ export const dictionaries: Record<Locale, Dictionary> = {
       }
     },
     onboarding: {
-      hero: { title: "Grow Your Business with ServiceHub", subtitle: "Join the UK's leading marketplace for professionals in Education, Accounting, Repairs, and more." },
-      steps: { profile: "Business Profile", credentials: "Qualifications", contract: "Review Contract" },
+      hero: { title: "ServiceHub کے ساتھ اپنے کاروبار کو وسعت دیں", subtitle: "تعلیم، اکاؤنٹنگ، مرمت اور مزید شعبوں میں برطانیہ کے معروف ماہرین کے مارکیٹ پلیس میں شامل ہوں۔" },
+      steps: { profile: "بزنس پروفائل", credentials: "اہلیت", contract: "معاہدے کا جائزہ" },
       sectors: {
-        title: "Choose Your Expertise",
-        professional: { title: "Professional Services", desc: "For certified experts handling complex documentation & advice.", industries: ["Accounting", "Legal", "Financial Advice"] },
-        education: { title: "Education & Tutors", desc: "For teachers, skill trainers, and academic mentors.", industries: ["Language Tutors", "Exam Prep", "Skill Training"] },
-        technical: { title: "Technical & Maintenance", desc: "For skilled tradespeople and essential home/car services.", industries: ["Plumbing", "Electrical", "Auto Repair", "Renovation"] }
+        title: "اپنی مہارت کا انتخاب کریں",
+        professional: { title: "پیشہ ورانہ خدمات", desc: "پیچیدہ دستاویزات اور مشورے سنبھالنے والے تصدیق شدہ ماہرین کے لیے۔", industries: ["اکاؤنٹنگ", "قانونی", "مالیاتی مشورہ"] },
+        education: { title: "تعلیم اور ٹیوٹرز", desc: "اساتذہ، ہنر کی تربیت دینے والوں اور تعلیمی اساتذہ کے لیے۔", industries: ["زبان کے ٹیوٹرز", "امتحان کی تیاری", "ہنر کی تربیت"] },
+        technical: { title: "تکنیکی اور دیکھ بھال", desc: "ہنر مند کاریگروں اور ضروری گھر/کار خدمات کے لیے۔", industries: ["پلمبنگ", "الیکٹریکل", "آٹو مرمت", "تزئین و آرائش"] }
       },
       contract: {
-        title: "Expert Services Agreement",
-        scrollingNotice: "Please scroll to the bottom of the agreement to confirm your acceptance.",
-        agree: "I have read and agree to the Expert Services Agreement",
+        title: "ماہر سروسز کا معاہدہ",
+        scrollingNotice: "براہ کرم اپنی قبولیت کی تصدیق کے لیے معاہدے کے آخر تک سکرول کریں۔",
+        agree: "میں نے ماہر سروسز کا معاہدہ پڑھ لیا ہے اور میں اس سے متفق ہوں",
         clauses: {
-          commission: { title: "1. Service Fees & Commission", body: "ServiceHub charges a fixed 10% commission on successful bookings. Payments are processed securely via the platform." },
-          service: { title: "2. Quality Standards", body: "Experts must maintain a minimum rating of 4.0 and respond to inquiries within 24 hours to remain active." },
-          disputes: { title: "3. Dispute Resolution", body: "All disputes are mediated by our AI Arbiter. Evidence from the job record and photos will be used for final decisions." }
+          commission: { title: "1. سروس فیس اور کمیشن", body: "ServiceHub کامیاب بکنگ پر 10% کا مقررہ کمیشن لیتا ہے۔ ادائیگیاں پلیٹ فارم کے ذریعے محفوظ طریقے سے کی جاتی ہیں۔" },
+          service: { title: "2. معیار کے معیارات", body: "ماہرین کو فعال رہنے کے لیے 4.0 کی کم از کم ریٹنگ برقرار رکھنی ہوگی اور 24 گھنٹے کے اندر پوچھ گچھ کا جواب دینا ہوگا۔" },
+          disputes: { title: "3. تنازعات کا حل", body: "تمام تنازعات کی ثالثی ہمارے AI ثالث کے ذریعے کی جاتی ہے۔ کام کے ریکارڈ اور تصاویر کے ثبوت حتمی فیصلوں کے لیے استعمال کیے جائیں گے۔" }
         }
       },
-      buttons: { start: "Get Started", next: "Continue", back: "Go Back", submit: "Sign and Join" }
+      buttons: { start: "شروع کریں", next: "جاری رکھیں", back: "پیچھے جائیں", submit: "سائن کریں اور شامل ہوں" }
     }
   },
   pa: {
@@ -1306,25 +1306,25 @@ export const dictionaries: Record<Locale, Dictionary> = {
       }
     },
     onboarding: {
-      hero: { title: "Grow Your Business with ServiceHub", subtitle: "Join the UK's leading marketplace for professionals in Education, Accounting, Repairs, and more." },
-      steps: { profile: "Business Profile", credentials: "Qualifications", contract: "Review Contract" },
+      hero: { title: "ServiceHub ਨਾਲ ਆਪਣਾ ਕਾਰੋਬਾਰ ਵਧਾਓ", subtitle: "ਸਿੱਖਿਆ, ਲੇਖਾਕਾਰੀ, ਮੁਰੰਮਤ ਅਤੇ ਹੋਰ ਖੇਤਰਾਂ ਵਿੱਚ ਯੂਕੇ ਦੇ ਮੋਹਰੀ ਮਾਰਕੀਟਪਲੇਸ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ।" },
+      steps: { profile: "ਕਾਰੋਬਾਰੀ ਪ੍ਰੋਫਾਈਲ", credentials: "ਯੋਗਤਾਵਾਂ", contract: "ਇਕਰਾਰਨਾਮੇ ਦੀ ਸਮੀਖਿਆ" },
       sectors: {
-        title: "Choose Your Expertise",
-        professional: { title: "Professional Services", desc: "For certified experts handling complex documentation & advice.", industries: ["Accounting", "Legal", "Financial Advice"] },
-        education: { title: "Education & Tutors", desc: "For teachers, skill trainers, and academic mentors.", industries: ["Language Tutors", "Exam Prep", "Skill Training"] },
-        technical: { title: "Technical & Maintenance", desc: "For skilled tradespeople and essential home/car services.", industries: ["Plumbing", "Electrical", "Auto Repair", "Renovation"] }
+        title: "ਆਪਣੀ ਮੁਹਾਰਤ ਚੁਣੋ",
+        professional: { title: "ਪੇਸ਼ੇਵਰ ਸੇਵਾਵਾਂ", desc: "ਗੁੰਝਲਦਾਰ ਦਸਤਾਵੇਜ਼ਾਂ ਅਤੇ ਸਲਾਹਾਂ ਨੂੰ ਸੰਭਾਲਣ ਵਾਲੇ ਪ੍ਰਮਾਣਿਤ ਮਾਹਰਾਂ ਲਈ।", industries: ["ਲੇਖਾਕਾਰੀ", "ਕਾਨੂੰਨੀ", "ਵਿੱਤੀ ਸਲਾਹ"] },
+        education: { title: "ਸਿੱਖਿਆ ਅਤੇ ਟਿਊਟਰ", desc: "ਅਧਿਆਪਕਾਂ, ਹੁਨਰ ਟ੍ਰੇਨਰਾਂ ਅਤੇ ਅਕਾਦਮਿਕ ਸਲਾਹਕਾਰਾਂ ਲਈ।", industries: ["ਭਾਸ਼ਾ ਟਿਊਟਰ", "ਪ੍ਰੀਖਿਆ ਦੀ ਤਿਆਰੀ", "ਹੁਨਰ ਸਿਖਲਾਈ"] },
+        technical: { title: "ਤਕਨੀਕੀ ਅਤੇ ਰੱਖ-ਰਖਾਅ", desc: "ਹੁਨਰਮੰਦ ਕਾਰੀਗਰਾਂ ਅਤੇ ਜ਼ਰੂਰੀ ਘਰ/ਕਾਰ ਸੇਵਾਵਾਂ ਲਈ।", industries: ["ਪਲੰਬਿੰਗ", "ਇਲੈਕਟ੍ਰੀਕਲ", "ਆਟੋ ਮੁਰੰਮਤ", "ਨਵੀਨੀਕਰਨ"] }
       },
       contract: {
-        title: "Expert Services Agreement",
-        scrollingNotice: "Please scroll to the bottom of the agreement to confirm your acceptance.",
-        agree: "I have read and agree to the Expert Services Agreement",
+        title: "ਮਾਹਰ ਸੇਵਾਵਾਂ ਦਾ ਇਕਰਾਰਨਾਮਾ",
+        scrollingNotice: "ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀ ਸਵੀਕ੍ਰਿਤੀ ਦੀ ਪੁਸ਼ਟੀ ਕਰਨ ਲਈ ਇਕਰਾਰਨਾਮੇ ਦੇ ਹੇਠਾਂ ਤੱਕ ਸਕ੍ਰੋਲ ਕਰੋ।",
+        agree: "ਮੈਂ ਮਾਹਰ ਸੇਵਾਵਾਂ ਦਾ ਇਕਰਾਰਨਾਮਾ ਪੜ੍ਹ ਲਿਆ ਹੈ ਅਤੇ ਮੈਂ ਇਸ ਨਾਲ ਸਹਿਮਤ ਹਾਂ",
         clauses: {
-          commission: { title: "1. Service Fees & Commission", body: "ServiceHub charges a fixed 10% commission on successful bookings. Payments are processed securely via the platform." },
-          service: { title: "2. Quality Standards", body: "Experts must maintain a minimum rating of 4.0 and respond to inquiries within 24 hours to remain active." },
-          disputes: { title: "3. Dispute Resolution", body: "All disputes are mediated by our AI Arbiter. Evidence from the job record and photos will be used for final decisions." }
+          commission: { title: "1. ਸੇਵਾ ਫੀਸ ਅਤੇ ਕਮਿਸ਼ਨ", body: "ServiceHub ਸਫਲ ਬੁਕਿੰਗਾਂ 'ਤੇ 10% ਦਾ ਨਿਸ਼ਚਿਤ ਕਮਿਸ਼ਨ ਲੈਂਦਾ ਹੈ। ਭੁਗਤਾਨ ਪਲੇਟਫਾਰਮ ਰਾਹੀਂ ਸੁਰੱਖਿਅਤ ਢੰਗ ਨਾਲ ਕੀਤੇ ਜਾਂਦੇ ਹਨ।" },
+          service: { title: "2. ਗੁਣਵੱਤਾ ਮਿਆਰ", body: "ਮਾਹਰਾਂ ਨੂੰ ਸਰਗਰਮ ਰਹਿਣ ਲਈ 4.0 ਦੀ ਘੱਟੋ-ਘੱਟ ਰੇਟਿੰਗ ਬਣਾਈ ਰੱਖਣੀ ਚਾਹੀਦੀ ਹੈ ਅਤੇ 24 ਘੰਟਿਆਂ ਦੇ ਅੰਦਰ ਪੁੱਛਗਿੱਛ ਦਾ ਜਵਾਬ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ।" },
+          disputes: { title: "3. ਝਗੜਿਆਂ ਦਾ ਹੱਲ", body: "ਸਾਰੇ ਝਗੜਿਆਂ ਦੀ ਵਿਚੋਲਗੀ ਸਾਡੇ AI ਆਰਬੀਟਰ ਦੁਆرا ਕੀਤੀ ਜਾਂਦੀ ਹੈ। ਕੰਮ ਦੇ ਰਿਕਾਰਡ ਅਤੇ ਫੋਟੋਆਂ ਦੇ ਸਬੂਤ ਅੰਤਿਮ ਫੈਸਲਿਆਂ ਲਈ ਵਰਤੇ ਜਾਣਗੇ।" }
         }
       },
-      buttons: { start: "Get Started", next: "Continue", back: "Go Back", submit: "Sign and Join" }
+      buttons: { start: "ਸ਼ੁਰੂ ਕਰੋ", next: "ਜਾਰੀ ਰੱਖੋ", back: "ਪਿੱਛੇ ਜਾਓ", submit: "ਸਾਈਨ ਕਰੋ ਅਤੇ ਸ਼ਾਮਲ ਹੋਵੋ" }
     }
   }
 };

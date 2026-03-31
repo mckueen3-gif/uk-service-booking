@@ -4,9 +4,7 @@ import { prisma } from '@/lib/prisma';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { revalidatePath } from 'next/cache';
-import { GoogleGenerativeAI } from "@google/generative-ai";
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
+import { generateAIContent } from "@/lib/ai-provider";
 import { ResolutionDecision } from '@/lib/constants/dispute_constants';
 
 /**
@@ -89,16 +87,13 @@ export async function runAIArbiter(disputeId: string) {
   const imageUrl = typeof photoEvidence === 'string' ? photoEvidence : (photoEvidence as any)?.fileUrl;
 
   try {
-    // Stage 1: Call Gemini Vision
-    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
-
-    let aiOutput = null;
-
+    let aiOutput: any = null;
     if (imageUrl) {
       console.log(`[AI Arbiter] Analyzing image: ${imageUrl}`);
       const imageResponse = await fetch(imageUrl);
       const buffer = await imageResponse.arrayBuffer();
       const base64Image = Buffer.from(buffer).toString('base64');
+      const mimeType = imageResponse.headers.get("Content-Type") || "image/jpeg";
 
       const prompt = `
         You are an expert impartial AI Arbiter for UK Service Marketplace.
@@ -121,12 +116,13 @@ export async function runAIArbiter(disputeId: string) {
         }
       `;
 
-      const result = await model.generateContent([
+      const responseText = await generateAIContent({
         prompt,
-        { inlineData: { data: base64Image, mimeType: "image/jpeg" } }
-      ]);
-      const text = result.response.text();
-      aiOutput = JSON.parse(text.replace(/```json|```/g, "").trim());
+        image: { base64: base64Image, mimeType },
+        jsonMode: true
+      });
+
+      aiOutput = JSON.parse(responseText.replace(/```json|```/g, "").trim());
     } else {
       // Fallback if no image (text-only analysis)
       return { error: "No visual evidence found for AI arbitration." };

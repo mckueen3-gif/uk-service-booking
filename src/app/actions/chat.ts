@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { revalidatePath } from 'next/cache';
-import { sendEmail } from '@/lib/mail';
+import { generateAIContent } from '@/lib/ai-provider';
 import { 
   Calendar, Clock, Save, 
   Settings, Loader2, CheckCircle2, 
@@ -49,58 +49,19 @@ export async function processChatMessage(messages: { role: 'user' | 'assistant' 
     return "I'm the ServiceHub AI! I'm currently in 'Efficiency Mode' but I can still help with bookings and finding local pros. How can I assist you today?";
   };
 
-  const tryModel = async (modelName: string) => {
-    const apiUrl = `https://generativelanguage.googleapis.com/v1/models/${modelName}:generateContent?key=${encodeURIComponent(GEMINI_API_KEY!)}`;
-    const res = await fetch(apiUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [
-          { role: "user", parts: [{ text: "System Context: " + SYSTEM_INSTRUCTION }] },
-          { role: "model", parts: [{ text: "Understood." }] },
-          ...messages.map(m => ({
-            role: m.role === 'assistant' ? 'model' : 'user',
-            parts: [{ text: m.content }]
-          }))
-        ]
-      })
-    });
-    return res;
-  };
-
   try {
-    if (!GEMINI_API_KEY) throw new Error("No API Key");
-
-    // FALLBACK HIERARCHY
-    const modelsToTry = ["gemini-flash-latest", "gemini-1.5-pro"];
-    let lastError = "";
-
-    for (const model of modelsToTry) {
-      const response = await tryModel(model);
-      const data = await response.json();
-
-      if (response.ok) {
-        const aiText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (aiText) return { success: true, message: { role: 'assistant', content: aiText } };
-      }
-      
-      lastError = data.error?.message || `Error ${response.status}`;
-      console.warn(`Model ${model} failed: ${lastError}`);
-      
-      // If it's a 429 or 404, try the next model immediately
-      if (response.status === 429 || response.status === 404) continue;
-      break; 
-    }
-
-    // If all models fail, return simulated response with a tiny warning
-    console.error("All AI models failed or quota exceeded. Falling back to simulation.");
+    const aiText = await generateAIContent({
+      messages,
+      systemPrompt: SYSTEM_INSTRUCTION
+    });
+    
+    return { success: true, message: { role: 'assistant', content: aiText } };
+  } catch (error) {
+    console.error("AI Chat process failed:", error);
     return { 
       success: true, 
       message: { role: 'assistant', content: simulateResponse(messages[messages.length-1].content) + "\n\n(Note: Operating in optimized local mode due to API quota limits.)" } 
     };
-
-  } catch (error) {
-    return { success: true, message: { role: 'assistant', content: simulateResponse(messages[messages.length-1].content) } };
   }
 }
 

@@ -4,10 +4,9 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { SearchFilters, searchMerchants } from "./search";
+import { generateAIContent } from "@/lib/ai-provider";
 
 export async function parseSearchIntent(query: string): Promise<SearchFilters> {
-  const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-  if (!GEMINI_API_KEY) return { query };
 
   const prompt = `
     Analyze the following user search query for a service marketplace.
@@ -23,18 +22,12 @@ export async function parseSearchIntent(query: string): Promise<SearchFilters> {
   `;
 
   try {
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${encodeURIComponent(GEMINI_API_KEY)}`;
-    const res = await fetch(apiUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { responseMimeType: "application/json" }
-      })
+    const responseText = await generateAIContent({
+      prompt,
+      jsonMode: true
     });
 
-    const data = await res.json();
-    const aiResponse = JSON.parse(data.candidates?.[0]?.content?.parts?.[0]?.text || "{}");
+    const aiResponse = JSON.parse(responseText.replace(/```json|```/g, "").trim());
     
     return {
       category: aiResponse.category || undefined,
