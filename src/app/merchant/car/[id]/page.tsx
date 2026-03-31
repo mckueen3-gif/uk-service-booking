@@ -16,7 +16,8 @@ export default async function CarJobDetail({ params }: { params: Promise<{ id: s
     include: {
       service: true,
       customer: true,
-      variations: true
+      variations: true,
+      merchant: true
     }
   }) as any;
 
@@ -24,18 +25,10 @@ export default async function CarJobDetail({ params }: { params: Promise<{ id: s
     notFound();
   }
 
-  // Fetch merchant's completed jobs count for commission tier
-  const completedJobsCount = await prisma.booking.count({
-    where: {
-      merchantId: booking.merchantId,
-      status: 'COMPLETED'
-    }
-  });
-
   const payout = calculateCarRepairPayout(
     booking.totalAmount - booking.variations.reduce((acc: number, v: any) => acc + v.amount, 0),
     booking.variations,
-    completedJobsCount
+    booking.merchant
   );
 
   return (
