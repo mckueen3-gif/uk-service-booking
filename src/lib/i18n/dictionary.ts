@@ -257,7 +257,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "Please scroll to the bottom of the agreement to confirm your acceptance.",
         agree: "I have read and agree to the Expert Services Agreement",
         clauses: {
-          commission: { title: "1. Platform Service Fees & Growth Incentives", body: "ServiceHub applies a competitive 8% platform access fee on successful bookings. To support your business growth, your first 5 orders are 100% commission-free. Fees are automatically deducted from the final payout." },
+          commission: { title: "1. Platform Service Fees & Growth Incentives", body: "ServiceHub applies a competitive 8% platform access fee on successful bookings. Fees are automatically deducted from the final payout." },
           service: { title: "2. Service Excellence & UK Compliance", body: "Partners must maintain a minimum rating of 4.2 and respond to inquiries within 24 hours. You certify that you hold all valid UK licenses and insurance relevant to your trade." },
           disputes: { title: "3. AI-Powered Dispute Resolution & Smart Matching", body: "Our proprietary AI Arbiter provides instant and impartial resolution. Through AI Smart Matching technology, we ensure you receive the most accurate local instant booking orders." }
         }
@@ -386,7 +386,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "請滾動至合約底部以確認接受條款。",
         agree: "我已閱讀並同意專家服務協議",
         clauses: {
-          commission: { title: "1. 平台服務費與增長激勵", body: "ServiceHub 對成功的預約收取具競爭力的 8% 平台訪問費。為了支持您的業務成長，您的前 5 筆訂單 100% 免佣金。費用將從最終結算中自動扣除。" },
+          commission: { title: "1. 平台服務費與增長激勵", body: "ServiceHub 對成功的預約收取具競爭力的 8% 平台訪問費。費用將從最終結算中自動扣除。" },
           service: { title: "2. 卓越服務與英國合規性", body: "合作夥伴必須保持 4.2 以上的評分，並在 24 小時內回覆諮詢。您證明您持有與您的行業相關的所有有效英國執照與保險。" },
           disputes: { title: "3. AI 驅動的糾紛解決與智能匹配", body: "我們專有的 AI 裁決器提供即時且公正的調解。透過 AI 智能匹配技術，我們確保您收到最精確的在地即時預約訂單。" }
         }
@@ -508,7 +508,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "कृपया अपनी स्वीकृति की पुष्टि करने के लिए अनुबंध के नीचे तक स्क्रॉल करें।",
         agree: "मैंने विशेषज्ञ सेवा अनुबंध पढ़ लिया है और मैं इससे सहमत हूँ",
         clauses: {
-          commission: { title: "1. प्लेटफ़ॉर्म सेवा शुल्क और विकास प्रोत्साहन", body: "ServiceHub सफल बुकिंग पर 8% का प्रतिस्पर्धी प्लेटफ़ॉर्म एक्सेस शुल्क लागू करता है। आपके व्यवसाय के विकास में सहायता के लिए, आपके पहले 5 ऑर्डर 100% कमीशन-मुक्त हैं। शुल्क अंतिम भुगतान से स्वचालित रूप से काट लिए जाते हैं।" },
+          commission: { title: "1. प्लेटफ़ॉर्म सेवा शुल्क और विकास प्रोत्साहन", body: "ServiceHub सफल बुकिंग पर 8% का प्रतिस्पर्धी प्लेटफ़ॉर्म एक्सेस शुल्क लागू करता है। शुल्क अंतिम भुगतान से स्वचालित रूप से काट लिए जाते हैं।" },
           service: { title: "2. सेवा उत्कृष्टता और यूके अनुपालन", body: "साझेदारों को न्यूनतम 4.2 की रेटिंग बनाए रखनी चाहिए और 24 घंटों के भीतर पूछताछ का जवाब देना चाहिए। आप प्रमाणित करते हैं कि आपके पास अपने व्यापार से संबंधित सभी वैध यूके लाइसेंस और बीमा हैं।" },
           disputes: { title: "3. AI-संचालित विवाद समाधान और स्मार्ट मैचिंग", body: "हमारा प्रोप्रायटरी AI मध्यस्थ त्वरित और निष्पक्ष समाधान प्रदान करता है। AI स्मार्ट मैचिंग तकनीक के माध्यम سے, हम सुनिश्चित करते हैं कि आपको सबसे सटीक स्थानीय तत्काल बुकिंग ऑर्डर प्राप्त हों।" }
         }
@@ -629,7 +629,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "يرجى التمرير إلى أسفل الاتفاقية لتأكيد قبولك.",
         agree: "لقد قرأت وأوافق على اتفاقية خدمات الخبراء",
         clauses: {
-          commission: { title: "1. رسوم خدمة المنصة وحوافز النمو", body: "تطبق ServiceHub رسوم وصول إلى المنصة تنافسية بنسبة 8% على الحجوزات الناجحة. لدعم نمو أعمالك، فإن طلباتك الخمسة الأولى معفاة تمامًا من العمولات بنسبة 100%. يتم خصم الرسوم تلقائيًا من المبلغ النهائي المدفوع." },
+          commission: { title: "1. رسوم خدمة المنصة وحوافز النمو", body: "تطبق ServiceHub رسوم وصول إلى المنصة تنافسية بنسبة 8% على الحجوزات الناجحة. يتم خصم الرسوم تلقائيًا من المبلغ النهائي المدفوع." },
           service: { title: "2. التميز في الخدمة والامتثال في المملكة المتحدة", body: "يجب على الشركاء الحفاظ على حد أدنى للتقييم يبلغ 4.2 والرد على الاستفسارات في غضون 24 ساعة. أنت تقر بأنك تحمل جميع التراخيص والتأمينات الصالحة في المملكة المتحدة والمتعلقة بمهنتك." },
           disputes: { title: "3. حل النزاعات المدعوم بالذكاء الاصطناعي والمطابقة الذكية", body: "يوفر محكم الذكاء الاصطناعي الخاص بنا حلاً فوريًا وغير متحيز. من خلال تقنية AI Smart Matching، نضمن حصولك على أدق طلبات الحجز الفوري المحلية." }
         }
@@ -750,7 +750,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "同意を確認するため、契約書の最後までスクロールしてください。",
         agree: "専門家サービス契約を読み、同意します",
         clauses: {
-          commission: { title: "1. プラットフォーム利用料と成長支援インセンティブ", body: "ServiceHubは、予約が成立した際に8%の競争力のあるプラットフォーム利用料を適用します。お客様のビジネスの成長を支援するため、最初の5件の注文は手数料が100%無料となります。手数料は最終的な支払いから自動的に差し引かれます。" },
+          commission: { title: "1. プラットフォーム利用料と成長支援インセンティブ", body: "ServiceHubは、予約が成立した際に8%の競争力のあるプラットフォーム利用料を適用します。手数料は最終的な支払いから自動的に差し引かれます。" },
           service: { title: "2. サービス品質と英国コンプライアンス", body: "パートナーは活動を継続するために、最低評価4.2を維持し、問い合わせには24時間以内に回答する必要があります。また、ご自身の職種に関連する有効な英国のライセンスと保険を保持していることを保証するものとします。" },
           disputes: { title: "3. AI仲裁とスマートマッチングによる紛争解決", body: "当社独自のAI仲裁者が、迅速かつ公平な解決策を提供します。AIスマートマッチング技術を通じて、最も正確な地元の即時予約注文を確実に受け取れるようにします。" }
         }
@@ -871,7 +871,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "동의를 확인하려면 약관의 맨 아래로 스크롤하십시오.",
         agree: "전문가 서비스 약관을 읽었으며 이에 동의합니다",
         clauses: {
-          commission: { title: "1. 플랫폼 서비스 수수료 및 성장 인센티브", body: "ServiceHub는 성공적인 예약 건에 대해 8%의 경쟁력 있는 플랫폼 이용 수수료를 적용합니다. 귀하의 비즈니스 성장을 지원하기 위해 첫 5건의 주문은 수수료가 100% 면제됩니다. 수수료는 최종 지급액에서 자동으로 차감됩니다." },
+          commission: { title: "1. 플랫폼 서비스 수수료 및 성장 인센티브", body: "ServiceHub는 성공적인 예약 건에 대해 8%의 경쟁력 있는 플랫폼 이용 수수료를 적용합니다. 수수료는 최종 지급액에서 자동으로 차감됩니다." },
           service: { title: "2. 서비스 우수성 및 영국 규정 준수", body: "파트너는 4.2점 이상의 최소 평점을 유지하고 24시간 이내에 문의에 응답해야 합니다. 귀하는 해당 업종과 관련된 모든 유효한 영국 라이선스 및 보험을 보유하고 있음을 인증해야 합니다." },
           disputes: { title: "3. AI 기반 분쟁 해결 및 스마트 매칭", body: "당사의 독점적인 AI 중재자가 즉각적이고 공정한 해결책을 제공합니다. AI 스마트 매칭 기술을 통해 가장 정확한 현지 실시간 예약 주문을 받을 수 있습니다." }
         }
@@ -992,7 +992,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "Przewiń do dołu umowy, aby potwierdzić akceptację.",
         agree: "Przeczytałem i zgadzam się na Umowę o świadczenie usług eksperckich",
         clauses: {
-          commission: { title: "1. Opłaty serwisowe i zachęty do wzrostu", body: "ServiceHub stosuje konkurencyjną opłatę za dostęp do platformy w wysokości 8% od zrealizowanych rezerwacji. Aby wesprzeć rozwój Twojej firmy, Twoje pierwsze 5 zamówień jest w 100% wolnych od prowizji. Opłaty są automatycznie potrącane z ostatecznej wypłaty." },
+          commission: { title: "1. Opłaty serwisowe i zachęty do wzrostu", body: "ServiceHub stosuje konkurencyjną opłatę za dostęp do platformy w wysokości 8% od zrealizowanych rezerwacji. Opłaty są automatycznie potrącane z ostatecznej wypłaty." },
           service: { title: "2. Doskonałość usług i zgodność z przepisami UK", body: "Partnerzy muszą utrzymywać minimalną ocenę 4,2 i odpowiadać na zapytania w ciągu 24 godzin. Potwierdzasz, że posiadasz wszystkie ważne licencje i ubezpieczenia w Wielkiej Brytanii odpowiednie dla Twojego zawodu." },
           disputes: { title: "3. Rozstrzyganie sporów wspomagane przez AI i inteligentne dopasowanie", body: "Nasz autorski arbiter AI zapewnia natychmiastowe i bezstronne rozstrzygnięcie. Dzięki technologii AI Smart Matching zapewniamy otrzymywanie najdokładniejszych lokalnych zamówień natychmiastowych." }
         }
@@ -1101,7 +1101,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "Vă rugăm să derulați până la sfârșitul acordului pentru a confirma acceptarea.",
         agree: "Am citit și sunt de acord cu Acordul de Servicii pentru Experți",
         clauses: {
-          commission: { title: "1. Taxă de acces la platformă și stimulente de creștere", body: "ServiceHub aplică o taxă de acces la platformă competitivă de 8% pentru rezervările reușite. Pentru a sprijini creșterea afacerii dvs., primele 5 comenzi sunt 100% fără comision. Taxele sunt deduse automat din plata finală." },
+          commission: { title: "1. Taxă de acces la platformă și stimulente de creștere", body: "ServiceHub aplică o taxă de acces la platformă competitivă de 8% pentru rezervările reușite. Taxele sunt deduse automat din plata finală." },
           service: { title: "2. Excelență în servicii și conformitate cu reglementările UK", body: "Partenerii trebuie să mențină un rating minim de 4.2 și să răspundă la solicitări în termen de 24 de ore. Certifici că deții toate licențele și asigurările valabile în Regatul Unit relevante pentru profesia ta." },
           disputes: { title: "3. Rezolvarea disputelor prin AI și potrivire inteligentă", body: "Arbitrul nostru AI proprietar oferă o rezoluție instantanee și imparțială. Prin tehnologia AI Smart Matching, ne asigurăm că primești cele mai precise comenzi de rezervare instantanee la nivel local." }
         }
@@ -1210,7 +1210,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "براہ کرم اپنی قبولیت کی تصدیق کے لیے معاہدے کے آخر تک سکرول کریں۔",
         agree: "میں نے ماہر سروسز کا معاہدہ پڑھ لیا ہے اور میں اس سے متفق ہوں",
         clauses: {
-          commission: { title: "1. پلیٹ فارم سروس فیس اور گروتھ کے مراعات", body: "ServiceHub کامیاب بکنگ پر 8 فیصد کی مسابقتی پلیٹ فارم تک رسائی کی فیس لاگو کرتا ہے۔ آپ کے کاروبار کی ترقی میں مدد کے لیے، آپ کے پہلے 5 آرڈرز 100 فیصد کمیشن فری ہیں۔ فیس حتمی ادائیگی سے خود بخود کاٹ لی جاتی ہے۔" },
+          commission: { title: "1. پلیٹ فارم سروس فیس اور گروتھ کے مراعات", body: "ServiceHub کامیاب بکنگ پر 8 فیصد کی مسابتتی پلیٹ فارم تک رسائی کی فیس لاگو کرتا ہے۔ فیس حتمی ادائیگی سے خود بخود کاٹ لی جاتی ہے۔" },
           service: { title: "2. سروس کی عمدگی اور برطانیہ کی تعمیل", body: "شراکت داروں کو کم از کم 4.2 کی درجہ بندی برقرار رکھنی چاہیے اور 24 گھنٹے کے اندر پوچھ گچھ کا جواب دینا چاہیے۔ آپ تصدیق کرتے ہیں کہ آپ کے پاس برطانیہ کے تمام درست لائسنس اور انشورنس موجود ہیں۔" },
           disputes: { title: "3. AI سے چلنے والے تنازعات کا حل اور اسمارٹ میچنگ", body: "ہمارا اپنا AI ثالث فوری اور منصفانہ حل فراہم کرتا ہے۔ AI اسمارٹ میچنگ ٹیکنالوجی کے ذریعے، ہم اس بات کو یقینی بناتے ہیں کہ آپ کو مقامی فوری بکنگ کے درست ترین آرڈرز ملیں۔" }
         }
@@ -1327,7 +1327,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀ ਸਵੀਕ੍ਰਿਤੀ ਦੀ ਪੁਸ਼ਟੀ ਕਰਨ ਲਈ ਇਕਰਾਰਨਾਮੇ ਦੇ ਹੇਠਾਂ ਤੱਕ ਸਕ੍ਰੋਲ ਕਰੋ।",
         agree: "ਮੈਂ ਮਾਹਰ ਸੇਵਾਵਾਂ ਦਾ ਇਕਰਾਰਨਾਮਾ ਪੜ੍ਹ ਲਿਆ ਹੈ ਅਤੇ ਮੈਂ ਇਸ ਨਾਲ ਸਹਿਮਤ ਹਾਂ",
         clauses: {
-          commission: { title: "1. ਪਲੇਟਫਾਰਮ ਸੇਵਾ ਫੀਸ ਅਤੇ ਵਿਕਾਸ ਪ੍ਰੋਤਸਾਹਨ", body: "ServiceHub ਸਫਲ ਬੁਕਿੰਗਾਂ 'ਤੇ 8% ਦੀ ਮੁਕਾਬਲੇਬਾਜ਼ੀ ਪਲੇਟਫਾਰਮ ਐਕਸੈਸ ਫੀਸ ਲਾਗੂ ਕਰਦਾ ਹੈ। ਤੁਹਾਡੇ ਕਾਰੋਬਾਰ ਦੇ ਵਿਕਾਸ ਵਿੱਚ ਸਹਾਇਤਾ ਲਈ, ਤੁਹਾਡੇ ਪਹਿਲੇ 5 ਆਰਡਰ 100% ਕਮਿਸ਼ਨ-ਮੁਕਤ ਹਨ। ਫੀਸਾਂ ਅੰਤਮ ਭੁਗਤਾਨ ਵਿੱਚੋਂ ਆਪਣੇ ਆਪ ਕੱਟ ਲਈਆਂ ਜਾਂਦੀਆਂ ਹਨ।" },
+          commission: { title: "1. ਪਲੇਟਫਾਰਮ ਸੇਵਾ ਫੀਸ ਅਤੇ ਵਿਕਾਸ ਪ੍ਰੋਤਸਾਹਨ", body: "ServiceHub ਸਫਲ ਬੁਕਿੰਗਾਂ 'ਤੇ 8% ਦੀ ਮੁਕਾਬਲੇਬਾਜ਼ੀ ਪਲੇਟਫਾਰਮ ਐਕਸੈਸ ਫੀਸ ਲਾਗੂ ਕਰਦਾ ਹੈ। ਫੀਸਾਂ ਅੰਤਮ ਭੁਗਤਾਨ ਵਿੱਚੋਂ ਆਪਣੇ ਆਪ ਕੱਟ ਲਈਆਂ ਜਾਂਦੀਆਂ ਹਨ।" },
           service: { title: "2. ਸੇਵਾ ਉੱਤਮਤਾ ਅਤੇ ਯੂਕੇ ਪਾਲਣਾ", body: "ਭਾਈਵਾਲਾਂ ਨੂੰ ਘੱਟੋ-ਘੱਟ 4.2 ਦੀ ਰੇਟਿੰਗ ਬਣਾਈ ਰੱਖਣੀ ਚਾਹੀਦੀ ਹੈ ਅਤੇ 24 ਘੰਟਿਆਂ ਦੇ ਅੰਦਰ ਪੁੱਛਗਿੱਛ ਦਾ ਜਵਾਬ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ। ਤੁਸੀਂ ਤਸਦੀਕ ਕਰਦੇ ਹੋ ਕਿ ਤੁਹਾਡੇ ਕੋਲ ਆਪਣੇ ਵਪਾਰ ਨਾਲ ਸਬੰਧਤ ਸਾਰੇ ਵੈਧ ਯੂਕੇ ਲਾਇਸੈਂਸ ਅਤੇ ਬੀਮਾ ਹਨ।" },
           disputes: { title: "3. AI-ਪਾਵਰਡ ਡਿਸਪਿਊਟ ਰੈਜ਼ੋਲੂਸ਼ਨ ਅਤੇ ਸਮਾਰਟ ਮੈਚਿੰਗ", body: "ਸਾਰੇ ਝਗੜਿਆਂ ਦੀ ਵਿਚੋਲਗੀ ਸਾਡੇ AI ਆਰਬੀਟਰ ਦੁਆرا ਕੀਤੀ ਜਾਂਦੀ ਹੈ। ਕੰਮ ਦੇ ਰਿਕਾਰਡ ਅਤੇ ਫੋਟੋਆਂ ਦੇ ਸਬੂਤ ਅੰਤਿਮ ਫੈਸਲਿਆਂ ਲਈ ਵਰਤੇ ਜਾਣਗੇ।" }
         }
