@@ -79,37 +79,57 @@ export async function updateBookingStatus(bookingId: string, newStatus: string) 
     if (newStatus === 'COMPLETED') {
       await movePendingToAvailable(merchantId, (booking as any).totalAmount);
       
-      // 3. Referral Reward Logic (Customer Rewards)
+      // 3. Referral Reward Logic (Passive Income: 2% of each order)
       try {
         const referral = await prisma.referral.findUnique({
           where: { refereeId: (booking as any).customerId }
         });
 
         if (referral && referral.referrerId) {
-          const rewardAmount = (booking as any).totalAmount * 0.03; // 3% Reward
-          
-          await prisma.$transaction([
-            // Update referrer balance
-            prisma.user.update({
-              where: { id: referral.referrerId },
-              data: { referralCredits: { increment: rewardAmount } }
-            }),
-            // Log transaction
-            (prisma as any).creditTransaction.create({
-              data: {
-                userId: referral.referrerId,
-                amount: rewardAmount,
-                type: 'EARNED_REFERRAL',
-                description: `3% Referral Reward from completed job: ${booking.id}`
-              }
-            }),
-            // Mark referral as COMPLETED if first job
-            await (prisma.referral as any).update({
-              where: { id: referral.id },
-              data: { status: 'COMPLETED' }
-            })
-          ]);
-          console.log(`Issued ${rewardAmount} credits to referrer ${referral.referrerId}`);
+          // Check for 5-year expiration
+          const fiveYearsAgo = new Date();
+          fiveYearsAgo.setFullYear(fiveYearsAgo.getFullYear() - 5);
+          const isExpired = referral.createdAt < fiveYearsAgo;
+
+          // Check if earning cap (£200) has been reached
+          const currentTotal = referral.earnedFromReferee || 0;
+          const isCapped = currentTotal >= 200;
+
+          if (!isExpired && !isCapped) {
+            const potentialReward = (booking as any).totalAmount * 0.02; // New 2% Reward
+            // Ensure next reward doesn't exceed the total cap of £200 per referee
+            const rewardAmount = Math.min(potentialReward, 200 - currentTotal);
+
+            if (rewardAmount > 0) {
+              await prisma.$transaction([
+                // Update referrer balance
+                prisma.user.update({
+                  where: { id: referral.referrerId },
+                  data: { referralCredits: { increment: rewardAmount } }
+                }),
+                // Update referral record tracking
+                (prisma.referral as any).update({
+                  where: { id: referral.id },
+                  data: { 
+                    earnedFromReferee: { increment: rewardAmount },
+                    status: 'COMPLETED' // Mark as completed (active referral relationship)
+                  }
+                }),
+                // Log transaction
+                (prisma as any).creditTransaction.create({
+                  data: {
+                    userId: referral.referrerId,
+                    amount: rewardAmount,
+                    type: 'EARNED_REFERRAL',
+                    description: `2% Referral Passive Income from Booking: ${booking.id}`
+                  }
+                })
+              ]);
+              console.log(`Issued ${rewardAmount} passive credits to referrer ${referral.referrerId}`);
+            }
+          } else if (isCapped || isExpired) {
+             console.log(`Referral reward skipped: ${isCapped ? "Capped at £200" : "Expired (5 Years passed)"}`);
+          }
         }
       } catch (refErr) {
         console.error("Referral reward error:", refErr);

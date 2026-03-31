@@ -161,9 +161,8 @@ model Merchant {
   completedJobsCount Int       @default(0)
   
   // New Commercial Fields
-  commissionRate     Float     @default(0.08) // Default 8%
-  freeOrdersLeft     Int       @default(0)    // No free orders by default (Admin-controlled)
-  
+  commissionRate     Float     @default(0.09) // Default 9%
+   
   // Bank Details (UK)
   bankSortCode       String?
   bankAccountNumber  String?
@@ -190,15 +189,13 @@ model Merchant {
 
 model PlatformSettings {
   id                   String   @id @default("global")
-  defaultCommissionRate Float    @default(0.08)
-  defaultFreeOrders    Int      @default(5)
+  defaultCommissionRate Float    @default(0.09)
   updatedAt            DateTime @updatedAt
 }
 
 model PromoCode {
   id              String   @id @default(cuid())
   code            String   @unique
-  freeOrdersCount Int      @default(10)
   maxUses         Int?     // Total platform-wide uses allowed
   currentUses     Int      @default(0)
   expiresAt       DateTime?
@@ -430,13 +427,14 @@ model Evidence {
 }
 
 model Referral {
-  id          String   @id @default(cuid())
-  referrerId  String
-  referrer    User     @relation("Referrer", fields: [referrerId], references: [id])
-  refereeId   String   @unique
-  referee     User     @relation("Referee", fields: [refereeId], references: [id])
-  status      String   @default("PENDING") // PENDING, COMPLETED (after first job)
-  createdAt   DateTime @default(now())
+  id                 String   @id @default(cuid())
+  referrerId         String
+  referrer           User     @relation("Referrer", fields: [referrerId], references: [id])
+  refereeId          String   @unique
+  referee            User     @relation("Referee", fields: [refereeId], references: [id])
+  status             String   @default("PENDING") // PENDING, COMPLETED (after first job)
+  earnedFromReferee  Float    @default(0)         // Capped at 200
+  createdAt          DateTime @default(now())
 }
 
 enum TransactionType {

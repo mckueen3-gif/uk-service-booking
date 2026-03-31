@@ -84,9 +84,12 @@ export default async function WalletPage() {
               <div style={{ backgroundColor: '#eef2ff', padding: '0.5rem', borderRadius: '0.75rem' }}>
                 <Gift size={24} color="#6366f1" />
               </div>
-              <h2 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#1e1b4b' }}>推薦好友領回饋</h2>
+              <h2 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#1e1b4b' }}>推薦好友，享 2% 被動收入</h2>
             </div>
-            <p style={{ fontSize: '0.85rem', color: '#4338ca', marginBottom: '1.5rem' }}>分享以下代碼給好友，當他們完成第一筆預約，您將獲得 <span style={{ fontWeight: 800 }}>3% 的服務回饋金</span>！</p>
+            <p style={{ fontSize: '0.85rem', color: '#4338ca', marginBottom: '1.5rem' }}>
+              分享您的代碼，好友註冊後每完成一筆訂單，您都將獲得 <span style={{ fontWeight: 800 }}>2% 服務金回饋</span>！<br />
+              <span style={{ fontSize: '0.7rem', opacity: 0.8 }}>(每位好友上限 £200 或註冊滿 5 年為止)</span>
+            </p>
             
             <div style={{ 
               display: 'flex', 

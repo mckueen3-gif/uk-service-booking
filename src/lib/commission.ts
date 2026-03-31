@@ -3,20 +3,17 @@
  * This module is the single source of truth for all platform commission calculations.
  * 
  * Rules:
- * 1. If merchant has freeOrdersLeft > 0, commission is 0%.
- * 2. Otherwise, use the merchant's stored commissionRate (Default 8%).
+ * Standardized at 0.09 (9%) of labor costs.
  */
 
 /**
  * Calculates the platform commission rate based on merchant settings.
  * @param merchant The merchant object from the database with required fields.
- * @returns The commission rate as a decimal (e.g., 0.08 for 8%).
+ * @returns The commission rate as a decimal (e.g., 0.09 for 9%).
  */
-export function getCommissionRate(merchant: { commissionRate: number; freeOrdersLeft: number }): number {
-  if (merchant.freeOrdersLeft > 0) {
-    return 0;
-  }
-  return merchant.commissionRate;
+export function getCommissionRate(merchant: { commissionRate: number }): number {
+  // The schema default is now 0.09, which will be returned here if not overridden.
+  return merchant.commissionRate || 0.09;
 }
 
 /**
@@ -25,7 +22,7 @@ export function getCommissionRate(merchant: { commissionRate: number; freeOrders
  * @param merchant The merchant object.
  * @returns The platform fee amount.
  */
-export function calculatePlatformFee(amount: number, merchant: { commissionRate: number; freeOrdersLeft: number }): number {
+export function calculatePlatformFee(amount: number, merchant: { commissionRate: number }): number {
   const rate = getCommissionRate(merchant);
   return amount * rate;
 }
@@ -39,7 +36,7 @@ export function calculatePlatformFee(amount: number, merchant: { commissionRate:
 export function calculateCarRepairPayout(
   baseAmount: number, 
   variations: { description: string; amount: number }[],
-  merchant: { commissionRate: number; freeOrdersLeft: number }
+  merchant: { commissionRate: number }
 ) {
   const rate = getCommissionRate(merchant);
   

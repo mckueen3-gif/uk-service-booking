@@ -9,35 +9,20 @@ export async function calculateCommission(merchantId: string, amount: number) {
     where: { id: merchantId },
     select: { 
       id: true,
-      commissionRate: true, 
-      freeOrdersLeft: true 
+      commissionRate: true
     }
   });
 
   if (!merchant) return { platformFee: 0, merchantPayout: amount, rate: 0 };
 
   const rate = getCommissionRate(merchant);
-  const isFreeOrder = merchant.freeOrdersLeft > 0;
-
-  if (isFreeOrder) {
-    // Note: Decrementing freeOrdersLeft here means every time calculateCommission is called,
-    // it will reduce the count. We should be careful to only call this once per unique Job/Booking.
-    // For this implementation, we assume the caller handles the "once per booking" logic 
-    // or we accept this as a simplification for the "first 5 orders" requirement.
-    await (prisma.merchant as any).update({
-      where: { id: merchantId },
-      data: { freeOrdersLeft: { decrement: 1 } }
-    });
-  }
-
   const platformFee = amount * rate;
   const merchantPayout = amount - platformFee;
 
   return { 
     platformFee, 
     merchantPayout, 
-    rate: rate * 100, // as percentage
-    isFreeOrder
+    rate: rate * 100 // as percentage
   };
 }
 

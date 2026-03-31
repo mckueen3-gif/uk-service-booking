@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { Wallet, TrendingUp, History, CreditCard, ArrowUpRight, ArrowDownLeft, Landmark, Info, CheckCircle2, Clock, Calculator } from "lucide-react";
+import { Wallet, TrendingUp, History, Landmark, Info, CheckCircle2, Clock, Calculator } from "lucide-react";
 import { getEarningsStats } from "@/app/actions/finance";
 import BankForm from "./BankForm";
 import WithdrawForm from "./WithdrawForm";
@@ -10,7 +10,7 @@ export default async function MerchantWalletPage() {
   const session = await getServerSession(authOptions);
   if (!session) redirect("/auth/login");
 
-  const { wallet, recentBookings, recentWithdrawals, merchant, error } = await getEarningsStats() as any;
+  const { wallet, recentWithdrawals, merchant, error } = await getEarningsStats() as any;
 
   if (error || !merchant) {
     return (
@@ -23,21 +23,8 @@ export default async function MerchantWalletPage() {
     );
   }
 
-  // Commission Logic Tiers
-  const jobs = merchant?.completedJobsCount || 0;
-  let currentRate = 12;
-  let nextGoal = 0;
-  let nextRate = 0;
-
-  if (jobs <= 3) {
-    currentRate = 0;
-    nextGoal = 4 - jobs;
-    nextRate = 5;
-  } else if (jobs <= 10) {
-    currentRate = 5;
-    nextGoal = 11 - jobs;
-    nextRate = 12;
-  }
+  // Standard Commission Rate
+  const currentRate = 9;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
@@ -120,40 +107,28 @@ export default async function MerchantWalletPage() {
             </div>
           </div>
 
-          {/* Commission Tier Progress */}
+          {/* Fee Transparency */}
           <div className="glass-panel animate-fade-up delay-500" style={{ padding: '2rem', borderRadius: '24px', backgroundColor: 'var(--bg-secondary)', border: '1.5px solid var(--border-color)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                 <TrendingUp size={20} color="var(--accent-color)" />
-                 <h2 style={{ fontSize: '1.1rem', fontWeight: 900, color: 'var(--text-primary)' }}>您的佣金等級 (Tier)</h2>
-               </div>
-               <span style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--accent-color)', marginLeft: 'auto' }}>
-                 核心抽成: {currentRate}%
-               </span>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                  <TrendingUp size={22} color="var(--accent-color)" />
+                  <h2 style={{ fontSize: '1.2rem', fontWeight: 900, color: 'var(--text-primary)' }}>平台佣金與收費</h2>
+                </div>
+                <div style={{ padding: '0.4rem 1rem', backgroundColor: 'var(--accent-color)', color: 'white', borderRadius: '12px', fontSize: '0.9rem', fontWeight: 800 }}>
+                  標準扣除: {currentRate}%
+                </div>
             </div>
             
-            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
-              目前已完成 <span style={{ fontWeight: 800, color: 'var(--text-primary)' }}>{jobs}</span> 筆服務。
-              {nextGoal > 0 ? (
-                <span> 距離下個階段還差 <span style={{ fontWeight: 800, color: 'var(--accent-color)' }}>{nextGoal}</span> 筆服務。</span>
-              ) : (
-                <span> 您正在享受最優質的抽成待遇！</span>
-              )}
-            </p>
-            
-            <div style={{ height: '10px', backgroundColor: 'var(--border-color)', borderRadius: '10px', position: 'relative', overflow: 'hidden', border: '1px solid var(--border-color)' }}>
-              <div style={{ 
-                height: '100%', 
-                width: `${Math.min((jobs / 11) * 100, 100)}%`, 
-                backgroundColor: 'var(--accent-color)', 
-                borderRadius: '10px',
-                transition: 'width 0.8s ease'
-              }} />
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.75rem', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)' }}>
-              <span>0筆 (0%)</span>
-              <span>4筆 (5%)</span>
-              <span>11筆+ (12%)</span>
+            <div style={{ backgroundColor: 'var(--surface-1)', padding: '1.25rem', borderRadius: '16px', border: '1px solid var(--border-color)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', color: 'var(--accent-color)' }}>
+                <Info size={16} />
+                <span style={{ fontWeight: 800, fontSize: '0.9rem' }}>費用透明化說明</span>
+              </div>
+              <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                平台的 9% 佣金已包含 **2% 的「客戶推薦人獎勵基金」**。
+                這筆費用旨在激勵現有客戶為您介紹更多新生意，建立穩定的客源。
+                平台絕不額外向您收取推薦費，所有推廣成本均包含在標準佣金內。
+              </p>
             </div>
           </div>
         </div>

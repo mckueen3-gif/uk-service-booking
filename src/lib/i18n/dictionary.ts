@@ -257,7 +257,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "Please scroll to the bottom of the agreement to confirm your acceptance.",
         agree: "I have read and agree to the Expert Services Agreement",
         clauses: {
-          commission: { title: "1. Platform Service Fees & Growth Incentives", body: "ServiceHub applies a competitive 8% platform access fee on labor costs. There are no other hidden charges, and material costs are not subject to platform fees. Our AI system continuously evaluates pricing fairness to ensure all merchant charges are market-appropriate. Fees are automatically deducted from the final payout." },
+          commission: { title: "1. Platform Service Fees & Growth Incentives", body: "ServiceHub applies a competitive 9% platform access fee on labor costs. There are no other hidden charges, and material costs are not subject to platform fees. Our AI system continuously evaluates pricing fairness to ensure all merchant charges are market-appropriate. Fees are automatically deducted from the final payout." },
           service: { title: "2. Service Excellence & UK Compliance", body: "Partners must maintain a minimum rating of 4.2 and respond to inquiries within 24 hours. You certify that you hold all valid UK licenses and insurance relevant to your trade." },
           disputes: { title: "3. AI-Powered Dispute Resolution & Smart Matching", body: "Our proprietary AI Arbiter provides instant and impartial resolution. Through AI Smart Matching technology, we ensure you receive the most accurate local instant booking orders." }
         }
@@ -386,7 +386,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "請滾動至合約底部以確認接受條款。",
         agree: "我已閱讀並同意專家服務協議",
         clauses: {
-          commission: { title: "1. 平台服務費與增長激勵", body: "ServiceHub 對成功的預約收取具競爭力的 8% 勞務平台訪問費。平台承諾絕無其他隱藏收費，材料費亦不額外收取平台費用，但 AI 系統會持續評估商戶收費是否合理，以確保定價符合市場標準。費用將從最終結算中自動扣除。" },
+          commission: { title: "1. 平台服務費與增長激勵", body: "ServiceHub 對成功的預約收取具競爭力的 9% 勞務平台訪問費。平台承諾絕無其他隱藏收費，材料費亦不額外收取平台費用，但 AI 系統會持續評估商戶收費是否合理，以確保定價符合市場標準。費用將從最終結算中自動扣除。" },
           service: { title: "2. 卓越服務與英國合規性", body: "合作夥伴必須保持 4.2 以上的評分，並在 24 小時內回覆諮詢。您證明您持有與您的行業相關的所有有效英國執照與保險。" },
           disputes: { title: "3. AI 驅動的糾紛解決與智能匹配", body: "我們專有的 AI 裁決器提供即時且公正的調解。透過 AI 智能匹配技術，我們確保您收到最精確的在地即時預約訂單。" }
         }
@@ -508,7 +508,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "कृपया अपनी स्वीकृति की पुष्टि करने के लिए अनुबंध के नीचे तक स्क्रॉल करें।",
         agree: "मैंने विशेषज्ञ सेवा अनुबंध पढ़ लिया है और मैं इससे सहमत हूँ",
         clauses: {
-          commission: { title: "1. प्लेटफ़ॉर्म सेवा शुल्क और विकास प्रोत्साहन", body: "ServiceHub सफल बुकिंग पर श्रम लागत पर 8% का प्रतिस्पर्धी प्लेटफ़ॉर्म एक्सेस शुल्क लागू करता है। कोई अन्य छिपे हुए शुल्क नहीं हैं, और सामग्री की लागत पर कोई प्लेटफ़ॉर्म शुल्क नहीं लिया जाता है। हमारा AI सिस्टम यह सुनिश्चित करने के लिए मूल्य निर्धारण की निष्पक्षता का मूल्यांकन करता है कि सभी व्यापारियों के शुल्क बाजार के अनुसार उचित हों। शुल्क अंतिम भुगतान से स्वचालित रूप से काट लिए जाते हैं।" },
+          commission: { title: "1. प्लेटफ़ॉर्म सेवा शुल्क और विकास प्रोत्साहन", body: "ServiceHub सफल बुकिंग पर श्रम लागत पर 9% का प्रतिस्पर्धी प्लेटफ़ॉर्म एक्सेस शुल्क लागू करता है। कोई अन्य छिपे हुए शुल्क नहीं हैं, और सामग्री की लागत पर कोई प्लेटफ़ॉर्म शुल्क नहीं लिया जाता है। हमारा AI सिस्टम यह सुनिश्चित करने के लिए मूल्य निर्धारण की निष्पक्षता का मूल्यांकन करता है कि सभी व्यापारियों के शुल्क बाजार के अनुसार उचित हों। शुल्क अंतिम भुगतान से स्वचालित रूप से काट लिए जाते हैं।" },
           service: { title: "2. सेवा उत्कृष्टता और यूके अनुपालन", body: "साझेदारों को न्यूनतम 4.2 की रेटिंग बनाए रखनी चाहिए और 24 घंटों के भीतर पूछताछ का जवाब देना चाहिए। आप प्रमाणित करते हैं कि आपके पास अपने व्यापार से संबंधित सभी वैध यूके लाइसेंस और बीमा हैं।" },
           disputes: { title: "3. AI-संचालित विवाद समाधान और स्मार्ट मैचिंग", body: "हमारा प्रोप्रायटरी AI मध्यस्थ त्वरित और निष्पक्ष समाधान प्रदान करता है। AI स्मार्ट मैचिंग तकनीक के माध्यम سے, हम सुनिश्चित करते हैं कि आपको सबसे सटीक स्थानीय तत्काल बुकिंग ऑर्डर प्राप्त हों।" }
         }
@@ -629,7 +629,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "يرجى التمرير إلى أسفل الاتفاقية لتأكيد قبولك.",
         agree: "لقد قرأت وأوافق على اتفاقية خدمات الخبراء",
         clauses: {
-          commission: { title: "1. رسوم خدمة المنصة وحوافز النمو", body: "تطبق ServiceHub رسوم وصول إلى المنصة تنافسية بنسبة 8% على تكاليف العمالة. لا توجد رسوم خفية أخرى، ولا تخضع تكاليف المواد لرسوم المنصة. يقوم نظام الذكاء الاصطناعي لدينا بتقييم عدالة التسعير باستمرار لضمان أن تكون جميع رسوم التجار مناسبة للسوق. يتم خصم الرسوم تلقائيًا من المبلغ النهائي المدفوع." },
+          commission: { title: "1. رسوم خدمة المنصة وحوافز النمو", body: "تطبق ServiceHub رسوم وصول إلى المنصة تنافسية بنسبة 9% على تكاليف العمالة. لا توجد رسوم خفية أخرى، ولا تخضع تكاليف المواد لرسوم المنصة. يقوم نظام الذكاء الاصطناعي لدينا بتقييم عدالة التسعير باستمرار لضمان أن تكون جميع رسوم التجار مناسبة للسوق. يتم خصم الرسوم تلقائيًا من المبلغ النهائي المدفوع." },
           service: { title: "2. التميز في الخدمة والامتثال في المملكة المتحدة", body: "يجب على الشركاء الحفاظ على حد أدنى للتقييم يبلغ 4.2 والرد على الاستفسارات في غضون 24 ساعة. أنت تقر بأنك تحمل جميع التراخيص والتأمينات الصالحة في المملكة المتحدة والمتعلقة بمهنتك." },
           disputes: { title: "3. حل النزاعات المدعوم بالذكاء الاصطناعي والمطابقة الذكية", body: "يوفر محكم الذكاء الاصطناعي الخاص بنا حلاً فوريًا وغير متحيز. من خلال تقنية AI Smart Matching، نضمن حصولك على أدق طلبات الحجز الفوري المحلية." }
         }
@@ -750,7 +750,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "同意を確認するため、契約書の最後までスクロールしてください。",
         agree: "専門家サービス契約を読み、同意します",
         clauses: {
-          commission: { title: "1. プラットフォーム利用料と成長支援インセンティブ", body: "ServiceHubは、予約が成立した際の労務費に対して8%の競争力のあるプラットフォーム利用料を適用します。その他の隠れた費用は一切なく、材料費にプラットフォーム利用料はかかりません。当社のAIシステムは常に価格の妥当性を評価し、すべての商戸の請求が市場価格として適切であることを確認します。手数料は最終的な支払いから自動的に差し引かれます。" },
+          commission: { title: "1. プラットフォーム利用料と成長支援インセンティブ", body: "ServiceHubは、予約が成立した際の労務費に対して9%の競争力のあるプラットフォーム利用料を適用します。その他の隠れた費用は一切なく、材料費にプラットフォーム利用料はかかりません。当社のAIシステムは常に価格の妥当性を評価し、すべての商戸の請求が市場価格として適切であることを確認します。手数料は最終的な支払いから自動的に差し引かれます。" },
           service: { title: "2. サービス品質と英国コンプライアンス", body: "パートナーは活動を継続するために、最低評価4.2を維持し、問い合わせには24時間以内に回答する必要があります。また、ご自身の職種に関連する有効な英国のライセンスと保険を保持していることを保証するものとします。" },
           disputes: { title: "3. AI仲裁とスマートマッチングによる紛争解決", body: "当社独自のAI仲裁者が、迅速かつ公平な解決策を提供します。AIスマートマッチング技術を通じて、最も正確な地元の即時予約注文を確実に受け取れるようにします。" }
         }
@@ -871,7 +871,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "동의를 확인하려면 약관의 맨 아래로 스크롤하십시오.",
         agree: "전문가 서비스 약관을 읽었으며 이에 동의합니다",
         clauses: {
-          commission: { title: "1. 플랫폼 서비스 수수료 및 성장 인센티브", body: "ServiceHub는 성공적인 예약 건의 노무비에 대해 8%의 경쟁력 있는 플랫폼 이용 수수료를 적용합니다. 기타 숨겨진 비용은 전혀 없으며, 재료비에는 플랫폼 수수료가 부과되지 않습니다. 당사의 AI 시스템은 가격의 공정성을 지속적으로 평가하여 모든 상점의 청구 금액이 시장 수준에 적절한지 확인합니다. 수수료는 최종 지급액에서 자동으로 차감됩니다." },
+          commission: { title: "1. 플랫폼 서비스 수수료 및 성장 인센티브", body: "ServiceHub는 성공적인 예약 건의 노무비에 대해 9%의 경쟁력 있는 플랫폼 이용 수수료를 적용합니다. 기타 숨겨진 비용은 전혀 없으며, 재료비에는 플랫폼 수수료가 부과되지 않습니다. 당사의 AI 시스템은 가격의 공정성을 지속적으로 평가하여 모든 상점의 청구 금액이 시장 수준에 적절한지 확인합니다. 수수료는 최종 지급액에서 자동으로 차감됩니다." },
           service: { title: "2. 서비스 우수성 및 영국 규정 준수", body: "파트너는 4.2점 이상의 최소 평점을 유지하고 24시간 이내에 문의에 응답해야 합니다. 귀하는 해당 업종과 관련된 모든 유효한 영국 라이선스 및 보험을 보유하고 있음을 인증해야 합니다." },
           disputes: { title: "3. AI 기반 분쟁 해결 및 스마트 매칭", body: "당사의 독점적인 AI 중재자가 즉각적이고 공정한 해결책을 제공합니다. AI 스마트 매칭 기술을 통해 가장 정확한 현지 실시간 예약 주문을 받을 수 있습니다." }
         }
@@ -992,7 +992,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "Przewiń do dołu umowy, aby potwierdzić akceptację.",
         agree: "Przeczytałem i zgadzam się na Umowę o świadczenie usług eksperckich",
         clauses: {
-          commission: { title: "1. Opłaty serwisowe i zachęty do wzrostu", body: "ServiceHub stosuje konkurencyjną opłatę za dostęp do platformy w wysokości 8% od kosztów robocizny przy zrealizowanych rezerwacji. Nie ma żadnych innych ukrytych opłat, a koszty materiałów nie podlegają opłatom platformowym. Nasz system AI stale ocenia sprawiedliwość wyceny, aby zapewnić, że wszystkie opłaty pobierane przez sprzedawców są odpowiednie dla rynku. Opłaty są automatycznie potrącane z ostatecznej wypłaty." },
+          commission: { title: "1. Opłaty serwisowe i zachęty do wzrostu", body: "ServiceHub stosuje konkurencyjną opłatę za dostęp do platformy w wysokości 9% od kosztów robocizny przy zrealizowanych rezerwacji. Nie ma żadnych innych ukrytych opłat, a koszty materiałów nie podlegają opłatom platformowym. Nasz system AI stale ocenia sprawiedliwość wyceny, aby zapewnić, że wszystkie opłaty pobierane przez sprzedawców są odpowiednie dla rynku. Opłaty są automatycznie potrącane z ostatecznej wypłaty." },
           service: { title: "2. Doskonałość usług i zgodność z przepisami UK", body: "Partnerzy muszą utrzymywać minimalną ocenę 4,2 i odpowiadać na zapytania w ciągu 24 godzin. Potwierdzasz, że posiadasz wszystkie ważne licencje i ubezpieczenia w Wielkiej Brytanii odpowiednie dla Twojego zawodu." },
           disputes: { title: "3. Rozstrzyganie sporów wspomagane przez AI i inteligentne dopasowanie", body: "Nasz autorski arbiter AI zapewnia natychmiastowe i bezstronne rozstrzygnięcie. Dzięki technologii AI Smart Matching zapewniamy otrzymywanie najdokładniejszych lokalnych zamówień natychmiastowych." }
         }
@@ -1101,7 +1101,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "Vă rugăm să derulați până la sfârșitul acordului pentru a confirma acceptarea.",
         agree: "Am citit și sunt de acord cu Acordul de Servicii pentru Experți",
         clauses: {
-          commission: { title: "1. Taxă de acces la platformă și stimulente de creștere", body: "ServiceHub aplică o taxă de acces la platformă competitivă de 8% pentru costurile de manoperă la rezervările reușite. Nu există alte taxe ascunse, iar costurile materialelor nu sunt supuse taxelor de platformă. Sistemul nostru AI evaluează continuu corectitudinea prețurilor pentru a se asigura că toate taxele comercianților sunt adecvate pieței. Taxele sunt deduse automat din plata finală." },
+          commission: { title: "1. Taxă de acces la platformă și stimulente de creștere", body: "ServiceHub aplică o taxă de acces la platformă competitivă de 9% pentru costurile de manoperă la rezervările reușite. Nu există alte taxe ascunse, iar costurile materialelor nu sunt supuse taxelor de platformă. Sistemul nostru AI evaluează continuu corectitudinea prețurilor pentru a se asigura că toate taxele comercianților sunt adecvate pieței. Taxele sunt deduse automat din plata finală." },
           service: { title: "2. Excelență în servicii și conformitate cu reglementările UK", body: "Partenerii trebuie să mențină un rating minim de 4.2 și să răspundă la solicitări în termen de 24 de ore. Certifici că deții toate licențele și asigurările valabile în Regatul Unit relevante pentru profesia ta." },
           disputes: { title: "3. Rezolvarea disputelor prin AI și potrivire inteligentă", body: "Arbitrul nostru AI proprietar oferă o rezoluție instantanee și imparțială. Prin tehnologia AI Smart Matching, ne asigurăm că primești cele mai precise comenzi de rezervare instantanee la nivel local." }
         }
@@ -1327,7 +1327,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         scrollingNotice: "ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀ ਸਵੀਕ੍ਰਿਤੀ ਦੀ ਪੁਸ਼ਟੀ ਕਰਨ ਲਈ ਇਕਰਾਰਨਾਮੇ ਦੇ ਹੇਠਾਂ ਤੱਕ ਸਕ੍ਰੋਲ ਕਰੋ।",
         agree: "ਮੈਂ ਮਾਹਰ ਸੇਵਾਵਾਂ ਦਾ ਇਕਰਾਰਨਾਮਾ ਪੜ੍ਹ ਲਿਆ ਹੈ ਅਤੇ ਮੈਂ ਇਸ ਨਾਲ ਸਹਿਮਤ ਹਾਂ",
         clauses: {
-          commission: { title: "1. ਪਲੇਟਫਾਰਮ ਸੇਵਾ ਫੀਸ ਅਤੇ ਵਿਕਾਸ ਪ੍ਰੋਤਸਾਹਨ", body: "ServiceHub ਸਫਲ ਬੁਕਿੰਗਾਂ 'ਤੇ ਲੇਬਰ ਲਾਗਤਾਂ 'ਤੇ 8% ਦੀ ਮੁਕਾਬਲੇਬਾਜ਼ੀ ਪਲੇਟਫਾਰਮ ਐਕਸੈਸ ਫੀਸ ਲਾਗੂ ਕਰਦਾ ਹੈ। ਕੋਈ ਹੋਰ ਲੁਕਵੇਂ ਖਰਚੇ ਹਨ, ਅਤੇ ਸਮੱਗਰੀ ਦੀਆਂ ਲਾਗਤਾਂ 'ਤੇ ਕੋਈ ਪਲੇਟਫਾਰਮ ਫੀਸ ਨਹੀਂ ਲਈ ਜਾਂਦੀ। ਸਾਡਾ AI ਸਿਸਟਮ ਲਗਾਤਾਰ ਕੀਮਤ ਦੀ ਨਿਰਪੱਖਤਾ ਦਾ ਮੁਲਾਂਕਣ ਕਰਦਾ ਹੈ ਤਾਂ ਜੋ ਇਹ ਯਕੀਨੀ ਬਣਾਇਆ ਜਾ ਸਕੇ ਕਿ ਸਾਰੇ ਵਪਾਰੀ ਖਰਚੇ ਮਾਰਕੀਟ ਦੇ ਅਨੁਸਾਰ ਉਚਿਤ ਹਨ। ਫੀਸਾਂ ਅੰਤਮ ਭੁਗਤਾਨ ਵਿੱਚੋਂ ਆਪਣੇ ਆਪ ਕੱਟ ਲਈਆਂ ਜਾਂਦੀਆਂ ਹਨ।" },
+          commission: { title: "1. ਪਲੇਟਫਾਰਮ ਸੇਵਾ ਫੀਸ ਅਤੇ ਵਿਕਾਸ ਪ੍ਰੋਤਸਾਹਨ", body: "ServiceHub ਸਫਲ ਬੁਕਿੰਗਾਂ 'ਤੇ ਲੇਬਰ ਲਾਗਤਾਂ 'ਤੇ 9% ਦੀ ਮੁਕਾਬਲੇਬਾਜ਼ੀ ਪਲੇਟਫਾਰਮ ਐਕਸੈਸ ਫੀਸ ਲਾਗੂ ਕਰਦਾ ਹੈ। ਕੋਈ ਹੋਰ ਲੁਕਵੇਂ ਖਰਚੇ ਹਨ, ਅਤੇ ਸਮੱਗਰੀ ਦੀਆਂ ਲਾਗਤਾਂ 'ਤੇ ਕੋਈ ਪਲੇਟਫਾਰਮ ਫੀਸ ਨਹੀਂ ਲਈ ਜਾਂਦੀ। ਸਾਡਾ AI ਸਿਸਟਮ ਲਗਾਤਾਰ ਕੀਮਤ ਦੀ ਨਿਰਪੱਖਤਾ ਦਾ ਮੁਲਾਂਕਣ ਕਰਦਾ ਹੈ ਤਾਂ ਜੋ ਇਹ ਯਕੀਨੀ ਬਣਾਇਆ ਜਾ ਸਕੇ ਕਿ ਸਾਰੇ ਵਪਾਰੀ ਖਰਚੇ ਮਾਰਕੀਟ ਦੇ ਅਨੁਸਾਰ ਉਚਿਤ ਹਨ। ਫੀਸਾਂ ਅੰਤਮ ਭੁਗਤਾਨ ਵਿੱਚੋਂ ਆਪਣੇ ਆਪ ਕੱਟ ਲਈਆਂ ਜਾਂਦੀਆਂ ਹਨ।" },
           service: { title: "2. ਸੇਵਾ ਉੱਤਮਤਾ ਅਤੇ ਯੂਕੇ ਪਾਲਣਾ", body: "ਭਾਈਵਾਲਾਂ ਨੂੰ ਘੱਟੋ-ਘੱਟ 4.2 ਦੀ ਰੇਟਿੰਗ ਬਣਾਈ ਰੱਖਣੀ ਚਾਹੀਦੀ ਹੈ ਅਤੇ 24 ਘੰਟਿਆਂ ਦੇ ਅੰਦਰ ਪੁੱਛਗਿੱਛ ਦਾ ਜਵਾਬ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ। ਤੁਸੀਂ ਤਸਦੀਕ ਕਰਦੇ ਹੋ ਕਿ ਤੁਹਾਡੇ ਕੋਲ ਆਪਣੇ ਵਪਾਰ ਨਾਲ ਸਬੰਧਤ ਸਾਰੇ ਵੈਧ ਯੂਕੇ ਲਾਇਸੈਂਸ ਅਤੇ ਬੀਮਾ ਹਨ।" },
           disputes: { title: "3. AI-ਪਾਵਰਡ ਡਿਸਪਿਊਟ ਰੈਜ਼ੋਲੂਸ਼ਨ ਅਤੇ ਸਮਾਰਟ ਮੈਚਿੰਗ", body: "ਸਾਰੇ ਝਗੜਿਆਂ ਦੀ ਵਿਚੋਲਗੀ ਸਾਡੇ AI ਆਰਬੀਟਰ ਦੁਆرا ਕੀਤੀ ਜਾਂਦੀ ਹੈ। ਕੰਮ ਦੇ ਰਿਕਾਰਡ ਅਤੇ ਫੋਟੋਆਂ ਦੇ ਸਬੂਤ ਅੰਤਿਮ ਫੈਸਲਿਆਂ ਲਈ ਵਰਤੇ ਜਾਣਗੇ।" }
         }
