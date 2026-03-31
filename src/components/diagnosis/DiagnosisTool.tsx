@@ -18,6 +18,7 @@ interface AIDiagnosisResult {
   confidence: number;
   imageUrl: string;
   createdAt: Date;
+  provider?: string;
 }
 
 export default function DiagnosisTool() {
@@ -69,7 +70,7 @@ export default function DiagnosisTool() {
         if (res.error) {
           setError(res.error);
         } else if (res.diagnosis) {
-          setResult(res.diagnosis);
+          setResult({ ...res.diagnosis, provider: (res as any).provider });
         }
         setLoading(false);
       };

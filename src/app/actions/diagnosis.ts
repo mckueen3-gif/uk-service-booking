@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
+import { getGrokDiagnosis } from '@/lib/grok';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 
@@ -12,38 +13,7 @@ export async function getAIDiagnosis(imageUrl: string, category: string, locale:
     const session = (await getServerSession(authOptions)) as any;
     const userId = session?.user?.id;
 
-    // Using 'gemini-flash-latest' as recommended for stable API access
-    console.info(`[AI Diagnosis] Running diagnosis for category: ${category}, locale: ${locale}, using model: gemini-flash-latest`);
-    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
-
-    const prompt = `
-      You are an expert AI Diagnostic Assistant for a premium UK Service Marketplace (ServiceHub).
-      Analyze the provided image(s) of a "${category}" issue.
-      
-      USER DESCRIPTION: "${description || "No description provided"}"
-
-      TASK:
-      1. Identify the specific problem/issue visible in the photo.
-      2. Suggest a professional fix or necessary next steps.
-      3. Estimate a UK-based repair price range in GBP (£). 
-         - Factor in UK labor rates (approx £40-£80/hr depending on trade and location).
-         - Factor in common parts costs in the UK (e.g., Screwfix/B&Q prices).
-         - Provide a range like "£150 - £250".
-      4. Provide a confidence score (0.0 to 1.0).
-
-      IMPORTANT: Be professional, concise, and helpful. 
-      You MUST provide the values for "issue" and "suggestedFix" in the following language: ${locale}.
-
-      Return a JSON response ONLY (no markdown blocks or preamble):
-      {
-        "issue": "Specific problem identified in ${locale}",
-        "suggestedFix": "Detailed professional advice in ${locale}",
-        "estimatedPriceRange": "£X - £Y",
-        "confidence": 0.85
-      }
-    `;
-
-    // Fetch image and convert to base64
+    // 1. Prepare Image Data (Base64 is required for both Gemini and Grok)
     let base64Image;
     let mimeType = "image/jpeg";
 
@@ -59,17 +29,64 @@ export async function getAIDiagnosis(imageUrl: string, category: string, locale:
       base64Image = Buffer.from(buffer).toString('base64');
     }
 
-    const result = await model.generateContent([
-      prompt,
-      { inlineData: { data: base64Image, mimeType: mimeType } },
-    ]);
+    let diagnosisData: any = null;
+    let modelName = "unknown";
+    let rawResponse = "";
 
-    const text = result.response.text();
-    // Clean up potential markdown JSON blocks
-    const jsonStr = text.replace(/```json|```/g, "").trim();
-    const diagnosisData = JSON.parse(jsonStr);
+    // 2. Prefer Grok if API Key is configured
+    if (process.env.XAI_API_KEY) {
+      console.info(`[AI Diagnosis] Attempting diagnosis with xAI Grok-2-vision...`);
+      diagnosisData = await getGrokDiagnosis(
+        base64Image,
+        mimeType,
+        category,
+        description || "No description provided",
+        locale
+      );
+      if (diagnosisData) {
+        modelName = "grok-2-vision-1212";
+        rawResponse = JSON.stringify(diagnosisData);
+      }
+    }
 
-    // Save to database
+    // 3. Fallback to Gemini if Grok not configured or failed
+    if (!diagnosisData) {
+      console.info(`[AI Diagnosis] Using Gemini fallback (model: gemini-flash-latest)`);
+      const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
+
+      const prompt = `
+        You are an expert AI Diagnostic Assistant for a premium UK Service Marketplace (ServiceHub).
+        Analyze the provided image(s) of a "${category}" issue.
+        USER DESCRIPTION: "${description || "No description provided"}"
+
+        TASK:
+        1. Identify the specific problem/issue visible in the photo.
+        2. Suggest a professional fix or necessary next steps.
+        3. Estimate a UK-based repair price range in GBP (£). 
+        4. Provide a confidence score (0.0 to 1.0).
+
+        Return a JSON response ONLY:
+        {
+          "issue": "Specific problem identified in ${locale}",
+          "suggestedFix": "Detailed professional advice in ${locale}",
+          "estimatedPriceRange": "£150 - £250",
+          "confidence": 0.85
+        }
+      `;
+
+      const result = await model.generateContent([
+        prompt,
+        { inlineData: { data: base64Image, mimeType: mimeType } },
+      ]);
+
+      const text = result.response.text();
+      const jsonStr = text.replace(/```json|```/g, "").trim();
+      diagnosisData = JSON.parse(jsonStr);
+      modelName = "gemini-flash-latest";
+      rawResponse = text;
+    }
+
+    // 4. Save to database
     const savedDiagnosis = await prisma.aiDiagnosis.create({
       data: {
         userId,
@@ -79,11 +96,11 @@ export async function getAIDiagnosis(imageUrl: string, category: string, locale:
         suggestedFix: diagnosisData.suggestedFix,
         estimatedPriceRange: diagnosisData.estimatedPriceRange,
         confidence: diagnosisData.confidence,
-        rawAIResponse: text
+        rawAIResponse: `${modelName}: ${rawResponse}`
       }
     });
 
-    return { success: true, diagnosis: savedDiagnosis };
+    return { success: true, diagnosis: savedDiagnosis, provider: modelName };
   } catch (err: any) {
     console.error("AI Diagnosis Error:", err);
     return { error: "Failed to generate AI diagnosis: " + err.message };

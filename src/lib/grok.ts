@@ -1,0 +1,80 @@
+import OpenAI from "openai";
+
+const XAI_API_KEY = process.env.XAI_API_KEY || "";
+
+// Standard xAI API Configuration (OpenAI compatible)
+export const grok = new OpenAI({
+  apiKey: XAI_API_KEY,
+  baseURL: "https://api.x.ai/v1",
+});
+
+/**
+ * Standard interface for Grok Diagnosis response matching the app's requirement
+ */
+export interface GrokDiagnosisOutput {
+  issue: string;
+  suggestedFix: string;
+  estimatedPriceRange: string;
+  confidence: number;
+}
+
+/**
+ * Helper to get a structured diagnosis from Grok Vision
+ * Note: Grok-2-vision-1212 is highly capable of image analysis
+ */
+export async function getGrokDiagnosis(
+  base64Image: string,
+  mimeType: string,
+  category: string,
+  description: string,
+  locale: string
+): Promise<GrokDiagnosisOutput | null> {
+  if (!XAI_API_KEY) {
+    console.warn("[Grok] API Key missing, skipping Grok diagnosis.");
+    return null;
+  }
+
+  try {
+    const response = await grok.chat.completions.create({
+      model: "grok-2-vision-1212",
+      messages: [
+        {
+          role: "system",
+          content: `You are an expert AI Diagnostic Assistant for ServiceHub UK. Analyze images of ${category} issues and return JSON.`
+        },
+        {
+          role: "user",
+          content: [
+            {
+              type: "text",
+              text: `Analyze this image of a "${category}" issue. User description: "${description}". 
+              Provide the response in ${locale} language.
+              Return ONLY JSON:
+              {
+                "issue": "Specific problem in ${locale}",
+                "suggestedFix": "Professional advice in ${locale}",
+                "estimatedPriceRange": "£X - £Y",
+                "confidence": 0.0-1.0
+              }`
+            },
+            {
+              type: "image_url",
+              image_url: {
+                url: `data:${mimeType};base64,${base64Image}`,
+              },
+            },
+          ],
+        },
+      ],
+      response_format: { type: "json_object" }
+    });
+
+    const content = response.choices[0].message.content;
+    if (!content) return null;
+
+    return JSON.parse(content) as GrokDiagnosisOutput;
+  } catch (error) {
+    console.error("[Grok Vision Error]:", error);
+    return null;
+  }
+}

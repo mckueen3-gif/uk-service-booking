@@ -1,6 +1,6 @@
 import { 
   CheckCircle2, AlertTriangle, PoundSterling, Clock, 
-  MapPin, ShieldCheck, ChevronRight, Share2 
+  MapPin, ShieldCheck, ChevronRight, Share2, Zap
 } from 'lucide-react';
 import { useTranslation } from "@/components/LanguageContext";
 import Link from 'next/link';
@@ -14,6 +14,7 @@ interface AIDiagnosisResult {
   confidence: number;
   imageUrl: string;
   createdAt: Date;
+  provider?: string;
 }
 
 interface Props {
@@ -43,8 +44,26 @@ export default function DiagnosisResult({ diagnosis }: Props) {
           {/* Diagnosis Content */}
           <div style={{ flex: '2 1 400px', padding: '2.5rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
-              <div style={{ background: 'var(--accent-soft)', color: 'var(--accent-color)', padding: '0.4rem 1rem', borderRadius: '2rem', fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                {diagnosis.category} {t.nav.aiDiagnosis}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <div style={{ background: 'var(--accent-soft)', color: 'var(--accent-color)', padding: '0.4rem 1rem', borderRadius: '2rem', fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  {diagnosis.category} {t.nav.aiDiagnosis}
+                </div>
+                {diagnosis.provider?.startsWith('grok') && (
+                  <div style={{ 
+                    background: 'linear-gradient(45deg, #000, #333)', 
+                    color: '#fff', 
+                    padding: '0.4rem 1rem', 
+                    borderRadius: '2rem', 
+                    fontSize: '0.75rem', 
+                    fontWeight: 900, 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: '0.5rem',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                  }}>
+                    <Zap size={14} fill="currentColor" /> Powered by xAI Grok
+                  </div>
+                )}
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--accent-color)', fontWeight: 700, fontSize: '0.9rem' }}>
                 <CheckCircle2 size={18} /> {confidencePercent}% {t.diagnosis.tool.confidence}
