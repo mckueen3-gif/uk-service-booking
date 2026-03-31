@@ -14,6 +14,7 @@ import VariationMerchantButton from "./components/VariationMerchantButton";
 import { prisma } from "@/lib/prisma";
 import MerchantAnalytics from "@/components/dashboard/MerchantAnalytics";
 import MaintenanceTimeline from "@/components/dashboard/MaintenanceTimeline";
+import DynamicGreeting from "@/components/dashboard/DynamicGreeting";
 
 export default async function DashboardOverview() {
   const session = (await getServerSession(authOptions)) as any;
@@ -98,7 +99,7 @@ export default async function DashboardOverview() {
                 Customer Dashboard
               </p>
               <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.04em', lineHeight: 1.1 }}>
-                午安，{dbUser?.name || "貴賓"} 👋
+                <DynamicGreeting name={dbUser?.name} />
               </h1>
             </div>
             <div style={{ textAlign: 'right' }}>
@@ -271,10 +272,12 @@ export default async function DashboardOverview() {
       <section>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
           <div>
-            <h1 style={{ fontSize: '2.5rem', fontWeight: 950, color: 'var(--text-primary)', letterSpacing: '-0.04em' }}>
-              商家數據中心 <span style={{ color: 'var(--accent-color)' }}>Analytics</span>
+            <p style={{ color: 'var(--accent-color)', fontWeight: 800, fontSize: '0.9rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+              Merchant Analytics
+            </p>
+            <h1 style={{ fontSize: '2.5rem', fontWeight: 950, color: 'var(--text-primary)', letterSpacing: '-0.04em', lineHeight: 1.1 }}>
+              <DynamicGreeting name={user.name} />
             </h1>
-            <p style={{ color: 'var(--text-muted)', fontWeight: 600 }}>這裡是您管理專業業務的起點</p>
           </div>
           <div style={{ display: 'flex', gap: '0.75rem' }}>
             <Link href="/dashboard/merchant/availability" className="btn" style={{ background: 'white', border: '1px solid var(--border-color)', borderRadius: '12px', fontWeight: 800 }}>更新班表</Link>
