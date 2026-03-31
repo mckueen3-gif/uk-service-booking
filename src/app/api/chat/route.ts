@@ -2,9 +2,8 @@ import { NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { getMaintenanceTimeline } from '@/app/actions/maintenance';
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
-
 export async function POST(req: Request) {
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
   try {
     const { messages } = await req.json();
     

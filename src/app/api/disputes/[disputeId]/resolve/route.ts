@@ -3,10 +3,9 @@ import { prisma } from '@/lib/prisma';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { sendPlatformEmail, getDisputeResolvedTemplate } from '@/lib/email';
 
-const ai = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
-
 // This endpoint represents the revolutionary AI Arbiter logic
 export async function POST(req: Request, { params }: { params: Promise<{ disputeId: string }> }) {
+  const ai = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
   try {
     const { disputeId } = await params;
     const body = await req.json();

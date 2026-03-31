@@ -2,11 +2,19 @@ import OpenAI from "openai";
 
 const XAI_API_KEY = process.env.XAI_API_KEY || "";
 
-// Standard xAI API Configuration (OpenAI compatible)
-export const grok = new OpenAI({
-  apiKey: XAI_API_KEY,
-  baseURL: "https://api.x.ai/v1",
-});
+// Lazy instance holder
+let _grok: OpenAI | null = null;
+
+function getGrokClient() {
+  if (!XAI_API_KEY) throw new Error("XAI_API_KEY is missing");
+  if (!_grok) {
+    _grok = new OpenAI({
+      apiKey: XAI_API_KEY,
+      baseURL: "https://api.x.ai/v1",
+    });
+  }
+  return _grok;
+}
 
 /**
  * Standard interface for Grok Diagnosis response matching the app's requirement
@@ -35,7 +43,7 @@ export async function getGrokDiagnosis(
   }
 
   try {
-    const response = await grok.chat.completions.create({
+    const response = await getGrokClient().chat.completions.create({
       model: "grok-2-vision-1212",
       messages: [
         {

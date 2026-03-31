@@ -4,11 +4,24 @@ import OpenAI from "openai";
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || "";
 const XAI_API_KEY = process.env.XAI_API_KEY || "";
 
-const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-const xai = new OpenAI({ 
-  apiKey: XAI_API_KEY, 
-  baseURL: "https://api.x.ai/v1" 
-});
+// Lazy instance holders
+let _genAI: GoogleGenerativeAI | null = null;
+let _xai: OpenAI | null = null;
+
+function getGeminiClient() {
+  if (!GEMINI_API_KEY) throw new Error("GEMINI_API_KEY is missing");
+  if (!_genAI) _genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+  return _genAI;
+}
+
+function getXAIClient() {
+  if (!XAI_API_KEY) throw new Error("XAI_API_KEY is missing");
+  if (!_xai) _xai = new OpenAI({ 
+    apiKey: XAI_API_KEY, 
+    baseURL: "https://api.x.ai/v1" 
+  });
+  return _xai;
+}
 
 /**
  * Robust retry wrapper for transient 503/429 errors from LLM providers
@@ -84,7 +97,7 @@ export async function generateAIContent(req: AIRequest): Promise<string> {
         }
       }
 
-      const response = await xai.chat.completions.create({
+      const response = await getXAIClient().chat.completions.create({
         model: req.image ? "grok-2-vision-1212" : "grok-2-1212",
         messages: grokMessages,
         response_format: req.jsonMode ? { type: "json_object" } : undefined,
@@ -104,7 +117,7 @@ export async function generateAIContent(req: AIRequest): Promise<string> {
   }
 
   console.info("[AI Provider] Attempting Fallback (Google Gemini 1.5 Flash)...");
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = getGeminiClient().getGenerativeModel({ model: "gemini-1.5-flash" });
 
   const contents = messages.map((m, idx) => {
     const parts: any[] = [{ text: m.content }];

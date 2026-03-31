@@ -4,10 +4,8 @@ import { prisma } from '@/lib/prisma';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { revalidatePath } from 'next/cache';
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { generateAIContent } from '@/lib/ai-provider';
 import { createNotification } from './notifications';
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 
 /**
  * Merchant uploads a professional license for verification.
@@ -50,8 +48,6 @@ export async function processLicenseWithAI(documentId: string) {
   if (!doc || !doc.fileUrl) return;
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
-    
     // Fetch image
     const response = await fetch(doc.fileUrl);
     const buffer = await response.arrayBuffer();
@@ -78,13 +74,16 @@ export async function processLicenseWithAI(documentId: string) {
       }
     `;
 
-    const result = await model.generateContent([
+    const aiOutputText = await generateAIContent({
       prompt,
-      { inlineData: { data: base64Image, mimeType: "image/jpeg" } }
-    ]);
-    
-    const text = result.response.text();
-    const aiOutput = JSON.parse(text.replace(/```json|```/g, "").trim());
+      image: {
+        base64: base64Image,
+        mimeType: "image/jpeg"
+      },
+      jsonMode: true
+    });
+
+    const aiOutput = JSON.parse(aiOutputText.replace(/```json|```/g, "").trim());
 
     // Update Document Status
     const status = (aiOutput.confidence > 0.8 && aiOutput.isValid && aiOutput.nameMatch) ? 'APPROVED' : 'PENDING';
