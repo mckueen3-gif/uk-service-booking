@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { prisma, safeDbQuery } from "@/lib/prisma";
+import { generateUniqueReferralCode } from "@/lib/referral-utils";
 
 export const dynamic = 'force-dynamic';
 
@@ -77,7 +78,7 @@ export async function GET(req: NextRequest) {
         }
       });
 
-      // 🚀 Fallback to Email if ID fails
+      // 🚀 Fallback to Email if ID fails (critical for Google sync)
       if (!u && userEmail) {
         u = await prisma.user.findUnique({
           where: { email: userEmail },
@@ -140,16 +141,18 @@ export async function GET(req: NextRequest) {
         });
       }
 
-      // 🛡️ Self-Healing: Generate missing code
-      if (u && !u.referralCode) {
-        const prefix = (u.name || "USER").substring(0, 3).toUpperCase().replace(/\s/g, '');
-        const random = Math.floor(1000 + Math.random() * 9000);
-        const newCode = `${prefix}${random}`;
-        await prisma.user.update({
-          where: { id: u.id },
-          data: { referralCode: newCode }
-        });
-        u.referralCode = newCode;
+      // 🛡️ CONFLICT-SAFE Self-Healing: Generate missing or PENDING code
+      if (u && (!u.referralCode || u.referralCode.startsWith("PENDING-"))) {
+        try {
+          const finalCode = await generateUniqueReferralCode(u.name || "USER");
+          await prisma.user.update({
+            where: { id: u.id },
+            data: { referralCode: finalCode }
+          });
+          u.referralCode = finalCode;
+        } catch (e) {
+          console.error("Referral recovery failed:", e);
+        }
       }
       return u;
     });
@@ -193,6 +196,6 @@ export async function GET(req: NextRequest) {
       isMerchant: sessionUser?.role === "MERCHANT",
       merchantData: null,
       bookings: []
-    }, { status: 202 }); // Accepted but data might be incomplete
+    }, { status: 202 });
   }
 }

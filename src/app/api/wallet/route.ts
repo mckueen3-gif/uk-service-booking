@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { prisma, safeDbQuery } from "@/lib/prisma";
+import { generateUniqueReferralCode } from "@/lib/referral-utils";
 
 export const dynamic = 'force-dynamic';
 
@@ -37,7 +38,7 @@ export async function GET(req: NextRequest) {
         }
       });
 
-      // Fallback: If ID lookup fails (e.g. during fast sync), try by Email
+      // Fallback: If ID lookup fails, try by Email
       if (!foundUser && userEmail) {
         foundUser = await prisma.user.findUnique({
           where: { email: userEmail },
@@ -65,24 +66,22 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    // 🛡️ Ensure code exists (Self-healing in background if needed)
+    // 🛡️ CONFLICT-SAFE Self-healing: Ensure code exists and is professional
     let referralCode = user.referralCode;
-    if (!referralCode) {
+    if (!referralCode || referralCode.startsWith("PENDING-")) {
       try {
-        const prefix = (user.name || "USER").substring(0, 3).toUpperCase().replace(/\s/g, '');
-        const random = Math.floor(1000 + Math.random() * 9000);
-        referralCode = `${prefix}${random}`;
-        
+        const finalCode = await generateUniqueReferralCode(user.name || "USER");
         await prisma.user.update({
           where: { id: user.id },
-          data: { referralCode }
+          data: { referralCode: finalCode }
         });
+        referralCode = finalCode;
       } catch (e) {
         console.error("Referral auto-generation failed in wallet API:", e);
       }
     }
 
-    // 2. Fetch creditTransactions separately (Silent fail if table missing)
+    // 2. Fetch creditTransactions separately
     let creditTransactions: any[] = [];
     try {
       const hasTable = !!(prisma as any).creditTransaction;
@@ -109,14 +108,12 @@ export async function GET(req: NextRequest) {
     });
   } catch (error: any) {
     console.error("Wallet API Error:", error);
-    
-    // 🛡️ RECOVERY LAYER: Attempt from session
     const sessionUser = (session?.user as any);
 
     return NextResponse.json({
       referralCredits: 0,
       referralCode: sessionUser?.referralCode || "REF-SYNCING",
       creditTransactions: []
-    }, { status: 200 });
+    }, { status: 202 });
   }
 }
