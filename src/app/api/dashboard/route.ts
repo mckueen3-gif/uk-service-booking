@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
     // 🚀 Robust User Data Lookup (Fallback to Email)
     const userWithData = await safeDbQuery(async () => {
       let u = await prisma.user.findUnique({
-        where: { id: userId },
+        where: { id: userId || "missing-id-fallback" },
         select: {
           id: true,
           name: true,
@@ -81,7 +81,7 @@ export async function GET(req: NextRequest) {
       // 🚀 Fallback to Email if ID fails (critical for Google sync)
       if (!u && userEmail) {
         u = await prisma.user.findUnique({
-          where: { email: userEmail },
+          where: { email: userEmail || "missing-email-fallback@test.com" },
           select: {
             id: true,
             name: true,

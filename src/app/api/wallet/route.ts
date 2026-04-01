@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
     const user = await safeDbQuery(async () => {
       // First try by ID
       let foundUser = await prisma.user.findUnique({
-        where: { id: userId },
+        where: { id: userId || "missing-id-fallback" },
         select: {
           id: true,
           referralCredits: true,
@@ -41,7 +41,7 @@ export async function GET(req: NextRequest) {
       // Fallback: If ID lookup fails, try by Email
       if (!foundUser && userEmail) {
         foundUser = await prisma.user.findUnique({
-          where: { email: userEmail },
+          where: { email: userEmail || "missing-email-fallback@test.com" },
           select: {
             id: true,
             referralCredits: true,
