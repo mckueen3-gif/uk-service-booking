@@ -285,6 +285,12 @@ model MerchantAvailability {
   @@unique([merchantId, dayOfWeek])
 }
 
+enum TeachingMode {
+  ONLINE
+  OFFLINE
+  HYBRID
+}
+
 model Service {
   id          String    @id @default(cuid())
   merchantId  String
@@ -292,7 +298,13 @@ model Service {
   category    String    // e.g. "Plumbing", "Renovation", "Education"
   name        String
   description String?
-  price       Float     // Base or flat price
+  price       Float     // Base or flat price (used as hourlyRate for Education)
+  
+  // Education & Training specific fields
+  teachingMode TeachingMode?
+  subjects     String?   // JSON string or comma-separated list of subjects
+  aiMatchScore Float?    // Cached AI matching score
+  
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 

@@ -1,0 +1,126 @@
+"use client";
+
+import React, { useState } from 'react';
+import { Search, Filter, Sparkles } from 'lucide-react';
+import TutorCard from '@/components/education/TutorCard';
+import { useSearchParams, useRouter } from 'next/navigation';
+
+const DEMO_TUTORS = [
+  { id: "1", name: "Dr. Emily Smith", subjects: "GCSE Maths & Physics", rate: 40, rating: 4.9, reviews: 124, location: "Manchester", mode: "Hybrid", matchScore: 98 },
+  { id: "2", name: "Sarah Connor", subjects: "IELTS Preparation", rate: 30, rating: 4.8, reviews: 89, location: "Online", mode: "Online", matchScore: 92 },
+  { id: "3", name: "Ahmed Hassan", subjects: "A-Level Chemistry", rate: 35, rating: 4.7, reviews: 56, location: "Nottingham", mode: "Offline", matchScore: 85 },
+  { id: "4", name: "Luisa Davies", subjects: "Primary 11+ Preparation", rate: 30, rating: 5.0, reviews: 210, location: "Manchester", mode: "Hybrid", matchScore: 80 },
+  { id: "5", name: "James Williams", subjects: "Python Programming", rate: 45, rating: 4.9, reviews: 45, location: "Online", mode: "Online", matchScore: 75 },
+];
+
+function SearchContent() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const initialQuery = searchParams.get('q') || '';
+  const [query, setQuery] = useState(initialQuery);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && query.trim()) {
+      router.push(`/education/search?q=${encodeURIComponent(query)}`);
+    }
+  };
+
+  return (
+    <div className="container" style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
+      
+      {/* Filters Sidebar */}
+      <aside style={{ 
+        width: '300px', 
+        backgroundColor: 'var(--surface-1)', 
+        padding: '1.5rem', 
+        borderRadius: '24px', 
+        border: '1px solid var(--border-color)',
+        position: 'sticky',
+        top: '100px'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1.5rem' }}>
+          <Filter size={20} />
+          <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Filters</h2>
+        </div>
+
+        <div style={{ marginBottom: '2rem' }}>
+          <h4 style={{ fontWeight: 700, marginBottom: '1rem', color: 'var(--text-secondary)' }}>Teaching Mode</h4>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.75rem', cursor: 'pointer' }}>
+            <input type="checkbox" defaultChecked /> Online (Video Call)
+          </label>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.75rem', cursor: 'pointer' }}>
+            <input type="checkbox" defaultChecked /> Offline (In-person)
+          </label>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
+            <input type="checkbox" defaultChecked /> Hybrid
+          </label>
+        </div>
+
+        <div style={{ marginBottom: '2rem' }}>
+          <h4 style={{ fontWeight: 700, marginBottom: '1rem', color: 'var(--text-secondary)' }}>Price Range (£/hr)</h4>
+          <input type="range" min="10" max="100" defaultValue="50" style={{ width: '100%', accentColor: 'var(--accent-color)' }} />
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.5rem' }}>
+            <span>£10</span>
+            <span>£100+</span>
+          </div>
+        </div>
+
+        <div style={{ marginBottom: '2rem' }}>
+          <h4 style={{ fontWeight: 700, marginBottom: '1rem', color: 'var(--text-secondary)' }}>Tutor Level</h4>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.75rem', cursor: 'pointer' }}>
+            <input type="checkbox" /> Student Tutor
+          </label>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.75rem', cursor: 'pointer' }}>
+            <input type="checkbox" defaultChecked /> Professional Teacher
+          </label>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
+            <input type="checkbox" defaultChecked /> Industry Expert
+          </label>
+        </div>
+
+        <button className="btn btn-primary" style={{ width: '100%' }}>Apply Filters</button>
+      </aside>
+
+      {/* Results Area */}
+      <div style={{ flex: 1 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem' }}>
+          <div>
+            <h1 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '0.5rem' }}>Find Tutors</h1>
+            <p style={{ color: 'var(--text-secondary)' }}>We found {DEMO_TUTORS.length} tutors matching your criteria.</p>
+          </div>
+          
+          <div style={{ 
+            display: 'flex', alignItems: 'center', backgroundColor: 'var(--surface-1)', 
+            padding: '0.5rem 1rem', borderRadius: '12px', border: '1px solid var(--border-color)', width: '300px'
+          }}>
+            <Search size={18} color="var(--text-muted)" style={{ marginRight: '0.75rem' }} />
+            <input 
+              type="text" 
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Search subjects... (Press Enter)" 
+              style={{ border: 'none', background: 'transparent', outline: 'none', width: '100%', color: 'var(--text-primary)' }} 
+            />
+          </div>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.5rem' }}>
+          {DEMO_TUTORS.map((tutor, idx) => (
+            <TutorCard key={tutor.id} tutor={tutor} isAIMatch={idx < 2} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function EducationSearchPage() {
+  return (
+    <div style={{ backgroundColor: 'var(--bg-secondary)', minHeight: '100vh', padding: '3rem 0 5rem' }}>
+      <React.Suspense fallback={<div>Loading search...</div>}>
+        <SearchContent />
+      </React.Suspense>
+    </div>
+  );
+}

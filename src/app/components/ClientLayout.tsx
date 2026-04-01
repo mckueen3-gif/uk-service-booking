@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useTranslation } from "@/components/LanguageContext";
-import { Globe, User, MapPin, Mail, Phone, LifeBuoy, ChevronRight, Navigation, PenTool, Sun, Moon } from "lucide-react";
+import { Globe, User, MapPin, Mail, Phone, LifeBuoy, ChevronRight, Navigation, PenTool, Sun, Moon, Droplets, Wrench, GraduationCap, Calculator, Scale, Briefcase, Sparkles, Car, ChevronDown } from "lucide-react";
 import NavbarSearch from "@/app/components/NavbarSearch";
 import NotificationHub from "@/components/dashboard/NotificationHub";
 import { useLocation, ALL_UK } from "@/components/LocationContext";
@@ -14,6 +14,19 @@ export function AppNavbar({ session }: { session: any }) {
   const { city, setCity, supportedCities, detectLocation } = useLocation();
   const { theme, toggleTheme } = useTheme();
   const [showCities, setShowCities] = React.useState(false);
+  const [showServices, setShowServices] = React.useState(false);
+
+  const servicesList = React.useMemo(() => [
+    { id: 'plumbing', label: t.home.categories.plumbing, icon: <Droplets size={16} strokeWidth={2} />, path: '/services/results?q=Plumbing' },
+    { id: 'repairs', label: t.home.categories.repairs, icon: <Wrench size={16} strokeWidth={2} />, path: '/services/results?q=Repairs' },
+    { id: 'renovation', label: t.home.categories.renovation, icon: <PenTool size={16} strokeWidth={2} />, path: '/services/results?q=Renovation' },
+    { id: 'education', label: t.home.categories.education, icon: <GraduationCap size={16} strokeWidth={2} />, path: '/education' },
+    { id: 'accounting', label: t.home.categories.accounting, icon: <Calculator size={16} strokeWidth={2} />, path: '/services/results?q=Accounting' },
+    { id: 'legal', label: t.home.categories.legal, icon: <Scale size={16} strokeWidth={2} />, path: '/services/results?q=Legal' },
+    { id: 'commercial', label: t.home.categories.commercial, icon: <Briefcase size={16} strokeWidth={2} />, path: '/services/results?q=Commercial' },
+    { id: 'cleaning', label: t.home.categories.cleaning, icon: <Sparkles size={16} strokeWidth={2} />, path: '/services/results?q=Cleaning' },
+    { id: 'car', label: t.home.categories.car, icon: <Car size={16} strokeWidth={2} />, path: '/booking/car' }
+  ], [t]);
 
   const displayCity = city === ALL_UK ? t.home.allUK : city;
 
@@ -180,9 +193,53 @@ export function AppNavbar({ session }: { session: any }) {
             {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
           </button>
 
-          <Link href="/services" style={{ color: 'var(--text-primary)', fontWeight: 700, textDecoration: 'none', fontSize: '1.05rem' }}>
-            {t.nav.browse}
-          </Link>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+            <div 
+               style={{ position: 'relative' }}
+               onMouseEnter={() => setShowServices(true)}
+               onMouseLeave={() => setShowServices(false)}
+            >
+              <div style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text-primary)', fontWeight: 700, fontSize: '1.05rem', padding: '0.5rem 0' }}>
+                {t.nav.browse}
+                <ChevronDown size={14} style={{ transform: showServices ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
+              </div>
+
+              {showServices && (
+                <div style={{
+                  position: 'absolute', top: '100%', left: '-50%',
+                  width: '450px', backgroundColor: 'var(--surface-1)', borderRadius: '1.25rem',
+                  boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)', 
+                  border: '1.5px solid var(--border-color)',
+                  padding: '1.5rem', zIndex: 1000,
+                  backdropFilter: 'blur(20px)',
+                  display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem'
+                }}>
+                   {servicesList.map(s => (
+                     <Link key={s.id} href={s.path} style={{ textDecoration: 'none' }} onClick={() => setShowServices(false)}>
+                       <div style={{ 
+                         display: 'flex', alignItems: 'center', gap: '10px', 
+                         padding: '0.75rem 1rem', borderRadius: '0.75rem',
+                         color: 'var(--text-primary)', fontWeight: 600, fontSize: '0.9rem',
+                         transition: 'all 0.2s', backgroundColor: 'var(--surface-2)'
+                       }}
+                       className="hover-bg hover-scale"
+                       >
+                         <div style={{ color: 'var(--accent-color)' }}>{s.icon}</div>
+                         {s.label}
+                       </div>
+                     </Link>
+                   ))}
+                   <div style={{ gridColumn: '1 / -1', marginTop: '0.5rem' }}>
+                     <Link href="/services" style={{ textDecoration: 'none' }} onClick={() => setShowServices(false)}>
+                       <div style={{ width: '100%', textAlign: 'center', backgroundColor: 'var(--accent-soft)', color: 'var(--accent-color)', padding: '0.75rem', borderRadius: '0.75rem', fontWeight: 800, fontSize: '0.9rem' }} className="hover-opacity">
+                         {isRTL ? 'عرض كافة الفئات' : 'View All Categories'} →
+                       </div>
+                     </Link>
+                   </div>
+                </div>
+              )}
+            </div>
+          </div>
 
           <Link href="/diagnosis" style={{ 
             color: 'var(--accent-color)', 

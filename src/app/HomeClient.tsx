@@ -278,7 +278,9 @@ export default function HomeClient() {
                   gap: '1.25rem' 
                 }}>
                   {sec.data.items.map(sub => (
-                    <Link key={sub} href={`/services/results?q=${sub}`} style={{ textDecoration: 'none' }}>
+                    <Link key={sub} 
+                          href={sec.id === 'education' ? `/education/search?q=${encodeURIComponent(sub)}` : `/services/results?q=${sub}`} 
+                          style={{ textDecoration: 'none' }}>
                       <div className="glass-panel" style={{ padding: '1rem 1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-primary)', fontWeight: 700, fontSize: '0.95rem', background: 'var(--surface-1)' }}>
                         <div style={{ color: 'var(--accent-color)', display: 'flex' }}><CheckCircle2 size={18} strokeWidth={2.5} /></div>
                         {sub}
@@ -286,6 +288,14 @@ export default function HomeClient() {
                     </Link>
                   ))}
                 </div>
+
+                {sec.id === 'education' && (
+                  <Link href="/education" style={{ textDecoration: 'none', display: 'inline-block', marginTop: '2rem' }}>
+                    <button className="btn btn-primary" style={{ padding: '0.875rem 2rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      Visit Education Dashboard <ChevronRight size={18} />
+                    </button>
+                  </Link>
+                )}
               </div>
               
               <div className="reveal" style={{ flex: '1 1 500px' }}>
