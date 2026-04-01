@@ -11,29 +11,51 @@ export default async function ProfilePage() {
   
   if (!session || !session.user) redirect("/auth/login");
   
-  const user = await prisma.user.findUnique({
-    where: { id: (session.user as any).id },
-    select: {
-      id: true,
-      email: true,
-      name: true,
-      role: true,
-      phone: true,
-      addressLine1: true,
-      addressLine2: true,
-      city: true,
-      postcode: true,
-      createdAt: true,
-      merchantProfile: {
-        select: {
-          companyName: true,
-          description: true
+  let user: any = null;
+  let dbError = false;
+
+  try {
+    user = await prisma.user.findUnique({
+      where: { id: (session.user as any).id },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,
+        phone: true,
+        addressLine1: true,
+        addressLine2: true,
+        city: true,
+        postcode: true,
+        referralCredits: true,
+        referralCode: true,
+        createdAt: true,
+        merchantProfile: {
+          select: {
+            companyName: true,
+            description: true
+          }
         }
       }
-    }
-  }) as any;
+    });
+    
+    if (!user) redirect("/auth/login");
+  } catch (e) {
+    console.error("Profile DB Error:", e);
+    dbError = true;
+  }
 
-  if (!user) redirect("/auth/login");
+  if (dbError) {
+    return (
+      <div className="glass-panel animate-fade-up" style={{ padding: '3rem', textAlign: 'center', borderRadius: '24px' }}>
+        <h2 style={{ color: 'var(--text-primary)', marginBottom: '1rem' }}>系統連線稍微擁擠</h2>
+        <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>目前的資料庫連線已滿載，請您稍後再試或重新整理頁面。</p>
+        <button onClick={() => window.location.reload()} className="btn btn-primary" style={{ padding: '0.8rem 2rem', borderRadius: '12px' }}>
+          重新整理
+        </button>
+      </div>
+    );
+  }
 
   const isMerchant = user.role === "MERCHANT";
 

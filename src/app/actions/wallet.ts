@@ -51,7 +51,11 @@ export async function getWalletStats() {
     };
   } catch (err: any) {
     console.error("Wallet stats fetch error:", err);
-    return { error: "Failed to fetch wallet data", stats: { referralCredits: 0, referralCode: null, creditTransactions: [] } };
+    const isConnError = err.message?.includes('max clients') || err.message?.includes('pool');
+    return { 
+      error: isConnError ? "系統連線繁忙，請稍微重新整理" : "暫時無法獲取錢包數據",
+      stats: { referralCredits: 0, referralCode: null, creditTransactions: [] } 
+    };
   }
 }
 
