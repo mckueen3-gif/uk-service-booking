@@ -37,8 +37,7 @@ export async function GET(req: NextRequest) {
               id: true,
               referee: { select: { name: true } },
               earnedFromReferee: true,
-              createdAt: true,
-              commissionExpiresAt: true
+              createdAt: true
             }
           },
           merchantProfile: {
@@ -99,8 +98,7 @@ export async function GET(req: NextRequest) {
                 id: true,
                 referee: { select: { name: true } },
                 earnedFromReferee: true,
-                createdAt: true,
-                commissionExpiresAt: true
+                createdAt: true
               }
             },
             merchantProfile: {
@@ -139,6 +137,36 @@ export async function GET(req: NextRequest) {
             }
           }
         });
+      }
+
+      // 🚨 ULTIMATE GHOST KILLER: If they STILL don't exist in DB, create them RIGHT NOW!
+      if (!u && userEmail) {
+        try {
+          const newCode = await generateUniqueReferralCode((session.user as any).name || "USER");
+          u = await prisma.user.create({
+            data: {
+              email: userEmail,
+              name: (session.user as any).name || "User",
+              role: "CUSTOMER",
+              referralCode: newCode
+            },
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              role: true,
+              referralCode: true,
+              referralCredits: true,
+              referralReceived: { select: { referrer: { select: { name: true } } } },
+              referralsMade: { select: { id: true, referee: { select: { name: true } }, earnedFromReferee: true, createdAt: true } },
+              merchantProfile: { select: { id: true, isVerified: true, wallet: { select: { totalEarned: true, pendingBalance: true } }, bookings: { take: 0, select: { id: true, status: true, totalAmount: true, scheduledDate: true, service: { select: { name: true } } } } } },
+              bookings: { take: 0, select: { id: true, status: true, totalAmount: true, scheduledDate: true, service: { select: { name: true } } } }
+            }
+          });
+          console.log(`Auto-healed ghost user: ${userEmail}`);
+        } catch (healError) {
+          console.error("Auto-heal failed:", healError);
+        }
       }
 
       // 🛡️ CONFLICT-SAFE Self-Healing: Generate missing or PENDING code

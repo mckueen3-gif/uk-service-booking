@@ -59,6 +59,42 @@ export async function GET(req: NextRequest) {
           }
         });
       }
+
+      // 🚨 ULTIMATE GHOST KILLER: If they STILL don't exist in DB, create them RIGHT NOW!
+      if (!foundUser && userEmail) {
+        try {
+          const newCode = await generateUniqueReferralCode((session.user as any).name || "USER");
+          foundUser = await prisma.user.create({
+            data: {
+              email: userEmail,
+              name: (session.user as any).name || "User",
+              role: "CUSTOMER",
+              referralCode: newCode
+            },
+            select: {
+              id: true,
+              referralCredits: true,
+              referralCode: true,
+              referralReceived: {
+                select: {
+                  referrer: { select: { name: true } }
+                }
+              },
+              referralsMade: {
+                select: {
+                  id: true,
+                  referee: { select: { name: true } },
+                  earnedFromReferee: true,
+                  createdAt: true
+                }
+              }
+            }
+          }) as any;
+          console.log(`Auto-healed ghost user in Wallet API: ${userEmail}`);
+        } catch (healError) {
+          console.error("Auto-heal failed in Wallet API:", healError);
+        }
+      }
       return foundUser;
     });
 

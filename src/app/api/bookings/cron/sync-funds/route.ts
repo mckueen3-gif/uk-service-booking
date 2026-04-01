@@ -36,8 +36,8 @@ export async function GET(req: Request) {
       include: { customer: true, merchant: true }
     });
 
-    for (const booking of pendingHolds) {
-      if (!booking.customer.stripeCustomerId || !booking.merchant.stripeAccountId) continue;
+    for (const booking of pendingHolds as any[]) {
+      if (!booking.customer?.stripeCustomerId || !booking.merchant?.stripeAccountId) continue;
 
       try {
         const intent = await stripe.paymentIntents.create({
@@ -78,9 +78,9 @@ export async function GET(req: Request) {
 
         // Notification: Hold Success
         await createNotification({
-          userId: booking.customerId,
+          userId: (booking as any).customerId,
           title: "🔒 服務尾款已成功鎖定",
-          message: `我們已成功為您的預約 (ID: ${booking.id.slice(-6).toUpperCase()}) 鎖定 £${(booking.balanceAmount || 0).toFixed(2)} 的尾款。服務完成後將正式扣款。`,
+          message: `我們已成功為您的預約 (ID: ${(booking as any).id.slice(-6).toUpperCase()}) 鎖定 £${((booking as any).balanceAmount || 0).toFixed(2)} 的尾款。服務完成後將正式扣款。`,
           type: 'SUCCESS',
           link: '/dashboard/bookings'
         });
@@ -98,7 +98,7 @@ export async function GET(req: Request) {
 
         // Notification: Hold Failure (Update Required)
         await createNotification({
-          userId: booking.customerId,
+          userId: (booking as any).customerId,
           title: "⚠️ 支付提醒：尾款鎖定失敗",
           message: `我們無法鎖定您的預約尾款。請在 3 天內更新您的支付卡片，否則預約將自動取消且 20% 訂金不予退還。`,
           type: 'ALERT',
@@ -124,9 +124,9 @@ export async function GET(req: Request) {
       
       // Notification: Auto-Cancelled
       await createNotification({
-        userId: booking.customerId,
+        userId: (booking as any).customerId,
         title: "❌ 預約已自動取消",
-        message: `由於未能成功鎖定尾款，您的預約 (ID: ${booking.id.slice(-6).toUpperCase()}) 已自動取消。根據條款，20% 訂金將不予退還。`,
+        message: `由於未能成功鎖定尾款，您的預約 (ID: ${(booking as any).id.slice(-6).toUpperCase()}) 已自動取消。根據條款，20% 訂金將不予退還。`,
         type: 'ALERT',
         link: '/dashboard/bookings'
       });
@@ -144,7 +144,7 @@ export async function GET(req: Request) {
     });
 
     for (const booking of maturedBookings) {
-      const netAmount = booking.depositPaid * 0.91;
+      const netAmount = (booking as any).depositPaid * 0.91;
       
       // Move from Pending to Available
       await prisma.merchantWallet.update({
