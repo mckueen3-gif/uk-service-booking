@@ -7,9 +7,9 @@ export const dynamic = 'force-dynamic';
  * GET /api/education/tutors/[id]
  * Fetches full details for a specific expert merchant.
  */
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const userId = params.id;
+    const { id: userId } = await params;
 
     if (!userId) {
       return NextResponse.json({ error: "Missing tutor ID" }, { status: 400 });

@@ -5,7 +5,8 @@ import { MapPin, Star, Sparkles, BookOpen, Clock, Video, UserCheck, ShieldCheck,
 import Link from 'next/link';
 import { useTranslation } from '@/components/LanguageContext';
 
-export default function TutorProfilePage({ params }: { params: { id: string } }) {
+export default function TutorProfilePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = React.use(params);
   const { t } = useTranslation();
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -18,7 +19,7 @@ export default function TutorProfilePage({ params }: { params: { id: string } })
   const [showExplanation, setShowExplanation] = useState(false);
 
   React.useEffect(() => {
-    fetch(`/api/education/tutors/${params.id}`)
+    fetch(`/api/education/tutors/${id}`)
       .then(res => res.json())
       .then(data => {
         if (data.error) throw new Error(data.error);
@@ -29,7 +30,7 @@ export default function TutorProfilePage({ params }: { params: { id: string } })
         console.error(e);
         setLoading(false);
       });
-  }, [params.id]);
+  }, [id]);
 
   // 🚀 AI Challenge Logic
   const startChallenge = async () => {
