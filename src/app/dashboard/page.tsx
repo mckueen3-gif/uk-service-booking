@@ -17,77 +17,61 @@ import MaintenanceTimeline from "@/components/dashboard/MaintenanceTimeline";
 import DynamicGreeting from "@/components/dashboard/DynamicGreeting";
 
 export default async function DashboardOverview() {
-  try {
-    const session = (await getServerSession(authOptions)) as any;
-    if (!session || !session.user) redirect("/auth/login");
-    const user = session.user as any;
-    const isMerchant = user.role === "MERCHANT";
+  const session = (await getServerSession(authOptions).catch(() => null)) as any;
+  if (!session || !session.user) redirect("/auth/login");
+  const user = session.user as any;
+  const isMerchant = user.role === "MERCHANT";
 
-    // 1. Get Merchant ID if applicable (Safe check)
+  try {
+    // 1. Get fundamental user data (Safe approach)
+    let dbUser: any = { name: user.name, referralCode: null, referralCredits: 0 };
+    try {
+      const u = await prisma.user.findUnique({
+        where: { id: user.id },
+        select: { name: true, referralCode: true, referralCredits: true }
+      });
+      if (u) dbUser = u;
+    } catch (uErr) {
+      console.error("Dashboard: User data fetch failed:", uErr);
+      // Try again without referral fields to be extra safe
+      try {
+        const uF = await prisma.user.findUnique({ where: { id: user.id }, select: { name: true } });
+        if (uF) dbUser = { ...uF, referralCredits: 0, referralCode: null };
+      } catch (uF2) { console.error("Dashboard: Minimal user data fetch failed:", uF2); }
+    }
+
+    // 2. Get Merchant ID and details if applicable (Safe approach)
+    let merchant: any = null;
     let merchantId = null;
     if (isMerchant) {
       try {
-        const merchantRecord = await (prisma.merchant as any).findUnique({
+        merchant = await (prisma.merchant as any).findUnique({
           where: { userId: user.id },
-          select: { id: true }
+          include: { wallet: true, portfolio: true }
         });
-        merchantId = merchantRecord?.id;
-      } catch (e) {
-        console.error("Merchant lookup failed:", e);
+        merchantId = merchant?.id;
+      } catch (mErr) {
+        console.error("Dashboard: Merchant data fetch failed:", mErr);
       }
     }
 
-    // 2. Data fetching with safety for new Referral fields
-    // If the DB columns are missing, this query might fail. We wrap it.
-    let dbUser: any = null;
+    // 3. Get Bookings (Safe approach)
     let bookings: any[] = [];
-    
     try {
-      const [u, b] = await Promise.all([
-        prisma.user.findUnique({
-          where: { id: user.id },
-          select: { name: true, referralCode: true, referralCredits: true }
-        }),
-        prisma.booking.findMany({
-          where: isMerchant ? { merchantId: merchantId || "" } : { customerId: user.id },
-          include: {
-            service: true,
-            customer: true,
-            merchant: { include: { user: true } }
-          },
-          orderBy: { createdAt: 'desc' },
-          take: 20
-        })
-      ]);
-      dbUser = u;
-      bookings = b || [];
-    } catch (dbErr) {
-      console.error("Primary DB fetch failed (checking for missing referral columns):", dbErr);
-      // Fallback query without referral fields
-      const [uF, bF] = await Promise.all([
-        prisma.user.findUnique({
-          where: { id: user.id },
-          select: { name: true }
-        }),
-        prisma.booking.findMany({
-          where: isMerchant ? { merchantId: merchantId || "" } : { customerId: user.id },
-          include: {
-            service: true,
-            customer: true,
-            merchant: { include: { user: true } }
-          },
-          orderBy: { createdAt: 'desc' },
-          take: 20
-        })
-      ]);
-      dbUser = { ...uF, referralCredits: 0, referralCode: null };
-      bookings = bF || [];
+      const bPayload = await prisma.booking.findMany({
+        where: isMerchant ? { merchantId: merchantId || "MISSING" } : { customerId: user.id },
+        include: {
+          service: true,
+          customer: true,
+          merchant: { include: { user: true } }
+        },
+        orderBy: { createdAt: 'desc' },
+        take: 20
+      });
+      bookings = bPayload || [];
+    } catch (bErr) {
+      console.error("Dashboard: Bookings fetch failed:", bErr);
     }
-
-    const merchant = isMerchant ? await (prisma.merchant as any).findUnique({
-      where: { userId: user.id },
-      include: { wallet: true, portfolio: true }
-    }).catch(() => null) : null;
 
     if (!isMerchant) {
       const activeBooking = bookings?.find(b => b.status === 'PENDING' || b.status === 'CONFIRMED');
