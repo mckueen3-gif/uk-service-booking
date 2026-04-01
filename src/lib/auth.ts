@@ -56,30 +56,10 @@ export const authOptions: NextAuthOptions = {
         token.referralCode = (user as any).referralCode;
       }
       
-      // 🛡️ RECOVERY: If code is missing in token, try a quick DB lookup or generate one
-      if (!token.referralCode && token.id) {
-        try {
-          const dbUser = await prisma.user.findUnique({
-            where: { id: token.id as string },
-            select: { referralCode: true, name: true }
-          });
-          
-          if (dbUser?.referralCode) {
-            token.referralCode = dbUser.referralCode;
-          } else if (dbUser) {
-            // Generate immediately if still missing
-            const prefix = (dbUser.name || "USER").substring(0, 3).toUpperCase().replace(/\s/g, '');
-            const random = Math.floor(1000 + Math.random() * 9000);
-            const newCode = `${prefix}${random}`;
-            await prisma.user.update({
-              where: { id: token.id as string },
-              data: { referralCode: newCode }
-            });
-            token.referralCode = newCode;
-          }
-        } catch (e) {
-          console.error("JWT Referral lookup failed:", e);
-        }
+      // 🚀 Facts First: Do NOT block on DB lookup here. 
+      // If code is missing, we let the Dashboard background sync handle it.
+      if (!token.referralCode) {
+        token.referralCode = "REF-SYNCING";
       }
 
       // Allow dynamic session updates
@@ -100,18 +80,49 @@ export const authOptions: NextAuthOptions = {
       if (account?.provider === "google") {
         if (!user.email) return false;
         
+        // 🚀 Fast Path for SignIn: Only do essential checks
         try {
           const email = user.email.toLowerCase();
           const existingUser = await prisma.user.findUnique({
-            where: { email }
+            where: { email },
+            select: { id: true, role: true, referralCode: true }
           });
 
-          if (!existingUser) {
+          if (existingUser) {
+            user.id = existingUser.id;
+            (user as any).role = existingUser.role;
+            (user as any).referralCode = existingUser.referralCode || "REF-SYNCING";
+          } else {
+            // New users will be created in the background event to avoid blocking
+            (user as any).role = "CUSTOMER";
+            (user as any).referralCode = "REF-SYNCING";
+          }
+        } catch (error) {
+          console.error("Fast SignIn check failed:", error);
+        }
+      }
+      return true;
+    },
+    async redirect({ url, baseUrl }) {
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      else if (new URL(url).origin === baseUrl) return url;
+      return baseUrl;
+    }
+  },
+  events: {
+    async signIn({ user, account }) {
+      if (account?.provider === "google" && user.email) {
+        // 🚀 BACKGROUND SYNC: This runs asynchronously after the user is redirected.
+        try {
+          const email = user.email.toLowerCase();
+          const dbUser = await prisma.user.findUnique({ where: { email } });
+
+          if (!dbUser) {
             const prefix = (user.name || "USER").substring(0, 3).toUpperCase().replace(/\s/g, '');
             const random = Math.floor(1000 + Math.random() * 9000);
             const referralCode = `${prefix}${random}`;
 
-            const newUser = await prisma.user.create({
+            await prisma.user.create({
               data: {
                 email,
                 name: user.name,
@@ -120,39 +131,18 @@ export const authOptions: NextAuthOptions = {
                 referralCode,
               }
             });
-            user.id = newUser.id;
-            (user as any).role = newUser.role;
-            (user as any).referralCode = newUser.referralCode;
-          } else {
-            user.id = existingUser.id;
-            (user as any).role = existingUser.role;
-            
-            if (!existingUser.referralCode) {
-              const prefix = (existingUser.name || "USER").substring(0, 3).toUpperCase().replace(/\s/g, '');
-              const random = Math.floor(1000 + Math.random() * 9000);
-              const referralCode = `${prefix}${random}`;
-              
-              await prisma.user.update({
-                where: { id: existingUser.id },
-                data: { referralCode }
-              });
-              (user as any).referralCode = referralCode;
-            } else {
-              (user as any).referralCode = existingUser.referralCode;
-            }
+          } else if (!dbUser.referralCode) {
+            const prefix = (dbUser.name || "USER").substring(0, 3).toUpperCase().replace(/\s/g, '');
+            const random = Math.floor(1000 + Math.random() * 9000);
+            await prisma.user.update({
+              where: { id: dbUser.id },
+              data: { referralCode: `${prefix}${random}` }
+            });
           }
-        } catch (error) {
-          console.error("Google SignIn Sync Error:", error);
+        } catch (e) {
+          console.error("Background sync failed:", e);
         }
       }
-      return true;
-    },
-    async redirect({ url, baseUrl }) {
-      // Allows relative callback URLs
-      if (url.startsWith("/")) return `${baseUrl}${url}`;
-      // Allows callback URLs on the same origin
-      else if (new URL(url).origin === baseUrl) return url;
-      return baseUrl;
     }
   },
   session: { strategy: "jwt" },

@@ -13,7 +13,9 @@ export async function GET(req: NextRequest) {
 
   try {
     const userId = (session.user as any).id;
+    const userEmail = (session.user as any).email?.toLowerCase();
 
+    // 🚀 Robust User Data Lookup (Fallback to Email)
     const userWithData = await safeDbQuery(async () => {
       let u = await prisma.user.findUnique({
         where: { id: userId },
@@ -34,7 +36,8 @@ export async function GET(req: NextRequest) {
               id: true,
               referee: { select: { name: true } },
               earnedFromReferee: true,
-              createdAt: true
+              createdAt: true,
+              commissionExpiresAt: true
             }
           },
           merchantProfile: {
@@ -73,13 +76,77 @@ export async function GET(req: NextRequest) {
           }
         }
       });
-      // ... (existing auto-generate code logic) ...
+
+      // 🚀 Fallback to Email if ID fails
+      if (!u && userEmail) {
+        u = await prisma.user.findUnique({
+          where: { email: userEmail },
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            referralCode: true,
+            referralCredits: true,
+            referralReceived: {
+              select: {
+                referrer: { select: { name: true } }
+              }
+            },
+            referralsMade: {
+              select: {
+                id: true,
+                referee: { select: { name: true } },
+                earnedFromReferee: true,
+                createdAt: true,
+                commissionExpiresAt: true
+              }
+            },
+            merchantProfile: {
+              select: {
+                id: true,
+                isVerified: true,
+                wallet: {
+                  select: {
+                    totalEarned: true,
+                    pendingBalance: true
+                  }
+                },
+                bookings: {
+                  orderBy: { scheduledDate: 'desc' },
+                  take: 5,
+                  select: {
+                    id: true,
+                    status: true,
+                    totalAmount: true,
+                    scheduledDate: true,
+                    service: { select: { name: true } }
+                  }
+                }
+              }
+            },
+            bookings: {
+              orderBy: { scheduledDate: 'desc' },
+              take: 5,
+              select: {
+                id: true,
+                status: true,
+                totalAmount: true,
+                scheduledDate: true,
+                service: { select: { name: true } }
+              }
+            }
+          }
+        });
+      }
+
+      // 🛡️ Self-Healing: Generate missing code
       if (u && !u.referralCode) {
         const prefix = (u.name || "USER").substring(0, 3).toUpperCase().replace(/\s/g, '');
         const random = Math.floor(1000 + Math.random() * 9000);
         const newCode = `${prefix}${random}`;
         await prisma.user.update({
-          where: { id: userId },
+          where: { id: u.id },
           data: { referralCode: newCode }
         });
         u.referralCode = newCode;
@@ -112,8 +179,6 @@ export async function GET(req: NextRequest) {
     });
   } catch (error) {
     console.error("Dashboard API Error:", error);
-    
-    // 🛡️ RECOVERY LAYER: Extract from session if DB is busy/saturated
     const sessionUser = (session?.user as any);
     
     return NextResponse.json({
@@ -122,13 +187,12 @@ export async function GET(req: NextRequest) {
         name: sessionUser?.name || "User",
         email: sessionUser?.email || "",
         role: sessionUser?.role || "CUSTOMER",
-        // CRITICAL: Pull from session if DB is missing it, avoid generic REF-PENDING if possible
         referralCode: sessionUser?.referralCode || "REF-SYNCING", 
         referralCredits: 0
       },
       isMerchant: sessionUser?.role === "MERCHANT",
       merchantData: null,
       bookings: []
-    }, { status: 200 });
+    }, { status: 202 }); // Accepted but data might be incomplete
   }
 }

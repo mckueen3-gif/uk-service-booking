@@ -13,41 +13,68 @@ export async function GET(req: NextRequest) {
 
   try {
     const userId = (session.user as any).id;
+    const userEmail = (session.user as any).email?.toLowerCase();
 
-    // 1. Fetch user base fields independently so we ALWAYS get the referral code
-    const user = await safeDbQuery(() =>
-      prisma.user.findUnique({
+    // 🚀 Robust User Lookup (Fallback to Email)
+    const user = await safeDbQuery(async () => {
+      // First try by ID
+      let foundUser = await prisma.user.findUnique({
         where: { id: userId },
         select: {
+          id: true,
           referralCredits: true,
           referralCode: true,
+          name: true,
           referralsMade: {
             select: {
               id: true,
               referee: { select: { name: true } },
               earnedFromReferee: true,
-              createdAt: true
+              createdAt: true,
+              commissionExpiresAt: true
             }
           }
         }
-      })
-    );
+      });
+
+      // Fallback: If ID lookup fails (e.g. during fast sync), try by Email
+      if (!foundUser && userEmail) {
+        foundUser = await prisma.user.findUnique({
+          where: { email: userEmail },
+          select: {
+            id: true,
+            referralCredits: true,
+            referralCode: true,
+            name: true,
+            referralsMade: {
+              select: {
+                id: true,
+                referee: { select: { name: true } },
+                earnedFromReferee: true,
+                createdAt: true,
+                commissionExpiresAt: true
+              }
+            }
+          }
+        });
+      }
+      return foundUser;
+    });
 
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    // 🛡️ Ensure code exists (Auto-generate if missing for existing users)
+    // 🛡️ Ensure code exists (Self-healing in background if needed)
     let referralCode = user.referralCode;
     if (!referralCode) {
       try {
-        const sessionUser = (session.user as any);
-        const prefix = (sessionUser?.name || "USER").substring(0, 3).toUpperCase().replace(/\s/g, '');
+        const prefix = (user.name || "USER").substring(0, 3).toUpperCase().replace(/\s/g, '');
         const random = Math.floor(1000 + Math.random() * 9000);
         referralCode = `${prefix}${random}`;
         
         await prisma.user.update({
-          where: { id: userId },
+          where: { id: user.id },
           data: { referralCode }
         });
       } catch (e) {
@@ -55,14 +82,14 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    // 2. Try to fetch creditTransactions separately
+    // 2. Fetch creditTransactions separately (Silent fail if table missing)
     let creditTransactions: any[] = [];
     try {
       const hasTable = !!(prisma as any).creditTransaction;
       if (hasTable) {
         const txs = await safeDbQuery(() =>
           (prisma as any).creditTransaction.findMany({
-            where: { userId },
+            where: { userId: user.id },
             orderBy: { createdAt: "desc" },
             take: 20
           })
@@ -77,7 +104,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({
       referralCredits: user.referralCredits || 0,
-      referralCode: referralCode || (session.user as any)?.referralCode || "PENDING",
+      referralCode: referralCode || "PENDING",
       creditTransactions
     });
   } catch (error: any) {
@@ -88,7 +115,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({
       referralCredits: 0,
-      referralCode: sessionUser?.referralCode || "PENDING",
+      referralCode: sessionUser?.referralCode || "REF-SYNCING",
       creditTransactions: []
     }, { status: 200 });
   }
