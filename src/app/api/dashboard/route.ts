@@ -104,17 +104,19 @@ export async function GET(req: NextRequest) {
     });
   } catch (error) {
     console.error("Dashboard API Error:", error);
-    // Return graceful fallback so dashboard shell still renders
+    // Attempt rescue from session
+    const sessionUser = (session?.user as any);
+    
     return NextResponse.json({
       user: {
-        id: "error-fallback",
-        name: "User",
-        email: "",
-        role: "CUSTOMER",
-        referralCode: "REF-PENDING", // Prevent showing '------'
+        id: sessionUser?.id || "error-fallback",
+        name: sessionUser?.name || "User",
+        email: sessionUser?.email || "",
+        role: sessionUser?.role || "CUSTOMER",
+        referralCode: sessionUser?.referralCode || "REF-PENDING", 
         referralCredits: 0
       },
-      isMerchant: false,
+      isMerchant: sessionUser?.role === "MERCHANT",
       merchantData: null,
       bookings: []
     }, { status: 200 });

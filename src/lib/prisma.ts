@@ -17,7 +17,7 @@ if (globalForPrisma.prisma) {
   // Each Vercel function should ideally take 1 connection.
   const pool = new Pool({ 
     connectionString,
-    max: 1, // Restored to 1 for serverless safety (with single-query optimization)
+    max: 3, // Increased to 3 to handle concurrent Dashboard + Profile/Notification syncs
     connectionTimeoutMillis: 10000, 
     idleTimeoutMillis: 30000,
   });

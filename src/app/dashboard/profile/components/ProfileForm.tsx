@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { saveFullProfile } from '@/app/actions/user';
 import { Save, User, Mail, Phone, Building2, FileText, CheckCircle2 } from 'lucide-react';
 
@@ -8,15 +8,31 @@ export default function ProfileForm({ user, isMerchant }: { user: any, isMerchan
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
-    name: user.name || '',
-    phone: user.phone || '',
-    city: user.city || '',
-    addressLine1: user.addressLine1 || '',
-    addressLine2: user.addressLine2 || '',
-    postcode: user.postcode || '',
-    businessName: user.merchantProfile?.companyName || '',
-    description: user.merchantProfile?.description || ''
+    name: user?.name || '',
+    phone: user?.phone || '',
+    city: user?.city || '',
+    addressLine1: user?.addressLine1 || '',
+    addressLine2: user?.addressLine2 || '',
+    postcode: user?.postcode || '',
+    businessName: user?.merchantProfile?.companyName || '',
+    description: user?.merchantProfile?.description || ''
   });
+
+  // 🚀 SYNC STATE WITH FRESH PROPS (FIXES STALE DATA BUG)
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        name: user.name || '',
+        phone: user.phone || '',
+        city: user.city || '',
+        addressLine1: user.addressLine1 || '',
+        addressLine2: user.addressLine2 || '',
+        postcode: user.postcode || '',
+        businessName: user.merchantProfile?.companyName || '',
+        description: user.merchantProfile?.description || ''
+      });
+    }
+  }, [user]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

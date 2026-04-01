@@ -10,23 +10,26 @@ export default async function ProfilePage() {
   if (!session || !session.user) redirect("/auth/login");
   
   // 🚀 INSTANT SHELL: Server only fetches the bare minimum for layout
-  const user = await prisma.user.findUnique({
+  const userWithBasicInfo = await prisma.user.findUnique({
     where: { id: (session.user as any).id },
-    select: { name: true }
+    select: { 
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      phone: true,
+      city: true,
+      referralCode: true,
+      referralCredits: true,
+      createdAt: true,
+    }
   });
 
-  if (!user) redirect("/auth/login");
+  if (!userWithBasicInfo) redirect("/auth/login");
 
   return (
     <div className="animate-fade-up" style={{ paddingBottom: '5rem' }}>
-      {/* 🚀 INSTANT TITLE: Renders immediately without waiting for full DB profile */}
-      <div className="animate-fade-up" style={{ marginBottom: '2rem' }}>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', fontWeight: 600 }}>
-          管理您的帳戶安全、聯絡方式以及商戶公開資訊。
-        </p>
-      </div>
-
-      <ProfileContent initialUser={null} />
+      <ProfileContent initialUser={userWithBasicInfo} />
     </div>
   );
 }
