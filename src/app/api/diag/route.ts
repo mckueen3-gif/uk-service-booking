@@ -34,7 +34,8 @@ export async function GET() {
       Notification: await getCols('Notification'),
       SystemInfo: {
         time: new Date().toISOString(),
-        env: process.env.NODE_ENV
+        env: process.env.NODE_ENV,
+        deployId: 'v1.1-fix-db-and-greeting'
       }
     };
 
