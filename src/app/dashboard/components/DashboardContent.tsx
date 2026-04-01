@@ -1,27 +1,45 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { 
-  Users, 
-  Briefcase, 
-  Calendar, 
-  BarChart3, 
-  Wallet, 
-  Settings, 
-  ShieldCheck, 
+import { useState, useEffect, useCallback } from 'react';
+import {
+  Wallet,
   Clock,
-  Zap,
-  TrendingUp,
-  PieChart,
-  MessageSquare,
   CheckCircle,
-  Loader2
+  Calendar,
+  TrendingUp,
+  MessageSquare,
+  Loader2,
+  RefreshCw
 } from "lucide-react";
 import Link from 'next/link';
 
-function StatCard({ icon, title, value, trend, loading }: { icon: any, title: string, value: string | number, trend?: string, loading?: boolean }) {
+const STATUS_COLOR: Record<string, { bg: string; text: string }> = {
+  CONFIRMED: { bg: 'rgba(16, 185, 129, 0.12)', text: '#10b981' },
+  PENDING:   { bg: 'rgba(245, 158, 11, 0.12)',  text: '#f59e0b' },
+  COMPLETED: { bg: 'rgba(99, 102, 241, 0.12)',  text: '#6366f1' },
+  CANCELLED: { bg: 'rgba(239, 68, 68, 0.12)',   text: '#ef4444' },
+};
+
+const STATUS_LABEL: Record<string, string> = {
+  CONFIRMED: '已確認',
+  PENDING:   '等待中',
+  COMPLETED: '已完成',
+  CANCELLED: '已取消',
+};
+
+function StatCard({ icon, title, value, trend, loading }: {
+  icon: React.ReactNode;
+  title: string;
+  value: string | number;
+  trend?: string;
+  loading?: boolean;
+}) {
   return (
-    <div className="glass-panel animate-fade-up" style={{ padding: '1.5rem', borderRadius: '20px', backgroundColor: 'rgba(255,255,255,0.03)' }}>
+    <div className="glass-panel animate-fade-up" style={{
+      padding: '1.5rem',
+      borderRadius: '20px',
+      backgroundColor: 'rgba(255,255,255,0.03)'
+    }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
         <div style={{ color: 'var(--accent-color)', backgroundColor: 'rgba(99, 102, 241, 0.1)', padding: '0.75rem', borderRadius: '12px' }}>
           {icon}
@@ -34,7 +52,7 @@ function StatCard({ icon, title, value, trend, loading }: { icon: any, title: st
       </div>
       <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.25rem' }}>{title}</p>
       {loading ? (
-        <div className="h-8 w-24 bg-white/5 rounded animate-pulse" />
+        <div className="skeleton-line" style={{ height: '2rem', width: '6rem', borderRadius: '8px', backgroundColor: 'rgba(255,255,255,0.06)' }} />
       ) : (
         <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>{value}</h3>
       )}
@@ -43,54 +61,119 @@ function StatCard({ icon, title, value, trend, loading }: { icon: any, title: st
 }
 
 export default function DashboardContent({ initialData }: { initialData: any }) {
-  const [data, setData] = useState(initialData);
-  const [loading, setLoading] = useState(!initialData);
+  const [data, setData] = useState<any>(initialData || null);
+  const [loading, setLoading] = useState(true);
+  const [syncing, setSyncing] = useState(false);
+  const [lastSync, setLastSync] = useState<Date | null>(null);
+  const [error, setError] = useState(false);
 
-  useEffect(() => {
-    // If we have initial data (from server), we still refresh in background silently
-    // This is the SWR pattern: Stale-While-Revalidate
-    async function refreshData() {
-      try {
-        const res = await fetch('/api/dashboard');
-        if (res.ok) {
-          const newData = await res.json();
-          setData(newData);
-        }
-      } catch (e) {
-        console.error("Silent background refresh failed", e);
-      } finally {
-        setLoading(false);
+  const refreshData = useCallback(async (isManual = false) => {
+    if (isManual) setSyncing(true);
+    setError(false);
+    try {
+      const res = await fetch('/api/dashboard', { cache: 'no-store' });
+      if (res.ok) {
+        const newData = await res.json();
+        setData(newData);
+        setLastSync(new Date());
+        localStorage.setItem('dashboard_data', JSON.stringify(newData));
+      } else {
+        setError(true);
       }
+    } catch (e) {
+      console.error("Dashboard sync failed:", e);
+      setError(true);
+    } finally {
+      setLoading(false);
+      setSyncing(false);
     }
-    
-    refreshData();
   }, []);
 
+  useEffect(() => {
+    // STEP 1: Load from cache instantly
+    const cached = localStorage.getItem('dashboard_data');
+    if (cached) {
+      try {
+        setData(JSON.parse(cached));
+        setLoading(false);
+      } catch (e) {
+        console.error("Cache parse error", e);
+      }
+    }
+
+    // STEP 2: Fetch fresh data immediately
+    refreshData();
+
+    // STEP 3: Poll every 30 seconds for real-time updates
+    const interval = setInterval(() => refreshData(), 30_000);
+    return () => clearInterval(interval);
+  }, [refreshData]);
+
   const { user, isMerchant, merchantData, bookings } = data || {};
+  const activeBookings = (bookings || []).filter((b: any) =>
+    b.status === "PENDING" || b.status === "CONFIRMED"
+  );
 
   return (
     <div className="animate-fade-up">
-      {/* 🚀 INSTANT RENDERING: Shell is always visible */}
-      
+
+      {/* Live Sync Status Bar */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        gap: '0.75rem',
+        marginBottom: '1.5rem'
+      }}>
+        {syncing && <Loader2 size={14} style={{ color: 'var(--accent-color)', animation: 'spin 1s linear infinite' }} />}
+        <span style={{ fontSize: '0.78rem', color: error ? '#ef4444' : '#10b981', fontWeight: 500 }}>
+          {error
+            ? '⚠ 數據同步失敗'
+            : lastSync
+              ? `● 已即時同步 ${lastSync.toLocaleTimeString('zh-HK')}`
+              : '○ 正在連線...'}
+        </span>
+        <button
+          onClick={() => refreshData(true)}
+          disabled={syncing}
+          title="立即刷新"
+          style={{
+            padding: '0.3rem 0.6rem',
+            borderRadius: '8px',
+            border: '1px solid var(--border-color)',
+            background: 'transparent',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.3rem',
+            fontSize: '0.75rem',
+            color: 'var(--text-secondary)'
+          }}
+        >
+          <RefreshCw size={12} style={{ animation: syncing ? 'spin 1s linear infinite' : 'none' }} />
+          刷新
+        </button>
+      </div>
+
       {/* Stats Grid */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
         {isMerchant ? (
           <>
-            <StatCard 
-              title="總收入" 
+            <StatCard
+              title="總收入"
               value={`£${(merchantData?.wallet?.totalEarned || 0).toFixed(2)}`}
               icon={<Wallet size={24} />}
               trend="+12% 較上月"
               loading={loading && !data}
             />
-            <StatCard 
-              title="待結算款項" 
+            <StatCard
+              title="待結算款項"
               value={`£${(merchantData?.wallet?.pendingBalance || 0).toFixed(2)}`}
               icon={<Clock size={24} />}
               loading={loading && !data}
             />
-            <StatCard 
-              title="已完成訂單" 
+            <StatCard
+              title="已完成訂單"
               value={(bookings || []).filter((b: any) => b.status === "COMPLETED").length}
               icon={<CheckCircle size={24} />}
               loading={loading && !data}
@@ -98,22 +181,22 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
           </>
         ) : (
           <>
-            <StatCard 
-              title="進行中預約" 
-              value={(bookings || []).filter((b: any) => b.status === "PENDING" || b.status === "CONFIRMED").length}
+            <StatCard
+              title="進行中預約"
+              value={activeBookings.length}
               icon={<Calendar size={24} />}
-              trend="本週有新進度"
+              trend={activeBookings.length > 0 ? `${activeBookings.length} 筆待服務` : undefined}
               loading={loading && !data}
             />
-            <StatCard 
-              title="帳戶餘額" 
-              value="£42.50"
+            <StatCard
+              title="已完成服務"
+              value={(bookings || []).filter((b: any) => b.status === "COMPLETED").length}
               icon={<TrendingUp size={24} />}
               loading={loading && !data}
             />
-            <StatCard 
-              title="訊息" 
-              value="3"
+            <StatCard
+              title="總預約次數"
+              value={(bookings || []).length}
               icon={<MessageSquare size={24} />}
               loading={loading && !data}
             />
@@ -124,62 +207,89 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
       {/* Recent Bookings */}
       <section className="glass-panel" style={{ padding: '2.5rem', borderRadius: '32px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 800 }}>近期預約狀態</h2>
+          <div>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 800 }}>近期預約狀態</h2>
+            <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
+              每30秒自動更新 · 即時顯示
+            </p>
+          </div>
           <Link href="/dashboard/bookings" style={{ color: 'var(--accent-color)', fontWeight: 600, fontSize: '0.9rem', textDecoration: 'none' }}>
             查看全部 →
           </Link>
         </div>
-        
+
         <div style={{ display: 'grid', gap: '1.25rem' }}>
           {loading && !bookings ? (
-            [1,2,3].map(i => (
-              <div key={i} className="h-20 w-full bg-white/5 rounded-2xl animate-pulse" />
+            [1, 2, 3].map(i => (
+              <div key={i} style={{
+                height: '5rem',
+                borderRadius: '16px',
+                backgroundColor: 'rgba(255,255,255,0.04)',
+                animation: 'pulse 2s ease-in-out infinite'
+              }} />
             ))
-          ) : (bookings && bookings.length > 0) ? bookings.map((booking: any) => (
-            <div key={booking.id} style={{ 
-              padding: '1.25rem', 
-              borderRadius: '16px', 
-              backgroundColor: 'rgba(255,255,255,0.03)',
-              border: '1px solid var(--border-color)',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center'
-            }}>
-              <div>
-                <h4 style={{ fontWeight: 700, marginBottom: '0.25rem' }}>{booking.service?.name}</h4>
-                <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                  {new Date(booking.scheduledDate).toLocaleString('zh-HK')}
-                </p>
-              </div>
-              <div style={{ textAlign: 'right' }}>
-                <div style={{ fontWeight: 800, marginBottom: '0.25rem' }}>£{booking.totalAmount.toFixed(2)}</div>
-                <span style={{ 
-                  fontSize: '0.75rem', 
-                  fontWeight: 700, 
-                  padding: '0.25rem 0.75rem', 
-                  borderRadius: '2rem',
-                  backgroundColor: booking.status === 'CONFIRMED' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(245, 158, 11, 0.1)',
-                  color: booking.status === 'CONFIRMED' ? '#10b981' : '#f59e0b'
+          ) : (bookings && bookings.length > 0) ? (
+            bookings.slice(0, 5).map((booking: any) => {
+              const sc = STATUS_COLOR[booking.status] || STATUS_COLOR.PENDING;
+              return (
+                <div key={booking.id} style={{
+                  padding: '1.25rem',
+                  borderRadius: '16px',
+                  backgroundColor: 'rgba(255,255,255,0.03)',
+                  border: '1px solid var(--border-color)',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  transition: 'background 0.2s'
                 }}>
-                  {booking.status}
-                </span>
-              </div>
-            </div>
-          )) : (
+                  <div>
+                    <h4 style={{ fontWeight: 700, marginBottom: '0.25rem' }}>
+                      {booking.service?.name || '服務'}
+                    </h4>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                      預約日期：{new Date(booking.scheduledDate).toLocaleString('zh-HK')}
+                    </p>
+                    {booking.vehicleReg && (
+                      <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.1rem' }}>
+                        車牌：{booking.vehicleMake} {booking.vehicleModel} · {booking.vehicleReg}
+                      </p>
+                    )}
+                  </div>
+                  <div style={{ textAlign: 'right' }}>
+                    <div style={{ fontWeight: 800, marginBottom: '0.4rem' }}>
+                      £{(booking.totalAmount || 0).toFixed(2)}
+                    </div>
+                    <span style={{
+                      fontSize: '0.72rem',
+                      fontWeight: 700,
+                      padding: '0.25rem 0.75rem',
+                      borderRadius: '2rem',
+                      backgroundColor: sc.bg,
+                      color: sc.text
+                    }}>
+                      {STATUS_LABEL[booking.status] || booking.status}
+                    </span>
+                  </div>
+                </div>
+              );
+            })
+          ) : (
             <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-secondary)' }}>
-              目前沒有預約記錄。
+              <Calendar size={40} style={{ margin: '0 auto 1rem', opacity: 0.2 }} />
+              <p style={{ fontWeight: 600 }}>目前沒有預約記錄</p>
+              <p style={{ fontSize: '0.85rem', marginTop: '0.5rem' }}>
+                您的預約紀錄將在這裡即時顯示
+              </p>
             </div>
           )}
         </div>
       </section>
 
       <style jsx global>{`
+        @keyframes spin { to { transform: rotate(360deg); } }
         @keyframes pulse {
           0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
-        }
-        .animate-pulse {
-          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+          50% { opacity: 0.4; }
         }
       `}</style>
     </div>

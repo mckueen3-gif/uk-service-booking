@@ -7,20 +7,37 @@ import Link from 'next/link';
 
 export default function ProfileContent({ initialUser }: { initialUser: any }) {
   const [user, setUser] = useState(initialUser);
-  const [loading, setLoading] = useState(!initialUser);
+  const [loading, setLoading] = useState(true);
+  const [syncing, setSyncing] = useState(false);
 
   useEffect(() => {
+    // 🚀 STEP 1: LOAD FROM CACHE (INSTANT)
+    const cached = localStorage.getItem('profile_data');
+    if (cached) {
+      try {
+        setUser(JSON.parse(cached));
+        setLoading(false);
+      } catch (e) {
+        console.error("Profile cache corrupted");
+      }
+    }
+
+    // 🚀 STEP 2: SILENT BACKGROUND SYNC
     async function fetchProfile() {
+      setSyncing(true);
       try {
         const res = await fetch('/api/profile');
         if (res.ok) {
           const data = await res.json();
           setUser(data);
+          // SAVE TO CACHE
+          localStorage.setItem('profile_data', JSON.stringify(data));
         }
       } catch (e) {
         console.error("Profile refresh failed", e);
       } finally {
         setLoading(false);
+        setSyncing(false);
       }
     }
     fetchProfile();

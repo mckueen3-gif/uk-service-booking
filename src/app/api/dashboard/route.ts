@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+import { prisma, safeDbQuery } from "@/lib/prisma";
 
 export const dynamic = 'force-dynamic';
 
@@ -12,49 +12,53 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const userWithData = await prisma.user.findUnique({
-      where: { id: (session.user as any).id },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        merchantProfile: {
-          select: {
-            id: true,
-            isVerified: true,
-            wallet: {
-              select: {
-                totalEarned: true,
-                pendingBalance: true
-              }
-            },
-            bookings: {
-              orderBy: { scheduledDate: 'desc' },
-              take: 5,
-              select: {
-                id: true,
-                status: true,
-                totalAmount: true,
-                scheduledDate: true,
-                service: { select: { name: true } }
+    const userId = (session.user as any).id;
+
+    const userWithData = await safeDbQuery(() => 
+      prisma.user.findUnique({
+        where: { id: userId },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          role: true,
+          merchantProfile: {
+            select: {
+              id: true,
+              isVerified: true,
+              wallet: {
+                select: {
+                  totalEarned: true,
+                  pendingBalance: true
+                }
+              },
+              bookings: {
+                orderBy: { scheduledDate: 'desc' },
+                take: 5,
+                select: {
+                  id: true,
+                  status: true,
+                  totalAmount: true,
+                  scheduledDate: true,
+                  service: { select: { name: true } }
+                }
               }
             }
-          }
-        },
-        bookings: {
-          orderBy: { scheduledDate: 'desc' },
-          take: 5,
-          select: {
-            id: true,
-            status: true,
-            totalAmount: true,
-            scheduledDate: true,
-            service: { select: { name: true } }
+          },
+          bookings: {
+            orderBy: { scheduledDate: 'desc' },
+            take: 5,
+            select: {
+              id: true,
+              status: true,
+              totalAmount: true,
+              scheduledDate: true,
+              service: { select: { name: true } }
+            }
           }
         }
-      }
-    });
+      })
+    );
 
     if (!userWithData) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
