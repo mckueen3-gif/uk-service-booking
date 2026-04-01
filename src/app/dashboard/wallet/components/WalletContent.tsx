@@ -34,7 +34,8 @@ export default function WalletContent() {
         // 🚀 CRITICAL RECOVERY: Clear ghost sessions
         if (res.status === 401 || res.status === 404) {
           localStorage.removeItem('wallet_data');
-          await signOut({ callbackUrl: '/auth/login' });
+          await signOut({ redirect: false });
+          window.location.href = '/auth/login?error=SessionExpired';
           return;
         }
 

@@ -112,11 +112,11 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
     try {
       const res = await fetch('/api/dashboard', { cache: 'no-store' });
       
-      // 🚀 CRITICAL RECOVERY: If the session says we are logged in, but the DB says "User not found" (404/401),
-      // it means we have a "Ghost Session". We MUST force a sign out to fix this loop.
+      // 🚀 CRITICAL RECOVERY: Clear ghost sessions via brutal redirect
       if (res.status === 401 || res.status === 404) {
         localStorage.removeItem('dashboard_data');
-        await signOut({ callbackUrl: '/auth/login' });
+        await signOut({ redirect: false });
+        window.location.href = '/auth/login?error=SessionExpired';
         return;
       }
 
