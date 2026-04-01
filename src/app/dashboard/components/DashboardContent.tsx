@@ -7,10 +7,8 @@ import {
   CheckCircle,
   Calendar,
   TrendingUp,
-  MessageSquare,
   Loader2,
   RefreshCw,
-  Users,
   Gift,
   Copy,
   Car,
@@ -19,7 +17,7 @@ import {
 import Link from 'next/link';
 import { useTranslation } from "@/components/LanguageContext";
 import { claimReferralCode } from "@/app/actions/referral";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 
 const STATUS_COLOR: Record<string, { bg: string; text: string }> = {
   CONFIRMED: { bg: 'rgba(16, 185, 129, 0.12)', text: '#10b981' },
@@ -89,12 +87,12 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
       const result = await claimReferralCode(claimCode.trim());
       if (result.success) {
         setClaimStatus({ type: 'success', message: '推薦碼兌換成功！' });
-        // 🚀 Optimistic Update: Immediately update the data state to hide input and show referrer
+        // 🚀 Optimistic Update
         setData((prev: any) => ({
           ...prev,
           user: {
             ...prev.user,
-            referredBy: '專家 (Processing...)' // Will be updated by refreshData
+            referredBy: '專家 (Processing...)'
           }
         }));
         refreshData(true);
@@ -113,9 +111,17 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
     setError(false);
     try {
       const res = await fetch('/api/dashboard', { cache: 'no-store' });
+      
+      // 🚀 CRITICAL RECOVERY: If the session says we are logged in, but the DB says "User not found" (404/401),
+      // it means we have a "Ghost Session". We MUST force a sign out to fix this loop.
+      if (res.status === 401 || res.status === 404) {
+        localStorage.removeItem('dashboard_data');
+        await signOut({ callbackUrl: '/auth/login' });
+        return;
+      }
+
       if (res.ok) {
         const newData = await res.json();
-        // If API returned graceful fallback due to DB error, treat it as a sync failure
         if (newData?.user?.id === "error-fallback") {
           setError(true);
         } else {
@@ -123,7 +129,6 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
           setLastSync(new Date());
           localStorage.setItem('dashboard_data', JSON.stringify(newData));
           
-          // 🚀 SYNC SESSION: Only update if it's a REAL code (not a fallback key)
           if (newData?.user?.referralCode && 
               newData.user.referralCode !== "REF-PENDING" && 
               newData.user.referralCode !== "REF-SYNCING" &&
@@ -144,7 +149,6 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
   }, []);
 
   useEffect(() => {
-    // STEP 1: Load from cache instantly
     const cached = localStorage.getItem('dashboard_data');
     if (cached) {
       try {
@@ -155,10 +159,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
       }
     }
 
-    // STEP 2: Fetch fresh data immediately
     refreshData();
-
-    // STEP 3: Poll every 30 seconds for real-time updates
     const interval = setInterval(() => refreshData(), 30_000);
     return () => clearInterval(interval);
   }, [refreshData]);
@@ -267,7 +268,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
         )}
       </div>
 
-      {/* 🚀 NEW: Referral Program Banner */}
+      {/* Referral Program Banner */}
       <section className="glass-panel animate-fade-up" style={{ 
         padding: '2rem', 
         borderRadius: '24px', 
@@ -293,7 +294,6 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
         </div>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'flex-start' }}>
-          {/* Section 1: User's Own Referral Code */}
           <div style={{ padding: '0.5rem', borderRadius: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <div style={{ paddingLeft: '0.5rem' }}>
               <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', fontWeight: 800, color: 'var(--text-muted)', marginBottom: '0.2rem' }}>{t.home.referralCTA.referralLabel}</div>
@@ -311,7 +311,6 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
             </button>
           </div>
 
-          {/* Referrer/Referee Visibility Logic */}
           {user?.referredBy ? (
             <div style={{ padding: '0.75rem 1.25rem', borderRadius: '16px', backgroundColor: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.2)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
               <div style={{ color: '#10b981' }}><CheckCircle size={18} /></div>

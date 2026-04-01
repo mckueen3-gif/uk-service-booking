@@ -5,6 +5,7 @@ import { Wallet, Gift, Copy, History, CreditCard, Ticket, ArrowUpRight, ArrowDow
 import VoucherForm from "../VoucherForm";
 import { useParams } from "next/navigation";
 import { getDictionary } from "@/lib/i18n/dictionary";
+import { signOut } from "next-auth/react";
 
 export default function WalletContent() {
   const params = useParams();
@@ -15,7 +16,6 @@ export default function WalletContent() {
   const [loading, setLoading] = useState(true);
   const [synced, setSynced] = useState(false);
 
-  // 🚀 INSTANT FACTS: Load from local cache FIRST
   useEffect(() => {
     const cached = localStorage.getItem('wallet_data');
     if (cached) {
@@ -27,10 +27,17 @@ export default function WalletContent() {
       }
     }
 
-    // 🚀 BACKGROUND SYNC
     async function syncWallet() {
       try {
         const res = await fetch('/api/wallet');
+        
+        // 🚀 CRITICAL RECOVERY: Clear ghost sessions
+        if (res.status === 401 || res.status === 404) {
+          localStorage.removeItem('wallet_data');
+          await signOut({ callbackUrl: '/auth/login' });
+          return;
+        }
+
         if (res.ok) {
           const data = await res.json();
           setStats(data);
@@ -66,7 +73,6 @@ export default function WalletContent() {
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
         
-        {/* Main Balance Card */}
         <div className="glass-panel" style={{ 
           padding: '2.5rem', 
           borderRadius: '24px', 
@@ -97,9 +103,7 @@ export default function WalletContent() {
           </div>
         </div>
 
-        {/* Voucher & Referral */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-          {/* Voucher */}
           <div className="glass-panel" style={{ padding: '2rem', borderRadius: '24px', border: '1px solid var(--border-color)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
               <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', padding: '0.5rem', borderRadius: '0.75rem' }}>
@@ -110,7 +114,6 @@ export default function WalletContent() {
             <VoucherForm />
           </div>
 
-          {/* Referral Code */}
           <div className="glass-panel" style={{ padding: '2rem', borderRadius: '24px', border: '1px solid rgba(99, 102, 241, 0.25)', background: 'rgba(99, 102, 241, 0.05)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
               <div style={{ backgroundColor: 'rgba(99, 102, 241, 0.12)', padding: '0.5rem', borderRadius: '0.75rem' }}>
@@ -151,7 +154,6 @@ export default function WalletContent() {
         </div>
       </div>
 
-      {/* Transaction History */}
       <div className="glass-panel" style={{ padding: '2.5rem', borderRadius: '24px', border: '1px solid var(--border-color)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
           <History size={24} color="var(--accent-color)" />
@@ -199,7 +201,6 @@ export default function WalletContent() {
         </div>
       </div>
 
-      {/* 🚀 NEW: Referrer's List (Passive Income Tracking) */}
       {stats?.referralsMade && stats.referralsMade.length > 0 && (
         <div className="glass-panel animate-fade-up" style={{ padding: '2.5rem', borderRadius: '24px', border: '1px solid rgba(16, 185, 129, 0.1)', backgroundColor: 'rgba(16, 185, 129, 0.02)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>

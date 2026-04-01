@@ -21,8 +21,8 @@ export const authOptions: NextAuthOptions = {
         const email = credentials?.email?.toLowerCase();
         if (!email || !credentials?.password) return null;
 
-        const user = await prisma.user.findUnique({
-          where: { email },
+        const user = await prisma.user.findFirst({
+          where: { email: { equals: email, mode: 'insensitive' } },
           select: { 
             id: true, 
             email: true, 
@@ -55,7 +55,6 @@ export const authOptions: NextAuthOptions = {
         token.referralCode = (user as any).referralCode;
       }
       
-      // 🚀 Facts First: Always provide a safe fallback in token
       if (!token.referralCode) {
         token.referralCode = "REF-SYNCING";
       }
@@ -73,41 +72,55 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account }) {
       if (account?.provider === "google") {
         if (!user.email) return false;
         
         try {
           const email = user.email.toLowerCase();
           
-          // 🚀 ATOMIC UPSERT: Single DB call to find or create.
-          // This ensures the USER.ID is valid for the JWT mapping immediately.
-          const dbUser = await prisma.user.upsert({
-            where: { email },
-            update: {
-              // Refresh image/name from Google if they exist
-              name: user.name || undefined,
-              image: user.image || undefined,
-            },
-            create: {
-              email,
-              name: user.name,
-              image: user.image,
-              role: "CUSTOMER",
-              // We generate a code here but it might still collide. 
-              // referralCode will be finalized by the self-healing API if needed.
-              referralCode: `PENDING-${Math.random().toString(36).substring(7)}`,
-            },
-            select: { id: true, role: true, referralCode: true }
+          // 🚀 Case-Insensitive Lookup (CRITICAL for preventing duplicate P2002 errors)
+          let dbUser = await prisma.user.findFirst({
+            where: { email: { equals: email, mode: 'insensitive' } },
+            select: { id: true, role: true, referralCode: true, name: true, image: true }
           });
 
+          if (dbUser) {
+            // Only update if Google provided new info
+            if ((user.name && user.name !== dbUser.name) || (user.image && user.image !== dbUser.image)) {
+              await prisma.user.update({
+                where: { id: dbUser.id },
+                data: {
+                  name: user.name || dbUser.name,
+                  image: user.image || dbUser.image,
+                }
+              });
+            }
+          } else {
+            // Create user
+            dbUser = await prisma.user.create({
+              data: {
+                email,
+                name: user.name,
+                image: user.image,
+                role: "CUSTOMER",
+                referralCode: `PENDING-${Math.random().toString(36).substring(7)}`,
+              },
+              select: { id: true, role: true, referralCode: true, name: true, image: true }
+            });
+          }
+
+          // 🛡️ BIND DB ID to JWT token immediately
           user.id = dbUser.id;
           (user as any).role = dbUser.role;
           (user as any).referralCode = dbUser.referralCode || "REF-SYNCING";
+          
+          return true;
         } catch (error) {
           console.error("Critical SignIn failure:", error);
-          // Still allow sign in if DB is slightly laggy, but fallback to base user
-          return true;
+          // If we fail to write to the DB, DO NOT allow a ghost session!
+          // NextAuth will redirect to the error page, which is safer than breaking the whole UI loop.
+          return false;
         }
       }
       return true;
@@ -121,11 +134,10 @@ export const authOptions: NextAuthOptions = {
   events: {
     async signIn({ user, account }) {
       if (account?.provider === "google" && user.email) {
-        // 🚀 BACKGROUND AUTO-GENERATION:
-        // Now that the user DEFINITELY exists (via upsert), ensure the referral code is professional.
         try {
-          const dbUser = await prisma.user.findUnique({
-            where: { email: user.email.toLowerCase() },
+          const email = user.email.toLowerCase();
+          const dbUser = await prisma.user.findFirst({
+            where: { email: { equals: email, mode: 'insensitive' } },
             select: { id: true, referralCode: true, name: true }
           });
 
