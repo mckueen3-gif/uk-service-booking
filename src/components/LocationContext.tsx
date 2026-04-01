@@ -29,77 +29,97 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
   const [city, setCityState] = useState<string>(ALL_UK);
   const [isLocating, setIsLocating] = useState(false);
 
-  // Initialize from localStorage
-  useEffect(() => {
-    const savedCity = localStorage.getItem('user-city');
-    if (savedCity) {
-      setCityState(savedCity);
-    } else {
-      // Auto-detect on first visit
-      detectLocation();
-    }
-  }, []);
-
   const setCity = (newCity: string) => {
     setCityState(newCity);
-    localStorage.setItem('user-city', newCity);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('user-city', newCity);
+    }
   };
 
   const detectLocation = useCallback(async () => {
+    setIsLocating(true);
+    let detectedSuccessfully = false;
+
+    const processDetectedCity = (detected: string, isLondon: boolean) => {
+      if (!detected) return false;
+      
+      let normalized = detected.replace(/City of |Greater /g, "").trim();
+      
+      // London borough handling
+      const isBorough = ["Westminster", "Camden", "Greenwich", "Hackney", "Islington", "Kensington", "Lambeth", "Lewisham", "Southwark", "Tower Hamlets", "Wandsworth", "Hammersmith", "Fulham"].some(b => normalized.includes(b));
+      
+      if (isBorough || isLondon || normalized === "London") {
+        setCity("London");
+        return true;
+      }
+
+      const matchedCity = UK_CITIES.find(c => 
+        normalized.toLowerCase() === c.toLowerCase() || 
+        normalized.toLowerCase().includes(c.toLowerCase()) ||
+        c.toLowerCase().includes(normalized.toLowerCase())
+      );
+
+      if (matchedCity) {
+        setCity(matchedCity);
+        return true;
+      } else if (normalized) {
+        setCity(normalized);
+        return true;
+      }
+      return false;
+    };
+
+    // Step 1: Try Browser Geolocation (GPS)
     if (typeof window !== 'undefined' && 'geolocation' in navigator) {
-      setIsLocating(true);
-      return new Promise<void>((resolve) => {
+      await new Promise<void>((resolve) => {
         navigator.geolocation.getCurrentPosition(
           async (position) => {
             try {
               const { latitude, longitude } = position.coords;
               const res = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`);
               const data = await res.json();
-              
-              const detectedCity = data.city || data.locality || data.principalSubdivision || "";
-              console.log("Detected raw location:", detectedCity, "from:", data);
-              
-              // Handle common Greater prefixes or "City of"
-              let normalized = detectedCity.replace(/City of |Greater /g, "").trim();
-              
-              // Special case: London boroughs often return as individual cities
-              const londonBoroughs = ["Westminster", "Camden", "Greenwich", "Hackney", "Islington", "Kensington", "Lambeth", "Lewisham", "Southwark", "Tower Hamlets", "Wandsworth", "Hammersmith", "Fulham"];
-              if (londonBoroughs.some(b => normalized.includes(b)) || data.principalSubdivision === "Greater London") {
-                normalized = "London";
-              }
-
-              const matchedCity = UK_CITIES.find(c => 
-                normalized.toLowerCase().includes(c.toLowerCase()) || 
-                c.toLowerCase().includes(normalized.toLowerCase())
-              );
-
-              if (matchedCity) {
-                setCity(matchedCity);
-              } else if (normalized && !UK_CITIES.includes(normalized)) {
-                 // If detected something but not in our main list, maybe it's still a valid UK town
-                 // We'll keep it "All UK" for search stability, but could show it in UI
-                 setCity(ALL_UK);
-              } else {
-                setCity(ALL_UK);
-              }
+              const rawCity = data.city || data.locality || data.principalSubdivision || "";
+              detectedSuccessfully = processDetectedCity(rawCity, data.principalSubdivision === "Greater London");
             } catch (error) {
               console.error("Location detection error:", error);
-              setCity(ALL_UK);
             } finally {
-              setIsLocating(false);
               resolve();
             }
           },
           (error) => {
             console.warn("Geolocation denied or failed:", error);
-            setIsLocating(false);
             resolve();
           },
-          { timeout: 10000, enableHighAccuracy: true }
+          { timeout: 5000, enableHighAccuracy: false }
         );
       });
     }
+
+    // Step 2: Try IP-based Fallback if GPS failed or was denied
+    if (!detectedSuccessfully) {
+      try {
+        const res = await fetch('https://ipapi.co/json/');
+        const data = await res.json();
+        if (data.country === 'GB' && data.city) {
+          processDetectedCity(data.city, data.region === "Greater London");
+        }
+      } catch (e) {
+        console.error("IP Geolocation fallback failed:", e);
+      }
+    }
+
+    setIsLocating(false);
   }, []);
+
+  // Initialize from localStorage
+  useEffect(() => {
+    const savedCity = localStorage.getItem('user-city');
+    if (savedCity) {
+      setCityState(savedCity);
+    } else {
+      detectLocation();
+    }
+  }, [detectLocation]);
 
   const value = {
     city,
