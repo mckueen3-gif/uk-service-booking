@@ -1,44 +1,25 @@
-import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { NextResponse } from "next/server";
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    // Probe User table columns
-    const userColumns = await prisma.$queryRaw`
-      SELECT column_name, data_type 
-      FROM information_schema.columns 
-      WHERE table_name = 'User'
-    `;
-
-    // Probe Merchant table columns
-    const merchantColumns = await prisma.$queryRaw`
-      SELECT column_name, data_type 
-      FROM information_schema.columns 
-      WHERE table_name = 'Merchant'
-    `;
-
-    // Probe CreditTransaction table columns
-    const transactionColumns = await prisma.$queryRaw`
-      SELECT column_name, data_type 
-      FROM information_schema.columns 
-      WHERE table_name = 'CreditTransaction'
-    `;
+    // Probe columns for critical tables
+    const userColumns = await prisma.$queryRaw`SELECT column_name FROM information_schema.columns WHERE table_name = 'User'`;
+    const merchantColumns = await prisma.$queryRaw`SELECT column_name FROM information_schema.columns WHERE table_name = 'Merchant'`;
+    const bookingColumns = await prisma.$queryRaw`SELECT column_name FROM information_schema.columns WHERE table_name = 'Booking'`;
+    const walletColumns = await prisma.$queryRaw`SELECT column_name FROM information_schema.columns WHERE table_name = 'MerchantWallet'`;
+    const transactionColumns = await prisma.$queryRaw`SELECT column_name FROM information_schema.columns WHERE table_name = 'CreditTransaction'`;
 
     return NextResponse.json({
-      success: true,
-      columns: {
-        user: userColumns,
-        merchant: merchantColumns,
-        transaction: transactionColumns
-      }
+      User: (userColumns as any[]).map(c => c.column_name),
+      Merchant: (merchantColumns as any[]).map(c => c.column_name),
+      Booking: (bookingColumns as any[]).map(c => c.column_name),
+      MerchantWallet: (walletColumns as any[]).map(c => c.column_name),
+      CreditTransaction: (transactionColumns as any[]).map(c => c.column_name)
     });
-  } catch (err: any) {
-    return NextResponse.json({
-      success: false,
-      error: err.message,
-      stack: err.stack
-    }, { status: 500 });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
