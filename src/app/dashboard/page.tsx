@@ -84,7 +84,24 @@ export default async function DashboardOverview() {
     try {
       userData = await prisma.user.findUnique({
         where: { id: (session.user as any).id },
-        include: { notifications: { orderBy: { createdAt: 'desc' }, take: 5 } }
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          role: true,
+          notifications: {
+            orderBy: { createdAt: 'desc' },
+            take: 5,
+            select: {
+              id: true,
+              title: true,
+              message: true,
+              type: true,
+              isRead: true,
+              createdAt: true
+            }
+          }
+        }
       });
     } catch (e) { 
       console.error("Dashboard DB Error [User]:", e); 
@@ -95,8 +112,17 @@ export default async function DashboardOverview() {
     try {
       merchantData = await prisma.merchant.findUnique({
         where: { userId: (session.user as any).id },
-        include: { wallet: true }
-      });
+        select: {
+          id: true,
+          isVerified: true,
+          wallet: {
+            select: {
+              totalEarned: true,
+              pendingBalance: true
+            }
+          }
+        }
+      }) as any;
     } catch (e) {
       console.error("Dashboard DB Error [Merchant]:", e);
       errorLog.push("MERCHANT_DB_FAIL");
@@ -111,7 +137,24 @@ export default async function DashboardOverview() {
             { merchantId: merchantData?.id || 'none' }
           ]
         },
-        include: { service: true, customer: true },
+        select: {
+          id: true,
+          scheduledDate: true,
+          status: true,
+          service: {
+            select: {
+              id: true,
+              name: true
+            }
+          },
+          customer: {
+            select: {
+              id: true,
+              name: true,
+              email: true
+            }
+          }
+        },
         orderBy: { scheduledDate: 'desc' },
         take: 5
       });

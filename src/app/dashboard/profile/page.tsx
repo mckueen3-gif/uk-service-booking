@@ -18,6 +18,11 @@ export default async function ProfilePage() {
       email: true,
       name: true,
       role: true,
+      phone: true,
+      addressLine1: true,
+      addressLine2: true,
+      city: true,
+      postcode: true,
       createdAt: true,
       merchantProfile: {
         select: {
