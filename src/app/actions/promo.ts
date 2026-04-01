@@ -16,7 +16,6 @@ export async function createPromoCode(data: {
     const promo = await prisma.promoCode.create({
       data: {
         code: data.code.toUpperCase(),
-        freeOrdersCount: data.freeOrdersCount,
         maxUses: data.maxUses,
         expiresAt: data.expiresAt ? new Date(data.expiresAt) : null,
       },

@@ -26,7 +26,9 @@ export async function updateMerchantCommissionRate(merchantId: string, newRate: 
 /**
  * Manually adds free orders to a merchant's account.
  * (e.g., Admin rewarding a merchant or manually applying a benefit).
+ * [Temporarily Disabled due to Schema Sync]
  */
+/*
 export async function updateMerchantFreeOrders(merchantId: string, count: number) {
   try {
     await prisma.merchant.update({
@@ -41,3 +43,4 @@ export async function updateMerchantFreeOrders(merchantId: string, count: number
     return { error: error.message };
   }
 }
+*/

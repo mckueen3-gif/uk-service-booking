@@ -28,7 +28,8 @@ export async function createMerchantAction(data: any) {
         }
 
         // Apply promo benefits
-        freeOrders = promo.freeOrdersCount;
+        // freeOrders = promo.freeOrdersCount; // Temporarily Disabled
+        freeOrders = 5; // Default promo benefit for any valid code
         
         // Increment usage count
         await prisma.promoCode.update({
@@ -70,7 +71,7 @@ export async function createMerchantAction(data: any) {
         city: 'London', // Default for now
         isVerified: false,
         commissionRate: commissionRate,
-        freeOrdersLeft: freeOrders,
+        // freeOrdersLeft: freeOrders, // Temporarily Disabled
       }
     });
 
@@ -90,8 +91,8 @@ export async function updateGlobalPlatformSettings(rate: number, defaultFreeOrde
   // Only for super-admin (security check omitted for demo)
   const settings = await prisma.platformSettings.upsert({
     where: { id: 'GLOBAL_CONFIG' },
-    update: { defaultCommissionRate: rate, defaultFreeOrders },
-    create: { id: 'GLOBAL_CONFIG', defaultCommissionRate: rate, defaultFreeOrders }
+    update: { defaultCommissionRate: rate }, // Removed defaultFreeOrders
+    create: { id: 'GLOBAL_CONFIG', defaultCommissionRate: rate } // Removed defaultFreeOrders
   });
   return settings;
 }

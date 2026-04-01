@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { updateMerchantCommissionRate, updateMerchantFreeOrders } from '@/app/actions/admin_commission';
+import { updateMerchantCommissionRate } from '@/app/actions/admin_commission';
 import { RefreshCw, Check, Percent, Gift } from 'lucide-react';
 
 export default function CommissionEditor({ 
@@ -23,9 +23,8 @@ export default function CommissionEditor({
     setStatus('idle');
     try {
       const res1 = await updateMerchantCommissionRate(merchantId, rate / 100);
-      const res2 = await updateMerchantFreeOrders(merchantId, freeOrders);
       
-      if (res1.success && res2.success) {
+      if (res1.success) {
         setStatus('success');
         setTimeout(() => setStatus('idle'), 3000);
       } else {
@@ -58,11 +57,12 @@ export default function CommissionEditor({
         <Percent size={12} style={{ position: 'absolute', left: '0.5rem', top: '50%', transform: 'translateY(-50%)', color: '#64748b' }} />
       </div>
 
-      <div style={{ position: 'relative' }}>
+      {/* Free Orders Input Temporarily Disabled for Schema Sync */}
+      <div style={{ position: 'relative', opacity: 0.3, cursor: 'not-allowed' }}>
         <input 
           type="number" 
           value={freeOrders} 
-          onChange={(e) => setFreeOrders(Number(e.target.value))}
+          disabled
           style={{ 
             width: '70px', 
             padding: '0.4rem 0.5rem 0.4rem 1.5rem', 

@@ -24,7 +24,7 @@ export default async function AdminCommissionsPage() {
     <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
       <div style={{ marginBottom: '2.5rem' }}>
         <h1 style={{ fontSize: '2.5rem', fontWeight: 900, color: 'white', marginBottom: '0.75rem', letterSpacing: '-0.025em' }}>佣金管理系統</h1>
-        <p style={{ color: '#94a3b8', fontSize: '1.1rem' }}>監控各商戶的佣金比例、免佣配額與平台收益表現。</p>
+        <p style={{ color: '#94a3b8', fontSize: '1.1rem' }}>監控各商戶的佣金比例與平台收益表現。</p>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
@@ -48,7 +48,7 @@ export default async function AdminCommissionsPage() {
       <div style={{ background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '2rem', padding: '2rem' }}>
         <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'white', marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <PieChart size={24} className="text-indigo-400" />
-          商戶佣金與配額詳情
+          商戶佣金詳情
         </h2>
         
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
@@ -65,15 +65,7 @@ export default async function AdminCommissionsPage() {
                     <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
                        <span style={{ color: '#64748b', fontSize: '0.85rem' }}>完成訂單: <span style={{ color: '#94a3b8' }}>{merchant.completedJobsCount}</span></span>
                        <span style={{ color: '#64748b', fontSize: '0.85rem' }}>當前率: <span style={{ color: rate > 0 ? '#34d399' : '#818cf8', fontWeight: 700 }}>{(rate * 100).toFixed(0)}%</span></span>
-                       {merchant.freeOrdersLeft > 0 ? (
-                         <span style={{ background: 'rgba(16, 185, 129, 0.1)', color: '#34d399', padding: '0.1rem 0.6rem', borderRadius: '2rem', fontSize: '0.75rem', fontWeight: 600 }}>
-                           免佣額度: {merchant.freeOrdersLeft}
-                         </span>
-                       ) : (
-                         <span style={{ background: 'rgba(255, 255, 255, 0.05)', color: '#64748b', padding: '0.1rem 0.6rem', borderRadius: '2rem', fontSize: '0.75rem', fontWeight: 600 }}>
-                           無免佣額度
-                         </span>
-                       )}
+                       {/* Free orders display disabled for schema sync */}
                     </div>
                   </div>
                 </div>
@@ -82,7 +74,7 @@ export default async function AdminCommissionsPage() {
                   <CommissionEditor 
                     merchantId={merchant.id} 
                     initialRate={merchant.commissionRate}
-                    initialFreeOrders={merchant.freeOrdersLeft}
+                    initialFreeOrders={0}
                   />
                 </div>
               </div>
@@ -105,8 +97,8 @@ export default async function AdminCommissionsPage() {
         <div>
           <h4 style={{ color: 'white', fontWeight: 700, marginBottom: '0.25rem' }}>佣金管理說明</h4>
           <p style={{ color: '#94a3b8', fontSize: '0.875rem', lineHeight: 1.6 }}>
-            默認佣金為 8%。若要激活「首 5 單免佣」，請手動將免佣額度設為 5。
-            修改比例後，將立即影響該商戶下一次生成的 Stripe 結帳頁面。
+            默認佣金為 8%。修改比例後，將立即影響該商戶下一次生成的 Stripe 結帳頁面。
+            [免佣配額管理暫時停用，以配合伺服器維護]
           </p>
         </div>
       </div>
