@@ -162,6 +162,9 @@ model Merchant {
   
   // New Commercial Fields
   commissionRate     Float     @default(0.09) // Default 9%
+  
+  // Customization
+  avatarUrl          String?
    
   // Bank Details (UK)
   bankSortCode       String?

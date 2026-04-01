@@ -29,9 +29,9 @@ export async function getMerchantDashboardStats() {
     where: { merchantId }
   });
 
-  const merchant = await prisma.merchant.findUnique({
+  const merchant = await (prisma as any).merchant.findUnique({
     where: { id: merchantId },
-    select: { averageRating: true, totalReviews: true, companyName: true }
+    select: { averageRating: true, totalReviews: true, companyName: true, avatarUrl: true }
   });
 
   return {
@@ -41,7 +41,8 @@ export async function getMerchantDashboardStats() {
     pendingBalance: wallet?.pendingBalance || 0,
     rating: merchant?.averageRating || 0,
     reviews: merchant?.totalReviews || 0,
-    companyName: merchant?.companyName
+    companyName: merchant?.companyName,
+    avatarUrl: merchant?.avatarUrl
   };
 }
 
@@ -214,3 +215,18 @@ export async function disputeBooking(bookingId: string, reason: string) {
 }
 
 import { createNotification } from "./notifications";
+
+export async function updateMerchantAvatar(avatarUrl: string) {
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant not found" };
+  try {
+    await (prisma as any).merchant.update({
+      where: { id: merchantId },
+      data: { avatarUrl }
+    });
+    revalidatePath('/dashboard/merchant');
+    return { success: true };
+  } catch (err: any) {
+    return { error: err.message };
+  }
+}

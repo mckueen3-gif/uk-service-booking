@@ -21,6 +21,12 @@ const DEMO_PROFILE = {
     { day: "Monday", slots: ["16:00", "17:00", "18:00"] },
     { day: "Wednesday", slots: ["15:00", "16:00", "19:00"] },
     { day: "Saturday", slots: ["09:00", "10:00", "11:00"] },
+  ],
+  avatarUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300&h=300",
+  portfolioImages: [
+    "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80&w=600",
+    "https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&q=80&w=600",
+    "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=600"
   ]
 };
 
@@ -35,14 +41,18 @@ export default function TutorProfilePage({ params }: { params: { id: string } })
         <div style={{ flex: 1 }}>
           <div className="glass-panel" style={{ padding: '3rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', marginBottom: '2rem' }}>
             <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start', marginBottom: '2rem' }}>
-              <div style={{ 
-                width: '120px', height: '120px', borderRadius: '50%', 
-                backgroundColor: 'var(--surface-2)', 
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: '3rem', fontWeight: 800, color: 'var(--text-primary)'
-              }}>
-                {DEMO_PROFILE.name.charAt(0)}
-              </div>
+              {DEMO_PROFILE.avatarUrl ? (
+                <img src={DEMO_PROFILE.avatarUrl} alt={DEMO_PROFILE.name} style={{ width: '120px', height: '120px', borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--surface-1)', boxShadow: 'var(--shadow-md)' }} />
+              ) : (
+                <div style={{ 
+                  width: '120px', height: '120px', borderRadius: '50%', 
+                  backgroundColor: 'var(--surface-2)', 
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '3rem', fontWeight: 800, color: 'var(--text-primary)'
+                }}>
+                  {DEMO_PROFILE.name.charAt(0)}
+                </div>
+              )}
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                   <div>
@@ -96,6 +106,26 @@ export default function TutorProfilePage({ params }: { params: { id: string } })
             </div>
           </div>
           
+          {/* Portfolio Section */}
+          {DEMO_PROFILE.portfolioImages && DEMO_PROFILE.portfolioImages.length > 0 && (
+            <div className="glass-panel" style={{ padding: '3rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', marginBottom: '2rem' }}>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '1.5rem' }}>Portfolio & Cases (案例照片)</h3>
+              <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>Take a look at my past work, learning environments, and successful case studies.</p>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
+                {DEMO_PROFILE.portfolioImages.map((imgUrl, idx) => (
+                  <div key={idx} style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', aspectRatio: '4/3' }}>
+                    <img 
+                      src={imgUrl} 
+                      alt={`Portfolio item ${idx + 1}`} 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s' }} 
+                      className="hover-scale"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Reviews Section */}
           <div className="glass-panel" style={{ padding: '3rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)' }}>
             <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '1.5rem' }}>Student Reviews</h3>

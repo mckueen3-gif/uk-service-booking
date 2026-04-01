@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { 
   getMerchantDashboardStats, 
   getMerchantBookings, 
-  updateBookingStatus 
+  updateBookingStatus,
+  updateMerchantAvatar
 } from '@/app/actions/merchant_dashboard';
 import { 
   proposeVariation, 
@@ -102,11 +103,33 @@ export default function MerchantDashboard() {
   return (
     <div className="container" style={{ padding: '2rem 1.5rem', maxWidth: '1200px' }}>
       <header style={{ marginBottom: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-        <div>
-          <h1 style={{ fontSize: '2.2rem', fontWeight: 900, marginBottom: '0.5rem' }}>
-            商戶中心 <span style={{ color: 'var(--accent-color)' }}>Dashboard</span>
-          </h1>
-          <p style={{ color: 'var(--text-secondary)' }}>歡迎回來，{stats?.companyName || '合作夥伴'}。這是您今日的業務概況。</p>
+        <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+          <div style={{ position: 'relative', width: '80px', height: '80px', borderRadius: '50%', border: '4px solid var(--surface-1)', boxShadow: 'var(--shadow-md)', overflow: 'hidden' }} className="hover-scale">
+             <img src={stats?.avatarUrl || "https://ui-avatars.com/api/?name=Merchant"} style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+             <input title="上傳 LOGO / 照片 (Max 2MB)" type="file" accept="image/*" onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) {
+                  if (file.size > 2 * 1024 * 1024) return alert("圖片不能超過 2MB");
+                  const reader = new FileReader();
+                  reader.onloadend = async () => {
+                     const b64 = reader.result as string;
+                     setStats((prev: any) => ({ ...prev, avatarUrl: b64 }));
+                     await updateMerchantAvatar(b64);
+                     alert("更新成功 (Avatar updated)");
+                  };
+                  reader.readAsDataURL(file);
+                }
+             }} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer' }} />
+             <div style={{ position: 'absolute', bottom: 0, width: '100%', background: 'rgba(0,0,0,0.5)', color: 'white', fontSize: '0.65rem', fontWeight: 800, textAlign: 'center', padding: '2px 0', pointerEvents: 'none' }}>
+               上傳圖片
+             </div>
+          </div>
+          <div>
+            <h1 style={{ fontSize: '2.2rem', fontWeight: 900, marginBottom: '0.25rem' }}>
+              商戶中心 <span style={{ color: 'var(--accent-color)' }}>Dashboard</span>
+            </h1>
+            <p style={{ color: 'var(--text-secondary)' }}>歡迎回來，{stats?.companyName || '合作夥伴'}。這是您今日的業務概況。</p>
+          </div>
         </div>
         <div style={{ display: 'flex', gap: '0.75rem' }}>
            <Link href="/services/results" className="btn btn-secondary" style={{ padding: '0.6rem 1rem', fontSize: '0.9rem' }}>預覽商戶頁</Link>

@@ -145,8 +145,32 @@ export default function MerchantPortfolioPage() {
                     </select>
                   </div>
                   <div>
-                    <label style={{ fontWeight: 800, fontSize: '0.9rem', marginBottom: '0.6rem', display: 'block' }}>圖片網址 Image URL</label>
-                    <input placeholder="https://..." required value={formData.imageUrl} onChange={e => setFormData({...formData, imageUrl: e.target.value})} className="input-field" style={{ borderRadius: '12px' }} />
+                    <label style={{ fontWeight: 800, fontSize: '0.9rem', marginBottom: '0.6rem', display: 'block' }}>上傳實際照片 (Upload Photo)</label>
+                    <input 
+                      type="file" 
+                      accept="image/*"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          if (file.size > 2 * 1024 * 1024) {
+                            alert("圖片不能超過 2MB (Image must be under 2MB)");
+                            return;
+                          }
+                          const reader = new FileReader();
+                          reader.onloadend = () => {
+                            setFormData({...formData, imageUrl: reader.result as string});
+                          };
+                          reader.readAsDataURL(file);
+                        }
+                      }} 
+                      className="input-field" 
+                      style={{ borderRadius: '12px', padding: '0.6rem' }} 
+                    />
+                    {formData.imageUrl && (
+                      <div style={{ marginTop: '0.5rem', borderRadius: '12px', overflow: 'hidden', height: '80px', width: '120px', border: '1px solid var(--border-color)' }}>
+                         <img src={formData.imageUrl} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      </div>
+                    )}
                   </div>
                </div>
 

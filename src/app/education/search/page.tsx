@@ -6,11 +6,11 @@ import TutorCard from '@/components/education/TutorCard';
 import { useSearchParams, useRouter } from 'next/navigation';
 
 const DEMO_TUTORS = [
-  { id: "1", name: "Dr. Emily Smith", subjects: "GCSE Maths & Physics", rate: 40, rating: 4.9, reviews: 124, location: "Manchester", mode: "Hybrid", matchScore: 98 },
-  { id: "2", name: "Sarah Connor", subjects: "IELTS Preparation", rate: 30, rating: 4.8, reviews: 89, location: "Online", mode: "Online", matchScore: 92 },
-  { id: "3", name: "Ahmed Hassan", subjects: "A-Level Chemistry", rate: 35, rating: 4.7, reviews: 56, location: "Nottingham", mode: "Offline", matchScore: 85 },
-  { id: "4", name: "Luisa Davies", subjects: "Primary 11+ Preparation", rate: 30, rating: 5.0, reviews: 210, location: "Manchester", mode: "Hybrid", matchScore: 80 },
-  { id: "5", name: "James Williams", subjects: "Python Programming", rate: 45, rating: 4.9, reviews: 45, location: "Online", mode: "Online", matchScore: 75 },
+  { id: "1", name: "Dr. Emily Smith", subjects: "GCSE Maths & Physics", rate: 40, rating: 4.9, reviews: 124, location: "Manchester", mode: "Hybrid", matchScore: 98, avatarUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=150&h=150" },
+  { id: "2", name: "Sarah Connor", subjects: "IELTS Preparation", rate: 30, rating: 4.8, reviews: 89, location: "Online", mode: "Online", matchScore: 92, avatarUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=150&h=150" },
+  { id: "3", name: "Ahmed Hassan", subjects: "A-Level Chemistry", rate: 35, rating: 4.7, reviews: 56, location: "Nottingham", mode: "Offline", matchScore: 85, avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150" },
+  { id: "4", name: "Luisa Davies", subjects: "Primary 11+ Preparation", rate: 30, rating: 5.0, reviews: 210, location: "Manchester", mode: "Hybrid", matchScore: 80, avatarUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150" },
+  { id: "5", name: "James Williams", subjects: "Python Programming", rate: 45, rating: 4.9, reviews: 45, location: "Online", mode: "Online", matchScore: 75, avatarUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150&h=150" },
 ];
 
 function SearchContent() {

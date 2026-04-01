@@ -32,7 +32,7 @@ export default function MerchantProfileClient({ merchant, currentMerchantId }: M
         <div className="container" style={{ position: 'relative', zIndex: 10, paddingBottom: '3rem', width: '100%' }}>
           <div className="animate-fade-up hero-content" style={{ display: 'flex', alignItems: 'center', gap: '2rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
              <div className="animate-float hero-avatar" style={{ width: '120px', height: '120px', borderRadius: '16px', backgroundColor: '#ffffff', padding: '0.4rem', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.3)', flexShrink: 0 }}>
-               <img src="https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=300&q=80" alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '12px' }} />
+               <img src={merchant.avatarUrl || "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=300&q=80"} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '12px' }} />
              </div>
              <div style={{ textAlign: isRTL ? 'right' : 'left' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '0.5rem', flexWrap: 'wrap', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
@@ -106,6 +106,27 @@ export default function MerchantProfileClient({ merchant, currentMerchantId }: M
                 {merchant.description || "Expert provider."}
               </p>
            </section>
+
+           {/* Portfolio Section */}
+           {portfolio && portfolio.length > 0 && (
+             <section className="glass-panel" style={{ padding: '2rem', borderRadius: '16px', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)', marginTop: '2.5rem', textAlign: isRTL ? 'right' : 'left' }}>
+               <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+                 <Sparkles color="var(--accent-color)" /> Portfolio & Cases
+               </h2>
+               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1rem' }}>
+                 {(merchant.portfolioImages || portfolio).map((imgUrl: string, idx: number) => (
+                   <div key={idx} style={{ position: 'relative', borderRadius: '12px', overflow: 'hidden', aspectRatio: '4/3' }}>
+                     <img 
+                       src={imgUrl} 
+                       alt={`Portfolio item ${idx + 1}`} 
+                       style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s' }} 
+                       className="hover-scale"
+                     />
+                   </div>
+                 ))}
+               </div>
+             </section>
+           )}
 
            <AIPricingAnalysis 
              merchantName={merchant.companyName} 

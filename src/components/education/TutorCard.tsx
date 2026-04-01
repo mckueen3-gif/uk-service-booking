@@ -40,14 +40,18 @@ export default function TutorCard({ tutor, isAIMatch = false }: { tutor: any, is
       
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div style={{ display: 'flex', gap: '1rem' }}>
-          <div style={{ 
-            width: '60px', height: '60px', borderRadius: '50%', 
-            backgroundColor: 'var(--surface-2)', 
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)'
-          }}>
-            {name.charAt(0)}
-          </div>
+          {tutor?.avatarUrl ? (
+            <img src={tutor.avatarUrl} alt={name} style={{ width: '60px', height: '60px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--surface-1)' }} />
+          ) : (
+            <div style={{ 
+              width: '60px', height: '60px', borderRadius: '50%', 
+              backgroundColor: 'var(--surface-2)', 
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)'
+            }}>
+              {name.charAt(0)}
+            </div>
+          )}
           <div>
             <h3 style={{ fontSize: '1.2rem', fontWeight: 800, marginBottom: '0.2rem' }}>{name}</h3>
             <p style={{ color: 'var(--accent-color)', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>{subjects}</p>
