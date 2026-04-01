@@ -2,7 +2,6 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import SidebarNav from "@/components/dashboard/SidebarNav";
-import DashboardHeader from "@/components/dashboard/DashboardHeader";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   let session: any = null;
@@ -25,15 +24,15 @@ export default async function DashboardLayout({ children }: { children: React.Re
       {/* Sidebar - Fixed Left */}
       <aside style={{ 
         width: '280px', 
-        height: '100vh',
+        height: 'calc(100vh - 80px)', // Account for top navbar
         position: 'fixed',
         left: 0,
-        top: 0,
+        top: '80px', // Start below navbar
         padding: '2rem 1.5rem',
         borderRight: '1px solid var(--border-color)',
         backgroundColor: 'rgba(255, 255, 255, 0.5)',
         backdropFilter: 'blur(20px)',
-        zIndex: 100,
+        zIndex: 40,
         display: 'flex',
         flexDirection: 'column'
       }}>
@@ -53,9 +52,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
       {/* Content Area */}
       <div style={{ flex: 1, marginLeft: '280px', display: 'flex', flexDirection: 'column' }}>
-        <DashboardHeader userName={userName} />
-        
-        <main style={{ padding: '0 2rem 4rem 2rem', maxWidth: '1400px', width: '100%', margin: '0 auto' }}>
+        <main style={{ padding: '2rem', maxWidth: '1400px', width: '100%', margin: '0 auto' }}>
           {children}
         </main>
       </div>

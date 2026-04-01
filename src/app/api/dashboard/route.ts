@@ -14,8 +14,8 @@ export async function GET(req: NextRequest) {
   try {
     const userId = (session.user as any).id;
 
-    const userWithData = await safeDbQuery(() => 
-      prisma.user.findUnique({
+    const userWithData = await safeDbQuery(async () => {
+      let u = await prisma.user.findUnique({
         where: { id: userId },
         select: {
           id: true,
@@ -59,8 +59,20 @@ export async function GET(req: NextRequest) {
             }
           }
         }
-      })
-    );
+      });
+
+      if (u && !u.referralCode) {
+        // Auto-generate referral code if missing
+        const newCode = Array.from({ length: 8 }, () => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'[Math.floor(Math.random() * 36)]).join('');
+        await prisma.user.update({
+          where: { id: userId },
+          data: { referralCode: newCode }
+        });
+        u.referralCode = newCode;
+      }
+
+      return u;
+    });
 
     if (!userWithData) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });

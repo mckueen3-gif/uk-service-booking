@@ -79,9 +79,14 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
       const res = await fetch('/api/dashboard', { cache: 'no-store' });
       if (res.ok) {
         const newData = await res.json();
-        setData(newData);
-        setLastSync(new Date());
-        localStorage.setItem('dashboard_data', JSON.stringify(newData));
+        // If API returned graceful fallback due to DB error, treat it as a sync failure
+        if (newData?.user?.id === "error-fallback") {
+          setError(true);
+        } else {
+          setData(newData);
+          setLastSync(new Date());
+          localStorage.setItem('dashboard_data', JSON.stringify(newData));
+        }
       } else {
         setError(true);
       }
