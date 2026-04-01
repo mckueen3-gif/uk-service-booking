@@ -147,10 +147,6 @@ export function AppNavbar({ session }: { session: any }) {
                </div>
              )}
           </div>
-          
-          <div style={{ flex: 1, maxWidth: '400px' }}>
-            <NavbarSearch />
-          </div>
         </div>
         
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
@@ -285,6 +281,10 @@ export function AppNavbar({ session }: { session: any }) {
           }}>
             <PenTool size={18} /> {t.nav.aiDiagnosis}
           </Link>
+          
+          <div style={{ width: '220px' }}>
+            <NavbarSearch />
+          </div>
           
           {session?.user ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
