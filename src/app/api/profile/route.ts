@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+import { prisma, safeDbQuery } from "@/lib/prisma";
 
 export const dynamic = 'force-dynamic';
 
@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const user = await prisma.user.findUnique({
+    const user = await safeDbQuery(() => prisma.user.findUnique({
       where: { id: (session.user as any).id },
       select: {
         id: true,
@@ -34,7 +34,7 @@ export async function GET(req: NextRequest) {
           }
         }
       }
-    });
+    }));
 
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
@@ -43,6 +43,16 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(user);
   } catch (error) {
     console.error("Profile API Error:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    
+    // 🛡️ RECOVERY LAYER: Use session info as a last resort
+    const sUser = (session.user as any);
+    return NextResponse.json({
+      id: sUser.id,
+      email: sUser.email,
+      name: sUser.name,
+      role: sUser.role,
+      referralCode: sUser.referralCode || "PENDING",
+      referralCredits: 0
+    }, { status: 200 });
   }
 }

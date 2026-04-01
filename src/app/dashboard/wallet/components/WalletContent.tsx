@@ -124,9 +124,11 @@ export default function WalletContent() {
               borderRadius: '12px',
               border: '1.5px dashed rgba(99, 102, 241, 0.4)'
             }}>
-              <span style={{ fontWeight: 900, color: '#6366f1', fontSize: '1.15rem', letterSpacing: '0.08em' }}>
-                {stats?.referralCode || (
-                  <span style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--text-secondary)' }}>正在載入...</span>
+              <span style={{ fontWeight: 900, color: '#6366f1', fontSize: stats?.referralCode === "PENDING" ? '0.85rem' : '1.15rem', letterSpacing: '0.08em' }}>
+                {(!stats?.referralCode || stats.referralCode === "PENDING") ? (
+                  <span style={{ fontWeight: 500, color: 'var(--text-secondary)' }}>同步中 (Syncing...)</span>
+                ) : (
+                  stats.referralCode
                 )}
               </span>
               {stats?.referralCode && (

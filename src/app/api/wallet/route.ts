@@ -29,6 +29,24 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
+    // 🛡️ Ensure code exists (Auto-generate if missing for existing users)
+    let referralCode = user.referralCode;
+    if (!referralCode) {
+      try {
+        const sessionUser = (session.user as any);
+        const prefix = (sessionUser?.name || "USER").substring(0, 3).toUpperCase().replace(/\s/g, '');
+        const random = Math.floor(1000 + Math.random() * 9000);
+        referralCode = `${prefix}${random}`;
+        
+        await prisma.user.update({
+          where: { id: userId },
+          data: { referralCode }
+        });
+      } catch (e) {
+        console.error("Referral auto-generation failed in wallet API:", e);
+      }
+    }
+
     // 2. Try to fetch creditTransactions separately
     let creditTransactions: any[] = [];
     try {
@@ -51,15 +69,18 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({
       referralCredits: user.referralCredits || 0,
-      referralCode: user.referralCode || "PENDING",
+      referralCode: referralCode || (session.user as any)?.referralCode || "PENDING",
       creditTransactions
     });
   } catch (error: any) {
     console.error("Wallet API Error:", error);
-    // Generic fallback only if user query entirely crashes
+    
+    // 🛡️ RECOVERY LAYER: Attempt from session
+    const sessionUser = (session?.user as any);
+
     return NextResponse.json({
       referralCredits: 0,
-      referralCode: "PENDING",
+      referralCode: sessionUser?.referralCode || "PENDING",
       creditTransactions: []
     }, { status: 200 });
   }
