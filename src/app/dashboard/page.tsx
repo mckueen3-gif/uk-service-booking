@@ -212,9 +212,12 @@ export default async function DashboardOverview() {
             <Link href="/dashboard/garage" style={{ fontSize: '0.85rem', color: 'var(--accent-color)', fontWeight: 800, textDecoration: 'none' }}>
               管理我的資產 →
             </Link>
-          </div>
-          <MaintenanceTimeline />
-        </section>
+            {/* <MaintenanceTimeline /> */}
+            <div style={{ padding: '2rem', textAlign: 'center', backgroundColor: '#f8fafc', borderRadius: '12px', border: '1px dashed #cbd5e1', color: '#64748b' }}>
+              <Clock size={40} style={{ marginBottom: '1rem', opacity: 0.5 }} />
+              <p>Maintenance Timeline is temporarily offline (Debug Mode).</p>
+            </div>
+          </section>
 
         {/* Past Bookings Table */}
         <section className="glass-panel" style={{ padding: '2rem', borderRadius: '28px' }}>
@@ -310,7 +313,11 @@ export default async function DashboardOverview() {
             <button className="btn btn-primary" style={{ borderRadius: '12px' }}><Plus size={18} /> 發布新服務</button>
           </div>
         </div>
-        <MerchantAnalytics />
+        {/* <MerchantAnalytics /> */}
+        <div style={{ padding: '2rem', textAlign: 'center', backgroundColor: '#f0f9ff', borderRadius: '24px', border: '1px dashed #bae6fd', color: '#0369a1' }}>
+          <PieChart size={40} style={{ marginBottom: '1rem', opacity: 0.5 }} />
+          <p>Merchant Analytics dashboard is temporarily offline (Debug Mode).</p>
+        </div>
       </section>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
@@ -406,7 +413,8 @@ export default async function DashboardOverview() {
         </div>
         <h2 style={{ fontSize: '1.8rem', fontWeight: 900, marginBottom: '1rem', color: 'var(--text-primary)' }}>暫時無法載入控制面板</h2>
         <p style={{ color: 'var(--text-muted)', marginBottom: '2.5rem', maxWidth: '500px', margin: '0 auto 2.5rem' }}>
-          我們在獲取您的數據時遇到一點技術問題。這通常是由於系統同步中，請嘗試重新整理。
+          我們在獲取您的數據時遇到一點技術問題。這通常是由於系統同步中，請嘗試重新整理。<br />
+          <span style={{ fontSize: '0.6rem', opacity: 0.5 }}>Error Code: DB-DEEP-RE-003</span>
         </p>
         <Link href="/dashboard" style={{ 
           backgroundColor: 'var(--accent-color)', 

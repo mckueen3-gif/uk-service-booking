@@ -31,7 +31,7 @@ export async function processReferralReward(bookingId: string) {
 
     const referrer = referral.referrer;
     
-    // Reward is 2% of the total amount (Updated from 3% for the passive income program)
+    // Reward is 2% of the total amount (Updated from 2% for the passive income program)
     const rewardAmount = Math.floor(booking.totalAmount * 0.02 * 100) / 100;
 
     await prisma.$transaction([
