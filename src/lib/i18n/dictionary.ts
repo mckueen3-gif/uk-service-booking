@@ -44,17 +44,35 @@ export interface Dictionary {
     dashboard: {
       title: string; welcome: string; previewProfile: string; manageServices: string;
       stats: { totalBookings: string; rating: string; pendingBalance: string; availableBalance: string; totalJobs: string; escrowHeld: string; availableNow: string; reviews: string };
-       syncStatus: string;
-       lastSynced: string;
-       refresh: string;
-       syncing: string;
-       syncFailed: string;
-       wallet: {
-         syncing: string;
-         synced: string;
-         generating: string;
-       };
-       bookings: { title: string; viewAll: string; empty: string; completed: string; actions: { confirm: string; complete: string; variation: string } };
+      syncStatus: string;
+      lastSynced: string;
+      refresh: string;
+      syncing: string;
+      syncFailed: string;
+      wallet: {
+        syncing: string;
+        synced: string;
+        generating: string;
+        referralTitle: string;
+        referralDesc: string;
+        historyTitle: string;
+        historyEmpty: string;
+        type: string;
+        description: string;
+        amount: string;
+        date: string;
+        referralListTitle: string;
+        referralListDesc: string;
+        referee: string;
+        earned: string;
+        expiry: string;
+        status: string;
+        active: string;
+        expired: string;
+        joinedAt: string;
+        validUntil: string;
+      };
+      bookings: { title: string; viewAll: string; empty: string; completed: string; actions: { confirm: string; complete: string; variation: string } };
       status: { pending: string; confirmed: string; completed: string; cancelled: string };
       variations: { label: string; status: string; pending: string; approved: string; rejected: string; arbiterActive: string };
       arbiterReasoning: string;

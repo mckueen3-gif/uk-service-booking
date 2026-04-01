@@ -123,8 +123,11 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
           setLastSync(new Date());
           localStorage.setItem('dashboard_data', JSON.stringify(newData));
           
-          // 🚀 SYNC SESSION: If the code was just generated, update the session
-          if (newData?.user?.referralCode && newData.user.referralCode !== "REF-PENDING") {
+          // 🚀 SYNC SESSION: Only update if it's a REAL code (not a fallback key)
+          if (newData?.user?.referralCode && 
+              newData.user.referralCode !== "REF-PENDING" && 
+              newData.user.referralCode !== "REF-SYNCING" &&
+              newData.user.referralCode !== (session?.user as any)?.referralCode) {
              update({ referralCode: newData.user.referralCode });
           }
         }
@@ -160,7 +163,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
     return () => clearInterval(interval);
   }, [refreshData]);
 
-  const { update } = useSession();
+  const { data: session, update } = useSession();
   const { user, isMerchant, merchantData, bookings } = data || {};
   const activeBookings = (bookings || []).filter((b: any) =>
     b.status === "PENDING" || b.status === "CONFIRMED"

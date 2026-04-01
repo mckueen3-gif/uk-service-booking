@@ -93,7 +93,7 @@ export default function WalletContent() {
              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: '#10b981', fontWeight: 700 }}>
                 <TrendingUp size={16} /> +12% vs last month
              </div>
-             <div style={{ fontSize: '0.85rem', color: '#94a3b8' }}>可用於折抵下一次服務</div>
+             <div style={{ fontSize: '0.85rem', color: '#94a3b8' }}>{t.merchant.dashboard.wallet.availableNow}</div>
           </div>
         </div>
 
@@ -105,7 +105,7 @@ export default function WalletContent() {
               <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', padding: '0.5rem', borderRadius: '0.75rem' }}>
                 <Ticket size={24} color="#ef4444" />
               </div>
-              <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)' }}>兑換優惠碼</h2>
+              <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)' }}>英國服務禮券兌換</h2>
             </div>
             <VoucherForm />
           </div>
@@ -116,10 +116,10 @@ export default function WalletContent() {
               <div style={{ backgroundColor: 'rgba(99, 102, 241, 0.12)', padding: '0.5rem', borderRadius: '0.75rem' }}>
                 <Gift size={24} color="#6366f1" />
               </div>
-              <h2 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--text-primary)' }}>推薦好友，享 2% 回饋</h2>
+              <h2 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--text-primary)' }}>{t.merchant.dashboard.wallet.referralTitle}</h2>
             </div>
             <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
-              分享您的專屬推薦碼，好友首次預約後您将獲得 2% 回饋累積下來。
+              {t.merchant.dashboard.wallet.referralDesc}
             </p>
             <div style={{
               display: 'flex',
@@ -155,23 +155,23 @@ export default function WalletContent() {
       <div className="glass-panel" style={{ padding: '2.5rem', borderRadius: '24px', border: '1px solid var(--border-color)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
           <History size={24} color="var(--accent-color)" />
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 800 }}>點數明細 (Transaction History)</h2>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 800 }}>{t.merchant.dashboard.wallet.historyTitle}</h2>
         </div>
         
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
               <tr style={{ borderBottom: '1px solid #f1f5f9', color: '#64748b', fontSize: '0.9rem' }}>
-                <th style={{ paddingBottom: '1.25rem', fontWeight: 600 }}>類型</th>
-                <th style={{ paddingBottom: '1.25rem', fontWeight: 600 }}>說明</th>
-                <th style={{ paddingBottom: '1.25rem', fontWeight: 600 }}>金額</th>
-                <th style={{ paddingBottom: '1.25rem', fontWeight: 600 }}>日期</th>
+                <th style={{ paddingBottom: '1.25rem', fontWeight: 600 }}>{t.merchant.dashboard.wallet.type}</th>
+                <th style={{ paddingBottom: '1.25rem', fontWeight: 600 }}>{t.merchant.dashboard.wallet.description}</th>
+                <th style={{ paddingBottom: '1.25rem', fontWeight: 600 }}>{t.merchant.dashboard.wallet.amount}</th>
+                <th style={{ paddingBottom: '1.25rem', fontWeight: 600 }}>{t.merchant.dashboard.wallet.date}</th>
               </tr>
             </thead>
             <tbody>
               {stats?.creditTransactions?.length === 0 ? (
                 <tr>
-                  <td colSpan={4} style={{ padding: '4rem', textAlign: 'center', color: '#94a3b8' }}>目前尚無交易紀錄</td>
+                  <td colSpan={4} style={{ padding: '4rem', textAlign: 'center', color: '#94a3b8' }}>{t.merchant.dashboard.wallet.historyEmpty}</td>
                 </tr>
               ) : (
                 stats?.creditTransactions?.map((tx: any) => (
@@ -207,8 +207,8 @@ export default function WalletContent() {
               <Users size={24} color="#10b981" />
             </div>
             <div>
-               <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>我的推薦紀錄 (Referral List)</h2>
-               <p style={{ fontSize: '0.85rem', color: '#64748b' }}>追蹤由您邀請加入的夥伴及其貢獻的 2% 永久收益</p>
+               <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>{t.merchant.dashboard.wallet.referralListTitle}</h2>
+               <p style={{ fontSize: '0.85rem', color: '#64748b' }}>{t.merchant.dashboard.wallet.referralListDesc}</p>
             </div>
           </div>
           
@@ -216,14 +216,15 @@ export default function WalletContent() {
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid var(--border-color)', color: '#64748b' }}>
-                  <th style={{ paddingBottom: '1.25rem', paddingRight: '1rem', fontWeight: 600 }}>被推薦用戶</th>
-                  <th style={{ paddingBottom: '1.25rem', paddingRight: '1rem', fontWeight: 600 }}>累積收益 (2%)</th>
-                  <th style={{ paddingBottom: '1.25rem', paddingRight: '1rem', fontWeight: 600 }}>佣金有效期 (5年)</th>
-                  <th style={{ paddingBottom: '1.25rem', fontWeight: 600 }}>狀態 Status</th>
+                  <th style={{ paddingBottom: '1.25rem', paddingRight: '1rem', fontWeight: 600 }}>{t.merchant.dashboard.wallet.referee}</th>
+                  <th style={{ paddingBottom: '1.25rem', paddingRight: '1rem', fontWeight: 600 }}>{t.merchant.dashboard.wallet.earned}</th>
+                  <th style={{ paddingBottom: '1.25rem', paddingRight: '1rem', fontWeight: 600 }}>{t.merchant.dashboard.wallet.expiry}</th>
+                  <th style={{ paddingBottom: '1.25rem', fontWeight: 600 }}>{t.merchant.dashboard.wallet.status}</th>
                 </tr>
               </thead>
               <tbody>
                 {stats.referralsMade.map((ref: any) => {
+                  const createdAtDate = new Date(ref.createdAt);
                   const expiryDate = new Date(ref.createdAt);
                   expiryDate.setFullYear(expiryDate.getFullYear() + 5);
                   const isExpired = expiryDate < new Date();
@@ -232,17 +233,17 @@ export default function WalletContent() {
                     <tr key={ref.id} style={{ borderBottom: '1px solid #f8fafc', opacity: isExpired ? 0.6 : 1 }}>
                       <td style={{ padding: '1.5rem 0', paddingRight: '1rem' }}>
                         <div style={{ fontWeight: 800, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                           {ref.referee?.name || '匿名用戶'}
+                           {ref.referee?.name || (locale === 'zh-TW' ? '匿名用戶' : 'Anonymous User')}
                            {!isExpired && <Sparkles size={14} color="#f59e0b" />}
                         </div>
-                        <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>註冊於 {new Date(ref.createdAt).toLocaleDateString()}</div>
+                        <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>{t.merchant.dashboard.wallet.joinedAt} {createdAtDate.toLocaleDateString()}</div>
                       </td>
                       <td style={{ padding: '1.5rem 0', paddingRight: '1rem', color: 'var(--accent-color)', fontWeight: 900 }}>
                         £{(ref.earnedFromReferee || 0).toFixed(2)}
                       </td>
                       <td style={{ padding: '1.5rem 0', paddingRight: '1rem' }}>
                         <div style={{ color: isExpired ? '#ef4444' : 'var(--text-primary)', fontWeight: 600 }}>
-                           {expiryDate.getFullYear()}年{expiryDate.getMonth()+1}月截止
+                           {expiryDate.toLocaleDateString()} {t.merchant.dashboard.wallet.validUntil}
                         </div>
                       </td>
                       <td style={{ padding: '1.5rem 0' }}>
@@ -257,7 +258,7 @@ export default function WalletContent() {
                           letterSpacing: '0.05em',
                           border: isExpired ? '1px solid rgba(239, 68, 68, 0.1)' : '1px solid rgba(16, 185, 129, 0.1)'
                         }}>
-                          {isExpired ? "已過期 Expired" : "收益中 Active"}
+                          {isExpired ? t.merchant.dashboard.wallet.expired : t.merchant.dashboard.wallet.active}
                         </span>
                       </td>
                     </tr>
