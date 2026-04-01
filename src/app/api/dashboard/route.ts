@@ -81,6 +81,17 @@ export async function GET(req: NextRequest) {
     });
   } catch (error) {
     console.error("Dashboard API Error:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    // Return graceful fallback so dashboard shell still renders
+    return NextResponse.json({
+      user: {
+        id: "error-fallback",
+        name: "User",
+        email: "",
+        role: "CUSTOMER"
+      },
+      isMerchant: false,
+      merchantData: null,
+      bookings: []
+    }, { status: 200 });
   }
 }

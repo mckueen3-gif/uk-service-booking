@@ -110,10 +110,10 @@ export default function WalletContent() {
               <div style={{ backgroundColor: 'rgba(99, 102, 241, 0.12)', padding: '0.5rem', borderRadius: '0.75rem' }}>
                 <Gift size={24} color="#6366f1" />
               </div>
-              <h2 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--text-primary)' }}>推薦好友，享 2% 回饵</h2>
+              <h2 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--text-primary)' }}>推薦好友，享 2% 回饋</h2>
             </div>
             <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
-              分享您的專屬推薦碼，好友首次預約後您將獲得 2% 回饵累積下來。
+              分享您的專屬推薦碼，好友首次預約後您將獲得 2% 回饋累積下來。
             </p>
             <div style={{
               display: 'flex',
