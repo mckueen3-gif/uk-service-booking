@@ -19,6 +19,7 @@ import {
 import Link from 'next/link';
 import { useTranslation } from "@/components/LanguageContext";
 import { claimReferralCode } from "@/app/actions/referral";
+import { useSession } from "next-auth/react";
 
 const STATUS_COLOR: Record<string, { bg: string; text: string }> = {
   CONFIRMED: { bg: 'rgba(16, 185, 129, 0.12)', text: '#10b981' },
@@ -113,6 +114,11 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
           setData(newData);
           setLastSync(new Date());
           localStorage.setItem('dashboard_data', JSON.stringify(newData));
+          
+          // 🚀 SYNC SESSION: If the code was just generated, update the session
+          if (newData?.user?.referralCode && newData.user.referralCode !== "REF-PENDING") {
+             update({ referralCode: newData.user.referralCode });
+          }
         }
       } else {
         setError(true);
@@ -146,6 +152,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
     return () => clearInterval(interval);
   }, [refreshData]);
 
+  const { update } = useSession();
   const { user, isMerchant, merchantData, bookings } = data || {};
   const activeBookings = (bookings || []).filter((b: any) =>
     b.status === "PENDING" || b.status === "CONFIRMED"
@@ -275,8 +282,8 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
           <div style={{ padding: '0.5rem', borderRadius: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <div style={{ paddingLeft: '0.5rem' }}>
               <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', fontWeight: 800, color: 'var(--text-muted)', marginBottom: '0.2rem' }}>{t.home.referralCTA.referralLabel}</div>
-              <code style={{ fontSize: '1.2rem', fontWeight: 900, color: 'var(--accent-color)', letterSpacing: '1px' }}>
-                {user?.referralCode ? user.referralCode : (loading || syncing ? '...' : 'REF-PENDING')}
+              <code style={{ fontSize: user?.referralCode === "REF-PENDING" ? '0.8rem' : '1.2rem', fontWeight: 900, color: 'var(--accent-color)', letterSpacing: '1px' }}>
+                {user?.referralCode === "REF-PENDING" ? "同步中 (Syncing...)" : (user?.referralCode || (loading || syncing ? '...' : 'REF-PENDING'))}
               </code>
             </div>
             <button onClick={() => {
