@@ -71,6 +71,7 @@ export interface Dictionary {
         expired: string;
         joinedAt: string;
         validUntil: string;
+        availableNow: string;
       };
       bookings: { title: string; viewAll: string; empty: string; completed: string; actions: { confirm: string; complete: string; variation: string } };
       status: { pending: string; confirmed: string; completed: string; cancelled: string };

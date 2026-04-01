@@ -74,7 +74,8 @@ export const en: Dictionary = {
         active: "Active",
         expired: "Expired",
         joinedAt: "Joined at",
-        validUntil: "Valid until"
+        validUntil: "Valid until",
+        availableNow: "Available Now"
       },
       bookings: { title: "Recent Appointments", viewAll: "View All Bookings", empty: "No recent bookings", completed: "Completed", actions: { confirm: "Confirm", complete: "Mark Complete", variation: "Request Extra" } },
       status: { pending: "Pending", confirmed: "Confirmed", completed: "Completed", cancelled: "Cancelled" },

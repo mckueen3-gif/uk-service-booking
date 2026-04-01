@@ -74,7 +74,8 @@ export const ur: Dictionary = {
         active: "فعال",
         expired: "میعاد ختم",
         joinedAt: "شامل ہوا",
-        validUntil: "تک کارآمد"
+        validUntil: "تک کارآمد",
+        availableNow: "ابھی دستیاب"
       },
       bookings: { title: "حالیہ تقرریاں", viewAll: "تمام بکنگ دیکھیں", empty: "کوئی حالیہ بکنگ نہیں", completed: "مکمل", actions: { confirm: "تصدیق کریں", complete: "مکمل نشان زد کریں", variation: "اضافی درخواست کریں" } },
       status: { pending: "زیر التواء", confirmed: "تصدیق شدہ", completed: "مکمل", cancelled: "منسوخ" },

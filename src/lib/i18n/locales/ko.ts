@@ -74,7 +74,8 @@ export const ko: Dictionary = {
         active: "활성",
         expired: "만료됨",
         joinedAt: "가입일",
-        validUntil: "유효기간"
+        validUntil: "유효기간",
+        availableNow: "현재 이용 가능"
       },
       bookings: { title: "최근 예약", viewAll: "모든 예약 보기", empty: "최근 예약이 없습니다", completed: "완료", actions: { confirm: "확정", complete: "완료 표시", variation: "추가 결제 요청" } },
       status: { pending: "대기 중", confirmed: "확정됨", completed: "완료", cancelled: "취소됨" },

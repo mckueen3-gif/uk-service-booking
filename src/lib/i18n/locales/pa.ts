@@ -74,7 +74,8 @@ export const pa: Dictionary = {
         active: "ਸਰਗਰਮ",
         expired: "ਮਿਆਦ ਪੁੱਗ ਗਈ",
         joinedAt: "ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਏ",
-        validUntil: "ਤੱਕ ਵੈਧ"
+        validUntil: "ਤੱਕ ਵੈਧ",
+        availableNow: "ਹੁਣ ਉਪਲਬਧ"
       },
       bookings: { title: "ਹਾਲੀਆ ਮੁਲਾਕाਤਾਂ", viewAll: "ਸਾਰੀਆਂ ਬੁਕਿੰਗਾਂ ਦੇਖੋ", empty: "ਕੋਈ ਹਾਲੀਆ ਬੁਕਿੰਗ ਨਹੀਂ", completed: "ਪੂਰਾ ਹੋਇਆ", actions: { confirm: "ਪੁਸ਼ਟੀ ਕਰੋ", complete: "ਪੂਰਾ ਮਾਰਕ ਕਰੋ", variation: "ਵਾਧੂ ਬੇਨਤੀ ਕਰੋ" } },
       status: { pending: "ਬਕਾਇਆ", confirmed: "ਪੁਸ਼ਟੀ ਕੀਤੀ", completed: "ਪੂਰਾ ਹੋਇਆ", cancelled: "ਰੱਦ ਕੀਤਾ ਗਿਆ" },

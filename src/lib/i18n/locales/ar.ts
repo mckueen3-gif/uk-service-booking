@@ -74,7 +74,8 @@ export const ar: Dictionary = {
         active: "نشط",
         expired: "منتهي",
         joinedAt: "سجل في",
-        validUntil: "صالح حتى"
+        validUntil: "صالح حتى",
+        availableNow: "متاح الآن"
       },
       bookings: { title: "المواعيد الأخيرة", viewAll: "عرض جميع الحجوزات", empty: "لا توجد حجوزات أخيرة", completed: "مكتمل", actions: { confirm: "تأكيد", complete: "تحديد كمكتمل", variation: "طلب إضافي" } },
       status: { pending: "معلق", confirmed: "مؤكد", completed: "مكتمل", cancelled: "ملغى" },

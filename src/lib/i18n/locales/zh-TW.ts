@@ -74,7 +74,8 @@ export const zhTW: Dictionary = {
         active: "收益中",
         expired: "已過期",
         joinedAt: "註冊於",
-        validUntil: "截止"
+        validUntil: "截止",
+        availableNow: "目前可用"
       },
       bookings: { title: "近期預約", viewAll: "查看所有預訂", empty: "近期無預約", completed: "已完成", actions: { confirm: "確認", complete: "標記為完成", variation: "請求額外支付" } },
       status: { pending: "等待中", confirmed: "已確認", completed: "已完成", cancelled: "已取消" },

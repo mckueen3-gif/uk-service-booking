@@ -74,7 +74,8 @@ export const hi: Dictionary = {
         active: "सक्रिय",
         expired: "समाप्त",
         joinedAt: "में शामिल हुए",
-        validUntil: "तक वैध"
+        validUntil: "तक वैध",
+        availableNow: "अब उपलब्ध"
       },
       bookings: { title: "हालिया नियुक्तियां", viewAll: "सभी बुकिंग देखें", empty: "कोई हालिया बुकिंग नहीं", completed: "पूरा हुआ", actions: { confirm: "पुष्टि करें", complete: "पूरा मार्क करें", variation: "अतिरिक्त अनुरोध करें" } },
       status: { pending: "लंबित", confirmed: "पुष्टि की गई", completed: "पूरा हुआ", cancelled: "रद्द किया गया" },

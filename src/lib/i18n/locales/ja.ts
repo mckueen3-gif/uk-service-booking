@@ -74,7 +74,8 @@ export const ja: Dictionary = {
         active: "有効",
         expired: "期限切れ",
         joinedAt: "登録日",
-        validUntil: "有効期限"
+        validUntil: "有効期限",
+        availableNow: "現在利用可能"
       },
       bookings: { title: "最近の予約", viewAll: "すべての予約を見る", empty: "最近の予約はありません", completed: "完了", actions: { confirm: "確定", complete: "完了にする", variation: "追加支払いをリクエスト" } },
       status: { pending: "保留中", confirmed: "確定済み", completed: "完了", cancelled: "キャンセル済み" },

@@ -74,7 +74,8 @@ export const ro: Dictionary = {
         active: "Activ",
         expired: "Expirat",
         joinedAt: "Înregistrat la",
-        validUntil: "Valabil până la"
+        validUntil: "Valabil până la",
+        availableNow: "Disponibil acum"
       },
       bookings: { title: "Programări recente", viewAll: "Vezi toate rezervările", empty: "Nicio rezervare recentă", completed: "Finalizat", actions: { confirm: "Confirmă", complete: "Marchează ca finalizat", variation: "Solicită extra" } },
       status: { pending: "În așteptare", confirmed: "Confirmat", completed: "Finalizat", cancelled: "Anulat" },

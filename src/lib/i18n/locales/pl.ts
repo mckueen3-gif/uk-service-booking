@@ -74,7 +74,8 @@ export const pl: Dictionary = {
         active: "Aktywny",
         expired: "Wygasł",
         joinedAt: "Dołączył w",
-        validUntil: "Ważne do"
+        validUntil: "Ważne do",
+        availableNow: "Dostępne teraz"
       },
       bookings: { title: "Ostatnie spotkania", viewAll: "Zobacz wszystkie rezerwacje", empty: "Brak ostatnich rezerwacji", completed: "Zakończone", actions: { confirm: "Potwierdź", complete: "Oznacz jako zakończone", variation: "Poproś o dodatek" } },
       status: { pending: "Oczekujące", confirmed: "Potwierdzone", completed: "Zakończone", cancelled: "Anulowane" },
