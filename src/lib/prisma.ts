@@ -14,24 +14,23 @@ if (globalForPrisma.prisma) {
   prismaClient = globalForPrisma.prisma;
 } else {
   // For Serverless, we MUST limit the pool size. 
-  // Each Vercel function should ideally take 1 connection.
+  // Serverless functions should aggressively limit connection count
   const pool = new Pool({ 
     connectionString,
-    max: 3, // Increased to 3 to handle concurrent Dashboard + Profile/Notification syncs
-    connectionTimeoutMillis: 10000, 
-    idleTimeoutMillis: 30000,
+    max: 1, // MUST be 1 for Serverless to prevent pool exhaustion 
+    connectionTimeoutMillis: 5000, 
+    idleTimeoutMillis: 10000,
   });
   
   const adapter = new PrismaPg(pool as any);
   
   prismaClient = new PrismaClient({ 
     adapter,
-    log: process.env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
+    log: process.env.NODE_ENV === "development" ? ["error", "warn"] : ["error"],
   } as any);
   
-  if (process.env.NODE_ENV !== "production") {
-    globalForPrisma.prisma = prismaClient;
-  }
+  // Cache globally in ALL environments to prevent leaks on warm invocations
+  globalForPrisma.prisma = prismaClient;
 }
 
 export const prisma = prismaClient;
@@ -49,11 +48,12 @@ export async function safeDbQuery<T>(queryFn: () => Promise<T>, retries = 2, del
     } catch (error: any) {
       lastError = error;
       const errorStr = String(error);
-      const isPoolIssue = errorStr.includes("pool") || errorStr.includes("client") || errorStr.includes("timeout") || errorStr.includes("6543");
+      const isPoolIssue = errorStr.includes("pool") || errorStr.includes("client") || errorStr.includes("timeout") || errorStr.includes("6543") || errorStr.includes("MaxClients");
       
       if (isPoolIssue && i < retries) {
-        console.warn(`[Prisma Retry] Pool issue detected, retrying in ${delay}ms... (Attempt ${i+1}/${retries})`);
-        await new Promise(resolve => setTimeout(resolve, delay));
+         // Force garbage collection of old connections by letting Node breathe
+        console.warn(`[Prisma Retry] DB Pool busy, waiting ${delay * (i+1)}ms...`);
+        await new Promise(resolve => setTimeout(resolve, delay * (i + 1)));
         continue;
       }
       throw error;
