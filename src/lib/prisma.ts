@@ -16,8 +16,7 @@ if (globalForPrisma.prisma) {
   // For Serverless, we MUST limit the pool size. 
   // Each Vercel function should ideally take 1 connection.
   const pool = new Pool({ 
-    connectionString,
-    max: 1, // CRITICAL for serverless connection pooling
+    max: 3, // Increased buffer for navigation contention
     connectionTimeoutMillis: 10000, 
     idleTimeoutMillis: 30000,
   });

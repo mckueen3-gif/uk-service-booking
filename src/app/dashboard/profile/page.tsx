@@ -11,6 +11,8 @@ export default async function ProfilePage() {
   
   if (!session || !session.user) redirect("/auth/login");
   
+  // Resilient check: If DB lookup fails due to connection pool saturation, 
+  // we let it bubble to the error.tsx instead of blindly redirecting to login.
   const user = await prisma.user.findUnique({
     where: { id: (session.user as any).id },
     select: {
@@ -35,7 +37,12 @@ export default async function ProfilePage() {
     }
   });
   
-  if (!user) redirect("/auth/login");
+  if (!user) {
+    // This case only happens if session and DB are truly out of sync (rare).
+    // In serverless environments, connection failures throw an exception,
+    // which is caught by error.tsx.
+    redirect("/auth/login");
+  }
 
   const isMerchant = user.role === "MERCHANT";
 
