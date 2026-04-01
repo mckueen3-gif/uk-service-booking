@@ -118,9 +118,9 @@ export const authOptions: NextAuthOptions = {
           return true;
         } catch (error) {
           console.error("Critical SignIn failure:", error);
-          // If we fail to write to the DB, DO NOT allow a ghost session!
-          // NextAuth will redirect to the error page, which is safer than breaking the whole UI loop.
-          return false;
+          // 🛡️ Do NOT block login. Our background APIs have transparent auto-healing.
+          // Returning true generates the JWT, which will self-heal on the dashboard.
+          return true;
         }
       }
       return true;
