@@ -1,6 +1,7 @@
 // Lazy instance holders
 let _genAI: any = null;
 let _xai: any = null;
+let _openai: any = null;
 
 async function getGeminiClient() {
   const apiKey = process.env.GEMINI_API_KEY;
@@ -25,6 +26,17 @@ async function getXAIClient() {
     });
   }
   return _xai;
+}
+
+async function getOpenAIClient() {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) throw new Error("OPENAI_API_KEY is missing");
+
+  if (!_openai) {
+    const { default: OpenAI } = await import("openai");
+    _openai = new OpenAI({ apiKey });
+  }
+  return _openai;
 }
 
 /**
@@ -75,18 +87,47 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
     messages.push({ role: 'user', content: req.prompt });
   }
 
-  // 1. Try Grok (Primary)
-  if (process.env.XAI_API_KEY) {
+  // 1. Try Grok (Primary - Only if no image represents Grok does not support vision yet on this account)
+  if (process.env.XAI_API_KEY && !req.image) {
     try {
-      console.info("[AI Provider] Attempting Primary (xAI Grok)...");
+      console.info("[AI Provider] Attempting Primary (xAI Grok 3)...");
       const grokMessages: any[] = [];
       if (req.systemPrompt) {
         grokMessages.push({ role: "system", content: req.systemPrompt });
       }
 
       for (const m of messages) {
+        grokMessages.push({ role: m.role, content: m.content });
+      }
+
+      const client = await getXAIClient();
+      const response = await client.chat.completions.create({
+        model: "grok-3",
+        messages: grokMessages,
+        response_format: req.jsonMode ? { type: "json_object" } : undefined,
+        temperature: 0.1,
+      });
+
+      const content = response.choices[0].message.content;
+      if (content) return content;
+    } catch (error: any) {
+      console.error("[AI Provider] Grok failed, moving to next tier...", error);
+      if (req.onPrimaryError) req.onPrimaryError(error);
+    }
+  }
+
+  // 2. Try OpenAI GPT-4o-mini (Secondary / Primary for Vision)
+  if (process.env.OPENAI_API_KEY) {
+    try {
+      console.info("[AI Provider] Attempting OpenAI (GPT-4o-mini)...");
+      const openaiMessages: any[] = [];
+      if (req.systemPrompt) {
+        openaiMessages.push({ role: "system", content: req.systemPrompt });
+      }
+
+      for (const m of messages) {
         if (m.role === 'user' && req.image && m === messages[messages.length - 1]) {
-          grokMessages.push({
+          openaiMessages.push({
             role: "user",
             content: [
               { type: "text", text: m.content },
@@ -97,14 +138,14 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
             ]
           });
         } else {
-          grokMessages.push({ role: m.role, content: m.content });
+          openaiMessages.push({ role: m.role, content: m.content });
         }
       }
 
-      const client = await getXAIClient();
+      const client = await getOpenAIClient();
       const response = await client.chat.completions.create({
-        model: req.image ? "grok-2-vision-latest" : "grok-3",
-        messages: grokMessages,
+        model: "gpt-4o-mini",
+        messages: openaiMessages,
         response_format: req.jsonMode ? { type: "json_object" } : undefined,
         temperature: 0.1,
       });
@@ -112,8 +153,8 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
       const content = response.choices[0].message.content;
       if (content) return content;
     } catch (error: any) {
-      console.error("[AI Provider] Grok failed, moving to fallback...", error);
-      if (req.onPrimaryError) req.onPrimaryError(error);
+      console.error("[AI Provider] OpenAI failed, moving to last fallback...", error);
+      // If Grok already failed and now OpenAI failed, this is getting serious
     }
   }
 
