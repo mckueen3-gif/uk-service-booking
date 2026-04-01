@@ -103,7 +103,7 @@ export async function generateAIContent(req: AIRequest): Promise<string> {
 
       const client = await getXAIClient();
       const response = await client.chat.completions.create({
-        model: req.image ? "grok-2-vision-1212" : "grok-2-1212",
+        model: req.image ? "grok-2-vision-latest" : "grok-3",
         messages: grokMessages,
         response_format: req.jsonMode ? { type: "json_object" } : undefined,
         temperature: 0.1,
@@ -121,9 +121,9 @@ export async function generateAIContent(req: AIRequest): Promise<string> {
     throw new Error("No AI API Keys configured (XAI_API_KEY and GEMINI_API_KEY are missing)");
   }
 
-  console.info("[AI Provider] Attempting Fallback (Google Gemini 1.5 Flash)...");
+  console.info("[AI Provider] Attempting Fallback (Google Gemini 2.0 Flash)...");
   const geminiClient = await getGeminiClient();
-  const model = geminiClient.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = geminiClient.getGenerativeModel({ model: "gemini-2.0-flash" });
 
   const contents = messages.map((m, idx) => {
     const parts: any[] = [{ text: m.content }];
