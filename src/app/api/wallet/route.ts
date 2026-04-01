@@ -14,16 +14,13 @@ export async function GET(req: NextRequest) {
   try {
     const userId = (session.user as any).id;
 
+    // 1. Fetch user base fields independently so we ALWAYS get the referral code
     const user = await safeDbQuery(() =>
       prisma.user.findUnique({
         where: { id: userId },
         select: {
           referralCredits: true,
           referralCode: true,
-          creditTransactions: {
-            orderBy: { createdAt: "desc" },
-            take: 20
-          }
         }
       })
     );
@@ -32,18 +29,35 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
+    // 2. Try to fetch creditTransactions separately
+    let creditTransactions: any[] = [];
+    try {
+      const txs = await safeDbQuery(() =>
+        (prisma as any).creditTransaction?.findMany({
+          where: { userId },
+          orderBy: { createdAt: "desc" },
+          take: 20
+        })
+      );
+      if (txs) {
+        creditTransactions = txs;
+      }
+    } catch (e) {
+      console.warn("Could not fetch credit transactions (table might be missing)");
+    }
+
     return NextResponse.json({
       referralCredits: user.referralCredits || 0,
-      referralCode: user.referralCode || "",
-      creditTransactions: user.creditTransactions || []
+      referralCode: user.referralCode || "PENDING",
+      creditTransactions
     });
   } catch (error: any) {
     console.error("Wallet API Error:", error);
-    // Fallback data if table (like creditTransactions) is missing
+    // Generic fallback only if user query entirely crashes
     return NextResponse.json({
       referralCredits: 0,
       referralCode: "PENDING",
       creditTransactions: []
-    }, { status: 200 }); // Return 200 so UI doesn't show connection error but handles empty state
+    }, { status: 200 });
   }
 }

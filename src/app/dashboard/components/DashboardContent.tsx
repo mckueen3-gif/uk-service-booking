@@ -9,7 +9,12 @@ import {
   TrendingUp,
   MessageSquare,
   Loader2,
-  RefreshCw
+  RefreshCw,
+  Users,
+  Gift,
+  Copy,
+  Car,
+  Home
 } from "lucide-react";
 import Link from 'next/link';
 
@@ -163,7 +168,6 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
               title="總收入"
               value={`£${(merchantData?.wallet?.totalEarned || 0).toFixed(2)}`}
               icon={<Wallet size={24} />}
-              trend="+12% 較上月"
               loading={loading && !data}
             />
             <StatCard
@@ -178,6 +182,12 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
               icon={<CheckCircle size={24} />}
               loading={loading && !data}
             />
+            <StatCard
+              title="推廣獎勵"
+              value={`£${(user?.referralCredits || 0).toFixed(2)}`}
+              icon={<Gift size={24} />}
+              loading={loading && !data}
+            />
           </>
         ) : (
           <>
@@ -185,7 +195,6 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
               title="進行中預約"
               value={activeBookings.length}
               icon={<Calendar size={24} />}
-              trend={activeBookings.length > 0 ? `${activeBookings.length} 筆待服務` : undefined}
               loading={loading && !data}
             />
             <StatCard
@@ -195,14 +204,136 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
               loading={loading && !data}
             />
             <StatCard
-              title="總預約次數"
-              value={(bookings || []).length}
-              icon={<MessageSquare size={24} />}
+              title="推廣獎勵"
+              value={`£${(user?.referralCredits || 0).toFixed(2)}`}
+              icon={<Gift size={24} />}
               loading={loading && !data}
             />
           </>
         )}
       </div>
+
+      {/* 🚀 NEW: Referral Program Banner */}
+      <section className="glass-panel animate-fade-up" style={{ 
+        padding: '2rem', 
+        borderRadius: '24px', 
+        marginBottom: '3rem',
+        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%)',
+        border: '1px solid rgba(16, 185, 129, 0.2)',
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: '1.5rem'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+          <div style={{ backgroundColor: 'rgba(16, 185, 129, 0.15)', padding: '1rem', borderRadius: '16px', color: '#10b981' }}>
+            <Users size={32} />
+          </div>
+          <div>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.25rem' }}>邀請好友，賺取獎勵</h3>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+              分享您的專屬推廣碼，每成功推薦一位好友即可獲得獎勵。
+            </p>
+          </div>
+        </div>
+        
+        <div style={{ 
+          display: 'flex', 
+          backgroundColor: 'rgba(255,255,255,0.05)', 
+          padding: '0.5rem', 
+          borderRadius: '12px',
+          border: '1px dashed rgba(255,255,255,0.1)',
+          alignItems: 'center',
+          gap: '1rem'
+        }}>
+          <code style={{ 
+            fontSize: '1.25rem', 
+            fontWeight: 900, 
+            letterSpacing: '2px',
+            color: 'var(--accent-color)',
+            padding: '0 0.5rem'
+          }}>
+            {user?.referralCode || '-------'}
+          </code>
+          <button 
+            onClick={() => {
+              if (user?.referralCode) {
+                navigator.clipboard.writeText(user.referralCode);
+                alert('推廣碼已複製！');
+              }
+            }}
+            style={{
+              padding: '0.5rem 1rem',
+              borderRadius: '8px',
+              backgroundColor: 'var(--accent-color)',
+              color: 'white',
+              border: 'none',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              fontSize: '0.85rem',
+              fontWeight: 600
+            }}
+          >
+            <Copy size={14} />
+            複製
+          </button>
+        </div>
+      </section>
+
+      {/* 🚀 QUICK LINKS: For Customers Only */}
+      {!isMerchant && (
+        <section className="animate-fade-up" style={{ marginTop: '3rem' }}>
+          <h2 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '1.5rem' }}>快速存取我的資產</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem' }}>
+            <Link href="/dashboard/garage" style={{ textDecoration: 'none' }}>
+              <div className="glass-panel" style={{ 
+                padding: '1.5rem', 
+                borderRadius: '20px', 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '1.25rem',
+                backgroundColor: 'rgba(255,255,255,0.03)',
+                border: '1px solid var(--border-color)',
+                transition: 'transform 0.2s, background 0.2s',
+                cursor: 'pointer'
+              }}>
+                <div style={{ backgroundColor: 'rgba(99, 102, 241, 0.1)', padding: '0.75rem', borderRadius: '12px', color: 'var(--accent-color)' }}>
+                  <Car size={24} />
+                </div>
+                <div>
+                  <h4 style={{ color: 'var(--text-primary)', fontWeight: 700 }}>我的車庫</h4>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>管理車輛資訊及保養記錄</p>
+                </div>
+              </div>
+            </Link>
+            
+            <Link href="/dashboard/properties" style={{ textDecoration: 'none' }}>
+              <div className="glass-panel" style={{ 
+                padding: '1.5rem', 
+                borderRadius: '20px', 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '1.25rem',
+                backgroundColor: 'rgba(255,255,255,0.03)',
+                border: '1px solid var(--border-color)',
+                transition: 'transform 0.2s, background 0.2s',
+                cursor: 'pointer'
+              }}>
+                <div style={{ backgroundColor: 'rgba(245, 158, 11, 0.1)', padding: '0.75rem', borderRadius: '12px', color: '#f59e0b' }}>
+                  <Home size={24} />
+                </div>
+                <div>
+                  <h4 style={{ color: 'var(--text-primary)', fontWeight: 700 }}>我的物業</h4>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>查看物業細節及相關預約</p>
+                </div>
+              </div>
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* Recent Bookings */}
       <section className="glass-panel" style={{ padding: '2.5rem', borderRadius: '32px' }}>

@@ -22,6 +22,8 @@ export async function GET(req: NextRequest) {
           name: true,
           email: true,
           role: true,
+          referralCode: true,
+          referralCredits: true,
           merchantProfile: {
             select: {
               id: true,
@@ -73,7 +75,9 @@ export async function GET(req: NextRequest) {
         id: userWithData.id,
         name: userWithData.name,
         email: userWithData.email,
-        role: userWithData.role
+        role: userWithData.role,
+        referralCode: userWithData.referralCode,
+        referralCredits: userWithData.referralCredits
       },
       isMerchant,
       merchantData,
