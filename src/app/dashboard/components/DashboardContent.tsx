@@ -184,7 +184,10 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
         {syncing && <Loader2 size={12} style={{ color: 'var(--accent-color)', animation: 'spin 1s linear infinite' }} />}
         <span style={{ fontSize: '0.75rem', color: error ? '#ef4444' : 'var(--text-secondary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
           {error
-            ? `⚠ ${t.merchant.dashboard.syncFailed}`
+            ? <>
+                ⚠ {t.merchant.dashboard.syncFailed}
+                <button onClick={() => { localStorage.clear(); window.location.href='/api/auth/signout'; }} style={{ marginLeft: '0.5rem', background: '#ef4444', color: 'white', border: 'none', padding: '0.2rem 0.5rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.7rem' }}>修復錯誤 (登出)</button>
+              </>
             : lastSync
               ? <>
                   <span style={{ color: '#10b981' }}>●</span> {t.merchant.dashboard.lastSynced}: {lastSync.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
