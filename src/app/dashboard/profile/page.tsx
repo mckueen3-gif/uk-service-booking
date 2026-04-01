@@ -73,7 +73,7 @@ export default async function ProfilePage() {
                 </div>
                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem' }}>
                     <span style={{ color: 'var(--text-secondary)' }}>推薦獎勵點數</span>
-                    <span style={{ fontWeight: 600, color: 'var(--accent-color)' }}>£{user.referralCredits?.toFixed(2) || "0.00"}</span>
+                    <span style={{ fontWeight: 600, color: 'var(--accent-color)' }}>£{(user.referralCredits ?? 0).toFixed(2)}</span>
                  </div>
               </div>
               
