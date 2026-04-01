@@ -87,8 +87,8 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
     messages.push({ role: 'user', content: req.prompt });
   }
 
-  // 1. Try Grok (Primary - Only if no image represents Grok does not support vision yet on this account)
-  if (process.env.XAI_API_KEY && !req.image) {
+  // 1. Try Grok (Primary - Text logic is always reliable)
+  if (process.env.XAI_API_KEY) {
     try {
       console.info("[AI Provider] Attempting Primary (xAI Grok 3)...");
       const grokMessages: any[] = [];
@@ -97,6 +97,7 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
       }
 
       for (const m of messages) {
+        // Grok-3 on this account doesn't support vision, so we strip images but keep the text
         grokMessages.push({ role: m.role, content: m.content });
       }
 
@@ -116,10 +117,10 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
     }
   }
 
-  // 2. Try OpenAI GPT-4o-mini (Secondary / Primary for Vision)
-  if (process.env.OPENAI_API_KEY) {
+  // 2. Try OpenAI GPT-4o-mini (Vision Tier)
+  if (process.env.OPENAI_API_KEY && req.image) {
     try {
-      console.info("[AI Provider] Attempting OpenAI (GPT-4o-mini)...");
+      console.info("[AI Provider] Attempting OpenAI Vision (GPT-4o-mini)...");
       const openaiMessages: any[] = [];
       if (req.systemPrompt) {
         openaiMessages.push({ role: "system", content: req.systemPrompt });
@@ -153,8 +154,7 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
       const content = response.choices[0].message.content;
       if (content) return content;
     } catch (error: any) {
-      console.error("[AI Provider] OpenAI failed, moving to last fallback...", error);
-      // If Grok already failed and now OpenAI failed, this is getting serious
+      console.error("[AI Provider] OpenAI Vision failed...", error);
     }
   }
 
