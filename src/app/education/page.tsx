@@ -5,9 +5,12 @@ import Link from 'next/link';
 import { Search, MapPin, Sparkles, Globe, Briefcase, GraduationCap, Clock, Award, Users } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '@/components/LanguageContext';
+import TutorCard from '@/components/education/TutorCard';
 
 export default function EducationLandingPage() {
   const { t } = useTranslation();
+  const [tutors, setTutors] = useState<any[]>([]);
+  const [loadingTutors, setLoadingTutors] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
 
@@ -26,6 +29,19 @@ export default function EducationLandingPage() {
     { id: 'exam', icon: <Award size={28} />, color: '#8b5cf6' },
     { id: 'workshops', icon: <Clock size={28} />, color: '#14b8a6' },
   ];
+
+  React.useEffect(() => {
+    fetch('/api/education/tutors')
+      .then(res => res.json())
+      .then(data => {
+        setTutors(data.tutors || []);
+        setLoadingTutors(false);
+      })
+      .catch(e => {
+        console.error(e);
+        setLoadingTutors(false);
+      });
+  }, []);
 
   return (
     <div style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', paddingBottom: '5rem' }}>
@@ -100,38 +116,18 @@ export default function EducationLandingPage() {
             <Sparkles size={24} color="#10b981" />
             <h2 style={{ fontSize: '1.5rem', fontWeight: 800 }}>{t.education_sec.forYou.title}</h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} style={{ 
-                border: '1px solid var(--border-color)', 
-                borderRadius: '16px', 
-                padding: '1.5rem',
-                backgroundColor: 'var(--surface-1)',
-                transition: 'transform 0.2s',
-                cursor: 'pointer'
-              }} className="hover-scale">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-                  <div style={{ display: 'flex', gap: '12px' }}>
-                    <div style={{ width: '48px', height: '48px', borderRadius: '50%', backgroundColor: 'var(--surface-2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', fontWeight: 800 }}>T{i}</div>
-                    <div>
-                      <h4 style={{ fontWeight: 800 }}>Tutor {i}</h4>
-                      <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>GCSE Maths & Physics</p>
-                    </div>
-                  </div>
-                  <span style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', color: '#10b981', padding: '4px 8px', borderRadius: '8px', fontSize: '0.75rem', fontWeight: 800 }}>
-                    9{Math.floor(Math.random() * 9)}% {t.education_sec.forYou.match}
-                  </span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
-                  <MapPin size={14} /> Nottingham ({t.education_sec.search.online}/{t.education_sec.search.offline})
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontWeight: 800, fontSize: '1.2rem' }}>£35<span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>{t.education_sec.common.hr}</span></span>
-                  <Link href={`/education/search`} style={{ color: 'var(--accent-color)', fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none' }}>{t.education_sec.forYou.viewProfile} →</Link>
-                </div>
-              </div>
-            ))}
-          </div>
+          
+          {loadingTutors ? (
+            <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-secondary)' }}>Searching for experts...</div>
+          ) : tutors.length === 0 ? (
+            <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-secondary)' }}>No tutors available right now. Please check back later!</div>
+          ) : (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
+              {tutors.map((tutor, i) => (
+                <TutorCard key={tutor.id} tutor={tutor} isAIMatch={i < 2} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

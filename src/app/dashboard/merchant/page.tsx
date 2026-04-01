@@ -199,13 +199,26 @@ export default function MerchantDashboard() {
                              <PlusCircle size={14} style={{ marginRight: '0.3rem' }} /> {t.merchant.dashboard.bookings.actions.variation}
                           </button>
                         )}
+                        {booking.status === 'CONFIRMED' && !booking.isEducation && booking.stripeBalanceIntentId && (
+                          <div style={{ fontSize: '0.7rem', color: '#0ea5e9', fontWeight: 800, marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                            <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#0ea5e9', animation: 'pulse 2s infinite' }} />
+                            80% BALANCE HELD
+                          </div>
+                        )}
                         <button 
                           onClick={() => handleStatusChange(booking.id, booking.status)}
                           disabled={updatingId === booking.id}
                           className="btn btn-primary" 
-                          style={{ padding: '0.5rem 1rem', fontSize: '0.8rem', minWidth: '100px' }}
+                          style={{ padding: '0.5rem 1rem', fontSize: '0.8rem', minWidth: '120px' }}
                         >
-                          {updatingId === booking.id ? '...' : booking.status === 'PENDING' ? t.merchant.dashboard.bookings.actions.confirm : t.merchant.dashboard.bookings.actions.complete}
+                          {updatingId === booking.id 
+                            ? (booking.status === 'CONFIRMED' ? 'Finalizing...' : '...') 
+                            : booking.status === 'PENDING' 
+                              ? t.merchant.dashboard.bookings.actions.confirm 
+                              : booking.isEducation 
+                                ? "Complete Course" 
+                                : "Complete & Capture"
+                          }
                         </button>
                       </div>
                     )}

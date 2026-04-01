@@ -7,94 +7,126 @@ import { useTranslation } from '@/components/LanguageContext';
 
 export default function TutorCard({ tutor, isAIMatch = false }: { tutor: any, isAIMatch?: boolean }) {
   const { t } = useTranslation();
-  // Demo default values
+  
   const { 
     id = "1", 
-    name = "Dr. Emily Smith", 
-    subjects = "GCSE Maths & Science",
-    rate = 40,
-    rating = 4.9,
-    reviews = 124,
-    location = "Manchester",
+    name = "Expert Tutor", 
+    subjects = "Education Specialist",
+    rate = 0,
+    rating = 5.0,
+    reviews = 0,
+    location = "United Kingdom",
     mode = "Hybrid",
-    matchScore = 96
+    matchScore = 95,
+    avatarUrl = null
   } = tutor || {};
 
   return (
-    <div className="glass-panel" style={{ 
-      padding: '1.5rem', 
-      borderRadius: '20px', 
+    <div className="glass-panel hover-lift" style={{ 
+      padding: '1.75rem', 
+      borderRadius: '24px', 
       display: 'flex', 
       flexDirection: 'column',
       gap: '1.25rem',
       backgroundColor: 'var(--surface-1)',
-      border: isAIMatch ? '1px solid var(--accent-color)' : '1px solid var(--border-color)',
+      border: isAIMatch ? '1.5px solid rgba(16, 185, 129, 0.4)' : '1px solid var(--border-color)',
       position: 'relative',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+      boxShadow: isAIMatch ? '0 10px 25px -5px rgba(16, 185, 129, 0.15)' : 'var(--shadow-sm)'
     }}>
+      {/* Premium AI Badge Overlay */}
       {isAIMatch && (
         <div style={{
-          position: 'absolute', top: 0, left: 0, width: '100%',
-          background: 'linear-gradient(90deg, rgba(16, 185, 129, 0.1), rgba(99, 102, 241, 0.1))',
-          height: '4px'
-        }} />
+          position: 'absolute', top: '12px', right: '12px',
+          display: 'flex', alignItems: 'center', gap: '6px',
+          padding: '6px 12px', borderRadius: '12px',
+          background: 'rgba(16, 185, 129, 0.1)',
+          backdropFilter: 'blur(8px)',
+          border: '1px solid rgba(16, 185, 129, 0.2)',
+          color: '#059669', fontSize: '0.8rem', fontWeight: 900,
+          zIndex: 10
+        }}>
+          <Sparkles size={14} /> {matchScore}% MATCH
+        </div>
       )}
       
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-        <div style={{ display: 'flex', gap: '1rem' }}>
-          {tutor?.avatarUrl ? (
-            <img src={tutor.avatarUrl} alt={name} style={{ width: '60px', height: '60px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--surface-1)' }} />
+      <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'flex-start' }}>
+        <div style={{ position: 'relative' }}>
+          {avatarUrl ? (
+            <img 
+              src={avatarUrl} 
+              alt={name} 
+              style={{ 
+                width: '72px', height: '72px', borderRadius: '22px', 
+                objectFit: 'cover', border: '2.5px solid var(--surface-1)',
+                boxShadow: 'var(--shadow-md)'
+              }} 
+            />
           ) : (
             <div style={{ 
-              width: '60px', height: '60px', borderRadius: '50%', 
+              width: '72px', height: '72px', borderRadius: '22px', 
               backgroundColor: 'var(--surface-2)', 
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)'
+              fontSize: '1.8rem', fontWeight: 900, color: 'var(--text-primary)',
+              border: '2.5px solid var(--surface-1)',
+              boxShadow: 'var(--shadow-md)'
             }}>
-              {name.charAt(0)}
+              {String(name).charAt(0)}
             </div>
           )}
-          <div>
-            <h3 style={{ fontSize: '1.2rem', fontWeight: 800, marginBottom: '0.2rem' }}>{name}</h3>
-            <p style={{ color: 'var(--accent-color)', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>{subjects}</p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><MapPin size={14} /> {location}</span>
-              <span>•</span>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                {mode === 'Online' ? <Video size={14} /> : <BookOpen size={14} />} {mode}
-              </span>
+          {rating >= 4.8 && (
+            <div style={{
+              position: 'absolute', bottom: '-4px', right: '-4px',
+              backgroundColor: '#f59e0b', color: 'white',
+              width: '24px', height: '24px', borderRadius: '50%',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              border: '2px solid var(--surface-1)', fontSize: '0.7rem'
+            }}>
+              <Star size={12} fill="white" />
             </div>
-          </div>
+          )}
         </div>
 
-        <div style={{ textAlign: 'right' }}>
-          {isAIMatch && (
-            <div style={{ 
-              display: 'inline-flex', alignItems: 'center', gap: '4px', 
-              backgroundColor: 'rgba(16, 185, 129, 0.1)', color: '#10b981', 
-              padding: '0.3rem 0.6rem', borderRadius: '8px', fontSize: '0.8rem', fontWeight: 800,
-              marginBottom: '0.5rem'
-            }}>
-              <Sparkles size={14} /> {matchScore}% {t.education_sec.forYou.match}
-            </div>
-          )}
-          <div style={{ fontSize: '1.25rem', fontWeight: 900 }}>£{rate}<span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 500 }}>{t.education_sec.common.hr}</span></div>
+        <div style={{ flex: 1 }}>
+          <h3 style={{ fontSize: '1.3rem', fontWeight: 900, marginBottom: '0.25rem', letterSpacing: '-0.02em' }}>{name}</h3>
+          <div style={{ 
+            display: 'inline-block', color: 'var(--accent-color)', 
+            fontSize: '0.8rem', fontWeight: 800, padding: '2px 8px', 
+            backgroundColor: 'rgba(99, 102, 241, 0.08)', borderRadius: '6px',
+            marginBottom: '0.75rem'
+          }}>
+            {subjects}
+          </div>
+          <div style={{ display: 'flex', gap: '12px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><MapPin size={14} /> {location}</span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+              {mode === 'Online' ? <Video size={14} /> : <BookOpen size={14} />} {mode}
+            </span>
+          </div>
         </div>
       </div>
 
-      <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.5, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-        Experienced PhD tutor specializing in making complex scientific concepts easy to understand. I have helped over 100 students achieve A* in their GCSEs.
-      </p>
-
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto', paddingTop: '0.5rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <Star size={16} fill="#f59e0b" color="#f59e0b" />
-          <span style={{ fontWeight: 800 }}>{rating}</span>
-          <span style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>({reviews} {t.education_sec.common.reviews})</span>
+      <div style={{ 
+        display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end',
+        paddingTop: '0.5rem', borderTop: '1px solid var(--border-color)'
+      }}>
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+            <Star size={16} fill="#f59e0b" color="#f59e0b" />
+            <span style={{ fontWeight: 900, fontSize: '1.05rem' }}>{Number(rating).toFixed(1)}</span>
+            <span style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', fontWeight: 600 }}>({reviews} {t.education_sec.common.reviews})</span>
+          </div>
+          <div style={{ fontSize: '1.4rem', fontWeight: 900, color: 'var(--text-primary)' }}>
+            £{rate}<span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 500 }}>{t.education_sec.common.hr}</span>
+          </div>
         </div>
         
-        <Link href={`/education/tutor/${id}`}>
-          <button className="btn btn-primary" style={{ padding: '0.5rem 1.25rem', fontSize: '0.9rem' }}>
+        <Link href={`/education/tutor/${id}`} style={{ textDecoration: 'none' }}>
+          <button className="btn btn-primary" style={{ 
+            padding: '0.75rem 1.75rem', borderRadius: '14px', fontSize: '0.95rem',
+            fontWeight: 800, letterSpacing: '0.02em', boxShadow: '0 4px 12px rgba(99, 102, 241, 0.2)'
+          }}>
             {t.education_sec.common.bookTrial}
           </button>
         </Link>

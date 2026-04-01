@@ -241,6 +241,64 @@ export default function BookingsContent() {
                   )}
                 </div>
 
+                {/* Payment Progress & Status Details */}
+                <div style={{ 
+                  marginTop: '0.25rem', 
+                  padding: '1rem', 
+                  borderRadius: '16px', 
+                  backgroundColor: 'rgba(255, 255, 255, 0.02)', 
+                  border: '1px solid var(--border-color)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.75rem'
+                }}>
+                  {/* Sector Badge */}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--text-secondary)', letterSpacing: '0.05em' }}>PAYMENT TRACKER</span>
+                    <span style={{ fontSize: '0.7rem', fontWeight: 800, padding: '0.2rem 0.5rem', borderRadius: '4px', backgroundColor: booking.isEducation ? 'rgba(168, 85, 247, 0.1)' : 'rgba(56, 189, 248, 0.1)', color: booking.isEducation ? '#a855f7' : '#0ea5e9' }}>
+                      {booking.isEducation ? 'EDUCATION' : 'REPAIR'}
+                    </span>
+                  </div>
+
+                  {/* Logical States */}
+                  {booking.isEducation ? (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#10b981', fontSize: '0.85rem', fontWeight: 700 }}>
+                        <CheckCircle size={14} /> 100% 已付清 Full Payment Secure
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)', fontSize: '0.75rem' }}>
+                        <Clock size={12} /> 14天冷靜期保障中 (至 {new Date(booking.coolingOffUntil).toLocaleDateString()} 止)
+                      </div>
+                    </div>
+                  ) : (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                      {/* Step 1: Deposit */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#10b981', fontSize: '0.85rem', fontWeight: 700 }}>
+                        <CheckCircle size={14} /> 20% 訂金已收 (£{(booking.depositPaid || 0).toFixed(2)})
+                      </div>
+                      
+                      {/* Step 2: Balance Hold or Failure */}
+                      {booking.status === 'CONFIRMED' && booking.stripeBalanceIntentId ? (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#0ea5e9', fontSize: '0.85rem', fontWeight: 700 }}>
+                          <CheckCircle size={14} /> 80% 尾款已成功鎖定 (£{(booking.balanceAmount || 0).toFixed(2)})
+                        </div>
+                      ) : booking.reauthDeadline && !booking.stripeBalanceIntentId && booking.status !== 'CANCELLED' ? (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#ef4444', fontSize: '0.85rem', fontWeight: 800, padding: '0.5rem', backgroundColor: 'rgba(239, 68, 68, 0.05)', borderRadius: '8px', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
+                          <AlertCircle size={14} /> 餘額鎖定失敗！請在 {new Date(booking.reauthDeadline).toLocaleDateString()} 前更新卡片
+                        </div>
+                      ) : booking.status === 'COMPLETED' ? (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#10b981', fontSize: '0.85rem', fontWeight: 700 }}>
+                          <CheckCircle size={14} /> 100% 已完成結算 (£{(booking.totalAmount || 0).toFixed(2)})
+                        </div>
+                      ) : (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--text-secondary)', fontSize: '0.85rem', opacity: 0.6 }}>
+                          <Clock size={14} /> 尾款 80% 將於服務前 7 天自動鎖定
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+
                 {/* Total */}
                 <div style={{
                   marginTop: 'auto',
@@ -251,7 +309,7 @@ export default function BookingsContent() {
                   justifyContent: 'space-between',
                   alignItems: 'center'
                 }}>
-                  <span style={{ fontWeight: 600, color: 'var(--text-secondary)', fontSize: '0.875rem' }}>總計</span>
+                  <span style={{ fontWeight: 600, color: 'var(--text-secondary)', fontSize: '0.875rem' }}>總額估計 Total</span>
                   <span style={{ fontWeight: 900, fontSize: '1.2rem', color: 'var(--text-primary)' }}>
                     £{(booking.totalAmount || 0).toFixed(2)}
                   </span>

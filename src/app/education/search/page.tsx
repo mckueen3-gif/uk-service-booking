@@ -21,6 +21,22 @@ function SearchContent() {
   const router = useRouter();
   const initialQuery = searchParams.get('q') || '';
   const [query, setQuery] = useState(initialQuery);
+  const [tutors, setTutors] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  React.useEffect(() => {
+    setLoading(true);
+    fetch(`/api/education/tutors?q=${encodeURIComponent(query)}`)
+      .then(res => res.json())
+      .then(data => {
+        setTutors(data.tutors || []);
+        setLoading(false);
+      })
+      .catch(e => {
+        console.error(e);
+        setLoading(false);
+      });
+  }, [query]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && query.trim()) {
@@ -89,7 +105,7 @@ function SearchContent() {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem' }}>
           <div>
             <h1 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '0.5rem' }}>{t.education_sec.search.resultsTitle}</h1>
-            <p style={{ color: 'var(--text-secondary)' }}>{t.education_sec.search.foundCount.replace("{{count}}", String(DEMO_TUTORS.length))}</p>
+            <p style={{ color: 'var(--text-secondary)' }}>{t.education_sec.search.foundCount.replace("{{count}}", String(tutors.length))}</p>
           </div>
           
           <div style={{ 
@@ -108,11 +124,23 @@ function SearchContent() {
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.5rem' }}>
-          {DEMO_TUTORS.map((tutor, idx) => (
-            <TutorCard key={tutor.id} tutor={tutor} isAIMatch={idx < 2} />
-          ))}
-        </div>
+        {loading ? (
+          <div style={{ padding: '4rem', textAlign: 'center', color: 'var(--text-secondary)', fontSize: '1.2rem', fontWeight: 700 }}>
+            <Sparkles size={24} style={{ marginBottom: '1rem', opacity: 0.5 }} />
+            <p>Curating the best experts for you...</p>
+          </div>
+        ) : tutors.length === 0 ? (
+          <div style={{ padding: '4rem', textAlign: 'center', border: '2px dashed var(--border-color)', borderRadius: '24px' }}>
+             <h3 style={{ fontWeight: 800, marginBottom: '1rem' }}>No Experts Found</h3>
+             <p style={{ color: 'var(--text-secondary)' }}>Try adjusting your filters or search keywords.</p>
+          </div>
+        ) : (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.5rem' }}>
+            {tutors.map((tutor, idx) => (
+              <TutorCard key={tutor.id} tutor={tutor} isAIMatch={idx < 2} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

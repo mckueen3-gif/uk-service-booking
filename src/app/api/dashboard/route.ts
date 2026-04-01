@@ -24,6 +24,19 @@ export async function GET(req: NextRequest) {
           role: true,
           referralCode: true,
           referralCredits: true,
+          referralReceived: {
+            select: {
+              referrer: { select: { name: true } }
+            }
+          },
+          referralsMade: {
+            select: {
+              id: true,
+              referee: { select: { name: true } },
+              earnedFromReferee: true,
+              createdAt: true
+            }
+          },
           merchantProfile: {
             select: {
               id: true,
@@ -60,24 +73,17 @@ export async function GET(req: NextRequest) {
           }
         }
       });
-
-      // Auto-generate referral code if missing (common for Google sign-ups)
+      // ... (existing auto-generate code logic) ...
       if (u && !u.referralCode) {
         const prefix = (u.name || "USER").substring(0, 3).toUpperCase().replace(/\s/g, '');
         const random = Math.floor(1000 + Math.random() * 9000);
         const newCode = `${prefix}${random}`;
-        
-        try {
-          await prisma.user.update({
-            where: { id: userId },
-            data: { referralCode: newCode }
-          });
-          u.referralCode = newCode;
-        } catch (e) {
-          console.error("Failed to persist generated referral code:", e);
-        }
+        await prisma.user.update({
+          where: { id: userId },
+          data: { referralCode: newCode }
+        });
+        u.referralCode = newCode;
       }
-
       return u;
     });
 
@@ -96,7 +102,9 @@ export async function GET(req: NextRequest) {
         email: userWithData.email,
         role: userWithData.role,
         referralCode: userWithData.referralCode,
-        referralCredits: userWithData.referralCredits
+        referralCredits: userWithData.referralCredits,
+        referredBy: userWithData.referralReceived?.referrer?.name || null,
+        referralsMade: userWithData.referralsMade || []
       },
       isMerchant,
       merchantData,

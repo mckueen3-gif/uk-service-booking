@@ -18,29 +18,79 @@ export async function POST(req: Request) {
 
     switch (event.type) {
       
-      // Event: A customer successfully paid the initial Booking fee (Authorized & Captured or Escrowed)
-      case 'payment_intent.succeeded': {
-        const paymentIntent = event.data.object;
-        console.log(`[Stripe Webhook] 💰 PaymentIntent ${paymentIntent.id} succeeded for £${paymentIntent.amount / 100}`);
-        
-        // Securely update DB in the background
-        // await prisma.payment.update({
-        //   where: { stripePaymentIntentId: paymentIntent.id },
-        //   data: { status: 'COMPLETED' }
-        // });
-        break;
-      }
+      case 'checkout.session.completed': {
+        const session = event.data.object;
+        const metadata = session.metadata;
+        const customerId = session.customer;
+        const paymentIntentId = session.payment_intent;
 
-      // Event: Funds securely transferred out of Platform Escrow into Merchant's connected account
-      case 'transfer.created': {
-        const transfer = event.data.object;
-        console.log(`[Stripe Webhook] 🏦 Escrow Transferred to Merchant (ID: ${transfer.destination})`);
-        break;
-      }
-      
-      // Event: AI Arbiter triggered a full refund via Stripe API back to Customer's card
-      case 'charge.refunded': {
-        console.log(`[Stripe Webhook] 🟥 Charge FULLY REFUNDED by AI Dispute Mediator command.`);
+        if (!metadata) break;
+
+        const {
+          merchantId,
+          customerId: userId,
+          serviceId,
+          serviceName,
+          isEducation,
+          totalAmount: totalStr,
+          depositAmount: depositStr,
+          balanceAmount: balanceStr,
+          scheduledDate
+        } = metadata;
+
+        const totalAmount = parseFloat(totalStr || "0") / 100;
+        const depositAmount = parseFloat(depositStr || "0") / 100;
+        const balanceAmount = parseFloat(balanceStr || "0") / 100;
+        const isEduBool = isEducation === 'true';
+
+        // 1. Update User with Stripe Customer ID for future holds
+        if (userId && customerId) {
+          await prisma.user.update({
+            where: { id: userId },
+            data: { stripeCustomerId: customerId as string }
+          });
+        }
+
+        // 2. Create the Booking with sectoral logic
+        const coolingOffDays = isEduBool ? 14 : 0;
+        const coolingOffUntil = isEduBool 
+          ? new Date(Date.now() + coolingOffDays * 24 * 60 * 60 * 1000) 
+          : null;
+
+        const booking = await prisma.booking.create({
+          data: {
+            customerId: userId,
+            merchantId,
+            serviceId,
+            scheduledDate: new Date(scheduledDate),
+            status: 'PENDING',
+            totalAmount,
+            depositPaid: depositAmount,
+            balanceAmount,
+            isEducation: isEduBool,
+            coolingOffUntil,
+            stripePaymentIntentId: paymentIntentId as string,
+            platformFee: depositAmount * 0.09, // 9% fee on what was just captured
+            merchantAmount: depositAmount * 0.91,
+          }
+        });
+
+        // 3. Update Merchant Wallet (Pending)
+        // 91% of what was captured goes to merchant's pending balance
+        await prisma.merchantWallet.upsert({
+          where: { merchantId },
+          update: {
+            pendingBalance: { increment: depositAmount * 0.91 },
+            totalEarned: { increment: depositAmount * 0.91 }
+          },
+          create: {
+            merchantId,
+            pendingBalance: depositAmount * 0.91,
+            totalEarned: depositAmount * 0.91
+          }
+        });
+
+        console.log(`[Stripe Webhook] 📦 Booking ${booking.id} created. Sector: ${isEduBool ? 'Education' : 'Repairs'}. Deposit: £${depositAmount}`);
         break;
       }
 

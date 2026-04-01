@@ -31,9 +31,9 @@ export default async function MerchantWalletPage() {
       {/* Header */}
       <div className="animate-fade-up">
         <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
-          營收管理與提現 <span style={{ color: 'var(--accent-color)' }}>Earnings</span>
+          資產與營收管理 <span style={{ color: 'var(--accent-color)' }}>Finance</span>
         </h1>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>查看您的服務收入與管理提現申請。</p>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>查看您的可用資金、待結算款項以及預授權鎖定收入。</p>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
@@ -55,33 +55,35 @@ export default async function MerchantWalletPage() {
             <span style={{ fontSize: '1.5rem', fontWeight: 600, marginRight: '0.4rem' }}>£</span>
             <span style={{ fontSize: '4rem', fontWeight: 900 }}>{wallet?.availableBalance?.toFixed(2) || "0.00"}</span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem' }}>
-            <CheckCircle2 size={16} /> 已結算且隨時可領取
-          </div>
-        </div>
-
-        {/* Pending & Total Cards */}
-        <div style={{ display: 'grid', gridTemplateRows: '1fr 1fr', gap: '1rem' }}>
-          <div className="glass-panel animate-fade-up delay-200" style={{ padding: '1.5rem', borderRadius: '20px', backgroundColor: 'var(--surface-1)', border: '1.5px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-             <div style={{ backgroundColor: 'var(--accent-soft)', padding: '1rem', borderRadius: '1rem' }}>
-               <Clock size={28} color="var(--accent-color)" />
-             </div>
-             <div>
-               <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 700 }}>PENDING ESCROW</div>
-               <div style={{ fontSize: '1.75rem', fontWeight: 900, color: 'var(--text-primary)' }}>£{wallet?.pendingBalance?.toFixed(2) || "0.00"}</div>
-               <div style={{ fontSize: '0.75rem', color: 'var(--accent-color)', fontWeight: 600 }}>進行中的服務代管中</div>
-             </div>
-          </div>
-          <div className="glass-panel animate-fade-up delay-300" style={{ padding: '1.5rem', borderRadius: '20px', backgroundColor: 'var(--surface-1)', border: '1.5px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-             <div style={{ backgroundColor: 'rgba(56, 189, 248, 0.1)', padding: '1rem', borderRadius: '1rem' }}>
-               <Calculator size={28} color="#0ea5e9" />
-             </div>
-             <div>
-               <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 700 }}>ALL-TIME EARNINGS</div>
-               <div style={{ fontSize: '1.75rem', fontWeight: 900, color: 'var(--text-primary)' }}>£{wallet?.totalEarned?.toFixed(2) || "0.00"}</div>
-               <div style={{ fontSize: '0.75rem', color: '#38bdf8', fontWeight: 600 }}>累計總收入 (扣除佣金後)</div>
-             </div>
-          </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', fontWeight: 600 }}>
+                 可提現餘額 (已扣 9% 佣金)
+              </div>
+            </div>
+    
+            {/* Pending & Authorized Cards */}
+            <div style={{ display: 'grid', gridTemplateRows: '1fr 1fr', gap: '1rem' }}>
+              {/* Pending Card (Cooling-off / Education) */}
+              <div className="glass-panel animate-fade-up delay-200" style={{ padding: '1.5rem', borderRadius: '20px', backgroundColor: 'var(--surface-1)', border: '1.5px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+                 <div style={{ backgroundColor: 'var(--accent-soft)', padding: '1rem', borderRadius: '1rem' }}>
+                   <Clock size={28} color="var(--accent-color)" />
+                 </div>
+                 <div style={{ flex: 1 }}>
+                   <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 700 }}>PENDING / COOLING-OFF</div>
+                   <div style={{ fontSize: '1.75rem', fontWeight: 900, color: 'var(--text-primary)' }}>£{wallet?.pendingBalance?.toFixed(2) || "0.00"}</div>
+                   <div style={{ fontSize: '0.75rem', color: 'var(--accent-color)', fontWeight: 600 }}>待結算餘額 (已扣 9% 佣金)</div>
+                 </div>
+              </div>
+              {/* Authorized Card (Holds for Repairs) */}
+              <div className="glass-panel animate-fade-up delay-300" style={{ padding: '1.5rem', borderRadius: '20px', backgroundColor: 'var(--surface-1)', border: '1.5px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+                 <div style={{ backgroundColor: 'rgba(56, 189, 248, 0.1)', padding: '1rem', borderRadius: '1rem' }}>
+                   <Landmark size={28} color="#0ea5e9" />
+                 </div>
+                 <div style={{ flex: 1 }}>
+                   <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 700 }}>AUTHORIZED / HELD</div>
+                   <div style={{ fontSize: '1.75rem', fontWeight: 900, color: 'var(--text-primary)' }}>£{wallet?.authorizedBalance?.toFixed(2) || "0.00"}</div>
+                   <div style={{ fontSize: '0.75rem', color: '#38bdf8', fontWeight: 600 }}>預授權鎖定中 (已扣 9% 佣金)</div>
+                 </div>
+              </div>
         </div>
       </div>
 
@@ -107,28 +109,42 @@ export default async function MerchantWalletPage() {
             </div>
           </div>
 
-          {/* Fee Transparency */}
+          {/* Fee & Payment Terms Transparency */}
           <div className="glass-panel animate-fade-up delay-500" style={{ padding: '2rem', borderRadius: '24px', backgroundColor: 'var(--bg-secondary)', border: '1.5px solid var(--border-color)' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
                   <TrendingUp size={22} color="var(--accent-color)" />
-                  <h2 style={{ fontSize: '1.2rem', fontWeight: 900, color: 'var(--text-primary)' }}>平台佣金與收費</h2>
+                  <h2 style={{ fontSize: '1.2rem', fontWeight: 900, color: 'var(--text-primary)' }}>收錢與收費條款</h2>
                 </div>
                 <div style={{ padding: '0.4rem 1rem', backgroundColor: 'var(--accent-color)', color: 'white', borderRadius: '12px', fontSize: '0.9rem', fontWeight: 800 }}>
-                  標準扣除: {currentRate}%
+                  佣金: {currentRate}%
                 </div>
             </div>
             
-            <div style={{ backgroundColor: 'var(--surface-1)', padding: '1.25rem', borderRadius: '16px', border: '1px solid var(--border-color)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', color: 'var(--accent-color)' }}>
-                <Info size={16} />
-                <span style={{ fontWeight: 800, fontSize: '0.9rem' }}>費用透明化說明</span>
-              </div>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                平台的 9% 佣金已包含 **2% 的「客戶推薦人獎勵基金」**。
-                這筆費用旨在激勵現有客戶為您介紹更多新生意，建立穩定的客源。
-                平台絕不額外向您收取推薦費，所有推廣成本均包含在標準佣金內。
-              </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <div style={{ backgroundColor: 'var(--surface-1)', padding: '1.25rem', borderRadius: '16px', border: '1px solid var(--border-color)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', color: 'var(--accent-color)' }}>
+                    <Info size={16} />
+                    <span style={{ fontWeight: 800, fontSize: '0.9rem' }}>商戶權益說明</span>
+                  </div>
+                  <ul style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', paddingLeft: '1.2rem', margin: 0 }}>
+                    <li>平台從每單人工及零件總額中扣除 <b>9% 佣金</b>。</li>
+                    <li>平台的 9% 佣金已包含 **2% 的「客戶推薦人獎勵基金」**。</li>
+                    <li><b>維修保障</b>：預約前 7 天自動鎖定尾款。若扣款失敗導致取消，訂金將作補償。</li>
+                    <li><b>教育保障</b>：全款預扣，確保長期學費安全。</li>
+                  </ul>
+                </div>
+
+                <div style={{ backgroundColor: 'var(--surface-1)', padding: '1.25rem', borderRadius: '16px', border: '1px solid var(--border-color)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>
+                    <History size={16} />
+                    <span style={{ fontWeight: 800, fontSize: '0.9rem' }}>客戶支付條款</span>
+                  </div>
+                  <ul style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', paddingLeft: '1.2rem', margin: 0 }}>
+                    <li><b>教育類</b>：享 14 天法定冷靜期。若開始上課即視為放棄餘下冷靜期。</li>
+                    <li><b>維修類</b>：20% 訂金不予退還。餘額需在服務前 7 天完成鎖定。</li>
+                  </ul>
+                </div>
             </div>
           </div>
         </div>

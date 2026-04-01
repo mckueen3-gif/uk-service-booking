@@ -73,16 +73,18 @@ export async function updateBookingStatus(bookingId: string, newStatus: string) 
   try {
     const booking = await prisma.booking.update({
       where: { id: bookingId, merchantId },
-      data: { status: newStatus as any }
+      data: { status: newStatus as any },
+      include: { customer: true }
     });
 
-    // If completed, move funds from pending to available (Standardized Tiered Commission)
+    // If completed, trigger the final fund capture/move logic
     if (newStatus === 'COMPLETED') {
-      await movePendingToAvailable(merchantId, (booking as any).totalAmount);
-      
+      const { completeBookingFunds } = await import('@/lib/finance');
+      await completeBookingFunds(booking);
+
       // 3. Referral Reward Logic (Passive Income: 2% of each order)
       try {
-        const referral = await prisma.referral.findUnique({
+        const referral = await (prisma as any).referral.findUnique({
           where: { refereeId: (booking as any).customerId }
         });
 
@@ -97,26 +99,22 @@ export async function updateBookingStatus(bookingId: string, newStatus: string) 
           const isCapped = currentTotal >= 200;
 
           if (!isExpired && !isCapped) {
-            const potentialReward = (booking as any).totalAmount * 0.02; // New 2% Reward
-            // Ensure next reward doesn't exceed the total cap of £200 per referee
+            const potentialReward = (booking as any).totalAmount * 0.02; // 2% Reward
             const rewardAmount = Math.min(potentialReward, 200 - currentTotal);
 
             if (rewardAmount > 0) {
               await prisma.$transaction([
-                // Update referrer balance
                 prisma.user.update({
                   where: { id: referral.referrerId },
                   data: { referralCredits: { increment: rewardAmount } }
                 }),
-                // Update referral record tracking
-                (prisma.referral as any).update({
+                (prisma as any).referral.update({
                   where: { id: referral.id },
                   data: { 
                     earnedFromReferee: { increment: rewardAmount },
-                    status: 'COMPLETED' // Mark as completed (active referral relationship)
+                    status: 'COMPLETED'
                   }
                 }),
-                // Log transaction
                 (prisma as any).creditTransaction.create({
                   data: {
                     userId: referral.referrerId,
@@ -128,8 +126,6 @@ export async function updateBookingStatus(bookingId: string, newStatus: string) 
               ]);
               console.log(`Issued ${rewardAmount} passive credits to referrer ${referral.referrerId}`);
             }
-          } else if (isCapped || isExpired) {
-             console.log(`Referral reward skipped: ${isCapped ? "Capped at £200" : "Expired (5 Years passed)"}`);
           }
         }
       } catch (refErr) {

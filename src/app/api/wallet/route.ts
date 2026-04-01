@@ -21,6 +21,14 @@ export async function GET(req: NextRequest) {
         select: {
           referralCredits: true,
           referralCode: true,
+          referralsMade: {
+            select: {
+              id: true,
+              referee: { select: { name: true } },
+              earnedFromReferee: true,
+              createdAt: true
+            }
+          }
         }
       })
     );

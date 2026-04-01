@@ -1,38 +1,14 @@
 "use client";
 
 import React, { useState } from 'react';
-import { MapPin, Star, Sparkles, BookOpen, Clock, Video, UserCheck, ShieldCheck, GraduationCap, PlayCircle } from 'lucide-react';
+import { MapPin, Star, Sparkles, BookOpen, Clock, Video, UserCheck, ShieldCheck, GraduationCap } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslation } from '@/components/LanguageContext';
 
-// Demo data for the profile
-const DEMO_PROFILE = {
-  id: "1",
-  name: "Dr. Emily Smith",
-  subjects: ["GCSE Maths", "GCSE Physics", "A-Level Physics"],
-  rate: 40,
-  rating: 4.9,
-  reviews: 124,
-  location: "Manchester",
-  mode: "Hybrid",
-  bio: "Experienced PhD tutor specializing in making complex scientific concepts easy to understand. I have helped over 100 students achieve A* in their GCSEs. My teaching style is interactive and focuses on active recall and exam techniques.",
-  experience: "8 Years",
-  education: "PhD in Applied Physics, University of Manchester",
-  availability: [
-    { day: "Monday", slots: ["16:00", "17:00", "18:00"] },
-    { day: "Wednesday", slots: ["15:00", "16:00", "19:00"] },
-    { day: "Saturday", slots: ["09:00", "10:00", "11:00"] },
-  ],
-  avatarUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300&h=300",
-  portfolioImages: [
-    "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80&w=600",
-    "https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&q=80&w=600",
-    "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=600"
-  ]
-};
-
 export default function TutorProfilePage({ params }: { params: { id: string } }) {
   const { t } = useTranslation();
+  const [profile, setProfile] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   const [showAITrial, setShowAITrial] = useState(false);
   const [challengeState, setChallengeState] = useState<'idle' | 'loading' | 'active' | 'completed' | 'error'>('idle');
   const [questions, setQuestions] = useState<any[]>([]);
@@ -41,8 +17,23 @@ export default function TutorProfilePage({ params }: { params: { id: string } })
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
 
+  React.useEffect(() => {
+    fetch(`/api/education/tutors/${params.id}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) throw new Error(data.error);
+        setProfile(data);
+        setLoading(false);
+      })
+      .catch(e => {
+        console.error(e);
+        setLoading(false);
+      });
+  }, [params.id]);
+
   // 🚀 AI Challenge Logic
   const startChallenge = async () => {
+    if (!profile) return;
     setChallengeState('loading');
     setQuestions([]);
     setCurrentStep(0);
@@ -51,13 +42,14 @@ export default function TutorProfilePage({ params }: { params: { id: string } })
     setShowExplanation(false);
 
     try {
+      const subject = typeof profile.subjects === 'string' ? profile.subjects.split(",")[0] : "Education";
       const res = await fetch('/api/ai/diagnostic', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          subject: DEMO_PROFILE.subjects[0],
+          subject: subject,
           level: "GCSE",
-          tutorName: DEMO_PROFILE.name
+          tutorName: profile.name
         })
       });
 
@@ -72,7 +64,7 @@ export default function TutorProfilePage({ params }: { params: { id: string } })
   };
 
   const handleAnswer = (idx: number) => {
-    if (selectedIdx !== null) return; // Prevent double-clicking
+    if (selectedIdx !== null) return;
     setSelectedIdx(idx);
     setShowExplanation(true);
     
@@ -91,16 +83,37 @@ export default function TutorProfilePage({ params }: { params: { id: string } })
     }
   };
 
+  if (loading) {
+    return (
+      <div style={{ backgroundColor: 'var(--bg-secondary)', minHeight: '100vh', padding: '10rem 0', textAlign: 'center' }}>
+        <div style={{ display: 'inline-block', width: '40px', height: '40px', border: '3px solid var(--accent-color)', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 1s linear infinite', marginBottom: '1rem' }} />
+        <p style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>Curating expert profile...</p>
+      </div>
+    );
+  }
+
+  if (!profile) {
+    return (
+      <div style={{ backgroundColor: 'var(--bg-secondary)', minHeight: '100vh', padding: '10rem 0', textAlign: 'center' }}>
+        <h2 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '1rem' }}>Expert Not Found</h2>
+        <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>We couldn't find the tutor you're looking for.</p>
+        <Link href="/education/search" style={{ color: 'var(--accent-color)', fontWeight: 800 }}>Back to Search Results →</Link>
+      </div>
+    );
+  }
+
+  const subjectList = typeof profile.subjects === 'string' ? profile.subjects.split(", ") : [profile.subjects || "Expert Tutor"];
+
   return (
     <div style={{ backgroundColor: 'var(--bg-secondary)', minHeight: '100vh', padding: '3rem 0 5rem' }}>
       <div className="container" style={{ display: 'flex', gap: '3rem', alignItems: 'flex-start' }}>
         
-        {/* Main Content (Keep original structure) */}
+        {/* Main Content */}
         <div style={{ flex: 1 }}>
           <div className="glass-panel" style={{ padding: '3rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', marginBottom: '2rem' }}>
             <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start', marginBottom: '2rem' }}>
-              {DEMO_PROFILE.avatarUrl ? (
-                <img src={DEMO_PROFILE.avatarUrl} alt={DEMO_PROFILE.name} style={{ width: '120px', height: '120px', borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--surface-1)', boxShadow: 'var(--shadow-md)' }} />
+              {profile.avatarUrl ? (
+                <img src={profile.avatarUrl} alt={profile.name} style={{ width: '120px', height: '120px', borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--surface-1)', boxShadow: 'var(--shadow-md)' }} />
               ) : (
                 <div style={{ 
                   width: '120px', height: '120px', borderRadius: '50%', 
@@ -108,15 +121,15 @@ export default function TutorProfilePage({ params }: { params: { id: string } })
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   fontSize: '3rem', fontWeight: 800, color: 'var(--text-primary)'
                 }}>
-                  {DEMO_PROFILE.name.charAt(0)}
+                  {profile.name?.charAt(0)}
                 </div>
               )}
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                   <div>
-                    <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem' }}>{DEMO_PROFILE.name}</h1>
+                    <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem' }}>{profile.name}</h1>
                     <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
-                      {DEMO_PROFILE.subjects.map(sub => (
+                      {subjectList.map((sub: string) => (
                         <span key={sub} style={{ backgroundColor: 'rgba(99, 102, 241, 0.1)', color: 'var(--accent-color)', padding: '0.3rem 0.8rem', borderRadius: '1rem', fontSize: '0.85rem', fontWeight: 700 }}>
                           {sub}
                         </span>
@@ -124,18 +137,18 @@ export default function TutorProfilePage({ params }: { params: { id: string } })
                     </div>
                   </div>
                   <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: '2rem', fontWeight: 900 }}>£{DEMO_PROFILE.rate}<span style={{ fontSize: '1rem', color: 'var(--text-secondary)', fontWeight: 500 }}>{t.education_sec.common.hr}</span></div>
+                    <div style={{ fontSize: '2rem', fontWeight: 900 }}>£{profile.rate}<span style={{ fontSize: '1rem', color: 'var(--text-secondary)', fontWeight: 500 }}>{t.education_sec.common.hr}</span></div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px', justifyContent: 'flex-end', marginTop: '0.5rem' }}>
                       <Star size={18} fill="#f59e0b" color="#f59e0b" />
-                      <span style={{ fontWeight: 800, fontSize: '1.1rem' }}>{DEMO_PROFILE.rating}</span>
-                      <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>({DEMO_PROFILE.reviews} {t.education_sec.common.reviews})</span>
+                      <span style={{ fontWeight: 800, fontSize: '1.1rem' }}>{Number(profile.rating).toFixed(1)}</span>
+                      <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>({profile.reviews} {t.education_sec.common.reviews})</span>
                     </div>
                   </div>
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', fontSize: '1rem', color: 'var(--text-secondary)' }}>
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><MapPin size={18} /> {DEMO_PROFILE.location}</span>
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Video size={18} /> {DEMO_PROFILE.mode}</span>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><MapPin size={18} /> {profile.location}</span>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Video size={18} /> {profile.mode}</span>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#10b981' }}><ShieldCheck size={18} /> {t.education_sec.tutorProfile.verified}</span>
                 </div>
               </div>
@@ -143,7 +156,7 @@ export default function TutorProfilePage({ params }: { params: { id: string } })
 
             <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '1rem' }}>{t.education_sec.tutorProfile.about}</h3>
             <p style={{ fontSize: '1.05rem', lineHeight: 1.7, color: 'var(--text-secondary)', marginBottom: '2rem' }}>
-              {DEMO_PROFILE.bio}
+              {profile.bio}
             </p>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
@@ -152,25 +165,25 @@ export default function TutorProfilePage({ params }: { params: { id: string } })
                   <GraduationCap size={20} color="var(--accent-color)" />
                   <h4 style={{ fontWeight: 800 }}>{t.education_sec.tutorProfile.education}</h4>
                 </div>
-                <p style={{ color: 'var(--text-secondary)' }}>{DEMO_PROFILE.education}</p>
+                <p style={{ color: 'var(--text-secondary)' }}>{profile.education}</p>
               </div>
               <div style={{ padding: '1.5rem', backgroundColor: 'var(--surface-2)', borderRadius: '16px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.5rem' }}>
                   <UserCheck size={20} color="var(--accent-color)" />
                   <h4 style={{ fontWeight: 800 }}>{t.education_sec.tutorProfile.experience}</h4>
                 </div>
-                <p style={{ color: 'var(--text-secondary)' }}>{DEMO_PROFILE.experience}</p>
+                <p style={{ color: 'var(--text-secondary)' }}>{profile.experience}</p>
               </div>
             </div>
           </div>
           
           {/* Portfolio Section */}
-          {DEMO_PROFILE.portfolioImages && DEMO_PROFILE.portfolioImages.length > 0 && (
+          {profile.portfolioImages && profile.portfolioImages.length > 0 && (
             <div className="glass-panel" style={{ padding: '3rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', marginBottom: '2rem' }}>
               <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '1.5rem' }}>{t.education_sec.tutorProfile.portfolio}</h3>
               <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>Take a look at my past work, learning environments, and successful case studies.</p>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
-                {DEMO_PROFILE.portfolioImages.map((imgUrl, idx) => (
+                {profile.portfolioImages.map((imgUrl: string, idx: number) => (
                   <div key={idx} style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', aspectRatio: '4/3' }}>
                     <img 
                       src={imgUrl} 
@@ -187,13 +200,23 @@ export default function TutorProfilePage({ params }: { params: { id: string } })
           {/* Reviews Section */}
           <div className="glass-panel" style={{ padding: '3rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)' }}>
             <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '1.5rem' }}>{t.education_sec.tutorProfile.reviews}</h3>
-            <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--border-color)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                <h5 style={{ fontWeight: 700 }}>Matthew L.</h5>
-                <div style={{ display: 'flex' }}><Star size={14} fill="#f59e0b" color="#f59e0b" /><Star size={14} fill="#f59e0b" color="#f59e0b" /><Star size={14} fill="#f59e0b" color="#f59e0b" /><Star size={14} fill="#f59e0b" color="#f59e0b" /><Star size={14} fill="#f59e0b" color="#f59e0b" /></div>
-              </div>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>Dr. Smith is amazing! She helped me improve my Maths grade from a 5 to an 8 in just 3 months. Highly recommend.</p>
-            </div>
+            {profile.recentReviews && profile.recentReviews.length > 0 ? (
+              profile.recentReviews.map((r: any) => (
+                <div key={r.id} style={{ padding: '1.5rem', borderBottom: '1px solid var(--border-color)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                    <h5 style={{ fontWeight: 700 }}>{r.user}</h5>
+                    <div style={{ display: 'flex' }}>
+                       {[...Array(5)].map((_, i) => (
+                         <Star key={i} size={14} fill={i < r.rating ? "#f59e0b" : "transparent"} color="#f59e0b" />
+                       ))}
+                    </div>
+                  </div>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>{r.comment}</p>
+                </div>
+              ))
+            ) : (
+              <p style={{ color: 'var(--text-secondary)' }}>No reviews yet. Be the first to book a lesson!</p>
+            )}
           </div>
         </div>
 
@@ -224,11 +247,11 @@ export default function TutorProfilePage({ params }: { params: { id: string } })
             </h3>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2rem' }}>
-              {DEMO_PROFILE.availability.map((day) => (
+              {profile.availability && profile.availability.map((day: any) => (
                 <div key={day.day}>
                   <div style={{ fontWeight: 700, marginBottom: '0.5rem' }}>{day.day}</div>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                    {day.slots.map(slot => (
+                    {day.slots.map((slot: any) => (
                       <button key={slot} style={{ 
                         padding: '0.5rem 1rem', borderRadius: '8px', 
                         border: '1px solid var(--accent-color)', background: 'transparent',
@@ -270,7 +293,7 @@ export default function TutorProfilePage({ params }: { params: { id: string } })
                 <Sparkles size={64} color="#10b981" style={{ margin: '0 auto 1.5rem' }} />
                 <h2 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '1rem' }}>{t.education_sec.tutorProfile.trialChallenge}</h2>
                 <p style={{ color: 'var(--text-secondary)', marginBottom: '2.5rem', fontSize: '1.15rem', lineHeight: 1.6 }}>
-                  Generate 5 quick diagnostic questions for <b>{DEMO_PROFILE.subjects[0]}</b> level to let <b>{DEMO_PROFILE.name}</b> know your current level before booking!
+                  Generate 5 quick diagnostic questions for <b>{subjectList[0]}</b> level to let <b>{profile.name}</b> know your current level before booking!
                 </p>
                 <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
                   <button onClick={startChallenge} className="btn btn-primary" style={{ padding: '1rem 2.5rem', fontSize: '1.1rem' }}>
@@ -290,7 +313,7 @@ export default function TutorProfilePage({ params }: { params: { id: string } })
                    <Sparkles size={48} className="animate-pulse" color="#10b981" style={{ margin: '0 auto' }} />
                 </div>
                 <h3 style={{ fontSize: '1.5rem', fontWeight: 800 }}>AI is preparing your challenge...</h3>
-                <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem' }}>Analyzing curriculum for {DEMO_PROFILE.subjects[0]}</p>
+                <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem' }}>Analyzing curriculum for {subjectList[0]}</p>
               </div>
             )}
 
@@ -396,7 +419,7 @@ export default function TutorProfilePage({ params }: { params: { id: string } })
                    Assessment: {score >= 4 ? "Excellent Foundation" : score >= 2 ? "Ready for Progress" : "Starting Journey"}
                 </div>
                 <p style={{ color: 'var(--text-secondary)', marginBottom: '3rem', fontSize: '1.1rem', lineHeight: 1.6 }}>
-                   Dr. Emily Smith has received your assessment. She can now tailor your first lesson precisely to your strengths!
+                   {profile.name} has received your assessment. They can now tailor your first lesson precisely to your strengths!
                 </p>
                 <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
                   <button onClick={() => setShowAITrial(false)} className="btn btn-primary" style={{ padding: '1rem 3rem' }}>

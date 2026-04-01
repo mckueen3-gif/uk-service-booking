@@ -46,9 +46,23 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Merchant is not fully onboarded with Stripe to receive payments.' }, { status: 400 });
     }
 
-    // Dynamic Platform Fee Calculation
+    // Fetch service to determine sector (Education vs Repairs)
+    const service = await prisma.service.findUnique({
+      where: { id: serviceId }
+    });
+
+    const isEducation = service?.category === 'Education';
+    const totalAmountInPence = priceAmount * 100;
+
+    // Calculate Sector-Specific Logic
+    // Education: 100% upfront
+    // Others: 20% deposit, save card for 80% balance
+    const checkoutAmountInPence = isEducation ? totalAmountInPence : Math.round(totalAmountInPence * 0.20);
+    const balanceAmountInPence = totalAmountInPence - checkoutAmountInPence;
+
+    // Dynamic Platform Fee Calculation (8%)
     const commissionRate = getCommissionRate(merchant);
-    const applicationFeeInPence = Math.round(amountInPence * commissionRate);
+    const applicationFeeInPence = Math.round(checkoutAmountInPence * commissionRate);
 
     let checkoutSession;
     
@@ -57,14 +71,17 @@ export async function POST(req: Request) {
       checkoutSession = await stripe.checkout.sessions.create({
         mode: 'payment',
         payment_method_types: ['card'],
+        customer_email: session.user.email,
         line_items: [
           {
             price_data: {
               currency: 'gbp',
-              unit_amount: amountInPence,
+              unit_amount: checkoutAmountInPence,
               product_data: {
-                name: `${serviceName} - Booking Deposit`,
-                description: `Professional Service Booking with ${merchant.companyName}`
+                name: isEducation ? `${serviceName} (Full Payment)` : `${serviceName} (20% Deposit)`,
+                description: isEducation 
+                  ? `Course full payment with ${merchant.companyName}` 
+                  : `Secure your booking with ${merchant.companyName} (20% Deposit)`
               },
             },
             quantity: 1,
@@ -75,12 +92,18 @@ export async function POST(req: Request) {
           transfer_data: {
             destination: merchant.stripeAccountId,
           },
+          // For Repairs, save the card for the 80% balance hold later
+          setup_future_usage: isEducation ? undefined : 'off_session',
           metadata: {
             merchantId,
             customerId: session.user.id,
             scheduledDate: scheduledDate || new Date().toISOString(),
             serviceId,
             serviceName,
+            isEducation: isEducation ? 'true' : 'false',
+            totalAmount: totalAmountInPence.toString(),
+            depositAmount: checkoutAmountInPence.toString(),
+            balanceAmount: balanceAmountInPence.toString(),
             vehicleInfo: JSON.stringify(vehicleInfo || {})
           }
         },
@@ -88,31 +111,8 @@ export async function POST(req: Request) {
         cancel_url: `${process.env.NEXTAUTH_URL}/book/${merchantId}?canceled=true`,
       });
     } catch (stripeErr: any) {
-      // Sandbox Fallback: If sandbox account misses 'transfers' capability due to skipped onboarding form
-      if (stripeErr.message && stripeErr.message.includes('stripe_balance.stripe_transfers')) {
-        console.warn('Sandbox Bypass: Degrading to direct platform charge. Destination account lacks transfers capability.');
-        checkoutSession = await stripe.checkout.sessions.create({
-          mode: 'payment',
-          payment_method_types: ['card'],
-          line_items: [
-            {
-              price_data: {
-                currency: 'gbp',
-                unit_amount: amountInPence,
-                product_data: {
-                  name: `${serviceName} (Sandbox Fallback)`,
-                  description: `Test Mode: Platform Charge Bypass for ${merchant.companyName}`
-                },
-              },
-              quantity: 1,
-            },
-          ],
-          success_url: `${process.env.NEXTAUTH_URL}/book/${merchantId}?success=true&service=${encodeURIComponent(serviceName)}&price=${encodeURIComponent(basePriceStr)}`,
-          cancel_url: `${process.env.NEXTAUTH_URL}/book/${merchantId}?canceled=true`,
-        });
-      } else {
-        throw stripeErr;
-      }
+      console.error("Stripe Checkout Error:", stripeErr);
+      throw stripeErr;
     }
 
     return NextResponse.json({ url: checkoutSession.url });

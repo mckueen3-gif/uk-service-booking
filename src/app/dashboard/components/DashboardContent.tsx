@@ -296,13 +296,21 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
             </button>
           </div>
 
-          {/* Section 2: Claim Referral Code (Only show if not already referred) */}
-          {!user?.referredBy && (
+          {/* Referrer/Referee Visibility Logic */}
+          {user?.referredBy ? (
+            <div style={{ padding: '0.75rem 1.25rem', borderRadius: '16px', backgroundColor: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.2)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <div style={{ color: '#10b981' }}><CheckCircle size={18} /></div>
+              <div>
+                <div style={{ fontSize: '0.65rem', fontWeight: 800, color: '#059669', opacity: 0.8 }}>已被推薦 Referred by</div>
+                <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#064e3b' }}>{user.referredBy}</div>
+              </div>
+            </div>
+          ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               <div style={{ display: 'flex', gap: '0.5rem' }}>
                 <input 
                   type="text" 
-                  placeholder="輸入推薦碼" 
+                  placeholder={t.home.referralCTA.referralLabel} 
                   value={claimCode}
                   onChange={(e) => setClaimCode(e.target.value.toUpperCase())}
                   disabled={claiming}
@@ -323,14 +331,13 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
                   style={{ 
                     padding: '0.6rem 1rem', 
                     borderRadius: '10px', 
-                    background: 'var(--surface-2)', 
-                    color: 'var(--text-primary)',
-                    border: '1px solid var(--border-color)',
+                    background: 'var(--accent-color)', 
+                    color: 'white',
                     fontSize: '0.8rem',
                     fontWeight: 700
                   }}
                 >
-                  {claiming ? <Loader2 size={14} className="spin" /> : '領取獎勵'}
+                  {claiming ? <Loader2 size={14} className="spin" /> : '領取獎勵 Claim'}
                 </button>
               </div>
               {claimStatus && (

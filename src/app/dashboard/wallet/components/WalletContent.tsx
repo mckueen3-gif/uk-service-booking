@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Wallet, Gift, Copy, History, CreditCard, Ticket, ArrowUpRight, ArrowDownLeft, Loader2, TrendingUp } from "lucide-react";
+import { Wallet, Gift, Copy, History, CreditCard, Ticket, ArrowUpRight, ArrowDownLeft, Loader2, TrendingUp, Users, CheckCircle, Sparkles } from "lucide-react";
 import VoucherForm from "../VoucherForm";
 
 export default function WalletContent() {
@@ -192,6 +192,76 @@ export default function WalletContent() {
           </table>
         </div>
       </div>
+
+      {/* 🚀 NEW: Referrer's List (Passive Income Tracking) */}
+      {stats?.referralsMade && stats.referralsMade.length > 0 && (
+        <div className="glass-panel animate-fade-up" style={{ padding: '2.5rem', borderRadius: '24px', border: '1px solid rgba(16, 185, 129, 0.1)', backgroundColor: 'rgba(16, 185, 129, 0.02)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
+            <div style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '0.75rem', borderRadius: '12px' }}>
+              <Users size={24} color="#10b981" />
+            </div>
+            <div>
+               <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>我的推薦紀錄 (Referral List)</h2>
+               <p style={{ fontSize: '0.85rem', color: '#64748b' }}>追蹤由您邀請加入的夥伴及其貢獻的 2% 永久收益</p>
+            </div>
+          </div>
+          
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
+              <thead>
+                <tr style={{ borderBottom: '1px solid var(--border-color)', color: '#64748b' }}>
+                  <th style={{ paddingBottom: '1.25rem', paddingRight: '1rem', fontWeight: 600 }}>被推薦用戶</th>
+                  <th style={{ paddingBottom: '1.25rem', paddingRight: '1rem', fontWeight: 600 }}>累積收益 (2%)</th>
+                  <th style={{ paddingBottom: '1.25rem', paddingRight: '1rem', fontWeight: 600 }}>佣金有效期 (5年)</th>
+                  <th style={{ paddingBottom: '1.25rem', fontWeight: 600 }}>狀態 Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {stats.referralsMade.map((ref: any) => {
+                  const expiryDate = new Date(ref.createdAt);
+                  expiryDate.setFullYear(expiryDate.getFullYear() + 5);
+                  const isExpired = expiryDate < new Date();
+                  
+                  return (
+                    <tr key={ref.id} style={{ borderBottom: '1px solid #f8fafc', opacity: isExpired ? 0.6 : 1 }}>
+                      <td style={{ padding: '1.5rem 0', paddingRight: '1rem' }}>
+                        <div style={{ fontWeight: 800, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                           {ref.referee?.name || '匿名用戶'}
+                           {!isExpired && <Sparkles size={14} color="#f59e0b" />}
+                        </div>
+                        <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>註冊於 {new Date(ref.createdAt).toLocaleDateString()}</div>
+                      </td>
+                      <td style={{ padding: '1.5rem 0', paddingRight: '1rem', color: 'var(--accent-color)', fontWeight: 900 }}>
+                        £{(ref.earnedFromReferee || 0).toFixed(2)}
+                      </td>
+                      <td style={{ padding: '1.5rem 0', paddingRight: '1rem' }}>
+                        <div style={{ color: isExpired ? '#ef4444' : 'var(--text-primary)', fontWeight: 600 }}>
+                           {expiryDate.getFullYear()}年{expiryDate.getMonth()+1}月截止
+                        </div>
+                      </td>
+                      <td style={{ padding: '1.5rem 0' }}>
+                        <span style={{ 
+                          fontSize: '0.7rem', 
+                          padding: '0.35rem 0.75rem', 
+                          borderRadius: '99px',
+                          backgroundColor: isExpired ? 'rgba(239, 68, 68, 0.08)' : 'rgba(16, 185, 129, 0.08)',
+                          color: isExpired ? '#ef4444' : '#10b981',
+                          fontWeight: 800,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.05em',
+                          border: isExpired ? '1px solid rgba(239, 68, 68, 0.1)' : '1px solid rgba(16, 185, 129, 0.1)'
+                        }}>
+                          {isExpired ? "已過期 Expired" : "收益中 Active"}
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
