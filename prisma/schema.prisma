@@ -162,6 +162,7 @@ model Merchant {
   
   // New Commercial Fields
   commissionRate     Float     @default(0.09) // Default 9%
+  freeOrdersLeft     Int       @default(5)    // First 5 jobs free incentive
    
   // Bank Details (UK)
   bankSortCode       String?
@@ -190,6 +191,7 @@ model Merchant {
 model PlatformSettings {
   id                   String   @id @default("global")
   defaultCommissionRate Float    @default(0.09)
+  defaultFreeOrders     Int      @default(0)
   updatedAt            DateTime @updatedAt
 }
 
@@ -198,6 +200,7 @@ model PromoCode {
   code            String   @unique
   maxUses         Int?     // Total platform-wide uses allowed
   currentUses     Int      @default(0)
+  freeOrdersCount Int      @default(0)    // Benefit provided by this code
   expiresAt       DateTime?
   
   createdAt       DateTime @default(now())
