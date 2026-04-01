@@ -6,8 +6,13 @@ import { authOptions } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 
 async function getUserId() {
-  const session = (await getServerSession(authOptions)) as any;
-  return session?.user?.id;
+  try {
+    const session = (await getServerSession(authOptions).catch(() => null)) as any;
+    return session?.user?.id;
+  } catch (err) {
+    console.error("Wallet Action: Session check failed:", err);
+    return null;
+  }
 }
 
 export async function getWalletStats() {

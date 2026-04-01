@@ -18,7 +18,14 @@ export interface MaintenanceEvent {
 
 export async function getMaintenanceTimeline() {
   try {
-    const session = await getServerSession(authOptions);
+    let session: any = null;
+    try {
+      session = (await getServerSession(authOptions).catch(() => null)) as any;
+    } catch (sErr) {
+      console.error("Timeline Action: Session check failed:", sErr);
+      return [];
+    }
+
     if (!session?.user) {
       console.log("Timeline Error: No session found.");
       return [];

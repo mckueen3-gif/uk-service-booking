@@ -203,7 +203,7 @@ export default async function DashboardOverview() {
           </div>
         </div>
 
-        {/* Maintenance Timeline Area */}
+/* Maintenance Timeline Area */
         <section>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
             <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
@@ -212,12 +212,14 @@ export default async function DashboardOverview() {
             <Link href="/dashboard/garage" style={{ fontSize: '0.85rem', color: 'var(--accent-color)', fontWeight: 800, textDecoration: 'none' }}>
               管理我的資產 →
             </Link>
-            {/* <MaintenanceTimeline /> */}
-            <div style={{ padding: '2rem', textAlign: 'center', backgroundColor: '#f8fafc', borderRadius: '12px', border: '1px dashed #cbd5e1', color: '#64748b' }}>
-              <Clock size={40} style={{ marginBottom: '1rem', opacity: 0.5 }} />
-              <p>Maintenance Timeline is temporarily offline (Debug Mode).</p>
-            </div>
-          </section>
+          </div>
+          
+          {/* <MaintenanceTimeline /> */}
+          <div style={{ padding: '2rem', textAlign: 'center', backgroundColor: '#f8fafc', borderRadius: '12px', border: '1px dashed #cbd5e1', color: '#64748b' }}>
+            <Clock size={40} style={{ marginBottom: '1rem', opacity: 0.5 }} />
+            <p>Maintenance Timeline is temporarily offline (Debug Mode).</p>
+          </div>
+        </section>
 
         {/* Past Bookings Table */}
         <section className="glass-panel" style={{ padding: '2rem', borderRadius: '28px' }}>

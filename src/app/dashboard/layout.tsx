@@ -5,7 +5,13 @@ import SidebarNav from "@/components/dashboard/SidebarNav";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const session = (await getServerSession(authOptions)) as any;
+  let session: any = null;
+  try {
+    session = (await getServerSession(authOptions).catch(() => null)) as any;
+  } catch (err) {
+    console.error("Layout Session Error:", err);
+    // If layout itself fails, we still want to show something safe
+  }
 
   if (!session) {
     redirect("/auth/login");
