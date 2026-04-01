@@ -31,8 +31,7 @@ export async function GET(req: NextRequest) {
               id: true,
               referee: { select: { name: true } },
               earnedFromReferee: true,
-              createdAt: true,
-              commissionExpiresAt: true
+              createdAt: true
             }
           }
         }
@@ -52,8 +51,7 @@ export async function GET(req: NextRequest) {
                 id: true,
                 referee: { select: { name: true } },
                 earnedFromReferee: true,
-                createdAt: true,
-                commissionExpiresAt: true
+                createdAt: true
               }
             }
           }

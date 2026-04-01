@@ -1,4 +1,4 @@
-import { prisma } from "../prisma";
+import { prisma } from "./prisma";
 
 /**
  * 🚀 CONFLICT RESOLUTION: Generates a unique referral code.
