@@ -93,33 +93,58 @@ export default function WalletContent() {
 
         {/* Voucher & Referral */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-          <div className="glass-panel" style={{ padding: '2rem', borderRadius: '24px', background: 'white' }}>
+          {/* Voucher */}
+          <div className="glass-panel" style={{ padding: '2rem', borderRadius: '24px', border: '1px solid var(--border-color)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
-              <div style={{ backgroundColor: '#fdf2f2', padding: '0.5rem', borderRadius: '0.75rem' }}>
+              <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', padding: '0.5rem', borderRadius: '0.75rem' }}>
                 <Ticket size={24} color="#ef4444" />
               </div>
-              <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>兌換優惠碼</h2>
+              <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)' }}>兑換優惠碼</h2>
             </div>
             <VoucherForm />
           </div>
 
-          <div className="glass-panel" style={{ padding: '2rem', borderRadius: '24px', background: '#f5f3ff', border: '1px solid #ddd6fe' }}>
+          {/* Referral Code */}
+          <div className="glass-panel" style={{ padding: '2rem', borderRadius: '24px', border: '1px solid rgba(99, 102, 241, 0.25)', background: 'rgba(99, 102, 241, 0.05)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-              <div style={{ backgroundColor: '#eef2ff', padding: '0.5rem', borderRadius: '0.75rem' }}>
+              <div style={{ backgroundColor: 'rgba(99, 102, 241, 0.12)', padding: '0.5rem', borderRadius: '0.75rem' }}>
                 <Gift size={24} color="#6366f1" />
               </div>
-              <h2 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#1e1b4b' }}>推薦好友，享 2% 回饋</h2>
+              <h2 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--text-primary)' }}>推薦好友，享 2% 回饵</h2>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: 'white', padding: '0.75rem 1rem', borderRadius: '1rem', border: '1px dashed #6366f1' }}>
-              <span style={{ fontWeight: 900, color: '#6366f1', fontSize: '1.2rem' }}>{stats?.referralCode}</span>
-              <Copy size={20} color="#6366f1" style={{ cursor: 'pointer' }} />
+            <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
+              分享您的專屬推薦碼，好友首次預約後您將獲得 2% 回饵累積下來。
+            </p>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              background: 'rgba(99, 102, 241, 0.08)',
+              padding: '0.875rem 1.25rem',
+              borderRadius: '12px',
+              border: '1.5px dashed rgba(99, 102, 241, 0.4)'
+            }}>
+              <span style={{ fontWeight: 900, color: '#6366f1', fontSize: '1.15rem', letterSpacing: '0.08em' }}>
+                {stats?.referralCode || (
+                  <span style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--text-secondary)' }}>正在載入...</span>
+                )}
+              </span>
+              {stats?.referralCode && (
+                <button
+                  onClick={() => navigator.clipboard.writeText(stats.referralCode)}
+                  title="複製推薦碼"
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0.25rem' }}
+                >
+                  <Copy size={20} color="#6366f1" />
+                </button>
+              )}
             </div>
           </div>
         </div>
       </div>
 
       {/* Transaction History */}
-      <div className="glass-panel" style={{ padding: '2.5rem', borderRadius: '24px', background: 'white' }}>
+      <div className="glass-panel" style={{ padding: '2.5rem', borderRadius: '24px', border: '1px solid var(--border-color)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
           <History size={24} color="var(--accent-color)" />
           <h2 style={{ fontSize: '1.5rem', fontWeight: 800 }}>點數明細 (Transaction History)</h2>

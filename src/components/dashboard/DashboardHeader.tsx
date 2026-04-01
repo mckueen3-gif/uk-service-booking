@@ -46,20 +46,27 @@ export default function DashboardHeader({ userName }: { userName: string }) {
       marginBottom: '2rem',
       boxShadow: 'var(--shadow-sm)'
     }}>
-      {/* Breadcrumbs */}
+      {/* Breadcrumbs — only show sub-page name, not redundant "Dashboard" on root */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
         <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <Link href="/dashboard" style={{ textDecoration: 'none', color: 'inherit' }}>Dashboard</Link>
-          {breadcrumbs.length > 1 && breadcrumbs.slice(1).map((b, i) => (
-            <span key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span style={{ opacity: 0.5 }}>/</span>
-              <Link href={b.href} style={{ 
-                textDecoration: 'none', 
-                color: i === breadcrumbs.length - 2 ? 'var(--text-primary)' : 'inherit',
-                fontWeight: i === breadcrumbs.length - 2 ? 700 : 400
-              }}>{b.label}</Link>
-            </span>
-          ))}
+          {breadcrumbs.length <= 1 ? (
+            // Root /dashboard — show nothing (page title already in page.tsx)
+            <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>控制面板</span>
+          ) : (
+            <>
+              <Link href="/dashboard" style={{ textDecoration: 'none', color: 'inherit' }}>控制面板</Link>
+              {breadcrumbs.slice(1).map((b, i) => (
+                <span key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <span style={{ opacity: 0.4 }}>/</span>
+                  <Link href={b.href} style={{
+                    textDecoration: 'none',
+                    color: i === breadcrumbs.slice(1).length - 1 ? 'var(--text-primary)' : 'inherit',
+                    fontWeight: i === breadcrumbs.slice(1).length - 1 ? 700 : 400
+                  }}>{b.label}</Link>
+                </span>
+              ))}
+            </>
+          )}
         </div>
       </div>
 
