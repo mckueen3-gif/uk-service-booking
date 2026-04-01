@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { prisma } from "@/lib/prisma";
+import { prisma, safeDbQuery } from "@/lib/prisma";
 import ProfileContent from "./components/ProfileContent";
 
 export default async function ProfilePage() {
@@ -9,27 +9,33 @@ export default async function ProfilePage() {
   
   if (!session || !session.user) redirect("/auth/login");
   
-  // 🚀 INSTANT SHELL: Server only fetches the bare minimum for layout
-  const userWithBasicInfo = await prisma.user.findUnique({
-    where: { id: (session.user as any).id },
-    select: { 
-      id: true,
-      name: true,
-      email: true,
-      role: true,
-      phone: true,
-      city: true,
-      referralCode: true,
-      referralCredits: true,
-      createdAt: true,
-    }
-  });
+  const userId = (session.user as any).id;
 
-  if (!userWithBasicInfo) redirect("/auth/login");
+  // 🚀 DB RESILIENCE: Wrap in safeDbQuery to handle pool saturations
+  let userWithBasicInfo = null;
+  try {
+    userWithBasicInfo = await safeDbQuery(() => prisma.user.findUnique({
+      where: { id: userId },
+      select: { 
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        phone: true,
+        city: true,
+        referralCode: true,
+        referralCredits: true,
+        createdAt: true,
+      }
+    }));
+  } catch (e) {
+    console.warn("[Profile] Server pre-fetch failed, falling back to client sync.");
+  }
 
   return (
     <div className="animate-fade-up" style={{ paddingBottom: '5rem' }}>
-      <ProfileContent initialUser={userWithBasicInfo} />
+      {/* If DB fetch failed, pass session data as a placeholder */}
+      <ProfileContent initialUser={userWithBasicInfo || session.user} />
     </div>
   );
 }

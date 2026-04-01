@@ -104,7 +104,8 @@ export async function GET(req: NextRequest) {
     });
   } catch (error) {
     console.error("Dashboard API Error:", error);
-    // Attempt rescue from session
+    
+    // 🛡️ RECOVERY LAYER: Extract from session if DB is busy/saturated
     const sessionUser = (session?.user as any);
     
     return NextResponse.json({
@@ -113,6 +114,7 @@ export async function GET(req: NextRequest) {
         name: sessionUser?.name || "User",
         email: sessionUser?.email || "",
         role: sessionUser?.role || "CUSTOMER",
+        // CRITICAL: Pull from session if DB is missing it
         referralCode: sessionUser?.referralCode || "REF-PENDING", 
         referralCredits: 0
       },
