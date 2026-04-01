@@ -12,231 +12,195 @@ import {
   Clock,
   Zap,
   TrendingUp,
-  PieChart
+  PieChart,
+  MessageSquare,
+  CheckCircle
 } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
-function StatCard({ icon, label, value, trend, mode }: { icon: any, label: string, value: string, trend?: string, mode?: string }) {
-  const accentColor = mode === 'merchant' ? '#3b82f6' : (mode === 'payout' ? '#10b981' : '#f59e0b');
-  
+function StatCard({ icon, title, value, trend }: { icon: any, title: string, value: string | number, trend?: string }) {
   return (
-    <div className="glass-panel animate-fade-up" style={{ padding: '1.5rem', borderRadius: '20px', background: 'white' }}>
+    <div className="glass-panel animate-fade-up" style={{ padding: '1.5rem', borderRadius: '20px', backgroundColor: 'rgba(255,255,255,0.03)' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-        <div style={{ color: accentColor, backgroundColor: `${accentColor}15`, padding: '0.75rem', borderRadius: '12px' }}>
+        <div style={{ color: 'var(--accent-color)', backgroundColor: 'rgba(99, 102, 241, 0.1)', padding: '0.75rem', borderRadius: '12px' }}>
           {icon}
         </div>
         {trend && (
-          <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#10b981', backgroundColor: '#ecfdf5', padding: '0.25rem 0.5rem', borderRadius: '99px' }}>
+          <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#10b981', backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '0.25rem 0.5rem', borderRadius: '99px' }}>
             {trend}
           </span>
         )}
       </div>
-      <p style={{ color: '#64748b', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.25rem' }}>{label}</p>
-      <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0f172a' }}>{value}</h3>
+      <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.25rem' }}>{title}</p>
+      <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>{value}</h3>
     </div>
   );
 }
 
-function ActivityItem({ title, time, status }: { title: string, time: string, status: string }) {
-  const statusColor = status === 'COMPLETED' ? '#10b981' : (status === 'PENDING' ? '#f59e0b' : '#3b82f6');
+export default async function DashboardPage() {
+  const session = await getServerSession(authOptions);
+  if (!session || !session.user) redirect("/auth/login");
 
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', borderBottom: '1px solid #f1f5f9' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: statusColor }} />
-        <div>
-          <p style={{ fontWeight: 600, fontSize: '0.95rem', color: '#1e293b' }}>{title}</p>
-          <p style={{ fontSize: '0.8rem', color: '#94a3b8' }}>{time}</p>
-        </div>
-      </div>
-      <span style={{ fontSize: '0.75rem', fontWeight: 700, color: statusColor, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-        {status}
-      </span>
-    </div>
-  );
-}
+  // Simplified logic relying on Global error.tsx
+  const user = await prisma.user.findUnique({
+    where: { id: (session.user as any).id },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true
+    }
+  });
 
-function HyperResilientFallback({ errorCode }: { errorCode: string }) {
-  return (
-    <div style={{ padding: '3rem', textAlign: 'center', background: '#fefce8', border: '2px dashed #facc15', borderRadius: '24px' }}>
-      <Clock size={48} color="#eab308" style={{ margin: '0 auto 1.5rem' }} />
-      <h2 style={{ fontSize: '1.5rem', fontWeight: 900, marginBottom: '1rem' }}>Dashboard is in Hyper-Resilient Mode</h2>
-      <p style={{ color: '#854d0e', marginBottom: '1.5rem' }}>Some data services are currently being optimized. Your core functions remain safe.</p>
-      <div style={{ fontSize: '0.7rem', color: '#ca8a04', opacity: 0.7 }}>Ref Code: {errorCode}</div>
-    </div>
-  );
-}
+  if (!user) redirect("/auth/login");
 
-export default async function DashboardOverview() {
-  try {
-    const session = await getServerSession(authOptions);
-    if (!session) redirect("/auth/login");
+  const isMerchant = user.role === "MERCHANT";
 
-    // Pre-isolate data fetching for extreme resilience
-    let userData: any = null;
-    let merchantData: any = null;
-    let bookingsData: any[] = [];
-    let errorLog: string[] = [];
-
-    // 1. Fetch User Stats (Hyper-Isolated)
-    try {
-      userData = await prisma.user.findUnique({
-        where: { id: (session.user as any).id },
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          role: true,
-          notifications: {
-            orderBy: { createdAt: 'desc' },
-            take: 5,
-            select: {
-              id: true,
-              title: true,
-              message: true,
-              type: true,
-              isRead: true,
-              createdAt: true
-            }
+  let merchantData = null;
+  if (isMerchant) {
+    merchantData = await prisma.merchant.findUnique({
+      where: { userId: user.id },
+      select: {
+        id: true,
+        isVerified: true,
+        wallet: {
+          select: {
+            totalEarned: true,
+            pendingBalance: true
           }
         }
-      });
-    } catch (e) { 
-      console.error("Dashboard DB Error [User]:", e); 
-      errorLog.push("USER_DB_FAIL");
-    }
-
-    // 2. Fetch Merchant Profile (Hyper-Isolated)
-    try {
-      merchantData = await prisma.merchant.findUnique({
-        where: { userId: (session.user as any).id },
-        select: {
-          id: true,
-          isVerified: true,
-          wallet: {
-            select: {
-              totalEarned: true,
-              pendingBalance: true
-            }
-          }
-        }
-      }) as any;
-    } catch (e) {
-      console.error("Dashboard DB Error [Merchant]:", e);
-      errorLog.push("MERCHANT_DB_FAIL");
-    }
-
-    // 3. Fetch Bookings (Hyper-Isolated)
-    try {
-      bookingsData = await prisma.booking.findMany({
-        where: { 
-          OR: [
-            { customerId: (session.user as any).id },
-            { merchantId: merchantData?.id || 'none' }
-          ]
-        },
-        select: {
-          id: true,
-          scheduledDate: true,
-          status: true,
-          service: {
-            select: {
-              id: true,
-              name: true
-            }
-          },
-          customer: {
-            select: {
-              id: true,
-              name: true,
-              email: true
-            }
-          }
-        },
-        orderBy: { scheduledDate: 'desc' },
-        take: 5
-      });
-    } catch (e) {
-      console.error("Dashboard DB Error [Bookings]:", e);
-      errorLog.push("BOOKINGS_DB_FAIL");
-    }
-
-    const isMerchant = (session?.user as any)?.role === 'MERCHANT';
-    const displayName = session?.user?.name || "User";
-
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-        {/* Header Section */}
-        {/* Header Section (Simplified) */}
-        <div className="animate-fade-up" style={{ marginBottom: '0.5rem' }}>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', fontWeight: 600 }}>
-            {errorLog.length > 0 ? `System Note: Partial service active (${errorLog.join(', ')})` : `Welcome back, ${displayName}. Here's what's happening today.`}
-          </p>
-        </div>
-
-        {/* Stats Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem' }}>
-          <StatCard 
-            icon={<Clock size={24} />} 
-            label="Pending Tasks" 
-            value={isMerchant ? "3" : "1"} 
-            trend="+1 this week"
-            mode="merchant"
-          />
-          <StatCard 
-            icon={<PieChart size={24} />} 
-            label="Total Earnings" 
-            value={isMerchant ? `£${merchantData?.wallet?.totalEarned?.toFixed(2) || "0.00"}` : "£0.00"} 
-            trend="Referral active"
-            mode="payout"
-          />
-          <StatCard 
-            icon={<ShieldCheck size={24} />} 
-            label="Status" 
-            value={merchantData?.isVerified ? "Verified" : "Pending"} 
-            trend="Expert Level"
-            mode="status"
-          />
-        </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '2rem' }}>
-          {/* Main Activity Area */}
-          <div className="glass-panel" style={{ padding: '2rem', borderRadius: '24px', background: 'white' }}>
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <Zap size={24} color="var(--accent-color)" /> Recent Activity
-            </h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              {bookingsData.length > 0 ? (
-                bookingsData.map((booking) => (
-                  <ActivityItem 
-                    key={booking.id}
-                    title={booking.service?.name || "Service Booking"}
-                    time={new Date(booking.scheduledDate).toLocaleDateString()}
-                    status={booking.status}
-                  />
-                ))
-              ) : (
-                <p style={{ color: '#94a3b8', textAlign: 'center', padding: '2rem' }}>No recent activity found.</p>
-              )}
-            </div>
-          </div>
-
-          {/* Quick Actions Area */}
-          <div className="glass-panel" style={{ padding: '2rem', borderRadius: '24px', background: 'white', border: '1px dashed #e2e8f0' }}>
-             {/* Timeline Area Placeholder */}
-             <div style={{ opacity: 0.5, textAlign: 'center', padding: '4rem 0' }}>
-                <Clock size={48} style={{ margin: '0 auto 1rem', color: '#cbd5e1' }} />
-                <p style={{ fontWeight: 600, color: '#64748b' }}>Maintenance Timeline</p>
-                <p style={{ fontSize: '0.85rem', color: '#94a3b8' }}>Real-time updates are initializing...</p>
-             </div>
-          </div>
-        </div>
-      </div>
-    );
-  } catch (criticalError) {
-    console.error("Dashboard CRITICAL CRASH:", criticalError);
-    return <HyperResilientFallback errorCode="DB-CRIT-999" />;
+      }
+    });
   }
+
+  const bookings = await prisma.booking.findMany({
+    where: isMerchant ? { merchantId: merchantData?.id } : { customerId: user.id },
+    orderBy: { scheduledDate: 'desc' },
+    take: 5,
+    select: {
+      id: true,
+      status: true,
+      totalAmount: true,
+      scheduledDate: true,
+      service: {
+        select: { name: true }
+      }
+    }
+  });
+
+  return (
+    <div className="animate-fade-up">
+      {/* Banner */}
+      <section className="glass-panel" style={{ 
+        padding: '2.5rem', 
+        borderRadius: '32px', 
+        marginBottom: '2.5rem',
+        background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(168, 85, 247, 0.15) 100%)',
+        border: '1px solid rgba(255,255,255,0.1)'
+      }}>
+        <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem' }}>
+          早安，<span style={{ color: 'var(--accent-color)' }}>{user.name || '使用者'}</span> 👋
+        </h1>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>
+          {isMerchant 
+            ? (merchantData?.isVerified ? "您的商戶帳號已啟動。今天準備好接待新的預約了嗎？" : "您的帳號正在審核中，通過後即可開始接單。")
+            : "歡迎回到您的專屬控制面板。在這裡管理您的所有預約與服務請求。"}
+        </p>
+      </section>
+
+      {/* Stats Grid */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
+        {isMerchant ? (
+          <>
+            <StatCard 
+              title="總收入" 
+              value={`£${(merchantData?.wallet?.totalEarned || 0).toFixed(2)}`}
+              icon={<Wallet size={24} />}
+              trend="+12% 較上月"
+            />
+            <StatCard 
+              title="待結算款項" 
+              value={`£${(merchantData?.wallet?.pendingBalance || 0).toFixed(2)}`}
+              icon={<Clock size={24} />}
+            />
+            <StatCard 
+              title="已完成訂單" 
+              value={bookings.filter((b: any) => b.status === "COMPLETED").length}
+              icon={<CheckCircle size={24} />}
+            />
+          </>
+        ) : (
+          <>
+            <StatCard 
+              title="進行中預約" 
+              value={bookings.filter((b: any) => b.status === "PENDING" || b.status === "CONFIRMED").length}
+              icon={<Calendar size={24} />}
+              trend="本週有新進度"
+            />
+            <StatCard 
+              title="帳戶餘額" 
+              value="£42.50"
+              icon={<TrendingUp size={24} />}
+            />
+            <StatCard 
+              title="訊息" 
+              value="3"
+              icon={<MessageSquare size={24} />}
+            />
+          </>
+        )}
+      </div>
+
+      {/* Recent Bookings */}
+      <section className="glass-panel" style={{ padding: '2.5rem', borderRadius: '32px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 800 }}>近期預約狀態</h2>
+          <Link href="/dashboard/bookings" style={{ color: 'var(--accent-color)', fontWeight: 600, fontSize: '0.9rem', textDecoration: 'none' }}>
+            查看全部 →
+          </Link>
+        </div>
+        
+        <div style={{ display: 'grid', gap: '1.25rem' }}>
+          {bookings.length > 0 ? bookings.map((booking: any) => (
+            <div key={booking.id} style={{ 
+              padding: '1.25rem', 
+              borderRadius: '16px', 
+              backgroundColor: 'rgba(255,255,255,0.03)',
+              border: '1px solid var(--border-color)',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}>
+              <div>
+                <h4 style={{ fontWeight: 700, marginBottom: '0.25rem' }}>{booking.service?.name}</h4>
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                  {new Date(booking.scheduledDate).toLocaleString('zh-HK')}
+                </p>
+              </div>
+              <div style={{ textAlign: 'right' }}>
+                <div style={{ fontWeight: 800, marginBottom: '0.25rem' }}>£{booking.totalAmount.toFixed(2)}</div>
+                <span style={{ 
+                  fontSize: '0.75rem', 
+                  fontWeight: 700, 
+                  padding: '0.25rem 0.75rem', 
+                  borderRadius: '2rem',
+                  backgroundColor: booking.status === 'CONFIRMED' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(245, 158, 11, 0.1)',
+                  color: booking.status === 'CONFIRMED' ? '#10b981' : '#f59e0b'
+                }}>
+                  {booking.status}
+                </span>
+              </div>
+            </div>
+          )) : (
+            <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-secondary)' }}>
+              目前沒有預約記錄。
+            </div>
+          )}
+        </div>
+      </section>
+    </div>
+  );
 }
