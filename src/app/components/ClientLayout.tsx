@@ -11,7 +11,7 @@ import { useTheme } from "@/components/ThemeContext";
 
 export function AppNavbar({ session }: { session: any }) {
   const { t, locale, setLocale, isRTL } = useTranslation();
-  const { city, setCity, supportedCities, detectLocation } = useLocation();
+  const { city, setCity, supportedCities, detectLocation, isLocating } = useLocation();
   const { theme, toggleTheme } = useTheme();
   const [showCities, setShowCities] = React.useState(false);
   const [showServices, setShowServices] = React.useState(false);
@@ -100,15 +100,22 @@ export function AppNavbar({ session }: { session: any }) {
                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
                     <span style={{ fontWeight: 800, fontSize: '1rem', color: 'var(--text-primary)' }}>{t.search.location}</span>
                     <button 
-                      onClick={() => { detectLocation(); setShowCities(false); }}
+                      onClick={() => { detectLocation(); }}
+                      disabled={isLocating}
                       style={{ 
                         display: 'flex', alignItems: 'center', gap: '6px', 
                         backgroundColor: 'var(--accent-soft)', color: 'var(--accent-color)',
                         border: 'none', padding: '0.4rem 0.8rem', borderRadius: '0.75rem',
-                        fontSize: '0.8rem', fontWeight: 700, cursor: 'pointer'
+                        fontSize: '0.8rem', fontWeight: 700, cursor: 'pointer',
+                        opacity: isLocating ? 0.7 : 1
                       }}
                     >
-                      <Navigation size={12} fill="currentColor" /> {t.home.hero.badge}
+                      {isLocating ? (
+                        <div className="animate-spin" style={{ width: '12px', height: '12px', border: '2px solid currentColor', borderTopColor: 'transparent', borderRadius: '50%' }} />
+                      ) : (
+                        <Navigation size={12} fill="currentColor" />
+                      )}
+                      {isLocating ? 'Locating...' : t.home.hero.badge}
                     </button>
                  </div>
 

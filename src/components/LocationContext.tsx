@@ -16,7 +16,9 @@ const UK_CITIES = [
   "Nottingham", "Southampton", "Portsmouth", "Brighton", "Cambridge", 
   "Oxford", "Cardiff", "Belfast", "Leicester", "Aberdeen", "Plymouth",
   "Milton Keynes", "Reading", "Northampton", "Luton", "Swindon",
-  "York", "Gloucester", "Derby", "Preston", "Bath", "Chester"
+  "York", "Gloucester", "Derby", "Preston", "Bath", "Chester",
+  "Coventry", "Hull", "Stoke-on-Trent", "Wolverhampton", "Swansea",
+  "Sunderland", "Bradford", "Bournemouth", "Middlesbrough", "Peterborough"
 ];
 
 export const ALL_UK = "All UK";
@@ -51,14 +53,35 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
           async (position) => {
             try {
               const { latitude, longitude } = position.coords;
-                const res = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`);
-                const data = await res.json();
-                const detectedCity = data.city || data.locality;
-                if (detectedCity && UK_CITIES.includes(detectedCity)) {
-                  setCity(detectedCity);
-                } else {
-                  setCity(ALL_UK);
-                }
+              const res = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`);
+              const data = await res.json();
+              
+              const detectedCity = data.city || data.locality || data.principalSubdivision || "";
+              console.log("Detected raw location:", detectedCity, "from:", data);
+              
+              // Handle common Greater prefixes or "City of"
+              let normalized = detectedCity.replace(/City of |Greater /g, "").trim();
+              
+              // Special case: London boroughs often return as individual cities
+              const londonBoroughs = ["Westminster", "Camden", "Greenwich", "Hackney", "Islington", "Kensington", "Lambeth", "Lewisham", "Southwark", "Tower Hamlets", "Wandsworth", "Hammersmith", "Fulham"];
+              if (londonBoroughs.some(b => normalized.includes(b)) || data.principalSubdivision === "Greater London") {
+                normalized = "London";
+              }
+
+              const matchedCity = UK_CITIES.find(c => 
+                normalized.toLowerCase().includes(c.toLowerCase()) || 
+                c.toLowerCase().includes(normalized.toLowerCase())
+              );
+
+              if (matchedCity) {
+                setCity(matchedCity);
+              } else if (normalized && !UK_CITIES.includes(normalized)) {
+                 // If detected something but not in our main list, maybe it's still a valid UK town
+                 // We'll keep it "All UK" for search stability, but could show it in UI
+                 setCity(ALL_UK);
+              } else {
+                setCity(ALL_UK);
+              }
             } catch (error) {
               console.error("Location detection error:", error);
               setCity(ALL_UK);
@@ -72,7 +95,7 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
             setIsLocating(false);
             resolve();
           },
-          { timeout: 10000 }
+          { timeout: 10000, enableHighAccuracy: true }
         );
       });
     }
