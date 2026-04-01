@@ -15,6 +15,22 @@ export function AppNavbar({ session }: { session: any }) {
   const { theme, toggleTheme } = useTheme();
   const [showCities, setShowCities] = React.useState(false);
   const [showServices, setShowServices] = React.useState(false);
+  const [showLanguages, setShowLanguages] = React.useState(false);
+
+  const languages = React.useMemo(() => [
+    { code: 'en', label: 'English (EN)' },
+    { code: 'zh-TW', label: '繁體中文 (ZH)' },
+    { code: 'hi', label: 'हिन्दी (HI)' },
+    { code: 'ar', label: 'العربية (AR)' },
+    { code: 'ja', label: '日本語 (JA)' },
+    { code: 'ko', label: '한국어 (KO)' },
+    { code: 'pl', label: 'Polski (PL)' },
+    { code: 'ro', label: 'Română (RO)' },
+    { code: 'ur', label: 'اردو (UR)' },
+    { code: 'pa', label: 'ਪੰਜਾਬੀ (PA)' }
+  ], []);
+
+  const currentLanguage = languages.find(l => l.code === locale) || languages[0];
 
   const servicesList = React.useMemo(() => [
     { id: 'plumbing', label: t.home.categories.plumbing, icon: <Droplets size={16} strokeWidth={2} />, path: '/services/results?q=Plumbing' },
@@ -138,37 +154,54 @@ export function AppNavbar({ session }: { session: any }) {
         </div>
         
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-          {/* Language Switcher */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-             <Globe size={18} color="var(--accent-color)" />
-             <select 
-               value={locale} 
-               onChange={(e) => setLocale(e.target.value as any)}
-               style={{ 
-                 backgroundColor: 'var(--surface-1)', 
-                 border: '1px solid var(--border-color)', 
-                 borderRadius: '0.5rem',
-                 padding: '0.2rem 0.5rem',
-                 color: 'var(--text-primary)', 
-                 fontWeight: 700, 
-                 cursor: 'pointer',
-                 fontSize: '0.9rem',
-                 outline: 'none',
-                 direction: 'ltr',
-                 boxShadow: 'var(--shadow-sm)'
-               }}
-             >
-               <option value="en" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>English (EN)</option>
-               <option value="zh-TW" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>繁體中文 (ZH)</option>
-               <option value="hi" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>हिन्दी (HI)</option>
-               <option value="ar" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>العربية (AR)</option>
-               <option value="ja" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>日本語 (JA)</option>
-               <option value="ko" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>한국어 (KO)</option>
-               <option value="pl" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>Polski (PL)</option>
-               <option value="ro" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>Română (RO)</option>
-               <option value="ur" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>اردو (UR)</option>
-               <option value="pa" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>ਪੰਜਾਬੀ (PA)</option>
-             </select>
+          {/* Premium Custom Language Switcher */}
+          <div 
+             style={{ position: 'relative' }}
+             onMouseEnter={() => setShowLanguages(true)}
+             onMouseLeave={() => setShowLanguages(false)}
+          >
+            <div style={{ 
+              display: 'flex', alignItems: 'center', gap: '6px', 
+              cursor: 'pointer', padding: '0.4rem 0.8rem', 
+              borderRadius: '2rem', border: '1px solid var(--border-color)',
+              backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)',
+              fontWeight: 600, fontSize: '0.9rem', transition: 'all 0.2s',
+              boxShadow: 'var(--shadow-sm)'
+            }} className="hover-border active-scale">
+               <Globe size={16} color="var(--accent-color)" />
+               <span>{currentLanguage.label.split(' ')[0]}</span>
+               <ChevronDown size={14} style={{ transform: showLanguages ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s', opacity: 0.6 }} />
+            </div>
+
+            {showLanguages && (
+              <div style={{
+                position: 'absolute', top: '100%', right: '0', marginTop: '0.5rem',
+                width: '180px', backgroundColor: 'var(--surface-1)', borderRadius: '1rem',
+                boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)', 
+                border: '1px solid var(--border-color)',
+                padding: '0.5rem', zIndex: 1000,
+                backdropFilter: 'blur(20px)',
+                display: 'flex', flexDirection: 'column', gap: '2px',
+                maxHeight: '400px', overflowY: 'auto'
+              }}>
+                {languages.map(lang => (
+                  <div
+                    key={lang.code}
+                    onClick={() => { setLocale(lang.code as any); setShowLanguages(false); }}
+                    style={{
+                      padding: '0.6rem 0.8rem', borderRadius: '0.5rem', cursor: 'pointer',
+                      fontSize: '0.9rem', fontWeight: locale === lang.code ? 700 : 500,
+                      backgroundColor: locale === lang.code ? 'var(--accent-soft)' : 'transparent',
+                      color: locale === lang.code ? 'var(--accent-color)' : 'var(--text-primary)',
+                      transition: 'all 0.2s'
+                    }}
+                    className={locale !== lang.code ? "hover-bg" : ""}
+                  >
+                    {lang.label}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Theme Toggle */}
