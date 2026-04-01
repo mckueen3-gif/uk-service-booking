@@ -49,12 +49,11 @@ export async function registerUser(formData: FormData) {
           password: hashedPassword,
           name,
           role,
-          // referralCode, // Temporarily disabled for schema sync
+          referralCode, // Re-enabled
         }
       });
 
-      // If referredBy exists, handle safely (Disabled for schema sync)
-      /*
+      // If referredBy exists, handle safely
       if (referredBy) {
         try {
           const referrer = await tx.user.findUnique({
@@ -70,7 +69,6 @@ export async function registerUser(formData: FormData) {
           console.error("Referral creation failed (ignored):", e);
         }
       }
-      */
 
       // If registering as a Merchant, create the Merchant profile record
       if (role === 'MERCHANT') {

@@ -13,7 +13,10 @@ const DEMO_TUTORS = [
   { id: "5", name: "James Williams", subjects: "Python Programming", rate: 45, rating: 4.9, reviews: 45, location: "Online", mode: "Online", matchScore: 75, avatarUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150&h=150" },
 ];
 
+import { useTranslation } from '@/components/LanguageContext';
+
 function SearchContent() {
+  const { t } = useTranslation();
   const searchParams = useSearchParams();
   const router = useRouter();
   const initialQuery = searchParams.get('q') || '';
@@ -40,24 +43,24 @@ function SearchContent() {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1.5rem' }}>
           <Filter size={20} />
-          <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Filters</h2>
+          <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>{t.education_sec.search.filters}</h2>
         </div>
 
         <div style={{ marginBottom: '2rem' }}>
-          <h4 style={{ fontWeight: 700, marginBottom: '1rem', color: 'var(--text-secondary)' }}>Teaching Mode</h4>
+          <h4 style={{ fontWeight: 700, marginBottom: '1rem', color: 'var(--text-secondary)' }}>{t.education_sec.search.mode}</h4>
           <label style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.75rem', cursor: 'pointer' }}>
-            <input type="checkbox" defaultChecked /> Online (Video Call)
+            <input type="checkbox" defaultChecked /> {t.education_sec.search.online}
           </label>
           <label style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.75rem', cursor: 'pointer' }}>
-            <input type="checkbox" defaultChecked /> Offline (In-person)
+            <input type="checkbox" defaultChecked /> {t.education_sec.search.offline}
           </label>
           <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
-            <input type="checkbox" defaultChecked /> Hybrid
+            <input type="checkbox" defaultChecked /> {t.education_sec.search.hybrid}
           </label>
         </div>
 
         <div style={{ marginBottom: '2rem' }}>
-          <h4 style={{ fontWeight: 700, marginBottom: '1rem', color: 'var(--text-secondary)' }}>Price Range (£/hr)</h4>
+          <h4 style={{ fontWeight: 700, marginBottom: '1rem', color: 'var(--text-secondary)' }}>{t.education_sec.search.priceRange} (£/hr)</h4>
           <input type="range" min="10" max="100" defaultValue="50" style={{ width: '100%', accentColor: 'var(--accent-color)' }} />
           <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.5rem' }}>
             <span>£10</span>
@@ -66,27 +69,27 @@ function SearchContent() {
         </div>
 
         <div style={{ marginBottom: '2rem' }}>
-          <h4 style={{ fontWeight: 700, marginBottom: '1rem', color: 'var(--text-secondary)' }}>Tutor Level</h4>
+          <h4 style={{ fontWeight: 700, marginBottom: '1rem', color: 'var(--text-secondary)' }}>{t.education_sec.search.level}</h4>
           <label style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.75rem', cursor: 'pointer' }}>
-            <input type="checkbox" /> Student Tutor
+            <input type="checkbox" /> {t.education_sec.search.student}
           </label>
           <label style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.75rem', cursor: 'pointer' }}>
-            <input type="checkbox" defaultChecked /> Professional Teacher
+            <input type="checkbox" defaultChecked /> {t.education_sec.search.pro}
           </label>
           <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
-            <input type="checkbox" defaultChecked /> Industry Expert
+            <input type="checkbox" defaultChecked /> {t.education_sec.search.expert}
           </label>
         </div>
 
-        <button className="btn btn-primary" style={{ width: '100%' }}>Apply Filters</button>
+        <button className="btn btn-primary" style={{ width: '100%' }}>{t.education_sec.search.apply}</button>
       </aside>
 
       {/* Results Area */}
       <div style={{ flex: 1 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem' }}>
           <div>
-            <h1 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '0.5rem' }}>Find Tutors</h1>
-            <p style={{ color: 'var(--text-secondary)' }}>We found {DEMO_TUTORS.length} tutors matching your criteria.</p>
+            <h1 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '0.5rem' }}>{t.education_sec.search.resultsTitle}</h1>
+            <p style={{ color: 'var(--text-secondary)' }}>{t.education_sec.search.foundCount.replace("{{count}}", String(DEMO_TUTORS.length))}</p>
           </div>
           
           <div style={{ 
@@ -99,7 +102,7 @@ function SearchContent() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Search subjects... (Press Enter)" 
+              placeholder={t.education_sec.search.placeholder} 
               style={{ border: 'none', background: 'transparent', outline: 'none', width: '100%', color: 'var(--text-primary)' }} 
             />
           </div>
@@ -116,9 +119,10 @@ function SearchContent() {
 }
 
 export default function EducationSearchPage() {
+  const { t } = useTranslation();
   return (
     <div style={{ backgroundColor: 'var(--bg-secondary)', minHeight: '100vh', padding: '3rem 0 5rem' }}>
-      <React.Suspense fallback={<div>Loading search...</div>}>
+      <React.Suspense fallback={<div>Loading...</div>}>
         <SearchContent />
       </React.Suspense>
     </div>

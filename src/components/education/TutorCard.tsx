@@ -3,8 +3,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { MapPin, Star, Sparkles, BookOpen, Clock, Video } from 'lucide-react';
+import { useTranslation } from '@/components/LanguageContext';
 
 export default function TutorCard({ tutor, isAIMatch = false }: { tutor: any, isAIMatch?: boolean }) {
+  const { t } = useTranslation();
   // Demo default values
   const { 
     id = "1", 
@@ -73,10 +75,10 @@ export default function TutorCard({ tutor, isAIMatch = false }: { tutor: any, is
               padding: '0.3rem 0.6rem', borderRadius: '8px', fontSize: '0.8rem', fontWeight: 800,
               marginBottom: '0.5rem'
             }}>
-              <Sparkles size={14} /> {matchScore}% Match
+              <Sparkles size={14} /> {matchScore}% {t.education_sec.forYou.match}
             </div>
           )}
-          <div style={{ fontSize: '1.25rem', fontWeight: 900 }}>£{rate}<span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 500 }}>/hr</span></div>
+          <div style={{ fontSize: '1.25rem', fontWeight: 900 }}>£{rate}<span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 500 }}>{t.education_sec.common.hr}</span></div>
         </div>
       </div>
 
@@ -88,12 +90,12 @@ export default function TutorCard({ tutor, isAIMatch = false }: { tutor: any, is
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
           <Star size={16} fill="#f59e0b" color="#f59e0b" />
           <span style={{ fontWeight: 800 }}>{rating}</span>
-          <span style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>({reviews} reviews)</span>
+          <span style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>({reviews} {t.education_sec.common.reviews})</span>
         </div>
         
         <Link href={`/education/tutor/${id}`}>
           <button className="btn btn-primary" style={{ padding: '0.5rem 1.25rem', fontSize: '0.9rem' }}>
-            Book Trial
+            {t.education_sec.common.bookTrial}
           </button>
         </Link>
       </div>

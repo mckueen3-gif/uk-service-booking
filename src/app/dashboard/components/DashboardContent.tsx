@@ -17,6 +17,8 @@ import {
   Home
 } from "lucide-react";
 import Link from 'next/link';
+import { useTranslation } from "@/components/LanguageContext";
+import { claimReferralCode } from "@/app/actions/referral";
 
 const STATUS_COLOR: Record<string, { bg: string; text: string }> = {
   CONFIRMED: { bg: 'rgba(16, 185, 129, 0.12)', text: '#10b981' },
@@ -25,12 +27,12 @@ const STATUS_COLOR: Record<string, { bg: string; text: string }> = {
   CANCELLED: { bg: 'rgba(239, 68, 68, 0.12)',   text: '#ef4444' },
 };
 
-const STATUS_LABEL: Record<string, string> = {
-  CONFIRMED: '已確認',
-  PENDING:   '等待中',
-  COMPLETED: '已完成',
-  CANCELLED: '已取消',
-};
+const STATUS_LABEL = (t: any): Record<string, string> => ({
+  CONFIRMED: t.merchant.dashboard.status.confirmed,
+  PENDING:   t.merchant.dashboard.status.pending,
+  COMPLETED: t.merchant.dashboard.status.completed,
+  CANCELLED: t.merchant.dashboard.status.cancelled,
+});
 
 function StatCard({ icon, title, value, trend, loading }: {
   icon: React.ReactNode;
@@ -66,11 +68,36 @@ function StatCard({ icon, title, value, trend, loading }: {
 }
 
 export default function DashboardContent({ initialData }: { initialData: any }) {
+  const { t } = useTranslation();
   const [data, setData] = useState<any>(initialData || null);
   const [loading, setLoading] = useState(true);
   const [syncing, setSyncing] = useState(false);
   const [lastSync, setLastSync] = useState<Date | null>(null);
   const [error, setError] = useState(false);
+
+  // Referral claiming state
+  const [claimCode, setClaimCode] = useState('');
+  const [claiming, setClaiming] = useState(false);
+  const [claimStatus, setClaimStatus] = useState<{ type: 'success' | 'error', message: string } | null>(null);
+
+  const handleClaimReferral = async () => {
+    if (!claimCode.trim()) return;
+    setClaiming(true);
+    setClaimStatus(null);
+    try {
+      const result = await claimReferralCode(claimCode.trim());
+      if (result.success) {
+        setClaimStatus({ type: 'success', message: '推薦碼兌換成功！' });
+        refreshData(true);
+      } else {
+        setClaimStatus({ type: 'error', message: result.error || '兌換失敗' });
+      }
+    } catch (e) {
+      setClaimStatus({ type: 'error', message: '發生錯誤，請稍後再試' });
+    } finally {
+      setClaiming(false);
+    }
+  };
 
   const refreshData = useCallback(async (isManual = false) => {
     if (isManual) setSyncing(true);
@@ -138,10 +165,10 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
         {syncing && <Loader2 size={14} style={{ color: 'var(--accent-color)', animation: 'spin 1s linear infinite' }} />}
         <span style={{ fontSize: '0.78rem', color: error ? '#ef4444' : '#10b981', fontWeight: 500 }}>
           {error
-            ? '⚠ 數據同步失敗'
+            ? `⚠ ${t.merchant.dashboard.status.cancelled}`
             : lastSync
-              ? `● 已即時同步 ${lastSync.toLocaleTimeString('zh-HK')}`
-              : '○ 正在連線...'}
+              ? `● 🟢 ${t.merchant.dashboard.bookings.viewAll} ${lastSync.toLocaleTimeString()}`
+              : '○ 🔄 ...'}
         </span>
         <button
           onClick={() => refreshData(true)}
@@ -161,7 +188,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
           }}
         >
           <RefreshCw size={12} style={{ animation: syncing ? 'spin 1s linear infinite' : 'none' }} />
-          刷新
+          {t.merchant.dashboard.bookings.actions.confirm}
         </button>
       </div>
 
@@ -170,19 +197,19 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
         {isMerchant ? (
           <>
             <StatCard
-              title="總收入"
+              title={t.merchant.dashboard.stats.availableBalance}
               value={`£${(merchantData?.wallet?.totalEarned || 0).toFixed(2)}`}
               icon={<Wallet size={24} />}
               loading={loading && !data}
             />
             <StatCard
-              title="待結算款項"
+              title={t.merchant.dashboard.stats.pendingBalance}
               value={`£${(merchantData?.wallet?.pendingBalance || 0).toFixed(2)}`}
               icon={<Clock size={24} />}
               loading={loading && !data}
             />
             <StatCard
-              title="已完成訂單"
+              title={t.merchant.dashboard.status.completed}
               value={(bookings || []).filter((b: any) => b.status === "COMPLETED").length}
               icon={<CheckCircle size={24} />}
               loading={loading && !data}
@@ -197,13 +224,13 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
         ) : (
           <>
             <StatCard
-              title="進行中預約"
+              title={t.merchant.dashboard.bookings.title}
               value={activeBookings.length}
               icon={<Calendar size={24} />}
               loading={loading && !data}
             />
             <StatCard
-              title="已完成服務"
+              title={t.merchant.dashboard.status.completed}
               value={(bookings || []).filter((b: any) => b.status === "COMPLETED").length}
               icon={<TrendingUp size={24} />}
               loading={loading && !data}
@@ -223,68 +250,92 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
         padding: '2rem', 
         borderRadius: '24px', 
         marginBottom: '3rem',
-        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%)',
-        border: '1px solid rgba(16, 185, 129, 0.2)',
+        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(5, 150, 105, 0.05) 100%)',
+        border: '1px solid rgba(16, 185, 129, 0.1)',
         display: 'flex',
         flexWrap: 'wrap',
         alignItems: 'center',
         justifyContent: 'space-between',
-        gap: '1.5rem'
+        gap: '2rem'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-          <div style={{ backgroundColor: 'rgba(16, 185, 129, 0.15)', padding: '1rem', borderRadius: '16px', color: '#10b981' }}>
-            <Users size={32} />
+        <div style={{ display: 'flex', flex: '1 1 400px', gap: '1.5rem', alignItems: 'center' }}>
+          <div style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '1rem', borderRadius: '16px', color: '#10b981' }}>
+            <Gift size={32} />
           </div>
-          <div>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.25rem' }}>邀請好友，賺取獎勵</h3>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-              分享您的專屬推廣碼，每成功推薦一位好友即可獲得獎勵。
+          <div style={{ flex: 1 }}>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.4rem' }}>{t.home.referralCTA.title}</h3>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.5 }}>
+              {t.home.referralCTA.subtitle}
             </p>
           </div>
         </div>
-        
-        <div style={{ 
-          display: 'flex', 
-          backgroundColor: 'rgba(255,255,255,0.05)', 
-          padding: '0.5rem', 
-          borderRadius: '12px',
-          border: '1px dashed rgba(255,255,255,0.1)',
-          alignItems: 'center',
-          gap: '1rem'
-        }}>
-          <code style={{ 
-            fontSize: '1.25rem', 
-            fontWeight: 900, 
-            letterSpacing: '2px',
-            color: 'var(--accent-color)',
-            padding: '0 0.5rem'
-          }}>
-            {user?.referralCode || '-------'}
-          </code>
-          <button 
-            onClick={() => {
+
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'flex-start' }}>
+          {/* Section 1: User's Own Referral Code */}
+          <div style={{ padding: '0.5rem', borderRadius: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <div style={{ paddingLeft: '0.5rem' }}>
+              <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', fontWeight: 800, color: 'var(--text-muted)', marginBottom: '0.2rem' }}>{t.home.referralCTA.referralLabel}</div>
+              <code style={{ fontSize: '1.2rem', fontWeight: 900, color: 'var(--accent-color)', letterSpacing: '1px' }}>{user?.referralCode || '------'}</code>
+            </div>
+            <button onClick={() => {
               if (user?.referralCode) {
                 navigator.clipboard.writeText(user.referralCode);
-                alert('推廣碼已複製！');
+                alert(t.common.copied);
               }
-            }}
-            style={{
-              padding: '0.5rem 1rem',
-              borderRadius: '8px',
-              backgroundColor: 'var(--accent-color)',
-              color: 'white',
-              border: 'none',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              fontSize: '0.85rem',
-              fontWeight: 600
-            }}
-          >
-            <Copy size={14} />
-            複製
-          </button>
+            }} className="btn btn-primary" style={{ padding: '0.6rem 1rem', borderRadius: '10px', fontSize: '0.8rem' }}>
+              <Copy size={14} /> {t.common.copy}
+            </button>
+          </div>
+
+          {/* Section 2: Claim Referral Code (Only show if not already referred) */}
+          {!user?.referredBy && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <input 
+                  type="text" 
+                  placeholder="輸入推薦碼" 
+                  value={claimCode}
+                  onChange={(e) => setClaimCode(e.target.value.toUpperCase())}
+                  disabled={claiming}
+                  style={{ 
+                    padding: '0.6rem 1rem', 
+                    borderRadius: '10px', 
+                    background: 'rgba(255,255,255,0.05)', 
+                    border: '1px solid var(--border-color)',
+                    color: 'white',
+                    width: '140px',
+                    fontSize: '0.9rem'
+                  }} 
+                />
+                <button 
+                  onClick={handleClaimReferral}
+                  disabled={claiming || !claimCode}
+                  className="btn" 
+                  style={{ 
+                    padding: '0.6rem 1rem', 
+                    borderRadius: '10px', 
+                    background: 'var(--surface-2)', 
+                    color: 'var(--text-primary)',
+                    border: '1px solid var(--border-color)',
+                    fontSize: '0.8rem',
+                    fontWeight: 700
+                  }}
+                >
+                  {claiming ? <Loader2 size={14} className="spin" /> : '領取獎勵'}
+                </button>
+              </div>
+              {claimStatus && (
+                <div style={{ 
+                  fontSize: '0.75rem', 
+                  color: claimStatus.type === 'success' ? '#10b981' : '#ef4444', 
+                  fontWeight: 600,
+                  padding: '0 0.5rem'
+                }}>
+                  {claimStatus.message}
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </section>
 
@@ -344,9 +395,9 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
       <section className="glass-panel" style={{ padding: '2.5rem', borderRadius: '32px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
           <div>
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 800 }}>近期預約狀態</h2>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 800 }}>{t.merchant.dashboard.bookings.title}</h2>
             <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
-              每30秒自動更新 · 即時顯示
+              {t.merchant.dashboard.bookings.viewAll}
             </p>
           </div>
           <Link href="/dashboard/bookings" style={{ color: 'var(--accent-color)', fontWeight: 600, fontSize: '0.9rem', textDecoration: 'none' }}>
@@ -383,7 +434,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
                       {booking.service?.name || '服務'}
                     </h4>
                     <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-                      預約日期：{new Date(booking.scheduledDate).toLocaleString('zh-HK')}
+                      {t.booking.labels.date}：{new Date(booking.scheduledDate).toLocaleString()}
                     </p>
                     {booking.vehicleReg && (
                       <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.1rem' }}>
@@ -403,7 +454,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
                       backgroundColor: sc.bg,
                       color: sc.text
                     }}>
-                      {STATUS_LABEL[booking.status] || booking.status}
+                      {STATUS_LABEL(t)[booking.status] || booking.status}
                     </span>
                   </div>
                 </div>
@@ -412,10 +463,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
           ) : (
             <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-secondary)' }}>
               <Calendar size={40} style={{ margin: '0 auto 1rem', opacity: 0.2 }} />
-              <p style={{ fontWeight: 600 }}>目前沒有預約記錄</p>
-              <p style={{ fontSize: '0.85rem', marginTop: '0.5rem' }}>
-                您的預約紀錄將在這裡即時顯示
-              </p>
+              <p style={{ fontWeight: 600 }}>{t.merchant.dashboard.bookings.empty}</p>
             </div>
           )}
         </div>

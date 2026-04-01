@@ -7,19 +7,33 @@ import {
   Users, TrendingUp
 } from 'lucide-react';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 import SearchHero from '@/components/search/SearchHero';
 import RecommendationEngine from '@/components/discovery/RecommendationEngine';
 import { useTranslation } from "@/components/LanguageContext";
 import { useLocation } from "@/components/LocationContext";
 import { searchMerchants } from '@/app/actions/search';
 import { ALL_UK } from '@/components/LocationContext';
+import { Copy, Check } from 'lucide-react';
 
 export default function HomeClient() {
+  const { data: session } = useSession();
   const { t, isRTL } = useTranslation();
   const { city } = useLocation();
   const [activeTab, setActiveTab] = useState('all');
   const [merchants, setMerchants] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [copied, setCopied] = useState(false);
+
+  const referralCode = (session?.user as any)?.referralCode;
+
+  const handleCopy = () => {
+    if (referralCode) {
+      navigator.clipboard.writeText(referralCode);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
 
   const getIcons = () => [
     { id: 'plumbing', label: t.home.categories.plumbing, icon: <Droplets size={28} strokeWidth={1.5} />, category: 'Plumbing' },
@@ -156,11 +170,46 @@ export default function HomeClient() {
               {t.home.referralCTA.subtitle}
             </p>
             <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
-              <Link href="/dashboard/wallet">
-                <button className="btn btn-primary" style={{ padding: '1.25rem 2.5rem', fontSize: '1.1rem', boxShadow: '0 10px 25px -5px rgba(5, 150, 105, 0.4)' }}>
-                  {t.home.referralCTA.button} <ChevronRight size={20} />
-                </button>
-              </Link>
+              {referralCode ? (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <div style={{ 
+                    background: 'var(--surface-1)', 
+                    border: '1px solid var(--border-color)', 
+                    padding: '0.8rem 1.5rem', 
+                    borderRadius: '1rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '1rem'
+                  }}>
+                    <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem', fontWeight: 600 }}>{t.home.referralCTA.referralLabel}</span>
+                    <span style={{ color: 'var(--accent-color)', fontSize: '1.2rem', fontWeight: 900, letterSpacing: '0.1em' }}>{referralCode}</span>
+                  </div>
+                  <button 
+                    onClick={handleCopy}
+                    className="btn" 
+                    style={{ 
+                      padding: '0.8rem 1.2rem', 
+                      borderRadius: '1rem', 
+                      background: copied ? 'var(--accent-color)' : 'var(--surface-2)',
+                      color: copied ? 'white' : 'var(--text-primary)',
+                      border: '1px solid var(--border-color)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      transition: 'all 0.3s ease'
+                    }}
+                  >
+                    {copied ? <Check size={18} /> : <Copy size={18} />}
+                    {copied ? t.common.copied : t.common.copy}
+                  </button>
+                </div>
+              ) : (
+                <Link href="/auth/register">
+                  <button className="btn btn-primary" style={{ padding: '1.25rem 2.5rem', fontSize: '1.1rem', boxShadow: '0 10px 25px -5px rgba(5, 150, 105, 0.4)' }}>
+                    {t.home.referralCTA.button} <ChevronRight size={20} />
+                  </button>
+                </Link>
+              )}
             </div>
           </div>
 

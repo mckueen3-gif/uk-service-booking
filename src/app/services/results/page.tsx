@@ -203,15 +203,15 @@ function SearchResults() {
                    <Sparkles size={24} />
                 </div>
               </div>
-              <h3 style={{ fontSize: '1rem', fontWeight: 900, marginBottom: '0.5rem', color: 'white' }}>Not sure what's wrong?</h3>
-              <p style={{ fontSize: '0.75rem', opacity: 0.9, marginBottom: '1rem', lineHeight: 1.4 }}>Upload a photo and let our AI diagnose the issue and estimate costs.</p>
+              <h3 style={{ fontSize: '1rem', fontWeight: 900, marginBottom: '0.5rem', color: 'white' }}>{t.home.aiCTA.title1}</h3>
+              <p style={{ fontSize: '0.75rem', opacity: 0.9, marginBottom: '1rem', lineHeight: 1.4 }}>{t.home.aiCTA.subtitle}</p>
               <Link href="/diagnosis">
                 <button style={{ 
                   width: '100%', padding: '0.6rem', borderRadius: '0.75rem', 
                   backgroundColor: 'white', color: 'var(--emerald-800)', 
                   border: 'none', fontWeight: 900, fontSize: '0.8rem', cursor: 'pointer' 
                 }}>
-                  Start AI Diagnosis
+                  {t.home.aiCTA.button}
                 </button>
               </Link>
             </div>
@@ -326,7 +326,7 @@ function SearchResults() {
                       boxShadow: 'var(--shadow-md)', zIndex: 5,
                       display: 'flex', alignItems: 'center', gap: '4px'
                     }}>
-                       ✨ AI BEST MATCH
+                      <Sparkles size={10} /> {t.home.hero.aiMatch}
                     </div>
                   )}
                   <div style={{ width: '100%', aspectRatio: '1', borderRadius: '1rem', overflow: 'hidden' }}>
@@ -365,7 +365,7 @@ function SearchResults() {
 
 export default function SearchResultsPage() {
   return (
-    <Suspense fallback={<div style={{ padding: '10rem', textAlign: 'center' }}>Loading...</div>}>
+    <Suspense fallback={<div style={{ padding: '10rem', textAlign: 'center', color: 'var(--text-muted)' }}>...</div>}>
       <SearchResults />
     </Suspense>
   );

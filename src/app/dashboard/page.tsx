@@ -28,7 +28,7 @@ export default async function DashboardPage() {
       }}>
         <DynamicGreeting userName={userName} />
         <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', maxWidth: '600px' }}>
-          歡迎回到您的專屬控制面板。數據與預約正在後台即時更新中，無需加載。
+          Welcome back to your personalized dashboard. Real-time sync active.
         </p>
       </section>
 
