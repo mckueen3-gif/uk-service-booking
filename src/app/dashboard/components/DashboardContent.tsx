@@ -275,7 +275,9 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
           <div style={{ padding: '0.5rem', borderRadius: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <div style={{ paddingLeft: '0.5rem' }}>
               <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', fontWeight: 800, color: 'var(--text-muted)', marginBottom: '0.2rem' }}>{t.home.referralCTA.referralLabel}</div>
-              <code style={{ fontSize: '1.2rem', fontWeight: 900, color: 'var(--accent-color)', letterSpacing: '1px' }}>{user?.referralCode || '------'}</code>
+              <code style={{ fontSize: '1.2rem', fontWeight: 900, color: 'var(--accent-color)', letterSpacing: '1px' }}>
+                {user?.referralCode ? user.referralCode : (loading || syncing ? '...' : 'REF-PENDING')}
+              </code>
             </div>
             <button onClick={() => {
               if (user?.referralCode) {

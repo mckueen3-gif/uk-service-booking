@@ -61,14 +61,21 @@ export async function GET(req: NextRequest) {
         }
       });
 
+      // Auto-generate referral code if missing (common for Google sign-ups)
       if (u && !u.referralCode) {
-        // Auto-generate referral code if missing
-        const newCode = Array.from({ length: 8 }, () => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'[Math.floor(Math.random() * 36)]).join('');
-        await prisma.user.update({
-          where: { id: userId },
-          data: { referralCode: newCode }
-        });
-        u.referralCode = newCode;
+        const prefix = (u.name || "USER").substring(0, 3).toUpperCase().replace(/\s/g, '');
+        const random = Math.floor(1000 + Math.random() * 9000);
+        const newCode = `${prefix}${random}`;
+        
+        try {
+          await prisma.user.update({
+            where: { id: userId },
+            data: { referralCode: newCode }
+          });
+          u.referralCode = newCode;
+        } catch (e) {
+          console.error("Failed to persist generated referral code:", e);
+        }
       }
 
       return u;
@@ -103,7 +110,9 @@ export async function GET(req: NextRequest) {
         id: "error-fallback",
         name: "User",
         email: "",
-        role: "CUSTOMER"
+        role: "CUSTOMER",
+        referralCode: "REF-PENDING", // Prevent showing '------'
+        referralCredits: 0
       },
       isMerchant: false,
       merchantData: null,
