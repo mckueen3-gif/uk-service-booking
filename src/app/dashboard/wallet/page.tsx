@@ -27,11 +27,11 @@ export default async function WalletPage() {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
         {/* Wallet Header */}
-        <div className="animate-fade-up">
-          <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
-            電子錢包與獎勵 <span style={{ color: 'var(--accent-color)' }}>Wallet</span>
-          </h1>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>管理您的獎勵點數與優惠券。</p>
+        {/* Page Subtitle (Simplified) */}
+        <div className="animate-fade-up" style={{ marginBottom: '0.5rem' }}>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', fontWeight: 600 }}>
+            管理您的獎勵點數、優惠券與推薦計畫。
+          </p>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>

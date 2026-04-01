@@ -126,12 +126,10 @@ export default async function DashboardOverview() {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
         {/* Header Section */}
-        <div className="animate-fade-up">
-          <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
-            Welcome back, <span style={{ color: 'var(--accent-color)' }}>{displayName}</span>
-          </h1>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>
-            {errorLog.length > 0 ? `System Note: Partial service active (${errorLog.join(', ')})` : "Here's what's happening with your service hub today."}
+        {/* Header Section (Simplified) */}
+        <div className="animate-fade-up" style={{ marginBottom: '0.5rem' }}>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', fontWeight: 600 }}>
+            {errorLog.length > 0 ? `System Note: Partial service active (${errorLog.join(', ')})` : `Welcome back, ${displayName}. Here's what's happening today.`}
           </p>
         </div>
 

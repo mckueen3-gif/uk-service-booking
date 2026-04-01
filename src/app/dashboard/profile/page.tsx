@@ -29,11 +29,9 @@ export default async function ProfilePage() {
 
   return (
     <div className="animate-fade-up" style={{ paddingBottom: '5rem' }}>
-      <div style={{ marginBottom: '3rem' }}>
-        <h1 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>
-          個人資料 (Profile)
-        </h1>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>
+      {/* Page Subtitle (Simplified) */}
+      <div className="animate-fade-up" style={{ marginBottom: '2rem' }}>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', fontWeight: 600 }}>
           管理您的帳戶安全、聯絡方式以及商戶公開資訊。
         </p>
       </div>
