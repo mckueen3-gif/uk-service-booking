@@ -11,6 +11,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  let primaryError: any = null;
   try {
     const { subject, level, tutorName } = await req.json();
 
@@ -19,7 +20,7 @@ export async function POST(req: NextRequest) {
     }
 
     console.info(`[AI Diagnostic] Generating questions for ${subject} (${level}) by ${tutorName}...`);
-
+    
     const systemPrompt = `You are an elite UK private tutor. 
     Your goal is to generate a high-quality diagnostic challenge for a student interested in [${subject}] at [${level}] level with tutor [${tutorName}].
     
@@ -38,7 +39,8 @@ export async function POST(req: NextRequest) {
     const response = await generateAIContent({
       prompt,
       systemPrompt,
-      jsonMode: true
+      jsonMode: true,
+      onPrimaryError: (e) => { primaryError = e; }
     });
 
     let questions;
@@ -58,7 +60,12 @@ export async function POST(req: NextRequest) {
     console.error("AI Diagnostic API Error:", error);
     return NextResponse.json({ 
       error: "AI is currently busy preparing your academic challenge. Please try again in a moment.",
-      details: error.message 
+      details: error.message,
+      primaryError: primaryError ? {
+        name: primaryError.name,
+        message: primaryError.message,
+        status: primaryError.status
+      } : null
     }, { status: 500 });
   }
 }

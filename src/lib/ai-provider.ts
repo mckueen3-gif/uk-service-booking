@@ -68,7 +68,7 @@ interface AIRequest {
  * Centralized AI provider that prioritizes xAI Grok and falls back to Google Gemini.
  * Coordinates between multiple models and handles reliability (retries).
  */
-export async function generateAIContent(req: AIRequest): Promise<string> {
+export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err: any) => void }): Promise<string> {
   const messages: AIMessage[] = req.messages ? [...req.messages] : [];
   
   if (req.prompt) {
@@ -111,8 +111,9 @@ export async function generateAIContent(req: AIRequest): Promise<string> {
 
       const content = response.choices[0].message.content;
       if (content) return content;
-    } catch (error) {
+    } catch (error: any) {
       console.error("[AI Provider] Grok failed, moving to fallback...", error);
+      if (req.onPrimaryError) req.onPrimaryError(error);
     }
   }
 
