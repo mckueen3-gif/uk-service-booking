@@ -48,6 +48,16 @@ export const hi: Dictionary = {
     dashboard: {
       title: "मर्चेंट कंसोल", welcome: "वापसी पर स्वागत है,", previewProfile: "सार्वजनिक प्रोफ़ाइल देखें", manageServices: "सेवाएं प्रबंधित करें",
       stats: { totalBookings: "कुल बुकिंग", rating: "औसत रेटिंग", pendingBalance: "लंबित निपटान", availableBalance: "पेआउट के लिए उपलब्ध", totalJobs: "कुल कार्य", escrowHeld: "एस्क्रो में रखा गया", availableNow: "अब उपलब्ध", reviews: "समीक्षाएं" },
+      syncStatus: "सिंक स्थिति",
+      lastSynced: "अंतिम सिंक",
+      refresh: "रिफ्रेश",
+      syncing: "डेटा सिंक हो रहा है...",
+      syncFailed: "सिंक विफल रहा, कृपया पुन: प्रयास करें",
+      wallet: {
+        syncing: "वॉलेट डेटा सिंक हो रहा है...",
+        synced: "वॉलेट डेटा सिंक हो गया",
+        generating: "खाता सेटअप पूरा किया जा रहा है..."
+      },
       bookings: { title: "हालिया नियुक्तियां", viewAll: "सभी बुकिंग देखें", empty: "कोई हालिया बुकिंग नहीं", completed: "पूरा हुआ", actions: { confirm: "पुष्टि करें", complete: "पूरा मार्क करें", variation: "अतिरिक्त अनुरोध करें" } },
       status: { pending: "लंबित", confirmed: "पुष्टि की गई", completed: "पूरा हुआ", cancelled: "रद्द किया गया" },
       variations: { label: "अतिरिक्त कार्य अनुरोध", status: "स्थिति", pending: "ग्राहक की प्रतीक्षा", approved: "अनुमोदित", rejected: "अस्वीकृत", arbiterActive: "AI मध्यस्थ समीक्षा कर रहा है" },

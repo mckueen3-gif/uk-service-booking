@@ -48,6 +48,16 @@ export const ur: Dictionary = {
     dashboard: {
       title: "مرچنٹ کنسول", welcome: "خوش آمدید،", previewProfile: "عوامی پروفائل دیکھیں", manageServices: "سروسز مینیج کریں",
       stats: { totalBookings: "کل بکنگ", rating: "اوسط ریٹنگ", pendingBalance: "زیر التواء تصفیہ", availableBalance: "ادائیگی کے لیے دستیاب", totalJobs: "کل ملازمتیں", escrowHeld: "ایسکرو میں موجود", availableNow: "ابھی دستیاب", reviews: "تبصرے" },
+      syncStatus: "سنک کی صورتحال",
+      lastSynced: "آخری سنک",
+      refresh: "تازہ کریں",
+      syncing: "ڈیٹا سنک ہو رہا ہے...",
+      syncFailed: "سنک ناکام رہا، براہ کرم دوبارہ کوشش کریں",
+      wallet: {
+        syncing: "والٹ ڈیٹا سنک ہو رہا ہے...",
+        synced: "والٹ ڈیٹا سنک ہو گیا",
+        generating: "اکاؤنٹ سیٹ اپ مکمل کیا جا رہا ہے..."
+      },
       bookings: { title: "حالیہ تقرریاں", viewAll: "تمام بکنگ دیکھیں", empty: "کوئی حالیہ بکنگ نہیں", completed: "مکمل", actions: { confirm: "تصدیق کریں", complete: "مکمل نشان زد کریں", variation: "اضافی درخواست کریں" } },
       status: { pending: "زیر التواء", confirmed: "تصدیق شدہ", completed: "مکمل", cancelled: "منسوخ" },
       variations: { label: "اضافی کام کی درخواست", status: "صورتحال", pending: "گاہک کا انتظار ہے", approved: "منظور شدہ", rejected: "مسترد شدہ", arbiterActive: "AI ثالث جائزہ لے رہا ہے" },

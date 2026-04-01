@@ -48,6 +48,16 @@ export const ko: Dictionary = {
     dashboard: {
       title: "판매 콘솔", welcome: "환영합니다,", previewProfile: "공개 프로필 미리보기", manageServices: "서비스 관리",
       stats: { totalBookings: "누적 예약", rating: "평균 평점", pendingBalance: "정산 예정", availableBalance: "출금 가능 금액", totalJobs: "총 작업 건수", escrowHeld: "에스크로 보관 중", availableNow: "현재 이용 가능", reviews: "리뷰 수" },
+      syncStatus: "동기화 상태",
+      lastSynced: "마지막 동기화",
+      refresh: "새로고침",
+      syncing: "데이터 동기화 중...",
+      syncFailed: "동기화 실패, 다시 시도해 주세요",
+      wallet: {
+        syncing: "지갑 데이터 동기화 중...",
+        synced: "지갑 데이터 동기화됨",
+        generating: "계정 설정을 완료하는 중..."
+      },
       bookings: { title: "최근 예약", viewAll: "모든 예약 보기", empty: "최근 예약이 없습니다", completed: "완료", actions: { confirm: "확정", complete: "완료 표시", variation: "추가 결제 요청" } },
       status: { pending: "대기 중", confirmed: "확정됨", completed: "완료", cancelled: "취소됨" },
       variations: { label: "추가 작업 요청", status: "상태", pending: "고객 확인 대기 중", approved: "승인됨", rejected: "거절됨", arbiterActive: "AI 중재자 검토 중" },

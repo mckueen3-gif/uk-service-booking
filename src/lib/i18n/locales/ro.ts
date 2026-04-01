@@ -48,6 +48,16 @@ export const ro: Dictionary = {
     dashboard: {
       title: "Consola specialistului", welcome: "Bine ai revenit,", previewProfile: "Previzualizare profil public", manageServices: "Gestionare servicii",
       stats: { totalBookings: "Rezervări totale", rating: "Rating mediu", pendingBalance: "Decontare în așteptare", availableBalance: "Disponibil pentru plată", totalJobs: "Total joburi", escrowHeld: "Reținut în escrow", availableNow: "Disponibil acum", reviews: "Recenzii" },
+      syncStatus: "Status sincronizare",
+      lastSynced: "Ultima sincronizare",
+      refresh: "Actualizează",
+      syncing: "Sincronizarea datelor...",
+      syncFailed: "Sincronizarea a eșuat, vă rugăm să reîncercați",
+      wallet: {
+        syncing: "Sincronizarea datelor portofelului...",
+        synced: "Datele portofelului au fost sincronizate",
+        generating: "Se finalizează configurarea contului..."
+      },
       bookings: { title: "Programări recente", viewAll: "Vezi toate rezervările", empty: "Nicio rezervare recentă", completed: "Finalizat", actions: { confirm: "Confirmă", complete: "Marchează ca finalizat", variation: "Solicită extra" } },
       status: { pending: "În așteptare", confirmed: "Confirmat", completed: "Finalizat", cancelled: "Anulat" },
       variations: { label: "Solicitare lucrare suplimentară", status: "Status", pending: "Se așteaptă clientul", approved: "Aprobat", rejected: "Respins", arbiterActive: "Arbitrul AI revizuiește" },

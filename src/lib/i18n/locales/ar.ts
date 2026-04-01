@@ -48,6 +48,16 @@ export const ar: Dictionary = {
     dashboard: {
       title: "وحدة تحكم التاجر", welcome: "مرحباً بعودتك،", previewProfile: "معاينة الملف الشخصي العام", manageServices: "إدارة الخدمات",
       stats: { totalBookings: "إجمالي الحجوزات", rating: "متوسط التقييم", pendingBalance: "تسوية معلقة", availableBalance: "متاح للسحب", totalJobs: "إجمالي المهام", escrowHeld: "محتجز في الضمان", availableNow: "متاح الآن", reviews: "التقييمات" },
+      syncStatus: "حالة المزامنة",
+      lastSynced: "آخر مزامنة",
+      refresh: "تحديث",
+      syncing: "جاري مزامنة البيانات...",
+      syncFailed: "فشلت المزامنة، يرجى المحاولة مرة أخرى",
+      wallet: {
+        syncing: "جاري مزامنة بيانات المحفظة...",
+        synced: "تمت مزامنة بيانات المحفظة",
+        generating: "جاري استكمال إعداد الحساب..."
+      },
       bookings: { title: "المواعيد الأخيرة", viewAll: "عرض جميع الحجوزات", empty: "لا توجد حجوزات أخيرة", completed: "مكتمل", actions: { confirm: "تأكيد", complete: "تحديد كمكتمل", variation: "طلب إضافي" } },
       status: { pending: "معلق", confirmed: "مؤكد", completed: "مكتمل", cancelled: "ملغى" },
       variations: { label: "طلب عمل إضافي", status: "الحالة", pending: "في انتظار العميل", approved: "تمت الموافقة", rejected: "مرفوض", arbiterActive: "محكم الذكاء الاصطناعي يراجع" },

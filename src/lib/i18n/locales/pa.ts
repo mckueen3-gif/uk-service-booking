@@ -48,7 +48,17 @@ export const pa: Dictionary = {
     dashboard: {
       title: "ਮਰਚੈਂਟ ਕੰਸੋਲ", welcome: "ਜੀ ਆਇਆਂ ਨੂੰ,", previewProfile: "ਜਨਤਕ ਪ੍ਰੋਫਾਈਲ ਦੇਖੋ", manageServices: "ਸੇਵਾਵਾਂ ਦਾ ਪ੍ਰਬੰਧ ਕਰੋ",
       stats: { totalBookings: "ਕੁੱਲ ਬੁਕਿੰਗ", rating: "ਔਸਤ ਰੇਟਿੰਗ", pendingBalance: "ਬਕਾਇਆ ਸੈਟਲਮੈਂਟ", availableBalance: "ਭੁਗਤਾਨ ਲਈ ਉਪਲਬਧ", totalJobs: "ਕੁੱਲ ਨੌਕਰੀਆਂ", escrowHeld: "ਐਸਕਰੋ ਵਿੱਚ ਰੱਖਿਆ", availableNow: "ਹੁਣ ਉਪਲਬਧ", reviews: "ਸਮੀਖਿਆਵਾਂ" },
-      bookings: { title: "ਹਾਲੀਆ ਮੁਲਾਕਾਤਾਂ", viewAll: "ਸਾਰੀਆਂ ਬੁਕਿੰਗਾਂ ਦੇਖੋ", empty: "ਕੋਈ ਹਾਲੀਆ ਬੁਕਿੰਗ ਨਹੀਂ", completed: "ਪੂਰਾ ਹੋਇਆ", actions: { confirm: "ਪੁਸ਼ਟੀ ਕਰੋ", complete: "ਪੂਰਾ ਮਾਰਕ ਕਰੋ", variation: "ਵਾਧੂ ਬੇਨਤੀ ਕਰੋ" } },
+      syncStatus: "ਸਿੰਕ ਸਥਿਤੀ",
+      lastSynced: "ਪਿਛਲਾ ਸਿੰਕ",
+      refresh: "ਤਾਜ਼ਾ ਕਰੋ",
+      syncing: "ਡਾਟਾ ਸਿੰਕ ਹੋ ਰਿਹਾ ਹੈ...",
+      syncFailed: "ਸਿੰਕ ਅਸਫਲ ਰਿਹਾ, ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ",
+      wallet: {
+        syncing: "ਵਾਲਿਟ ਡਾਟਾ ਸਿੰਕ ਹੋ ਰਿਹਾ ਹੈ...",
+        synced: "ਵਾਲਿਟ ਡਾਟਾ ਸਿੰਕ ਹੋ ਗਿਆ",
+        generating: "ਖਾਤਾ ਸੈੱਟਅੱਪ ਪੂਰਾ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ..."
+      },
+      bookings: { title: "ਹਾਲੀਆ ਮੁਲਾਕाਤਾਂ", viewAll: "ਸਾਰੀਆਂ ਬੁਕਿੰਗਾਂ ਦੇਖੋ", empty: "ਕੋਈ ਹਾਲੀਆ ਬੁਕਿੰਗ ਨਹੀਂ", completed: "ਪੂਰਾ ਹੋਇਆ", actions: { confirm: "ਪੁਸ਼ਟੀ ਕਰੋ", complete: "ਪੂਰਾ ਮਾਰਕ ਕਰੋ", variation: "ਵਾਧੂ ਬੇਨਤੀ ਕਰੋ" } },
       status: { pending: "ਬਕਾਇਆ", confirmed: "ਪੁਸ਼ਟੀ ਕੀਤੀ", completed: "ਪੂਰਾ ਹੋਇਆ", cancelled: "ਰੱਦ ਕੀਤਾ ਗਿਆ" },
       variations: { label: "ਵਾਧੂ ਕੰਮ ਦੀ ਬੇਨਤੀ", status: "ਸਥਿਤੀ", pending: "ਗਾਹਕ ਦੀ ਉਡੀਕ", approved: "ਪ੍ਰਵਾਨਿਤ", rejected: "ਅਸਵੀਕਾਰ ਕੀਤਾ ਗਿਆ", arbiterActive: "AI ਸਾਲਸ ਸਮੀਖਿਆ ਕਰ ਰਿਹਾ ਹੈ" },
       arbiterReasoning: "AI ਸਾਲਸ ਵਿਸ਼ਲੇਸ਼ਣ",

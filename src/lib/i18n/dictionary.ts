@@ -44,7 +44,17 @@ export interface Dictionary {
     dashboard: {
       title: string; welcome: string; previewProfile: string; manageServices: string;
       stats: { totalBookings: string; rating: string; pendingBalance: string; availableBalance: string; totalJobs: string; escrowHeld: string; availableNow: string; reviews: string };
-      bookings: { title: string; viewAll: string; empty: string; completed: string; actions: { confirm: string; complete: string; variation: string } };
+       syncStatus: string;
+       lastSynced: string;
+       refresh: string;
+       syncing: string;
+       syncFailed: string;
+       wallet: {
+         syncing: string;
+         synced: string;
+         generating: string;
+       };
+       bookings: { title: string; viewAll: string; empty: string; completed: string; actions: { confirm: string; complete: string; variation: string } };
       status: { pending: string; confirmed: string; completed: string; cancelled: string };
       variations: { label: string; status: string; pending: string; approved: string; rejected: string; arbiterActive: string };
       arbiterReasoning: string;

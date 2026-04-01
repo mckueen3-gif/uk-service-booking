@@ -48,6 +48,16 @@ export const ja: Dictionary = {
     dashboard: {
       title: "マーチャント・コンソール", welcome: "おかえりなさい、", previewProfile: "公開プロフィールを確認", manageServices: "サービス管理",
       stats: { totalBookings: "累計予約数", rating: "平均評価", pendingBalance: "決済待ち", availableBalance: "出金可能額", totalJobs: "総案件数", escrowHeld: "エスクロー保持中", availableNow: "現在利用可能", reviews: "レビュー数" },
+      syncStatus: "同期ステータス",
+      lastSynced: "最終同期",
+      refresh: "更新",
+      syncing: "データを同期中...",
+      syncFailed: "同期に失敗しました。再試行してください",
+      wallet: {
+        syncing: "ウォレットデータを同期中...",
+        synced: "ウォレットデータの同期完了",
+        generating: "アカウント設定を完了しています..."
+      },
       bookings: { title: "最近の予約", viewAll: "すべての予約を見る", empty: "最近の予約はありません", completed: "完了", actions: { confirm: "確定", complete: "完了にする", variation: "追加支払いをリクエスト" } },
       status: { pending: "保留中", confirmed: "確定済み", completed: "完了", cancelled: "キャンセル済み" },
       variations: { label: "追加作業リクエスト", status: "ステータス", pending: "顧客の確認待ち", approved: "承認済み", rejected: "拒否済み", arbiterActive: "AI仲裁者が確認中" },

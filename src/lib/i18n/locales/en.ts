@@ -48,6 +48,16 @@ export const en: Dictionary = {
     dashboard: {
       title: "Merchant Console", welcome: "Welcome back,", previewProfile: "Preview Public Profile", manageServices: "Manage Services",
       stats: { totalBookings: "Lifetime Bookings", rating: "Avg Rating", pendingBalance: "Pending Settlement", availableBalance: "Available for Payout", totalJobs: "Total Jobs", escrowHeld: "Held in Escrow", availableNow: "Available Now", reviews: "Reviews" },
+      syncStatus: "Sync Status",
+      lastSynced: "Last Synced",
+      refresh: "Refresh",
+      syncing: "Syncing data...",
+      syncFailed: "Sync failed, please retry",
+      wallet: {
+        syncing: "Syncing wallet data...",
+        synced: "Wallet data synced",
+        generating: "Finalizing account setup..."
+      },
       bookings: { title: "Recent Appointments", viewAll: "View All Bookings", empty: "No recent bookings", completed: "Completed", actions: { confirm: "Confirm", complete: "Mark Complete", variation: "Request Extra" } },
       status: { pending: "Pending", confirmed: "Confirmed", completed: "Completed", cancelled: "Cancelled" },
       variations: { label: "Extra Work Request", status: "Status", pending: "Waiting for Customer", approved: "Approved", rejected: "Rejected", arbiterActive: "AI Arbiter Reviewing" },

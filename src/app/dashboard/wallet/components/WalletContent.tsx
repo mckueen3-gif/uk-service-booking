@@ -3,8 +3,14 @@
 import { useState, useEffect } from "react";
 import { Wallet, Gift, Copy, History, CreditCard, Ticket, ArrowUpRight, ArrowDownLeft, Loader2, TrendingUp, Users, CheckCircle, Sparkles } from "lucide-react";
 import VoucherForm from "../VoucherForm";
+import { useParams } from "next/navigation";
+import { getDictionary } from "@/lib/i18n/dictionary";
 
 export default function WalletContent() {
+  const params = useParams();
+  const locale = (params?.locale as string) || 'en';
+  const t = getDictionary(locale as any);
+  
   const [stats, setStats] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [synced, setSynced] = useState(false);
@@ -54,7 +60,7 @@ export default function WalletContent() {
       {/* Sync Status (Professional) */}
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <div style={{ fontSize: '0.8rem', color: synced ? '#10b981' : 'rgba(255,255,255,0.4)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-           {synced ? "● 錢包數據已同步 (Balance Verified)" : "○ 正在連線銀行數據 (Syncing balance...)"}
+           {synced ? `● ${t.merchant.dashboard.wallet.synced}` : `○ ${t.merchant.dashboard.wallet.syncing}`}
         </div>
       </div>
 
@@ -113,7 +119,7 @@ export default function WalletContent() {
               <h2 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--text-primary)' }}>推薦好友，享 2% 回饋</h2>
             </div>
             <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
-              分享您的專屬推薦碼，好友首次預約後您將獲得 2% 回饋累積下來。
+              分享您的專屬推薦碼，好友首次預約後您将獲得 2% 回饋累積下來。
             </p>
             <div style={{
               display: 'flex',
@@ -124,9 +130,9 @@ export default function WalletContent() {
               borderRadius: '12px',
               border: '1.5px dashed rgba(99, 102, 241, 0.4)'
             }}>
-              <span style={{ fontWeight: 900, color: '#6366f1', fontSize: stats?.referralCode === "PENDING" ? '0.85rem' : '1.15rem', letterSpacing: '0.08em' }}>
-                {(!stats?.referralCode || stats.referralCode === "PENDING") ? (
-                  <span style={{ fontWeight: 500, color: 'var(--text-secondary)' }}>同步中 (Syncing...)</span>
+              <span style={{ fontWeight: 900, color: '#6366f1', fontSize: (stats?.referralCode === "PENDING" || stats?.referralCode === "REF-SYNCING") ? '0.85rem' : '1.15rem', letterSpacing: '0.08em' }}>
+                {(!stats?.referralCode || stats.referralCode === "PENDING" || stats.referralCode === "REF-SYNCING") ? (
+                  <span style={{ fontWeight: 500, color: 'var(--text-secondary)' }}>{t.merchant.dashboard.wallet.generating}</span>
                 ) : (
                   stats.referralCode
                 )}

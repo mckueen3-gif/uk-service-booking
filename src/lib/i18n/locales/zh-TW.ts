@@ -48,6 +48,16 @@ export const zhTW: Dictionary = {
     dashboard: {
       title: "商家控制台", welcome: "歡迎回來，", previewProfile: "預覽公開檔案", manageServices: "管理服務",
       stats: { totalBookings: "累計預訂", rating: "平均評分", pendingBalance: "待結算款項", availableBalance: "可提現餘額", totalJobs: "總工作量", escrowHeld: "託管中資金", availableNow: "目前可用", reviews: "評價數" },
+      syncStatus: "同步狀態",
+      lastSynced: "上次同步",
+      refresh: "刷新",
+      syncing: "正在同步資料...",
+      syncFailed: "同步失敗，請重試",
+      wallet: {
+        syncing: "正在同步錢包數據...",
+        synced: "錢包數據已同步",
+        generating: "正在完成帳戶設定..."
+      },
       bookings: { title: "近期預約", viewAll: "查看所有預訂", empty: "近期無預約", completed: "已完成", actions: { confirm: "確認", complete: "標記為完成", variation: "請求額外支付" } },
       status: { pending: "等待中", confirmed: "已確認", completed: "已完成", cancelled: "已取消" },
       variations: { label: "額外工作請求", status: "狀態", pending: "等待客戶確認", approved: "已批准", rejected: "已拒絕", arbiterActive: "AI 仲裁審核中" },

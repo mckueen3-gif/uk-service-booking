@@ -48,6 +48,16 @@ export const pl: Dictionary = {
     dashboard: {
       title: "Konsola wykonawcy", welcome: "Witaj ponownie,", previewProfile: "Podgląd profilu publicznego", manageServices: "Zarządzaj usługami",
       stats: { totalBookings: "Wszystkie rezerwacje", rating: "Średnia ocena", pendingBalance: "Oczekiwanie na rozliczenie", availableBalance: "Dostępne do wypłaty", totalJobs: "Suma zadań", escrowHeld: "Przechowywane w depozycie", availableNow: "Dostępne teraz", reviews: "Opinie" },
+      syncStatus: "Status synchronizacji",
+      lastSynced: "Ostatnia synchronizacja",
+      refresh: "Odśwież",
+      syncing: "Synchronizowanie danych...",
+      syncFailed: "Synchronizacja nie powiodła się, spróbuj ponownie",
+      wallet: {
+        syncing: "Synchronizowanie danych portfela...",
+        synced: "Dane portfela zsynchronizowane",
+        generating: "Kończenie konfiguracji konta..."
+      },
       bookings: { title: "Ostatnie spotkania", viewAll: "Zobacz wszystkie rezerwacje", empty: "Brak ostatnich rezerwacji", completed: "Zakończone", actions: { confirm: "Potwierdź", complete: "Oznacz jako zakończone", variation: "Poproś o dodatek" } },
       status: { pending: "Oczekujące", confirmed: "Potwierdzone", completed: "Zakończone", cancelled: "Anulowane" },
       variations: { label: "Prośba o dodatkową pracę", status: "Status", pending: "Oczekiwanie na klienta", approved: "Zatwierdzone", rejected: "Odrzucone", arbiterActive: "Arbiter AI w trakcie przeglądu" },

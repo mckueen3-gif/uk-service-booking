@@ -122,8 +122,8 @@ export async function GET(req: NextRequest) {
         name: sessionUser?.name || "User",
         email: sessionUser?.email || "",
         role: sessionUser?.role || "CUSTOMER",
-        // CRITICAL: Pull from session if DB is missing it
-        referralCode: sessionUser?.referralCode || "REF-PENDING", 
+        // CRITICAL: Pull from session if DB is missing it, avoid generic REF-PENDING if possible
+        referralCode: sessionUser?.referralCode || "REF-SYNCING", 
         referralCredits: 0
       },
       isMerchant: sessionUser?.role === "MERCHANT",

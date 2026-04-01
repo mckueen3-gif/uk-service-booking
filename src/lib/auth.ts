@@ -56,22 +56,33 @@ export const authOptions: NextAuthOptions = {
         token.referralCode = (user as any).referralCode;
       }
       
-      // 🛡️ RECOVERY: If code is missing in token, try a quick DB lookup (once)
+      // 🛡️ RECOVERY: If code is missing in token, try a quick DB lookup or generate one
       if (!token.referralCode && token.id) {
         try {
           const dbUser = await prisma.user.findUnique({
             where: { id: token.id as string },
-            select: { referralCode: true }
+            select: { referralCode: true, name: true }
           });
+          
           if (dbUser?.referralCode) {
             token.referralCode = dbUser.referralCode;
+          } else if (dbUser) {
+            // Generate immediately if still missing
+            const prefix = (dbUser.name || "USER").substring(0, 3).toUpperCase().replace(/\s/g, '');
+            const random = Math.floor(1000 + Math.random() * 9000);
+            const newCode = `${prefix}${random}`;
+            await prisma.user.update({
+              where: { id: token.id as string },
+              data: { referralCode: newCode }
+            });
+            token.referralCode = newCode;
           }
         } catch (e) {
           console.error("JWT Referral lookup failed:", e);
         }
       }
 
-      // Allow dynamic session updates (e.g., when reaching a referral milestone or updating in client)
+      // Allow dynamic session updates
       if (trigger === "update" && session?.referralCode) {
         token.referralCode = session.referralCode;
       }
@@ -90,23 +101,22 @@ export const authOptions: NextAuthOptions = {
         if (!user.email) return false;
         
         try {
-          // Check if user exists
+          const email = user.email.toLowerCase();
           const existingUser = await prisma.user.findUnique({
-            where: { email: user.email.toLowerCase() }
+            where: { email }
           });
 
           if (!existingUser) {
-            // Create user for Google sign-in
             const prefix = (user.name || "USER").substring(0, 3).toUpperCase().replace(/\s/g, '');
             const random = Math.floor(1000 + Math.random() * 9000);
             const referralCode = `${prefix}${random}`;
 
             const newUser = await prisma.user.create({
               data: {
-                email: user.email.toLowerCase(),
+                email,
                 name: user.name,
                 image: user.image,
-                role: "CUSTOMER", // Default role
+                role: "CUSTOMER",
                 referralCode,
               }
             });
@@ -114,7 +124,6 @@ export const authOptions: NextAuthOptions = {
             (user as any).role = newUser.role;
             (user as any).referralCode = newUser.referralCode;
           } else {
-            // User exists, ensure they have a referral code
             user.id = existingUser.id;
             (user as any).role = existingUser.role;
             
@@ -134,7 +143,6 @@ export const authOptions: NextAuthOptions = {
           }
         } catch (error) {
           console.error("Google SignIn Sync Error:", error);
-          // Still allow sign-in even if DB sync fails, but log it
         }
       }
       return true;

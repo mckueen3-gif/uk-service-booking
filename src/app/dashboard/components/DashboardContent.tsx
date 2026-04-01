@@ -89,6 +89,14 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
       const result = await claimReferralCode(claimCode.trim());
       if (result.success) {
         setClaimStatus({ type: 'success', message: '推薦碼兌換成功！' });
+        // 🚀 Optimistic Update: Immediately update the data state to hide input and show referrer
+        setData((prev: any) => ({
+          ...prev,
+          user: {
+            ...prev.user,
+            referredBy: '專家 (Processing...)' // Will be updated by refreshData
+          }
+        }));
         refreshData(true);
       } else {
         setClaimStatus({ type: 'error', message: result.error || '兌換失敗' });
@@ -169,33 +177,37 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
         gap: '0.75rem',
         marginBottom: '1.5rem'
       }}>
-        {syncing && <Loader2 size={14} style={{ color: 'var(--accent-color)', animation: 'spin 1s linear infinite' }} />}
-        <span style={{ fontSize: '0.78rem', color: error ? '#ef4444' : '#10b981', fontWeight: 500 }}>
+        {syncing && <Loader2 size={12} style={{ color: 'var(--accent-color)', animation: 'spin 1s linear infinite' }} />}
+        <span style={{ fontSize: '0.75rem', color: error ? '#ef4444' : 'var(--text-secondary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
           {error
-            ? `⚠ ${t.merchant.dashboard.status.cancelled}`
+            ? `⚠ ${t.merchant.dashboard.syncFailed}`
             : lastSync
-              ? `● 🟢 ${t.merchant.dashboard.bookings.viewAll} ${lastSync.toLocaleTimeString()}`
-              : '○ 🔄 ...'}
+              ? <>
+                  <span style={{ color: '#10b981' }}>●</span> {t.merchant.dashboard.lastSynced}: {lastSync.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </>
+              : `○ ${t.merchant.dashboard.syncing}`}
         </span>
         <button
           onClick={() => refreshData(true)}
           disabled={syncing}
-          title="立即刷新"
+          className="hover-scale"
           style={{
-            padding: '0.3rem 0.6rem',
-            borderRadius: '8px',
+            padding: '0.4rem 0.8rem',
+            borderRadius: '10px',
             border: '1px solid var(--border-color)',
-            background: 'transparent',
+            background: 'var(--surface-1)',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
-            gap: '0.3rem',
+            gap: '0.4rem',
             fontSize: '0.75rem',
-            color: 'var(--text-secondary)'
+            fontWeight: 700,
+            color: 'var(--text-primary)',
+            transition: 'all 0.2s'
           }}
         >
-          <RefreshCw size={12} style={{ animation: syncing ? 'spin 1s linear infinite' : 'none' }} />
-          {t.merchant.dashboard.bookings.actions.confirm}
+          <RefreshCw size={12} style={{ animation: syncing ? 'spin 1.5s linear infinite' : 'none' }} />
+          {t.merchant.dashboard.refresh}
         </button>
       </div>
 
@@ -282,8 +294,8 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
           <div style={{ padding: '0.5rem', borderRadius: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <div style={{ paddingLeft: '0.5rem' }}>
               <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', fontWeight: 800, color: 'var(--text-muted)', marginBottom: '0.2rem' }}>{t.home.referralCTA.referralLabel}</div>
-              <code style={{ fontSize: user?.referralCode === "REF-PENDING" ? '0.8rem' : '1.2rem', fontWeight: 900, color: 'var(--accent-color)', letterSpacing: '1px' }}>
-                {user?.referralCode === "REF-PENDING" ? "同步中 (Syncing...)" : (user?.referralCode || (loading || syncing ? '...' : 'REF-PENDING'))}
+              <code style={{ fontSize: (user?.referralCode === "REF-PENDING" || !user?.referralCode) ? '0.75rem' : '1.2rem', fontWeight: 900, color: 'var(--accent-color)', letterSpacing: '1px', opacity: (user?.referralCode === "REF-PENDING" || !user?.referralCode) ? 0.5 : 1 }}>
+                {(user?.referralCode === "REF-PENDING" || !user?.referralCode) ? "---" : user.referralCode}
               </code>
             </div>
             <button onClick={() => {
