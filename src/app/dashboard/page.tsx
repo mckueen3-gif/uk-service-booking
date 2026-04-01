@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import DashboardContent from "./components/DashboardContent";
+import DynamicGreeting from "./components/DynamicGreeting";
 
 export const dynamic = 'force-dynamic';
 
@@ -25,9 +26,7 @@ export default async function DashboardPage() {
         boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
         backdropFilter: 'blur(10px)'
       }}>
-        <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem' }}>
-          早安，<span style={{ color: 'var(--accent-color)' }}>{userName}</span> 👋
-        </h1>
+        <DynamicGreeting userName={userName} />
         <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', maxWidth: '600px' }}>
           歡迎回到您的專屬控制面板。數據與預約正在後台即時更新中，無需加載。
         </p>
