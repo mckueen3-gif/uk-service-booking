@@ -19,7 +19,12 @@ export default async function ProfilePage() {
       name: true,
       role: true,
       createdAt: true,
-      merchantProfile: true // Reverted so this should be safe
+      merchantProfile: {
+        select: {
+          companyName: true,
+          description: true
+        }
+      }
     }
   }) as any;
 
