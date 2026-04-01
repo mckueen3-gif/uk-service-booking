@@ -5,11 +5,14 @@ export const dynamic = 'force-dynamic';
 
 async function getCols(tableName: string) {
   try {
-     // Try a direct query to get one record and see keys
-     const record = await (prisma as any)[tableName.charAt(0).toLowerCase() + tableName.slice(1)].findFirst();
-     if (record) return Object.keys(record);
+     const modelName = tableName.charAt(0).toLowerCase() + tableName.slice(1);
+     const model = (prisma as any)[modelName];
+     if (model && typeof model.findFirst === 'function') {
+        const record = await model.findFirst();
+        if (record) return Object.keys(record);
+     }
      
-     // Fallback to information_schema with various case variations
+     // Fallback to information_schema...
      const res: any[] = await prisma.$queryRawUnsafe(`
        SELECT column_name 
        FROM information_schema.columns 
@@ -17,7 +20,7 @@ async function getCols(tableName: string) {
           OR table_name = '${tableName.toLowerCase()}'
           OR table_name = '${tableName.toLowerCase()}s'
      `);
-     return res.map(c => c.column_name);
+     return Array.isArray(res) ? res.map(c => c.column_name) : [];
   } catch (e: any) {
     return { error: e.message };
   }

@@ -32,15 +32,18 @@ export async function GET(req: NextRequest) {
     // 2. Try to fetch creditTransactions separately
     let creditTransactions: any[] = [];
     try {
-      const txs = await safeDbQuery(() =>
-        (prisma as any).creditTransaction?.findMany({
-          where: { userId },
-          orderBy: { createdAt: "desc" },
-          take: 20
-        })
-      );
-      if (txs) {
-        creditTransactions = txs;
+      const hasTable = !!(prisma as any).creditTransaction;
+      if (hasTable) {
+        const txs = await safeDbQuery(() =>
+          (prisma as any).creditTransaction.findMany({
+            where: { userId },
+            orderBy: { createdAt: "desc" },
+            take: 20
+          })
+        );
+        if (Array.isArray(txs)) {
+          creditTransactions = txs;
+        }
       }
     } catch (e) {
       console.warn("Could not fetch credit transactions (table might be missing)");
