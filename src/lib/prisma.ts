@@ -34,3 +34,29 @@ if (globalForPrisma.prisma) {
 }
 
 export const prisma = prismaClient;
+
+/**
+ * 🚀 SILENT RESILIENCE: Helper to handle transient DB connection issues.
+ * This prevents "Pool Saturated" errors from leaking to the UI immediately.
+ * We retry up to 2 times with a short delay before giving up.
+ */
+export async function safeDbQuery<T>(queryFn: () => Promise<T>, retries = 2, delay = 300): Promise<T> {
+  let lastError;
+  for (let i = 0; i <= retries; i++) {
+    try {
+      return await queryFn();
+    } catch (error: any) {
+      lastError = error;
+      const errorStr = String(error);
+      const isPoolIssue = errorStr.includes("pool") || errorStr.includes("client") || errorStr.includes("timeout") || errorStr.includes("6543");
+      
+      if (isPoolIssue && i < retries) {
+        console.warn(`[Prisma Retry] Pool issue detected, retrying in ${delay}ms... (Attempt ${i+1}/${retries})`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+        continue;
+      }
+      throw error;
+    }
+  }
+  throw lastError;
+}

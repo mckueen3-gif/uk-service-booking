@@ -51,10 +51,10 @@ export default function ChatInterface({ initialConversationId }: ChatProps) {
   }, [currentConvoId]);
 
   async function loadConversations(silent = false) {
-    if (!silent) setLoading(true);
+    if (!silent && !conversations.length) setLoading(true);
     const res = await getConversations();
     if (res.conversations) setConversations(res.conversations);
-    if (!silent) setLoading(false);
+    setLoading(false);
   }
 
   async function loadMessages(id: string, silent = false) {
@@ -77,28 +77,42 @@ export default function ChatInterface({ initialConversationId }: ChatProps) {
     e.preventDefault();
     if (!inputText.trim() || !currentConvoId) return;
 
-    setSending(true);
     const content = inputText;
     setInputText("");
 
+    // 🚀 OPTIMISTIC UPDATE: Add message to UI immediately
+    const optimisticMessage = {
+      id: `temp-${Date.now()}`,
+      content: content,
+      senderId: 'ME',
+      createdAt: new Date().toISOString(),
+      isRead: false,
+      isPending: true // Visual indicator if needed
+    };
+    
+    setMessages(prev => [...prev, optimisticMessage]);
+    scrollToBottom();
+
+    setSending(true);
     const res = await sendMessage({
       conversationId: currentConvoId,
       content: content
     });
 
     if (res.success) {
-      loadMessages(currentConvoId);
+      // Replace optimistic message with real message or just refresh
+      loadMessages(currentConvoId, true);
+    } else {
+      // Handle failure: optionally remove the optimistic message
+      setMessages(prev => prev.filter(m => m.id !== optimisticMessage.id));
     }
     setSending(false);
   };
 
   const activeConvo = conversations.find(c => c.id === currentConvoId);
 
-  if (loading && !conversations.length) return (
-     <div style={{ display: 'flex', justifyContent: 'center', padding: '4rem', width: '100%' }}>
-       <Loader2 className="animate-spin" size={48} color="var(--accent-color)" />
-     </div>
-  );
+  // 🚀 NO FULL-SCREEN BLOCKING: Show the shell immediately even if data is loading
+  // (We'll handle specific loading states within components)
 
   return (
     <div className="glass-panel" style={{ height: '700px', display: 'flex', overflow: 'hidden', borderRadius: '24px', backgroundColor: 'var(--surface-1)', border: '1.5px solid var(--border-color)', boxShadow: 'var(--shadow-xl)' }}>
