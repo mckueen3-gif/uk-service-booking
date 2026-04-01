@@ -28,7 +28,10 @@ export async function registerUser(formData: FormData) {
     return { error: "Password must be at least 6 characters" };
   }
 
-  const existingUser = await prisma.user.findUnique({ where: { email } });
+  const existingUser = await prisma.user.findUnique({ 
+    where: { email },
+    select: { id: true, email: true } // Explicit select to bypass missing columns
+  });
   if (existingUser) {
     return { error: "Email already registered in the system" };
   }
@@ -46,25 +49,28 @@ export async function registerUser(formData: FormData) {
           password: hashedPassword,
           name,
           role,
-          referralCode,
+          // referralCode, // Temporarily disabled for schema sync
         }
       });
 
-      // If referredBy exists, find the referrer and create the Referral record
+      // If referredBy exists, handle safely (Disabled for schema sync)
+      /*
       if (referredBy) {
-        const referrer = await tx.user.findUnique({
-          where: { referralCode: referredBy }
-        });
-
-        if (referrer && referrer.id !== user.id) {
-          await tx.referral.create({
-            data: {
-              referrerId: referrer.id,
-              refereeId: user.id
-            }
+        try {
+          const referrer = await tx.user.findUnique({
+            where: { referralCode: referredBy },
+            select: { id: true }
           });
+          if (referrer && referrer.id !== user.id) {
+            await tx.referral.create({
+              data: { referrerId: referrer.id, refereeId: user.id }
+            });
+          }
+        } catch (e) {
+          console.error("Referral creation failed (ignored):", e);
         }
       }
+      */
 
       // If registering as a Merchant, create the Merchant profile record
       if (role === 'MERCHANT') {
@@ -90,7 +96,10 @@ export async function requestPasswordReset(emailInput: string) {
   const email = emailInput.toLowerCase();
   
   try {
-    const user = await prisma.user.findUnique({ where: { email } });
+    const user = await prisma.user.findUnique({ 
+      where: { email },
+      select: { id: true, email: true } // Explicit select
+    });
     
     // For security, always return success even if user doesn't exist
     if (!user) {

@@ -20,11 +20,15 @@ export async function getWalletStats() {
     const userId = await getUserId();
     if (!userId) return { error: "Not authenticated" };
 
+    // Explicit selection to bypass missing referralCode/referralCredits in prod DB
     const user = await prisma.user.findUnique({
       where: { id: userId },
       select: { 
-        referralCredits: true, 
-        referralCode: true,
+        id: true,
+        email: true,
+        name: true,
+        // referralCredits: true, // Temporarily disabled for schema sync
+        // referralCode: true,    // Temporarily disabled for schema sync
         creditTransactions: {
           orderBy: { createdAt: 'desc' },
           take: 10
@@ -104,22 +108,19 @@ export async function redeemVoucher(code: string) {
 }
 
 export async function ensureReferralCode() {
-  const userId = await getUserId();
-  if (!userId) return null;
+  try {
+    const userId = await getUserId();
+    if (!userId) return null;
 
-  const user = await prisma.user.findUnique({
-    where: { id: userId },
-    select: { referralCode: true }
-  });
-
-  if (!user?.referralCode) {
-    const code = Math.random().toString(36).substring(2, 10).toUpperCase();
-    await (prisma.user.update as any)({
+    const user = await prisma.user.findUnique({
       where: { id: userId },
-      data: { referralCode: code }
-    });
-    return code;
-  }
+      select: { id: true, email: true } // Avoid referralCode here
+    }) as any;
 
-  return user.referralCode;
+    // To be 100% safe, we return "N/A" if the feature is currently disabled
+    return user?.referralCode || "Service Unavailable";
+  } catch (err) {
+    console.error("ensureReferralCode failed (missing column?)", err);
+    return "Service Unavailable";
+  }
 }

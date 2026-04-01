@@ -16,8 +16,8 @@ export default async function AdminUsersPage() {
       name: true,
       email: true,
       role: true,
-      referralCode: true,
-      referralCredits: true,
+      // referralCode: true,    // Temporarily disabled for schema sync
+      // referralCredits: true, // Temporarily disabled for schema sync
       createdAt: true
     }
   });

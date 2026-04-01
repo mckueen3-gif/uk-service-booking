@@ -13,8 +13,13 @@ export default async function ProfilePage() {
   
   const user = await prisma.user.findUnique({
     where: { id: (session.user as any).id },
-    include: {
-      merchantProfile: true
+    select: {
+      id: true,
+      email: true,
+      name: true,
+      role: true,
+      createdAt: true,
+      merchantProfile: true // Reverted so this should be safe
     }
   }) as any;
 
