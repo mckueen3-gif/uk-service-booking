@@ -32,27 +32,34 @@ export default async function AdminLayout({
   // Actually, let's play it safe and check the session structure if we can.
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)', transition: 'background-color 0.3s ease' }}>
+    <div style={{ 
+      display: 'flex', 
+      minHeight: '100vh', 
+      backgroundColor: '#ffffff', // Direct color instead of variable
+      color: '#0f172a',           // Onyx slate
+      transition: 'all 0.3s ease' 
+    }}>
+      {/* Visual Marker: If you see this red dot, the latest version is live! */}
+      <div style={{ position: 'fixed', top: '10px', right: '10px', width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#ff4d4f', zIndex: 9999, boxShadow: '0 0 10px rgba(255,77,79,0.5)' }}></div>
       {/* Sidebar - Fixed Left */}
       <aside style={{ 
         width: '280px', 
         height: '100vh', 
-        backgroundColor: 'var(--glass-bg)', 
-        borderRight: '1px solid var(--border-color)',
+        backgroundColor: '#ffffff', // Forced white background
+        borderRight: '1px solid #e2e8f0',
         display: 'flex',
         flexDirection: 'column',
         position: 'fixed',
         top: 0,
         left: 0,
         zIndex: 50,
-        backdropFilter: 'blur(24px)',
-        boxShadow: '20px 0 40px rgba(0,0,0,0.05)'
+        boxShadow: '4px 0 20px rgba(0,0,0,0.05)'
       }}>
-        <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#d4af37', display: 'flex', alignItems: 'center', justifySelf: 'center', justifyContent: 'center' }}>
+        <div style={{ padding: '1.5rem', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#d4af37', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <ShieldCheck className="w-5 h-5 text-black" />
           </div>
-          <span style={{ fontWeight: 'bold', fontSize: '1.25rem', color: '#d4af37' }}>ADMIN <span style={{ color: 'var(--text-primary)' }}>UK</span></span>
+          <span style={{ fontWeight: 'bold', fontSize: '1.25rem', color: '#d4af37' }}>ADMIN <span style={{ color: '#0f172a' }}>UK</span></span>
         </div>
 
         <nav className="flex-1 p-4 space-y-1 mt-4 overflow-y-auto custom-scrollbar">
@@ -117,20 +124,20 @@ function AdminNavLink({ href, icon, label, badge }: { href: string; icon: React.
         display: 'flex', 
         alignItems: 'center', 
         gap: '0.75rem', 
-        padding: '0.75rem', 
+        padding: '0.75rem 1.25rem', 
         borderRadius: '0.75rem', 
-        color: 'var(--text-secondary)',
+        color: '#64748b', // Slate muted
         textDecoration: 'none',
-        fontSize: '0.875rem',
-        fontWeight: 500,
-        transition: 'all 0.2s'
+        fontSize: '0.9rem',
+        fontWeight: 600,
+        transition: 'all 0.2s',
+        marginBottom: '4px'
       }}
-      className="admin-link-hover"
     >
       <span style={{ color: '#d4af37' }}>
         {icon}
       </span>
-      <span className="flex-1">{label}</span>
+      <span style={{ flex: 1 }}>{label}</span>
       {badge && (
         <span style={{ padding: '2px 6px', borderRadius: '4px', fontSize: '10px', fontWeight: 'bold', backgroundColor: '#d4af37', color: 'black' }}>
           {badge}
