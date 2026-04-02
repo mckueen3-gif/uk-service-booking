@@ -176,7 +176,7 @@ export const ko: Dictionary = {
     hero: { title: "ServiceHub와 함께 비즈니스 성장", subtitle: "영국에서 가장 엘리트하고 인증된 서비스 전문가 네트워크에 참여하세요." },
     steps: { profile: "비즈니스 프로필", credentials: "영국 인증 정보", contract: "서비스 계약" },
     sectors: { title: "섹터 선택", professional: { title: "프로페셔널", desc: "회계, 법률, 컨설팅", industries: ["회계 사", "세무 컨설팅", "법률 서비스", "비즈니스 전략"] }, education: { title: "교육", desc: "튜터, 트레이너, 코치", industries: ["학술 튜터", "언어 교육", "기술 코칭", "음악 교사"] }, technical: { title: "테크니컬", desc: "기술직, 수리, 엔지니어링", industries: ["배관", "전기", "자동차", "리노베이션"] } },
-    contract: { title: "표준 서비스 계약", scrollingNotice: "약관에 동의하려면 끝까지 스크롤해 주세요.", agree: "ServiceHub 마스터 계약을 읽었으며 이에 동의합니다.", clauses: { platform_fee: { title: "1. 플랫폼 서비스 수수료", body: "ServiceHub는 예약 성공 시 8%의 수수료를 부과합니다. 신규 전문가의 첫 5개 작업은 수수료가 100% 면제됩니다." }, payments: { title: "2. 에스크로 및 지급", body: "고객 결제는 안전한 에스크로에 보관됩니다. 고객이 작업 완료를 확인한 후 48시간 후에 지급이 활성화됩니다." }, conduct: { title: "3. 전문성 표준", body: "전문가는 최소 4.0점의 평점을 유지해야 합니다. 영국 안전 기준을 충족하지 못할 경우 즉시 계정이 정지될 수 있습니다." } } },
+    contract: { title: "표준 서비스 계약", scrollingNotice: "약관에 동의하려면 끝까지 스क्रोल해 주세요.", agree: "ServiceHub 마스터 계약을 읽었으며 이에 동의합니다.", clauses: { platform_fee: { title: "1. 플랫폼 서비스 수수료", body: "ServiceHub는 예약 성공 시 8%의 수수료를 부과합니다." }, payments: { title: "2. 에스크로 및 지급", body: "고객 결제는 안전한 에스크로에 보관됩니다. 고객이 작업 완료를 확인한 후 48시간 후에 지급이 활성화됩니다." }, conduct: { title: "3. 전문성 표준", body: "전문가는 최소 4.0점의 평점을 유지해야 합니다. 영국 안전 기준을 충족하지 못할 경우 즉시 계정이 정지될 수 있습니다." } } },
     buttons: { start: "시작하기", next: "다음 단계", back: "이전 단계", submit: "온보딩 완료" }
   }
 };
