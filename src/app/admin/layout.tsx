@@ -91,21 +91,29 @@ export default async function AdminLayout({
       </aside>
 
       {/* Main Content */}
-      <main style={{ flex: 1, marginLeft: '280px', padding: '2rem' }}>
-        <header className="flex justify-between items-center mb-8">
+      <main style={{ flex: 1, marginLeft: '280px', padding: '2.5rem', backgroundColor: '#ffffff', minHeight: '100vh' }}>
+        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
           <div>
-            <h1 className="text-xs font-bold text-[#d4af37] uppercase tracking-[0.2em] mb-1">Internal Management</h1>
-            <p className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Central Operations Hub</p>
+            <h1 style={{ fontSize: '12px', fontWeight: 900, color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '0.5rem' }}>Internal Management</h1>
+            <p style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0f172a', letterSpacing: '-0.02em' }}>Central Operations Hub</p>
           </div>
-          <div className="flex items-center gap-4">
-            <button className="p-3 rounded-full bg-slate-100 dark:bg-[#111] border border-slate-200 dark:border-[#222] text-slate-400 dark:text-gray-400 hover:text-[#d4af37] transition-all group relative">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <button style={{ 
+              padding: '0.75rem', 
+              borderRadius: '50%', 
+              backgroundColor: '#f8fafc', 
+              border: '1px solid #e2e8f0', 
+              color: '#64748b',
+              cursor: 'pointer',
+              position: 'relative'
+            }}>
               <Bell size={20} />
-              <span className="absolute top-0 right-0 w-2 h-2 bg-[#d4af37] rounded-full border-2 border-white dark:border-black"></span>
+              <span style={{ position: 'absolute', top: 0, right: 0, width: '10px', height: '10px', backgroundColor: '#d4af37', borderRadius: '50%', border: '2px solid #fff' }}></span>
             </button>
-            <div className="h-8 w-px bg-slate-200 dark:bg-gray-800"></div>
-            <div className="text-right">
-              <p className="text-xs text-slate-400 dark:text-gray-500">Regional Node</p>
-              <p className="text-sm font-bold text-slate-900 dark:text-white">London, UK</p>
+            <div style={{ width: '1px', height: '32px', backgroundColor: '#e2e8f0' }}></div>
+            <div style={{ textAlign: 'right' }}>
+              <p style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Regional Node</p>
+              <p style={{ fontSize: '0.9rem', fontWeight: 800, color: '#0f172a' }}>London, UK</p>
             </div>
           </div>
         </header>
