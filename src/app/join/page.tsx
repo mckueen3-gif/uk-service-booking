@@ -26,7 +26,8 @@ export default function JoinPage() {
     bio: '',
     credentials: '',
     city: 'London',
-    promoCode: ''
+    promoCode: '',
+    avatar: null as string | null
   });
 
   const nextStep = () => {
@@ -53,6 +54,26 @@ export default function JoinPage() {
         setPromoApplied(false);
       }
     }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 2 * 1024 * 1024) { // 2MB limit
+        setError("Image size must be less than 2MB.");
+        return;
+      }
+      
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData(prev => ({ ...prev, avatar: reader.result as string }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeAvatar = () => {
+    setFormData(prev => ({ ...prev, avatar: null }));
   };
 
   const handleAIPreFill = async () => {
@@ -162,6 +183,43 @@ export default function JoinPage() {
                   <div className="card-header">
                     <h2 className="form-title">專家商務資訊 <span style={{ color: '#d4af37' }}>Expert Profile</span></h2>
                     <p className="form-intro">請告訴我們您的專業背景，以便我們為您對接優質客戶。</p>
+                  </div>
+
+                  {/* Profile Photo Upload Section */}
+                  <div className="profile-photo-section">
+                    <div className="upload-container">
+                      <div className={`avatar-upload-circle ${formData.avatar ? 'has-image' : ''}`}>
+                        {formData.avatar ? (
+                          <>
+                            <img src={formData.avatar} alt="Profile Preview" className="uploaded-img" />
+                            <div className="upload-overlay" onClick={() => document.getElementById('avatar-input')?.click()}>
+                              <Wand2 size={24} color="white" />
+                              <span>更換照片</span>
+                            </div>
+                          </>
+                        ) : (
+                          <div className="upload-trigger" onClick={() => document.getElementById('avatar-input')?.click()}>
+                            <User size={32} color="#475569" />
+                            <div className="camera-badge"><Sparkles size={12} /></div>
+                            <span>上傳頭像/LOGO</span>
+                          </div>
+                        )}
+                        <input 
+                          id="avatar-input"
+                          type="file" 
+                          accept="image/*" 
+                          onChange={handleFileChange} 
+                          style={{ display: 'none' }}
+                        />
+                      </div>
+                      <div className="upload-info">
+                        <h4 style={{ color: 'white', margin: '0 0 4px', fontSize: '1rem' }}>專業形象標誌</h4>
+                        <p style={{ color: '#64748b', fontSize: '0.8rem', margin: 0 }}>支援 JPG, PNG。建議使用正方形圖片，大小不超過 2MB。</p>
+                        {formData.avatar && (
+                          <button className="remove-avatar-btn" onClick={removeAvatar}>刪除照片</button>
+                        )}
+                      </div>
+                    </div>
                   </div>
                   
                   <div className="form-grid">
@@ -284,6 +342,7 @@ export default function JoinPage() {
                     bio={formData.credentials}
                     city={formData.city}
                     sector={selectedSector === 'professional' ? "專業商務" : selectedSector === 'education' ? "教育培訓" : "技術工程"}
+                    avatar={formData.avatar}
                   />
                   
                   <div className="success-tip-box">
@@ -683,6 +742,123 @@ export default function JoinPage() {
           margin-top: 30px;
           font-weight: 700;
           border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        /* Profile Photo Upload Styles */
+        .profile-photo-section {
+          margin-bottom: 40px;
+          padding: 24px;
+          background: rgba(255, 255, 255, 0.02);
+          border-radius: 24px;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .upload-container {
+          display: flex;
+          align-items: center;
+          gap: 24px;
+        }
+
+        .avatar-upload-circle {
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+          background: #0f0f0f;
+          border: 2px dashed #1a1a1a;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          position: relative;
+          overflow: hidden;
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .avatar-upload-circle:hover {
+          border-color: #d4af37;
+          background: rgba(212, 175, 55, 0.05);
+          box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+        }
+
+        .avatar-upload-circle.has-image {
+          border-style: solid;
+          border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .upload-trigger {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 4px;
+          color: #475569;
+          font-size: 0.65rem;
+          font-weight: 800;
+          text-transform: uppercase;
+          text-align: center;
+        }
+
+        .camera-badge {
+          position: absolute;
+          bottom: 8px;
+          right: 8px;
+          width: 24px;
+          height: 24px;
+          background: #d4af37;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: black;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .uploaded-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .upload-overlay {
+          position: absolute;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.6);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 4px;
+          opacity: 0;
+          transition: opacity 0.3s;
+          color: white;
+          font-size: 0.7rem;
+          font-weight: 800;
+          backdrop-filter: blur(4px);
+        }
+
+        .avatar-upload-circle:hover .upload-overlay {
+          opacity: 1;
+        }
+
+        .upload-info {
+          flex: 1;
+        }
+
+        .remove-avatar-btn {
+          background: transparent;
+          border: none;
+          color: #ef4444;
+          font-size: 0.75rem;
+          font-weight: 700;
+          margin-top: 8px;
+          cursor: pointer;
+          padding: 0;
+          text-decoration: underline;
+          opacity: 0.8;
+          transition: opacity 0.3s;
+        }
+
+        .remove-avatar-btn:hover {
+          opacity: 1;
         }
 
         .disabled {

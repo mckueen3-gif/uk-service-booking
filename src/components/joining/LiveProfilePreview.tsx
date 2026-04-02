@@ -8,9 +8,10 @@ interface LiveProfilePreviewProps {
   bio: string;
   city: string;
   sector: string;
+  avatar?: string | null;
 }
 
-export default function LiveProfilePreview({ businessName, bio, city, sector }: LiveProfilePreviewProps) {
+export default function LiveProfilePreview({ businessName, bio, city, sector, avatar }: LiveProfilePreviewProps) {
   return (
     <div className="preview-sticky">
       <div className="preview-label">
@@ -21,7 +22,11 @@ export default function LiveProfilePreview({ businessName, bio, city, sector }: 
       <div className="premium-card">
         <div className="card-top">
           <div className="avatar-placeholder">
-            <User size={32} color="#d4af37" />
+            {avatar ? (
+              <img src={avatar} alt="Business Profile" className="avatar-image-live" />
+            ) : (
+              <User size={32} color="#d4af37" />
+            )}
             <div className="online-indicator" />
           </div>
           <div className="header-info">
@@ -106,6 +111,19 @@ export default function LiveProfilePreview({ businessName, bio, city, sector }: 
           align-items: center;
           justify-content: center;
           position: relative;
+          overflow: hidden;
+        }
+
+        .avatar-image-live {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          animation: fade-in 0.5s ease-out;
+        }
+
+        @keyframes fade-in {
+          from { opacity: 0; transform: scale(0.9); }
+          to { opacity: 1; transform: scale(1); }
         }
 
         .online-indicator {
