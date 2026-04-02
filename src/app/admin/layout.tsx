@@ -32,14 +32,27 @@ export default async function AdminLayout({
   // Actually, let's play it safe and check the session structure if we can.
 
   return (
-    <div className="flex min-h-screen bg-white dark:bg-[#050505] text-slate-900 dark:text-gray-100 font-sans transition-colors duration-300">
-      {/* Sidebar - Premium Glass Response */}
-      <aside className="w-64 border-r border-slate-200 dark:border-[#1a1a1a] bg-slate-50 dark:bg-[#0d0d0d] flex flex-col fixed inset-y-0 shadow-2xl transition-colors">
-        <div className="p-6 border-b border-slate-200 dark:border-[#1a1a1a] flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#d4af37] to-[#aa8b2c] flex items-center justify-center shadow-[0_0_15px_rgba(212,175,55,0.3)]">
+    <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)', transition: 'background-color 0.3s ease' }}>
+      {/* Sidebar - Fixed Left */}
+      <aside style={{ 
+        width: '280px', 
+        height: '100vh', 
+        backgroundColor: 'var(--glass-bg)', 
+        borderRight: '1px solid var(--border-color)',
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        zIndex: 50,
+        backdropFilter: 'blur(24px)',
+        boxShadow: '20px 0 40px rgba(0,0,0,0.05)'
+      }}>
+        <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#d4af37', display: 'flex', alignItems: 'center', justifySelf: 'center', justifyContent: 'center' }}>
             <ShieldCheck className="w-5 h-5 text-black" />
           </div>
-          <span className="font-bold text-xl tracking-tight text-[#d4af37]">ADMIN <span className="text-slate-900 dark:text-white">UK</span></span>
+          <span style={{ fontWeight: 'bold', fontSize: '1.25rem', color: '#d4af37' }}>ADMIN <span style={{ color: 'var(--text-primary)' }}>UK</span></span>
         </div>
 
         <nav className="flex-1 p-4 space-y-1 mt-4 overflow-y-auto custom-scrollbar">
@@ -54,8 +67,8 @@ export default async function AdminLayout({
           <AdminNavLink href="/admin/settings" icon={<Settings size={20} />} label="Settings" />
         </nav>
 
-        <div className="p-4 border-t border-slate-200 dark:border-[#1a1a1a]">
-          <div className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-[#141414] border border-slate-200 dark:border-[#1a1a1a]">
+        <div style={{ padding: '1rem', borderTop: '1px solid var(--border-color)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.75rem', borderRadius: '12px', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)' }}>
             <div className="w-10 h-10 rounded-full bg-gray-800 border border-[#d4af37]/20 flex items-center justify-center">
               <span className="text-xs font-bold text-[#d4af37]">AD</span>
             </div>
@@ -71,7 +84,7 @@ export default async function AdminLayout({
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 ml-64 p-8">
+      <main style={{ flex: 1, marginLeft: '280px', padding: '2rem' }}>
         <header className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-xs font-bold text-[#d4af37] uppercase tracking-[0.2em] mb-1">Internal Management</h1>
@@ -100,14 +113,26 @@ function AdminNavLink({ href, icon, label, badge }: { href: string; icon: React.
   return (
     <Link 
       href={href}
-      className="flex items-center gap-3 p-3 rounded-xl hover:bg-[#1a1a1a] text-gray-400 hover:text-white transition-all group border border-transparent hover:border-[#d4af37]/10"
+      style={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        gap: '0.75rem', 
+        padding: '0.75rem', 
+        borderRadius: '0.75rem', 
+        color: 'var(--text-secondary)',
+        textDecoration: 'none',
+        fontSize: '0.875rem',
+        fontWeight: 500,
+        transition: 'all 0.2s'
+      }}
+      className="admin-link-hover"
     >
-      <span className="group-hover:scale-110 transition-transform text-[#d4af37]/60 group-hover:text-[#d4af37]">
+      <span style={{ color: '#d4af37' }}>
         {icon}
       </span>
-      <span className="text-sm font-medium flex-1">{label}</span>
+      <span className="flex-1">{label}</span>
       {badge && (
-        <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#d4af37] text-black">
+        <span style={{ padding: '2px 6px', borderRadius: '4px', fontSize: '10px', fontWeight: 'bold', backgroundColor: '#d4af37', color: 'black' }}>
           {badge}
         </span>
       )}
