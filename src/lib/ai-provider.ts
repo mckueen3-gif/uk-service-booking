@@ -87,7 +87,42 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
     messages.push({ role: 'user', content: req.prompt });
   }
 
-  // 1. Try Grok (Primary - Text logic is always reliable)
+  // 0. Try Grok 4.20 Reasoning (Next-Gen Primary) - Best for Logic & Diagnostics
+  if (process.env.XAI_API_KEY) {
+    try {
+      console.info("[AI Provider] Attempting Tier 0 (xAI Grok 4.20 Reasoning)...");
+      const url = "https://api.x.ai/v1/responses";
+      
+      const combinedPrompt = req.systemPrompt 
+        ? `${req.systemPrompt}\n\nUSER REQUEST: ${messages.map(m => m.content).join("\n")}`
+        : messages.map(m => m.content).join("\n");
+
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${process.env.XAI_API_KEY}`
+        },
+        body: JSON.stringify({
+          model: "grok-4.20-reasoning",
+          input: combinedPrompt
+        })
+      });
+
+      if (res.ok) {
+        const result = await res.json();
+        const content = result.output?.[0]?.content?.[0]?.text || result.text;
+        if (content) return content;
+      } else {
+        const errText = await res.text();
+        console.warn("[AI Provider] Grok 4.20 API returned error:", res.status, errText);
+      }
+    } catch (error: any) {
+      console.error("[AI Provider] Grok 4.20 Reasoning failed, falling back...", error);
+    }
+  }
+
+  // 1. Try Grok 3 (Secondary - Standard Chat)
   if (process.env.XAI_API_KEY) {
     try {
       console.info("[AI Provider] Attempting Primary (xAI Grok 3)...");

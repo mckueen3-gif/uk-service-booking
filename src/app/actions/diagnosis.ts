@@ -80,7 +80,15 @@ export async function getAIDiagnosis(imageUrl: string, category: string, locale:
     return { success: true, diagnosis: savedDiagnosis, provider: modelName };
   } catch (err: any) {
     console.error("AI Diagnosis Error:", err);
-    return { error: "Failed to generate AI diagnosis: " + err.message };
+    // Be more descriptive about the failure
+    const errorPrefix = "AI 診斷暫時無法使用：";
+    let details = err.message;
+    
+    return { 
+      error: `${errorPrefix}${details}`,
+      errorType: err.name,
+      suggestion: "請嘗試重新整理頁面 (Ctrl+F5) 並稍後再試。" 
+    };
   }
 }
 
