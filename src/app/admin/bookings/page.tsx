@@ -12,7 +12,7 @@ import {
   ArrowRightLeft
 } from "lucide-react";
 import Link from "next/link";
-import { BookingAdminActions } from "./BookingAdminActions";
+import { BookingAdminActions } from "./booking-actions";
 
 export const dynamic = "force-dynamic";
 

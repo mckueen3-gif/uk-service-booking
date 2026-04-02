@@ -9,7 +9,7 @@ import {
   AlertTriangle,
   ArrowRight
 } from "lucide-react";
-import { DisputeActions } from "./DisputeActions";
+import { DisputeActions } from "./dispute-actions";
 import { format } from "date-fns";
 
 export const dynamic = "force-dynamic";
