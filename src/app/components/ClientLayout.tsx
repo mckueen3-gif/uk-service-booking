@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useTranslation } from "@/components/LanguageContext";
 import { Globe, User, MapPin, Mail, Phone, LifeBuoy, ChevronRight, Navigation, PenTool, Sun, Moon, Droplets, Wrench, GraduationCap, Calculator, Scale, Briefcase, Sparkles, Car, ChevronDown } from "lucide-react";
 import NavbarSearch from "@/app/components/NavbarSearch";
@@ -13,9 +14,14 @@ export function AppNavbar({ session }: { session: any }) {
   const { t, locale, setLocale, isRTL } = useTranslation();
   const { city, setCity, supportedCities, detectLocation, isLocating } = useLocation();
   const { theme, toggleTheme } = useTheme();
+  const pathname = usePathname();
   const [showCities, setShowCities] = React.useState(false);
   const [showServices, setShowServices] = React.useState(false);
   const [showLanguages, setShowLanguages] = React.useState(false);
+
+  const isObsidianPage = pathname?.startsWith('/join') || pathname?.includes('/merchant');
+  const obsidianBg = '#050505';
+  const obsidianGold = '#d4af37';
 
   const languages = React.useMemo(() => [
     { code: 'en', label: 'English (EN)' },
@@ -49,15 +55,16 @@ export function AppNavbar({ session }: { session: any }) {
   return (
     <header style={{ 
       height: '80px', 
-      background: 'var(--glass-bg)', 
+      background: isObsidianPage ? obsidianBg : 'var(--glass-bg)', 
       backdropFilter: 'blur(16px)',
       WebkitBackdropFilter: 'blur(16px)',
-      borderBottom: '1px solid var(--glass-border)',
+      borderBottom: isObsidianPage ? `1px solid rgba(212, 175, 55, 0.1)` : '1px solid var(--glass-border)',
       position: 'fixed',
       top: 0,
       width: '100%',
       zIndex: 100,
-      direction: isRTL ? 'rtl' : 'ltr'
+      direction: isRTL ? 'rtl' : 'ltr',
+      transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
     }}>
       <nav className="container" style={{ 
         display: 'flex', 
@@ -70,20 +77,25 @@ export function AppNavbar({ session }: { session: any }) {
             <img 
               src="/images/logo_concierge_ai.png" 
               alt="ConciergeAI Logo" 
-              style={{ height: '64px', width: 'auto' }} 
+              style={{ 
+                height: '56px', 
+                width: 'auto',
+                filter: isObsidianPage ? 'drop-shadow(0 0 10px rgba(212, 175, 55, 0.2))' : 'none',
+                backgroundColor: isObsidianPage ? 'transparent' : 'transparent',
+              }} 
             />
           </Link>
 
           {/* City Selector */}
-          <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-             <MapPin size={16} color="var(--accent-color)" />
+          <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: isObsidianPage ? '#666' : 'var(--text-secondary)' }}>
+             <MapPin size={16} color={obsidianGold} />
              <div 
                onClick={() => setShowCities(!showCities)}
                style={{ 
                  display: 'flex', alignItems: 'center', gap: '4px', 
-                 cursor: 'pointer', fontWeight: 800, color: 'var(--text-primary)',
+                 cursor: 'pointer', fontWeight: 800, color: isObsidianPage ? 'white' : 'var(--text-primary)',
                  padding: '0.3rem 0.6rem', borderRadius: '0.6rem',
-                 backgroundColor: showCities ? 'var(--surface-2)' : 'transparent',
+                 backgroundColor: showCities ? (isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--surface-2)') : 'transparent',
                  transition: '0.2s'
                }}
                className="hover-bg"
@@ -95,20 +107,22 @@ export function AppNavbar({ session }: { session: any }) {
              {showCities && (
                <div style={{ 
                  position: 'absolute', top: '100%', left: 0, marginTop: '0.75rem',
-                 width: '420px', backgroundColor: 'var(--surface-1)', borderRadius: '1.25rem',
-                 boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)', 
-                 border: '1.5px solid var(--border-color)',
+                 width: '420px', 
+                 backgroundColor: isObsidianPage ? '#0f0f0f' : 'var(--surface-1)', 
+                 borderRadius: '1.25rem',
+                 boxShadow: isObsidianPage ? '0 20px 40px rgba(0,0,0,0.8)' : '0 20px 25px -5px rgba(0, 0, 0, 0.1)', 
+                 border: `1.5px solid ${isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--border-color)'}`,
                  padding: '1.5rem', zIndex: 1000,
                  backdropFilter: 'blur(20px)',
                }}>
                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-                    <span style={{ fontWeight: 800, fontSize: '1rem', color: 'var(--text-primary)' }}>{t.search.location}</span>
+                    <span style={{ fontWeight: 800, fontSize: '1rem', color: isObsidianPage ? 'white' : 'var(--text-primary)' }}>{t.search.location}</span>
                     <button 
                       onClick={() => { detectLocation(); }}
                       disabled={isLocating}
                       style={{ 
                         display: 'flex', alignItems: 'center', gap: '6px', 
-                        backgroundColor: 'var(--accent-soft)', color: 'var(--accent-color)',
+                        backgroundColor: isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--accent-soft)', color: obsidianGold,
                         border: 'none', padding: '0.4rem 0.8rem', borderRadius: '0.75rem',
                         fontSize: '0.8rem', fontWeight: 700, cursor: 'pointer',
                         opacity: isLocating ? 0.7 : 1
@@ -131,8 +145,8 @@ export function AppNavbar({ session }: { session: any }) {
                        style={{ 
                          padding: '0.6rem', borderRadius: '0.75rem', cursor: 'pointer',
                          fontSize: '0.8rem', textAlign: 'center', transition: '0.2s',
-                         backgroundColor: city === c ? 'var(--accent-color)' : 'var(--surface-2)',
-                         color: city === c ? 'white' : 'var(--text-secondary)',
+                         backgroundColor: city === c ? obsidianGold : (isObsidianPage ? '#171717' : 'var(--surface-2)'),
+                         color: city === c ? 'black' : (isObsidianPage ? '#999' : 'var(--text-secondary)'),
                          fontWeight: city === c ? 800 : 600,
                          border: '1px solid transparent'
                        }}
@@ -147,8 +161,8 @@ export function AppNavbar({ session }: { session: any }) {
                       style={{ 
                         gridColumn: 'span 3', padding: '0.6rem', borderRadius: '0.75rem', cursor: 'pointer',
                         fontSize: '0.8rem', textAlign: 'center', transition: '0.2s', marginTop: '0.4rem',
-                        backgroundColor: city === ALL_UK ? 'var(--accent-color)' : 'var(--surface-2)',
-                        color: city === ALL_UK ? 'white' : 'var(--text-secondary)',
+                        backgroundColor: city === ALL_UK ? obsidianGold : (isObsidianPage ? '#171717' : 'var(--surface-2)'),
+                        color: city === ALL_UK ? 'black' : (isObsidianPage ? '#999' : 'var(--text-secondary)'),
                         fontWeight: 800
                       }}
                    >
@@ -161,6 +175,30 @@ export function AppNavbar({ session }: { session: any }) {
         </div>
         
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+          {/* Theme Toggle HIDDEN on Premium pages to maintain visual brand integrity */}
+          {!isObsidianPage && (
+            <button 
+              onClick={toggleTheme}
+              style={{ 
+                background: 'var(--surface-2)', 
+                border: '1px solid var(--border-color)', 
+                borderRadius: '0.75rem', 
+                padding: '0.4rem', 
+                cursor: 'pointer', 
+                color: 'var(--accent-color)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.3s ease',
+                boxShadow: 'var(--shadow-sm)'
+              }}
+              className="hover-scale"
+              title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+            >
+              {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+            </button>
+          )}
+
           {/* Premium Custom Language Switcher */}
           <div 
              style={{ position: 'relative' }}
@@ -170,12 +208,14 @@ export function AppNavbar({ session }: { session: any }) {
             <div style={{ 
               display: 'flex', alignItems: 'center', gap: '6px', 
               cursor: 'pointer', padding: '0.4rem 0.8rem', 
-              borderRadius: '2rem', border: '1px solid var(--border-color)',
-              backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)',
+              borderRadius: '2rem', 
+              border: `1px solid ${isObsidianPage ? 'rgba(212,175,55,0.2)' : 'var(--border-color)'}`,
+              backgroundColor: isObsidianPage ? '#0f0f0f' : 'var(--surface-1)', 
+              color: isObsidianPage ? 'white' : 'var(--text-primary)',
               fontWeight: 600, fontSize: '0.9rem', transition: 'all 0.2s',
-              boxShadow: 'var(--shadow-sm)'
+              boxShadow: isObsidianPage ? 'none' : 'var(--shadow-sm)'
             }} className="hover-border active-scale">
-               <Globe size={16} color="var(--accent-color)" />
+               <Globe size={16} color={obsidianGold} />
                <span>{currentLanguage.label.split(' ')[0]}</span>
                <ChevronDown size={14} style={{ transform: showLanguages ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s', opacity: 0.6 }} />
             </div>
@@ -183,9 +223,11 @@ export function AppNavbar({ session }: { session: any }) {
             {showLanguages && (
               <div style={{
                 position: 'absolute', top: '100%', right: '0', marginTop: '0.5rem',
-                width: '180px', backgroundColor: 'var(--surface-1)', borderRadius: '1rem',
-                boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)', 
-                border: '1px solid var(--border-color)',
+                width: '180px', 
+                backgroundColor: isObsidianPage ? '#0f0f0f' : 'var(--surface-1)', 
+                borderRadius: '1rem',
+                boxShadow: isObsidianPage ? '0 20px 40px rgba(0,0,0,0.8)' : '0 20px 25px -5px rgba(0, 0, 0, 0.1)', 
+                border: `1px solid ${isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--border-color)'}`,
                 padding: '0.5rem', zIndex: 1000,
                 backdropFilter: 'blur(20px)',
                 display: 'flex', flexDirection: 'column', gap: '2px',
@@ -198,8 +240,8 @@ export function AppNavbar({ session }: { session: any }) {
                     style={{
                       padding: '0.6rem 0.8rem', borderRadius: '0.5rem', cursor: 'pointer',
                       fontSize: '0.9rem', fontWeight: locale === lang.code ? 700 : 500,
-                      backgroundColor: locale === lang.code ? 'var(--accent-soft)' : 'transparent',
-                      color: locale === lang.code ? 'var(--accent-color)' : 'var(--text-primary)',
+                      backgroundColor: locale === lang.code ? (isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--accent-soft)') : 'transparent',
+                      color: locale === lang.code ? obsidianGold : (isObsidianPage ? '#999' : 'var(--text-primary)'),
                       transition: 'all 0.2s'
                     }}
                     className={locale !== lang.code ? "hover-bg" : ""}
@@ -211,45 +253,29 @@ export function AppNavbar({ session }: { session: any }) {
             )}
           </div>
 
-          {/* Theme Toggle */}
-          <button 
-            onClick={toggleTheme}
-            style={{ 
-              background: 'var(--surface-2)', 
-              border: '1px solid var(--border-color)', 
-              borderRadius: '0.75rem', 
-              padding: '0.4rem', 
-              cursor: 'pointer', 
-              color: 'var(--accent-color)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: 'all 0.3s ease',
-              boxShadow: 'var(--shadow-sm)'
-            }}
-            className="hover-scale"
-            title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
-          >
-            {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
-          </button>
-
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
             <div 
                style={{ position: 'relative' }}
                onMouseEnter={() => setShowServices(true)}
                onMouseLeave={() => setShowServices(false)}
             >
-              <div style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text-primary)', fontWeight: 700, fontSize: '1.05rem', padding: '0.5rem 0' }}>
+              <div style={{ 
+                cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', 
+                color: isObsidianPage ? 'white' : 'var(--text-primary)', 
+                fontWeight: 700, fontSize: '1.05rem', padding: '0.5rem 0' 
+              }}>
                 {t.nav.browse}
                 <ChevronDown size={14} style={{ transform: showServices ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
               </div>
 
               {showServices && (
                 <div style={{
-                  position: 'absolute', top: '100%', left: '-50%',
-                  width: '450px', backgroundColor: 'var(--surface-1)', borderRadius: '1.25rem',
-                  boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)', 
-                  border: '1.5px solid var(--border-color)',
+                  position: 'absolute', top: '100%', right: '0',
+                  width: '450px', 
+                  backgroundColor: isObsidianPage ? '#0f0f0f' : 'var(--surface-1)', 
+                  borderRadius: '1.25rem',
+                  boxShadow: isObsidianPage ? '0 20px 40px rgba(0,0,0,0.8)' : '0 20px 25px -5px rgba(0, 0, 0, 0.1)', 
+                  border: `1.5px solid ${isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--border-color)'}`,
                   padding: '1.5rem', zIndex: 1000,
                   backdropFilter: 'blur(20px)',
                   display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem'
@@ -259,19 +285,24 @@ export function AppNavbar({ session }: { session: any }) {
                        <div style={{ 
                          display: 'flex', alignItems: 'center', gap: '10px', 
                          padding: '0.75rem 1rem', borderRadius: '0.75rem',
-                         color: 'var(--text-primary)', fontWeight: 600, fontSize: '0.9rem',
-                         transition: 'all 0.2s', backgroundColor: 'var(--surface-2)'
+                         color: isObsidianPage ? '#ccc' : 'var(--text-primary)', fontWeight: 600, fontSize: '0.9rem',
+                         transition: 'all 0.2s', 
+                         backgroundColor: isObsidianPage ? '#171717' : 'var(--surface-2)'
                        }}
                        className="hover-bg hover-scale"
                        >
-                         <div style={{ color: 'var(--accent-color)' }}>{s.icon}</div>
+                         <div style={{ color: obsidianGold }}>{s.icon}</div>
                          {s.label}
                        </div>
                      </Link>
                    ))}
                    <div style={{ gridColumn: '1 / -1', marginTop: '0.5rem' }}>
                      <Link href="/services" style={{ textDecoration: 'none' }} onClick={() => setShowServices(false)}>
-                       <div style={{ width: '100%', textAlign: 'center', backgroundColor: 'var(--accent-soft)', color: 'var(--accent-color)', padding: '0.75rem', borderRadius: '0.75rem', fontWeight: 800, fontSize: '0.9rem' }} className="hover-opacity">
+                       <div style={{ 
+                         width: '100%', textAlign: 'center', 
+                         backgroundColor: isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--accent-soft)', 
+                         color: obsidianGold, padding: '0.75rem', borderRadius: '0.75rem', fontWeight: 800, fontSize: '0.9rem' 
+                       }} className="hover-opacity">
                          {isRTL ? 'عرض كافة الفئات' : 'View All Categories'} →
                        </div>
                      </Link>
@@ -282,7 +313,7 @@ export function AppNavbar({ session }: { session: any }) {
           </div>
 
           <Link href="/diagnosis" style={{ 
-            color: 'var(--accent-color)', 
+            color: obsidianGold, 
             fontWeight: 800, 
             textDecoration: 'none', 
             fontSize: '1.05rem',
@@ -300,17 +331,24 @@ export function AppNavbar({ session }: { session: any }) {
           {session?.user ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
               <NotificationHub />
-              <Link href="/dashboard" style={{ color: 'var(--accent-color)', fontWeight: 600, textDecoration: 'none' }}>
-                <span style={{ backgroundColor: 'var(--accent-soft)', padding: '0.4rem 0.8rem', borderRadius: '2rem', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Link href="/dashboard" style={{ color: obsidianGold, fontWeight: 600, textDecoration: 'none' }}>
+                <span style={{ 
+                  backgroundColor: isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--accent-soft)', 
+                  padding: '0.4rem 0.8rem', borderRadius: '2rem', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' 
+                }}>
                   <User size={16} /> {session.user.name} 
                 </span>
               </Link>
-              <a href="/api/auth/signout" style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', textDecoration: 'none' }}>{t.nav.logout}</a>
+              {!isObsidianPage && <a href="/api/auth/signout" style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', textDecoration: 'none' }}>{t.nav.logout}</a>}
             </div>
           ) : (
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-              <Link href="/join" style={{ color: 'var(--text-primary)', fontWeight: 700, textDecoration: 'none', fontSize: '1.05rem' }}>{t.nav.join}</Link>
-              <Link href="/auth/login" className="btn btn-primary" style={{ textDecoration: 'none', padding: '0.5rem 1rem', fontSize: '0.9rem' }}>{t.nav.login}</Link>
+              <Link href="/join" style={{ color: isObsidianPage ? 'white' : 'var(--text-primary)', fontWeight: 700, textDecoration: 'none', fontSize: '1.05rem' }}>{t.nav.join}</Link>
+              <Link href="/auth/login" className="btn btn-primary" style={{ 
+                textDecoration: 'none', padding: '0.5rem 1.5rem', fontSize: '0.9rem',
+                backgroundColor: isObsidianPage ? obsidianGold : 'var(--accent-color)',
+                color: isObsidianPage ? 'black' : 'white'
+              }}>{t.nav.login}</Link>
             </div>
           )}
         </div>
@@ -321,14 +359,20 @@ export function AppNavbar({ session }: { session: any }) {
 
 export function AppFooter() {
   const { t, isRTL } = useTranslation();
+  const pathname = usePathname();
+  const isObsidianPage = pathname?.startsWith('/join') || pathname?.includes('/merchant');
+  const obsidianBg = '#050505';
+  const obsidianGold = '#d4af37';
+
   return (
     <footer style={{ 
-      backgroundColor: 'var(--bg-secondary)', 
-      color: 'var(--text-primary)', 
-      borderTop: '1px solid var(--border-color)', 
+      backgroundColor: isObsidianPage ? obsidianBg : 'var(--bg-secondary)', 
+      color: isObsidianPage ? 'white' : 'var(--text-primary)', 
+      borderTop: isObsidianPage ? `1px solid rgba(212, 175, 55, 0.1)` : '1px solid var(--border-color)', 
       padding: '5rem 0 2rem 0', 
       marginTop: 'auto',
-      direction: isRTL ? 'rtl' : 'ltr'
+      direction: isRTL ? 'rtl' : 'ltr',
+      transition: 'all 0.5s ease'
     }}>
       <div className="container">
         <div style={{ 
@@ -344,13 +388,17 @@ export function AppFooter() {
                 <img 
                   src="/images/logo_concierge_ai.png" 
                   alt="ConciergeAI" 
-                  style={{ height: '54px', width: 'auto' }} 
+                  style={{ 
+                    height: '54px', 
+                    width: 'auto',
+                    filter: isObsidianPage ? 'drop-shadow(0 0 10px rgba(212, 175, 55, 0.2))' : 'none'
+                  }} 
                 />
               </Link>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.6 }}>{t.footer.tagline}</p>
+              <p style={{ color: isObsidianPage ? '#888' : 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.6 }}>{t.footer.tagline}</p>
               <Link href="/join" style={{ 
                 marginTop: '0.5rem',
-                color: 'var(--accent-color)', 
+                color: obsidianGold, 
                 fontWeight: 700, 
                 textDecoration: 'none', 
                 fontSize: '0.9rem',
@@ -364,18 +412,18 @@ export function AppFooter() {
 
            {/* Services Column */}
            <div>
-              <h4 style={{ fontWeight: 700, marginBottom: '1.5rem', fontSize: '1.1rem' }}>{t.footer.explore}</h4>
+              <h4 style={{ fontWeight: 700, marginBottom: '1.5rem', fontSize: '1.1rem', color: isObsidianPage ? 'white' : 'inherit' }}>{t.footer.explore}</h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                 <Link href="/services?category=Cleaning" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.95rem', fontWeight: 500 }}>
+                 <Link href="/services?category=Cleaning" style={{ color: isObsidianPage ? '#666' : 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.95rem', fontWeight: 500 }}>
                    {isRTL ? 'تنظيف المنزل Cleaning' : 'Home Cleaning'}
                  </Link>
-                 <Link href="/services?category=Plumbing" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.95rem', fontWeight: 500 }}>
+                 <Link href="/services?category=Plumbing" style={{ color: isObsidianPage ? '#666' : 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.95rem', fontWeight: 500 }}>
                    {isRTL ? 'خدمات السباكة Plumbing' : 'Plumbing Services'}
                  </Link>
-                 <Link href="/services?category=Automotive" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.95rem', fontWeight: 500 }}>
+                 <Link href="/services?category=Automotive" style={{ color: isObsidianPage ? '#666' : 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.95rem', fontWeight: 500 }}>
                    {t.faq.categories.disputes} - Automotive
                  </Link>
-                 <Link href="/diagnosis" style={{ color: 'var(--accent-color)', textDecoration: 'none', fontSize: '0.95rem', fontWeight: 700 }}>
+                 <Link href="/diagnosis" style={{ color: obsidianGold, textDecoration: 'none', fontSize: '0.95rem', fontWeight: 700 }}>
                    {t.footer.aiDiagnosis} ✨
                  </Link>
               </div>
@@ -383,26 +431,26 @@ export function AppFooter() {
 
            {/* Legal Column */}
            <div>
-              <h4 style={{ fontWeight: 700, marginBottom: '1.5rem', fontSize: '1.1rem' }}>{t.footer.legal}</h4>
+              <h4 style={{ fontWeight: 700, marginBottom: '1.5rem', fontSize: '1.1rem', color: isObsidianPage ? 'white' : 'inherit' }}>{t.footer.legal}</h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                 <Link href="/legal/terms" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.9rem' }}>{t.footer.terms}</Link>
-                 <Link href="/legal/privacy" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.9rem' }}>{t.footer.privacy}</Link>
-                 <Link href="/legal/cookies" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.9rem' }}>{t.footer.cookies}</Link>
+                 <Link href="/legal/terms" style={{ color: isObsidianPage ? '#666' : 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.9rem' }}>{t.footer.terms}</Link>
+                 <Link href="/legal/privacy" style={{ color: isObsidianPage ? '#666' : 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.9rem' }}>{t.footer.privacy}</Link>
+                 <Link href="/legal/cookies" style={{ color: isObsidianPage ? '#666' : 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.9rem' }}>{t.footer.cookies}</Link>
               </div>
            </div>
 
            {/* Support Column */}
            <div>
-              <h4 style={{ fontWeight: 700, marginBottom: '1.5rem', fontSize: '1.1rem' }}>{t.footer.support}</h4>
+              <h4 style={{ fontWeight: 700, marginBottom: '1.5rem', fontSize: '1.1rem', color: isObsidianPage ? 'white' : 'inherit' }}>{t.footer.support}</h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                 <Link href="/help" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.95rem', fontWeight: 500 }}>{t.footer.help}</Link>
-                 <Link href="/contact" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.95rem', fontWeight: 500 }}>{t.footer.contact}</Link>
+                 <Link href="/help" style={{ color: isObsidianPage ? '#666' : 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.95rem', fontWeight: 500 }}>{t.footer.help}</Link>
+                 <Link href="/contact" style={{ color: isObsidianPage ? '#666' : 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.95rem', fontWeight: 500 }}>{t.footer.contact}</Link>
               </div>
            </div>
         </div>
 
-        <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '2rem', textAlign: 'center' }}>
-           <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>&copy; {new Date().getFullYear()} ConciergeAI UK. {t.footer.rights}</p>
+        <div style={{ borderTop: isObsidianPage ? '1px solid rgba(255,255,255,0.05)' : '1px solid var(--border-color)', paddingTop: '2rem', textAlign: 'center' }}>
+           <p style={{ color: isObsidianPage ? '#444' : 'var(--text-secondary)', fontSize: '0.85rem' }}>&copy; {new Date().getFullYear()} ConciergeAI UK. {t.footer.rights}</p>
         </div>
       </div>
     </footer>

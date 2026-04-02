@@ -363,7 +363,7 @@ export default function JoinPage() {
         .join-layout {
           min-height: 100vh;
           background-color: #050505;
-          padding-top: 60px;
+          padding-top: 0;
           color: white;
         }
 
@@ -378,8 +378,8 @@ export default function JoinPage() {
           align-items: center;
           justify-content: center;
           gap: 24px;
-          padding: 24px;
-          margin-bottom: 60px;
+          padding: 40px 24px;
+          margin-bottom: 40px;
         }
 
         .step-item {
@@ -387,10 +387,10 @@ export default function JoinPage() {
           align-items: center;
           gap: 12px;
           font-weight: 800;
-          color: #333;
-          font-size: 0.9rem;
+          color: #222;
+          font-size: 0.85rem;
           text-transform: uppercase;
-          letter-spacing: 0.05em;
+          letter-spacing: 0.1em;
           transition: all 0.4s;
         }
 
@@ -399,63 +399,81 @@ export default function JoinPage() {
         }
 
         .step-num {
-          width: 32px;
-          height: 32px;
+          width: 36px;
+          height: 36px;
           border-radius: 50%;
-          border: 2px solid #333;
+          border: 2px solid #222;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 0.8rem;
+          font-size: 0.85rem;
+          font-family: var(--font-heading);
         }
 
         .step-item.active .step-num {
           border-color: #d4af37;
           background: rgba(212, 175, 55, 0.1);
+          color: white;
+          box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
         }
 
         .line {
-          width: 60px;
-          height: 2px;
-          background: #222;
+          width: 80px;
+          height: 1.5px;
+          background: #1a1a1a;
         }
 
         .line.active {
-          background: #d4af37;
-          opacity: 0.3;
+          background: linear-gradient(90deg, #d4af37, transparent);
+          opacity: 0.5;
         }
 
         .onboarding-grid {
           display: grid;
-          grid-template-columns: 1.5fr 1fr;
-          gap: 40px;
+          grid-template-columns: 1.6fr 1fr;
+          gap: 48px;
           align-items: start;
         }
 
         .form-card {
-          padding: 50px;
-          background: rgba(15, 15, 15, 0.6);
-          border: 1px solid rgba(255, 255, 255, 0.05);
-          border-radius: 32px;
-          box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+          padding: 60px;
+          background: #0a0a0a;
+          border: 1px solid rgba(255, 255, 255, 0.03);
+          border-radius: 40px;
+          box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .form-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 4px;
+          height: 100%;
+          background: linear-gradient(to bottom, #d4af37, transparent);
+          opacity: 0.3;
         }
 
         .form-title {
           margin-bottom: 12px;
-          font-size: 2rem;
+          font-size: 2.25rem;
           font-weight: 900;
+          letter-spacing: -0.02em;
         }
 
         .form-intro {
-          color: #777;
-          margin-bottom: 40px;
+          color: #64748b;
+          margin-bottom: 48px;
           font-weight: 500;
+          font-size: 1.05rem;
         }
 
         .form-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 24px;
+          gap: 28px;
         }
 
         .input-group.full {
@@ -465,253 +483,227 @@ export default function JoinPage() {
         .input-group label {
           display: flex;
           align-items: center;
-          gap: 8px;
+          gap: 10px;
           font-size: 0.75rem;
           font-weight: 800;
-          margin-bottom: 10px;
-          color: #555;
+          margin-bottom: 12px;
+          color: #475569;
           text-transform: uppercase;
-          letter-spacing: 0.05em;
+          letter-spacing: 0.1em;
         }
 
         input, textarea, .premium-select {
           width: 100%;
-          padding: 16px 20px;
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 16px;
+          padding: 18px 24px;
+          background: #0f0f0f;
+          border: 1.5px solid #1a1a1a;
+          border-radius: 20px;
           color: white;
           outline: none;
-          transition: all 0.3s;
-          font-size: 1rem;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          font-size: 1.05rem;
           font-weight: 500;
         }
 
         input:focus, textarea:focus, .premium-select:focus {
-          border-color: #d4af37;
-          background: rgba(212, 175, 55, 0.05);
-          box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+          border-color: rgba(212, 175, 55, 0.5);
+          background: #141414;
+          box-shadow: 0 0 20px rgba(212, 175, 55, 0.05);
         }
 
         .input-with-button {
           display: flex;
-          gap: 12px;
+          gap: 16px;
         }
 
         .ai-fill-btn {
           display: flex;
           align-items: center;
-          gap: 8px;
-          padding: 0 20px;
-          background: rgba(212, 175, 55, 0.1);
+          gap: 10px;
+          padding: 0 24px;
+          background: rgba(212, 175, 55, 0.08);
           color: #d4af37;
-          border: 1px solid rgba(212, 175, 55, 0.2);
-          border-radius: 16px;
+          border: 1px solid rgba(212, 175, 55, 0.15);
+          border-radius: 20px;
           font-weight: 800;
-          font-size: 0.85rem;
+          font-size: 0.9rem;
           cursor: pointer;
-          transition: all 0.3s;
+          transition: all 0.3s ease;
           white-space: nowrap;
         }
 
         .ai-fill-btn:hover:not(:disabled) {
           background: #d4af37;
           color: black;
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
         }
 
         .ai-fill-btn:disabled {
-          opacity: 0.3;
+          opacity: 0.2;
           cursor: not-allowed;
-        }
-
-        .promo-input-wrapper {
-          position: relative;
         }
 
         .promo-active {
           border-color: #d4af37 !important;
-          background: rgba(212, 175, 55, 0.08) !important;
-          animation: pulse-gold 2s infinite;
+          background: rgba(212, 175, 55, 0.05) !important;
+          animation: pulse-gold-glow 2s infinite;
         }
 
-        @keyframes pulse-gold {
-          0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.2); }
+        @keyframes pulse-gold-glow {
+          0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.15); }
           70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
           100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
         }
 
-        .promo-badge-mini {
-          position: absolute;
-          right: 12px;
-          top: 50%;
-          transform: translateY(-50%);
-          background: #d4af37;
-          color: black;
-          font-size: 0.7rem;
-          font-weight: 900;
-          padding: 4px 10px;
-          border-radius: 8px;
-          display: flex;
-          align-items: center;
-          gap: 4px;
-        }
-
         .success-tip-box {
-          margin-top: 30px;
-          padding: 24px;
-          background: rgba(212, 175, 55, 0.03);
+          margin-top: 40px;
+          padding: 28px;
+          background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, transparent 100%);
           border: 1px solid rgba(212, 175, 55, 0.1);
-          border-radius: 20px;
+          border-radius: 24px;
           display: flex;
-          gap: 16px;
+          gap: 20px;
+          backdrop-filter: blur(10px);
         }
 
         .btn-premium {
           display: flex;
           align-items: center;
+          justify-content: center;
           gap: 12px;
-          padding: 16px 40px;
-          background: #d4af37;
+          padding: 18px 48px;
+          background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
           color: black;
-          border-radius: 99px;
+          border-radius: 100px;
           font-weight: 900;
-          font-size: 1.1rem;
+          font-size: 1.15rem;
           border: none;
           cursor: pointer;
-          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-          box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+          transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+          box-shadow: 0 15px 35px rgba(184, 134, 11, 0.3);
+          position: relative;
+          overflow: hidden;
+          font-family: var(--font-heading);
+          letter-spacing: 0.02em;
+        }
+
+        .btn-premium::after {
+          content: '';
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: linear-gradient(
+            to bottom right,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.4) 50%,
+            rgba(255, 255, 255, 0) 100%
+          );
+          transform: rotate(45deg);
+          transition: all 0.8s;
+          opacity: 0;
+          pointer-events: none;
         }
 
         .btn-premium:hover:not(.disabled) {
-          transform: translateY(-4px) scale(1.02);
-          box-shadow: 0 20px 40px rgba(212, 175, 55, 0.4);
+          transform: translateY(-5px) scale(1.02);
+          box-shadow: 0 25px 50px rgba(184, 134, 11, 0.4);
+        }
+
+        .btn-premium:hover::after {
+          opacity: 1;
+          left: 100%;
+          top: 100%;
         }
 
         .btn-premium.wide {
           width: 100%;
-          justify-content: center;
         }
 
         .btn-secondary {
           display: flex;
           align-items: center;
-          gap: 10px;
-          padding: 16px 32px;
+          gap: 12px;
+          padding: 18px 36px;
           background: transparent;
-          color: #777;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 99px;
+          color: #64748b;
+          border: 1.5px solid #1a1a1a;
+          border-radius: 100px;
           font-weight: 700;
           cursor: pointer;
           transition: all 0.3s;
+          font-family: var(--font-heading);
         }
 
         .btn-secondary:hover {
           color: white;
-          border-color: #555;
-          background: rgba(255, 255, 255, 0.05);
+          border-color: #334155;
+          background: rgba(255, 255, 255, 0.02);
         }
 
         .controls {
           display: flex;
           justify-content: center;
-          gap: 20px;
-          margin-top: 50px;
-        }
-
-        .success-wrapper {
-          padding: 40px 0;
+          gap: 24px;
+          margin-top: 60px;
         }
 
         .success-card {
           text-align: center;
-          padding: 80px 60px;
-          max-width: 700px;
+          padding: 100px 64px;
+          max-width: 800px;
           margin: 0 auto;
-          background: radial-gradient(circle at center, rgba(212, 175, 55, 0.1) 0%, rgba(5, 5, 5, 1) 100%);
-          border-radius: 40px;
-          border: 1px solid rgba(212, 175, 55, 0.1);
+          background: #050505;
+          border-radius: 48px;
+          border: 1px solid rgba(212, 175, 55, 0.15);
           position: relative;
-        }
-
-        .animated-check {
-          position: relative;
-          display: inline-block;
-          margin-bottom: 40px;
-        }
-
-        .check-glow {
-          position: absolute;
-          inset: -20px;
-          background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 70%);
-          z-index: -1;
-          filter: blur(20px);
-          animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-          0% { transform: scale(1); opacity: 0.5; }
-          50% { transform: scale(1.2); opacity: 0.8; }
-          100% { transform: scale(1); opacity: 0.5; }
+          box-shadow: 0 40px 100px rgba(0,0,0,0.8);
         }
 
         .ai-placeholder-card {
           display: flex;
           align-items: center;
-          gap: 20px;
-          padding: 24px;
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px dashed rgba(212, 175, 55, 0.3);
-          border-radius: 20px;
-          margin-bottom: 50px;
+          gap: 24px;
+          padding: 28px;
+          background: #0a0a0a;
+          border: 1px dashed rgba(212, 175, 55, 0.2);
+          border-radius: 24px;
+          margin-bottom: 60px;
           text-align: left;
-          position: relative;
-        }
-
-        .coming-soon-badge {
-          position: absolute;
-          top: 12px;
-          right: 12px;
-          background: #d4af37;
-          color: black;
-          font-size: 0.65rem;
-          font-weight: 900;
-          padding: 4px 10px;
-          border-radius: 6px;
         }
 
         .error-msg {
+          background: rgba(239, 68, 68, 0.1);
           color: #ef4444;
+          padding: 12px 20px;
+          border-radius: 12px;
           text-align: center;
-          margin-top: 20px;
+          margin-top: 30px;
           font-weight: 700;
+          border: 1px solid rgba(239, 68, 68, 0.2);
         }
 
         .disabled {
-          opacity: 0.3;
+          opacity: 0.2;
           cursor: not-allowed;
-          pointer-events: none;
-        }
-
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        .animate-spin {
-          animation: spin 1s linear infinite;
+          filter: grayscale(1);
         }
 
         @media (max-width: 1024px) {
-          .onboarding-grid { grid-template-columns: 1fr; }
+          .onboarding-grid { grid-template-columns: 1fr; gap: 60px; }
           .preview-side { order: -1; }
+          .form-card { padding: 40px; }
         }
 
         @media (max-width: 768px) {
           .form-grid { grid-template-columns: 1fr; }
           .input-group.full { grid-column: span 1; }
-          .form-card { padding: 30px 20px; }
+          .form-card { padding: 32px 20px; }
           .input-with-button { flex-direction: column; }
-          .ai-fill-btn { padding: 12px; justify-content: center; }
+          .onboarding-stepper { flex-wrap: wrap; gap: 16px; padding: 20px; }
+          .line { width: 30px; }
         }
       `}</style>
     </div>
