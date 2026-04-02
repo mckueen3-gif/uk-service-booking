@@ -80,9 +80,9 @@ export default async function AdminDashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Verification Alert Section */}
-        <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-[#1a1a1a] shadow-xl">
+        <div className="p-6 rounded-2xl bg-white dark:bg-[#0d0d0d] border border-slate-200 dark:border-[#1a1a1a] shadow-sm dark:shadow-xl">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-lg font-bold text-white flex items-center gap-2">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <ShieldAlert className="text-[#d4af37]" size={20} />
               Critical Verifications
             </h3>
@@ -99,12 +99,12 @@ export default async function AdminDashboard() {
             ) : (
               <div className="p-4 rounded-xl bg-[#141414] border border-[#d4af37]/10 flex items-center justify-between group cursor-pointer hover:border-[#d4af37]/30 transition-all">
                 <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-gray-900 border border-gray-800 flex items-center justify-center text-[#d4af37]">
+                  <div className="w-10 h-10 rounded-full bg-slate-50 dark:bg-gray-900 border border-slate-200 dark:border-gray-800 flex items-center justify-center text-[#d4af37]">
                     <Users size={18} />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-white">Merchant Documentation Review</p>
-                    <p className="text-xs text-gray-500">{pendingDocs} files awaiting adjudication</p>
+                    <p className="text-sm font-bold text-slate-900 dark:text-white">Merchant Documentation Review</p>
+                    <p className="text-xs text-slate-400 dark:text-gray-500">{pendingDocs} files awaiting adjudication</p>
                   </div>
                 </div>
                 <ArrowUpRight className="text-gray-600 group-hover:text-[#d4af37] transition-colors" />
@@ -114,7 +114,7 @@ export default async function AdminDashboard() {
         </div>
 
         {/* System Activity Hub (LIVE PULSE) */}
-        <div className="p-6 rounded-3xl bg-[#0d0d0d] border border-[#1a1a1a] shadow-xl overflow-hidden relative group">
+        <div className="p-6 rounded-3xl bg-white dark:bg-[#0d0d0d] border border-slate-200 dark:border-[#1a1a1a] shadow-sm dark:shadow-xl overflow-hidden relative group">
           <div className="absolute inset-0 bg-gradient-to-br from-[#d4af37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
           <LivePulse />
         </div>
@@ -126,7 +126,9 @@ export default async function AdminDashboard() {
 function StatCard({ title, value, icon, trend, description, highlight, isWarning }: any) {
   return (
     <div className={`p-6 rounded-2xl border transition-all duration-300 ${
-      highlight ? 'bg-gradient-to-br from-[#121212] to-[#0a0a0a] border-[#d4af37]/30 shadow-[0_0_20px_rgba(212,175,55,0.1)]' : 'bg-[#0d0d0d] border-[#1a1a1a]'
+      highlight 
+        ? 'bg-gradient-to-br from-white to-slate-50 dark:from-[#121212] dark:to-[#0a0a0a] border-[#d4af37]/30 shadow-sm dark:shadow-[0_0_20px_rgba(212,175,55,0.1)]' 
+        : 'bg-white dark:bg-[#0d0d0d] border-slate-100 dark:border-[#1a1a1a] shadow-sm'
     }`}>
       <div className="flex justify-between items-start mb-4">
         <div className={`p-3 rounded-xl ${highlight ? 'bg-[#d4af37] text-black shadow-lg' : 'bg-[#141414] text-[#d4af37] border border-[#1a1a1a]'}`}>
@@ -139,9 +141,9 @@ function StatCard({ title, value, icon, trend, description, highlight, isWarning
         </span>
       </div>
       <div>
-        <p className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-1">{title}</p>
-        <p className="text-3xl font-bold text-white mb-2">{value}</p>
-        <p className="text-xs text-gray-500">{description}</p>
+        <p className="text-slate-400 dark:text-gray-500 text-xs font-bold uppercase tracking-widest mb-1">{title}</p>
+        <p className="text-3xl font-bold text-slate-900 dark:text-white mb-2">{value}</p>
+        <p className="text-xs text-slate-400 dark:text-gray-500">{description}</p>
       </div>
     </div>
   );
