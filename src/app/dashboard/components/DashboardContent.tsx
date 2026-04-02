@@ -20,10 +20,10 @@ import { claimReferralCode } from "@/app/actions/referral";
 import { useSession, signOut } from "next-auth/react";
 
 const STATUS_COLOR: Record<string, { bg: string; text: string }> = {
-  CONFIRMED: { bg: 'rgba(16, 185, 129, 0.12)', text: '#facc15' },
+  CONFIRMED: { bg: 'rgba(212, 175, 55, 0.12)', text: '#d4af37' },
   PENDING:   { bg: 'rgba(245, 158, 11, 0.12)',  text: '#f59e0b' },
-  COMPLETED: { bg: 'rgba(99, 102, 241, 0.12)',  text: '#6366f1' },
-  CANCELLED: { bg: 'rgba(239, 68, 68, 0.12)',   text: '#ef4444' },
+  COMPLETED: { bg: 'rgba(255, 255, 255, 0.05)', text: '#fff' },
+  CANCELLED: { bg: 'rgba(239, 68, 68, 0.05)',   text: '#999' },
 };
 
 const STATUS_LABEL = (t: any): Record<string, string> => ({
@@ -47,7 +47,7 @@ function StatCard({ icon, title, value, trend, loading }: {
       backgroundColor: 'rgba(255,255,255,0.03)'
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-        <div style={{ color: 'var(--accent-color)', backgroundColor: 'rgba(99, 102, 241, 0.1)', padding: '0.75rem', borderRadius: '12px' }}>
+        <div style={{ color: '#d4af37', backgroundColor: 'rgba(212, 175, 55, 0.1)', padding: '0.75rem', borderRadius: '14px', border: '1px solid rgba(212, 175, 55, 0.1)' }}>
           {icon}
         </div>
         {trend && !loading && (
@@ -271,26 +271,27 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
         )}
       </div>
 
-      {/* Referral Program Banner */}
+      {/* Referral Program Banner - VIP Invitation Control */}
       <section className="glass-panel animate-fade-up" style={{ 
-        padding: '2rem', 
-        borderRadius: '24px', 
+        padding: '2.5rem', 
+        borderRadius: '32px', 
         marginBottom: '3rem',
-        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(212, 175, 55, 0.05) 100%)',
-        border: '1px solid rgba(16, 185, 129, 0.1)',
+        background: 'rgba(5, 5, 5, 0.6)',
+        border: '1px dashed rgba(212, 175, 55, 0.4)',
         display: 'flex',
         flexWrap: 'wrap',
         alignItems: 'center',
         justifyContent: 'space-between',
-        gap: '2rem'
+        gap: '2rem',
+        boxShadow: '0 10px 30px rgba(0,0,0,0.3)'
       }}>
         <div style={{ display: 'flex', flex: '1 1 400px', gap: '1.5rem', alignItems: 'center' }}>
-          <div style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '1rem', borderRadius: '16px', color: '#facc15' }}>
+          <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)', padding: '1rem', borderRadius: '16px', color: '#d4af37' }}>
             <Gift size={32} />
           </div>
           <div style={{ flex: 1 }}>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.4rem' }}>{t.home.referralCTA.title}</h3>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.5 }}>
+            <h3 style={{ fontSize: '1.5rem', fontWeight: 900, marginBottom: '0.4rem', color: '#fff' }}>{t.home.referralCTA.title}</h3>
+            <p style={{ color: '#999', fontSize: '0.95rem', lineHeight: 1.5 }}>
               {t.home.referralCTA.subtitle}
             </p>
           </div>
@@ -378,45 +379,45 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
           <h2 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '1.5rem' }}>快速存取我的資產</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem' }}>
             <Link href="/dashboard/garage" style={{ textDecoration: 'none' }}>
-              <div className="glass-panel" style={{ 
+              <div className="glass-panel hover-lift" style={{ 
                 padding: '1.5rem', 
-                borderRadius: '20px', 
+                borderRadius: '24px', 
                 display: 'flex', 
                 alignItems: 'center', 
                 gap: '1.25rem',
-                backgroundColor: 'rgba(255,255,255,0.03)',
-                border: '1px solid var(--border-color)',
-                transition: 'transform 0.2s, background 0.2s',
+                backgroundColor: 'rgba(5, 5, 5, 0.5)',
+                border: '1px solid rgba(255,255,255,0.05)',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 cursor: 'pointer'
               }}>
-                <div style={{ backgroundColor: 'rgba(99, 102, 241, 0.1)', padding: '0.75rem', borderRadius: '12px', color: 'var(--accent-color)' }}>
+                <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)', padding: '0.75rem', borderRadius: '12px', color: '#d4af37' }}>
                   <Car size={24} />
                 </div>
                 <div>
-                  <h4 style={{ color: 'var(--text-primary)', fontWeight: 700 }}>我的車庫</h4>
-                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>管理車輛資訊及保養記錄</p>
+                  <h4 style={{ color: '#fff', fontWeight: 800 }}>我的車庫</h4>
+                  <p style={{ color: '#999', fontSize: '0.8rem' }}>管理車輛資訊及保養記錄</p>
                 </div>
               </div>
             </Link>
             
             <Link href="/dashboard/properties" style={{ textDecoration: 'none' }}>
-              <div className="glass-panel" style={{ 
+              <div className="glass-panel hover-lift" style={{ 
                 padding: '1.5rem', 
-                borderRadius: '20px', 
+                borderRadius: '24px', 
                 display: 'flex', 
                 alignItems: 'center', 
                 gap: '1.25rem',
-                backgroundColor: 'rgba(255,255,255,0.03)',
-                border: '1px solid var(--border-color)',
-                transition: 'transform 0.2s, background 0.2s',
+                backgroundColor: 'rgba(5, 5, 5, 0.5)',
+                border: '1px solid rgba(255,255,255,0.05)',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 cursor: 'pointer'
               }}>
                 <div style={{ backgroundColor: 'rgba(245, 158, 11, 0.1)', padding: '0.75rem', borderRadius: '12px', color: '#f59e0b' }}>
                   <Home size={24} />
                 </div>
                 <div>
-                  <h4 style={{ color: 'var(--text-primary)', fontWeight: 700 }}>我的物業</h4>
-                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>查看物業細節及相關預約</p>
+                  <h4 style={{ color: '#fff', fontWeight: 800 }}>我的物業</h4>
+                  <p style={{ color: '#999', fontSize: '0.8rem' }}>查看物業細節及相關預約</p>
                 </div>
               </div>
             </Link>

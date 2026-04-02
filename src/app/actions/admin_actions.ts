@@ -140,6 +140,7 @@ export async function overrideDisputeDecision(
 }
 
 import { createNotification } from "./notifications";
+import { DocumentStatus } from "@prisma/client";
 
 /**
  * Update dispute status (e.g., mark as REVIEWING)
@@ -153,5 +154,48 @@ export async function updateDisputeStatus(disputeId: string, status: DisputeStat
   });
 
   revalidatePath("/admin/disputes");
+  return { success: true };
+}
+
+/**
+ * Manually review and approve/reject merchant documents (e.g. Insurance, Gas Safe)
+ */
+export async function reviewMerchantDocument(
+  documentId: string,
+  status: DocumentStatus,
+  adminNotes: string
+) {
+  await ensureAdmin();
+
+  const doc = await (prisma as any).merchantDocument.update({
+    where: { id: documentId },
+    data: { 
+      status,
+      aiAnalysis: `[ADMIN REVIEW]: ${adminNotes}`
+    },
+    include: { merchant: true }
+  });
+
+  // If a critical document is approved, we check if we should mark merchant as verified
+  if (status === DocumentStatus.APPROVED) {
+    if (doc.type === 'GAS_SAFE' || doc.type === 'NICEIC' || doc.type === 'PUBLIC_LIABILITY') {
+      await prisma.merchant.update({
+        where: { id: doc.merchantId },
+        data: { isVerified: true }
+      });
+    }
+  }
+
+  // Notify the merchant
+  await createNotification({
+    userId: doc.merchant.userId,
+    title: status === DocumentStatus.APPROVED ? "✅ 證照審核通過 (人工)" : "❌ 證照審核未通過",
+    message: status === DocumentStatus.APPROVED 
+      ? `您的 ${doc.type} 證照已通過管理員人工審查。您的帳號現已進入激活狀態。`
+      : `您的 ${doc.type} 證照未能通過管理員覆核：${adminNotes}`,
+    type: status === DocumentStatus.APPROVED ? 'SUCCESS' : 'ALERT'
+  });
+
+  revalidatePath("/admin/merchants");
   return { success: true };
 }

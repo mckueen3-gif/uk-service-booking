@@ -16,19 +16,19 @@ export default async function DashboardPage() {
 
   return (
     <div className="animate-fade-up">
-      {/* 🚀 INSTANT SHELL: Banner and Title render IMMEDIATELY (0ms) */}
+      {/* 🚀 INSTANT SHELL: Obsidian Gold Greeting (0ms) */}
       <section className="glass-panel" style={{ 
         padding: '2.5rem', 
         borderRadius: '32px', 
         marginBottom: '2.5rem',
-        background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(168, 85, 247, 0.15) 100%)',
-        border: '1px solid rgba(255,255,255,0.1)',
-        boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
-        backdropFilter: 'blur(10px)'
+        background: 'rgba(5, 5, 5, 0.8)',
+        border: '1px solid rgba(212, 175, 55, 0.2)',
+        boxShadow: '0 20px 50px rgba(0,0,0,0.5), 0 0 20px rgba(212, 175, 55, 0.05)',
+        backdropFilter: 'blur(16px)'
       }}>
         <DynamicGreeting userName={userName} />
-        <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', maxWidth: '600px' }}>
-          Welcome back to your personalized dashboard. Real-time sync active.
+        <p style={{ color: '#999', fontSize: '1.1rem', maxWidth: '600px', fontWeight: 500 }}>
+          Welcome back to your elite dashboard. Your private concierge is active and synced.
         </p>
       </section>
 

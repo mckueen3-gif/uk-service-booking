@@ -4,10 +4,10 @@ import { useState, useEffect, useCallback } from "react";
 import { Calendar, MapPin, Clock, Search, Loader2, CheckCircle, XCircle, AlertCircle, RefreshCw, Car } from "lucide-react";
 
 const STATUS_COLOR: Record<string, { bg: string; text: string; border: string }> = {
-  CONFIRMED: { bg: '#ecfdf5', text: '#d4af37', border: '#a7f3d0' },
-  PENDING:   { bg: '#fffbeb', text: '#d97706', border: '#fde68a' },
-  COMPLETED: { bg: '#eff6ff', text: '#3b82f6', border: '#bfdbfe' },
-  CANCELLED: { bg: '#fef2f2', text: '#dc2626', border: '#fecaca' },
+  CONFIRMED: { bg: 'rgba(212, 175, 55, 0.1)', text: '#d4af37', border: 'rgba(212, 175, 55, 0.2)' },
+  PENDING:   { bg: 'rgba(245, 158, 11, 0.1)',  text: '#f59e0b', border: 'rgba(245, 158, 11, 0.2)' },
+  COMPLETED: { bg: 'rgba(255, 255, 255, 0.05)', text: '#fff',    border: 'rgba(255, 255, 255, 0.1)' },
+  CANCELLED: { bg: 'rgba(255, 255, 255, 0.02)', text: '#666',    border: 'rgba(255, 255, 255, 0.05)' },
 };
 
 const STATUS_LABEL: Record<string, string> = {
@@ -96,17 +96,21 @@ export default function BookingsContent() {
               padding: '0.75rem 1rem 0.75rem 2.75rem',
               borderRadius: '12px',
               border: '1px solid var(--border-color)',
-              background: 'rgba(255,255,255,0.04)',
-              color: 'var(--text-primary)',
-              fontSize: '0.9rem',
-              outline: 'none'
+              background: 'rgba(5, 5, 5, 0.5)',
+              color: '#fff',
+              fontSize: '0.95rem',
+              fontWeight: 600,
+              outline: 'none',
+              transition: 'border-color 0.2s'
             }}
+            onFocus={e => e.currentTarget.style.borderColor = '#d4af37'}
+            onBlur={e => e.currentTarget.style.borderColor = 'var(--border-color)'}
           />
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          {syncing && <Loader2 size={14} style={{ color: 'var(--accent-color)', animation: 'spin 1s linear infinite' }} />}
-          <span style={{ fontSize: '0.78rem', color: '#facc15', fontWeight: 500 }}>
+          {syncing && <Loader2 size={14} style={{ color: '#d4af37', animation: 'spin 1s linear infinite' }} />}
+          <span style={{ fontSize: '0.78rem', color: '#d4af37', fontWeight: 500 }}>
             {lastSync ? `● 即時同步 ${lastSync.toLocaleTimeString('zh-HK')}` : '○ 連線中...'}
           </span>
           <button
@@ -153,7 +157,7 @@ export default function BookingsContent() {
         </div>
       ) : filtered.length === 0 ? (
         <div className="glass-panel" style={{ padding: '6rem 2rem', textAlign: 'center', borderRadius: '32px' }}>
-          <Calendar size={56} style={{ margin: '0 auto 1.5rem', opacity: 0.15, color: 'var(--accent-color)' }} />
+          <Calendar size={56} style={{ margin: '0 auto 1.5rem', opacity: 0.15, color: '#d4af37' }} />
           <h2 style={{ fontSize: '1.4rem', fontWeight: 800, marginBottom: '0.5rem' }}>
             {search ? '找不到符合的預約' : '尚無預約紀錄'}
           </h2>
@@ -178,13 +182,16 @@ export default function BookingsContent() {
                 className="glass-panel animate-fade-up"
                 style={{
                   padding: '1.75rem',
-                  borderRadius: '24px',
-                  background: 'rgba(255,255,255,0.03)',
-                  border: '1px solid var(--border-color)',
+                  borderRadius: '32px',
+                  background: 'rgba(5, 5, 5, 0.5)',
+                  border: '1px solid rgba(255, 255, 255, 0.05)',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '1.25rem'
+                  gap: '1.25rem',
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
                 }}
+                onMouseOver={e => e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.3)'}
+                onMouseOut={e => e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)'}
               >
                 {/* Header row */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -224,16 +231,16 @@ export default function BookingsContent() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
                   {scheduledDate && (
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
-                      <Calendar size={16} color="var(--accent-color)" />
+                      <Calendar size={16} color="#d4af37" />
                       <span style={{ fontWeight: isUpcoming ? 600 : 400, color: isUpcoming ? 'var(--text-primary)' : 'var(--text-secondary)' }}>
-                        {scheduledDate.toLocaleString('zh-HK', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
-                        {isUpcoming && <span style={{ marginLeft: '0.4rem', fontSize: '0.72rem', color: '#facc15', fontWeight: 700 }}>即將到來</span>}
+                       {scheduledDate.toLocaleString('zh-HK', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                       {isUpcoming && <span style={{ marginLeft: '0.6rem', fontSize: '0.72rem', color: '#000', backgroundColor: '#d4af37', padding: '0.1rem 0.6rem', borderRadius: '4px', fontWeight: 900 }}>ELITE UPCOMING</span>}
                       </span>
                     </div>
                   )}
                   {(booking.vehicleReg || booking.vehicleMake) && (
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
-                      <Car size={16} color="var(--accent-color)" />
+                      <Car size={16} color="#d4af37" />
                       <span>
                         {[booking.vehicleMake, booking.vehicleModel, booking.vehicleReg].filter(Boolean).join(' · ')}
                       </span>
@@ -246,8 +253,8 @@ export default function BookingsContent() {
                   marginTop: '0.25rem', 
                   padding: '1rem', 
                   borderRadius: '16px', 
-                  backgroundColor: 'rgba(255, 255, 255, 0.02)', 
-                  border: '1px solid var(--border-color)',
+                  backgroundColor: 'rgba(5, 5, 5, 0.8)', 
+                  border: '1px solid rgba(212, 175, 55, 0.1)',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '0.75rem'
@@ -255,15 +262,15 @@ export default function BookingsContent() {
                   {/* Sector Badge */}
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--text-secondary)', letterSpacing: '0.05em' }}>PAYMENT TRACKER</span>
-                    <span style={{ fontSize: '0.7rem', fontWeight: 800, padding: '0.2rem 0.5rem', borderRadius: '4px', backgroundColor: booking.isEducation ? 'rgba(168, 85, 247, 0.1)' : 'rgba(56, 189, 248, 0.1)', color: booking.isEducation ? '#a855f7' : '#0ea5e9' }}>
-                      {booking.isEducation ? 'EDUCATION' : 'REPAIR'}
+                    <span style={{ fontSize: '0.7rem', fontWeight: 900, padding: '0.25rem 0.6rem', borderRadius: '6px', backgroundColor: booking.isEducation ? 'rgba(168, 85, 247, 0.1)' : 'rgba(212, 175, 55, 0.1)', color: booking.isEducation ? '#a855f7' : '#d4af37', border: '1px solid currentColor' }}>
+                      {booking.isEducation ? 'ELITE EDUCATION' : 'EXPERT REPAIR'}
                     </span>
                   </div>
 
                   {/* Logical States */}
                   {booking.isEducation ? (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#facc15', fontSize: '0.85rem', fontWeight: 700 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#d4af37', fontSize: '0.85rem', fontWeight: 700 }}>
                         <CheckCircle size={14} /> 100% 已付清 Full Payment Secure
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)', fontSize: '0.75rem' }}>
@@ -273,13 +280,13 @@ export default function BookingsContent() {
                   ) : (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                       {/* Step 1: Deposit */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#facc15', fontSize: '0.85rem', fontWeight: 700 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#d4af37', fontSize: '0.85rem', fontWeight: 700 }}>
                         <CheckCircle size={14} /> 20% 訂金已收 (£{(booking.depositPaid || 0).toFixed(2)})
                       </div>
                       
                       {/* Step 2: Balance Hold or Failure */}
                       {booking.status === 'CONFIRMED' && booking.stripeBalanceIntentId ? (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#0ea5e9', fontSize: '0.85rem', fontWeight: 700 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#d4af37', fontSize: '0.85rem', fontWeight: 700 }}>
                           <CheckCircle size={14} /> 80% 尾款已成功鎖定 (£{(booking.balanceAmount || 0).toFixed(2)})
                         </div>
                       ) : booking.reauthDeadline && !booking.stripeBalanceIntentId && booking.status !== 'CANCELLED' ? (
@@ -287,7 +294,7 @@ export default function BookingsContent() {
                           <AlertCircle size={14} /> 餘額鎖定失敗！請在 {new Date(booking.reauthDeadline).toLocaleDateString()} 前更新卡片
                         </div>
                       ) : booking.status === 'COMPLETED' ? (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#facc15', fontSize: '0.85rem', fontWeight: 700 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#d4af37', fontSize: '0.85rem', fontWeight: 700 }}>
                           <CheckCircle size={14} /> 100% 已完成結算 (£{(booking.totalAmount || 0).toFixed(2)})
                         </div>
                       ) : (
@@ -303,14 +310,15 @@ export default function BookingsContent() {
                 <div style={{
                   marginTop: 'auto',
                   padding: '0.875rem 1.25rem',
-                  borderRadius: '14px',
-                  backgroundColor: 'rgba(99, 102, 241, 0.06)',
+                  borderRadius: '16px',
+                  backgroundColor: 'rgba(212, 175, 55, 0.05)',
+                  border: '1px solid rgba(212, 175, 55, 0.1)',
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center'
                 }}>
                   <span style={{ fontWeight: 600, color: 'var(--text-secondary)', fontSize: '0.875rem' }}>總額估計 Total</span>
-                  <span style={{ fontWeight: 900, fontSize: '1.2rem', color: 'var(--text-primary)' }}>
+                  <span style={{ fontWeight: 800, fontSize: '1.25rem', color: '#d4af37' }}>
                     £{(booking.totalAmount || 0).toFixed(2)}
                   </span>
                 </div>

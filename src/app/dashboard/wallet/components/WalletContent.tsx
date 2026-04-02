@@ -67,27 +67,30 @@ export default function WalletContent() {
       
       {/* Sync Status (Professional) */}
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <div style={{ fontSize: '0.8rem', color: synced ? '#facc15' : 'rgba(255,255,255,0.4)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div style={{ fontSize: '0.8rem', color: synced ? '#d4af37' : 'rgba(255,255,255,0.4)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
            {synced ? `● ${t.merchant.dashboard.wallet.synced}` : `○ ${t.merchant.dashboard.wallet.syncing}`}
         </div>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
         
+        {/* Balance Card - Obsidian Gold */}
         <div className="glass-panel" style={{ 
           padding: '2.5rem', 
-          borderRadius: '24px', 
-          background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
+          borderRadius: '32px', 
+          background: 'linear-gradient(135deg, #050505 0%, #111 100%)',
           color: 'white',
           position: 'relative',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          border: '1px solid rgba(212, 175, 55, 0.2)',
+          boxShadow: '0 20px 50px rgba(0,0,0,0.5)'
         }}>
-          <div style={{ position: 'absolute', top: '-10%', right: '-10%', opacity: 0.1 }}>
-            <Wallet size={160} />
+          <div style={{ position: 'absolute', top: '-10%', right: '-10%', opacity: 0.05, color: '#d4af37' }}>
+            <Wallet size={180} />
           </div>
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem', opacity: 0.8 }}>
-            <CreditCard size={20} />
+            <CreditCard size={20} color="#d4af37" />
             <span style={{ fontWeight: 600, letterSpacing: '0.05em' }}>AVAILABLE CREDITS</span>
           </div>
           
@@ -97,46 +100,49 @@ export default function WalletContent() {
           </div>
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: '#facc15', fontWeight: 700 }}>
-                <TrendingUp size={16} /> +12% vs last month
+             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: '#d4af37', fontWeight: 800 }}>
+                <TrendingUp size={16} /> +12% GROWTH
              </div>
-             <div style={{ fontSize: '0.85rem', color: '#94a3b8' }}>{t.merchant.dashboard.wallet.availableNow}</div>
+             <div style={{ fontSize: '0.85rem', color: '#666', fontWeight: 600 }}>{t.merchant.dashboard.wallet.availableNow}</div>
           </div>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-          <div className="glass-panel" style={{ padding: '2rem', borderRadius: '24px', border: '1px solid var(--border-color)' }}>
+          {/* Voucher Exchange */}
+          <div className="glass-panel" style={{ padding: '2rem', borderRadius: '24px', background: 'rgba(5, 5, 5, 0.4)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
-              <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', padding: '0.5rem', borderRadius: '0.75rem' }}>
-                <Ticket size={24} color="#ef4444" />
+               <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)', padding: '0.6rem', borderRadius: '12px', border: '1px solid rgba(212, 175, 55, 0.2)' }}>
+                <Ticket size={24} color="#d4af37" />
               </div>
-              <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)' }}>英國服務禮券兌換</h2>
+              <h2 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#fff' }}>英國服務禮券兌換</h2>
             </div>
             <VoucherForm />
           </div>
 
-          <div className="glass-panel" style={{ padding: '2rem', borderRadius: '24px', border: '1px solid rgba(99, 102, 241, 0.25)', background: 'rgba(99, 102, 241, 0.05)' }}>
+          {/* Referral Hub Overlay */}
+          <div className="glass-panel" style={{ padding: '2rem', borderRadius: '24px', background: 'rgba(212, 175, 55, 0.03)', border: '1px solid rgba(212, 175, 55, 0.1)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-              <div style={{ backgroundColor: 'rgba(99, 102, 241, 0.12)', padding: '0.5rem', borderRadius: '0.75rem' }}>
-                <Gift size={24} color="#6366f1" />
+              <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)', padding: '0.6rem', borderRadius: '12px', border: '1px solid rgba(212, 175, 55, 0.2)' }}>
+                <Gift size={24} color="#d4af37" />
               </div>
-              <h2 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--text-primary)' }}>{t.merchant.dashboard.wallet.referralTitle}</h2>
+              <h2 style={{ fontSize: '1.1rem', fontWeight: 900, color: '#fff' }}>{t.merchant.dashboard.wallet.referralTitle}</h2>
             </div>
-            <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
+            <p style={{ fontSize: '0.82rem', color: '#999', marginBottom: '1rem', fontWeight: 500 }}>
               {t.merchant.dashboard.wallet.referralDesc}
             </p>
             <div style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              background: 'rgba(99, 102, 241, 0.08)',
+              background: 'rgba(5, 5, 5, 0.6)',
               padding: '0.875rem 1.25rem',
               borderRadius: '12px',
-              border: '1.5px dashed rgba(99, 102, 241, 0.4)'
+              border: '1px dashed rgba(212, 175, 55, 0.4)',
+              boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.5)'
             }}>
-              <span style={{ fontWeight: 900, color: '#6366f1', fontSize: (stats?.referralCode === "PENDING" || stats?.referralCode === "REF-SYNCING") ? '0.85rem' : '1.15rem', letterSpacing: '0.08em' }}>
+              <span style={{ fontWeight: 900, color: '#d4af37', fontSize: (stats?.referralCode === "PENDING" || stats?.referralCode === "REF-SYNCING") ? '0.85rem' : '1.25rem', letterSpacing: '0.1em' }}>
                 {(!stats?.referralCode || stats.referralCode === "PENDING" || stats.referralCode === "REF-SYNCING") ? (
-                  <span style={{ fontWeight: 500, color: 'var(--text-secondary)' }}>{t.merchant.dashboard.wallet.generating}</span>
+                  <span style={{ fontWeight: 500, color: '#666' }}>{t.merchant.dashboard.wallet.generating}</span>
                 ) : (
                   stats.referralCode
                 )}
@@ -147,7 +153,7 @@ export default function WalletContent() {
                   title="複製推薦碼"
                   style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0.25rem' }}
                 >
-                  <Copy size={20} color="#6366f1" />
+                  <Copy size={20} color="#d4af37" />
                 </button>
               )}
             </div>
@@ -155,45 +161,46 @@ export default function WalletContent() {
         </div>
       </div>
 
-      <div className="glass-panel" style={{ padding: '2.5rem', borderRadius: '24px', border: '1px solid var(--border-color)' }}>
+      {/* Transaction History */}
+      <div className="glass-panel" style={{ padding: '2.5rem', borderRadius: '32px', background: 'rgba(5, 5, 5, 0.3)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
-          <History size={24} color="var(--accent-color)" />
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 800 }}>{t.merchant.dashboard.wallet.historyTitle}</h2>
+          <History size={24} color="#d4af37" />
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#fff' }}>{t.merchant.dashboard.wallet.historyTitle}</h2>
         </div>
         
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
-              <tr style={{ borderBottom: '1px solid #f1f5f9', color: '#64748b', fontSize: '0.9rem' }}>
-                <th style={{ paddingBottom: '1.25rem', fontWeight: 600 }}>{t.merchant.dashboard.wallet.type}</th>
-                <th style={{ paddingBottom: '1.25rem', fontWeight: 600 }}>{t.merchant.dashboard.wallet.description}</th>
-                <th style={{ paddingBottom: '1.25rem', fontWeight: 600 }}>{t.merchant.dashboard.wallet.amount}</th>
-                <th style={{ paddingBottom: '1.25rem', fontWeight: 600 }}>{t.merchant.dashboard.wallet.date}</th>
+              <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)', color: '#666', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <th style={{ paddingBottom: '1.25rem', fontWeight: 800 }}>{t.merchant.dashboard.wallet.type}</th>
+                <th style={{ paddingBottom: '1.25rem', fontWeight: 800 }}>{t.merchant.dashboard.wallet.description}</th>
+                <th style={{ paddingBottom: '1.25rem', fontWeight: 800 }}>{t.merchant.dashboard.wallet.amount}</th>
+                <th style={{ paddingBottom: '1.25rem', fontWeight: 800 }}>{t.merchant.dashboard.wallet.date}</th>
               </tr>
             </thead>
             <tbody>
               {stats?.creditTransactions?.length === 0 ? (
                 <tr>
-                  <td colSpan={4} style={{ padding: '4rem', textAlign: 'center', color: '#94a3b8' }}>{t.merchant.dashboard.wallet.historyEmpty}</td>
+                  <td colSpan={4} style={{ padding: '4rem', textAlign: 'center', color: '#666' }}>{t.merchant.dashboard.wallet.historyEmpty}</td>
                 </tr>
               ) : (
                 stats?.creditTransactions?.map((tx: any) => (
-                  <tr key={tx.id} style={{ borderBottom: '1px solid #f8fafc' }}>
+                  <tr key={tx.id} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.02)' }}>
                     <td style={{ padding: '1.5rem 0' }}>
                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                           {tx.amount > 0 ? (
-                            <ArrowDownLeft size={16} color="#facc15" />
+                            <ArrowDownLeft size={16} color="#d4af37" />
                           ) : (
                             <ArrowUpRight size={16} color="#ef4444" />
                           )}
-                          <span style={{ fontWeight: 700 }}>{tx.type}</span>
+                          <span style={{ fontWeight: 800, color: '#fff' }}>{tx.type}</span>
                        </div>
                     </td>
-                    <td style={{ padding: '1.5rem 0', color: '#64748b' }}>{tx.description}</td>
-                    <td style={{ padding: '1.5rem 0', color: tx.amount > 0 ? '#facc15' : '#ef4444', fontWeight: 800 }}>
+                    <td style={{ padding: '1.5rem 0', color: '#999', fontWeight: 500 }}>{tx.description}</td>
+                    <td style={{ padding: '1.5rem 0', color: tx.amount > 0 ? '#d4af37' : '#ef4444', fontWeight: 900 }}>
                       {tx.amount > 0 ? '+' : ''}£{Math.abs(tx.amount).toFixed(2)}
                     </td>
-                    <td style={{ padding: '1.5rem 0', color: '#94a3b8' }}>{new Date(tx.createdAt).toLocaleDateString()}</td>
+                    <td style={{ padding: '1.5rem 0', color: '#666', fontWeight: 500 }}>{new Date(tx.createdAt).toLocaleDateString()}</td>
                   </tr>
                 ))
               )}
@@ -203,25 +210,25 @@ export default function WalletContent() {
       </div>
 
       {stats?.referralsMade && stats.referralsMade.length > 0 && (
-        <div className="glass-panel animate-fade-up" style={{ padding: '2.5rem', borderRadius: '24px', border: '1px solid rgba(16, 185, 129, 0.1)', backgroundColor: 'rgba(16, 185, 129, 0.02)' }}>
+        <div className="glass-panel animate-fade-up" style={{ padding: '2.5rem', borderRadius: '32px', border: '1px solid rgba(212, 175, 55, 0.1)', background: 'rgba(5, 5, 5, 0.2)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
-            <div style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '0.75rem', borderRadius: '12px' }}>
-              <Users size={24} color="#facc15" />
+            <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)', padding: '0.75rem', borderRadius: '12px' }}>
+              <Users size={24} color="#d4af37" />
             </div>
             <div>
-               <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>{t.merchant.dashboard.wallet.referralListTitle}</h2>
-               <p style={{ fontSize: '0.85rem', color: '#64748b' }}>{t.merchant.dashboard.wallet.referralListDesc}</p>
+               <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#fff' }}>{t.merchant.dashboard.wallet.referralListTitle}</h2>
+               <p style={{ fontSize: '0.85rem', color: '#666', fontWeight: 500 }}>{t.merchant.dashboard.wallet.referralListDesc}</p>
             </div>
           </div>
           
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
               <thead>
-                <tr style={{ borderBottom: '1px solid var(--border-color)', color: '#64748b' }}>
-                  <th style={{ paddingBottom: '1.25rem', paddingRight: '1rem', fontWeight: 600 }}>{t.merchant.dashboard.wallet.referee}</th>
-                  <th style={{ paddingBottom: '1.25rem', paddingRight: '1rem', fontWeight: 600 }}>{t.merchant.dashboard.wallet.earned}</th>
-                  <th style={{ paddingBottom: '1.25rem', paddingRight: '1rem', fontWeight: 600 }}>{t.merchant.dashboard.wallet.expiry}</th>
-                  <th style={{ paddingBottom: '1.25rem', fontWeight: 600 }}>{t.merchant.dashboard.wallet.status}</th>
+                <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)', color: '#666' }}>
+                  <th style={{ paddingBottom: '1.25rem', paddingRight: '1rem', fontWeight: 700 }}>{t.merchant.dashboard.wallet.referee}</th>
+                  <th style={{ paddingBottom: '1.25rem', paddingRight: '1rem', fontWeight: 700 }}>{t.merchant.dashboard.wallet.earned}</th>
+                  <th style={{ paddingBottom: '1.25rem', paddingRight: '1rem', fontWeight: 700 }}>{t.merchant.dashboard.wallet.expiry}</th>
+                  <th style={{ paddingBottom: '1.25rem', fontWeight: 700 }}>{t.merchant.dashboard.wallet.status}</th>
                 </tr>
               </thead>
               <tbody>
@@ -232,19 +239,19 @@ export default function WalletContent() {
                   const isExpired = expiryDate < new Date();
                   
                   return (
-                    <tr key={ref.id} style={{ borderBottom: '1px solid #f8fafc', opacity: isExpired ? 0.6 : 1 }}>
+                    <tr key={ref.id} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.02)', opacity: isExpired ? 0.6 : 1 }}>
                       <td style={{ padding: '1.5rem 0', paddingRight: '1rem' }}>
-                        <div style={{ fontWeight: 800, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <div style={{ fontWeight: 800, color: '#fff', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                            {ref.referee?.name || (locale === 'zh-TW' ? '匿名用戶' : 'Anonymous User')}
-                           {!isExpired && <Sparkles size={14} color="#f59e0b" />}
+                           {!isExpired && <Sparkles size={14} color="#d4af37" />}
                         </div>
-                        <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>{t.merchant.dashboard.wallet.joinedAt} {createdAtDate.toLocaleDateString()}</div>
+                        <div style={{ fontSize: '0.75rem', color: '#666' }}>{t.merchant.dashboard.wallet.joinedAt} {createdAtDate.toLocaleDateString()}</div>
                       </td>
-                      <td style={{ padding: '1.5rem 0', paddingRight: '1rem', color: 'var(--accent-color)', fontWeight: 900 }}>
+                      <td style={{ padding: '1.5rem 0', paddingRight: '1rem', color: '#d4af37', fontWeight: 900 }}>
                         £{(ref.earnedFromReferee || 0).toFixed(2)}
                       </td>
                       <td style={{ padding: '1.5rem 0', paddingRight: '1rem' }}>
-                        <div style={{ color: isExpired ? '#ef4444' : 'var(--text-primary)', fontWeight: 600 }}>
+                        <div style={{ color: isExpired ? '#ef4444' : '#fff', fontWeight: 600 }}>
                            {expiryDate.toLocaleDateString()} {t.merchant.dashboard.wallet.validUntil}
                         </div>
                       </td>
@@ -253,12 +260,12 @@ export default function WalletContent() {
                           fontSize: '0.7rem', 
                           padding: '0.35rem 0.75rem', 
                           borderRadius: '99px',
-                          backgroundColor: isExpired ? 'rgba(239, 68, 68, 0.08)' : 'rgba(16, 185, 129, 0.08)',
-                          color: isExpired ? '#ef4444' : '#facc15',
-                          fontWeight: 800,
+                          backgroundColor: isExpired ? 'rgba(239, 68, 68, 0.08)' : 'rgba(212, 175, 55, 0.08)',
+                          color: isExpired ? '#ef4444' : '#d4af37',
+                          fontWeight: 900,
                           textTransform: 'uppercase',
                           letterSpacing: '0.05em',
-                          border: isExpired ? '1px solid rgba(239, 68, 68, 0.1)' : '1px solid rgba(16, 185, 129, 0.1)'
+                          border: isExpired ? '1px solid rgba(239, 68, 68, 0.1)' : '1px solid rgba(212, 175, 55, 0.1)'
                         }}>
                           {isExpired ? t.merchant.dashboard.wallet.expired : t.merchant.dashboard.wallet.active}
                         </span>

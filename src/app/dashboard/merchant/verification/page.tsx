@@ -87,22 +87,55 @@ export default function MerchantVerificationPage() {
                       <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>於 {new Date(doc.createdAt).toLocaleDateString()} 上傳</p>
                     </div>
                     <span style={{ 
-                      padding: '0.3rem 0.8rem', 
+                      padding: '0.4rem 1rem', 
                       borderRadius: '8px', 
                       fontSize: '0.75rem', 
-                      fontWeight: 800,
-                      backgroundColor: doc.status === 'APPROVED' ? '#facc1520' : '#f59e0b20',
-                      color: doc.status === 'APPROVED' ? '#facc15' : '#f59e0b'
+                      fontWeight: 900,
+                      backgroundColor: doc.status === 'APPROVED' ? 'rgba(212, 175, 55, 0.15)' : 
+                                     doc.status === 'UNDER_ADMIN_REVIEW' ? 'rgba(245, 158, 11, 0.15)' : 
+                                     'rgba(239, 68, 68, 0.15)',
+                      color: doc.status === 'APPROVED' ? '#d4af37' : 
+                             doc.status === 'UNDER_ADMIN_REVIEW' ? '#f59e0b' : 
+                             '#ef4444',
+                      border: `1px solid ${
+                        doc.status === 'APPROVED' ? 'rgba(212, 175, 55, 0.3)' : 
+                        doc.status === 'UNDER_ADMIN_REVIEW' ? 'rgba(245, 158, 11, 0.3)' : 
+                        'rgba(239, 68, 68, 0.3)'
+                      }`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.4rem'
                     }}>
-                      {doc.status}
+                      {doc.status === 'UNDER_ADMIN_REVIEW' && <Clock size={14} />}
+                      {doc.status === 'APPROVED' ? '認證通過' : 
+                       doc.status === 'UNDER_ADMIN_REVIEW' ? '管理員審核中' : 
+                       doc.status === 'PENDING' ? 'AI 鑑定中' : '認證未通過'}
                     </span>
                   </div>
+
+                  {doc.status === 'UNDER_ADMIN_REVIEW' && (
+                    <div style={{ 
+                      marginTop: '0.75rem', 
+                      padding: '0.75rem 1rem', 
+                      backgroundColor: 'rgba(245, 158, 11, 0.05)', 
+                      border: '1px dashed rgba(245, 158, 11, 0.3)', 
+                      borderRadius: '12px',
+                      fontSize: '0.8rem',
+                      color: '#f59e0b',
+                      display: 'flex',
+                      gap: '0.5rem',
+                      alignItems: 'flex-start'
+                    }}>
+                      <Info size={16} />
+                      <span><strong>AI 提示：</strong> 證件鑑定結果具備爭議或畫質模糊。我們已自動指派 ConciergeAI 高級管理員進行人工手動覆核，預計在 24 小時內完成。</span>
+                    </div>
+                  )}
 
                   {doc.aiAnalysis && (
                     <div style={{ backgroundColor: 'var(--surface-1)', padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-color)', marginTop: '1rem', fontSize: '0.85rem' }}>
                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                          <span style={{ fontWeight: 800, color: 'var(--accent-color)' }}>AI 提取資訊</span>
-                          <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>信心度: {(doc.confidence * 100).toFixed(0)}%</span>
+                          <span style={{ fontWeight: 800, color: '#d4af37' }}>AI 提取資訊 (Insights)</span>
+                          <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>鑑定信心值: {(doc.confidence * 100).toFixed(0)}%</span>
                        </div>
                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
                           <div>註冊號: <strong>{doc.registrationNumber || "辨識中"}</strong></div>

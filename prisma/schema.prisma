@@ -59,6 +59,7 @@ enum DocumentStatus {
   APPROVED
   REJECTED
   EXPIRED
+  UNDER_ADMIN_REVIEW
 }
 
 model User {

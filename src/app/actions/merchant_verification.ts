@@ -65,12 +65,21 @@ export async function submitDocumentForVerification(fileUrl: string, type: Docum
     const analysis = JSON.parse(responseText.replace(/```json|```/g, "").trim());
 
     // 3. Update Document with AI Results
-    const isApproved = analysis.isValid && analysis.confidence > 0.7;
+    let status: DocumentStatus = DocumentStatus.REJECTED;
+    if (analysis.isValid) {
+      if (analysis.confidence >= 0.9) {
+        status = DocumentStatus.APPROVED;
+      } else if (analysis.confidence >= 0.6) {
+        status = DocumentStatus.UNDER_ADMIN_REVIEW;
+      }
+    }
+    
+    const isApproved = status === DocumentStatus.APPROVED;
     
     await (prisma as any).merchantDocument.update({
       where: { id: doc.id },
       data: {
-        status: isApproved ? DocumentStatus.APPROVED : DocumentStatus.REJECTED,
+        status: status,
         registrationNumber: analysis.registrationNumber,
         expiryDate: analysis.expiryDate ? new Date(analysis.expiryDate) : null,
         aiAnalysis: analysis.reasoning,
