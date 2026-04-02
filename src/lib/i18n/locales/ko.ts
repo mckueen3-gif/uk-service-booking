@@ -167,7 +167,9 @@ export const ko: Dictionary = {
       errorPhotoCategory: "사진을 업로드하고 카테고리를 선택해 주세요.",
       errorUnexpected: "예기치 않은 오류가 발생했습니다. 다시 시도해 주세요.",
       uploadFormatHint: "JPG, PNG 지원",
-      descriptionPlaceholder: "무슨 일이 일어났는지 자세히 알려주세요..."
+      descriptionPlaceholder: "무슨 일이 일어났는지 자세히 알려주세요...",
+      strictMode: "엄격한 비전 모드",
+      strictModeHint: "고정밀 시각적 추론 (정밀 분석)"
     }
   },
   onboarding: {

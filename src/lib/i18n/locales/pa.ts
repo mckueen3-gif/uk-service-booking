@@ -167,7 +167,9 @@ export const pa: Dictionary = {
       errorPhotoCategory: "ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਫੋਟੋ ਅਪਲੋਡ ਕਰੋ ਅਤੇ ਸ਼੍ਰੇਣੀ ਚੁਣੋ।",
       errorUnexpected: "ਇੱਕ ਅਣਕਿਆਸੀ ਗਲਤੀ ਹੋਈ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
       uploadFormatHint: "JPG, PNG ਸਪੋਰਟਡ",
-      descriptionPlaceholder: "ਸਾਨੂੰ ਦੱਸੋ ਕੀ ਹੋਇਆ ਸੀ..."
+      descriptionPlaceholder: "ਸਾਨੂੰ ਦੱਸੋ ਕੀ ਹੋਇਆ ਸੀ...",
+      strictMode: "ਸਖ਼ਤ ਵਿਜ਼ਨ ਮੋਡ",
+      strictModeHint: "ਉੱਚ-ਸ਼ੁੱਧਤਾ ਵਿਜ਼ੂਅਲ ਤਰਕ (ਡੂੰਘਾ ਵਿਸ਼ਲੇਸ਼ਣ)"
     }
   },
   onboarding: {

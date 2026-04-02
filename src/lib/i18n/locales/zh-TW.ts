@@ -165,9 +165,11 @@ export const zhTW: Dictionary = {
       fastTurnaround: "快速處理時間",
       responseHours: "{category} 專家通常在 2 小時內回覆。",
       errorPhotoCategory: "請上傳照片並選擇類別。",
-      errorUnexpected: "發生預期外的錯誤，請再試一次。",
-      uploadFormatHint: "支援 JPG, PNG",
-      descriptionPlaceholder: "告訴我們更多關於具體情況..."
+      errorUnexpected: "發生預期外的錯誤：",
+      uploadFormatHint: "支援格式：JPG, PNG, WebP (最大 10MB)",
+      descriptionPlaceholder: "選填：描述問題詳情（例如：『大雨後水管開始漏水』或『引擎發出喀噠聲』）",
+      strictMode: "嚴格視覺模式",
+      strictModeHint: "高精度視覺推理 (深度分析模式)"
     }
   },
   onboarding: {

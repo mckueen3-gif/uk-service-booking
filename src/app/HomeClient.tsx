@@ -298,11 +298,11 @@ export default function HomeClient() {
       {[
         { id: 'plumbing', data: t.home.sections.plumbing, bg: 'var(--bg-primary)', img1: '/images/plumbing_main.png', img2: '/images/plumbing_detail.png' },
         { id: 'repairs', data: t.home.sections.repairs, bg: 'var(--bg-secondary)', img1: '/images/repairs_main.png', img2: '/images/repairs_detail.png' },
-        { id: 'accounting', data: t.home.sections.accounting, bg: 'var(--bg-primary)', fullImg: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1200&auto=format&fit=crop' },
+        { id: 'accounting', data: t.home.sections.accounting, bg: 'var(--bg-primary)', fullImg: '/images/accounting_hero.png' },
         { id: 'renovation', data: t.home.sections.renovation, bg: 'var(--bg-secondary)', fullImg: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop' },
-        { id: 'education', data: t.home.sections.education, bg: 'var(--bg-primary)', fullImg: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop' },
+        { id: 'education', data: t.home.sections.education, bg: 'var(--bg-primary)', fullImg: '/images/education_hero.png' },
         { id: 'cleaning', data: t.home.sections.cleaning, bg: 'var(--bg-secondary)', fullImg: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=1200&auto=format&fit=crop' },
-        { id: 'legal', data: t.home.sections.legal, bg: 'var(--bg-primary)', fullImg: 'https://images.unsplash.com/photo-1505664194779-8beaceb93744?q=80&w=1200&auto=format&fit=crop' },
+        { id: 'legal', data: t.home.sections.legal, bg: 'var(--bg-primary)', fullImg: '/images/legal_hero.png' },
         { id: 'commercial', data: t.home.sections.commercial, bg: 'var(--bg-secondary)', fullImg: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop' }
       ].map((sec, idx) => (
         <section key={sec.id} id={`section-${sec.id}`} style={{ backgroundColor: sec.bg, padding: '8rem 0', overflow: 'hidden' }}>

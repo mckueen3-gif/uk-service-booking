@@ -125,6 +125,7 @@ export interface Dictionary {
       ukStandard: string; includesLabor: string; bookSpecialist: string; confidence: string; analyzedPhoto: string;
       guaranteedRepairs: string; disputeResolution: string; fastTurnaround: string; responseHours: string;
       errorPhotoCategory: string; errorUnexpected: string; uploadFormatHint: string; descriptionPlaceholder: string;
+      strictMode: string; strictModeHint: string;
     };
   };
   onboarding: {

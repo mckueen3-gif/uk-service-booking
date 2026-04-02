@@ -165,9 +165,11 @@ export const en: Dictionary = {
       fastTurnaround: "Fast Turnaround",
       responseHours: "Specialists in {category} typically respond within 2 hours.",
       errorPhotoCategory: "Please upload a photo and select a category.",
-      errorUnexpected: "An unexpected error occurred. Please try again.",
-      uploadFormatHint: "Supports JPG, PNG",
-      descriptionPlaceholder: "Tell us more about what happened..."
+      errorUnexpected: "An unexpected error occurred: ",
+      uploadFormatHint: "Supported formats: JPG, PNG, WebP (Max 10MB)",
+      descriptionPlaceholder: "Optional: Describe the problem to help the AI understand (e.g., 'The pipe started leaking after a heavy rain' or 'The engine makes a clicking sound')",
+      strictMode: "Strict Vision Mode",
+      strictModeHint: "High-fidelity visual reasoning (Deep analysis)"
     }
   },
   onboarding: {

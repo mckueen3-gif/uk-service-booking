@@ -5,7 +5,7 @@ import { generateAIContent } from '@/lib/ai-provider';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 
-export async function getAIDiagnosis(imageUrl: string, category: string, locale: string = 'en', description?: string) {
+export async function getAIDiagnosis(imageUrl: string, category: string, locale: string = 'en', description?: string, strictMode: boolean = false) {
   try {
     const session = (await getServerSession(authOptions)) as any;
     const userId = session?.user?.id;
@@ -56,7 +56,8 @@ export async function getAIDiagnosis(imageUrl: string, category: string, locale:
       prompt,
       systemPrompt,
       image: { base64: base64Image, mimeType },
-      jsonMode: true
+      jsonMode: true,
+      strictMode: strictMode
     });
 
     diagnosisData = JSON.parse(responseText.replace(/```json|```/g, "").trim());

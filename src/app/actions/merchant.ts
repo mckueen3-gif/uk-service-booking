@@ -48,9 +48,6 @@ export async function createMerchantAction(data: any) {
       }
     }
 
-    // 3. Create Merchant (Mocking/Linking to a User)
-    // In a real app, we'd use the session user ID.
-    // For this demo, we'll try to find or create a placeholder user if none exists.
     let user = await prisma.user.findFirst({ where: { email: data.email } });
     
     if (!user) {
@@ -61,6 +58,14 @@ export async function createMerchantAction(data: any) {
           role: 'MERCHANT'
         }
       });
+    } else {
+      // Upgrade existing user to MERCHANT if they are a CUSTOMER
+      if (user.role !== 'MERCHANT' && user.role !== 'ADMIN') {
+        user = await prisma.user.update({
+          where: { id: user.id },
+          data: { role: 'MERCHANT' }
+        });
+      }
     }
 
     const merchant = await prisma.merchant.create({
@@ -68,10 +73,19 @@ export async function createMerchantAction(data: any) {
         userId: user.id,
         companyName: data.businessName,
         description: data.bio || `Premium ${data.sector} services in the UK.`,
-        city: 'London', // Default for now
+        city: data.city || 'London', // Use sector location or default
         isVerified: false,
         commissionRate: commissionRate,
-        // freeOrdersLeft: freeOrders, // Temporarily Disabled
+        freeOrdersLeft: freeOrders,
+      }
+    });
+
+    // Create a wallet for the new merchant
+    await prisma.merchantWallet.create({
+      data: {
+        merchantId: merchant.id,
+        totalEarned: 0,
+        availableBalance: 0
       }
     });
 

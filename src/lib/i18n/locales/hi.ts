@@ -167,7 +167,9 @@ export const hi: Dictionary = {
       errorPhotoCategory: "कृपया एक फोटो अपलोड करें और एक श्रेणी चुनें।",
       errorUnexpected: "एक अप्रत्याशित त्रुटि हुई। कृपया पुन: प्रयास करें।",
       uploadFormatHint: "JPG, PNG समर्थित",
-      descriptionPlaceholder: "हमें बताएं कि क्या हुआ..."
+      descriptionPlaceholder: "हमें बताएं कि क्या हुआ...",
+      strictMode: "सख्त दृष्टि मोड",
+      strictModeHint: "उच्च-सटीकता दृश्य तर्क (गहन विश्लेषण)"
     }
   },
   onboarding: {

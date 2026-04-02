@@ -74,6 +74,7 @@ interface AIRequest {
   };
   systemPrompt?: string;
   jsonMode?: boolean;
+  strictMode?: boolean;
 }
 
 /**
@@ -87,8 +88,46 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
     messages.push({ role: 'user', content: req.prompt });
   }
 
-  // 0. Try Vision Reasoning Chain (Next-Gen Primary)
-  // Step 1: GPT-4o-mini (Vision Layer) -> Step 2: Grok 4.20 (Reasoning Layer)
+  // 0. High-Fidelity Vision Reasoning (Tier 0 - STRICT MODE)
+  if (req.strictMode && req.image && process.env.XAI_API_KEY) {
+    try {
+      console.info("[AI Provider] Entering STRICT VISION MODE (Grok native vision reasoning)...");
+      const client = await getXAIClient();
+      
+      const strictMessages: any[] = [];
+      if (req.systemPrompt) {
+        strictMessages.push({ role: "system", content: `${req.systemPrompt}\n\nSTRICT INSTRUCTION: Perform a multi-step visual verification. Check for subtle indicators of damage, age, and environmental context. Do not hallucinate parts. If the image is unclear, state the uncertainty.` });
+      }
+
+      strictMessages.push({
+        role: "user",
+        content: [
+          { type: "text", text: req.prompt || "Please perform a professional UK-standard technical diagnosis of this issue." },
+          {
+            type: "image_url",
+            image_url: { url: `data:${req.image.mimeType};base64,${req.image.base64}` }
+          }
+        ]
+      });
+
+      const response = await client.chat.completions.create({
+        model: "grok-4.20-reasoning",
+        messages: strictMessages,
+        response_format: req.jsonMode ? { type: "json_object" } : undefined,
+        temperature: 0.1,
+      });
+
+      const content = response.choices[0].message.content;
+      if (content) {
+        console.info("[AI Provider] Strict Vision Mode Success.");
+        return content;
+      }
+    } catch (error: any) {
+      console.error("[AI Provider] Strict Vision Mode failed, falling back to chain...", error);
+    }
+  }
+
+  // 1. Try Vision Reasoning Chain (Legacy Primary / Standard Mode)
   if (process.env.OPENAI_API_KEY && process.env.XAI_API_KEY && req.image) {
     try {
       console.info("[AI Provider] Starting Vision Reasoning Chain...");

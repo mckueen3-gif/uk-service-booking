@@ -167,7 +167,9 @@ export const pl: Dictionary = {
       errorPhotoCategory: "Prześlij zdjęcie i wybierz kategorię.",
       errorUnexpected: "Wystąpił nieoczekiwany błąd. Spróbuj ponownie.",
       uploadFormatHint: "Obsługuje JPG, PNG",
-      descriptionPlaceholder: "Powiedz nam więcej o tym, co się stało..."
+      descriptionPlaceholder: "Powiedz nam więcej o tym, co się stało...",
+      strictMode: "Tryb ścisłej wizji",
+      strictModeHint: "Wysoka dokładność rozumowania wizualnego (głęboka analiza)"
     }
   },
   onboarding: {

@@ -167,7 +167,9 @@ export const ja: Dictionary = {
       errorPhotoCategory: "写真のアップロードとカテゴリーの選択が必要です。",
       errorUnexpected: "予期しないエラーが発生しました。もう一度お試しください。",
       uploadFormatHint: "JPG, PNG対応",
-      descriptionPlaceholder: "詳しい状況を教えてください..."
+      descriptionPlaceholder: "詳しい状況を教えてください...",
+      strictMode: "厳格なビジョンモード",
+      strictModeHint: "高精度な視覚推理 (詳細分析)"
     }
   },
   onboarding: {

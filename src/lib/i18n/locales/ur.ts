@@ -167,7 +167,9 @@ export const ur: Dictionary = {
       errorPhotoCategory: "براہ کرم ایک تصویر اپ لوڈ کریں اور زمرہ منتخب کریں۔",
       errorUnexpected: "ایک غیر متوقع غلطی ہوئی ہے۔ براہ کرم دوبارہ کوشش کریں۔",
       uploadFormatHint: "JPG، PNG سپورٹڈ",
-      descriptionPlaceholder: "ہمیں بتائیں کہ کیا ہوا..."
+      descriptionPlaceholder: "ہمیں بتائیں کہ کیا ہوا...",
+      strictMode: "سخت بصری وضع",
+      strictModeHint: "اعلیٰ درستگی والا بصری استدلال (گہرا تجزیہ)"
     }
   },
   onboarding: {

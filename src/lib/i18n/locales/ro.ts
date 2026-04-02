@@ -167,7 +167,9 @@ export const ro: Dictionary = {
       errorPhotoCategory: "Te rugăm să încarci o fotografie și să selectezi o categorie.",
       errorUnexpected: "A apărut o eroare neașteptată. Te rugăm să încerci din nou.",
       uploadFormatHint: "Suportă JPG, PNG",
-      descriptionPlaceholder: "Spune-ne mai multe despre ce s-a întâmplat..."
+      descriptionPlaceholder: "Spune-ne mai multe despre ce s-a întâmplat...",
+      strictMode: "Mod Vedere Strict",
+      strictModeHint: "Raționament vizual de înaltă fidelitate (analiză profundă)"
     }
   },
   onboarding: {

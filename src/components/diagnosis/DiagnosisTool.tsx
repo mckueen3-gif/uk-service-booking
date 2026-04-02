@@ -3,7 +3,7 @@
 import { useState, useRef } from 'react';
 import { 
   Camera, Upload, Sparkles, Loader2, ChevronRight, 
-  AlertCircle, CheckCircle2, Info, ArrowLeft
+  AlertCircle, CheckCircle2, Info, ArrowLeft, ShieldCheck
 } from 'lucide-react';
 import { getAIDiagnosis } from '@/app/actions/diagnosis';
 import DiagnosisResult from './DiagnosisResult';
@@ -38,6 +38,7 @@ export default function DiagnosisTool() {
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
+  const [strictMode, setStrictMode] = useState(false);
   const [result, setResult] = useState<AIDiagnosisResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -62,10 +63,9 @@ export default function DiagnosisTool() {
 
     try {
       const reader = new FileReader();
-      reader.readAsDataURL(file!);
       reader.onloadend = async () => {
         const base64data = reader.result as string;
-        const res = await getAIDiagnosis(base64data, category, locale, description);
+        const res = await getAIDiagnosis(base64data, category, locale, description, strictMode);
         
         if (res.error) {
           setError(res.error);
@@ -74,6 +74,11 @@ export default function DiagnosisTool() {
         }
         setLoading(false);
       };
+      reader.onerror = () => {
+        setError("Failed to read image file.");
+        setLoading(false);
+      };
+      reader.readAsDataURL(file!);
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : String(err);
       setError(t.diagnosis.tool.errorUnexpected + errorMessage);
@@ -215,6 +220,59 @@ export default function DiagnosisTool() {
               color: 'var(--text-primary)'
             }}
           />
+        </div>
+
+        {/* Strict Mode Toggle */}
+        <div style={{ 
+          background: strictMode ? 'var(--accent-soft)' : 'var(--surface-2)', 
+          padding: '1.5rem', 
+          borderRadius: 'var(--radius-md)',
+          border: '1px solid',
+          borderColor: strictMode ? 'var(--accent-color)' : 'var(--border-color)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          transition: 'all 0.3s ease'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <div style={{ color: strictMode ? 'var(--accent-color)' : 'var(--text-muted)' }}>
+              <ShieldCheck size={24} />
+            </div>
+            <div>
+              <div style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '1rem' }}>
+                {t.diagnosis?.tool?.strictMode || "Strict Vision Mode"}
+              </div>
+              <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 500 }}>
+                {t.diagnosis?.tool?.strictModeHint || "High-fidelity visual reasoning (Deep analysis)"}
+              </div>
+            </div>
+          </div>
+          <button 
+            type="button"
+            onClick={() => setStrictMode(!strictMode)}
+            style={{
+              width: '50px',
+              height: '26px',
+              borderRadius: '13px',
+              background: strictMode ? 'var(--accent-color)' : '#d1d5db',
+              position: 'relative',
+              cursor: 'pointer',
+              border: 'none',
+              transition: 'background 0.3s'
+            }}
+          >
+            <div style={{
+              width: '20px',
+              height: '20px',
+              borderRadius: '50%',
+              background: 'white',
+              position: 'absolute',
+              top: '3px',
+              left: strictMode ? '27px' : '3px',
+              transition: 'left 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+            }} />
+          </button>
         </div>
 
         {error && (

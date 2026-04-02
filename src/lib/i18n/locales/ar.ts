@@ -167,7 +167,9 @@ export const ar: Dictionary = {
       errorPhotoCategory: "يرجى رفع صورة واختيار فئة.",
       errorUnexpected: "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.",
       uploadFormatHint: "يدعم JPG, PNG",
-      descriptionPlaceholder: "أخبرنا المزيد عما حدث..."
+      descriptionPlaceholder: "أخبرنا المزيد عما حدث...",
+      strictMode: "وضع الرؤية الصارم",
+      strictModeHint: "الاستدلال البصري عالي الدقة (تحليل عميق)"
     }
   },
   onboarding: {

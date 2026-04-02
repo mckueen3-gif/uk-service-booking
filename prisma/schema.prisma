@@ -163,6 +163,7 @@ model Merchant {
   
   // New Commercial Fields
   commissionRate     Float     @default(0.09) // Default 9%
+  freeOrdersLeft     Int       @default(0)
   
   // Customization
   avatarUrl          String?

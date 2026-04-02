@@ -5,7 +5,7 @@ import { useTranslation } from '@/components/LanguageContext';
 import OnboardingHero from '@/components/joining/OnboardingHero';
 import SectorSelector from '@/components/joining/SectorSelector';
 import MerchantContract from '@/components/joining/MerchantContract';
-import { ChevronRight, ChevronLeft, CheckCircle2, Building2, Mail, Globe, User, Loader2 } from 'lucide-react';
+import { ChevronRight, ChevronLeft, CheckCircle2, Building2, Mail, Globe, User, Loader2, MapPin } from 'lucide-react';
 import { createMerchantAction } from '@/app/actions/merchant';
 
 export default function JoinPage() {
@@ -21,6 +21,7 @@ export default function JoinPage() {
     website: '',
     bio: '',
     credentials: '',
+    city: 'London',
     promoCode: ''
   });
 
@@ -152,6 +153,24 @@ export default function JoinPage() {
                       placeholder={selectedSector === 'professional' ? "Enter ACCA/Legal certificates..." : "Enter technical certifications..."}
                       rows={3}
                     />
+                  </div>
+                  <div className="input-group full">
+                    <label><MapPin size={16} /> Covered City (Operational Area)</label>
+                    <select 
+                      name="city" 
+                      value={formData.city} 
+                      onChange={(e: any) => handleInputChange(e)} 
+                      style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', background: 'var(--surface-2)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}
+                    >
+                      <option value="London">London (Greater London)</option>
+                      <option value="Manchester">Manchester</option>
+                      <option value="Birmingham">Birmingham</option>
+                      <option value="Leeds">Leeds</option>
+                      <option value="Glasgow">Glasgow</option>
+                      <option value="Liverpool">Liverpool</option>
+                      <option value="Edinburgh">Edinburgh</option>
+                      <option value="Bristol">Bristol</option>
+                    </select>
                   </div>
                   <div className="input-group full">
                     <label style={{ color: 'var(--accent-color)' }}><CheckCircle2 size={16} /> Promo Code (Optional)</label>
