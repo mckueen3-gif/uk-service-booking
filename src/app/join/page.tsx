@@ -429,7 +429,15 @@ export default function JoinPage() {
         .join-container {
           max-width: 1200px;
           margin: 0 auto;
-          padding: 0 20px 100px;
+          padding: 120px 20px 100px;
+        }
+
+        .step-0 {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          padding-top: 40px;
         }
 
         .onboarding-stepper {
@@ -446,27 +454,30 @@ export default function JoinPage() {
           align-items: center;
           gap: 12px;
           font-weight: 800;
-          color: #222;
+          color: rgba(255, 255, 255, 0.4);
           font-size: 0.85rem;
           text-transform: uppercase;
           letter-spacing: 0.1em;
           transition: all 0.4s;
+          opacity: 0.6;
         }
 
         .step-item.active {
           color: #d4af37;
+          opacity: 1;
         }
 
         .step-num {
           width: 36px;
           height: 36px;
           border-radius: 50%;
-          border: 2px solid #222;
+          border: 2px solid rgba(255, 255, 255, 0.1);
           display: flex;
           align-items: center;
           justify-content: center;
           font-size: 0.85rem;
           font-family: var(--font-heading);
+          background: rgba(255, 255, 255, 0.05);
         }
 
         .step-item.active .step-num {

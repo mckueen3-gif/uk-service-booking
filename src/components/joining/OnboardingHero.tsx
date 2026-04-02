@@ -14,10 +14,15 @@ export default function OnboardingHero() {
           <Sparkles size={14} color="#d4af37" />
           <span>ConciergeAI Elite Expert</span>
         </div>
-        <h1 className="hero-title" style={{ fontSize: '3.5rem', fontWeight: 900, color: 'white', letterSpacing: '-0.03em', marginBottom: '1.5rem', lineHeight: 1.1 }}>
-          {t.onboarding.hero.title}
+        <h1 className="hero-title">
+          {t.onboarding.hero.title.split('ConciergeAI').map((part, i, arr) => (
+            <React.Fragment key={i}>
+              {part}
+              {i < arr.length - 1 && <span className="brand-gold">ConciergeAI</span>}
+            </React.Fragment>
+          ))}
         </h1>
-        <p className="hero-subtitle" style={{ fontSize: '1.35rem', color: '#94a3b8', maxWidth: '700px', margin: '0 auto 3.5rem', lineHeight: '1.6', fontWeight: 500 }}>
+        <p className="hero-subtitle">
           {t.onboarding.hero.subtitle}
         </p>
 
@@ -78,6 +83,30 @@ export default function OnboardingHero() {
           margin: 0 auto;
           position: relative;
           z-index: 10;
+        }
+
+        .hero-title {
+          font-size: 3.5rem;
+          font-weight: 900;
+          color: white;
+          letter-spacing: -0.03em;
+          margin-bottom: 1.5rem;
+          line-height: 1.1;
+          text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .brand-gold {
+          color: #d4af37;
+          text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .hero-subtitle {
+          font-size: 1.35rem;
+          color: #94a3b8;
+          max-width: 700px;
+          margin: 0 auto 3.5rem;
+          line-height: 1.6;
+          font-weight: 500;
         }
 
         .premium-badge {
