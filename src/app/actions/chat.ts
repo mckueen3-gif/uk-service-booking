@@ -11,56 +11,66 @@ import {
   Coffee, Users, Info
 } from 'lucide-react';
 
-export async function processChatMessage(messages: { role: 'user' | 'assistant' | 'system'; content: string }[]) {
+import { getEliteMerchantContext, getUserTimelineContext } from '@/lib/ai/context-provider';
+import { buildConciergeSystemPrompt } from '@/lib/ai/personas';
+
+export async function processChatMessage(
+  messages: { role: 'user' | 'assistant' | 'system'; content: string }[],
+  city?: string,
+  category?: string
+) {
   // Move server-only imports inside the action to prevent client-side bundling issues
   const { prisma } = await import('@/lib/prisma');
   const { getServerSession } = await import("next-auth/next");
   const { authOptions } = await import("@/lib/auth");
 
-  const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
   const session = (await getServerSession(authOptions)) as any;
   
-  let userContext = "";
+  // 1. Gather User Context (Assets from Garage/Properties)
+  let assetContext = "";
   if (session?.user?.id) {
-    const vehicles = await (prisma as any).vehicle.findMany({ where: { userId: session.user.id } });
-    const properties = await (prisma as any).property.findMany({ where: { userId: session.user.id } });
+    const [vehicles, properties] = await Promise.all([
+      (prisma as any).vehicle.findMany({ where: { userId: session.user.id } }),
+      (prisma as any).property.findMany({ where: { userId: session.user.id } })
+    ]);
     
     if (vehicles.length > 0) {
-      userContext += `\nUser's Garage: ${vehicles.map((v: any) => `${v.make} ${v.model} (${v.year}), MOT: ${v.motDate || 'N/A'}`).join('; ')}. `;
+      assetContext += `User's Garage: ${vehicles.map((v: any) => `${v.make} ${v.model} (${v.year})`).join('; ')}. `;
     }
     if (properties.length > 0) {
-      userContext += `\nUser's Properties: ${properties.map((p: any) => `${p.address} (${p.type}), Boiler Age: ${p.boilerAge || 'N/A'}`).join('; ')}. `;
+      assetContext += `User's Properties: ${properties.map((p: any) => `${p.address} (${p.type})`).join('; ')}. `;
     }
   }
 
-  const SYSTEM_INSTRUCTION = `You are Aura, the ConciergeAI UK AI Concierge. 
-    1. PLATFORM ROLE: We connect Customers to Merchants (independent pros). 
-    2. REFUNDS: Payments held in Stripe Escrow. Refund requests are governed by our Legal Terms (/legal/terms).
-    3. DISPUTES: AI Arbiter + Manual Oversight for fair resolution.
-    4. UK COMPLIANCE: Adhere to Consumer Rights Act 2015.
-    5. CUSTOMER ASSETS: ${userContext || 'None identified yet.'}
-    Tone: Professional British English. Polite & Concise.`;
+  // 2. Fetch Modular AI Contexts (Fail-safe)
+  const [timelineContext, merchantContext] = await Promise.all([
+    getUserTimelineContext(),
+    getEliteMerchantContext({ city, category })
+  ]);
 
-  const simulateResponse = (prompt: string) => {
-    const input = prompt.toLowerCase();
-    if (input.includes("clean")) return "We have verified cleaning pros across the UK! You can book everything from domestic help to deep cleans on our homepage.";
-    if (input.includes("plumb")) return "Looking for a plumber? Browse our verified list of local experts—all Gas Safe registered where required.";
-    if (input.includes("tracker") || input.includes("車")) return "Our Repair Tracker is unique! You can see real-time updates and photos of your car's progress. Check your Dashboard!";
-    return "I'm the ConciergeAI AI! I'm currently in 'Efficiency Mode' but I can still help with bookings and finding local pros. How can I assist you today?";
-  };
+  const dynamicContext = `
+    ASSET_CONTEXT: ${assetContext || 'No specific assets listed.'}
+    
+    ${timelineContext}
+    
+    ${merchantContext}
+  `;
+
+  // 3. Assemble Unified System Prompt
+  const systemPrompt = buildConciergeSystemPrompt(dynamicContext);
 
   try {
     const aiText = await generateAIContent({
       messages,
-      systemPrompt: SYSTEM_INSTRUCTION
+      systemPrompt: systemPrompt
     });
     
     return { success: true, message: { role: 'assistant', content: aiText } };
   } catch (error) {
     console.error("AI Chat process failed:", error);
     return { 
-      success: true, 
-      message: { role: 'assistant', content: simulateResponse(messages[messages.length-1].content) + "\n\n(Note: Operating in optimized local mode due to API quota limits.)" } 
+      success: false, 
+      error: "Our Elite AI Concierge is momentarily indisposed. Please try again or visit our Help Center."
     };
   }
 }
