@@ -5,13 +5,15 @@ import { useTranslation } from '@/components/LanguageContext';
 import OnboardingHero from '@/components/joining/OnboardingHero';
 import SectorSelector from '@/components/joining/SectorSelector';
 import MerchantContract from '@/components/joining/MerchantContract';
-import { ChevronRight, ChevronLeft, CheckCircle2, Building2, Mail, Globe, User, Loader2, MapPin } from 'lucide-react';
+import { ChevronRight, ChevronLeft, CheckCircle2, Building2, Mail, Globe, User, Loader2, MapPin, Sparkles, Wand2, Calculator } from 'lucide-react';
 import { createMerchantAction } from '@/app/actions/merchant';
+import { fetchBusinessInfoWithAI } from '@/app/actions/ai_onboarding';
 
 export default function JoinPage() {
   const { t, locale } = useTranslation();
   const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [aiLoading, setAiLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedSector, setSelectedSector] = useState<string | null>(null);
   const [contractAccepted, setContractAccepted] = useState(false);
@@ -28,14 +30,44 @@ export default function JoinPage() {
   const nextStep = () => {
     if (step === 1 && !selectedSector) return;
     if (step === 3 && !contractAccepted) return;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     setStep(step + 1);
   };
 
-  const prevStep = () => setStep(Math.max(0, step - 1));
+  const prevStep = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setStep(Math.max(0, step - 1));
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleAIPreFill = async () => {
+    if (!formData.website) {
+      setError("Please enter a website URL first.");
+      return;
+    }
+    setAiLoading(true);
+    setError(null);
+    try {
+      const data = await fetchBusinessInfoWithAI(formData.website);
+      if (data.error) {
+        setError(data.error);
+      } else {
+        setFormData(prev => ({
+          ...prev,
+          businessName: data.businessName || prev.businessName,
+          bio: data.bio || prev.bio
+        }));
+        if (data.sector) setSelectedSector(data.sector);
+      }
+    } catch (err) {
+      setError("AI was unable to fetch information. Please fill manually.");
+    } finally {
+      setAiLoading(false);
+    }
   };
 
   const handleSubmit = async () => {
@@ -66,11 +98,15 @@ export default function JoinPage() {
         
         {/* Step Indicator Top Bar */}
         <div className="onboarding-stepper">
-          <div className={`step-item ${step >= 1 ? 'active' : ''}`}>1. {t.onboarding.steps.profile}</div>
-          <div className="line" />
-          <div className={`step-item ${step >= 2 ? 'active' : ''}`}>2. {t.onboarding.steps.credentials}</div>
-          <div className="line" />
-          <div className={`step-item ${step >= 3 ? 'active' : ''}`}>3. {t.onboarding.steps.contract}</div>
+          {[1, 2, 3].map((num) => (
+            <React.Fragment key={num}>
+              <div className={`step-item ${step >= num ? 'active' : ''}`}>
+                <div className="step-num">{num}</div>
+                <span>{num === 1 ? t.onboarding.steps.profile : num === 2 ? t.onboarding.steps.credentials : t.onboarding.steps.contract}</span>
+              </div>
+              {num < 3 && <div className={`line ${step > num ? 'active' : ''}`} />}
+            </React.Fragment>
+          ))}
         </div>
 
         <main className="content-area">
@@ -78,7 +114,7 @@ export default function JoinPage() {
             <div className="step-0 flex-col">
               <OnboardingHero />
               <button 
-                className="btn btn-primary float-btn stagger-2 reveal active"
+                className="btn-premium"
                 onClick={() => setStep(1)}
               >
                 {t.onboarding.buttons.start} <ChevronRight size={20} />
@@ -93,11 +129,11 @@ export default function JoinPage() {
                 onSelect={(sector) => setSelectedSector(sector)} 
               />
               <div className="controls">
-                <button className="btn btn-ghost" onClick={prevStep}>
+                <button className="btn-secondary" onClick={prevStep}>
                   <ChevronLeft size={20} /> {t.onboarding.buttons.back}
                 </button>
                 <button 
-                  className={`btn btn-primary ${!selectedSector ? 'disabled' : ''}`}
+                  className={`btn-premium ${!selectedSector ? 'disabled' : ''}`}
                   onClick={nextStep}
                   disabled={!selectedSector}
                 >
@@ -109,23 +145,46 @@ export default function JoinPage() {
 
           {step === 2 && (
             <div className="step-2 reveal active">
-              <div className="glass-panel form-card">
-                <h2 className="form-title">Business Information</h2>
-                <p className="form-intro">Tell us about your professional expertise.</p>
+              <div className="form-card">
+                <div className="card-header">
+                  <h2 className="form-title">專家商務資訊 <span style={{ color: '#d4af37' }}>Expert Profile</span></h2>
+                  <p className="form-intro">請告訴我們您的專業背景，以便我們為您對接優質客戶。</p>
+                </div>
                 
                 <div className="form-grid">
+                  <div className="input-group full ai-fetch-group">
+                    <label><Globe size={16} /> 您的官方網站 / LinkedIn (可選 AI 自動填寫)</label>
+                    <div className="input-with-button">
+                      <input 
+                        type="text" 
+                        name="website" 
+                        value={formData.website} 
+                        onChange={handleInputChange} 
+                        placeholder="https://yourwebsite.com"
+                      />
+                      <button 
+                        className={`ai-fill-btn ${aiLoading ? 'loading' : ''}`} 
+                        onClick={handleAIPreFill}
+                        disabled={aiLoading || !formData.website}
+                      >
+                        {aiLoading ? <Loader2 className="animate-spin" size={16} /> : <Wand2 size={16} />}
+                        <span>AI 智能填寫</span>
+                      </button>
+                    </div>
+                  </div>
+
                   <div className="input-group">
-                    <label><Building2 size={16} /> Business Name</label>
+                    <label><Building2 size={16} /> 商號名稱 (Business Name)</label>
                     <input 
                       type="text" 
                       name="businessName" 
                       value={formData.businessName} 
                       onChange={handleInputChange} 
-                      placeholder="e.g. Elite Accounting Services"
+                      placeholder="例如: Elite Accounting Services"
                     />
                   </div>
                   <div className="input-group">
-                    <label><Mail size={16} /> Contact Email</label>
+                    <label><Mail size={16} /> 聯絡電子郵件 (Contact Email)</label>
                     <input 
                       type="email" 
                       name="email" 
@@ -134,33 +193,26 @@ export default function JoinPage() {
                       placeholder="contact@business.com"
                     />
                   </div>
+                  
                   <div className="input-group full">
-                    <label><Globe size={16} /> Website / Portfolio (Optional)</label>
-                    <input 
-                      type="text" 
-                      name="website" 
-                      value={formData.website} 
-                      onChange={handleInputChange} 
-                      placeholder="https://..."
-                    />
-                  </div>
-                  <div className="input-group full">
-                    <label><User size={16} /> Qualifications & Credentials</label>
+                    <label><User size={16} /> 專業背景與資質 (Credentials)</label>
                     <textarea 
                       name="credentials" 
                       value={formData.credentials} 
                       onChange={handleInputChange}
-                      placeholder={selectedSector === 'professional' ? "Enter ACCA/Legal certificates..." : "Enter technical certifications..."}
+                      placeholder={selectedSector === 'professional' ? "例如: ACCA 會計師, 10年英國稅務經驗..." : "輸入您的技術認證..."}
                       rows={3}
                     />
+                    <small style={{ color: '#666', marginTop: '4px', display: 'block' }}>注意: 您可以先填寫基本資料，詳細證件可在進入後台後上傳審核。</small>
                   </div>
+
                   <div className="input-group full">
-                    <label><MapPin size={16} /> Covered City (Operational Area)</label>
+                    <label><MapPin size={16} /> 核心服務區域 (Primary City)</label>
                     <select 
                       name="city" 
                       value={formData.city} 
                       onChange={(e: any) => handleInputChange(e)} 
-                      style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', background: 'var(--surface-2)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}
+                      className="premium-select"
                     >
                       <option value="London">London (Greater London)</option>
                       <option value="Manchester">Manchester</option>
@@ -172,25 +224,16 @@ export default function JoinPage() {
                       <option value="Bristol">Bristol</option>
                     </select>
                   </div>
-                  <div className="input-group full">
-                    <label style={{ color: 'var(--accent-color)' }}><CheckCircle2 size={16} /> Promo Code (Optional)</label>
-                    <input 
-                      type="text" 
-                      name="promoCode" 
-                      value={formData.promoCode} 
-                      onChange={handleInputChange} 
-                      placeholder="e.g. FREE10 or JOIN5"
-                      style={{ border: '2px dashed var(--accent-color)', background: 'rgba(99, 102, 241, 0.05)' }}
-                    />
-                  </div>
                 </div>
 
+                {error && <div className="error-msg">{error}</div>}
+
                 <div className="controls">
-                  <button className="btn btn-ghost" onClick={prevStep}>
+                  <button className="btn-secondary" onClick={prevStep}>
                     <ChevronLeft size={20} /> {t.onboarding.buttons.back}
                   </button>
                   <button 
-                    className={`btn btn-primary ${!isFormValid ? 'disabled' : ''}`}
+                    className={`btn-premium ${!isFormValid ? 'disabled' : ''}`}
                     onClick={nextStep}
                     disabled={!isFormValid}
                   >
@@ -208,18 +251,14 @@ export default function JoinPage() {
                 onAccept={(val) => setContractAccepted(val)} 
               />
               
-              {error && (
-                <div style={{ color: '#ef4444', textAlign: 'center', marginTop: '1rem', fontWeight: 600 }}>
-                  {error}
-                </div>
-              )}
+              {error && <div className="error-msg">{error}</div>}
 
               <div className="controls">
-                <button className="btn btn-ghost" onClick={prevStep}>
+                <button className="btn-secondary" onClick={prevStep}>
                   <ChevronLeft size={20} /> {t.onboarding.buttons.back}
                 </button>
                 <button 
-                  className={`btn btn-primary ${!contractAccepted || loading ? 'disabled' : ''}`}
+                  className={`btn-premium submit-btn ${!contractAccepted || loading ? 'disabled' : ''}`}
                   onClick={handleSubmit}
                   disabled={!contractAccepted || loading}
                 >
@@ -231,15 +270,33 @@ export default function JoinPage() {
 
           {step === 4 && (
             <div className="step-success reveal active">
-              <div className="success-card glass-panel">
-                <div className="animated-check">
-                  <CheckCircle2 color="var(--accent-color)" size={80} />
+              <div className="success-wrapper">
+                <div className="success-card">
+                  <div className="animated-check">
+                    <CheckCircle2 color="#d4af37" size={100} />
+                    <div className="check-glow" />
+                  </div>
+                  <h2 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '1rem', color: 'white' }}>註冊成功！</h2>
+                  <p style={{ color: '#888', fontSize: '1.1rem', marginBottom: '3rem' }}>
+                    歡迎加入 ConciergeAI 的精英團隊。我們已收到您的申請，您可以先行探索商戶後台。
+                  </p>
+                  
+                  {/* AI Tax Assistant Placeholder */}
+                  <div className="ai-placeholder-card">
+                    <div className="placeholder-icon">
+                      <Calculator size={32} color="#d4af37" />
+                    </div>
+                    <div className="placeholder-text">
+                      <h4 style={{ color: '#d4af37', margin: 0, fontWeight: 900 }}>AI 稅務助手 (Beta)</h4>
+                      <p style={{ color: '#666', fontSize: '0.85rem', margin: '4px 0 0' }}>強大的 AI 記帳與稅務自動化工具即將開放內測，敬請期待。</p>
+                    </div>
+                    <div className="coming-soon-badge">COMING SOON</div>
+                  </div>
+
+                  <button className="btn-premium wide" onClick={() => window.location.href = '/dashboard/merchant'}>
+                    進入商戶中心 <ChevronRight size={20} />
+                  </button>
                 </div>
-                <h2>Application Submitted!</h2>
-                <p>Welcome to ConciergeAI. Our team is now reviewing your credentials for {selectedSector} sector. You will receive an email within 24 hours.</p>
-                <button className="btn btn-primary" onClick={() => window.location.href = '/'}>
-                  Return to Home
-                </button>
               </div>
             </div>
           )}
@@ -249,73 +306,89 @@ export default function JoinPage() {
       <style jsx>{`
         .join-layout {
           min-height: 100vh;
-          background-color: var(--bg-primary);
-          padding-top: 40px;
+          background-color: #050505;
+          padding-top: 60px;
+          color: white;
         }
 
         .join-container {
           max-width: 1200px;
           margin: 0 auto;
-          padding: 0 20px 80px;
+          padding: 0 20px 100px;
         }
 
         .onboarding-stepper {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 20px;
-          padding: 20px;
-          margin-bottom: 40px;
+          gap: 24px;
+          padding: 24px;
+          margin-bottom: 60px;
         }
 
         .step-item {
-          font-weight: 700;
-          color: var(--text-muted);
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          font-weight: 800;
+          color: #333;
           font-size: 0.9rem;
-          opacity: 0.6;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          transition: all 0.4s;
         }
 
         .step-item.active {
-          color: var(--accent-color);
-          opacity: 1;
+          color: #d4af37;
+        }
+
+        .step-num {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          border: 2px solid #333;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 0.8rem;
+        }
+
+        .step-item.active .step-num {
+          border-color: #d4af37;
+          background: rgba(212, 175, 55, 0.1);
         }
 
         .line {
-          width: 40px;
+          width: 60px;
           height: 2px;
-          background: var(--surface-3);
+          background: #222;
         }
 
-        .content-area {
-          min-height: 500px;
-        }
-
-        .flex-col {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-
-        .controls {
-          display: flex;
-          justify-content: center;
-          gap: 20px;
-          margin-top: 40px;
+        .line.active {
+          background: #d4af37;
+          opacity: 0.3;
         }
 
         .form-card {
-          max-width: 600px;
+          max-width: 700px;
           margin: 0 auto;
-          padding: 40px;
+          padding: 50px;
+          background: rgba(15, 15, 15, 0.6);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          border-radius: 32px;
+          box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
         .form-title {
-          margin-bottom: 8px;
+          margin-bottom: 12px;
+          font-size: 2rem;
+          font-weight: 900;
         }
 
         .form-intro {
-          color: var(--text-muted);
-          margin-bottom: 32px;
+          color: #777;
+          margin-bottom: 40px;
+          font-weight: 500;
         }
 
         .form-grid {
@@ -332,76 +405,205 @@ export default function JoinPage() {
           display: flex;
           align-items: center;
           gap: 8px;
-          font-size: 0.85rem;
-          font-weight: 600;
-          margin-bottom: 8px;
-          color: var(--text-secondary);
+          font-size: 0.75rem;
+          font-weight: 800;
+          margin-bottom: 10px;
+          color: #555;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
         }
 
-        input, textarea {
+        input, textarea, .premium-select {
           width: 100%;
-          padding: 12px 16px;
-          background: var(--surface-2);
-          border: 1px solid var(--border-color);
-          border-radius: 12px;
-          color: var(--text-primary);
+          padding: 16px 20px;
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 16px;
+          color: white;
           outline: none;
-          transition: border-color 0.3s;
+          transition: all 0.3s;
+          font-size: 1rem;
+          font-weight: 500;
         }
 
-        input:focus, textarea:focus {
-          border-color: var(--accent-color);
+        input:focus, textarea:focus, .premium-select:focus {
+          border-color: #d4af37;
+          background: rgba(212, 175, 55, 0.05);
+          box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
         }
 
-        .btn-ghost {
+        .input-with-button {
+          display: flex;
+          gap: 12px;
+        }
+
+        .ai-fill-btn {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 0 20px;
+          background: rgba(212, 175, 55, 0.1);
+          color: #d4af37;
+          border: 1px solid rgba(212, 175, 55, 0.2);
+          border-radius: 16px;
+          font-weight: 800;
+          font-size: 0.85rem;
+          cursor: pointer;
+          transition: all 0.3s;
+          white-space: nowrap;
+        }
+
+        .ai-fill-btn:hover:not(:disabled) {
+          background: #d4af37;
+          color: black;
+        }
+
+        .ai-fill-btn:disabled {
+          opacity: 0.3;
+          cursor: not-allowed;
+        }
+
+        .btn-premium {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 16px 40px;
+          background: #d4af37;
+          color: black;
+          border-radius: 99px;
+          font-weight: 900;
+          font-size: 1.1rem;
+          border: none;
+          cursor: pointer;
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+          box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-premium:hover:not(.disabled) {
+          transform: translateY(-4px) scale(1.02);
+          box-shadow: 0 20px 40px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-premium.wide {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .btn-secondary {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 16px 32px;
           background: transparent;
-          color: var(--text-muted);
-          border: 1px solid var(--border-color);
+          color: #777;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 99px;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.3s;
         }
 
-        .btn-ghost:hover {
-          background: var(--surface-2);
+        .btn-secondary:hover {
+          color: white;
+          border-color: #555;
+          background: rgba(255, 255, 255, 0.05);
+        }
+
+        .controls {
+          display: flex;
+          justify-content: center;
+          gap: 20px;
+          margin-top: 50px;
+        }
+
+        .success-wrapper {
+          padding: 40px 0;
         }
 
         .success-card {
           text-align: center;
-          padding: 60px;
-          max-width: 600px;
-          margin: 40px auto;
+          padding: 80px 60px;
+          max-width: 700px;
+          margin: 0 auto;
+          background: radial-gradient(circle at center, rgba(212, 175, 55, 0.1) 0%, rgba(5, 5, 5, 1) 100%);
+          border-radius: 40px;
+          border: 1px solid rgba(212, 175, 55, 0.1);
+          position: relative;
         }
 
         .animated-check {
-          margin-bottom: 24px;
-          animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+          position: relative;
+          display: inline-block;
+          margin-bottom: 40px;
         }
 
-        @keyframes scaleIn {
-          from { transform: scale(0.5); opacity: 0; }
-          to { transform: scale(1); opacity: 1; }
+        .check-glow {
+          position: absolute;
+          inset: -20px;
+          background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 70%);
+          z-index: -1;
+          filter: blur(20px);
+          animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+          0% { transform: scale(1); opacity: 0.5; }
+          50% { transform: scale(1.2); opacity: 0.8; }
+          100% { transform: scale(1); opacity: 0.5; }
+        }
+
+        .ai-placeholder-card {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          padding: 24px;
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px dashed rgba(212, 175, 55, 0.3);
+          border-radius: 20px;
+          margin-bottom: 50px;
+          text-align: left;
+          position: relative;
+        }
+
+        .coming-soon-badge {
+          position: absolute;
+          top: 12px;
+          right: 12px;
+          background: #d4af37;
+          color: black;
+          font-size: 0.65rem;
+          font-weight: 900;
+          padding: 4px 10px;
+          border-radius: 6px;
+        }
+
+        .error-msg {
+          color: #ef4444;
+          text-align: center;
+          margin-top: 20px;
+          font-weight: 700;
         }
 
         .disabled {
-          opacity: 0.5;
+          opacity: 0.3;
           cursor: not-allowed;
           pointer-events: none;
-        }
-
-        .animate-spin {
-          animation: spin 1s linear infinite;
         }
 
         @keyframes spin {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
         }
+        .animate-spin {
+          animation: spin 1s linear infinite;
+        }
 
-        @media (max-width: 640px) {
-          .form-grid {
-            grid-template-columns: 1fr;
-          }
-          .input-group.full {
-            grid-column: span 1;
-          }
+        @media (max-width: 768px) {
+          .form-grid { grid-template-columns: 1fr; }
+          .input-group.full { grid-column: span 1; }
+          .form-card { padding: 30px 20px; }
+          .input-with-button { flex-direction: column; }
+          .ai-fill-btn { padding: 12px; justify-content: center; }
         }
       `}</style>
     </div>

@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { useTranslation } from '../LanguageContext';
-import { FileText, ShieldCheck, AlertCircle } from 'lucide-react';
+import { ShieldCheck, AlertCircle } from 'lucide-react';
 
 interface MerchantContractProps {
   onAccept: (accepted: boolean) => void;
@@ -17,15 +17,13 @@ export default function MerchantContract({ onAccept, accepted }: MerchantContrac
   const handleScroll = () => {
     if (scrollRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = scrollRef.current;
-      // If we are within 20px of the bottom
-      if (scrollHeight - scrollTop <= clientHeight + 20) {
+      if (scrollHeight - scrollTop <= clientHeight + 30) {
         setHasReadToBottom(true);
       }
     }
   };
 
   useEffect(() => {
-    // Initial check if content is already short
     if (scrollRef.current) {
       const { scrollHeight, clientHeight } = scrollRef.current;
       if (scrollHeight <= clientHeight) {
@@ -37,26 +35,34 @@ export default function MerchantContract({ onAccept, accepted }: MerchantContrac
   return (
     <div className="merchant-contract-container">
       <div className="contract-header">
-        <ShieldCheck className="icon-main" />
-        <h3>{t.onboarding.contract.title}</h3>
+        <div className="icon-glow">
+          <ShieldCheck className="icon-main" size={32} />
+        </div>
+        <h3 style={{ color: 'white', fontSize: '1.75rem', fontWeight: 900 }}>入駐協議 <span style={{ color: '#d4af37', opacity: 0.8 }}>Expert Terms</span></h3>
       </div>
 
       <div 
-        className="contract-box glass-panel" 
+        className="contract-box" 
         onScroll={handleScroll}
         ref={scrollRef}
+        style={{ 
+          backgroundColor: 'rgba(15, 15, 15, 0.8)',
+          border: '1px solid rgba(212, 175, 55, 0.1)',
+          borderRadius: '24px',
+          boxShadow: 'inset 0 0 20px rgba(0,0,0,0.5)'
+        }}
       >
         <div className="contract-content">
-          <h4>{t.onboarding.contract.clauses.platform_fee.title}</h4>
+          <h4 style={{ color: '#d4af37' }}>{t.onboarding.contract.clauses.platform_fee.title}</h4>
           <p>{t.onboarding.contract.clauses.platform_fee.body}</p>
 
-          <h4>{t.onboarding.contract.clauses.payments.title}</h4>
+          <h4 style={{ color: '#d4af37' }}>{t.onboarding.contract.clauses.payments.title}</h4>
           <p>{t.onboarding.contract.clauses.payments.body}</p>
 
-          <h4>{t.onboarding.contract.clauses.conduct.title}</h4>
+          <h4 style={{ color: '#d4af37' }}>{t.onboarding.contract.clauses.conduct.title}</h4>
           <p>{t.onboarding.contract.clauses.conduct.body}</p>
           
-          <div className="contract-legal">
+          <div className="contract-legal" style={{ borderTop: '1px solid rgba(212, 175, 55, 0.1)', color: '#666' }}>
             <p><strong>Additional Terms:</strong> By joining ConciergeAI, you certify that all information provided is accurate and that you possess the necessary insurance and licenses required to practice in the United Kingdom.</p>
             <p>© 2026 ConciergeAI UK Limited. All Rights Reserved.</p>
           </div>
@@ -71,13 +77,15 @@ export default function MerchantContract({ onAccept, accepted }: MerchantContrac
           </div>
         )}
         
-        <label className={`agree-label ${!hasReadToBottom ? 'disabled' : ''}`}>
-          <input 
-            type="checkbox" 
-            checked={accepted} 
-            onChange={(e) => onAccept(e.target.checked)}
-            disabled={!hasReadToBottom}
-          />
+        <label className={`agree-label ${!hasReadToBottom ? 'disabled' : ''} ${accepted ? 'accepted' : ''}`}>
+          <div className="checkbox-custom">
+            <input 
+              type="checkbox" 
+              checked={accepted} 
+              onChange={(e) => onAccept(e.target.checked)}
+              disabled={!hasReadToBottom}
+            />
+          </div>
           <span className="check-text">{t.onboarding.contract.agree}</span>
         </label>
       </div>
@@ -91,96 +99,117 @@ export default function MerchantContract({ onAccept, accepted }: MerchantContrac
 
         .contract-header {
           display: flex;
+          flex-direction: column;
           align-items: center;
-          gap: 12px;
-          margin-bottom: 20px;
-          justify-content: center;
+          gap: 16px;
+          margin-bottom: 32px;
+          text-align: center;
         }
 
-        .icon-main {
-          color: var(--accent-color);
+        .icon-glow {
+          width: 64px;
+          height: 64px;
+          background: rgba(212, 175, 55, 0.1);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #d4af37;
+          box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
         }
 
         .contract-box {
-          height: 300px;
+          height: 350px;
           overflow-y: auto;
-          padding: 30px;
-          margin-bottom: 24px;
+          padding: 40px;
+          margin-bottom: 32px;
           scrollbar-width: thin;
-          scrollbar-color: var(--accent-color) transparent;
+          scrollbar-color: #d4af37 transparent;
         }
 
         .contract-content h4 {
-          margin-top: 24px;
+          margin-top: 32px;
           margin-bottom: 12px;
-          color: var(--text-primary);
-          font-size: 1.1rem;
+          font-size: 1.15rem;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
         }
 
         .contract-content p {
-          color: var(--text-muted);
-          line-height: 1.7;
-          font-size: 0.95rem;
-          margin-bottom: 16px;
+          color: #888;
+          line-height: 1.8;
+          font-size: 1rem;
+          margin-bottom: 20px;
+          font-weight: 500;
         }
 
         .contract-legal {
-          margin-top: 40px;
-          padding-top: 20px;
-          border-top: 1px dashed var(--border-color);
-          font-size: 0.85rem ! from dictionary;
+          margin-top: 48px;
+          padding-top: 24px;
+          font-size: 0.9rem;
         }
 
         .contract-footer {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 16px;
+          gap: 20px;
         }
 
         .scroll-hint {
           display: flex;
           align-items: center;
           gap: 8px;
-          padding: 8px 16px;
-          background: rgba(255, 152, 0, 0.1);
-          color: #f59e0b;
-          border-radius: 8px;
+          padding: 10px 20px;
+          background: rgba(212, 175, 55, 0.1);
+          color: #d4af37;
+          border-radius: 12px;
           font-size: 0.85rem;
-          font-weight: 600;
+          font-weight: 700;
+          border: 1px solid rgba(212, 175, 55, 0.2);
         }
 
         .agree-label {
           display: flex;
           align-items: center;
-          gap: 12px;
-          font-weight: 600;
+          gap: 14px;
+          font-weight: 700;
           cursor: pointer;
-          padding: 12px 24px;
+          padding: 14px 32px;
           border-radius: 99px;
-          transition: all 0.3s;
-          border: 1px solid var(--border-color);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          background: rgba(255, 255, 255, 0.02);
         }
 
         .agree-label:hover:not(.disabled) {
-          background: var(--accent-soft);
-          border-color: var(--accent-color);
+          border-color: #d4af37;
+          background: rgba(212, 175, 55, 0.05);
+        }
+
+        .agree-label.accepted {
+          border-color: #d4af37;
+          background: rgba(212, 175, 55, 0.1);
+          box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
         }
 
         .agree-label.disabled {
-          opacity: 0.5;
+          opacity: 0.3;
           cursor: not-allowed;
           filter: grayscale(1);
         }
 
         .check-text {
-          color: var(--text-primary);
+          color: white;
+          font-size: 1rem;
         }
 
         input[type="checkbox"] {
-          width: 20px;
-          height: 20px;
-          accent-color: var(--accent-color);
+          width: 22px;
+          height: 22px;
+          accent-color: #d4af37;
+          cursor: pointer;
         }
       `}</style>
     </div>
