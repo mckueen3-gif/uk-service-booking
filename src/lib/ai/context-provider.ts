@@ -38,7 +38,10 @@ export async function getEliteMerchantContext(options: MerchantContextOptions = 
       take: limit,
       orderBy: { averageRating: 'desc' },
       include: {
-        services: { take: 3 }
+        services: { take: 3 },
+        documents: { 
+          where: { status: { in: ['APPROVED', 'PENDING'] } } 
+        }
       }
     });
 
@@ -46,10 +49,32 @@ export async function getEliteMerchantContext(options: MerchantContextOptions = 
 
     const context = merchants.map(m => {
       const topServices = m.services.map(s => s.name).join(', ');
-      return `- ${m.companyName} (${m.city}): Rated ${m.averageRating}/5. Specializes in: ${topServices}. [Elite Pro Status: Verified]`;
+      
+      // Analyze verification status
+      const hasApprovedInsurance = m.documents.some(d => d.type === 'PUBLIC_LIABILITY' && d.status === 'APPROVED');
+      const hasPendingInsurance = m.documents.some(d => d.type === 'PUBLIC_LIABILITY' && d.status === 'PENDING');
+      
+      const approvedCerts = m.documents
+        .filter(d => d.status === 'APPROVED' && d.type !== 'PUBLIC_LIABILITY')
+        .map(d => d.type);
+
+      const pendingCerts = m.documents
+        .filter(d => d.status === 'PENDING' && d.type !== 'PUBLIC_LIABILITY')
+        .map(d => d.type);
+
+      let verificationTag = "[VERIFICATION_NEEDED]";
+      if (hasApprovedInsurance && approvedCerts.length > 0) {
+        verificationTag = `[FULLY_VERIFIED: Insured & Certified (${approvedCerts.join('/')})]`;
+      } else if (hasApprovedInsurance) {
+        verificationTag = "[INSURED_ONLY: Pending specialized certifications review]";
+      } else if (hasPendingInsurance || pendingCerts.length > 0) {
+        verificationTag = "[ADMIN_REVIEW_PENDING: Documents are currently being manually verified for your safety]";
+      }
+
+      return `- ${m.companyName} (${m.city}): Rated ${m.averageRating}/5. ${verificationTag}. Specializes in: ${topServices}.`;
     }).join('\n');
 
-    return `TOP RECOMMENDED ELITE MERCHANTS:\n${context}`;
+    return `TOP RECOMMENDED EXPERTS & VERIFICATION STATUS:\n${context}`;
   } catch (error) {
     console.error('[AI Context Provider] Failed to fetch merchant context:', error);
     return "Merchant data is currently unavailable.";

@@ -20,10 +20,13 @@ export const UK_LEGAL_COMPLIANCE = `
 `;
 
 export const RECOMMENDATION_GUIDELINES = `
-  RECOMMENDATION PROTOCOL:
-  - DO NOT proactively recommend merchants unless the user asks for help finding one or describes a specific problem.
-  - If the user asks for a pro, use the 'TOP RECOMMENDED ELITE MERCHANTS' list provided in the context.
-  - Highlight the 'Elite Pro' status and ratings of the merchants you recommend.
+  RECOMMENDATION & VERIFICATION PROTOCOL:
+  - DO NOT proactively recommend merchants unless specifically asked.
+  - VERIFICATION STATUS: Always check the [TAGS] in the merchant context.
+  - IF [FULLY_VERIFIED]: Inform the user they are fully insured and certified by our elite platform.
+  - IF [ADMIN_REVIEW_PENDING]: Explicitly state that "This professional's documentation is currently undergoing manual verification by our Concierge Team to ensure your safety." 
+  - HIGH-RISK TASKS: For Gas, Electric, or Legal work, express extreme caution and prioritize only those with [FULLY_VERIFIED] status. 
+  - If no verified pro is found, suggest the user wait for our admin team to finalize current document reviews.
 `;
 
 /**
