@@ -105,6 +105,21 @@ export const zhTW: Dictionary = {
   home: {
     hero: { badge: "經過認證的英國本地大師", title1: "預約頂級評分", title2: "本地專家", subtitle: "即時聯繫英國前 1% 的服務專業人士。經過驗證、已投保並由 AI 監控，確保品質卓越。", searchPlaceholder: "我需要...", locationPlaceholder: "倫敦, 英國", aiMatch: "智能匹配", searchBtn: "搜尋專家" },
     recommendation: { title1: "量身定制", title2: "為您推薦", subtitle: "根據您最近的需求和地點匹配頂級專家。", browse: "瀏覽所有專家" },
+    recommendationResults: {
+      trendingTitle: "{{city}} 最熱門：{{category}}",
+      topRatedTitle: "{{city}} 頂級評分：{{category}}",
+      professionalTitle: "{{city}} 專業服務",
+      homeRepair: "居家修繕",
+      deepCleaning: "深層清潔",
+      accounting: "會計與法律服務",
+      autoRepair: "汽車維修與保養",
+      homeSub: "附近的頂級電工與水管工",
+      cleanSub: "今日可預約的在地驗證專家",
+      accountSub: "高評分的會計師與法律顧問",
+      autoSub: "專業技師為您的愛車提供維護",
+      assetMatch: "資產精準匹配",
+      trending: "在地熱門趨勢"
+    },
     aiCTA: { badge: "GEMINI AI 驅動", title1: "不知道出了什麼問題？", title2: "獲得即時 AI 診斷", subtitle: "上傳問題照片。我們的 AI 會在幾秒鐘內識別出問題、估算成本並找到合適的專家。", button: "嘗試免費 AI 診斷" },
     referralCTA: { badge: "推薦獎勵", title: "賺取 2% 被動收入", subtitle: "推薦朋友，在接下來的 5 年內，他們每次預訂您都能獲得 2% 的佣金（每位朋友最高 £200）。", button: "開始賺取獎金", referralLabel: "您的專屬推廣碼：" },
     educationCTA: "訪問教育輔導面板",

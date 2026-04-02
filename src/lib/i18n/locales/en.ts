@@ -104,6 +104,21 @@ export const en: Dictionary = {
   home: {
     hero: { badge: "Certified UK Local Masters", title1: "Book Top-Rated", title2: "Local Experts", subtitle: "Instant access to the top 1% of UK service professionals. Verified, insured, and AI-monitored for guaranteed quality.", searchPlaceholder: "I need a...", locationPlaceholder: "London, UK", aiMatch: "Smart Match", searchBtn: "Search Experts" },
     recommendation: { title1: "Personalized", title2: "For You", subtitle: "Top specialists matching your recent needs and location.", browse: "Browse All Specialists" },
+    recommendationResults: {
+      trendingTitle: "Trending in {{city}}: {{category}}",
+      topRatedTitle: "Top Rated in {{city}}: {{category}}",
+      professionalTitle: "Professional Services in {{city}}",
+      homeRepair: "Home Repairs",
+      deepCleaning: "Deep Cleaning",
+      accounting: "Accounting & Legal",
+      autoRepair: "Auto Maintenance",
+      homeSub: "Top-rated electricians & plumbers nearby",
+      cleanSub: "Verified local experts available today",
+      accountSub: "Highly-rated accountants and legal aids",
+      autoSub: "Professional mechanics for your vehicle",
+      assetMatch: "Asset Match",
+      trending: "Trending Locally"
+    },
     aiCTA: { badge: "GEMINI AI POWERED", title1: "Not Sure What's wrong?", title2: "Get Instant Diagnosis", subtitle: "Upload a photo of your issue. Our AI identifies the problem, estimates costs, and finds the right specialist in seconds.", button: "Try Free AI Diagnosis" },
     referralCTA: { badge: "Referral Rewards", title: "Earn 2% Passive Income", subtitle: "Refer a friend and get 2% of every booking they make for the next 5 years (up to £200 per friend).", button: "Start Earning Commission", referralLabel: "Your Personal Referral Code:" },
     educationCTA: "Visit Education Dashboard",

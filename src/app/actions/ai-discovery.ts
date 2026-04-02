@@ -51,9 +51,36 @@ export async function getPersonalizedFeed(city?: string) {
       // If not logged in, return localized trending based on city
       return {
         recommendations: [
-          { id: 't1', title: `Trending in ${currentCity}: Home Repairs`, subtitle: "Top-rated electricians & plumbers nearby", category: "Repair", query: "Repair", icon: "TrendingUp", reason: "Trending" },
-          { id: 't2', title: `Top Rated in ${currentCity}: Deep Cleaning`, subtitle: "Verified local experts available today", category: "Cleaning", query: "Clean", icon: "TrendingUp", reason: "Trending" },
-          { id: 't3', title: `Professional Services in ${currentCity}`, subtitle: "Highly-rated accountants and legal aids", category: "Accounting", query: "Accounting", icon: "Briefcase", reason: "Trending" }
+          { 
+            id: 't1', 
+            titleKey: 'trendingTitle',
+            categoryKey: 'homeRepair',
+            subtitleKey: 'homeSub',
+            category: "Repair", 
+            query: "Repair", 
+            icon: "Hammer", 
+            reasonKey: "trending" 
+          },
+          { 
+            id: 't2', 
+            titleKey: 'topRatedTitle',
+            categoryKey: 'deepCleaning',
+            subtitleKey: 'cleanSub',
+            category: "Cleaning", 
+            query: "Clean", 
+            icon: "Sparkles", 
+            reasonKey: "trending" 
+          },
+          { 
+            id: 't3', 
+            titleKey: 'professionalTitle',
+            categoryKey: 'accounting',
+            subtitleKey: 'accountSub',
+            category: "Accounting", 
+            query: "Accounting", 
+            icon: "Briefcase", 
+            reasonKey: "trending" 
+          }
         ]
       };
     }
@@ -68,12 +95,12 @@ export async function getPersonalizedFeed(city?: string) {
     for (const v of vehicles) {
       recommendations.push({
         id: `v_${v.id}`,
-        title: `${v.make} ${v.model} 專屬保養`,
+        title: `${v.make} ${v.model} 專屬保養`, // Static titles for now as they are dynamic assets
         subtitle: `根據您的 ${v.year} 年份座駕推薦`,
         category: "Auto",
         query: v.make,
         icon: "Car",
-        reason: "Asset-Match"
+        reasonKey: "assetMatch"
       });
     }
 
@@ -86,15 +113,33 @@ export async function getPersonalizedFeed(city?: string) {
         category: "Home",
         query: "Maintenance",
         icon: "Home",
-        reason: "Asset-Match"
+        reasonKey: "assetMatch"
       });
     }
 
     // Fallback: Trending
     if (recommendations.length === 0) {
       recommendations.push(
-        { id: 't1', title: `${currentCity} Popular Professional Services`, subtitle: "Trusted reviews in your area", category: "Auto", query: "Repair", icon: "TrendingUp", reason: "Trending" },
-        { id: 't2', title: `Home Maintenance in ${currentCity}`, subtitle: "Get instant quotes today", category: "Cleaning", query: "Clean", icon: "TrendingUp", reason: "Trending" }
+        { 
+          id: 't1', 
+          titleKey: 'trendingTitle',
+          categoryKey: 'autoRepair', 
+          subtitleKey: 'autoSub',
+          category: "Auto", 
+          query: "Repair", 
+          icon: "Car", 
+          reasonKey: "trending" 
+        },
+        { 
+          id: 't2', 
+          titleKey: 'trendingTitle',
+          categoryKey: 'homeRepair', 
+          subtitleKey: 'homeSub',
+          category: "Repair", 
+          query: "Repair", 
+          icon: "Hammer", 
+          reasonKey: "trending" 
+        }
       );
     }
 
@@ -104,8 +149,26 @@ export async function getPersonalizedFeed(city?: string) {
     // Ultimate fallback for server-side exceptions
     return {
       recommendations: [
-        { id: 'f1', title: `Trending in ${currentCity}: Home Repairs`, subtitle: "Top-rated professionals nearby", category: "Repair", query: "Repair", icon: "TrendingUp", reason: "Trending" },
-        { id: 'f2', title: `Top Rated in ${currentCity}: Auto Maintenance`, subtitle: "Verified local experts", category: "Auto", query: "Repair", icon: "Car", reason: "Trending" }
+        { 
+          id: 'f1', 
+          titleKey: 'trendingTitle',
+          categoryKey: 'homeRepair', 
+          subtitleKey: 'homeSub',
+          category: "Repair", 
+          query: "Repair", 
+          icon: "Hammer", 
+          reasonKey: "trending" 
+        },
+        { 
+          id: 'f2', 
+          titleKey: 'topRatedTitle',
+          categoryKey: 'autoRepair', 
+          subtitleKey: 'autoSub',
+          category: "Auto", 
+          query: "Repair", 
+          icon: "Car", 
+          reasonKey: "trending" 
+        }
       ]
     };
   }

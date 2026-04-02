@@ -100,6 +100,21 @@ export interface Dictionary {
   home: {
     hero: { badge: string; title1: string; title2: string; subtitle: string; searchPlaceholder: string; locationPlaceholder: string; aiMatch: string; searchBtn: string };
     recommendation: { title1: string; title2: string; subtitle: string; browse: string };
+    recommendationResults: {
+      trendingTitle: string;
+      topRatedTitle: string;
+      professionalTitle: string;
+      homeRepair: string;
+      deepCleaning: string;
+      accounting: string;
+      autoRepair: string;
+      homeSub: string;
+      cleanSub: string;
+      accountSub: string;
+      autoSub: string;
+      assetMatch: string;
+      trending: string;
+    };
     aiCTA: { badge: string; title1: string; title2: string; subtitle: string; button: string };
     referralCTA: { badge: string; title: string; subtitle: string; button: string; referralLabel: string };
     educationCTA: string;
