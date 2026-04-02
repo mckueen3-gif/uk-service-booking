@@ -65,20 +65,20 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
                 justifyContent: 'space-between',
                 padding: '0.85rem 1rem', 
                 borderRadius: '14px', 
-                backgroundColor: isActive ? 'rgba(15, 118, 110, 0.08)' : 'transparent', 
-                color: isActive ? 'var(--accent-color)' : 'var(--text-secondary)', 
+                backgroundColor: isActive ? 'rgba(212, 175, 55, 0.1)' : 'transparent', 
+                color: isActive ? '#d4af37' : 'var(--text-secondary)', 
                 fontWeight: isActive ? 800 : 500, 
                 textDecoration: 'none',
                 transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-                border: isActive ? '1px solid rgba(15, 118, 110, 0.1)' : '1px solid transparent'
+                border: isActive ? '1px solid rgba(212, 175, 55, 0.2)' : '1px solid transparent'
               }}
               className={isActive ? "" : "hover-sidebar-item"}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-                <Icon size={18} color={isActive ? "var(--accent-color)" : "var(--text-secondary)"} /> 
+                <Icon size={18} color={isActive ? "#d4af37" : "var(--text-secondary)"} /> 
                 <span style={{ fontSize: '0.9rem' }}>{item.label}</span>
               </div>
-              {isActive && <ChevronRight size={14} color="var(--accent-color)" />}
+              {isActive && <ChevronRight size={14} color="#d4af37" />}
             </Link>
           );
         })}
@@ -94,44 +94,45 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
       paddingTop: '0.5rem' 
     }}>
       {/* Main Actions */}
-      {renderNavSection("Main", mainItems)}
+      {renderNavSection("Main Terminal", mainItems)}
       
       {/* Role-specific Actions */}
-      {renderNavSection(isMerchant ? "Business" : "Assets & Rewards", businessItems)}
+      {renderNavSection(isMerchant ? "Elite Business" : "Assets & Rewards", businessItems)}
       
       {/* Account Actions */}
-      {renderNavSection("Account", accountItems)}
+      {renderNavSection("Expert Account", accountItems)}
 
       {/* Pro Membership / Verification status footer card */}
       <div style={{ 
         marginTop: 'auto', 
         padding: '1.25rem', 
-        backgroundColor: 'var(--surface-2)', 
+        backgroundColor: '#111', 
         borderRadius: '20px', 
-        border: '1px solid var(--border-color)',
-        marginBottom: '1rem'
+        border: '1px solid #222',
+        marginBottom: '1rem',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
-          <div style={{ backgroundColor: 'var(--accent-color)', padding: '0.5rem', borderRadius: '10px' }}>
-            <ShieldCheck size={18} color="white" />
+          <div style={{ backgroundColor: '#d4af37', padding: '0.5rem', borderRadius: '10px' }}>
+            <ShieldCheck size={18} color="#000" />
           </div>
           <div>
-            <p style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--text-primary)' }}>ID Verified</p>
-            <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>Security Check ✅</p>
+            <p style={{ fontSize: '0.8rem', fontWeight: 800, color: '#fff' }}>Trust Verified</p>
+            <p style={{ fontSize: '0.65rem', color: '#666' }}>ConciergeAI Expert</p>
           </div>
         </div>
         <div style={{ 
-          backgroundColor: 'white', 
+          backgroundColor: '#000', 
           padding: '0.5rem', 
           borderRadius: '10px', 
           fontSize: '0.75rem', 
-          color: 'var(--accent-color)', 
+          color: '#d4af37', 
           fontWeight: 800, 
           textAlign: 'center',
           cursor: 'pointer',
-          border: '1px solid var(--accent-soft)'
+          border: '1px solid rgba(212, 175, 55, 0.3)'
         }} className="hover-lift">
-          <Zap size={14} style={{ marginRight: '4px', verticalAlign: 'middle' }} /> Upgrade Plan
+          <Zap size={14} style={{ marginRight: '4px', verticalAlign: 'middle' }} /> Boost Reach
         </div>
       </div>
 
@@ -161,17 +162,18 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
 
       <style jsx>{`
         .hover-sidebar-item:hover {
-          background-color: rgba(255, 255, 255, 0.4);
-          color: var(--text-primary) !important;
+          background-color: rgba(212, 175, 55, 0.05);
+          color: #fff !important;
           transform: translateX(4px);
         }
         .hover-sidebar-item-red:hover {
-          background-color: #fef2f2;
+          background-color: rgba(239, 68, 68, 0.05);
           transform: translateX(4px);
         }
         .hover-lift:hover {
           transform: translateY(-2px);
-          box-shadow: var(--shadow-md);
+          box-shadow: 0 4px 12px rgba(212, 175, 55, 0.1);
+          border-color: #d4af37 !important;
         }
       `}</style>
     </nav>

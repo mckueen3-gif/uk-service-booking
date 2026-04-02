@@ -17,10 +17,10 @@ export default function MerchantAnalytics() {
 
   if (loading) {
     return (
-      <div style={{ height: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--surface-1)', borderRadius: '24px', border: '1px solid var(--border-color)' }}>
+      <div style={{ height: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#0c0c0c', borderRadius: '24px', border: '1px solid #222' }}>
         <div style={{ textAlign: 'center' }}>
-          <Activity className="animate-spin" size={32} color="var(--accent-color)" />
-          <p style={{ marginTop: '1rem', fontWeight: 600, color: 'var(--text-muted)' }}>正在分析您的業務數據...</p>
+          <Activity className="animate-spin" size={32} color="#d4af37" />
+          <p style={{ marginTop: '1rem', fontWeight: 600, color: '#666' }}>Analyzing your elite performance...</p>
         </div>
       </div>
     );
@@ -31,51 +31,51 @@ export default function MerchantAnalytics() {
   const maxRevenue = Math.max(...data.revenueTrend.map((r: any) => r.revenue)) || 100;
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-      {/* KPI Row */}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', backgroundColor: 'transparent' }}>
+      {/* KPI Row - Obsidian Metric Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem' }}>
         <MetricCard 
-          title="總計實收 Total Earned" 
+          title="Total Earned (Verified)" 
           value={`£${data.performanceMetrics.totalEarnings.toLocaleString()}`} 
           trend="+14.2%" 
           isPositive={true}
-          icon={<TrendingUp size={20} color="var(--amber-600)" />}
+          icon={<TrendingUp size={20} color="#d4af37" />}
         />
         <MetricCard 
-          title="預約轉化 Conversion" 
+          title="Booking Conversion" 
           value={`${data.performanceMetrics.conversionRate}%`} 
           trend="+2.1%" 
           isPositive={true}
-          icon={<Target size={20} color="#3b82f6" />}
+          icon={<Target size={20} color="#d4af37" />}
         />
         <MetricCard 
-          title="市場評分 Rating" 
+          title="Market Rating" 
           value={data.performanceMetrics.averageRating.toFixed(1)} 
-          trend="卓越" 
+          trend="EXCELLENT" 
           isPositive={true}
-          icon={<Star size={20} color="#f59e0b" fill="#f59e0b" />}
+          icon={<Star size={20} color="#d4af37" fill="#d4af37" />}
         />
         <MetricCard 
-          title="回客意願 Retention" 
+          title="Return Customer Rate" 
           value={`${data.performanceMetrics.repeatCustomerRate}%`} 
           trend="-0.5%" 
           isPositive={false}
-          icon={<Users size={20} color="#8b5cf6" />}
+          icon={<Users size={20} color="#d4af37" />}
         />
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '2rem' }}>
-        {/* Revenue Trend Chart */}
-        <div className="glass-panel" style={{ padding: '2.5rem', borderRadius: '32px', background: 'white' }}>
+        {/* Revenue Trend Chart - Gold Bars */}
+        <div style={{ padding: '2.5rem', borderRadius: '32px', backgroundColor: '#0c0c0c', border: '1px solid #222' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2.5rem' }}>
             <div>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <BarChart3 size={20} color="var(--accent-color)" /> 每月營收趨勢 Revenue
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#fff', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <BarChart3 size={20} color="#d4af37" /> Monthly Revenue Trend
               </h3>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>過去六個月的完工金額統計</p>
+              <p style={{ fontSize: '0.85rem', color: '#666', marginTop: '0.25rem' }}>Last 6 months performance across UK</p>
             </div>
-            <div style={{ padding: '0.5rem 1rem', backgroundColor: 'var(--amber-50)', borderRadius: '10px', color: 'var(--amber-700)', fontSize: '0.75rem', fontWeight: 800 }}>
-              AI 預測看漲
+            <div style={{ padding: '0.5rem 1rem', backgroundColor: 'rgba(212, 175, 55, 0.1)', borderRadius: '10px', color: '#d4af37', fontSize: '0.75rem', fontWeight: 800, border: '1px solid rgba(212, 175, 55, 0.2)' }}>
+              AI PREDICTION: BULLISH
             </div>
           </div>
           
@@ -86,57 +86,57 @@ export default function MerchantAnalytics() {
                   <div 
                     style={{ 
                       width: '100%', 
-                      background: 'linear-gradient(to top, var(--amber-600), var(--amber-400))', 
+                      background: 'linear-gradient(to top, #d4af37, #fef08a)', 
                       borderRadius: '8px 8px 4px 4px', 
                       height: `${(month.revenue / maxRevenue) * 100}%`, 
                       minHeight: '4px', 
                       transition: 'height 1s cubic-bezier(0.16, 1, 0.3, 1)',
-                      boxShadow: '0 4px 12px rgba(212, 175, 55, 0.1)'
+                      boxShadow: '0 4px 12px rgba(212, 175, 55, 0.2)'
                     }}
                   ></div>
                 </div>
-                <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-secondary)' }}>{month.month}</span>
+                <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#444' }}>{month.month}</span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Customer Sentiment & Skills */}
-        <div className="glass-panel" style={{ padding: '2.5rem', borderRadius: '32px', background: 'white' }}>
-          <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <PieChart size={20} color="var(--accent-color)" /> 客戶口碑洞察 Sentiment
+        {/* Customer Sentiment - Gold Metrics */}
+        <div style={{ padding: '2.5rem', borderRadius: '32px', backgroundColor: '#0c0c0c', border: '1px solid #222' }}>
+          <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#fff', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <PieChart size={20} color="#d4af37" /> Brand Reputation Insights
           </h3>
           
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.875rem', marginBottom: '0.75rem' }}>
-                <span style={{ color: 'var(--text-secondary)', fontWeight: 700 }}>品牌滿意度分數</span>
-                <span style={{ color: 'var(--amber-600)', fontWeight: 900 }}>{data.sentiment.sentimentScore}/100</span>
+                <span style={{ color: '#999', fontWeight: 700 }}>Sentiment Mastery Score</span>
+                <span style={{ color: '#d4af37', fontWeight: 900 }}>{data.sentiment.sentimentScore}/100</span>
               </div>
-              <div style={{ height: '0.75rem', backgroundColor: 'var(--surface-2)', borderRadius: '99px', overflow: 'hidden' }}>
+              <div style={{ height: '0.75rem', backgroundColor: '#111', borderRadius: '99px', overflow: 'hidden', border: '1px solid #222' }}>
                 <div 
-                  style={{ height: '100%', background: 'linear-gradient(to right, var(--amber-600), var(--amber-400))', transition: 'width 1.5s ease', width: `${data.sentiment.sentimentScore}%` }}
+                  style={{ height: '100%', background: 'linear-gradient(to right, #d4af37, #fef08a)', transition: 'width 1.5s ease', width: `${data.sentiment.sentimentScore}%`, boxShadow: '0 0 10px rgba(212, 175, 55, 0.3)' }}
                 ></div>
               </div>
             </div>
 
             <div>
-              <p style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.75rem' }}>熱門好評關鍵字</p>
+              <p style={{ fontSize: '10px', color: '#555', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '0.75rem' }}>REPUTATION KEYWORDS</p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
                 {data.sentiment.positiveKeywords.map((kw: any, i: number) => (
-                  <span key={i} style={{ padding: '0.4rem 0.8rem', backgroundColor: 'var(--amber-50)', color: 'var(--amber-700)', border: '1px solid var(--amber-100)', borderRadius: '10px', fontSize: '0.75rem', fontWeight: 800 }}>
-                    #{kw}
+                  <span key={i} style={{ padding: '0.4rem 0.8rem', backgroundColor: '#111', color: '#d4af37', border: '1px solid #222', borderRadius: '10px', fontSize: '0.75rem', fontWeight: 800 }}>
+                    #{kw.toUpperCase()}
                   </span>
                 ))}
               </div>
             </div>
 
-            <div style={{ marginTop: 'auto', padding: '1.25rem', backgroundColor: 'var(--surface-2)', borderRadius: '1.5rem', display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-              <div style={{ backgroundColor: 'white', padding: '0.5rem', borderRadius: '10px', boxShadow: 'var(--shadow-sm)' }}>
-                <Award size={20} color="var(--accent-color)" />
+            <div style={{ marginTop: 'auto', padding: '1.25rem', backgroundColor: '#050505', borderRadius: '1.5rem', display: 'flex', gap: '1rem', alignItems: 'flex-start', border: '1px solid #222' }}>
+              <div style={{ backgroundColor: '#111', padding: '0.6rem', borderRadius: '12px', border: '1px solid #d4af37' }}>
+                <Award size={20} color="#d4af37" />
               </div>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.5, fontWeight: 500 }}>
-                您的「準時」與「專業」提及度極高。建議更新作品集照片，這有助於再提升 <span style={{ fontWeight: 800 }}>15%</span> 的點擊率。
+              <p style={{ fontSize: '0.85rem', color: '#999', lineHeight: 1.5, fontWeight: 500 }}>
+                Expertise in <span style={{ color: '#fff', fontWeight: 800 }}>Punctuality</span> detected. Expanding your portfolio could boost lead volume by <span style={{ color: '#d4af37', fontWeight: 800 }}>15%</span> this quarter.
               </p>
             </div>
           </div>
@@ -148,9 +148,9 @@ export default function MerchantAnalytics() {
 
 function MetricCard({ title, value, trend, isPositive, icon }: any) {
   return (
-    <div className="glass-panel" style={{ padding: '1.5rem', borderRadius: '24px', background: 'white', border: '1px solid var(--border-color)' }}>
+    <div style={{ padding: '1.5rem', borderRadius: '24px', backgroundColor: '#0c0c0c', border: '1px solid #222', transition: 'all 0.3s ease' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-        <div style={{ padding: '0.6rem', backgroundColor: 'var(--surface-2)', borderRadius: '12px' }}>
+        <div style={{ padding: '0.6rem', backgroundColor: '#111', borderRadius: '12px', border: '1px solid #222' }}>
           {icon}
         </div>
         <div style={{ 
@@ -160,16 +160,17 @@ function MetricCard({ title, value, trend, isPositive, icon }: any) {
           fontWeight: 900, 
           padding: '0.25rem 0.6rem', 
           borderRadius: '99px', 
-          backgroundColor: isPositive ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
-          color: isPositive ? '#d4af37' : '#dc2626'
+          backgroundColor: isPositive ? 'rgba(212, 175, 55, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+          color: isPositive ? '#d4af37' : '#ef4444',
+          border: `1px solid ${isPositive ? 'rgba(212, 175, 55, 0.2)' : 'rgba(239, 68, 68, 0.2)'}`
         }}>
           {isPositive ? <ArrowUpRight size={12} /> : <ArrowDownRight size={12} />}
           {trend}
         </div>
       </div>
       <div>
-        <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.25rem' }}>{title}</p>
-        <h4 style={{ fontSize: '1.75rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>{value}</h4>
+        <p style={{ color: '#555', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.25rem' }}>{title}</p>
+        <h4 style={{ fontSize: '1.75rem', fontWeight: 900, color: '#fff', letterSpacing: '-0.02em' }}>{value}</h4>
       </div>
     </div>
   );
