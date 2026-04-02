@@ -236,7 +236,7 @@ export default function JoinPage() {
                   <CheckCircle2 color="var(--accent-color)" size={80} />
                 </div>
                 <h2>Application Submitted!</h2>
-                <p>Welcome to ServiceHub. Our team is now reviewing your credentials for {selectedSector} sector. You will receive an email within 24 hours.</p>
+                <p>Welcome to ConciergeAI. Our team is now reviewing your credentials for {selectedSector} sector. You will receive an email within 24 hours.</p>
                 <button className="btn btn-primary" onClick={() => window.location.href = '/'}>
                   Return to Home
                 </button>

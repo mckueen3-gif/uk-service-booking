@@ -12,7 +12,7 @@ interface Message {
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: "Hello! I'm your ServiceHub AI. How can I help you today? (MOT, Plumbing, Repairs...)" }
+    { role: 'assistant', content: "Hello! I'm your ConciergeAI Assistant. How can I help you today? (MOT, Plumbing, Repairs...)" }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -87,7 +87,7 @@ export default function ChatWidget() {
               </div>
               <div>
                 <div style={{ fontWeight: 800, fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                  ServiceHub AI <Sparkles size={14} />
+                  ConciergeAI Assistant <Sparkles size={14} />
                 </div>
                 <div style={{ fontSize: '0.75rem', opacity: 0.8 }}>Online • Expert Assistant</div>
               </div>

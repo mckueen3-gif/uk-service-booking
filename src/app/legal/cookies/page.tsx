@@ -39,14 +39,14 @@ export default function CookiePolicy() {
           You can choose to accept or refuse cookies. Most web browsers automatically accept cookies, but you can usually modify your browser setting to decline cookies if you prefer. 
         </p>
         <p className="mt-4">
-          Please note that disabling necessary cookies may prevent you from using certain features of the ServiceHub platform, such as persistent login and booking management.
+          Please note that disabling necessary cookies may prevent you from using certain features of the ConciergeAI platform, such as persistent login and booking management.
         </p>
       </section>
 
       <section className="mb-12">
         <h2 className="text-2xl font-bold mb-6">4. Consent</h2>
         <p>
-          Upon your first visit to ServiceHub, we display a cookie consent banner. By clicking "Accept All", you consent to our use of all cookies mentioned in this policy.
+          Upon your first visit to ConciergeAI, we display a cookie consent banner. By clicking "Accept All", you consent to our use of all cookies mentioned in this policy.
         </p>
       </section>
 

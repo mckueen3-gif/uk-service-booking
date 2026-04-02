@@ -57,8 +57,8 @@ export default function MerchantContract({ onAccept, accepted }: MerchantContrac
           <p>{t.onboarding.contract.clauses.conduct.body}</p>
           
           <div className="contract-legal">
-            <p><strong>Additional Terms:</strong> By joining ServiceHub, you certify that all information provided is accurate and that you possess the necessary insurance and licenses required to practice in the United Kingdom.</p>
-            <p>© 2026 ServiceHub UK Limited. All Rights Reserved.</p>
+            <p><strong>Additional Terms:</strong> By joining ConciergeAI, you certify that all information provided is accurate and that you possess the necessary insurance and licenses required to practice in the United Kingdom.</p>
+            <p>© 2026 ConciergeAI UK Limited. All Rights Reserved.</p>
           </div>
         </div>
       </div>

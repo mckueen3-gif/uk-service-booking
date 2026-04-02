@@ -112,7 +112,7 @@ function RegisterForm() {
             disabled={loading} 
             style={{ width: '100%', padding: '1rem', marginTop: '1.5rem', animationDelay: '350ms' }}
           >
-            {loading ? "Establishing Account..." : "Join ServiceHub"}
+            {loading ? "Establishing Account..." : "Join ConciergeAI"}
             <ChevronRight size={20} />
           </button>
         </form>

@@ -21,7 +21,7 @@ export async function sendEmail({ to, subject, html }: MailOptions) {
       return null;
     }
     const { data, error } = await resend.emails.send({
-      from: 'ServiceHub <onboarding@resend.dev>', // Use verified domain late
+      from: 'ConciergeAI <onboarding@resend.dev>', // Use verified domain late
       to,
       subject,
       html,
@@ -63,7 +63,7 @@ export async function sendBookingConfirmationEmail(customerEmail: string, data: 
         </div>
         <p>稍後商家確認後，您將收到進一步更新。您也可以前往 <a href="http://localhost:3000/dashboard">會員控制台</a> 追蹤進度。</p>
         <hr />
-        <p style="font-size: 12px; color: #94a3b8;">感謝您使用 UK ServiceHub。</p>
+        <p style="font-size: 12px; color: #94a3b8;">感謝您使用 ConciergeAI。</p>
       </div>
     `
   });
@@ -91,7 +91,7 @@ export async function sendMerchantJobAlert(merchantEmail: string, data: {
         </div>
         <p>請盡快前往 <a href="http://localhost:3000/dashboard">商家後台</a> 點擊「確認預約」或「拒絕預約」以保持良好的服務評分。</p>
         <hr />
-        <p style="font-size: 12px; color: #94a3b8;">此信件由 UK ServiceHub 管理系統自動發出。</p>
+        <p style="font-size: 12px; color: #94a3b8;">此信件由 ConciergeAI 管理系統自動發出。</p>
       </div>
     `
   });

@@ -50,7 +50,7 @@ export async function getAIDiagnosis(imageUrl: string, category: string, locale:
       }
     `;
 
-    const systemPrompt = "You are an expert AI Diagnostic Assistant for a premium UK Service Marketplace (ServiceHub).";
+    const systemPrompt = "You are an expert AI Diagnostic Assistant for a premium UK Service Marketplace (ConciergeAI).";
     
     const responseText = await generateAIContent({
       prompt,

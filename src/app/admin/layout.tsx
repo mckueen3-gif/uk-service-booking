@@ -21,7 +21,7 @@ export default async function AdminLayout({
         const hashedPassword = await bcrypt.hash('AdminPassword123!', 10);
         await (prisma.user.create as any)({
             data: {
-                email: 'admin@servicehub.uk',
+                email: 'admin@conciergeai.uk',
                 name: 'Super Admin',
                 password: hashedPassword,
                 role: 'ADMIN',

@@ -33,7 +33,7 @@ export async function processChatMessage(messages: { role: 'user' | 'assistant' 
     }
   }
 
-  const SYSTEM_INSTRUCTION = `You are Aura, the ServiceHub UK AI Concierge. 
+  const SYSTEM_INSTRUCTION = `You are Aura, the ConciergeAI UK AI Concierge. 
     1. PLATFORM ROLE: We connect Customers to Merchants (independent pros). 
     2. REFUNDS: Payments held in Stripe Escrow. Refund requests are governed by our Legal Terms (/legal/terms).
     3. DISPUTES: AI Arbiter + Manual Oversight for fair resolution.
@@ -46,7 +46,7 @@ export async function processChatMessage(messages: { role: 'user' | 'assistant' 
     if (input.includes("clean")) return "We have verified cleaning pros across the UK! You can book everything from domestic help to deep cleans on our homepage.";
     if (input.includes("plumb")) return "Looking for a plumber? Browse our verified list of local experts—all Gas Safe registered where required.";
     if (input.includes("tracker") || input.includes("車")) return "Our Repair Tracker is unique! You can see real-time updates and photos of your car's progress. Check your Dashboard!";
-    return "I'm the ServiceHub AI! I'm currently in 'Efficiency Mode' but I can still help with bookings and finding local pros. How can I assist you today?";
+    return "I'm the ConciergeAI AI! I'm currently in 'Efficiency Mode' but I can still help with bookings and finding local pros. How can I assist you today?";
   };
 
   try {

@@ -50,7 +50,7 @@ export default function HelpPage() {
             </div>
             <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#1e293b' }}>{t.footer.contact} (Email)</h3>
             <p style={{ color: '#64748b', lineHeight: 1.6 }}>24 小時內回覆您的諮詢，處理深度法律或帳務問題。</p>
-            <a href="mailto:support@servicehub.co.uk" style={{ color: '#2563eb', fontWeight: 800, fontSize: '0.95rem', textDecoration: 'none' }}>support@servicehub.co.uk</a>
+            <a href="mailto:support@conciergeai.uk" style={{ color: '#2563eb', fontWeight: 800, fontSize: '0.95rem', textDecoration: 'none' }}>support@conciergeai.uk</a>
           </div>
 
           <div className="glass-panel" style={{ padding: '2.5rem', borderRadius: '2.5rem', backgroundColor: '#ffffff', border: '1px solid #f1f5f9', display: 'flex', flexDirection: 'column', gap: '1.25rem', textAlign: 'inherit' }}>

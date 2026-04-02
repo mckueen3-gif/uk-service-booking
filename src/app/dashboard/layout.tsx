@@ -38,7 +38,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
       }}>
         <div style={{ marginBottom: '2.5rem', paddingLeft: '1rem' }}>
           <h1 style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--accent-color)', letterSpacing: '-0.03em' }}>
-            ServiceHub<span style={{ color: 'var(--text-primary)' }}>.</span>
+            ConciergeAI<span style={{ color: 'var(--text-primary)' }}>.</span>
           </h1>
           <p style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             {isMerchant ? 'Vetted Expert' : 'Premier Member'}

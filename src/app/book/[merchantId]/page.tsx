@@ -88,7 +88,7 @@ export default function BookingPage() {
   const serviceName = service?.name || fallbackServiceName;
   const currentCategory = service?.category || fallbackCategory;
   const basePrice = service ? `£${service.price}` : fallbackPrice;
-  const companyName = merchant?.companyName || "ServiceHub Pro";
+  const companyName = merchant?.companyName || "ConciergeAI Pro";
 
   const isAutoMode = currentCategory.toLowerCase().includes("auto") || currentCategory.toLowerCase().includes("car") || currentCategory.toLowerCase().includes("tires") || currentCategory.toLowerCase().includes("mot");
   const isHomeMode = currentCategory.toLowerCase().includes("home") || currentCategory.toLowerCase().includes("plumb") || currentCategory.toLowerCase().includes("electric") || currentCategory.toLowerCase().includes("clean");

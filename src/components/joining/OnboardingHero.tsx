@@ -9,7 +9,7 @@ export default function OnboardingHero() {
   return (
     <div className="onboarding-hero">
       <div className="hero-content reveal active">
-        <span className="badge">ServiceHub Professional</span>
+        <span className="badge">ConciergeAI Professional</span>
         <h1 className="hero-title">{t.onboarding.hero.title}</h1>
         <p className="hero-subtitle">{t.onboarding.hero.subtitle}</p>
         

@@ -9,10 +9,10 @@ export async function generateMetadata({ params }: { params: Promise<{ merchantI
     where: { id: resolvedParams.merchantId }
   });
   
-  if (!merchant) return { title: "Merchant Not Found | ServiceHub" };
+  if (!merchant) return { title: "Merchant Not Found | ConciergeAI" };
   
   return {
-    title: `${merchant.companyName} | Certified Services | ServiceHub`,
+    title: `${merchant.companyName} | Certified Services | ConciergeAI`,
     description: `Hire ${merchant.companyName} for professional services. ${merchant.averageRating} star rating with verified reviews.`,
   };
 }

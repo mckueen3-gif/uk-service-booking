@@ -11,7 +11,7 @@ export default function PrivacyPolicy() {
       <section className="mb-12">
         <h2 className="text-2xl font-bold mb-6">1. Introduction</h2>
         <p>
-          ServiceHub ("we", "our", or "us") is committed to protecting and respecting your privacy. This policy explains how we collect, use, and process your personal data in accordance with the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018.
+          ConciergeAI ("we", "our", or "us") is committed to protecting and respecting your privacy. This policy explains how we collect, use, and process your personal data in accordance with the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018.
         </p>
       </section>
 
@@ -59,7 +59,7 @@ export default function PrivacyPolicy() {
       <section className="mb-12">
         <h2 className="text-2xl font-bold mb-6">6. Contact Us</h2>
         <p>
-          If you have any questions about this privacy policy or our privacy practices, please contact our Data Protection Officer at <code className="bg-slate-100 px-2 py-0.5 rounded text-blue-600">privacy@servicehub.co.uk</code>.
+          If you have any questions about this privacy policy or our privacy practices, please contact our Data Protection Officer at <code className="bg-slate-100 px-2 py-0.5 rounded text-blue-600">privacy@conciergeai.co.uk</code>.
         </p>
       </section>
 

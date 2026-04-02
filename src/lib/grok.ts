@@ -48,7 +48,7 @@ export async function getGrokDiagnosis(
       messages: [
         {
           role: "system",
-          content: `You are an expert AI Diagnostic Assistant for ServiceHub UK. Analyze images of ${category} issues and return JSON.`
+          content: `You are an expert AI Diagnostic Assistant for ConciergeAI UK. Analyze images of ${category} issues and return JSON.`
         },
         {
           role: "user",

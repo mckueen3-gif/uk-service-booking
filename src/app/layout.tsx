@@ -24,7 +24,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-body" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-heading" });
 
 export const metadata: Metadata = {
-  title: "ServiceHub | Professional UK Service Booking",
+  title: "ConciergeAI | Professional UK Service Booking",
   description: "Book verified electricians, plumbers, and home cleaners in the UK instantly.",
   alternates: {
     canonical: 'https://uk-services.com',

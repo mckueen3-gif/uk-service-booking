@@ -173,10 +173,10 @@ export const en: Dictionary = {
     }
   },
   onboarding: {
-    hero: { title: "Grow Your Business with ServiceHub", subtitle: "Join the UK's most elite network of certified service professionals." },
+    hero: { title: "Grow Your Business with ConciergeAI", subtitle: "Join the UK's most elite network of certified service professionals." },
     steps: { profile: "Business Profile", credentials: "UK Credentials", contract: "Service Agreement" },
     sectors: { title: "Select Your Sector", professional: { title: "Professional", desc: "Accounting, Legal, Consulting", industries: ["Accounting", "Tax Consulting", "Legal Services", "Business Strategy"] }, education: { title: "Education", desc: "Tutors, Trainers, Coaches", industries: ["Academic Tutors", "Language Training", "Skill Coaching", "Music Teachers"] }, technical: { title: "Technical", desc: "Trades, Repairs, Engineering", industries: ["Plumbing", "Electrical", "Automotive", "Renovation"] } },
-    contract: { title: "Standard Service Agreement", scrollingNotice: "Please scroll to the bottom to accept the terms.", agree: "I have read and agree to the ServiceHub Master Agreement.", clauses: { platform_fee: { title: "1. Platform Service Fee", body: "ServiceHub charges an 9% commission on successfully completed bookings." }, payments: { title: "2. Escrow & Payouts", body: "Customer payments are held in secure escrow. Payouts are triggered 48 hours after the customer confirms job completion." }, conduct: { title: "3. Professional Standards", body: "Experts must maintain a minimum 4.0-star rating. Failure to meet UK safety standards may result in immediate account suspension." } } },
+    contract: { title: "Standard Service Agreement", scrollingNotice: "Please scroll to the bottom to accept the terms.", agree: "I have read and agree to the ConciergeAI Master Agreement.", clauses: { platform_fee: { title: "1. Platform Service Fee", body: "ConciergeAI charges an 9% commission on successfully completed bookings." }, payments: { title: "2. Escrow & Payouts", body: "Customer payments are held in secure escrow. Payouts are triggered 48 hours after the customer confirms job completion." }, conduct: { title: "3. Professional Standards", body: "Experts must maintain a minimum 4.0-star rating. Failure to meet UK safety standards may result in immediate account suspension." } } },
     buttons: { start: "Get Started", next: "Next Step", back: "Prev Step", submit: "Complete Onboarding" }
   }
 };

@@ -11,14 +11,14 @@ export default function TermsOfService() {
       <section className="mb-12">
         <h2 className="text-2xl font-bold mb-6">1. Acceptance of Terms</h2>
         <p>
-          By accessing or using the ServiceHub platform (the "Platform"), you agree to be bound by these Terms of Service. If you are using the Platform on behalf of a business, you represent that you have the authority to bind that business to these terms.
+          By accessing or using the ConciergeAI platform (the "Platform"), you agree to be bound by these Terms of Service. If you are using the Platform on behalf of a business, you represent that you have the authority to bind that business to these terms.
         </p>
       </section>
 
       <section className="mb-12">
         <h2 className="text-2xl font-bold mb-6">2. Our Role as a Marketplace</h2>
         <p>
-          ServiceHub provides a marketplace that connects customers ("Customers") with independent service providers ("Merchants"). ServiceHub is not a provider of automotive, home repair, or professional services. The contract for the provision of services is directly between the Customer and the Merchant.
+          ConciergeAI provides a marketplace that connects customers ("Customers") with independent service providers ("Merchants"). ConciergeAI is not a provider of automotive, home repair, or professional services. The contract for the provision of services is directly between the Customer and the Merchant.
         </p>
       </section>
 
@@ -37,10 +37,10 @@ export default function TermsOfService() {
       <section className="mb-12">
         <h2 className="text-2xl font-bold mb-6">4. AI Dispute Arbitration</h2>
         <p>
-          In the event of a dispute regarding a Variation or service quality, ServiceHub utilizes an <strong>AI Dispute Arbiter</strong> to provide a neutral resolution recommendation based on photographic evidence and user input.
+          In the event of a dispute regarding a Variation or service quality, ConciergeAI utilizes an <strong>AI Dispute Arbiter</strong> to provide a neutral resolution recommendation based on photographic evidence and user input.
         </p>
         <p>
-          By using the Platform, you acknowledge that AI will be used to expedite resolution. However, all AI decisions are subject to <strong>Manual Oversight</strong> by ServiceHub administrators to ensure fairness and compliance with UK Consumer Rights.
+          By using the Platform, you acknowledge that AI will be used to expedite resolution. However, all AI decisions are subject to <strong>Manual Oversight</strong> by ConciergeAI administrators to ensure fairness and compliance with UK Consumer Rights.
         </p>
       </section>
 
@@ -58,7 +58,7 @@ export default function TermsOfService() {
       <section className="mb-12">
         <h2 className="text-2xl font-bold mb-6">6. Liability</h2>
         <p>
-          To the maximum extent permitted by UK law (Consumer Rights Act 2015), ServiceHub's liability is limited to the platform fee paid for the specific booking in question.
+          To the maximum extent permitted by UK law (Consumer Rights Act 2015), ConciergeAI's liability is limited to the platform fee paid for the specific booking in question.
         </p>
       </section>
 

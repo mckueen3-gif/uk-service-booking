@@ -66,8 +66,15 @@ export function AppNavbar({ session }: { session: any }) {
         height: '100%'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', flex: 1 }}>
-          <Link href="/" style={{ fontSize: '1.6rem', fontWeight: 900, color: 'var(--text-primary)', textDecoration: 'none', whiteSpace: 'nowrap', letterSpacing: '-0.02em' }}>
-            ServiceHub<span style={{ color: 'var(--accent-color)' }}>.</span>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none' }}>
+            <img 
+              src="/images/logo_concierge_ai.png" 
+              alt="ConciergeAI Logo" 
+              style={{ height: '42px', width: 'auto', filter: 'drop-shadow(0 0 8px rgba(212, 175, 55, 0.3))' }} 
+            />
+            <span style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.02em', marginTop: '2px' }}>
+              ConciergeAI<span style={{ color: 'var(--accent-color)' }}>.</span>
+            </span>
           </Link>
 
           {/* City Selector */}
@@ -336,8 +343,15 @@ export function AppFooter() {
         }}>
            {/* Brand Column */}
            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <Link href="/" style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)', textDecoration: 'none' }}>
-                ServiceHub<span style={{ color: 'var(--accent-color)' }}>.</span>
+              <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', textDecoration: 'none', marginBottom: '0.5rem' }}>
+                <img 
+                  src="/images/logo_concierge_ai.png" 
+                  alt="ConciergeAI" 
+                  style={{ height: '36px', width: 'auto', filter: 'brightness(1.1)' }} 
+                />
+                <span style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-primary)' }}>
+                  ConciergeAI<span style={{ color: 'var(--accent-color)' }}>.</span>
+                </span>
               </Link>
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.6 }}>{t.footer.tagline}</p>
               <Link href="/join" style={{ 
@@ -394,7 +408,7 @@ export function AppFooter() {
         </div>
 
         <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '2rem', textAlign: 'center' }}>
-           <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>&copy; {new Date().getFullYear()} ServiceHub UK. {t.footer.rights}</p>
+           <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>&copy; {new Date().getFullYear()} ConciergeAI UK. {t.footer.rights}</p>
         </div>
       </div>
     </footer>
