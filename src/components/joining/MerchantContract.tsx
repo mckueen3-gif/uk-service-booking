@@ -47,14 +47,14 @@ export default function MerchantContract({ onAccept, accepted }: MerchantContrac
         ref={scrollRef}
       >
         <div className="contract-content">
-          <h4>{t.onboarding.contract.clauses.commission.title}</h4>
-          <p>{t.onboarding.contract.clauses.commission.body}</p>
+          <h4>{t.onboarding.contract.clauses.platform_fee.title}</h4>
+          <p>{t.onboarding.contract.clauses.platform_fee.body}</p>
 
-          <h4>{t.onboarding.contract.clauses.service.title}</h4>
-          <p>{t.onboarding.contract.clauses.service.body}</p>
+          <h4>{t.onboarding.contract.clauses.payments.title}</h4>
+          <p>{t.onboarding.contract.clauses.payments.body}</p>
 
-          <h4>{t.onboarding.contract.clauses.disputes.title}</h4>
-          <p>{t.onboarding.contract.clauses.disputes.body}</p>
+          <h4>{t.onboarding.contract.clauses.conduct.title}</h4>
+          <p>{t.onboarding.contract.clauses.conduct.body}</p>
           
           <div className="contract-legal">
             <p><strong>Additional Terms:</strong> By joining ServiceHub, you certify that all information provided is accurate and that you possess the necessary insurance and licenses required to practice in the United Kingdom.</p>

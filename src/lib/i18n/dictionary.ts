@@ -132,7 +132,7 @@ export interface Dictionary {
     hero: { title: string; subtitle: string };
     steps: { profile: string; credentials: string; contract: string };
     sectors: { title: string; professional: { title: string; desc: string; industries: string[] }; education: { title: string; desc: string; industries: string[] }; technical: { title: string; desc: string; industries: string[] } };
-    contract: { title: string; scrollingNotice: string; agree: string; clauses: Record<string, { title: string; body: string }> };
+    contract: { title: string; scrollingNotice: string; agree: string; clauses: { platform_fee: { title: string; body: string }; payments: { title: string; body: string }; conduct: { title: string; body: string } } };
     buttons: { start: string; next: string; back: string; submit: string };
   };
 }
