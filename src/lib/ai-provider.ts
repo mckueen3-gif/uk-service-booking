@@ -87,10 +87,86 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
     messages.push({ role: 'user', content: req.prompt });
   }
 
-  // 0. Try Grok 4.20 Reasoning (Next-Gen Primary) - Best for Logic & Diagnostics
+  // 0. Try Vision Reasoning Chain (Next-Gen Primary)
+  // Step 1: GPT-4o-mini (Vision Layer) -> Step 2: Grok 4.20 (Reasoning Layer)
+  if (process.env.OPENAI_API_KEY && process.env.XAI_API_KEY && req.image) {
+    try {
+      console.info("[AI Provider] Starting Vision Reasoning Chain...");
+      
+      // Part A: Get Visual Description from GPT-4o-mini
+      console.info("[AI Provider] Step 1: GPT-4o-mini analyzing image...");
+      const openaiClient = await getOpenAIClient();
+      const visionResponse = await openaiClient.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [
+          {
+            role: "user",
+            content: [
+              { type: "text", text: "Please provide a highly structured technical description of the physical issue in this photo. Use the format: PART_IDENTIFIED: [Exact name of part], DAMAGE_TYPE: [e.g., Burst, Pin-hole leak, Corrosion, Burned], CONTEXT: [e.g., Outdoor, Under-sink, In-wall]. Focus on identifying exactly what is failing to prevent diagnostic hallucinations." },
+              {
+                type: "image_url",
+                image_url: { url: `data:${req.image.mimeType};base64,${req.image.base64}` }
+              }
+            ]
+          }
+        ],
+        max_tokens: 300
+      });
+
+      const visualDescription = visionResponse.choices[0].message.content;
+      console.info("[AI Provider] Step 1 Success. Visual Description received.");
+
+      // Part B: Feed Description to Grok 4.20 Reasoning
+      if (visualDescription) {
+        console.info("[AI Provider] Step 2: Grok 4.20 Reasoning diagnosing based on visual report...");
+        const url = "https://api.x.ai/v1/responses";
+        
+        const combinedPrompt = `
+          SYSTEM: ${req.systemPrompt || "You are an expert UK maintenance specialist."}
+          
+          CRITICAL INSTRUCTION: THE FOLLOWING TECHNICAL VISUAL REPORT IS THE ABSOLUTE GROUND TRUTH. 
+          STRICTLY FOLLOW THE VISUAL REPORT. IF THE REPORT IDENTIFIES A PIPE OR HOSE LEAK, DO NOT SUGGEST FAUCET OR TAP REPAIRS. 
+          IGNORE YOUR DEFAULT STATISTICAL ASSUMPTIONS. TRUST ONLY WHAT THE EYES SAW.
+          
+          TECHNICAL VISUAL REPORT (from specialist image analysis): 
+          "${visualDescription}"
+          
+          USER DESCRIPTION: 
+          "${req.prompt || "No text description provided."}"
+          
+          TASK: Based on the GROUND TRUTH visual report and user description, perform a professional diagnosis.
+        `;
+
+        const res = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${process.env.XAI_API_KEY}`
+          },
+          body: JSON.stringify({
+            model: "grok-4.20-reasoning",
+            input: combinedPrompt
+          })
+        });
+
+        if (res.ok) {
+          const result = await res.json();
+          const content = result.output?.[0]?.content?.[0]?.text || result.text;
+          if (content) return content;
+        } else {
+          const errText = await res.text();
+          console.warn("[AI Provider] Grok 4.20 Reasoning failed in chain, falling back to other tiers...", res.status, errText);
+        }
+      }
+    } catch (error: any) {
+      console.error("[AI Provider] Vision Reasoning Chain failed:", error);
+    }
+  }
+
+  // 1. Try Grok 4.20 (Standard Reasoning fallback for text only)
   if (process.env.XAI_API_KEY) {
     try {
-      console.info("[AI Provider] Attempting Tier 0 (xAI Grok 4.20 Reasoning)...");
+      console.info("[AI Provider] Attempting Tier 1 (xAI Grok 4.20 Reasoning)...");
       const url = "https://api.x.ai/v1/responses";
       
       const combinedPrompt = req.systemPrompt 
@@ -113,19 +189,16 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
         const result = await res.json();
         const content = result.output?.[0]?.content?.[0]?.text || result.text;
         if (content) return content;
-      } else {
-        const errText = await res.text();
-        console.warn("[AI Provider] Grok 4.20 API returned error:", res.status, errText);
       }
     } catch (error: any) {
-      console.error("[AI Provider] Grok 4.20 Reasoning failed, falling back...", error);
+      console.error("[AI Provider] Grok 4.20 fallback failed...", error);
     }
   }
 
-  // 1. Try Grok 3 (Secondary - Standard Chat)
+  // 2. Try Grok 3 (Standard Chat)
   if (process.env.XAI_API_KEY) {
     try {
-      console.info("[AI Provider] Attempting Primary (xAI Grok 3)...");
+      console.info("[AI Provider] Attempting Tier 2 (xAI Grok 3)...");
       const grokMessages: any[] = [];
       if (req.systemPrompt) {
         grokMessages.push({ role: "system", content: req.systemPrompt });
