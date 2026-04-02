@@ -71,9 +71,9 @@ export default async function AdminBookingsPage() {
                     borderRadius: '2rem', 
                     fontSize: '0.75rem', 
                     fontWeight: 700,
-                    backgroundColor: booking.status === 'COMPLETED' ? '#05966920' : booking.status === 'PENDING' ? '#d9770620' : '#ef444420',
-                    color: booking.status === 'COMPLETED' ? '#34d399' : booking.status === 'PENDING' ? '#fbbf24' : '#f87171',
-                    border: `1px solid ${booking.status === 'COMPLETED' ? '#05966950' : booking.status === 'PENDING' ? '#d9770650' : '#ef444450'}`
+                    backgroundColor: booking.status === 'COMPLETED' ? '#d4af3720' : booking.status === 'PENDING' ? '#d9770620' : '#ef444420',
+                    color: booking.status === 'COMPLETED' ? '#fde047' : booking.status === 'PENDING' ? '#fbbf24' : '#f87171',
+                    border: `1px solid ${booking.status === 'COMPLETED' ? '#d4af3750' : booking.status === 'PENDING' ? '#d9770650' : '#ef444450'}`
                   }}>
                     {booking.status}
                   </span>
@@ -84,7 +84,7 @@ export default async function AdminBookingsPage() {
                       <ExternalLink size={16} />
                     </button>
                     {booking.status !== 'COMPLETED' && (
-                       <button style={{ backgroundColor: '#059669', border: 'none', padding: '0.5rem 0.75rem', borderRadius: '0.5rem', color: 'white', fontSize: '0.75rem', fontWeight: 700 }}>
+                       <button style={{ backgroundColor: '#d4af37', border: 'none', padding: '0.5rem 0.75rem', borderRadius: '0.5rem', color: 'white', fontSize: '0.75rem', fontWeight: 700 }}>
                          完工結算
                        </button>
                     )}

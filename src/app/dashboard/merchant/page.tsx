@@ -147,7 +147,7 @@ export default function MerchantDashboard() {
         <StatCard title={t.merchant.dashboard.stats.totalBookings} value={stats?.totalBookings} icon={<Briefcase size={24} />} color="#3b82f6" label={t.merchant.dashboard.stats.totalJobs} />
         <StatCard title={t.merchant.dashboard.stats.rating} value={stats?.rating.toFixed(1)} icon={<Star size={24} color="#f59e0b" fill="#f59e0b" />} color="#f59e0b" label={`${stats?.reviews} ${t.merchant.dashboard.stats.reviews}`} />
         <StatCard title={t.merchant.dashboard.stats.pendingBalance} value={`£${stats?.pendingBalance.toFixed(2)}`} icon={<Clock size={24} />} color="#6366f1" label={t.merchant.dashboard.stats.escrowHeld} />
-        <StatCard title={t.merchant.dashboard.stats.availableBalance} value={`£${stats?.availableBalance.toFixed(2)}`} icon={<Wallet size={24} />} color="#10b981" label={t.merchant.dashboard.stats.availableNow} />
+        <StatCard title={t.merchant.dashboard.stats.availableBalance} value={`£${stats?.availableBalance.toFixed(2)}`} icon={<Wallet size={24} />} color="#facc15" label={t.merchant.dashboard.stats.availableNow} />
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '2rem' }}>
@@ -185,7 +185,7 @@ export default function MerchantDashboard() {
 
                   <div style={{ textAlign: 'right' }}>
                     {booking.status === 'COMPLETED' ? (
-                      <span style={{ color: '#10b981', display: 'flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.85rem', fontWeight: 700, justifyContent: 'flex-end' }}>
+                      <span style={{ color: '#facc15', display: 'flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.85rem', fontWeight: 700, justifyContent: 'flex-end' }}>
                          <CheckCircle2 size={16} /> {t.merchant.dashboard.bookings.completed}
                       </span>
                     ) : (

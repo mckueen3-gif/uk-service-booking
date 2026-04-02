@@ -124,10 +124,10 @@ export default function AddVehicleForm({ onVehicleAdded }: Props) {
               borderRadius: '0.75rem',
               border: '1px solid rgba(16, 185, 129, 0.2)'
             }}>
-              <Car size={22} color="#10b981" />
+              <Car size={22} color="#facc15" />
             </div>
             <div>
-              <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.05em' }}>系統偵測結果</div>
+              <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#facc15', textTransform: 'uppercase', letterSpacing: '0.05em' }}>系統偵測結果</div>
               <div style={{ fontWeight: 800, fontSize: '1.05rem', color: 'var(--text-primary)' }}>
                 {vehicleData.make} {vehicleData.model} ({vehicleData.year})
               </div>
@@ -141,7 +141,7 @@ export default function AddVehicleForm({ onVehicleAdded }: Props) {
               width: '100%',
               padding: '0.75rem',
               borderRadius: '10px',
-              backgroundColor: '#10b981',
+              backgroundColor: '#facc15',
               color: 'white',
               border: 'none',
               fontWeight: 700,
@@ -172,7 +172,7 @@ export default function AddVehicleForm({ onVehicleAdded }: Props) {
             fontSize: '0.875rem',
             fontWeight: 600,
             backgroundColor: message.type === 'success' ? 'rgba(16, 185, 129, 0.08)' : 'rgba(239, 68, 68, 0.08)',
-            color: message.type === 'success' ? '#10b981' : '#ef4444',
+            color: message.type === 'success' ? '#facc15' : '#ef4444',
             border: `1px solid ${message.type === 'success' ? 'rgba(16,185,129,0.3)' : 'rgba(239,68,68,0.3)'}`
           }}
         >

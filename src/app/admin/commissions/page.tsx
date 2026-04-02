@@ -36,8 +36,8 @@ export default async function AdminCommissionsPage() {
           <p style={{ color: '#94a3b8', fontSize: '0.875rem', marginTop: '0.75rem' }}>全平台商戶加權平均比例</p>
         </div>
 
-        <div style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.15) 100%)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '1.5rem', padding: '1.75rem', backdropFilter: 'blur(10px)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: '#34d399', marginBottom: '1rem', fontWeight: 700, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+        <div style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(212, 175, 55, 0.15) 100%)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '1.5rem', padding: '1.75rem', backdropFilter: 'blur(10px)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: '#fde047', marginBottom: '1rem', fontWeight: 700, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             <TrendingUp size={18} /> 總結算訂單
           </div>
           <div style={{ fontSize: '3rem', fontWeight: 900, color: 'white' }}>{totalCompletedJobs}</div>
@@ -64,7 +64,7 @@ export default async function AdminCommissionsPage() {
                     <h3 style={{ color: 'white', fontWeight: 700, fontSize: '1.1rem', marginBottom: '0.25rem' }}>{merchant.companyName}</h3>
                     <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
                        <span style={{ color: '#64748b', fontSize: '0.85rem' }}>完成訂單: <span style={{ color: '#94a3b8' }}>{merchant.completedJobsCount}</span></span>
-                       <span style={{ color: '#64748b', fontSize: '0.85rem' }}>當前率: <span style={{ color: rate > 0 ? '#34d399' : '#818cf8', fontWeight: 700 }}>{(rate * 100).toFixed(0)}%</span></span>
+                       <span style={{ color: '#64748b', fontSize: '0.85rem' }}>當前率: <span style={{ color: rate > 0 ? '#fde047' : '#818cf8', fontWeight: 700 }}>{(rate * 100).toFixed(0)}%</span></span>
                        {/* Free orders display disabled for schema sync */}
                     </div>
                   </div>

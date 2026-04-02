@@ -40,7 +40,7 @@ export default function NotificationHub() {
 
   const getTypeStyles = (type: string) => {
     switch(type) {
-      case 'SUCCESS': return { bg: '#ecfdf5', icon: <CheckCircle2 size={16} color="#10b981" /> };
+      case 'SUCCESS': return { bg: '#ecfdf5', icon: <CheckCircle2 size={16} color="#facc15" /> };
       case 'WARNING': return { bg: '#fffbeb', icon: <AlertCircle size={16} color="#f59e0b" /> };
       case 'ALERT': return { bg: '#fef2f2', icon: <AlertCircle size={16} color="#ef4444" /> };
       default: return { bg: '#f0f9ff', icon: <Info size={16} color="#0ea5e9" /> };

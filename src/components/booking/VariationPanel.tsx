@@ -114,13 +114,13 @@ export default function VariationPanel({ bookingId, initialVariations, dispute }
                         </p>
                      </div>
                      <div style={{ marginTop: '0.75rem', fontSize: '0.75rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                        <Check size={14} color="#10b981" /> 本裁決已根據工程進度與市場行情自動同步至帳單。
+                        <Check size={14} color="#facc15" /> 本裁決已根據工程進度與市場行情自動同步至帳單。
                      </div>
                   </div>
                 )}
 
                 {v.status === VariationStatus.APPROVED && (!dispute || dispute.status !== 'RESOLVED') && (
-                  <div style={{ marginTop: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#10b981', fontSize: '0.85rem', fontWeight: 700 }}>
+                  <div style={{ marginTop: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#facc15', fontSize: '0.85rem', fontWeight: 700 }}>
                     <Check size={16} /> 項目已核准並動工
                   </div>
                 )}

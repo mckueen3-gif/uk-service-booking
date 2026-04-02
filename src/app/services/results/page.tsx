@@ -208,7 +208,7 @@ function SearchResults() {
               <Link href="/diagnosis">
                 <button style={{ 
                   width: '100%', padding: '0.6rem', borderRadius: '0.75rem', 
-                  backgroundColor: 'white', color: 'var(--emerald-800)', 
+                  backgroundColor: 'white', color: 'var(--amber-800)', 
                   border: 'none', fontWeight: 900, fontSize: '0.8rem', cursor: 'pointer' 
                 }}>
                   {t.home.aiCTA.button}

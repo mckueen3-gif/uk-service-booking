@@ -67,7 +67,7 @@ export default function WalletContent() {
       
       {/* Sync Status (Professional) */}
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <div style={{ fontSize: '0.8rem', color: synced ? '#10b981' : 'rgba(255,255,255,0.4)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div style={{ fontSize: '0.8rem', color: synced ? '#facc15' : 'rgba(255,255,255,0.4)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
            {synced ? `● ${t.merchant.dashboard.wallet.synced}` : `○ ${t.merchant.dashboard.wallet.syncing}`}
         </div>
       </div>
@@ -97,7 +97,7 @@ export default function WalletContent() {
           </div>
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: '#10b981', fontWeight: 700 }}>
+             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: '#facc15', fontWeight: 700 }}>
                 <TrendingUp size={16} /> +12% vs last month
              </div>
              <div style={{ fontSize: '0.85rem', color: '#94a3b8' }}>{t.merchant.dashboard.wallet.availableNow}</div>
@@ -182,7 +182,7 @@ export default function WalletContent() {
                     <td style={{ padding: '1.5rem 0' }}>
                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                           {tx.amount > 0 ? (
-                            <ArrowDownLeft size={16} color="#10b981" />
+                            <ArrowDownLeft size={16} color="#facc15" />
                           ) : (
                             <ArrowUpRight size={16} color="#ef4444" />
                           )}
@@ -190,7 +190,7 @@ export default function WalletContent() {
                        </div>
                     </td>
                     <td style={{ padding: '1.5rem 0', color: '#64748b' }}>{tx.description}</td>
-                    <td style={{ padding: '1.5rem 0', color: tx.amount > 0 ? '#10b981' : '#ef4444', fontWeight: 800 }}>
+                    <td style={{ padding: '1.5rem 0', color: tx.amount > 0 ? '#facc15' : '#ef4444', fontWeight: 800 }}>
                       {tx.amount > 0 ? '+' : ''}£{Math.abs(tx.amount).toFixed(2)}
                     </td>
                     <td style={{ padding: '1.5rem 0', color: '#94a3b8' }}>{new Date(tx.createdAt).toLocaleDateString()}</td>
@@ -206,7 +206,7 @@ export default function WalletContent() {
         <div className="glass-panel animate-fade-up" style={{ padding: '2.5rem', borderRadius: '24px', border: '1px solid rgba(16, 185, 129, 0.1)', backgroundColor: 'rgba(16, 185, 129, 0.02)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
             <div style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '0.75rem', borderRadius: '12px' }}>
-              <Users size={24} color="#10b981" />
+              <Users size={24} color="#facc15" />
             </div>
             <div>
                <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>{t.merchant.dashboard.wallet.referralListTitle}</h2>
@@ -254,7 +254,7 @@ export default function WalletContent() {
                           padding: '0.35rem 0.75rem', 
                           borderRadius: '99px',
                           backgroundColor: isExpired ? 'rgba(239, 68, 68, 0.08)' : 'rgba(16, 185, 129, 0.08)',
-                          color: isExpired ? '#ef4444' : '#10b981',
+                          color: isExpired ? '#ef4444' : '#facc15',
                           fontWeight: 800,
                           textTransform: 'uppercase',
                           letterSpacing: '0.05em',

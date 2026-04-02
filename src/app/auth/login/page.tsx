@@ -56,7 +56,7 @@ function LoginForm() {
         </div>
         
         {isRegistered && !error && (
-           <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ backgroundColor: 'rgba(52, 211, 153, 0.05)', color: '#059669', padding: '1rem', borderRadius: '12px', fontSize: '0.875rem', border: '1px solid rgba(52, 211, 153, 0.2)', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+           <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ backgroundColor: 'rgba(52, 211, 153, 0.05)', color: '#d4af37', padding: '1rem', borderRadius: '12px', fontSize: '0.875rem', border: '1px solid rgba(52, 211, 153, 0.2)', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
              <CheckCircle2 size={18} />
              Account created! Please sign in.
            </div>

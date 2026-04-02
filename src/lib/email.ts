@@ -35,7 +35,7 @@ export async function sendPlatformEmail({
 // Pre-built Template 1: AI Dispute Resolved
 export function getDisputeResolvedTemplate({ disputeId, decision, amount }: { disputeId: string, decision: string, amount: string }) {
   const isRefund = decision === 'REFUND_CUSTOMER';
-  const color = isRefund ? '#ef4444' : '#10b981';
+  const color = isRefund ? '#ef4444' : '#facc15';
   const title = isRefund ? '您的訂單爭議已退款' : '師傅已成功收到放款';
   
   return `

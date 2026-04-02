@@ -102,7 +102,7 @@ export default function AnalyticsPage() {
                     <div key={star} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                        <span style={{ fontSize: '0.8rem', fontWeight: 700, minWidth: '15px' }}>{star}</span>
                        <div style={{ flex: 1, height: '8px', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '4px', overflow: 'hidden' }}>
-                          <div style={{ width: `${percentage}%`, height: '100%', backgroundColor: star >= 4 ? '#10b981' : star === 3 ? '#6366f1' : '#f59e0b', borderRadius: '4px' }}></div>
+                          <div style={{ width: `${percentage}%`, height: '100%', backgroundColor: star >= 4 ? '#facc15' : star === 3 ? '#6366f1' : '#f59e0b', borderRadius: '4px' }}></div>
                        </div>
                     </div>
                   );
@@ -140,14 +140,14 @@ export default function AnalyticsPage() {
         {/* AI Sentiment Summary */}
         <div className="glass-panel" style={{ padding: '2rem', borderRadius: '24px', background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(99, 102, 241, 0.05))' }}>
            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
-              <Sparkles size={20} color="#10b981" />
+              <Sparkles size={20} color="#facc15" />
               <h2 style={{ fontWeight: 800 }}>情感分析摘要</h2>
            </div>
            <div style={{ display: 'flex', gap: '1rem' }}>
               <div style={{ flex: 1, padding: '1rem', borderRadius: '12px', backgroundColor: 'rgba(16, 185, 129, 0.1)', textAlign: 'center' }}>
-                 <ThumbsUp size={20} color="#10b981" style={{ margin: '0 auto 0.25rem' }} />
-                 <h4 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#10b981' }}>{data.sentiment.positiveCount}</h4>
-                 <p style={{ fontSize: '0.7rem', color: '#10b981' }}>Positive</p>
+                 <ThumbsUp size={20} color="#facc15" style={{ margin: '0 auto 0.25rem' }} />
+                 <h4 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#facc15' }}>{data.sentiment.positiveCount}</h4>
+                 <p style={{ fontSize: '0.7rem', color: '#facc15' }}>Positive</p>
               </div>
               <div style={{ flex: 1, padding: '1rem', borderRadius: '12px', backgroundColor: 'rgba(239, 68, 68, 0.1)', textAlign: 'center' }}>
                  <ThumbsDown size={20} color="#ef4444" style={{ margin: '0 auto 0.25rem' }} />
@@ -225,7 +225,7 @@ export default function AnalyticsPage() {
                          </div>
                          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                             {r.sentiment && (
-                              <span style={{ fontSize: '0.65rem', fontWeight: 800, color: r.sentiment === 'POSITIVE' ? '#10b981' : '#ef4444' }}>
+                              <span style={{ fontSize: '0.65rem', fontWeight: 800, color: r.sentiment === 'POSITIVE' ? '#facc15' : '#ef4444' }}>
                                  {r.sentiment}
                               </span>
                             )}

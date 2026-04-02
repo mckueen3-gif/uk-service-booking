@@ -44,7 +44,7 @@ export default function ReviewManager({ review }: ReviewManagerProps) {
     }
   };
 
-  const sentimentColor = review.sentiment === 'POSITIVE' ? '#10b981' : review.sentiment === 'NEGATIVE' ? '#ef4444' : '#f59e0b';
+  const sentimentColor = review.sentiment === 'POSITIVE' ? '#facc15' : review.sentiment === 'NEGATIVE' ? '#ef4444' : '#f59e0b';
   const keywords = review.keywords?.split(",") || [];
 
   return (

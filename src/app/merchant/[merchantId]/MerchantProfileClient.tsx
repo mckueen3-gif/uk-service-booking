@@ -161,7 +161,7 @@ export default function MerchantProfileClient({ merchant, currentMerchantId }: M
                                <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>/月 month</span>
                              )}
                          </div>
-                         <span style={{ color: '#10b981', fontSize: '0.75rem', fontWeight: 700 }}>{t.merchant.guarantee}</span>
+                         <span style={{ color: '#facc15', fontSize: '0.75rem', fontWeight: 700 }}>{t.merchant.guarantee}</span>
                       </div>
                       <Link 
                         href={`/book/${currentMerchantId}?serviceId=${svc.id}&service=${encodeURIComponent(svc.name)}&price=£${svc.price}&category=${encodeURIComponent(svc.category)}`}
@@ -199,7 +199,7 @@ export default function MerchantProfileClient({ merchant, currentMerchantId }: M
                            <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.75rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
                               {new Date(rev.createdAt).toLocaleDateString()}
                               <span style={{ color: 'var(--border-color)' }}>|</span>
-                              <span style={{ color: '#10b981', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.25rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+                              <span style={{ color: '#facc15', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.25rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
                                  <Check size={14} strokeWidth={3} /> {t.merchant.verifiedBooking}
                               </span>
                            </div>
@@ -236,11 +236,11 @@ export default function MerchantProfileClient({ merchant, currentMerchantId }: M
               <div style={{ borderTop: '1px solid var(--border-color)', marginTop: '2.5rem', paddingTop: '2rem' }}>
                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
-                       <ShieldCheck size={20} color="#10b981" />
+                       <ShieldCheck size={20} color="#facc15" />
                        <span style={{ fontSize: '0.9rem', color: 'var(--text-primary)', fontWeight: 700 }}>{t.merchant.guarantee}</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
-                       <Clock size={20} color="#10b981" />
+                       <Clock size={20} color="#facc15" />
                        <span style={{ fontSize: '0.9rem', color: 'var(--text-primary)', fontWeight: 700 }}>{t.merchant.fastResponse}</span>
                     </div>
                  </div>

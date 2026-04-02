@@ -133,7 +133,7 @@
 
 /* Enhanced Primary Button */
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent-color), #047857) !important;
+  background: linear-gradient(135deg, var(--accent-color), #b8860b) !important;
   border: none !important;
   color: white !important;
   font-weight: 700 !important;

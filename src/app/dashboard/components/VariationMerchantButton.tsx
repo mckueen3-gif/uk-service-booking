@@ -41,7 +41,7 @@ export default function VariationMerchantButton({ bookingId }: { bookingId: stri
 
             {isSuccess ? (
                <div style={{ textAlign: 'center', padding: '2rem 0' }}>
-                 <CheckCircle2 size={64} color="#10b981" style={{ margin: '0 auto 1.5rem' }} />
+                 <CheckCircle2 size={64} color="#facc15" style={{ margin: '0 auto 1.5rem' }} />
                  <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>申請已發送！</h2>
                  <p style={{ color: 'var(--text-secondary)' }}>客戶已經收到 Email 通知與 App 彈窗。請等待對方同意後再進行額外施工與採購物料。</p>
                </div>

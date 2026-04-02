@@ -62,7 +62,7 @@ export const MAP_STYLES = [
   {
     "featureType": "poi.park",
     "elementType": "labels.text.fill",
-    "stylers": [{ "color": "#10b981" }, { "opacity": "0.5" }]
+    "stylers": [{ "color": "#facc15" }, { "opacity": "0.5" }]
   },
   {
     "featureType": "road",

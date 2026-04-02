@@ -19,7 +19,7 @@ export default function ReviewButton({ bookingId, hasReview }: ReviewButtonProps
 
   if (hasReview) {
     return (
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#10b981', fontSize: '0.85rem', fontWeight: 700, padding: '0.5rem', backgroundColor: 'rgba(16, 185, 129, 0.1)', borderRadius: '8px', justifyContent: 'center' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#facc15', fontSize: '0.85rem', fontWeight: 700, padding: '0.5rem', backgroundColor: 'rgba(16, 185, 129, 0.1)', borderRadius: '8px', justifyContent: 'center' }}>
         <CheckCircle2 size={16} /> 已評價 (Done)
       </div>
     );
@@ -70,7 +70,7 @@ export default function ReviewButton({ bookingId, hasReview }: ReviewButtonProps
 
             {isSuccess ? (
               <div style={{ textAlign: 'center', padding: '2rem' }}>
-                <CheckCircle2 size={64} color="#10b981" style={{ margin: '0 auto 1rem' }} />
+                <CheckCircle2 size={64} color="#facc15" style={{ margin: '0 auto 1rem' }} />
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 900 }}>感謝您的評價！</h2>
                 <p style={{ color: 'var(--text-secondary)' }}>AI 正在分析您的回饋並即時更新...</p>
               </div>

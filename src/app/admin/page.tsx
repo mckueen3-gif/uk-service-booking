@@ -14,7 +14,7 @@ export default async function AdminDashboardPage() {
 
   const stats = [
     { label: "總訂單量", value: bookingCount, icon: <ShoppingCart size={24} />, color: "#6366f1" },
-    { label: "註冊用戶", value: userCount, icon: <Users size={24} />, color: "#10b981" },
+    { label: "註冊用戶", value: userCount, icon: <Users size={24} />, color: "#facc15" },
     { label: "入駐商戶", value: merchantCount, icon: <Banknote size={24} />, color: "#f59e0b" },
     { label: "平台總流水", value: `£${(totalRevenue._sum.totalAmount || 0).toFixed(2)}`, icon: <TrendingUp size={24} />, color: "#ec4899" },
   ];
@@ -87,8 +87,8 @@ export default async function AdminDashboardPage() {
                     padding: '0.2rem 0.6rem', 
                     borderRadius: '0.5rem',
                     fontWeight: 800,
-                    backgroundColor: booking.status === 'COMPLETED' ? '#10b98120' : '#f59e0b20',
-                    color: booking.status === 'COMPLETED' ? '#10b981' : '#f59e0b'
+                    backgroundColor: booking.status === 'COMPLETED' ? '#facc1520' : '#f59e0b20',
+                    color: booking.status === 'COMPLETED' ? '#facc15' : '#f59e0b'
                   }}>
                     {booking.status}
                   </span>
@@ -137,7 +137,7 @@ export default async function AdminDashboardPage() {
               </li>
               <li style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', display: 'flex', justifyContent: 'space-between' }}>
                  <span>系統健康度</span>
-                 <span style={{ fontWeight: 800, color: '#10b981' }}>正常</span>
+                 <span style={{ fontWeight: 800, color: '#facc15' }}>正常</span>
               </li>
             </ul>
           </div>

@@ -150,7 +150,7 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', fontSize: '1rem', color: 'var(--text-secondary)' }}>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><MapPin size={18} /> {profile.location}</span>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Video size={18} /> {profile.mode}</span>
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#10b981' }}><ShieldCheck size={18} /> {t.education_sec.tutorProfile.verified}</span>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#facc15' }}><ShieldCheck size={18} /> {t.education_sec.tutorProfile.verified}</span>
                 </div>
               </div>
             </div>
@@ -240,7 +240,7 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
               }}
               className="hover-scale"
             >
-              <Sparkles size={20} color="#10b981" /> {t.education_sec.tutorProfile.aiTrial}
+              <Sparkles size={20} color="#facc15" /> {t.education_sec.tutorProfile.aiTrial}
             </button>
 
             <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -291,7 +291,7 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
             {/* Step 0: Idle/Intro */}
             {challengeState === 'idle' && (
               <div style={{ textAlign: 'center' }}>
-                <Sparkles size={64} color="#10b981" style={{ margin: '0 auto 1.5rem' }} />
+                <Sparkles size={64} color="#facc15" style={{ margin: '0 auto 1.5rem' }} />
                 <h2 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '1rem' }}>{t.education_sec.tutorProfile.trialChallenge}</h2>
                 <p style={{ color: 'var(--text-secondary)', marginBottom: '2.5rem', fontSize: '1.15rem', lineHeight: 1.6 }}>
                   Generate 5 quick diagnostic questions for <b>{subjectList[0]}</b> level to let <b>{profile.name}</b> know your current level before booking!
@@ -311,7 +311,7 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
             {challengeState === 'loading' && (
               <div style={{ textAlign: 'center', padding: '4rem 0' }}>
                 <div className="loader" style={{ marginBottom: '2rem' }}>
-                   <Sparkles size={48} className="animate-pulse" color="#10b981" style={{ margin: '0 auto' }} />
+                   <Sparkles size={48} className="animate-pulse" color="#facc15" style={{ margin: '0 auto' }} />
                 </div>
                 <h3 style={{ fontSize: '1.5rem', fontWeight: 800 }}>AI is preparing your challenge...</h3>
                 <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem' }}>Analyzing curriculum for {subjectList[0]}</p>
@@ -350,7 +350,7 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
                     if (showResult) {
                       if (isCorrect) {
                         bg = 'rgba(16, 185, 129, 0.1)';
-                        border = '1px solid #10b981';
+                        border = '1px solid #facc15';
                       } else if (isSelected) {
                         bg = 'rgba(239, 68, 68, 0.1)';
                         border = '1px solid #ef4444';
@@ -388,8 +388,8 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
                 </div>
 
                 {showExplanation && (
-                  <div className="animate-fade-up" style={{ padding: '1.5rem', backgroundColor: 'var(--bg-secondary)', borderRadius: '16px', marginBottom: '2rem', borderLeft: '4px solid #10b981' }}>
-                     <h5 style={{ fontWeight: 800, marginBottom: '0.4rem', color: '#10b981' }}>Explanation:</h5>
+                  <div className="animate-fade-up" style={{ padding: '1.5rem', backgroundColor: 'var(--bg-secondary)', borderRadius: '16px', marginBottom: '2rem', borderLeft: '4px solid #facc15' }}>
+                     <h5 style={{ fontWeight: 800, marginBottom: '0.4rem', color: '#facc15' }}>Explanation:</h5>
                      <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
                         {questions[currentStep].explanation}
                      </p>
@@ -413,7 +413,7 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   margin: '0 auto 1.5rem'
                 }}>
-                  <UserCheck size={48} color="#10b981" />
+                  <UserCheck size={48} color="#facc15" />
                 </div>
                 <h2 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem' }}>Your Score: {score} / {questions.length}</h2>
                 <div style={{ fontSize: '1.2rem', color: 'var(--accent-color)', fontWeight: 800, marginBottom: '2rem' }}>

@@ -91,8 +91,8 @@ export default function MerchantVerificationPage() {
                       borderRadius: '8px', 
                       fontSize: '0.75rem', 
                       fontWeight: 800,
-                      backgroundColor: doc.status === 'APPROVED' ? '#10b98120' : '#f59e0b20',
-                      color: doc.status === 'APPROVED' ? '#10b981' : '#f59e0b'
+                      backgroundColor: doc.status === 'APPROVED' ? '#facc1520' : '#f59e0b20',
+                      color: doc.status === 'APPROVED' ? '#facc15' : '#f59e0b'
                     }}>
                       {doc.status}
                     </span>

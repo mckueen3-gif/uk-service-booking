@@ -101,7 +101,7 @@ export default function VerificationPage() {
             border: `1px solid ${result.isValid ? '#a7f3d0' : '#fecaca'}`
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-               {result.isValid ? <CheckCircle2 size={24} color="#059669" /> : <XCircle size={24} color="#dc2626" />}
+               {result.isValid ? <CheckCircle2 size={24} color="#d4af37" /> : <XCircle size={24} color="#dc2626" />}
                <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: result.isValid ? '#065f46' : '#991b1b' }}>
                  {result.isValid ? "驗證成功！(Verified via AI)" : "驗證未通過 (Verification Failed)"}
                </h3>

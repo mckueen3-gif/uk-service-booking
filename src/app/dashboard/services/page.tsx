@@ -213,7 +213,7 @@ export default function ServicesPage() {
                       <div className="animate-fade-in">
                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.5rem', marginBottom: '1rem' }}>
                             <div style={{ textAlign: 'center', padding: '0.5rem', borderRadius: '8px', backgroundColor: 'rgba(16, 185, 129, 0.1)' }}>
-                               <p style={{ fontSize: '0.65rem', color: '#10b981' }}>Entry</p>
+                               <p style={{ fontSize: '0.65rem', color: '#facc15' }}>Entry</p>
                                <p style={{ fontWeight: 800 }}>£{aiBenchmark.low}</p>
                             </div>
                             <div style={{ textAlign: 'center', padding: '0.5rem', borderRadius: '8px', backgroundColor: 'rgba(99, 102, 241, 0.1)', border: '1px solid var(--accent-color)' }}>

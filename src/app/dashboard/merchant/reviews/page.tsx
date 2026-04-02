@@ -61,10 +61,10 @@ export default async function MerchantReviewsPage() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
             <span style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--text-secondary)' }}>核心情感 Positive Rate</span>
             <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#ecfdf5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <TrendingUp size={18} color="#10b981" />
+              <TrendingUp size={18} color="#facc15" />
             </div>
           </div>
-          <div style={{ fontSize: '2rem', fontWeight: 900, color: '#10b981' }}>{((stats.positive / (stats.total || 1)) * 100).toFixed(0)}%</div>
+          <div style={{ fontSize: '2rem', fontWeight: 900, color: '#facc15' }}>{((stats.positive / (stats.total || 1)) * 100).toFixed(0)}%</div>
         </div>
 
         <div className="glass-panel" style={{ padding: '1.5rem', borderRadius: '20px', border: '1.5px solid var(--border-color)', backgroundColor: 'var(--surface-1)' }}>

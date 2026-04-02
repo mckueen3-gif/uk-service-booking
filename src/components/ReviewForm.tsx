@@ -35,10 +35,10 @@ export default function ReviewForm({ bookingId, merchantName }: { bookingId: str
   if (success) {
     return (
       <div className="glass-panel" style={{ padding: '4rem', textAlign: 'center', backgroundColor: 'rgba(16, 185, 129, 0.05)' }}>
-        <div style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: '#10b981', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 2rem' }}>
+        <div style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: '#facc15', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 2rem' }}>
           <CheckCircle2 size={40} />
         </div>
-        <h2 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '1rem', color: '#10b981' }}>評價成功！</h2>
+        <h2 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '1rem', color: '#facc15' }}>評價成功！</h2>
         <p style={{ color: 'var(--text-secondary)', fontSize: '1.2rem' }}>感謝您的回饋，正在為您跳轉...</p>
       </div>
     );

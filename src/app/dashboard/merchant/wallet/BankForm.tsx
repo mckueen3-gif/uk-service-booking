@@ -61,7 +61,7 @@ export default function BankForm({ initialSortCode = "", initialAccountNumber = 
         type="submit" 
         disabled={loading}
         style={{ 
-          backgroundColor: saved ? '#10b981' : 'var(--text-primary)', 
+          backgroundColor: saved ? '#facc15' : 'var(--text-primary)', 
           color: 'white', 
           border: 'none', 
           padding: '0.75rem', 

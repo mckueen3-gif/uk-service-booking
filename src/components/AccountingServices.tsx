@@ -43,7 +43,7 @@ export default function AccountingServices() {
              <div style={{ fontSize: '0.9rem', color: '#0369a1', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <Zap size={16} fill="#0369a1" /> London 地區同類服務市場平均：<strong>Monthly Bookkeeping £95–£150</strong>
              </div>
-             <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#059669', backgroundColor: '#dcfce7', padding: '0.25rem 0.5rem', borderRadius: '4px' }}>
+             <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#d4af37', backgroundColor: '#dcfce7', padding: '0.25rem 0.5rem', borderRadius: '4px' }}>
                 本商戶 £89 (平 12%)
              </div>
           </div>
@@ -89,7 +89,7 @@ export default function AccountingServices() {
                     <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 1.5rem 0', flex: 1 }}>
                       {pkg.features.map(f => (
                         <li key={f} style={{ fontSize: '0.875rem', color: '#475569', display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                          <CheckCircle2 size={16} color="#059669" /> {f}
+                          <CheckCircle2 size={16} color="#d4af37" /> {f}
                         </li>
                       ))}
                     </ul>

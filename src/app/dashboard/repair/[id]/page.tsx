@@ -104,7 +104,7 @@ export default async function RepairTracker({ params }: { params: Promise<{ id: 
                           <div style={{ opacity: isCompleted ? 1 : 0.4 }}>
                              <div style={{ fontWeight: 800, fontSize: '1.25rem', color: isCompleted ? 'var(--text-primary)' : 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                 {stage.label}
-                                {isActive && <span className="animate-pulse" style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10b981' }} />}
+                                {isActive && <span className="animate-pulse" style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#facc15' }} />}
                              </div>
                              <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>{stage.desc}</p>
                           </div>
@@ -154,16 +154,16 @@ export default async function RepairTracker({ params }: { params: Promise<{ id: 
                        <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Total Estimated Cost</div>
                     </div>
                     <div style={{ textAlign: 'right' }}>
-                       <div style={{ fontWeight: 900, fontSize: '1.5rem', color: '#10b981' }}>£{(payout.totalCustomerPrice - (booking.diagnosticFee || 20)).toFixed(2)}</div>
-                       <div style={{ fontSize: '0.85rem', color: '#10b981' }}>Pay at Workshop</div>
+                       <div style={{ fontWeight: 900, fontSize: '1.5rem', color: '#facc15' }}>£{(payout.totalCustomerPrice - (booking.diagnosticFee || 20)).toFixed(2)}</div>
+                       <div style={{ fontSize: '0.85rem', color: '#facc15' }}>Pay at Workshop</div>
                     </div>
                  </div>
 
-                 <div style={{ marginTop: '1.5rem', padding: '1rem', backgroundColor: booking.status === 'COMPLETED' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(37, 99, 235, 0.05)', borderRadius: '0.75rem', fontSize: '0.85rem', borderLeft: `4px solid ${booking.status === 'COMPLETED' ? '#10b981' : 'var(--accent-color)'}` }}>
+                 <div style={{ marginTop: '1.5rem', padding: '1rem', backgroundColor: booking.status === 'COMPLETED' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(37, 99, 235, 0.05)', borderRadius: '0.75rem', fontSize: '0.85rem', borderLeft: `4px solid ${booking.status === 'COMPLETED' ? '#facc15' : 'var(--accent-color)'}` }}>
                     <AlertCircle size={16} style={{ marginBottom: '0.5rem' }} />
                     {booking.status === 'COMPLETED' ? (
                        <div style={{ color: 'var(--text-primary)' }}>
-                          <p style={{ fontWeight: 800, color: '#10b981', marginBottom: '0.25rem' }}>維修已圓滿結束！</p>
+                          <p style={{ fontWeight: 800, color: '#facc15', marginBottom: '0.25rem' }}>維修已圓滿結束！</p>
                           <p style={{ color: 'var(--text-secondary)' }}>您已完成到店支付。如果您對這次服務滿意，請花一分鐘為師傅留下好評。</p>
                           <Link href={`/dashboard/repair/${booking.id}/review`} style={{ display: 'inline-block', marginTop: '1rem' }}>
                              <button className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}>
@@ -209,7 +209,7 @@ export default async function RepairTracker({ params }: { params: Promise<{ id: 
                              )}
                           </div>
                           {v.status === 'ACCEPTED' && (
-                             <CheckCircle2 color="#10b981" size={20} />
+                             <CheckCircle2 color="#facc15" size={20} />
                           )}
                        </div>
                     ))

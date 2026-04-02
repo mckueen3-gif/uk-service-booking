@@ -31,7 +31,7 @@ export default function AdminDisputesPage() {
     switch(status) {
       case 'OPEN': return '#ef4444';
       case 'REVIEWING': return '#f59e0b';
-      case 'RESOLVED': return '#10b981';
+      case 'RESOLVED': return '#facc15';
       default: return '#64748b';
     }
   };
@@ -39,7 +39,7 @@ export default function AdminDisputesPage() {
   const getDecisionColor = (decision: ResolutionDecision) => {
     switch(decision) {
       case 'FORCE_PAYOUT': return '#ef4444';
-      case 'REFUND_CUSTOMER': return '#10b981';
+      case 'REFUND_CUSTOMER': return '#facc15';
       case 'SPLIT_COST': return '#2563eb';
       default: return '#64748b';
     }

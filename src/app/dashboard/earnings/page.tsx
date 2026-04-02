@@ -61,7 +61,7 @@ export default function EarningsPage() {
            </div>
            <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '0.5rem' }}>可用餘額 (Available)</p>
            <h2 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-primary)' }}>£{wallet.availableBalance.toFixed(2)}</h2>
-           <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.5rem', fontSize: '0.8rem', color: '#10b981' }}>
+           <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.5rem', fontSize: '0.8rem', color: '#facc15' }}>
               <CheckCircle2 size={14} /> 可隨時提領
            </div>
         </div>
@@ -110,7 +110,7 @@ export default function EarningsPage() {
                        </div>
                     </div>
                     <div style={{ textAlign: 'right' }}>
-                       <p style={{ fontWeight: 800, color: '#10b981' }}>+£{b.totalAmount.toFixed(2)}</p>
+                       <p style={{ fontWeight: 800, color: '#facc15' }}>+£{b.totalAmount.toFixed(2)}</p>
                        <p style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>已入帳</p>
                     </div>
                  </div>
@@ -134,7 +134,7 @@ export default function EarningsPage() {
                            <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>{new Date(w.createdAt).toLocaleDateString()}</p>
                         </div>
                         <div style={{ 
-                          color: w.status === 'COMPLETED' ? '#10b981' : w.status === 'PENDING' ? '#f59e0b' : '#ef4444',
+                          color: w.status === 'COMPLETED' ? '#facc15' : w.status === 'PENDING' ? '#f59e0b' : '#ef4444',
                           fontWeight: 700,
                           fontSize: '0.75rem'
                         }}>

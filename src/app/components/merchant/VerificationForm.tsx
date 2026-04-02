@@ -54,14 +54,14 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
         padding: '2.5rem', 
         marginBottom: '2rem', 
         textAlign: 'center',
-        borderBottom: `6px solid ${status === 'VERIFIED' ? '#10b981' : 'var(--border-color)'}`
+        borderBottom: `6px solid ${status === 'VERIFIED' ? '#facc15' : 'var(--border-color)'}`
       }}>
         {status === 'VERIFIED' ? (
           <>
-            <div style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: '#10b981', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
+            <div style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: '#facc15', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
               <FileCheck size={40} />
             </div>
-            <h2 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#10b981' }}>已成功通過專家驗證！</h2>
+            <h2 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#facc15' }}>已成功通過專家驗證！</h2>
             <p style={{ color: 'var(--text-secondary)' }}>您的專業標章已激活。請保持證書有效期以維持認證狀態。</p>
           </>
         ) : (
@@ -129,7 +129,7 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
                       padding: '0.2rem 0.5rem', 
                       borderRadius: '4px',
                       backgroundColor: doc.status === 'APPROVED' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(245, 158, 11, 0.1)',
-                      color: doc.status === 'APPROVED' ? '#10b981' : '#f59e0b',
+                      color: doc.status === 'APPROVED' ? '#facc15' : '#f59e0b',
                       display: 'inline-block',
                       marginBottom: '0.3rem'
                    }}>

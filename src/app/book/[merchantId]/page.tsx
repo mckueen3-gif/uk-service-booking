@@ -192,7 +192,7 @@ export default function BookingPage() {
       <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 'calc(100vh - 80px)', padding: '2rem 1rem', direction: isRTL ? 'rtl' : 'ltr' }}>
         <div className="glass-panel animate-fade-up" style={{ padding: '3rem 2rem', textAlign: 'center', maxWidth: '600px', width: '100%', borderRadius: '24px' }}>
           <div className="animate-scale-in">
-            <CheckCircle2 color="#10b981" fill="#ccfbf1" size={80} style={{ margin: '0 auto 1.5rem' }} />
+            <CheckCircle2 color="#facc15" fill="#ccfbf1" size={80} style={{ margin: '0 auto 1.5rem' }} />
           </div>
           <h1 style={{ fontSize: '2.2rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>{t.booking.titles.success}</h1>
           <p style={{ color: 'var(--text-secondary)', marginBottom: '2.5rem', lineHeight: 1.6, fontSize: '1.1rem' }}>

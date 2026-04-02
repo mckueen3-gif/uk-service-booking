@@ -207,7 +207,7 @@ export default function CarBookingPage() {
                 </div>
                 <div style={{ textAlign: 'right' }}>
                    <h3 style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>AI Range Estimate</h3>
-                   <div style={{ fontSize: '2rem', fontWeight: 900, color: '#10b981' }}>{currentEstimate?.range}</div>
+                   <div style={{ fontSize: '2rem', fontWeight: 900, color: '#facc15' }}>{currentEstimate?.range}</div>
                    <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>{currentEstimate?.disclaimer}</p>
                 </div>
              </div>

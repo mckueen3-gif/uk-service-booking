@@ -93,7 +93,7 @@ export default function RecommendationEngine() {
            >
               <div>
                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.25rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
-                    <div style={{ width: '48px', height: '48px', borderRadius: '14px', backgroundColor: rec.icon === 'Car' ? '#ecfdf5' : '#eff6ff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: rec.icon === 'Car' ? '#059669' : '#2563eb' }}>
+                    <div style={{ width: '48px', height: '48px', borderRadius: '14px', backgroundColor: rec.icon === 'Car' ? '#ecfdf5' : '#eff6ff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: rec.icon === 'Car' ? '#d4af37' : '#2563eb' }}>
                        {rec.icon === 'Car' ? <Car size={24} /> : rec.icon === 'Home' ? <Home size={24} /> : <TrendingUp size={24} />}
                     </div>
                     {rec.reason === 'Asset-Match' && (

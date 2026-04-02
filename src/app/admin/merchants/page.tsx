@@ -43,8 +43,8 @@ export default async function AdminMerchantsPage() {
                 fontSize: '0.7rem', 
                 padding: '0.25rem 0.6rem', 
                 borderRadius: '0.5rem',
-                backgroundColor: merchant.isVerified ? '#05966930' : '#ef444430',
-                color: merchant.isVerified ? '#34d399' : '#f87171',
+                backgroundColor: merchant.isVerified ? '#d4af3730' : '#ef444430',
+                color: merchant.isVerified ? '#fde047' : '#f87171',
                 fontWeight: 700,
                 textTransform: 'uppercase'
               }}>

@@ -65,7 +65,7 @@ export default function SearchHero() {
         <div style={{ 
           display: 'inline-flex', alignItems: 'center', gap: '0.6rem', 
           padding: '0.6rem 1.4rem', backgroundColor: 'var(--surface-1)', 
-          color: 'var(--emerald-700)', borderRadius: '2rem', fontSize: '0.9rem', 
+          color: 'var(--amber-700)', borderRadius: '2rem', fontSize: '0.9rem', 
           fontWeight: 800, marginBottom: '2.5rem',
           boxShadow: 'var(--shadow-md)',
           border: '1px solid var(--border-color)',
@@ -85,7 +85,7 @@ export default function SearchHero() {
         }}>
           {t.home.hero.title1} <br/>
           <span style={{ 
-            background: 'linear-gradient(to right, var(--emerald-600), var(--emerald-800))', 
+            background: 'linear-gradient(to right, var(--amber-600), var(--amber-800))', 
             WebkitBackgroundClip: 'text', 
             WebkitTextFillColor: 'transparent' 
           }}>{t.home.hero.title2}</span>
@@ -207,10 +207,10 @@ export default function SearchHero() {
               gap: '1rem',
               height: 'auto',
               minHeight: '75px',
-              background: 'linear-gradient(135deg, var(--emerald-600), var(--emerald-800))',
+              background: 'linear-gradient(135deg, var(--amber-600), var(--amber-800))',
               flex: '0 0 auto',
               flexDirection: isRTL ? 'row-reverse' : 'row',
-              boxShadow: '0 10px 25px -5px rgba(4, 120, 87, 0.4)'
+              boxShadow: '0 10px 25px -5px rgba(212, 175, 55, 0.4)'
             }}
           >
              {t.home.hero.searchBtn} <ArrowRight size={22} style={{ transform: isRTL ? 'rotate(180deg)' : 'none' }} />

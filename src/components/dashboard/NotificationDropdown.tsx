@@ -70,8 +70,8 @@ export default function NotificationDropdown({ onClose }: { onClose: () => void 
           <div key={notif.id} style={{ 
             padding: '1.25rem', 
             borderRadius: '18px', 
-            backgroundColor: notif.type === 'AI_MAINTENANCE' ? 'var(--emerald-50)' : 'var(--surface-2)',
-            border: `1px solid ${notif.type === 'AI_MAINTENANCE' ? 'rgba(5, 150, 105, 0.1)' : 'transparent'}`,
+            backgroundColor: notif.type === 'AI_MAINTENANCE' ? 'var(--amber-50)' : 'var(--surface-2)',
+            border: `1px solid ${notif.type === 'AI_MAINTENANCE' ? 'rgba(212, 175, 55, 0.1)' : 'transparent'}`,
             position: 'relative',
             cursor: 'pointer',
             transition: 'transform 0.2s'

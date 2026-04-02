@@ -24,7 +24,7 @@ export default function OnboardingHero() {
         .onboarding-hero {
           padding: 80px 20px 40px;
           text-align: center;
-          background: radial-gradient(circle at top, var(--emerald-50) 0%, transparent 70%);
+          background: radial-gradient(circle at top, var(--amber-50) 0%, transparent 70%);
           position: relative;
           overflow: hidden;
         }

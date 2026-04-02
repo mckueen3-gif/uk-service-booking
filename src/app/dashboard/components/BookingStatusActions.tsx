@@ -48,7 +48,7 @@ export default function BookingStatusActions({ bookingId, currentStatus }: Booki
           gap: "0.25rem",
           padding: "0.4rem 0.8rem",
           borderRadius: "6px",
-          backgroundColor: "#10b981",
+          backgroundColor: "#facc15",
           color: "white",
           border: "none",
           fontSize: "0.8rem",

@@ -106,7 +106,7 @@ export default function AvailabilityPage() {
       </div>
 
       {message && (
-        <div className="animate-bounce-in" style={{ backgroundColor: message.type === 'success' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)', color: message.type === 'success' ? '#10b981' : '#ef4444', padding: '1rem', borderRadius: '12px', border: `1px solid ${message.type === 'success' ? '#10b981' : '#ef4444'}`, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700 }}>
+        <div className="animate-bounce-in" style={{ backgroundColor: message.type === 'success' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)', color: message.type === 'success' ? '#facc15' : '#ef4444', padding: '1rem', borderRadius: '12px', border: `1px solid ${message.type === 'success' ? '#facc15' : '#ef4444'}`, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700 }}>
           {message.type === 'success' ? <CheckCircle2 size={18} /> : <AlertCircle size={18} />}
           {message.text}
         </div>

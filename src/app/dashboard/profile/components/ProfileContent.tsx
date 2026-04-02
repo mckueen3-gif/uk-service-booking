@@ -71,7 +71,7 @@ export default function ProfileContent({ initialUser }: { initialUser: any }) {
            <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>{user?.email}</p>
            
            <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem' }}>
-              <span style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', color: '#10b981', padding: '0.35rem 0.75rem', borderRadius: '2rem', fontSize: '0.75rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <span style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', color: '#facc15', padding: '0.35rem 0.75rem', borderRadius: '2rem', fontSize: '0.75rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                  <Shield size={14} /> 已驗證
               </span>
               <span style={{ backgroundColor: 'rgba(99, 102, 241, 0.1)', color: '#6366f1', padding: '0.35rem 0.75rem', borderRadius: '2rem', fontSize: '0.75rem', fontWeight: 700 }}>

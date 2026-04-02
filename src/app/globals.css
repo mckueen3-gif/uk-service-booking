@@ -1,37 +1,48 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap');
 
 :root {
-  /* Premium Fresh White & Green Palette */
+  /* Premium Concierge Obsidian & Gold Palette */
   --bg-primary: #ffffff;
-  --bg-secondary: #f9fafb;
+  --bg-secondary: #f8fafc;
   --surface-1: #ffffff;
-  --surface-2: #f3f4f6;
-  --surface-3: #e5e7eb;
+  --surface-2: #f1f5f9;
+  --surface-3: #e2e8f0;
   
-  --emerald-50: #ecfdf5;
-  --emerald-100: #d1fae5;
-  --emerald-600: #059669;
-  --emerald-700: #047857;
-  --emerald-800: #065f46;
-  --emerald-950: #022c22;
+  /* Gold Tones - Aligned with Logo */
+  --gold-50: #fefce8;
+  --gold-100: #fef9c3;
+  --gold-200: #fef08a;
+  --gold-600: #d4af37; /* Primary Brand Gold */
+  --gold-700: #b8860b; /* Dark Goldenrod */
+  --gold-800: #926207;
+  --gold-950: #422006;
 
-  --accent-color: var(--emerald-700);
-  --accent-hover: var(--emerald-800);
-  --accent-soft: rgba(4, 120, 87, 0.08);
+  /* Amber Aliases (For component compatibility) */
+  --amber-50: var(--gold-50);
+  --amber-100: var(--gold-100);
+  --amber-200: var(--gold-200);
+  --amber-600: var(--gold-600);
+  --amber-700: var(--gold-700);
+  --amber-800: var(--gold-800);
+  --amber-950: var(--gold-950);
+
+  --accent-color: #b8860b; /* Slightly darker gold for light mode contrast */
+  --accent-hover: #926207;
+  --accent-soft: rgba(184, 134, 11, 0.08);
   
-  --text-primary: #022c22;   /* Deepest emerald for headers */
-  --text-secondary: #064e3b; /* Strong emerald-slate for body */
-  --text-muted: #64748b;     /* Slate for supporting text */
+  --text-primary: #0f172a;   /* Deep Onyx for headers */
+  --text-secondary: #334155; /* Refined Slate for body */
+  --text-muted: #64748b;     /* Muted Slate */
   --text-contrast: #ffffff;
   
-  --border-color: rgba(4, 120, 87, 0.1);
+  --border-color: rgba(184, 134, 11, 0.12);
   --glass-bg: rgba(255, 255, 255, 0.85);
   --glass-border: rgba(255, 255, 255, 0.4);
   
-  /* Precision Shadows */
+  /* Luxury Shadows */
   --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.02);
-  --shadow-md: 0 4px 20px -2px rgba(4, 120, 87, 0.06), 0 2px 8px -2px rgba(4, 120, 87, 0.04);
-  --shadow-lg: 0 20px 40px -12px rgba(4, 120, 87, 0.1), 0 0 0 1px rgba(4, 120, 87, 0.03);
+  --shadow-md: 0 4px 20px -2px rgba(184, 134, 11, 0.06), 0 2px 8px -2px rgba(184, 134, 11, 0.04);
+  --shadow-lg: 0 20px 40px -12px rgba(184, 134, 11, 0.1), 0 0 0 1px rgba(184, 134, 11, 0.02);
   
   --radius-md: 1rem;
   --radius-lg: 1.5rem;
@@ -40,34 +51,35 @@
   --font-heading: 'Outfit', sans-serif;
   --font-body: 'Inter', sans-serif;
 
-  --premium-gradient: linear-gradient(135deg, var(--emerald-600) 0%, var(--emerald-800) 100%);
-  --soft-gradient: linear-gradient(135deg, var(--bg-primary) 0%, var(--emerald-50) 100%);
+  --premium-gradient: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+  --soft-gradient: linear-gradient(135deg, var(--bg-primary) 0%, var(--gold-50) 100%);
 }
 
 
 /* Theme Class Overrides */
 .dark {
-  --bg-primary: #02120b;
-  --bg-secondary: #041c14;
-  --surface-1: #06241a;
-  --surface-2: #0b3427;
-  --surface-3: #124536;
+  /* True Onyx Night Theme */
+  --bg-primary: #050505;
+  --bg-secondary: #0a0a0a;
+  --surface-1: #0f0f0f;
+  --surface-2: #171717;
+  --surface-3: #262626;
   
-  --text-primary: #ecfdf5;
-  --text-secondary: #d1fae5;
-  --text-muted: #6b7280;
-  --text-contrast: #022c22;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #71717a;
+  --text-contrast: #050505;
   
-  --accent-color: #34d399;
-  --accent-hover: #6ee7b7;
-  --accent-soft: rgba(52, 211, 153, 0.12);
+  --accent-color: #d4af37; /* Vibrant Gold for Dark Mode */
+  --accent-hover: #f1c40f;
+  --accent-soft: rgba(212, 175, 55, 0.12);
   
-  --border-color: rgba(255, 255, 255, 0.08);
-  --glass-bg: rgba(6, 36, 26, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.05);
+  --border-color: rgba(212, 175, 55, 0.1);
+  --glass-bg: rgba(15, 15, 15, 0.7);
+  --glass-border: rgba(212, 175, 55, 0.05);
 
-  --emerald-50: #042419;
-  --soft-gradient: linear-gradient(135deg, var(--bg-primary) 0%, #042419 100%);
+  --gold-50: #1a1505;
+  --soft-gradient: linear-gradient(135deg, var(--bg-primary) 0%, #1a1505 100%);
 }
 
 * {
@@ -116,7 +128,7 @@ h1, h2, h3, h4, h5, h6 {
 .glass-panel:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
-  border-color: rgba(4, 120, 87, 0.2);
+  border-color: rgba(212, 175, 55, 0.2);
 }
 
 /* --- High-End Typography --- */
@@ -124,7 +136,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: clamp(3rem, 6vw, 5rem);
   font-weight: 900;
   line-height: 1;
-  background: linear-gradient(to bottom right, var(--text-primary), var(--emerald-800));
+  background: linear-gradient(to bottom right, var(--text-primary), var(--gold-700));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -155,13 +167,13 @@ h1, h2, h3, h4, h5, h6 {
 .btn-primary {
   background: var(--accent-color);
   color: white;
-  box-shadow: 0 8px 15px -3px rgba(4, 120, 87, 0.2);
+  box-shadow: 0 8px 15px -3px rgba(212, 175, 55, 0.2);
 }
 
 .btn-primary:hover {
   background: var(--accent-hover);
   transform: scale(1.02);
-  box-shadow: 0 12px 25px -5px rgba(4, 120, 87, 0.3);
+  box-shadow: 0 12px 25px -5px rgba(212, 175, 55, 0.3);
 }
 
 /* --- Reveal Animation System --- */
@@ -202,7 +214,7 @@ h1, h2, h3, h4, h5, h6 {
   content: '';
   position: absolute;
   inset: 0;
-  background: var(--emerald-50);
+  background: var(--gold-50);
   transform: scale(0.8);
   opacity: 0;
   border-radius: var(--radius-md);

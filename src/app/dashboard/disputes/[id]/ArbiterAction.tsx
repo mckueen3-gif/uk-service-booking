@@ -37,7 +37,7 @@ export default function ArbiterAction({ disputeId, status }: ArbiterActionProps)
   };
 
   if (status === 'RESOLVED') return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#10b981', fontWeight: 800, fontSize: '0.9rem' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#facc15', fontWeight: 800, fontSize: '0.9rem' }}>
        <Shield size={18} /> 案件已結案
     </div>
   );

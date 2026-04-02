@@ -23,7 +23,7 @@ export default function DiagnosisPage() {
              boxShadow: 'var(--shadow-sm)',
              fontSize: '0.9rem',
              fontWeight: 800,
-             color: 'var(--emerald-600)',
+             color: 'var(--amber-600)',
              marginBottom: '1.5rem',
              border: '1px solid var(--border-color)'
            }}>
@@ -32,7 +32,7 @@ export default function DiagnosisPage() {
            
            <h1 style={{ fontSize: '4rem', fontWeight: 950, color: 'var(--text-primary)', marginBottom: '1.5rem', letterSpacing: '-0.03em', lineHeight: 1 }}>
              {t.diagnosis.title1} <br />
-             <span style={{ color: 'var(--emerald-600)' }}>{t.diagnosis.title2}</span>
+             <span style={{ color: 'var(--amber-600)' }}>{t.diagnosis.title2}</span>
            </h1>
            
            <p style={{ maxWidth: '700px', margin: '0 auto', fontSize: '1.25rem', color: 'var(--text-muted)', fontWeight: 500, lineHeight: 1.7 }}>
@@ -54,7 +54,7 @@ export default function DiagnosisPage() {
           margin: '0 auto'
         }}>
            <div className="glass-panel stagger-2 reveal active" style={{ padding: '2rem', background: 'var(--surface-1)' }}>
-              <div style={{ width: '50px', height: '50px', borderRadius: '1rem', background: 'var(--accent-soft)', color: 'var(--emerald-600)', display: 'flex', alignItems: 'center', justifyItems: 'center', marginBottom: '1.5rem' }}>
+              <div style={{ width: '50px', height: '50px', borderRadius: '1rem', background: 'var(--accent-soft)', color: 'var(--amber-600)', display: 'flex', alignItems: 'center', justifyItems: 'center', marginBottom: '1.5rem' }}>
                  <Zap size={28} style={{ margin: 'auto' }} />
               </div>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.75rem' }}>{t.diagnosis.features.instant.title}</h3>
@@ -62,7 +62,7 @@ export default function DiagnosisPage() {
            </div>
 
            <div className="glass-panel stagger-3 reveal active" style={{ padding: '2rem', background: 'var(--surface-1)' }}>
-              <div style={{ width: '50px', height: '50px', borderRadius: '1rem', background: 'var(--accent-soft)', color: 'var(--emerald-600)', display: 'flex', alignItems: 'center', justifyItems: 'center', marginBottom: '1.5rem' }}>
+              <div style={{ width: '50px', height: '50px', borderRadius: '1rem', background: 'var(--accent-soft)', color: 'var(--amber-600)', display: 'flex', alignItems: 'center', justifyItems: 'center', marginBottom: '1.5rem' }}>
                  <PoundSterling size={28} style={{ margin: 'auto' }} />
               </div>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.75rem' }}>{t.diagnosis.features.pricing.title}</h3>
@@ -70,7 +70,7 @@ export default function DiagnosisPage() {
            </div>
 
            <div className="glass-panel stagger-4 reveal active" style={{ padding: '2rem', background: 'var(--surface-1)' }}>
-              <div style={{ width: '50px', height: '50px', borderRadius: '1rem', background: 'var(--accent-soft)', color: 'var(--emerald-600)', display: 'flex', alignItems: 'center', justifyItems: 'center', marginBottom: '1.5rem' }}>
+              <div style={{ width: '50px', height: '50px', borderRadius: '1rem', background: 'var(--accent-soft)', color: 'var(--amber-600)', display: 'flex', alignItems: 'center', justifyItems: 'center', marginBottom: '1.5rem' }}>
                  <ShieldCheck size={28} style={{ margin: 'auto' }} />
               </div>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.75rem' }}>{t.diagnosis.features.verified.title}</h3>

@@ -27,7 +27,7 @@ export default function AIPricingAnalysis({ merchantName, merchantPrice, locatio
   const isCheaper = priceDiff < 0;
   
   // Determine color/status
-  let statusColor = "#10b981"; // Green (Good/Low)
+  let statusColor = "#facc15"; // Green (Good/Low)
   let statusText = "市場競爭力強";
   if (merchantPrice > marketAvg * 1.1) {
     statusColor = "#ef4444"; // Red (High)
@@ -101,7 +101,7 @@ export default function AIPricingAnalysis({ merchantName, merchantPrice, locatio
                     <span style={{ 
                       fontSize: '0.9rem', 
                       fontWeight: 700, 
-                      color: isCheaper ? '#059669' : '#ef4444',
+                      color: isCheaper ? '#d4af37' : '#ef4444',
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.25rem'
@@ -116,12 +116,12 @@ export default function AIPricingAnalysis({ merchantName, merchantPrice, locatio
             {/* Visualize Meter */}
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#10b981' }}>低 (L)</span>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#facc15' }}>低 (L)</span>
                   <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#f59e0b' }}>中 (M)</span>
                   <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#ef4444' }}>高 (H)</span>
                </div>
                
-               <div style={{ position: 'relative', height: '12px', borderRadius: '6px', background: 'linear-gradient(to right, #10b981, #f59e0b, #ef4444)', marginBottom: '1rem' }}>
+               <div style={{ position: 'relative', height: '12px', borderRadius: '6px', background: 'linear-gradient(to right, #facc15, #f59e0b, #ef4444)', marginBottom: '1rem' }}>
                   {/* Current Merchant Indicator */}
                   <div style={{ 
                     position: 'absolute', 

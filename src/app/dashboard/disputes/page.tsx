@@ -55,7 +55,7 @@ export default async function DisputesPage() {
                     backgroundColor: dispute.status === 'RESOLVED' ? 'rgba(16, 185, 129, 0.1)' : dispute.status === 'OPEN' ? 'rgba(245, 158, 11, 0.1)' : 'var(--accent-soft)',
                     padding: '1rem',
                     borderRadius: '1rem',
-                    color: dispute.status === 'RESOLVED' ? '#10b981' : dispute.status === 'OPEN' ? '#f59e0b' : 'var(--accent-color)'
+                    color: dispute.status === 'RESOLVED' ? '#facc15' : dispute.status === 'OPEN' ? '#f59e0b' : 'var(--accent-color)'
                   }}>
                     {dispute.status === 'RESOLVED' ? <CheckCircle2 size={28} /> : dispute.status === 'OPEN' ? <AlertCircle size={28} /> : <Clock size={28} />}
                   </div>
@@ -66,7 +66,7 @@ export default async function DisputesPage() {
                          fontSize: '0.7rem', 
                          fontWeight: 800, 
                          backgroundColor: dispute.status === 'RESOLVED' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(245, 158, 11, 0.2)',
-                         color: dispute.status === 'RESOLVED' ? '#10b981' : '#b45309',
+                         color: dispute.status === 'RESOLVED' ? '#facc15' : '#b45309',
                          padding: '0.2rem 0.6rem',
                          borderRadius: '6px',
                          textTransform: 'uppercase'

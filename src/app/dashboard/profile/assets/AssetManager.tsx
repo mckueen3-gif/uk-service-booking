@@ -109,7 +109,7 @@ export default function AssetManager() {
       </div>
 
       {message && (
-        <div style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', color: '#10b981', padding: '1rem', borderRadius: '12px', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', color: '#facc15', padding: '1rem', borderRadius: '12px', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <CheckCircle2 size={18} /> {message}
         </div>
       )}

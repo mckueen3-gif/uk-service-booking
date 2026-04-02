@@ -105,7 +105,7 @@ export default function GarageContent() {
           backgroundColor: 'rgba(255,255,255,0.04)',
           border: '1px solid var(--border-color)',
           fontSize: '0.8rem',
-          color: synced ? '#10b981' : 'var(--text-secondary)',
+          color: synced ? '#facc15' : 'var(--text-secondary)',
           display: 'flex',
           alignItems: 'center',
           gap: '0.65rem'

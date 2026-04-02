@@ -107,7 +107,7 @@ export default function PayoutPage() {
             </div>
             
             {msg && (
-              <div style={{ padding: '0.75rem', borderRadius: '8px', backgroundColor: msg.includes("成功") ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)', color: msg.includes("成功") ? '#10b981' : '#ef4444', fontSize: '0.85rem', marginBottom: '1rem', fontWeight: 600 }}>
+              <div style={{ padding: '0.75rem', borderRadius: '8px', backgroundColor: msg.includes("成功") ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)', color: msg.includes("成功") ? '#facc15' : '#ef4444', fontSize: '0.85rem', marginBottom: '1rem', fontWeight: 600 }}>
                  {msg}
               </div>
             )}

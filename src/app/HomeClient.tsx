@@ -104,15 +104,15 @@ export default function HomeClient() {
           position: 'relative'
         }}>
           {/* Decorative Background Element */}
-          <div style={{ position: 'absolute', top: '-10%', right: '-5%', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, var(--emerald-100) 0%, transparent 70%)', opacity: 0.5 }}></div>
+          <div style={{ position: 'absolute', top: '-10%', right: '-5%', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, var(--amber-100) 0%, transparent 70%)', opacity: 0.5 }}></div>
 
           <div style={{ flex: '1 1 400px', zIndex: 1 }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'var(--emerald-600)', color: 'white', padding: '0.4rem 1rem', borderRadius: '2rem', fontSize: '0.75rem', fontWeight: 800, marginBottom: '1.5rem', boxShadow: '0 4px 12px rgba(5, 150, 105, 0.2)' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'var(--amber-600)', color: 'white', padding: '0.4rem 1rem', borderRadius: '2rem', fontSize: '0.75rem', fontWeight: 800, marginBottom: '1.5rem', boxShadow: '0 4px 12px rgba(212, 175, 55, 0.2)' }}>
               <Sparkles size={14} /> {t.home.aiCTA.badge}
             </div>
             <h2 style={{ fontSize: '3rem', fontWeight: 950, marginBottom: '1.5rem', lineHeight: 1.1 }}>
               {t.home.aiCTA.title1} <br />
-              <span style={{ color: 'var(--emerald-600)' }}>{t.home.aiCTA.title2}</span>
+              <span style={{ color: 'var(--amber-600)' }}>{t.home.aiCTA.title2}</span>
             </h2>
             <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', marginBottom: '2.5rem', lineHeight: 1.6, fontWeight: 500 }}>
               {t.home.aiCTA.subtitle}
@@ -152,7 +152,7 @@ export default function HomeClient() {
               display: 'inline-flex', 
               alignItems: 'center', 
               gap: '0.6rem', 
-              background: 'rgba(5, 150, 105, 0.1)', 
+              background: 'rgba(212, 175, 55, 0.1)', 
               color: 'var(--accent-color)', 
               padding: '0.5rem 1.25rem', 
               borderRadius: '2rem', 
@@ -205,7 +205,7 @@ export default function HomeClient() {
                 </div>
               ) : (
                 <Link href="/auth/register">
-                  <button className="btn btn-primary" style={{ padding: '1.25rem 2.5rem', fontSize: '1.1rem', boxShadow: '0 10px 25px -5px rgba(5, 150, 105, 0.4)' }}>
+                  <button className="btn btn-primary" style={{ padding: '1.25rem 2.5rem', fontSize: '1.1rem', boxShadow: '0 10px 25px -5px rgba(212, 175, 55, 0.4)' }}>
                     {t.home.referralCTA.button} <ChevronRight size={20} />
                   </button>
                 </Link>
@@ -401,7 +401,7 @@ export default function HomeClient() {
                       <Star size={14} fill="#fbbf24" color="#fbbf24" /> {m.rating || (4.5 + Math.random() * 0.4).toFixed(1)}
                     </div>
                     {idx < 2 && (
-                      <div style={{ position: 'absolute', top: '1rem', left: '1rem', background: 'var(--accent-color)', color: 'white', padding: '0.4rem 0.85rem', borderRadius: '1rem', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.05em', boxShadow: '0 4px 12px rgba(5, 150, 105, 0.3)' }}>
+                      <div style={{ position: 'absolute', top: '1rem', left: '1rem', background: 'var(--accent-color)', color: 'white', padding: '0.4rem 0.85rem', borderRadius: '1rem', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.05em', boxShadow: '0 4px 12px rgba(212, 175, 55, 0.3)' }}>
                         Elite Pro
                       </div>
                     )}

@@ -111,7 +111,7 @@ export default async function DisputeDetailPage({ params }: { params: Promise<{ 
                       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                         <div style={{ 
                           backgroundColor: dispute.aiDecision === 'FORCE_PAYOUT' ? 'rgba(16, 185, 129, 0.15)' : dispute.aiDecision === 'REFUND_CUSTOMER' ? 'rgba(239, 68, 68, 0.15)' : 'rgba(245, 158, 11, 0.15)',
-                          color: dispute.aiDecision === 'FORCE_PAYOUT' ? '#10b981' : dispute.aiDecision === 'REFUND_CUSTOMER' ? '#ef4444' : '#f59e0b',
+                          color: dispute.aiDecision === 'FORCE_PAYOUT' ? '#facc15' : dispute.aiDecision === 'REFUND_CUSTOMER' ? '#ef4444' : '#f59e0b',
                           padding: '0.6rem 1.25rem',
                           borderRadius: '12px',
                           fontWeight: 900,
@@ -145,7 +145,7 @@ export default async function DisputeDetailPage({ params }: { params: Promise<{ 
                             <span style={{ color: '#94a3b8', fontSize: '0.75rem', fontWeight: 700 }}>ANALYSIS_LOG_STDOUT</span>
                          </div>
                          <div style={{ color: '#60a5fa', marginBottom: '0.5rem' }}>&gt; Initializing reasoning engine... Done.</div>
-                         <div style={{ color: '#10b981', marginBottom: '1rem' }}>&gt; Final Conclusion:</div>
+                         <div style={{ color: '#facc15', marginBottom: '1rem' }}>&gt; Final Conclusion:</div>
                          <p style={{ margin: 0, color: '#e2e8f0', whiteSpace: 'pre-wrap' }}>
                             {dispute.aiReasoning}
                          </p>

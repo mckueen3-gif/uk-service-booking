@@ -108,7 +108,7 @@ export async function sendStatusUpdateEmail(customerEmail: string, data: {
 }) {
   const isConfirmed = data.status === "CONFIRMED";
   const statusZH = isConfirmed ? "已確認 (Confirmed)" : "已取消 (Cancelled)";
-  const color = isConfirmed ? "#10b981" : "#ef4444";
+  const color = isConfirmed ? "#facc15" : "#ef4444";
 
   return sendEmail({
     to: customerEmail,

@@ -230,7 +230,7 @@ export default function ServicesClient({ initialMerchants }: ServicesClientProps
                          <div style={{ fontSize: '0.85rem', color: '#475569', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                             <ShieldCheck size={16} color="#0f766e" /> 已投保
                          </div>
-                         <div style={{ fontSize: '0.85rem', color: '#10b981', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                         <div style={{ fontSize: '0.85rem', color: '#facc15', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                             <ThumbsUp size={16} /> AI 價格稽核：合理
                          </div>
                       </div>

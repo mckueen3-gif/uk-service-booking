@@ -44,7 +44,7 @@ export default function TutorCard({ tutor, isAIMatch = false }: { tutor: any, is
           background: 'rgba(16, 185, 129, 0.1)',
           backdropFilter: 'blur(8px)',
           border: '1px solid rgba(16, 185, 129, 0.2)',
-          color: '#059669', fontSize: '0.8rem', fontWeight: 900,
+          color: '#d4af37', fontSize: '0.8rem', fontWeight: 900,
           zIndex: 10
         }}>
           <Sparkles size={14} /> {matchScore}% MATCH

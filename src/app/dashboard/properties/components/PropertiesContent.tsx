@@ -53,7 +53,7 @@ export default function PropertiesContent() {
         </div>
 
         {/* Sync Indicator (Subtle/Professional) */}
-        <div style={{ fontSize: '0.8rem', padding: '0.75rem 1rem', borderRadius: '12px', backgroundColor: 'rgba(255,255,255,0.05)', color: synced ? '#10b981' : 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div style={{ fontSize: '0.8rem', padding: '0.75rem 1rem', borderRadius: '12px', backgroundColor: 'rgba(255,255,255,0.05)', color: synced ? '#facc15' : 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
            {loading && !synced ? <Loader2 size={14} className="animate-spin" /> : null}
            {synced ? "● 房產數據已更新 (Assets Synced)" : "○ 正在連線地產實時資訊 (Syncing assets...)"}
         </div>
@@ -121,7 +121,7 @@ export default function PropertiesContent() {
                  </div>
                  <div style={{ background: '#f8fafc', padding: '1rem', borderRadius: '1rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.75rem', fontWeight: 700, color: '#94a3b8', marginBottom: '0.25rem' }}>
-                      <Shield size={14} color="#10b981" /> 屋頂類型 (Roof)
+                      <Shield size={14} color="#facc15" /> 屋頂類型 (Roof)
                     </div>
                     <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#1e293b' }}>
                       {prop.roofType || "Standard/Tile"}

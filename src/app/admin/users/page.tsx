@@ -26,7 +26,7 @@ export default async function AdminUsersPage() {
     switch(role) {
       case 'ADMIN': return { bg: '#6366f120', text: '#818cf8', label: '管理員' };
       case 'MERCHANT': return { bg: '#f59e0b20', text: '#fbbf24', label: '商戶' };
-      default: return { bg: '#10b98120', text: '#34d399', label: '一般客戶' };
+      default: return { bg: '#facc1520', text: '#fde047', label: '一般客戶' };
     }
   };
 

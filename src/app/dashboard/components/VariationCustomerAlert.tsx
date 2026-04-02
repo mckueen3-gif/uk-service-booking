@@ -28,11 +28,11 @@ export default function VariationCustomerAlert({ merchantName, serviceName, amou
 
   if (status === "APPROVED") {
     return (
-      <div className="animate-slide-in glass-panel" style={{ padding: '1.5rem', borderRadius: '16px', borderLeft: '4px solid #10b981', backgroundColor: '#ecfdf5', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        <CheckCircle2 size={32} color="#10b981" />
+      <div className="animate-slide-in glass-panel" style={{ padding: '1.5rem', borderRadius: '16px', borderLeft: '4px solid #facc15', backgroundColor: '#ecfdf5', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <CheckCircle2 size={32} color="#facc15" />
         <div>
           <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#065f46', marginBottom: '0.25rem' }}>已成功授權追加費用 £{amount}</h3>
-          <p style={{ color: '#047857', fontSize: '0.9rem' }}>資金已安全鎖入 Stripe 原廠 Escrow 資金池中，直到 {merchantName} 完成任務才會撥款。</p>
+          <p style={{ color: '#b8860b', fontSize: '0.9rem' }}>資金已安全鎖入 Stripe 原廠 Escrow 資金池中，直到 {merchantName} 完成任務才會撥款。</p>
         </div>
       </div>
     );
@@ -83,7 +83,7 @@ export default function VariationCustomerAlert({ merchantName, serviceName, amou
            onClick={handleApprove}
            disabled={isProcessing}
            className="hover-scale" 
-           style={{ flex: 2, padding: '0.75rem', borderRadius: '8px', backgroundColor: '#10b981', color: 'white', fontWeight: 700, border: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', cursor: isProcessing ? 'not-allowed' : 'pointer', transition: 'all 0.2s', boxShadow: '0 4px 6px -1px rgba(16, 185, 129, 0.4)' }}
+           style={{ flex: 2, padding: '0.75rem', borderRadius: '8px', backgroundColor: '#facc15', color: 'white', fontWeight: 700, border: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', cursor: isProcessing ? 'not-allowed' : 'pointer', transition: 'all 0.2s', boxShadow: '0 4px 6px -1px rgba(16, 185, 129, 0.4)' }}
          >
            {isProcessing ? "處理金流與授權中..." : "💳 同意並鎖定授權額度 (Approve & Escrow)"}
          </button>

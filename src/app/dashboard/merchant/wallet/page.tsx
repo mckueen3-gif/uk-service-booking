@@ -42,7 +42,7 @@ export default async function MerchantWalletPage() {
         <div className="glass-panel animate-fade-up delay-100" style={{ 
           padding: '2.5rem', 
           borderRadius: '24px', 
-          background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+          background: 'linear-gradient(135deg, #facc15 0%, #d4af37 100%)',
           color: 'white',
           position: 'relative',
           overflow: 'hidden'
@@ -178,12 +178,12 @@ export default async function MerchantWalletPage() {
                       <td style={{ padding: '1.25rem 0' }}>
                         <span style={{ 
                           backgroundColor: req.status === 'PENDING' ? 'rgba(245, 158, 11, 0.1)' : 'rgba(16, 185, 129, 0.1)', 
-                          color: req.status === 'PENDING' ? '#f59e0b' : '#10b981', 
+                          color: req.status === 'PENDING' ? '#f59e0b' : '#facc15', 
                           padding: '0.35rem 0.75rem', 
                           borderRadius: '8px', 
                           fontSize: '0.75rem', 
                           fontWeight: 800,
-                          border: `1px solid ${req.status === 'PENDING' ? '#f59e0b' : '#10b981'}`
+                          border: `1px solid ${req.status === 'PENDING' ? '#f59e0b' : '#facc15'}`
                         }}>
                           {req.status}
                         </span>

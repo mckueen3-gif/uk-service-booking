@@ -60,7 +60,7 @@ export default function ChatWidget() {
           onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1) rotate(0deg)'}
         >
           <MessageSquare size={28} />
-          <div style={{ position: 'absolute', top: '-5px', right: '-5px', width: '12px', height: '12px', backgroundColor: '#10b981', borderRadius: '50%', border: '2px solid white' }}></div>
+          <div style={{ position: 'absolute', top: '-5px', right: '-5px', width: '12px', height: '12px', backgroundColor: '#facc15', borderRadius: '50%', border: '2px solid white' }}></div>
         </button>
       )}
 

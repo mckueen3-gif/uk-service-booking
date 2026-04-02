@@ -113,7 +113,7 @@ export default function AutoSettingsPage() {
             <div className="glass-panel" style={{ padding: '2rem', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
                 <div style={{ padding: '0.5rem', backgroundColor: '#ecfdf5', borderRadius: '8px' }}>
-                  <ShieldCheck size={24} color="#059669" />
+                  <ShieldCheck size={24} color="#d4af37" />
                 </div>
                 <h3 style={{ fontSize: '1.125rem', fontWeight: 700 }}>MOT 檢驗設定</h3>
               </div>

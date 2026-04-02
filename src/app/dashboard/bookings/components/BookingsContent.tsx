@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Calendar, MapPin, Clock, Search, Loader2, CheckCircle, XCircle, AlertCircle, RefreshCw, Car } from "lucide-react";
 
 const STATUS_COLOR: Record<string, { bg: string; text: string; border: string }> = {
-  CONFIRMED: { bg: '#ecfdf5', text: '#059669', border: '#a7f3d0' },
+  CONFIRMED: { bg: '#ecfdf5', text: '#d4af37', border: '#a7f3d0' },
   PENDING:   { bg: '#fffbeb', text: '#d97706', border: '#fde68a' },
   COMPLETED: { bg: '#eff6ff', text: '#3b82f6', border: '#bfdbfe' },
   CANCELLED: { bg: '#fef2f2', text: '#dc2626', border: '#fecaca' },
@@ -106,7 +106,7 @@ export default function BookingsContent() {
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           {syncing && <Loader2 size={14} style={{ color: 'var(--accent-color)', animation: 'spin 1s linear infinite' }} />}
-          <span style={{ fontSize: '0.78rem', color: '#10b981', fontWeight: 500 }}>
+          <span style={{ fontSize: '0.78rem', color: '#facc15', fontWeight: 500 }}>
             {lastSync ? `● 即時同步 ${lastSync.toLocaleTimeString('zh-HK')}` : '○ 連線中...'}
           </span>
           <button
@@ -227,7 +227,7 @@ export default function BookingsContent() {
                       <Calendar size={16} color="var(--accent-color)" />
                       <span style={{ fontWeight: isUpcoming ? 600 : 400, color: isUpcoming ? 'var(--text-primary)' : 'var(--text-secondary)' }}>
                         {scheduledDate.toLocaleString('zh-HK', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
-                        {isUpcoming && <span style={{ marginLeft: '0.4rem', fontSize: '0.72rem', color: '#10b981', fontWeight: 700 }}>即將到來</span>}
+                        {isUpcoming && <span style={{ marginLeft: '0.4rem', fontSize: '0.72rem', color: '#facc15', fontWeight: 700 }}>即將到來</span>}
                       </span>
                     </div>
                   )}
@@ -263,7 +263,7 @@ export default function BookingsContent() {
                   {/* Logical States */}
                   {booking.isEducation ? (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#10b981', fontSize: '0.85rem', fontWeight: 700 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#facc15', fontSize: '0.85rem', fontWeight: 700 }}>
                         <CheckCircle size={14} /> 100% 已付清 Full Payment Secure
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)', fontSize: '0.75rem' }}>
@@ -273,7 +273,7 @@ export default function BookingsContent() {
                   ) : (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                       {/* Step 1: Deposit */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#10b981', fontSize: '0.85rem', fontWeight: 700 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#facc15', fontSize: '0.85rem', fontWeight: 700 }}>
                         <CheckCircle size={14} /> 20% 訂金已收 (£{(booking.depositPaid || 0).toFixed(2)})
                       </div>
                       
@@ -287,7 +287,7 @@ export default function BookingsContent() {
                           <AlertCircle size={14} /> 餘額鎖定失敗！請在 {new Date(booking.reauthDeadline).toLocaleDateString()} 前更新卡片
                         </div>
                       ) : booking.status === 'COMPLETED' ? (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#10b981', fontSize: '0.85rem', fontWeight: 700 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#facc15', fontSize: '0.85rem', fontWeight: 700 }}>
                           <CheckCircle size={14} /> 100% 已完成結算 (£{(booking.totalAmount || 0).toFixed(2)})
                         </div>
                       ) : (

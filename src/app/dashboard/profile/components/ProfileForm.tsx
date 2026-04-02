@@ -207,7 +207,7 @@ export default function ProfileForm({ user, isMerchant }: { user: any, isMerchan
         </button>
 
         {success && (
-          <div style={{ color: '#10b981', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, animation: 'fade-in 0.3s' }}>
+          <div style={{ color: '#facc15', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, animation: 'fade-in 0.3s' }}>
             <CheckCircle2 size={20} /> 更新成功！
           </div>
         )}

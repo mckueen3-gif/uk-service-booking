@@ -42,7 +42,7 @@ export default function AISuggestionBox() {
 
   return (
     <div className="glass-panel" style={{ 
-      background: 'linear-gradient(135deg, var(--emerald-800) 0%, var(--emerald-950) 100%)', 
+      background: 'linear-gradient(135deg, var(--amber-800) 0%, var(--amber-950) 100%)', 
       borderRadius: '32px', 
       padding: '2.5rem', 
       border: 'none', 

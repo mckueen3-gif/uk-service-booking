@@ -20,7 +20,7 @@ import { claimReferralCode } from "@/app/actions/referral";
 import { useSession, signOut } from "next-auth/react";
 
 const STATUS_COLOR: Record<string, { bg: string; text: string }> = {
-  CONFIRMED: { bg: 'rgba(16, 185, 129, 0.12)', text: '#10b981' },
+  CONFIRMED: { bg: 'rgba(16, 185, 129, 0.12)', text: '#facc15' },
   PENDING:   { bg: 'rgba(245, 158, 11, 0.12)',  text: '#f59e0b' },
   COMPLETED: { bg: 'rgba(99, 102, 241, 0.12)',  text: '#6366f1' },
   CANCELLED: { bg: 'rgba(239, 68, 68, 0.12)',   text: '#ef4444' },
@@ -51,7 +51,7 @@ function StatCard({ icon, title, value, trend, loading }: {
           {icon}
         </div>
         {trend && !loading && (
-          <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#10b981', backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '0.25rem 0.5rem', borderRadius: '99px' }}>
+          <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#facc15', backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '0.25rem 0.5rem', borderRadius: '99px' }}>
             {trend}
           </span>
         )}
@@ -190,7 +190,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
               </>
             : lastSync
               ? <>
-                  <span style={{ color: '#10b981' }}>●</span> {t.merchant.dashboard.lastSynced}: {lastSync.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  <span style={{ color: '#facc15' }}>●</span> {t.merchant.dashboard.lastSynced}: {lastSync.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </>
               : `○ ${t.merchant.dashboard.syncing}`}
         </span>
@@ -276,7 +276,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
         padding: '2rem', 
         borderRadius: '24px', 
         marginBottom: '3rem',
-        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(5, 150, 105, 0.05) 100%)',
+        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(212, 175, 55, 0.05) 100%)',
         border: '1px solid rgba(16, 185, 129, 0.1)',
         display: 'flex',
         flexWrap: 'wrap',
@@ -285,7 +285,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
         gap: '2rem'
       }}>
         <div style={{ display: 'flex', flex: '1 1 400px', gap: '1.5rem', alignItems: 'center' }}>
-          <div style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '1rem', borderRadius: '16px', color: '#10b981' }}>
+          <div style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '1rem', borderRadius: '16px', color: '#facc15' }}>
             <Gift size={32} />
           </div>
           <div style={{ flex: 1 }}>
@@ -316,9 +316,9 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
 
           {user?.referredBy ? (
             <div style={{ padding: '0.75rem 1.25rem', borderRadius: '16px', backgroundColor: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.2)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <div style={{ color: '#10b981' }}><CheckCircle size={18} /></div>
+              <div style={{ color: '#facc15' }}><CheckCircle size={18} /></div>
               <div>
-                <div style={{ fontSize: '0.65rem', fontWeight: 800, color: '#059669', opacity: 0.8 }}>已被推薦 Referred by</div>
+                <div style={{ fontSize: '0.65rem', fontWeight: 800, color: '#d4af37', opacity: 0.8 }}>已被推薦 Referred by</div>
                 <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#064e3b' }}>{user.referredBy}</div>
               </div>
             </div>
@@ -360,7 +360,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
               {claimStatus && (
                 <div style={{ 
                   fontSize: '0.75rem', 
-                  color: claimStatus.type === 'success' ? '#10b981' : '#ef4444', 
+                  color: claimStatus.type === 'success' ? '#facc15' : '#ef4444', 
                   fontWeight: 600,
                   padding: '0 0.5rem'
                 }}>

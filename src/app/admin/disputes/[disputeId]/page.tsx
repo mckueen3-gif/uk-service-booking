@@ -103,7 +103,7 @@ export default function AdminDisputeDetailPage({ params }: { params: Promise<{ d
                style={{ width: '100%', minHeight: '100px', padding: '0.75rem', borderRadius: '12px', border: '1px solid var(--border-color)', marginBottom: '1rem' }}
              />
              <div style={{ display: 'grid', gap: '0.5rem' }}>
-                <button onClick={() => handleOverride(ResolutionDecision.REFUND_CUSTOMER)} disabled={overriding} style={{ padding: '0.75rem', borderRadius: '10px', backgroundColor: '#10b981', color: 'white', fontWeight: 800 }}>退款給客戶</button>
+                <button onClick={() => handleOverride(ResolutionDecision.REFUND_CUSTOMER)} disabled={overriding} style={{ padding: '0.75rem', borderRadius: '10px', backgroundColor: '#facc15', color: 'white', fontWeight: 800 }}>退款給客戶</button>
                 <button onClick={() => handleOverride(ResolutionDecision.FORCE_PAYOUT)} disabled={overriding} style={{ padding: '0.75rem', borderRadius: '10px', backgroundColor: '#ef4444', color: 'white', fontWeight: 800 }}>支付給商戶</button>
              </div>
           </div>

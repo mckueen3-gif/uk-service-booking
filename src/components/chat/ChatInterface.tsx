@@ -171,8 +171,8 @@ export default function ChatInterface({ initialConversationId }: ChatProps) {
                   </div>
                   <div>
                     <div style={{ fontWeight: 800, color: 'var(--text-primary)' }}>{activeConvo?.customer?.name || "對話中..."}</div>
-                    <div style={{ fontSize: '0.7rem', color: '#10b981', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                       <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10b981' }}></div> Online
+                    <div style={{ fontSize: '0.7rem', color: '#facc15', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                       <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#facc15' }}></div> Online
                     </div>
                   </div>
                </div>
@@ -191,7 +191,7 @@ export default function ChatInterface({ initialConversationId }: ChatProps) {
                     </div>
                     <div style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', marginTop: '0.3rem', display: 'flex', justifyContent: m.senderId === 'ME' ? 'flex-end' : 'flex-start', alignItems: 'center', gap: '4px' }}>
                        {new Date(m.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                       {m.senderId === 'ME' && (m.isRead ? <CheckCheck size={12} color="#10b981" /> : <Check size={12} />)}
+                       {m.senderId === 'ME' && (m.isRead ? <CheckCheck size={12} color="#facc15" /> : <Check size={12} />)}
                     </div>
                  </div>
                ))}

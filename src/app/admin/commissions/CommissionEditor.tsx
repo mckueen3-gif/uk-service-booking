@@ -81,7 +81,7 @@ export default function CommissionEditor({
         disabled={isUpdating}
         style={{ 
           padding: '0.4rem 0.75rem', 
-          background: status === 'success' ? '#10b981' : 'rgba(99, 102, 241, 0.2)', 
+          background: status === 'success' ? '#facc15' : 'rgba(99, 102, 241, 0.2)', 
           border: 'none', 
           borderRadius: '0.5rem',
           color: 'white',

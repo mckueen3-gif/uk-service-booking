@@ -39,7 +39,7 @@ export default function MerchantAnalytics() {
           value={`£${data.performanceMetrics.totalEarnings.toLocaleString()}`} 
           trend="+14.2%" 
           isPositive={true}
-          icon={<TrendingUp size={20} color="var(--emerald-600)" />}
+          icon={<TrendingUp size={20} color="var(--amber-600)" />}
         />
         <MetricCard 
           title="預約轉化 Conversion" 
@@ -74,7 +74,7 @@ export default function MerchantAnalytics() {
               </h3>
               <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>過去六個月的完工金額統計</p>
             </div>
-            <div style={{ padding: '0.5rem 1rem', backgroundColor: 'var(--emerald-50)', borderRadius: '10px', color: 'var(--emerald-700)', fontSize: '0.75rem', fontWeight: 800 }}>
+            <div style={{ padding: '0.5rem 1rem', backgroundColor: 'var(--amber-50)', borderRadius: '10px', color: 'var(--amber-700)', fontSize: '0.75rem', fontWeight: 800 }}>
               AI 預測看漲
             </div>
           </div>
@@ -86,12 +86,12 @@ export default function MerchantAnalytics() {
                   <div 
                     style={{ 
                       width: '100%', 
-                      background: 'linear-gradient(to top, var(--emerald-600), var(--emerald-400))', 
+                      background: 'linear-gradient(to top, var(--amber-600), var(--amber-400))', 
                       borderRadius: '8px 8px 4px 4px', 
                       height: `${(month.revenue / maxRevenue) * 100}%`, 
                       minHeight: '4px', 
                       transition: 'height 1s cubic-bezier(0.16, 1, 0.3, 1)',
-                      boxShadow: '0 4px 12px rgba(5, 150, 105, 0.1)'
+                      boxShadow: '0 4px 12px rgba(212, 175, 55, 0.1)'
                     }}
                   ></div>
                 </div>
@@ -111,11 +111,11 @@ export default function MerchantAnalytics() {
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.875rem', marginBottom: '0.75rem' }}>
                 <span style={{ color: 'var(--text-secondary)', fontWeight: 700 }}>品牌滿意度分數</span>
-                <span style={{ color: 'var(--emerald-600)', fontWeight: 900 }}>{data.sentiment.sentimentScore}/100</span>
+                <span style={{ color: 'var(--amber-600)', fontWeight: 900 }}>{data.sentiment.sentimentScore}/100</span>
               </div>
               <div style={{ height: '0.75rem', backgroundColor: 'var(--surface-2)', borderRadius: '99px', overflow: 'hidden' }}>
                 <div 
-                  style={{ height: '100%', background: 'linear-gradient(to right, var(--emerald-600), var(--emerald-400))', transition: 'width 1.5s ease', width: `${data.sentiment.sentimentScore}%` }}
+                  style={{ height: '100%', background: 'linear-gradient(to right, var(--amber-600), var(--amber-400))', transition: 'width 1.5s ease', width: `${data.sentiment.sentimentScore}%` }}
                 ></div>
               </div>
             </div>
@@ -124,7 +124,7 @@ export default function MerchantAnalytics() {
               <p style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.75rem' }}>熱門好評關鍵字</p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
                 {data.sentiment.positiveKeywords.map((kw: any, i: number) => (
-                  <span key={i} style={{ padding: '0.4rem 0.8rem', backgroundColor: 'var(--emerald-50)', color: 'var(--emerald-700)', border: '1px solid var(--emerald-100)', borderRadius: '10px', fontSize: '0.75rem', fontWeight: 800 }}>
+                  <span key={i} style={{ padding: '0.4rem 0.8rem', backgroundColor: 'var(--amber-50)', color: 'var(--amber-700)', border: '1px solid var(--amber-100)', borderRadius: '10px', fontSize: '0.75rem', fontWeight: 800 }}>
                     #{kw}
                   </span>
                 ))}
@@ -161,7 +161,7 @@ function MetricCard({ title, value, trend, isPositive, icon }: any) {
           padding: '0.25rem 0.6rem', 
           borderRadius: '99px', 
           backgroundColor: isPositive ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
-          color: isPositive ? '#059669' : '#dc2626'
+          color: isPositive ? '#d4af37' : '#dc2626'
         }}>
           {isPositive ? <ArrowUpRight size={12} /> : <ArrowDownRight size={12} />}
           {trend}

@@ -31,7 +31,7 @@ export default function StatusButtons({ bookingId, currentStatus }: { bookingId:
     'FIXED': { 
       label: '維修完成 (Ready for Pickup)', 
       next: 'COMPLETED', 
-      color: '#10b981' 
+      color: '#facc15' 
     },
     'COMPLETED': { 
       label: '結清完工 (Completed)', 

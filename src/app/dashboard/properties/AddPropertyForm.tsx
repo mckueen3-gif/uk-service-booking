@@ -98,8 +98,8 @@ export default function AddPropertyForm() {
           fontSize: '0.85rem',
           fontWeight: 600,
           backgroundColor: message.type === 'success' ? '#ecfdf5' : '#fef2f2',
-          color: message.type === 'success' ? '#059669' : '#dc2626',
-          border: `1px solid ${message.type === 'success' ? '#10b981' : '#fca5a5'}`
+          color: message.type === 'success' ? '#d4af37' : '#dc2626',
+          border: `1px solid ${message.type === 'success' ? '#facc15' : '#fca5a5'}`
         }} className="animate-fade-up">
           {message.type === 'success' ? <CheckCircle2 size={18} /> : <AlertCircle size={18} />}
           {message.text}
