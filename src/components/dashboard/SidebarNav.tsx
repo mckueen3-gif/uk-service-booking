@@ -6,7 +6,7 @@ import {
   Home, Calendar, Wallet, User, Settings, ShieldCheck, 
   Car, Home as HomeIcon, BarChart3, LayoutDashboard, ScrollText,
   MessageSquare, Clock, Briefcase, ChevronRight, LogOut, Sparkles,
-  Zap, Star
+  Zap, Star, Calculator
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 
@@ -28,6 +28,7 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
     { href: "/dashboard/services", label: "服務管理 (Services)", icon: ScrollText },
     { href: "/dashboard/merchant/availability", label: "可用時段 (Availability)", icon: Clock },
     { href: "/dashboard/analytics", label: "績效分析 (Analytics)", icon: BarChart3 },
+    { href: "/dashboard/merchant/accounting", label: "會計與稅務 (Tax & Accounting)", icon: Calculator },
     { href: "/dashboard/earnings", label: "收入錢包 (Wallet)", icon: Wallet },
   ] : [
     { href: "/dashboard/garage", label: "我的車庫 (Garage)", icon: Car },
