@@ -66,15 +66,12 @@ export function AppNavbar({ session }: { session: any }) {
         height: '100%'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', flex: 1 }}>
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none' }}>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
             <img 
               src="/images/logo_concierge_ai.png" 
               alt="ConciergeAI Logo" 
-              style={{ height: '42px', width: 'auto', filter: 'drop-shadow(0 0 8px rgba(212, 175, 55, 0.3))' }} 
+              style={{ height: '64px', width: 'auto' }} 
             />
-            <span style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.02em', marginTop: '2px' }}>
-              ConciergeAI<span style={{ color: 'var(--accent-color)' }}>.</span>
-            </span>
           </Link>
 
           {/* City Selector */}
@@ -343,15 +340,12 @@ export function AppFooter() {
         }}>
            {/* Brand Column */}
            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', textDecoration: 'none', marginBottom: '0.5rem' }}>
+              <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', marginBottom: '0.5rem' }}>
                 <img 
                   src="/images/logo_concierge_ai.png" 
                   alt="ConciergeAI" 
-                  style={{ height: '36px', width: 'auto', filter: 'brightness(1.1)' }} 
+                  style={{ height: '54px', width: 'auto' }} 
                 />
-                <span style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-primary)' }}>
-                  ConciergeAI<span style={{ color: 'var(--accent-color)' }}>.</span>
-                </span>
               </Link>
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.6 }}>{t.footer.tagline}</p>
               <Link href="/join" style={{ 
