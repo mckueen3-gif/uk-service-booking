@@ -88,25 +88,30 @@ export default function OnboardingHero() {
         .hero-title {
           font-size: 3.5rem;
           font-weight: 900;
-          color: white;
-          letter-spacing: -0.03em;
-          margin-bottom: 1.5rem;
-          line-height: 1.1;
-          text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+          color: #ffffff;
+          letter-spacing: -0.04em;
+          margin-bottom: 2rem;
+          line-height: 1.15;
+          text-shadow: 0 10px 40px rgba(0,0,0,0.6);
         }
 
         .brand-gold {
-          color: #d4af37;
-          text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+          background: linear-gradient(135deg, #fce08a 0%, #d4af37 50%, #b8860b 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.2));
+          display: inline-block;
         }
 
         .hero-subtitle {
-          font-size: 1.35rem;
-          color: #94a3b8;
-          max-width: 700px;
-          margin: 0 auto 3.5rem;
+          font-size: 1.45rem;
+          color: #e2e8f0;
+          max-width: 750px;
+          margin: 0 auto 4.5rem;
           line-height: 1.6;
           font-weight: 500;
+          opacity: 0.95;
+          letter-spacing: 0.01em;
         }
 
         .premium-badge {
