@@ -104,6 +104,22 @@ export const ja: Dictionary = {
   home: {
     hero: { badge: "英国認定ローカルマスター", title1: "高評価のプロを", title2: "予約する", subtitle: "英国トップ1%の専門家に即座にアクセス。認証済み、保険加入済み、AI監視による品質保証。", searchPlaceholder: "探しているのは...", locationPlaceholder: "ロンドン、英国", aiMatch: "スマートマッチ", searchBtn: "エキスパートを検索" },
     recommendation: { title1: "あなたに", title2: "ぴったりの提案", subtitle: "最近のニーズと場所に基づいたトップスペシャリスト。", browse: "すべてのプロを見る" },
+    recommendationResults: {
+      trendingTitle: "トレンド",
+      topRatedTitle: "最高評価",
+      ukWideTitle: "英国エリート",
+      professionalTitle: "認定プロフェッショナル",
+      homeRepair: "住宅修理",
+      deepCleaning: "ディープクリーニング",
+      accounting: "会計・税務",
+      autoRepair: "自動車修理",
+      homeSub: "信頼できる修理記録",
+      cleanSub: "プロの清掃サービス",
+      accountSub: "認定税務アドバイザー",
+      autoSub: "専門的なメカニックサービス",
+      assetMatch: "AI資産マッチング",
+      trending: "トレンド"
+    },
     aiCTA: { badge: "GEMINI AI 搭載", title1: "何が原因か不明ですか？", title2: "AIで即座に診断", subtitle: "問題の写真をアップロードするだけ。AIが原因を特定し、費用を推定し、最適なプロを数秒で見つけます。", button: "無料AI診断を試す" },
     referralCTA: { badge: "紹介報酬", title: "2%の不労所得を獲得", subtitle: "友人を紹介すると、その後5年間のすべての予約額の2%を受け取れます（友人1人あたり最大£200）。", button: "コミッション獲得を始める", referralLabel: "あなたの個人紹介コード：" },
     educationCTA: "教育ダッシュボードへ",

@@ -36,23 +36,35 @@ export async function PATCH(
        return NextResponse.json({ error: "Booking not found or access denied" }, { status: 404 });
     }
 
-    const updatedBooking = await prisma.booking.update({
-      where: { id: bookingId },
-      data: { status }
+    const { completeBookingFunds } = await import('@/lib/finance');
+
+    const updatedBooking = await prisma.$transaction(async (tx) => {
+      // 1. Update the booking status
+      const updated = await tx.booking.update({
+        where: { id: bookingId },
+        data: { status }
+      });
+
+      // 2. If COMPLETED, trigger the finalized fund movement (handles captures, fees, and wallets)
+      if (status === "COMPLETED" && booking.status !== "COMPLETED") {
+        await completeBookingFunds(updated);
+      }
+
+      return updated;
     });
 
-    // Create a notification for the customer
+    // 3. Create a notification for the customer
     await prisma.notification.create({
       data: {
         userId: booking.customerId,
         title: "預約狀態更新 (Booking Update)",
         message: `您的預約 #${bookingId.slice(-6)} 狀態已更新為: ${status}`,
-        type: status === "CONFIRMED" ? "SUCCESS" : "INFO",
+        type: status === "COMPLETED" ? "SUCCESS" : "INFO",
         link: `/dashboard/repair/${bookingId}`
       }
     });
 
-    // 🚀 NEW: Dispatch Real-world Status Email
+    // 🚀 Dispatch Real-world Status Email
     if (booking.customer?.email) {
       sendStatusUpdateEmail(booking.customer.email, {
         customerName: booking.customer.name || "Customer",

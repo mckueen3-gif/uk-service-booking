@@ -106,7 +106,7 @@ export const zhTW: Dictionary = {
     hero: { badge: "經過認證的英國本地大師", title1: "預約頂級評分", title2: "本地專家", subtitle: "即時聯繫英國前 1% 的服務專業人士。經過驗證、已投保並由 AI 監控，確保品質卓越。", searchPlaceholder: "我需要...", locationPlaceholder: "倫敦, 英國", aiMatch: "智能匹配", searchBtn: "搜尋專家" },
     recommendation: { title1: "量身定制", title2: "為您推薦", subtitle: "根據您最近的需求和地點匹配頂級專家。", browse: "瀏覽所有專家" },
     recommendationResults: {
-      trendingTitle: "{{city}} 最熱門：{{category}}",
+      trendingTitle: "在地熱門趨勢：{{category}}",
       topRatedTitle: "{{city}} 頂級評分：{{category}}",
       ukWideTitle: "專業精英：{{category}}",
       professionalTitle: "{{city}} 專業服務",

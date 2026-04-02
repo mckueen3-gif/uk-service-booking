@@ -104,6 +104,22 @@ export const ko: Dictionary = {
   home: {
     hero: { badge: "인증된 영국 현지 마스터", title1: "최고 평점의", title2: "현지 전문가 예약", subtitle: "영국 상위 1% 서비스 전문가에게 즉시 액세스하세요. 품질 보증을 위해 인증되고 보험에 가입되었으며 AI로 모니터링됩니다.", searchPlaceholder: "필요한 서비스...", locationPlaceholder: "런던, 영국", aiMatch: "스마트 매칭", searchBtn: "전문가 검색" },
     recommendation: { title1: "개인화된", title2: "당신을 위한 추천", subtitle: "최근 요구 사항 및 위치와 일치하는 최고의 전문가.", browse: "모든 전문가 둘러보기" },
+    recommendationResults: {
+      trendingTitle: "트렌드",
+      topRatedTitle: "최고 평점",
+      ukWideTitle: "영국 엘리트",
+      professionalTitle: "공인 전문가",
+      homeRepair: "주택 수리",
+      deepCleaning: "딥 클리닝",
+      accounting: "회계 및 세무",
+      autoRepair: "자동차 수리",
+      homeSub: "신뢰할 수 있는 수리 전문가",
+      cleanSub: "전문 청소 서비스",
+      accountSub: "공인 세무 자문",
+      autoSub: "전문 정비 서비스",
+      assetMatch: "AI 자산 매칭",
+      trending: "현재 트렌드"
+    },
     aiCTA: { badge: "GEMINI AI 기반", title1: "무엇이 문제인지 모르시겠나요?", title2: "즉각적인 AI 진단 받기", subtitle: "문제 사진을 업로드하세요. AI가 문제를 식별하고 비용을 추정하며 몇 초 만에 적합한 전문가를 찾아드립니다.", button: "무료 AI 진단 시도하기" },
     referralCTA: { badge: "추천 보상", title: "2% 패시브 인컴 벌기", subtitle: "친구를 추천하고 향후 5년 동안 그들이 예약할 때마다 2%를 받으세요 (친구당 최대 £200).", button: "커미션 수익 시작하기", referralLabel: "귀하의 개인 추천 코드:" },
     educationCTA: "교육 대시보드 방문",

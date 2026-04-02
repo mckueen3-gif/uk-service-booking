@@ -104,6 +104,22 @@ export const ur: Dictionary = {
   home: {
     hero: { badge: "برطانیہ کے تصدیق شدہ مقامی ماہرین", title1: "ٹاپ ریٹڈ", title2: "مقامی ماہرین بک کریں", subtitle: "برطانیہ کے ٹاپ 1٪ سروس پروفیشنلز تک فوری رسائی۔ ضمانت شدہ معیار کے لیے تصدیق شدہ، بیمہ شدہ اور AI مانیٹر شدہ۔", searchPlaceholder: "مجھے ضرورت ہے ایک...", locationPlaceholder: "لندن، برطانیہ", aiMatch: "سمارٹ میچ", searchBtn: "ماہرین تلاش کریں" },
     recommendation: { title1: "ذاتی نوعیت کے", title2: "آپ کے لیے", subtitle: "آپ کی حالیہ ضروریات اور مقام سے ملنے والے ٹاپ ماہرین۔", browse: "تمام ماہرین دیکھیں" },
+    recommendationResults: {
+      trendingTitle: "رجحانات",
+      topRatedTitle: "ٹاپ ریٹیڈ",
+      ukWideTitle: "یوکے ایلیٹ",
+      professionalTitle: "سرٹیفائیڈ پروفیشنلز",
+      homeRepair: "گھر کی مرمت",
+      deepCleaning: "ڈیپ کلیننگ",
+      accounting: "اکاؤنٹنگ",
+      autoRepair: "آٹو ریپیئر",
+      homeSub: "قابل اعتماد مرمت کے ماہرین",
+      cleanSub: "پروفیشنل صفائی کی خدمات",
+      accountSub: "منظور شدہ ٹیکس مشیر",
+      autoSub: "ماہر مکینک خدمات",
+      assetMatch: "AI مماثلت",
+      trending: "ابھی ٹرینڈنگ"
+    },
     aiCTA: { badge: "GEMINI AI کے ذریعے چلنے والا", title1: "یقین نہیں ہے کہ کیا مسئلہ ہے؟", title2: "فوری AI تشخیص حاصل کریں", subtitle: "اپنے مسئلے کی ایک تصویر اپ لوڈ کریں۔ ہمارا AI مسئلے کی شناخت کرتا ہے، اخراجات کا اندازہ لگاتا ہے اور سیکنڈوں میں صحیح ماہر تلاش کرتا ہے۔", button: "مفت AI تشخیص آزمائیں" },
     referralCTA: { badge: "ریفرل ایوارڈز", title: "2٪ غیر فعال آمدنی کمائیں", subtitle: "کسی دوست کو ریفر کریں اور اگلے 5 سالوں تک ان کے ہر بکنگ کا 2٪ حاصل کریں (فی دوست £200 تک)۔", button: "کمیشن کمانا شروع کریں", referralLabel: "آپ کا ذاتی ریفرل کوڈ:" },
     educationCTA: "تعلیمی ڈیش بورڈ دیکھیں",

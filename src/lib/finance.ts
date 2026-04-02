@@ -87,10 +87,10 @@ export async function completeBookingFunds(booking: any) {
   }
 
   // Fund Movement for Repairs:
-  // 1. Net Deposit (91%) is in Pending.
-  // 2. Net Balance (91%) is in Authorized.
-  const netDeposit = booking.depositPaid * 0.91;
-  const netBalance = (booking.balanceAmount || 0) * 0.91;
+  // 1. Net Deposit (commission applied) is in Pending.
+  // 2. Net Balance (commission applied) is in Authorized.
+  const { merchantPayout: netDeposit } = await calculateCommission(booking.merchantId, booking.depositPaid);
+  const { merchantPayout: netBalance } = await calculateCommission(booking.merchantId, booking.balanceAmount || 0);
 
   // Perform Atomic Wallet Update
   return await prisma.merchantWallet.update({
@@ -99,7 +99,30 @@ export async function completeBookingFunds(booking: any) {
       pendingBalance: { decrement: netDeposit },
       authorizedBalance: { decrement: netBalance },
       availableBalance: { increment: netDeposit + netBalance },
-      totalEarned: { increment: netBalance } // Note: deposit was added to totalEarned during webhook capture
+      totalEarned: { increment: netBalance } 
     }
   });
+}
+
+/**
+ * Standardized logic for recording the first payment (deposit) when a booking is created.
+ * Ensures the merchant's pending balance is correctly credited.
+ */
+export async function recordInitialBookingPayment(merchantId: string, depositAmount: number) {
+  const { merchantPayout, platformFee } = await calculateCommission(merchantId, depositAmount);
+
+  await prisma.merchantWallet.upsert({
+    where: { merchantId },
+    update: {
+      pendingBalance: { increment: merchantPayout },
+      totalEarned: { increment: merchantPayout }
+    },
+    create: {
+      merchantId,
+      pendingBalance: merchantPayout,
+      totalEarned: merchantPayout
+    }
+  });
+
+  return { merchantPayout, platformFee };
 }

@@ -104,6 +104,22 @@ export const pa: Dictionary = {
   home: {
     hero: { badge: "ਪ੍ਰਮਾਣਿਤ ਯੂਕੇ ਸਥਾਨਕ ਮਾਹਰ", title1: "ਟੌਪ-ਰੇਟਿਡ", title2: "ਸਥਾਨਕ ਮਾਹਰ ਬੁੱਕ ਕਰੋ", subtitle: "ਯੂਕੇ ਦੇ ਟੌਪ 1% ਸਰਵਿਸ ਪ੍ਰੋਫੈਸ਼ਨਲਜ਼ ਤੱਕ ਤੁਰੰਤ ਪਹੁੰਚ। ਗਾਰੰਟੀਸ਼ੁਦਾ ਗੁਣਵੱਤਾ ਲਈ ਪ੍ਰਮਾਣਿਤ, ਬੀਮਾਯੁਕਤ ਅਤੇ AI ਨਿਗਰਾਨੀ ਵਾਲੇ।", searchPlaceholder: "ਮੈਨੂੰ ਲੋੜ ਹੈ ਇੱਕ...", locationPlaceholder: "ਲੰਡਨ, ਯੂਕੇ", aiMatch: "ਸਮਾਰਟ ਮੈਚ", searchBtn: "ਮਾਹਰ ਲੱਭੋ" },
     recommendation: { title1: "ਵਿਅਕਤੀਗਤ", title2: "ਤੁਹਾਡੇ ਲਈ", subtitle: "ਤੁਹਾਡੀਆਂ ਹਾਲੀਆ ਲੋੜਾਂ ਅਤੇ ਸਥਾਨ ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਚੋਟੀ ਦੇ ਮਾਹਰ।", browse: "ਸਾਰੇ ਮਾਹਰ ਦੇਖੋ" },
+    recommendationResults: {
+      trendingTitle: "ਰੁਝਾਨ",
+      topRatedTitle: "ਟਾਪ ਰੇਟਡ",
+      ukWideTitle: "ਯੂਕੇ ਐਲੀਟ",
+      professionalTitle: "ਪ੍ਰਮਾਣਿਤ ਪੇਸ਼ੇਵਰ",
+      homeRepair: "ਘਰ ਦੀ ਮੁਰੰਮਤ",
+      deepCleaning: "ਡੀਪ ਕਲੀਨਿੰਗ",
+      accounting: "ਅਕਾਊਂਟਿੰਗ",
+      autoRepair: "ਆਟੋ ਰਿਪੇਅਰ",
+      homeSub: "ਭਰੋਸੇਯੋਗ ਮੁਰੰਮਤ ਮਾਹਰ",
+      cleanSub: "ਪੇਸ਼ੇਵਰ ਸਫਾਈ ਸੇਵਾਵਾਂ",
+      accountSub: "ਪ੍ਰਮਾਣਿਤ ਟੈਕਸ ਸਲਾਹਕਾਰ",
+      autoSub: "ਮਾਹਰ ਮਕੈਨਿਕ ਸੇਵਾਵਾਂ",
+      assetMatch: "AI ਮੈਚ",
+      trending: "ਹੁਣ ਟ੍ਰੈਂਡਿੰਗ"
+    },
     aiCTA: { badge: "GEMINI AI ਦੁਆਰਾ ਸੰਚਾਲਿਤ", title1: "ਪਤਾ ਨਹੀਂ ਕੀ ਗਲਤ ਹੈ?", title2: "ਤੁਰੰਤ AI ਜਾਂਚ ਪ੍ਰਾਪਤ ਕਰੋ", subtitle: "ਆਪਣੀ ਸਮੱਸਿਆ ਦੀ ਇੱਕ ਫੋਟੋ ਅਪਲੋਡ ਕਰੋ। ਸਾਡੀ AI ਸਮੱਸਿਆ ਦੀ ਪਛਾਣ ਕਰਦੀ ਹੈ, ਖਰਚੇ ਦਾ ਅੰਦਾਜ਼ਾ ਲਗਾਉਂਦੀ ਹੈ ਅਤੇ ਸਕਿੰਟਾਂ ਵਿੱਚ ਸਹੀ ਮਾਹਰ ਲੱਭਦੀ ਹੈ।", button: "ਮੁਫਤ AI ਜਾਂਚ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ" },
     referralCTA: { badge: "ਰੈਫਰਲ ਇਨਾਮ", title: "2% ਪੈਸਿਵ ਆਮਦਨ ਕਮਾਓ", subtitle: "ਕਿਸੇ ਦੋਸਤ ਨੂੰ ਰੈਫਰ ਕਰੋ ਅਤੇ ਅਗਲੇ 5 ਸਾਲਾਂ ਤੱਕ ਉਨ੍ਹਾਂ ਦੀ ਹਰ ਬੁਕਿੰਗ ਦਾ 2% ਪ੍ਰਾਪਤ ਕਰੋ (ਪ੍ਰਤੀ ਦੋਸਤ £200 ਤੱਕ)।", button: "ਕਮਿਸ਼ਨ ਕਮਾਉਣਾ ਸ਼ੁਰੂ ਕਰੋ", referralLabel: "ਤੁਹਾਡਾ ਨਿੱਜੀ ਰੈਫਰਲ ਕੋਡ:" },
     educationCTA: "ਸਿੱਖਿਆ ਡੈਸ਼ਬੋਰਡ ਦੇਖੋ",

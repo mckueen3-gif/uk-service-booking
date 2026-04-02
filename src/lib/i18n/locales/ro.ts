@@ -104,6 +104,22 @@ export const ro: Dictionary = {
   home: {
     hero: { badge: "Maeștri locali certificați din UK", title1: "Rezervă experți", title2: "locali de top", subtitle: "Acces instantaneu la primii 1% dintre profesioniștii de servicii din UK. Verificați, asigurați și monitorizați de AI pentru calitate garantată.", searchPlaceholder: "Am nevoie de...", locationPlaceholder: "Londra, UK", aiMatch: "Potrivire inteligentă", searchBtn: "Caută experți" },
     recommendation: { title1: "Personalizat", title2: "Pentru tine", subtitle: "Specialiști de top care se potrivesc nevoilor și locației tale recente.", browse: "Vezi toți specialiștii" },
+    recommendationResults: {
+      trendingTitle: "Tendințe",
+      topRatedTitle: "Top evaluate",
+      ukWideTitle: "Elite UK",
+      professionalTitle: "Profesioniști certificați",
+      homeRepair: "Reparații casnice",
+      deepCleaning: "Curățare profundă",
+      accounting: "Contabilitate",
+      autoRepair: "Reparații auto",
+      homeSub: "Experți de încredere în reparații",
+      cleanSub: "Servicii profesionale de curățenie",
+      accountSub: "Consilieri fiscali certificați",
+      autoSub: "Servicii mecanice experte",
+      assetMatch: "Potrivire AI",
+      trending: "În tendințe acum"
+    },
     aiCTA: { badge: "POWERED BY GEMINI AI", title1: "Nu ești sigur ce e în neregulă?", title2: "Obține diagnostic AI instant", subtitle: "Încarcă o fotografie a problemei tale. AI-ul nostru identifică problema, estimează costurile și găsește specialistul potrivit în câteva secunde.", button: "Încearcă diagnostic AI gratuit" },
     referralCTA: { badge: "Recompense recomandare", title: "Câștigă 2% venit pasiv", subtitle: "Recomandă un prieten și primește 2% din fiecare rezervare pe care o face în următorii 5 ani (până la 200 lire per prieten).", button: "Începe să câștigi comision", referralLabel: "Codul tău personal de recomandare:" },
     educationCTA: "Vizitează panoul de educație",

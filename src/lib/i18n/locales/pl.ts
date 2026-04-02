@@ -104,6 +104,22 @@ export const pl: Dictionary = {
   home: {
     hero: { badge: "Certyfikowani brytyjscy lokalni mistrzowie", title1: "Rezerwuj najwyżej ocenianych", title2: "Lokalnych ekspertów", subtitle: "Natychmiastowy dostęp do najlepszego 1% brytyjskich profesjonalistów. Zweryfikowani, ubezpieczeni i monitorowani przez AI dla gwarantowanej jakości.", searchPlaceholder: "Potrzebuję...", locationPlaceholder: "Londyn, Wielka Brytania", aiMatch: "Inteligentne dopasowanie", searchBtn: "Szukaj ekspertów" },
     recommendation: { title1: "Spersonalizowane", title2: "Dla Ciebie", subtitle: "Najlepsi specjaliści dopasowani do Twoich ostatnich potrzeb i lokalizacji.", browse: "Przeglądaj wszystkich specjalistów" },
+    recommendationResults: {
+      trendingTitle: "Trendy",
+      topRatedTitle: "Najwyżej oceniane",
+      ukWideTitle: "Elita UK",
+      professionalTitle: "Certyfikowani specjaliści",
+      homeRepair: "Naprawa domu",
+      deepCleaning: "Głębokie czyszczenie",
+      accounting: "Księgowość",
+      autoRepair: "Naprawa aut",
+      homeSub: "Zaufani eksperci od napraw",
+      cleanSub: "Profesjonalne usługi sprzątania",
+      accountSub: "Certyfikowani doradcy podatkowi",
+      autoSub: "Eksperckie usługi mechaniczne",
+      assetMatch: "Dopasowanie AI",
+      trending: "Teraz na czasie"
+    },
     aiCTA: { badge: "NAPĘDZANE PRZEZ GEMINI AI", title1: "Nie wiesz, co jest nie tak?", title2: "Uzyskaj natychmiastową diagnozę", subtitle: "Prześlij zdjęcie problemu. Nasza AI zidentyfikuje problem, oszacuje koszty i znajdzie odpowiedniego specjalistę w kilka sekund.", button: "Wypróbuj darmową diagnozę AI" },
     referralCTA: { badge: "Nagrody za polecenia", title: "Zarabiaj 2% pasywnego dochodu", subtitle: "Poleć znajomego i otrzymuj 2% od każdej jego rezerwacji przez kolejne 5 lat (do 200 funtów na znajomego).", button: "Zacznij zarabiać prowizję", referralLabel: "Twój osobisty kod polecający:" },
     educationCTA: "Odwiedź panel edukacyjny",

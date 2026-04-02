@@ -51,6 +51,11 @@ export async function finalizeBooking(sessionId: string) {
 
     const vehicle = JSON.parse(vehicleInfo || "{}");
 
+    // 🚀 NEW: Update Merchant Wallet & Log Platform Fee
+    const { recordInitialBookingPayment } = await import('@/lib/finance');
+    const depositAmount = (session.amount_total || 0) / 100;
+    const { merchantPayout, platformFee } = await recordInitialBookingPayment(merchantId, depositAmount);
+
     const booking = await (prisma.booking as any).create({
       data: {
         customerId,
@@ -58,7 +63,10 @@ export async function finalizeBooking(sessionId: string) {
         serviceId: service.id,
         scheduledDate: new Date(scheduledDate || Date.now()),
         status: 'PENDING',
-        totalAmount: (session.amount_total || 0) / 100,
+        totalAmount: depositAmount,
+        depositPaid: depositAmount, // Treating total as deposit initially for standard repairs/education
+        merchantAmount: merchantPayout,
+        platformFee: platformFee,
         stripePaymentIntentId: session.payment_intent as string,
         vehicleReg: vehicle.reg || null,
         vehicleMake: vehicle.make || null,

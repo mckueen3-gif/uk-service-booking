@@ -33,34 +33,70 @@ export async function proposeVariation(formData: FormData) {
 
 export async function respondToVariation(variationId: string, status: VariationStatus) {
   try {
-    const variation = await prisma.variation.update({
-      where: { id: variationId },
-      data: { status },
+    const { calculateCommission } = await import('@/lib/finance');
+    
+    const result = await prisma.$transaction(async (tx) => {
+      const variation = await tx.variation.update({
+        where: { id: variationId },
+        data: { status },
+        include: { booking: true }
+      });
+
+      if ((status as string) === 'APPROVED') {
+        const { merchantPayout } = await calculateCommission(variation.booking.merchantId, variation.amount);
+        
+        // 1. Add to Booking Total
+        await tx.booking.update({
+          where: { id: variation.bookingId },
+          data: { totalAmount: { increment: variation.amount } }
+        });
+
+        // 2. Add to Merchant Wallet (Pending)
+        await tx.merchantWallet.upsert({
+          where: { merchantId: variation.booking.merchantId },
+          update: {
+            pendingBalance: { increment: merchantPayout },
+            totalEarned: { increment: merchantPayout }
+          },
+          create: {
+            merchantId: variation.booking.merchantId,
+            pendingBalance: merchantPayout,
+            totalEarned: merchantPayout
+          }
+        });
+      }
+
+      if ((status as string) === 'DISPUTED') {
+        await tx.dispute.create({
+          data: {
+            id: `dis_${Date.now()}`,
+            bookingId: variation.bookingId,
+            openedById: 'system',
+            reason: `Customer disputed variation: ${variation.description}`,
+            status: DisputeStatus.OPEN,
+          },
+        });
+      }
+
+      return variation;
     });
 
     if ((status as string) === 'DISPUTED') {
-      await prisma.dispute.create({
-        data: {
-          id: `dis_${Date.now()}`,
-          bookingId: variation.bookingId,
-          openedById: 'system', // Ideally from session
-          reason: `Customer disputed variation: ${variation.description}`,
-          status: DisputeStatus.OPEN,
-        },
-      });
       // Trigger AI Arbiter automatically
       await runAIArbiter(variationId);
     }
 
     return { success: true };
-  } catch (err) {
+  } catch (err: any) {
     console.error("Respond Variation Error:", err);
-    return { error: "Failed to respond to variation" };
+    return { error: err.message };
   }
 }
 
 export async function runAIArbiter(variationId: string) {
   try {
+    const { calculateCommission } = await import('@/lib/finance');
+    
     const variation = await prisma.variation.findUnique({
       where: { id: variationId },
       include: { 
@@ -139,6 +175,8 @@ export async function runAIArbiter(variationId: string) {
       });
 
       if (finalVariationAmount > 0) {
+        const { merchantPayout } = await calculateCommission(variation.booking.merchantId, finalVariationAmount);
+
         // Update Booking totals
         await tx.booking.update({
           where: { id: variation.bookingId },
@@ -151,13 +189,14 @@ export async function runAIArbiter(variationId: string) {
         await tx.merchantWallet.upsert({
           where: { merchantId: variation.booking.merchantId },
           update: {
-            pendingBalance: { increment: finalVariationAmount }
+            pendingBalance: { increment: merchantPayout },
+            totalEarned: { increment: merchantPayout }
           },
           create: {
             merchantId: variation.booking.merchantId,
-            pendingBalance: finalVariationAmount,
-            availableBalance: 0,
-            totalEarned: 0
+            pendingBalance: merchantPayout,
+            totalEarned: merchantPayout,
+            availableBalance: 0
           }
         });
       }

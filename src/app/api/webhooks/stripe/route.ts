@@ -1,20 +1,35 @@
 import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import { prisma } from '@/lib/prisma';
+import { getStripeClient } from '@/lib/stripe';
 
 // Stripe Webhook handler for robust background event listening
-// This bypasses browser closures and ensures Payment/Escrow states are always 100% accurate.
 export async function POST(req: Request) {
   const body = await req.text();
   const signature = (await headers()).get('stripe-signature') as string;
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
   try {
-    // In production, we'd cryptographicly verify the Stripe signature:
-    // const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-    // const event = stripe.webhooks.constructEvent(body, signature, process.env.STRIPE_WEBHOOK_SECRET!);
-    
-    // Simulating parsing the event for demonstration
-    const event = JSON.parse(body);
+    const stripe = await getStripeClient();
+    let event;
+
+    if (webhookSecret) {
+      // ✅ Production Security: Cryptographically verify the signature
+      try {
+        event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
+      } catch (err: any) {
+        console.error(`[Webhook Security Failure] Signature verification failed: ${err.message}`);
+        return NextResponse.json({ error: 'Invalid Signature' }, { status: 400 });
+      }
+    } else {
+      // ⚠️ Warning: Missing webhook secret. Defaulting to insecure parsing for development.
+      console.warn('⚠️ STRIPE_WEBHOOK_SECRET is missing. Bypassing signature verification (Insecure).');
+      try {
+        event = JSON.parse(body);
+      } catch (err: any) {
+        return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+      }
+    }
 
     switch (event.type) {
       
@@ -22,9 +37,18 @@ export async function POST(req: Request) {
         const session = event.data.object;
         const metadata = session.metadata;
         const customerId = session.customer;
-        const paymentIntentId = session.payment_intent;
+        const paymentIntentId = session.payment_intent as string;
 
         if (!metadata) break;
+
+        // Idempotency: Check if this payment was already processed
+        const existingBooking = await prisma.booking.findUnique({
+          where: { stripePaymentIntentId: paymentIntentId }
+        });
+        if (existingBooking) {
+          console.log(`[Webhook] Duplicate event ignored for intent: ${paymentIntentId}`);
+          break;
+        }
 
         const {
           merchantId,
@@ -69,26 +93,15 @@ export async function POST(req: Request) {
             balanceAmount,
             isEducation: isEduBool,
             coolingOffUntil,
-            stripePaymentIntentId: paymentIntentId as string,
+            stripePaymentIntentId: paymentIntentId,
             platformFee: depositAmount * 0.09, // 9% fee on what was just captured
             merchantAmount: depositAmount * 0.91,
           }
         });
 
         // 3. Update Merchant Wallet (Pending)
-        // 91% of what was captured goes to merchant's pending balance
-        await prisma.merchantWallet.upsert({
-          where: { merchantId },
-          update: {
-            pendingBalance: { increment: depositAmount * 0.91 },
-            totalEarned: { increment: depositAmount * 0.91 }
-          },
-          create: {
-            merchantId,
-            pendingBalance: depositAmount * 0.91,
-            totalEarned: depositAmount * 0.91
-          }
-        });
+        const { recordInitialBookingPayment } = await import('@/lib/finance');
+        await recordInitialBookingPayment(merchantId, depositAmount);
 
         console.log(`[Stripe Webhook] 📦 Booking ${booking.id} created. Sector: ${isEduBool ? 'Education' : 'Repairs'}. Deposit: £${depositAmount}`);
         break;
@@ -98,12 +111,10 @@ export async function POST(req: Request) {
         console.log(`[Stripe Webhook] Unhandled event type: ${event.type}`);
     }
 
-    // Acknowledge receipt to prevent Stripe from resending Webhooks
     return NextResponse.json({ received: true });
     
   } catch (err: any) {
-    console.error(`[Webhook Error] Parsing Failed: ${err.message}`);
-    // Respond with 400 so Stripe knows we failed and retry protocol begins
-    return NextResponse.json({ error: `Webhook Signature/Parsing Error: ${err.message}` }, { status: 400 });
+    console.error(`[Webhook Error] Critical Failure: ${err.message}`);
+    return NextResponse.json({ error: `Internal Webhook Error: ${err.message}` }, { status: 500 });
   }
 }
