@@ -5,7 +5,8 @@ import { useTranslation } from '@/components/LanguageContext';
 import OnboardingHero from '@/components/joining/OnboardingHero';
 import SectorSelector from '@/components/joining/SectorSelector';
 import MerchantContract from '@/components/joining/MerchantContract';
-import { ChevronRight, ChevronLeft, CheckCircle2, Building2, Mail, Globe, User, Loader2, MapPin, Sparkles, Wand2, Calculator } from 'lucide-react';
+import LiveProfilePreview from '@/components/joining/LiveProfilePreview';
+import { ChevronRight, ChevronLeft, CheckCircle2, Building2, Mail, Globe, User, Loader2, MapPin, Sparkles, Wand2, Calculator, Gift, ShieldCheck } from 'lucide-react';
 import { createMerchantAction } from '@/app/actions/merchant';
 import { fetchBusinessInfoWithAI } from '@/app/actions/ai_onboarding';
 
@@ -17,6 +18,7 @@ export default function JoinPage() {
   const [error, setError] = useState<string | null>(null);
   const [selectedSector, setSelectedSector] = useState<string | null>(null);
   const [contractAccepted, setContractAccepted] = useState(false);
+  const [promoApplied, setPromoApplied] = useState(false);
   const [formData, setFormData] = useState({
     businessName: '',
     email: '',
@@ -42,6 +44,15 @@ export default function JoinPage() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+    
+    // Simulate promo code validation
+    if (name === 'promoCode') {
+      if (value.toUpperCase() === 'FREE10' || value.toUpperCase() === 'ELITE') {
+        setPromoApplied(true);
+      } else {
+        setPromoApplied(false);
+      }
+    }
   };
 
   const handleAIPreFill = async () => {
@@ -145,100 +156,145 @@ export default function JoinPage() {
 
           {step === 2 && (
             <div className="step-2 reveal active">
-              <div className="form-card">
-                <div className="card-header">
-                  <h2 className="form-title">專家商務資訊 <span style={{ color: '#d4af37' }}>Expert Profile</span></h2>
-                  <p className="form-intro">請告訴我們您的專業背景，以便我們為您對接優質客戶。</p>
-                </div>
-                
-                <div className="form-grid">
-                  <div className="input-group full ai-fetch-group">
-                    <label><Globe size={16} /> 您的官方網站 / LinkedIn (可選 AI 自動填寫)</label>
-                    <div className="input-with-button">
+              <div className="onboarding-grid">
+                {/* Form Side */}
+                <div className="form-card">
+                  <div className="card-header">
+                    <h2 className="form-title">專家商務資訊 <span style={{ color: '#d4af37' }}>Expert Profile</span></h2>
+                    <p className="form-intro">請告訴我們您的專業背景，以便我們為您對接優質客戶。</p>
+                  </div>
+                  
+                  <div className="form-grid">
+                    <div className="input-group full ai-fetch-group">
+                      <label><Globe size={16} /> 您的官方網站 / LinkedIn (可選 AI 自動填寫)</label>
+                      <div className="input-with-button">
+                        <input 
+                          type="text" 
+                          name="website" 
+                          value={formData.website} 
+                          onChange={handleInputChange} 
+                          placeholder="https://yourwebsite.com"
+                        />
+                        <button 
+                          className={`ai-fill-btn ${aiLoading ? 'loading' : ''}`} 
+                          onClick={handleAIPreFill}
+                          disabled={aiLoading || !formData.website}
+                        >
+                          {aiLoading ? <Loader2 className="animate-spin" size={16} /> : <Wand2 size={16} />}
+                          <span>AI 智能填寫</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="input-group">
+                      <label><Building2 size={16} /> 商號名稱 (Business Name)</label>
                       <input 
                         type="text" 
-                        name="website" 
-                        value={formData.website} 
+                        name="businessName" 
+                        value={formData.businessName} 
                         onChange={handleInputChange} 
-                        placeholder="https://yourwebsite.com"
+                        placeholder="例如: Elite Accounting Services"
                       />
-                      <button 
-                        className={`ai-fill-btn ${aiLoading ? 'loading' : ''}`} 
-                        onClick={handleAIPreFill}
-                        disabled={aiLoading || !formData.website}
+                    </div>
+                    <div className="input-group">
+                      <label><Mail size={16} /> 聯絡電子郵件 (Contact Email)</label>
+                      <input 
+                        type="email" 
+                        name="email" 
+                        value={formData.email} 
+                        onChange={handleInputChange} 
+                        placeholder="contact@business.com"
+                      />
+                    </div>
+                    
+                    <div className="input-group full">
+                      <label><User size={16} /> 專業背景與資質 (Credentials)</label>
+                      <textarea 
+                        name="credentials" 
+                        value={formData.credentials} 
+                        onChange={handleInputChange}
+                        placeholder={selectedSector === 'professional' ? "例如: ACCA 會計師, 10年英國稅務經驗..." : "輸入您的技術認證..."}
+                        rows={3}
+                      />
+                      <small style={{ color: '#666', marginTop: '4px', display: 'block' }}>注意: 您可以先填寫基本資料，詳細證件可在進入後台後上傳審核。</small>
+                    </div>
+
+                    <div className="input-group full">
+                      <label><MapPin size={16} /> 核心服務區域 (Primary City)</label>
+                      <select 
+                        name="city" 
+                        value={formData.city} 
+                        onChange={(e: any) => handleInputChange(e)} 
+                        className="premium-select"
                       >
-                        {aiLoading ? <Loader2 className="animate-spin" size={16} /> : <Wand2 size={16} />}
-                        <span>AI 智能填寫</span>
-                      </button>
+                        <option value="London">London (Greater London)</option>
+                        <option value="Manchester">Manchester</option>
+                        <option value="Birmingham">Birmingham</option>
+                        <option value="Leeds">Leeds</option>
+                        <option value="Glasgow">Glasgow</option>
+                        <option value="Liverpool">Liverpool</option>
+                        <option value="Edinburgh">Edinburgh</option>
+                        <option value="Bristol">Bristol</option>
+                      </select>
+                    </div>
+
+                    <div className="input-group full">
+                      <label style={{ color: promoApplied ? '#d4af37' : '#555' }}>
+                        <Gift size={16} /> 推薦碼 / 優惠碼 (PROMO CODE)
+                      </label>
+                      <div className="promo-input-wrapper">
+                        <input 
+                          type="text" 
+                          name="promoCode" 
+                          value={formData.promoCode} 
+                          onChange={handleInputChange} 
+                          placeholder="例如: ELITE"
+                          className={promoApplied ? 'promo-active' : ''}
+                        />
+                        {promoApplied && (
+                          <div className="promo-badge-mini">
+                            <Sparkles size={12} />
+                            <span>獎勵已啟用</span>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
 
-                  <div className="input-group">
-                    <label><Building2 size={16} /> 商號名稱 (Business Name)</label>
-                    <input 
-                      type="text" 
-                      name="businessName" 
-                      value={formData.businessName} 
-                      onChange={handleInputChange} 
-                      placeholder="例如: Elite Accounting Services"
-                    />
-                  </div>
-                  <div className="input-group">
-                    <label><Mail size={16} /> 聯絡電子郵件 (Contact Email)</label>
-                    <input 
-                      type="email" 
-                      name="email" 
-                      value={formData.email} 
-                      onChange={handleInputChange} 
-                      placeholder="contact@business.com"
-                    />
-                  </div>
-                  
-                  <div className="input-group full">
-                    <label><User size={16} /> 專業背景與資質 (Credentials)</label>
-                    <textarea 
-                      name="credentials" 
-                      value={formData.credentials} 
-                      onChange={handleInputChange}
-                      placeholder={selectedSector === 'professional' ? "例如: ACCA 會計師, 10年英國稅務經驗..." : "輸入您的技術認證..."}
-                      rows={3}
-                    />
-                    <small style={{ color: '#666', marginTop: '4px', display: 'block' }}>注意: 您可以先填寫基本資料，詳細證件可在進入後台後上傳審核。</small>
-                  </div>
+                  {error && <div className="error-msg">{error}</div>}
 
-                  <div className="input-group full">
-                    <label><MapPin size={16} /> 核心服務區域 (Primary City)</label>
-                    <select 
-                      name="city" 
-                      value={formData.city} 
-                      onChange={(e: any) => handleInputChange(e)} 
-                      className="premium-select"
+                  <div className="controls">
+                    <button className="btn-secondary" onClick={prevStep}>
+                      <ChevronLeft size={20} /> {t.onboarding.buttons.back}
+                    </button>
+                    <button 
+                      className={`btn-premium ${!isFormValid ? 'disabled' : ''}`}
+                      onClick={nextStep}
+                      disabled={!isFormValid}
                     >
-                      <option value="London">London (Greater London)</option>
-                      <option value="Manchester">Manchester</option>
-                      <option value="Birmingham">Birmingham</option>
-                      <option value="Leeds">Leeds</option>
-                      <option value="Glasgow">Glasgow</option>
-                      <option value="Liverpool">Liverpool</option>
-                      <option value="Edinburgh">Edinburgh</option>
-                      <option value="Bristol">Bristol</option>
-                    </select>
+                      {t.onboarding.buttons.next} <ChevronRight size={20} />
+                    </button>
                   </div>
                 </div>
 
-                {error && <div className="error-msg">{error}</div>}
-
-                <div className="controls">
-                  <button className="btn-secondary" onClick={prevStep}>
-                    <ChevronLeft size={20} /> {t.onboarding.buttons.back}
-                  </button>
-                  <button 
-                    className={`btn-premium ${!isFormValid ? 'disabled' : ''}`}
-                    onClick={nextStep}
-                    disabled={!isFormValid}
-                  >
-                    {t.onboarding.buttons.next} <ChevronRight size={20} />
-                  </button>
+                {/* Preview Side */}
+                <div className="preview-side">
+                  <LiveProfilePreview 
+                    businessName={formData.businessName}
+                    bio={formData.credentials}
+                    city={formData.city}
+                    sector={selectedSector === 'professional' ? "專業商務" : selectedSector === 'education' ? "教育培訓" : "技術工程"}
+                  />
+                  
+                  <div className="success-tip-box">
+                    <ShieldCheck size={20} color="#d4af37" />
+                    <div>
+                      <h5 style={{ color: 'white', margin: '0 0 4px', fontSize: '0.9rem' }}>專家入駐提示</h5>
+                      <p style={{ color: '#777', margin: 0, fontSize: '0.8rem', lineHeight: 1.5 }}>
+                        據統計，填寫完整的商號名稱與專業背景，能提升客戶 25% 的諮詢意願。
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -369,9 +425,14 @@ export default function JoinPage() {
           opacity: 0.3;
         }
 
+        .onboarding-grid {
+          display: grid;
+          grid-template-columns: 1.5fr 1fr;
+          gap: 40px;
+          align-items: start;
+        }
+
         .form-card {
-          max-width: 700px;
-          margin: 0 auto;
           padding: 50px;
           background: rgba(15, 15, 15, 0.6);
           border: 1px solid rgba(255, 255, 255, 0.05);
@@ -461,6 +522,48 @@ export default function JoinPage() {
         .ai-fill-btn:disabled {
           opacity: 0.3;
           cursor: not-allowed;
+        }
+
+        .promo-input-wrapper {
+          position: relative;
+        }
+
+        .promo-active {
+          border-color: #d4af37 !important;
+          background: rgba(212, 175, 55, 0.08) !important;
+          animation: pulse-gold 2s infinite;
+        }
+
+        @keyframes pulse-gold {
+          0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.2); }
+          70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
+          100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+
+        .promo-badge-mini {
+          position: absolute;
+          right: 12px;
+          top: 50%;
+          transform: translateY(-50%);
+          background: #d4af37;
+          color: black;
+          font-size: 0.7rem;
+          font-weight: 900;
+          padding: 4px 10px;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+
+        .success-tip-box {
+          margin-top: 30px;
+          padding: 24px;
+          background: rgba(212, 175, 55, 0.03);
+          border: 1px solid rgba(212, 175, 55, 0.1);
+          border-radius: 20px;
+          display: flex;
+          gap: 16px;
         }
 
         .btn-premium {
@@ -596,6 +699,11 @@ export default function JoinPage() {
         }
         .animate-spin {
           animation: spin 1s linear infinite;
+        }
+
+        @media (max-width: 1024px) {
+          .onboarding-grid { grid-template-columns: 1fr; }
+          .preview-side { order: -1; }
         }
 
         @media (max-width: 768px) {
