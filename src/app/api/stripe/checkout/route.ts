@@ -60,7 +60,7 @@ export async function POST(req: Request) {
     const checkoutAmountInPence = isEducation ? totalAmountInPence : Math.round(totalAmountInPence * 0.20);
     const balanceAmountInPence = totalAmountInPence - checkoutAmountInPence;
 
-    // Dynamic Platform Fee Calculation (8%)
+    // Dynamic Platform Fee Calculation (9%)
     const commissionRate = getCommissionRate(merchant);
     const applicationFeeInPence = Math.round(checkoutAmountInPence * commissionRate);
 

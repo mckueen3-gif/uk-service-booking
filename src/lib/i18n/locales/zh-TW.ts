@@ -176,7 +176,7 @@ export const zhTW: Dictionary = {
     hero: { title: "加入 ServiceHub 擴展您的業務", subtitle: "加入英國最精銳的認證服務專家網絡。" },
     steps: { profile: "商家檔案", credentials: "英國資質", contract: "服務協議" },
     sectors: { title: "選擇您的行業", professional: { title: "專業服務", desc: "會計、法律、諮詢", industries: ["會計師", "稅務諮詢", "法律服務", "商業戰略"] }, education: { title: "教育輔導", desc: "導師、培訓師、教練", industries: ["學科導師", "語言培訓", "技能教練", "音樂老師"] }, technical: { title: "技術維修", desc: "技工、維修、工程", industries: ["水電工", "電力工程師", "汽車維修", "房屋裝修"] } },
-    contract: { title: "標準服務協議", scrollingNotice: "請滾動到底部以接受條款。", agree: "我已閱讀並同意 ServiceHub 主協議。", clauses: { platform_fee: { title: "1. 平台服務費", body: "ServiceHub 對成功預訂收取 8% 的佣金。" }, payments: { title: "2. 託管與撥款", body: "客戶付款保存在安全託管中。在客戶確認工作完成 48 小時後觸發撥款。" }, conduct: { title: "3. 專業標準", body: "專家必須保持最低 4.0 星評分。未能達到英國安全標準可能導致帳戶立即停權。" } } },
+    contract: { title: "標準服務協議", scrollingNotice: "請滾動到底部以接受條款。", agree: "我已閱讀並同意 ServiceHub 主協議。", clauses: { platform_fee: { title: "1. 平台服務費", body: "ServiceHub 對成功預訂收取 9% 的佣金。" }, payments: { title: "2. 託管與撥款", body: "客戶付款保存在安全託管中。在客戶確認工作完成 48 小時後觸發撥款。" }, conduct: { title: "3. 專業標準", body: "專家必須保持最低 4.0 星評分。未能達到英國安全標準可能導致帳戶立即停權。" } } },
     buttons: { start: "馬上開始", next: "下一步", back: "上一步", submit: "完成入駐" }
   }
 };

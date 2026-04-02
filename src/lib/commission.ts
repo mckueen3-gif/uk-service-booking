@@ -9,7 +9,7 @@
 /**
  * Calculates the platform commission rate based on merchant settings.
  * @param merchant The merchant object from the database with required fields.
- * @returns The commission rate as a decimal (e.g., 0.08 for 8%).
+ * @returns The commission rate as a decimal (e.g., 0.09 for 9%).
  */
 export function getCommissionRate(merchant?: { commissionRate: number }): number {
   // Standardized at 9% as requested.

@@ -97,7 +97,7 @@ export default async function AdminCommissionsPage() {
         <div>
           <h4 style={{ color: 'white', fontWeight: 700, marginBottom: '0.25rem' }}>佣金管理說明</h4>
           <p style={{ color: '#94a3b8', fontSize: '0.875rem', lineHeight: 1.6 }}>
-            默認佣金為 8%。修改比例後，將立即影響該商戶下一次生成的 Stripe 結帳頁面。
+            默認佣金為 9%。修改比例後，將立即影響該商戶下一次生成的 Stripe 結帳頁面。
             [免佣配額管理暫時停用，以配合伺服器維護]
           </p>
         </div>

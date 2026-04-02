@@ -176,7 +176,7 @@ export const ja: Dictionary = {
     hero: { title: "ServiceHubでビジネスを拡大", subtitle: "英国で最もエリートな認定プロフェッショナルネットワークに参加しましょう。" },
     steps: { profile: "ビジネスプロフィール", credentials: "英国資格情報", contract: "サービス契約" },
     sectors: { title: "セクターを選択", professional: { title: "プロフェッショナル", desc: "会計、法律、コンサルティング", industries: ["会計", "税務相談", "法的サービス", "経営戦略"] }, education: { title: "教育", desc: "講師、トレーナー、コーチ", industries: ["学術講師", "語学トレーニング", "スキルコーチ", "音楽講師"] }, technical: { title: "テクニカル", desc: "技術職、修理、エンジニアリング", industries: ["配管", "電気", "自動車", "リフォーム"] } },
-    contract: { title: "標準サービス契約", scrollingNotice: "一番下までスクロールして規約に同意してください。", agree: "ServiceHub基本合意書を読み、同意します。", clauses: { platform_fee: { title: "1. プラットフォーム利用料", body: "ServiceHubは予約完了時に8%の手数料を申し受けます。" }, payments: { title: "2. エスクローと支払い", body: "顧客の支払いは安全なエスクローで保持されます。顧客が完了を確認してから48時間後に出金可能になります。" }, conduct: { title: "3. プロフェッショナル基準", body: "エキスパートは最低4.0の評価を維持する必要があります。英国の安全基準を満たさない場合、即座にアカウント停止となる場合があります。" } } },
+    contract: { title: "標準サービス契約", scrollingNotice: "一番下までスクロールして規約に同意してください。", agree: "ServiceHub基本合意書を読み、同意します。", clauses: { platform_fee: { title: "1. プラットフォーム利用料", body: "ServiceHubは予約完了時に9%の手数料を申し受けます。" }, payments: { title: "2. エスクローと支払い", body: "顧客の支払いは安全なエスクローで保持されます。顧客が完了を確認してから48時間後に出金可能になります。" }, conduct: { title: "3. プロフェッショナル基準", body: "エキスパートは最低4.0の評価を維持する必要があります。英国の安全基準を満たさない場合、即座にアカウント停止となる場合があります。" } } },
     buttons: { start: "はじめる", next: "次へ", back: "戻る", submit: "登録を完了" }
   }
 };
