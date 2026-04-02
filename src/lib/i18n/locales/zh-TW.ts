@@ -1,3 +1,4 @@
+// Last Update: 2026-04-02 12:21 - Cache Busting
 import { Dictionary } from '../dictionary';
 
 export const zhTW: Dictionary = {
