@@ -296,8 +296,8 @@ export default function HomeClient() {
 
       {/* Service Sections */}
       {[
-        { id: 'plumbing', data: t.home.sections.plumbing, bg: 'var(--bg-primary)', img1: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop', img2: 'https://images.unsplash.com/photo-1504148455328-497c5efdf13d?q=80&w=800&auto=format&fit=crop' },
-        { id: 'repairs', data: t.home.sections.repairs, bg: 'var(--bg-secondary)', img1: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=800&auto=format&fit=crop', img2: 'https://images.unsplash.com/photo-1595814433015-e6f5cd69614e?q=80&w=800&auto=format&fit=crop' },
+        { id: 'plumbing', data: t.home.sections.plumbing, bg: 'var(--bg-primary)', img1: '/images/plumbing_main.png', img2: '/images/plumbing_detail.png' },
+        { id: 'repairs', data: t.home.sections.repairs, bg: 'var(--bg-secondary)', img1: '/images/repairs_main.png', img2: '/images/repairs_detail.png' },
         { id: 'accounting', data: t.home.sections.accounting, bg: 'var(--bg-primary)', fullImg: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1200&auto=format&fit=crop' },
         { id: 'renovation', data: t.home.sections.renovation, bg: 'var(--bg-secondary)', fullImg: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop' },
         { id: 'education', data: t.home.sections.education, bg: 'var(--bg-primary)', fullImg: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop' },
