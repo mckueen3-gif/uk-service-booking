@@ -534,10 +534,11 @@ export default function JoinPage() {
         }
 
         .form-intro {
-          color: #64748b;
+          color: #94a3b8;
           margin-bottom: 48px;
           font-weight: 500;
           font-size: 1.05rem;
+          opacity: 0.9;
         }
 
         .form-grid {
@@ -557,7 +558,7 @@ export default function JoinPage() {
           font-size: 0.75rem;
           font-weight: 800;
           margin-bottom: 12px;
-          color: #475569;
+          color: #94a3b8;
           text-transform: uppercase;
           letter-spacing: 0.1em;
         }
@@ -566,13 +567,18 @@ export default function JoinPage() {
           width: 100%;
           padding: 18px 24px;
           background: #0f0f0f;
-          border: 1.5px solid #1a1a1a;
+          border: 1.5px solid #222;
           border-radius: 20px;
           color: white;
           outline: none;
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           font-size: 1.05rem;
           font-weight: 500;
+        }
+
+        input::placeholder, textarea::placeholder {
+          color: #475569;
+          opacity: 0.8;
         }
 
         input:focus, textarea:focus, .premium-select:focus {
@@ -635,6 +641,10 @@ export default function JoinPage() {
           display: flex;
           gap: 20px;
           backdrop-filter: blur(10px);
+        }
+
+        .success-tip-box p {
+          color: #94a3b8 !important;
         }
 
         .btn-premium {
@@ -801,7 +811,7 @@ export default function JoinPage() {
           flex-direction: column;
           align-items: center;
           gap: 4px;
-          color: #475569;
+          color: #94a3b8;
           font-size: 0.65rem;
           font-weight: 800;
           text-transform: uppercase;
