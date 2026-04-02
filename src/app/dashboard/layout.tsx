@@ -20,8 +20,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
   const userName = session?.user?.name || "User";
 
   return (
-    <div style={{ backgroundColor: '#050505', minHeight: '100vh', display: 'flex' }}>
-      {/* Sidebar - Fixed Left - Obsidian Gold Texture */}
+    <div style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', display: 'flex', transition: 'background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1)' }}>
+      {/* Sidebar - Fixed Left - Premium Obsidian / Pearl Transition */}
       <aside style={{ 
         width: '280px', 
         height: 'calc(100vh - 80px)', 
@@ -29,18 +29,18 @@ export default async function DashboardLayout({ children }: { children: React.Re
         left: 0,
         top: '80px', 
         padding: '2rem 1.5rem',
-        borderRight: '1px solid rgba(255, 255, 255, 0.05)',
-        backgroundColor: 'rgba(5, 5, 5, 0.9)',
+        borderRight: '1px solid var(--border-color)',
+        backgroundColor: 'var(--glass-bg)',
         backdropFilter: 'blur(24px)',
         zIndex: 40,
         display: 'flex',
         flexDirection: 'column'
       }}>
         <div style={{ marginBottom: '2.5rem', paddingLeft: '1rem' }}>
-          <h1 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#d4af37', letterSpacing: '-0.03em' }}>
-            ConciergeAI<span style={{ color: '#fff' }}>.</span>
+          <h1 style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--accent-color)', letterSpacing: '-0.03em' }}>
+            ConciergeAI<span style={{ color: 'var(--text-primary)' }}>.</span>
           </h1>
-          <p style={{ fontSize: '0.75rem', fontWeight: 600, color: '#666', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          <p style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
             {isMerchant ? 'Vetted Expert' : 'Premier Member'}
           </p>
         </div>

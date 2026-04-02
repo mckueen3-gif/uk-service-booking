@@ -16,8 +16,8 @@ export function AppNavbar({ session }: { session: any }) {
   const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
   
-  const isObsidianPage = pathname?.startsWith('/join') || pathname?.includes('/merchant');
-  const obsidianBg = '#050505';
+  const isObsidianPage = pathname?.startsWith('/join') || pathname?.includes('/merchant') || pathname?.startsWith('/dashboard') || pathname?.startsWith('/admin');
+  const obsidianBg = theme === 'dark' ? '#050505' : 'var(--bg-primary)';
   const obsidianGold = '#d4af37';
 
   // State to manage which dropdown is active
@@ -80,7 +80,7 @@ export function AppNavbar({ session }: { session: any }) {
         background: isObsidianPage ? obsidianBg : 'var(--glass-bg)', 
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
-        borderBottom: isObsidianPage ? `1px solid rgba(212, 175, 55, 0.1)` : '1px solid var(--glass-border)',
+        borderBottom: isObsidianPage ? `1px solid ${theme === 'dark' ? 'rgba(212, 175, 55, 0.1)' : 'rgba(212, 175, 55, 0.2)'}` : '1px solid var(--glass-border)',
         position: 'fixed',
         top: 0,
         width: '100%',
@@ -108,15 +108,17 @@ export function AppNavbar({ session }: { session: any }) {
               }} 
             />
           </Link>
-
-          {/* City Selector */}
-          <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: isObsidianPage ? '#666' : 'var(--text-secondary)' }}>
+        </div>
+        
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+          {/* City Selector (Moved to right section for cleaner dashboard look) */}
+          <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: isObsidianPage ? (theme === 'dark' ? '#666' : 'var(--text-secondary)') : 'var(--text-secondary)' }}>
              <MapPin size={16} color={obsidianGold} />
              <div 
                onClick={() => toggleDropdown('cities')}
                style={{ 
                  display: 'flex', alignItems: 'center', gap: '4px', 
-                 cursor: 'pointer', fontWeight: 800, color: isObsidianPage ? 'white' : 'var(--text-primary)',
+                 cursor: 'pointer', fontWeight: 800, color: isObsidianPage ? (theme === 'dark' ? 'white' : 'var(--text-primary)') : 'var(--text-primary)',
                  padding: '0.3rem 0.6rem', borderRadius: '0.6rem',
                  backgroundColor: activeDropdown === 'cities' ? (isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--surface-2)') : 'transparent',
                  transition: '0.2s'
@@ -198,29 +200,27 @@ export function AppNavbar({ session }: { session: any }) {
         </div>
         
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-          {/* Theme Toggle */}
-          {!isObsidianPage && (
-            <button 
-              onClick={toggleTheme}
-              style={{ 
-                background: 'var(--surface-2)', 
-                border: '1px solid var(--border-color)', 
-                borderRadius: '0.75rem', 
-                padding: '0.4rem', 
-                cursor: 'pointer', 
-                color: 'var(--accent-color)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'all 0.3s ease',
-                boxShadow: 'var(--shadow-sm)'
-              }}
-              className="hover-scale"
-              title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
-            >
-              {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
-            </button>
-          )}
+          {/* Theme Toggle - Now always visible for better UX in dashboard */}
+          <button 
+            onClick={toggleTheme}
+            style={{ 
+              background: isObsidianPage ? (theme === 'dark' ? 'rgba(255,255,255,0.05)' : 'var(--surface-2)') : 'var(--surface-2)', 
+              border: `1px solid ${isObsidianPage ? 'rgba(212,175,55,0.2)' : 'var(--border-color)'}`, 
+              borderRadius: '0.75rem', 
+              padding: '0.4rem', 
+              cursor: 'pointer', 
+              color: obsidianGold,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'all 0.3s ease',
+              boxShadow: 'var(--shadow-sm)'
+            }}
+            className="hover-scale"
+            title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+          >
+            {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+          </button>
 
           {/* Premium Custom Language Switcher */}
           <div style={{ position: 'relative' }}>
@@ -378,8 +378,9 @@ export function AppNavbar({ session }: { session: any }) {
 export function AppFooter() {
   const { t, isRTL } = useTranslation();
   const pathname = usePathname();
-  const isObsidianPage = pathname?.startsWith('/join') || pathname?.includes('/merchant');
-  const obsidianBg = '#050505';
+  const isObsidianPage = pathname?.startsWith('/join') || pathname?.includes('/merchant') || pathname?.startsWith('/dashboard') || pathname?.startsWith('/admin');
+  const { theme } = useTheme();
+  const obsidianBg = theme === 'dark' ? '#050505' : 'var(--bg-secondary)';
   const obsidianGold = '#d4af37';
 
   return (

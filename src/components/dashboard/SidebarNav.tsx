@@ -9,6 +9,7 @@ import {
   Zap, Star, Calculator
 } from "lucide-react";
 import { signOut } from "next-auth/react";
+import { useTheme } from "@/components/ThemeContext";
 
 interface SidebarNavProps {
   isMerchant: boolean;
@@ -17,6 +18,7 @@ interface SidebarNavProps {
 
 export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
   const pathname = usePathname();
+  const { theme } = useTheme();
 
   const mainItems = [
     { href: "/dashboard", label: "總覽 (Overview)", icon: isMerchant ? LayoutDashboard : Home },
@@ -107,23 +109,23 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
       <div style={{ 
         marginTop: 'auto', 
         padding: '1.25rem', 
-        backgroundColor: '#111', 
+        backgroundColor: theme === 'dark' ? '#111' : 'var(--surface-1)', 
         borderRadius: '20px', 
-        border: '1px solid #222',
+        border: theme === 'dark' ? '1px solid #222' : '1px solid var(--border-color)',
         marginBottom: '1rem',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
+        boxShadow: theme === 'dark' ? '0 4px 12px rgba(0,0,0,0.2)' : 'var(--shadow-sm)'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
           <div style={{ backgroundColor: '#d4af37', padding: '0.5rem', borderRadius: '10px' }}>
             <ShieldCheck size={18} color="#000" />
           </div>
           <div>
-            <p style={{ fontSize: '0.8rem', fontWeight: 800, color: '#fff' }}>Trust Verified</p>
-            <p style={{ fontSize: '0.65rem', color: '#666' }}>ConciergeAI Expert</p>
+            <p style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--text-primary)' }}>Trust Verified</p>
+            <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>ConciergeAI Expert</p>
           </div>
         </div>
         <div style={{ 
-          backgroundColor: '#000', 
+          backgroundColor: theme === 'dark' ? '#000' : 'var(--accent-soft)', 
           padding: '0.5rem', 
           borderRadius: '10px', 
           fontSize: '0.75rem', 
@@ -164,7 +166,7 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
       <style jsx>{`
         .hover-sidebar-item:hover {
           background-color: rgba(212, 175, 55, 0.05);
-          color: #fff !important;
+          color: var(--accent-color) !important;
           transform: translateX(4px);
         }
         .hover-sidebar-item-red:hover {

@@ -32,14 +32,14 @@ export default async function AdminLayout({
   // Actually, let's play it safe and check the session structure if we can.
 
   return (
-    <div className="flex min-h-screen bg-[#0a0a0a] text-gray-100 font-sans">
-      {/* Sidebar */}
-      <aside className="w-64 border-r border-[#1a1a1a] bg-[#0d0d0d] flex flex-col fixed inset-y-0 shadow-2xl">
-        <div className="p-6 border-b border-[#1a1a1a] flex items-center gap-3">
+    <div className="flex min-h-screen bg-white dark:bg-[#050505] text-slate-900 dark:text-gray-100 font-sans transition-colors duration-300">
+      {/* Sidebar - Premium Glass Response */}
+      <aside className="w-64 border-r border-slate-200 dark:border-[#1a1a1a] bg-slate-50 dark:bg-[#0d0d0d] flex flex-col fixed inset-y-0 shadow-2xl transition-colors">
+        <div className="p-6 border-b border-slate-200 dark:border-[#1a1a1a] flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#d4af37] to-[#aa8b2c] flex items-center justify-center shadow-[0_0_15px_rgba(212,175,55,0.3)]">
             <ShieldCheck className="w-5 h-5 text-black" />
           </div>
-          <span className="font-bold text-xl tracking-tight text-[#d4af37]">ADMIN <span className="text-white">UK</span></span>
+          <span className="font-bold text-xl tracking-tight text-[#d4af37]">ADMIN <span className="text-slate-900 dark:text-white">UK</span></span>
         </div>
 
         <nav className="flex-1 p-4 space-y-1 mt-4 overflow-y-auto custom-scrollbar">
@@ -54,14 +54,14 @@ export default async function AdminLayout({
           <AdminNavLink href="/admin/settings" icon={<Settings size={20} />} label="Settings" />
         </nav>
 
-        <div className="p-4 border-t border-[#1a1a1a]">
-          <div className="flex items-center gap-3 p-3 rounded-xl bg-[#141414] border border-[#1a1a1a]">
+        <div className="p-4 border-t border-slate-200 dark:border-[#1a1a1a]">
+          <div className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-[#141414] border border-slate-200 dark:border-[#1a1a1a]">
             <div className="w-10 h-10 rounded-full bg-gray-800 border border-[#d4af37]/20 flex items-center justify-center">
               <span className="text-xs font-bold text-[#d4af37]">AD</span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold truncate text-[#e5e5e5]">{session.user.name || "Administrator"}</p>
-              <p className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Terminal Access</p>
+              <p className="text-sm font-semibold truncate text-slate-900 dark:text-[#e5e5e5]">{session.user.name || "Administrator"}</p>
+              <p className="text-[10px] text-slate-400 dark:text-gray-500 uppercase tracking-widest font-bold">Terminal Access</p>
             </div>
             <Link href="/api/auth/signout" className="p-2 text-gray-500 hover:text-white transition-colors">
               <LogOut size={16} />
@@ -75,17 +75,17 @@ export default async function AdminLayout({
         <header className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-xs font-bold text-[#d4af37] uppercase tracking-[0.2em] mb-1">Internal Management</h1>
-            <p className="text-2xl font-bold tracking-tight text-white">Central Operations Hub</p>
+            <p className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Central Operations Hub</p>
           </div>
           <div className="flex items-center gap-4">
-            <button className="p-3 rounded-full bg-[#111] border border-[#222] text-gray-400 hover:text-[#d4af37] transition-all group relative">
+            <button className="p-3 rounded-full bg-slate-100 dark:bg-[#111] border border-slate-200 dark:border-[#222] text-slate-400 dark:text-gray-400 hover:text-[#d4af37] transition-all group relative">
               <Bell size={20} />
-              <span className="absolute top-0 right-0 w-2 h-2 bg-[#d4af37] rounded-full border-2 border-black"></span>
+              <span className="absolute top-0 right-0 w-2 h-2 bg-[#d4af37] rounded-full border-2 border-white dark:border-black"></span>
             </button>
-            <div className="h-8 w-px bg-gray-800"></div>
+            <div className="h-8 w-px bg-slate-200 dark:bg-gray-800"></div>
             <div className="text-right">
-              <p className="text-xs text-gray-500">Regional Node</p>
-              <p className="text-sm font-bold text-white">London, UK</p>
+              <p className="text-xs text-slate-400 dark:text-gray-500">Regional Node</p>
+              <p className="text-sm font-bold text-slate-900 dark:text-white">London, UK</p>
             </div>
           </div>
         </header>
