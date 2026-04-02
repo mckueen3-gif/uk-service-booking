@@ -15,13 +15,30 @@ export function AppNavbar({ session }: { session: any }) {
   const { city, setCity, supportedCities, detectLocation, isLocating } = useLocation();
   const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
-  const [showCities, setShowCities] = React.useState(false);
-  const [showServices, setShowServices] = React.useState(false);
-  const [showLanguages, setShowLanguages] = React.useState(false);
-
+  
   const isObsidianPage = pathname?.startsWith('/join') || pathname?.includes('/merchant');
   const obsidianBg = '#050505';
   const obsidianGold = '#d4af37';
+
+  // State to manage which dropdown is active
+  const [activeDropdown, setActiveDropdown] = React.useState<string | null>(null);
+  const navRef = React.useRef<HTMLElement>(null);
+
+  // Close dropdowns on outside click
+  React.useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setActiveDropdown(null);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Simple toggle helper
+  const toggleDropdown = (name: string) => {
+    setActiveDropdown(activeDropdown === name ? null : name);
+  };
 
   const languages = React.useMemo(() => [
     { code: 'en', label: 'English (EN)' },
@@ -29,7 +46,7 @@ export function AppNavbar({ session }: { session: any }) {
     { code: 'hi', label: 'हिन्दी (HI)' },
     { code: 'ar', label: 'العربية (AR)' },
     { code: 'ja', label: '日本語 (JA)' },
-    { code: 'ko', label: '한국어 (KO)' },
+    { code: 'ko', label: '韓國語 (KO)' },
     { code: 'pl', label: 'Polski (PL)' },
     { code: 'ro', label: 'Română (RO)' },
     { code: 'ur', label: 'اردو (UR)' },
@@ -52,20 +69,26 @@ export function AppNavbar({ session }: { session: any }) {
 
   const displayCity = city === ALL_UK ? t.home.allUK : city;
 
+  // Render City Items
+  const sortedCities = React.useMemo(() => [...supportedCities].sort(), [supportedCities]);
+
   return (
-    <header style={{ 
-      height: '80px', 
-      background: isObsidianPage ? obsidianBg : 'var(--glass-bg)', 
-      backdropFilter: 'blur(16px)',
-      WebkitBackdropFilter: 'blur(16px)',
-      borderBottom: isObsidianPage ? `1px solid rgba(212, 175, 55, 0.1)` : '1px solid var(--glass-border)',
-      position: 'fixed',
-      top: 0,
-      width: '100%',
-      zIndex: 100,
-      direction: isRTL ? 'rtl' : 'ltr',
-      transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
-    }}>
+    <header 
+      ref={navRef as any}
+      style={{ 
+        height: '80px', 
+        background: isObsidianPage ? obsidianBg : 'var(--glass-bg)', 
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        borderBottom: isObsidianPage ? `1px solid rgba(212, 175, 55, 0.1)` : '1px solid var(--glass-border)',
+        position: 'fixed',
+        top: 0,
+        width: '100%',
+        zIndex: 100,
+        direction: isRTL ? 'rtl' : 'ltr',
+        transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
+      }}
+    >
       <nav className="container" style={{ 
         display: 'flex', 
         justifyContent: 'space-between', 
@@ -81,7 +104,7 @@ export function AppNavbar({ session }: { session: any }) {
                 height: '56px', 
                 width: 'auto',
                 filter: isObsidianPage ? 'drop-shadow(0 0 10px rgba(212, 175, 55, 0.2))' : 'none',
-                backgroundColor: isObsidianPage ? 'transparent' : 'transparent',
+                backgroundColor: 'transparent',
               }} 
             />
           </Link>
@@ -90,21 +113,21 @@ export function AppNavbar({ session }: { session: any }) {
           <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: isObsidianPage ? '#666' : 'var(--text-secondary)' }}>
              <MapPin size={16} color={obsidianGold} />
              <div 
-               onClick={() => setShowCities(!showCities)}
+               onClick={() => toggleDropdown('cities')}
                style={{ 
                  display: 'flex', alignItems: 'center', gap: '4px', 
                  cursor: 'pointer', fontWeight: 800, color: isObsidianPage ? 'white' : 'var(--text-primary)',
                  padding: '0.3rem 0.6rem', borderRadius: '0.6rem',
-                 backgroundColor: showCities ? (isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--surface-2)') : 'transparent',
+                 backgroundColor: activeDropdown === 'cities' ? (isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--surface-2)') : 'transparent',
                  transition: '0.2s'
                }}
                className="hover-bg"
              >
                {displayCity}
-               <ChevronRight size={14} style={{ transform: showCities ? 'rotate(-90deg)' : 'rotate(90deg)', transition: '0.2s' }} />
+               <ChevronDown size={14} style={{ transform: activeDropdown === 'cities' ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s', opacity: 0.6 }} />
              </div>
 
-             {showCities && (
+             {activeDropdown === 'cities' && (
                <div style={{ 
                  position: 'absolute', top: '100%', left: 0, marginTop: '0.75rem',
                  width: '420px', 
@@ -118,7 +141,7 @@ export function AppNavbar({ session }: { session: any }) {
                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
                     <span style={{ fontWeight: 800, fontSize: '1rem', color: isObsidianPage ? 'white' : 'var(--text-primary)' }}>{t.search.location}</span>
                     <button 
-                      onClick={() => { detectLocation(); }}
+                      onClick={(e) => { e.stopPropagation(); detectLocation(); }}
                       disabled={isLocating}
                       style={{ 
                         display: 'flex', alignItems: 'center', gap: '6px', 
@@ -137,16 +160,16 @@ export function AppNavbar({ session }: { session: any }) {
                     </button>
                  </div>
 
-                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.6rem' }}>
-                   {supportedCities.map(c => (
+                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.6rem', maxHeight: '400px', overflowY: 'auto', paddingRight: '0.5rem' }} className="custom-scrollbar">
+                   {sortedCities.map(c => (
                      <div 
                        key={c} 
-                       onClick={() => { setCity(c); setShowCities(false); }}
+                       onClick={(e) => { e.stopPropagation(); setCity(c); setActiveDropdown(null); }}
                        style={{ 
                          padding: '0.6rem', borderRadius: '0.75rem', cursor: 'pointer',
                          fontSize: '0.8rem', textAlign: 'center', transition: '0.2s',
-                         backgroundColor: city === c ? obsidianGold : (isObsidianPage ? '#171717' : 'var(--surface-2)'),
-                         color: city === c ? 'black' : (isObsidianPage ? '#999' : 'var(--text-secondary)'),
+                         backgroundColor: city === c ? obsidianGold : (isObsidianPage ? 'rgba(255,255,255,0.05)' : 'var(--surface-2)'),
+                         color: city === c ? 'black' : (isObsidianPage ? 'white' : 'var(--text-secondary)'),
                          fontWeight: city === c ? 800 : 600,
                          border: '1px solid transparent'
                        }}
@@ -157,12 +180,12 @@ export function AppNavbar({ session }: { session: any }) {
                    ))}
                    <div 
                       key="all"
-                      onClick={() => { setCity(ALL_UK); setShowCities(false); }}
+                      onClick={(e) => { e.stopPropagation(); setCity(ALL_UK); setActiveDropdown(null); }}
                       style={{ 
                         gridColumn: 'span 3', padding: '0.6rem', borderRadius: '0.75rem', cursor: 'pointer',
                         fontSize: '0.8rem', textAlign: 'center', transition: '0.2s', marginTop: '0.4rem',
-                        backgroundColor: city === ALL_UK ? obsidianGold : (isObsidianPage ? '#171717' : 'var(--surface-2)'),
-                        color: city === ALL_UK ? 'black' : (isObsidianPage ? '#999' : 'var(--text-secondary)'),
+                        backgroundColor: city === ALL_UK ? obsidianGold : (isObsidianPage ? 'rgba(255,255,255,0.05)' : 'var(--surface-2)'),
+                        color: city === ALL_UK ? 'black' : (isObsidianPage ? 'white' : 'var(--text-secondary)'),
                         fontWeight: 800
                       }}
                    >
@@ -175,7 +198,7 @@ export function AppNavbar({ session }: { session: any }) {
         </div>
         
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-          {/* Theme Toggle HIDDEN on Premium pages to maintain visual brand integrity */}
+          {/* Theme Toggle */}
           {!isObsidianPage && (
             <button 
               onClick={toggleTheme}
@@ -200,27 +223,25 @@ export function AppNavbar({ session }: { session: any }) {
           )}
 
           {/* Premium Custom Language Switcher */}
-          <div 
-             style={{ position: 'relative' }}
-             onMouseEnter={() => setShowLanguages(true)}
-             onMouseLeave={() => setShowLanguages(false)}
-          >
-            <div style={{ 
-              display: 'flex', alignItems: 'center', gap: '6px', 
-              cursor: 'pointer', padding: '0.4rem 0.8rem', 
-              borderRadius: '2rem', 
-              border: `1px solid ${isObsidianPage ? 'rgba(212,175,55,0.2)' : 'var(--border-color)'}`,
-              backgroundColor: isObsidianPage ? '#0f0f0f' : 'var(--surface-1)', 
-              color: isObsidianPage ? 'white' : 'var(--text-primary)',
-              fontWeight: 600, fontSize: '0.9rem', transition: 'all 0.2s',
-              boxShadow: isObsidianPage ? 'none' : 'var(--shadow-sm)'
-            }} className="hover-border active-scale">
+          <div style={{ position: 'relative' }}>
+            <div 
+              onClick={() => toggleDropdown('languages')}
+              style={{ 
+                display: 'flex', alignItems: 'center', gap: '6px', 
+                cursor: 'pointer', padding: '0.4rem 0.8rem', 
+                borderRadius: '2rem', 
+                border: `1px solid ${isObsidianPage ? 'rgba(212,175,55,0.2)' : 'var(--border-color)'}`,
+                backgroundColor: activeDropdown === 'languages' ? (isObsidianPage ? 'rgba(212,175,55,0.1)' : 'rgba(212,175,55,0.05)') : (isObsidianPage ? '#0f0f0f' : 'var(--surface-1)'), 
+                color: isObsidianPage ? 'white' : 'var(--text-primary)',
+                fontWeight: 600, fontSize: '0.9rem', transition: 'all 0.2s',
+                boxShadow: isObsidianPage ? 'none' : 'var(--shadow-sm)'
+              }} className="hover-border active-scale">
                <Globe size={16} color={obsidianGold} />
                <span>{currentLanguage.label.split(' ')[0]}</span>
-               <ChevronDown size={14} style={{ transform: showLanguages ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s', opacity: 0.6 }} />
+               <ChevronDown size={14} style={{ transform: activeDropdown === 'languages' ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s', opacity: 0.6 }} />
             </div>
 
-            {showLanguages && (
+            {activeDropdown === 'languages' && (
               <div style={{
                 position: 'absolute', top: '100%', right: '0', marginTop: '0.5rem',
                 width: '180px', 
@@ -236,12 +257,12 @@ export function AppNavbar({ session }: { session: any }) {
                 {languages.map(lang => (
                   <div
                     key={lang.code}
-                    onClick={() => { setLocale(lang.code as any); setShowLanguages(false); }}
+                    onClick={(e) => { e.stopPropagation(); setLocale(lang.code as any); setActiveDropdown(null); }}
                     style={{
                       padding: '0.6rem 0.8rem', borderRadius: '0.5rem', cursor: 'pointer',
                       fontSize: '0.9rem', fontWeight: locale === lang.code ? 700 : 500,
                       backgroundColor: locale === lang.code ? (isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--accent-soft)') : 'transparent',
-                      color: locale === lang.code ? obsidianGold : (isObsidianPage ? '#999' : 'var(--text-primary)'),
+                      color: locale === lang.code ? obsidianGold : (isObsidianPage ? 'white' : 'var(--text-primary)'),
                       transition: 'all 0.2s'
                     }}
                     className={locale !== lang.code ? "hover-bg" : ""}
@@ -253,63 +274,60 @@ export function AppNavbar({ session }: { session: any }) {
             )}
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+          <div style={{ position: 'relative' }}>
             <div 
-               style={{ position: 'relative' }}
-               onMouseEnter={() => setShowServices(true)}
-               onMouseLeave={() => setShowServices(false)}
-            >
-              <div style={{ 
+              onClick={() => toggleDropdown('services')}
+              style={{ 
                 cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', 
-                color: isObsidianPage ? 'white' : 'var(--text-primary)', 
-                fontWeight: 700, fontSize: '1.05rem', padding: '0.5rem 0' 
-              }}>
-                {t.nav.browse}
-                <ChevronDown size={14} style={{ transform: showServices ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
-              </div>
-
-              {showServices && (
-                <div style={{
-                  position: 'absolute', top: '100%', right: '0',
-                  width: '450px', 
-                  backgroundColor: isObsidianPage ? '#0f0f0f' : 'var(--surface-1)', 
-                  borderRadius: '1.25rem',
-                  boxShadow: isObsidianPage ? '0 20px 40px rgba(0,0,0,0.8)' : '0 20px 25px -5px rgba(0, 0, 0, 0.1)', 
-                  border: `1.5px solid ${isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--border-color)'}`,
-                  padding: '1.5rem', zIndex: 1000,
-                  backdropFilter: 'blur(20px)',
-                  display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem'
-                }}>
-                   {servicesList.map(s => (
-                     <Link key={s.id} href={s.path} style={{ textDecoration: 'none' }} onClick={() => setShowServices(false)}>
-                       <div style={{ 
-                         display: 'flex', alignItems: 'center', gap: '10px', 
-                         padding: '0.75rem 1rem', borderRadius: '0.75rem',
-                         color: isObsidianPage ? '#ccc' : 'var(--text-primary)', fontWeight: 600, fontSize: '0.9rem',
-                         transition: 'all 0.2s', 
-                         backgroundColor: isObsidianPage ? '#171717' : 'var(--surface-2)'
-                       }}
-                       className="hover-bg hover-scale"
-                       >
-                         <div style={{ color: obsidianGold }}>{s.icon}</div>
-                         {s.label}
-                       </div>
-                     </Link>
-                   ))}
-                   <div style={{ gridColumn: '1 / -1', marginTop: '0.5rem' }}>
-                     <Link href="/services" style={{ textDecoration: 'none' }} onClick={() => setShowServices(false)}>
-                       <div style={{ 
-                         width: '100%', textAlign: 'center', 
-                         backgroundColor: isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--accent-soft)', 
-                         color: obsidianGold, padding: '0.75rem', borderRadius: '0.75rem', fontWeight: 800, fontSize: '0.9rem' 
-                       }} className="hover-opacity">
-                         {isRTL ? 'عرض كافة الفئات' : 'View All Categories'} →
-                       </div>
-                     </Link>
-                   </div>
-                </div>
-              )}
+                color: activeDropdown === 'services' ? obsidianGold : (isObsidianPage ? 'white' : 'var(--text-primary)'), 
+                fontWeight: 700, fontSize: '1.05rem', padding: '0.5rem 0'
+              }}
+            >
+              {t.nav.browse}
+              <ChevronDown size={14} style={{ transform: activeDropdown === 'services' ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
             </div>
+
+            {activeDropdown === 'services' && (
+              <div style={{
+                position: 'absolute', top: '100%', right: '0', marginTop: '0.5rem',
+                width: '450px', 
+                backgroundColor: isObsidianPage ? '#0f0f0f' : 'var(--surface-1)', 
+                borderRadius: '1.25rem',
+                boxShadow: isObsidianPage ? '0 20px 40px rgba(0,0,0,0.8)' : '0 20px 25px -5px rgba(0, 0, 0, 0.1)', 
+                border: `1.5px solid ${isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--border-color)'}`,
+                padding: '1.5rem', zIndex: 1000,
+                backdropFilter: 'blur(20px)',
+                display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem'
+              }}>
+                {servicesList.map(s => (
+                  <Link key={s.id} href={s.path} style={{ textDecoration: 'none' }} onClick={() => setActiveDropdown(null)}>
+                    <div style={{ 
+                      display: 'flex', alignItems: 'center', gap: '10px', 
+                      padding: '0.75rem 1rem', borderRadius: '0.75rem',
+                      color: isObsidianPage ? '#ccc' : 'var(--text-primary)', fontWeight: 600, fontSize: '0.9rem',
+                      transition: 'all 0.2s', 
+                      backgroundColor: isObsidianPage ? '#171717' : 'var(--surface-2)'
+                    }}
+                    className="hover-bg hover-scale"
+                    >
+                      <div style={{ color: obsidianGold }}>{s.icon}</div>
+                      {s.label}
+                    </div>
+                  </Link>
+                ))}
+                <div style={{ gridColumn: '1 / -1', marginTop: '0.5rem' }}>
+                  <Link href="/services" style={{ textDecoration: 'none' }} onClick={() => setActiveDropdown(null)}>
+                    <div style={{ 
+                      width: '100%', textAlign: 'center', 
+                      backgroundColor: isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--accent-soft)', 
+                      color: obsidianGold, padding: '0.75rem', borderRadius: '0.75rem', fontWeight: 800, fontSize: '0.9rem' 
+                    }} className="hover-opacity">
+                      {isRTL ? 'عرض كافة الفئات' : 'View All Categories'} →
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            )}
           </div>
 
           <Link href="/diagnosis" style={{ 

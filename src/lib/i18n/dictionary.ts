@@ -103,6 +103,7 @@ export interface Dictionary {
     recommendationResults: {
       trendingTitle: string;
       topRatedTitle: string;
+      ukWideTitle: string;
       professionalTitle: string;
       homeRepair: string;
       deepCleaning: string;

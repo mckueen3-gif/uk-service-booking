@@ -48,7 +48,7 @@ export async function getPersonalizedFeed(city?: string) {
     const session = (await getServerSession(authOptions)) as any;
     
     if (!session?.user?.id) {
-      // If not logged in, return localized trending based on city
+      // If not logged in, return localized trending based on city with variety
       return {
         recommendations: [
           { 
@@ -73,7 +73,7 @@ export async function getPersonalizedFeed(city?: string) {
           },
           { 
             id: 't3', 
-            titleKey: 'professionalTitle',
+            titleKey: 'ukWideTitle',
             categoryKey: 'accounting',
             subtitleKey: 'accountSub',
             category: "Accounting", 
@@ -95,7 +95,7 @@ export async function getPersonalizedFeed(city?: string) {
     for (const v of vehicles) {
       recommendations.push({
         id: `v_${v.id}`,
-        title: `${v.make} ${v.model} 專屬保養`, // Static titles for now as they are dynamic assets
+        title: `${v.make} ${v.model} 專屬保養`,
         subtitle: `根據您的 ${v.year} 年份座駕推薦`,
         category: "Auto",
         query: v.make,
@@ -117,7 +117,7 @@ export async function getPersonalizedFeed(city?: string) {
       });
     }
 
-    // Fallback: Trending
+    // Fallback: Trending with variety
     if (recommendations.length === 0) {
       recommendations.push(
         { 
@@ -132,7 +132,7 @@ export async function getPersonalizedFeed(city?: string) {
         },
         { 
           id: 't2', 
-          titleKey: 'trendingTitle',
+          titleKey: 'ukWideTitle', 
           categoryKey: 'homeRepair', 
           subtitleKey: 'homeSub',
           category: "Repair", 
@@ -146,7 +146,6 @@ export async function getPersonalizedFeed(city?: string) {
     return { recommendations };
   } catch (error) {
     console.error("Critical Failure in Personalized Feed:", error);
-    // Ultimate fallback for server-side exceptions
     return {
       recommendations: [
         { 
@@ -161,7 +160,7 @@ export async function getPersonalizedFeed(city?: string) {
         },
         { 
           id: 'f2', 
-          titleKey: 'topRatedTitle',
+          titleKey: 'ukWideTitle', 
           categoryKey: 'autoRepair', 
           subtitleKey: 'autoSub',
           category: "Auto", 

@@ -108,6 +108,7 @@ export const zhTW: Dictionary = {
     recommendationResults: {
       trendingTitle: "{{city}} 最熱門：{{category}}",
       topRatedTitle: "{{city}} 頂級評分：{{category}}",
+      ukWideTitle: "專業精英：{{category}}",
       professionalTitle: "{{city}} 專業服務",
       homeRepair: "居家修繕",
       deepCleaning: "深層清潔",

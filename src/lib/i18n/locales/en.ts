@@ -107,6 +107,7 @@ export const en: Dictionary = {
     recommendationResults: {
       trendingTitle: "Trending in {{city}}: {{category}}",
       topRatedTitle: "Top Rated in {{city}}: {{category}}",
+      ukWideTitle: "Elite Masters: {{category}}",
       professionalTitle: "Professional Services in {{city}}",
       homeRepair: "Home Repairs",
       deepCleaning: "Deep Cleaning",
