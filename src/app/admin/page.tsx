@@ -5,8 +5,10 @@ import {
   Clock, 
   ArrowUpRight,
   ShieldAlert,
-  Wallet
+  Wallet,
+  Activity
 } from "lucide-react";
+import { LivePulse } from "@/components/admin/LivePulse";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +17,9 @@ export default async function AdminDashboard() {
   const totalMerchants = await prisma.merchant.count();
   const pendingDocs = await prisma.merchantDocument.count({
     where: { status: { in: ["PENDING", "UNDER_ADMIN_REVIEW"] } }
+  });
+  const activeDisputes = await prisma.dispute.count({
+    where: { status: "OPEN" }
   });
   
   // Calculate total platform earnings from the platformFee field
@@ -63,6 +68,14 @@ export default async function AdminDashboard() {
           trend="Live flow" 
           description="Total booking value"
         />
+        <StatCard 
+          title="Active Disputes" 
+          value={activeDisputes.toString()} 
+          icon={<Activity size={24} />} 
+          trend="Tribunal" 
+          description="Awaiting arbitration"
+          isWarning={activeDisputes > 0}
+        />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -100,14 +113,10 @@ export default async function AdminDashboard() {
           </div>
         </div>
 
-        {/* System Activity Hub */}
-        <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-[#1a1a1a] shadow-xl">
-          <h3 className="text-lg font-bold text-white mb-6">Recent Platform Events</h3>
-          <div className="space-y-4">
-             <ActivityItem type="PAYMENT" message="Stripe Payout: £420.00 to MerchantID #843" time="2h ago" />
-             <ActivityItem type="SIGNUP" message="New Elite Expert: 'London Heating Ltd' joined" time="4h ago" />
-             <ActivityItem type="BOOKING" message="Booking Completed: #BK-990231 (Commission Earned: £12.50)" time="5h ago" />
-          </div>
+        {/* System Activity Hub (LIVE PULSE) */}
+        <div className="p-6 rounded-3xl bg-[#0d0d0d] border border-[#1a1a1a] shadow-xl overflow-hidden relative group">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#d4af37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+          <LivePulse />
         </div>
       </div>
     </div>
@@ -138,16 +147,3 @@ function StatCard({ title, value, icon, trend, description, highlight, isWarning
   );
 }
 
-function ActivityItem({ type, message, time }: any) {
-  return (
-    <div className="flex items-start gap-4 p-3 rounded-xl hover:bg-[#141414] transition-colors border border-transparent hover:border-white/5">
-      <div className={`w-2 h-2 mt-2 rounded-full shadow-[0_0_8px_currentColor] ${
-        type === 'PAYMENT' ? 'text-[#d4af37]' : type === 'SIGNUP' ? 'text-emerald-500' : 'text-blue-500'
-      }`}></div>
-      <div className="flex-1 min-w-0">
-        <p className="text-sm text-gray-100 truncate">{message}</p>
-        <p className="text-[10px] text-gray-600 uppercase font-bold tracking-widest">{time}</p>
-      </div>
-    </div>
-  );
-}

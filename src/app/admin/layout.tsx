@@ -8,7 +8,10 @@ import {
   CreditCard, 
   Settings, 
   LogOut,
-  Bell
+  Bell,
+  BarChart3,
+  CalendarDays,
+  Gavel
 } from "lucide-react";
 
 export default async function AdminLayout({
@@ -39,9 +42,13 @@ export default async function AdminLayout({
           <span className="font-bold text-xl tracking-tight text-[#d4af37]">ADMIN <span className="text-white">UK</span></span>
         </div>
 
-        <nav className="flex-1 p-4 space-y-2 mt-4">
+        <nav className="flex-1 p-4 space-y-1 mt-4 overflow-y-auto custom-scrollbar">
           <AdminNavLink href="/admin" icon={<LayoutDashboard size={20} />} label="Overview" />
+          <AdminNavLink href="/admin/analytics" icon={<BarChart3 size={20} />} label="Analytics" />
+          <AdminNavLink href="/admin/bookings" icon={<CalendarDays size={20} />} label="Bookings" />
           <AdminNavLink href="/admin/verifications" icon={<ShieldCheck size={20} />} label="Verifications" badge="3" />
+          <AdminNavLink href="/admin/disputes" icon={<Gavel size={20} />} label="Disputes" badge="Review" />
+          <div className="py-2 border-t border-white/5 my-2"></div>
           <AdminNavLink href="/admin/merchants" icon={<Users size={20} />} label="Experts" />
           <AdminNavLink href="/admin/payouts" icon={<CreditCard size={20} />} label="Payouts" badge="New" />
           <AdminNavLink href="/admin/settings" icon={<Settings size={20} />} label="Settings" />
