@@ -35,9 +35,14 @@ export default async function AdminDashboard() {
   const platformRevenue = completedBookings.reduce((sum, b) => sum + (b.platformFee || 0), 0);
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-700">
-      {/* KPI Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+      {/* KPI Section - Physical Grid */}
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', 
+        gap: '1.5rem',
+        marginBottom: '1rem'
+      }}>
         <StatCard 
           title="Platform Revenue" 
           value={`£${platformRevenue.toLocaleString(undefined, { minimumFractionDigits: 2 })}`} 
@@ -68,54 +73,73 @@ export default async function AdminDashboard() {
           trend="Live flow" 
           description="Total booking value"
         />
-        <StatCard 
-          title="Active Disputes" 
-          value={activeDisputes.toString()} 
-          icon={<Activity size={24} />} 
-          trend="Tribunal" 
-          description="Awaiting arbitration"
-          isWarning={activeDisputes > 0}
-        />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', 
+        gap: '2rem' 
+      }}>
         {/* Verification Alert Section */}
-        <div className="p-6 rounded-2xl bg-white dark:bg-[#0d0d0d] border border-slate-200 dark:border-[#1a1a1a] shadow-sm dark:shadow-xl">
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <ShieldAlert className="text-[#d4af37]" size={20} />
+        <div style={{ 
+          padding: '1.5rem', 
+          borderRadius: '1.25rem', 
+          backgroundColor: '#ffffff', 
+          border: '1px solid #e2e8f0', 
+          boxShadow: '0 10px 30px rgba(0,0,0,0.05)'
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.75rem', margin: 0 }}>
+              <ShieldAlert style={{ color: '#d4af37' }} size={20} />
               Critical Verifications
             </h3>
-            <button className="text-xs font-bold text-[#d4af37] hover:underline uppercase tracking-widest">
+            <button style={{ fontSize: '10px', fontWeight: 900, color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.1em', background: 'none', border: 'none', cursor: 'pointer' }}>
               View All Queue
             </button>
           </div>
           
-          <div className="space-y-4">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {pendingDocs === 0 ? (
-              <div className="py-12 text-center">
-                <p className="text-gray-500 italic">No pending verifications. All clear!</p>
+              <div style={{ padding: '3rem 0', textAlign: 'center' }}>
+                <p style={{ color: '#94a3b8', fontStyle: 'italic', fontSize: '0.9rem' }}>No pending verifications. All clear!</p>
               </div>
             ) : (
-              <div className="p-4 rounded-xl bg-[#141414] border border-[#d4af37]/10 flex items-center justify-between group cursor-pointer hover:border-[#d4af37]/30 transition-all">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-slate-50 dark:bg-gray-900 border border-slate-200 dark:border-gray-800 flex items-center justify-center text-[#d4af37]">
+              <div style={{ 
+                padding: '1.25rem', 
+                borderRadius: '1rem', 
+                backgroundColor: '#f8fafc', 
+                border: '1px solid #e2e8f0', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'space-between',
+                transition: 'all 0.2s',
+                cursor: 'pointer'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#d4af37' }}>
                     <Users size={18} />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-slate-900 dark:text-white">Merchant Documentation Review</p>
-                    <p className="text-xs text-slate-400 dark:text-gray-500">{pendingDocs} files awaiting adjudication</p>
+                    <p style={{ fontSize: '0.9rem', fontWeight: 800, color: '#0f172a', margin: 0 }}>Merchant Documentation Review</p>
+                    <p style={{ fontSize: '0.75rem', color: '#64748b', margin: 0 }}>{pendingDocs} files awaiting adjudication</p>
                   </div>
                 </div>
-                <ArrowUpRight className="text-gray-600 group-hover:text-[#d4af37] transition-colors" />
+                <ArrowUpRight style={{ color: '#94a3b8' }} size={20} />
               </div>
             )}
           </div>
         </div>
 
         {/* System Activity Hub (LIVE PULSE) */}
-        <div className="p-6 rounded-3xl bg-white dark:bg-[#0d0d0d] border border-slate-200 dark:border-[#1a1a1a] shadow-sm dark:shadow-xl overflow-hidden relative group">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#d4af37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+        <div style={{ 
+          padding: '1.5rem', 
+          borderRadius: '1.25rem', 
+          backgroundColor: '#ffffff', 
+          border: '1px solid #e2e8f0', 
+          boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
+          overflow: 'hidden',
+          position: 'relative'
+        }}>
           <LivePulse />
         </div>
       </div>
@@ -125,25 +149,44 @@ export default async function AdminDashboard() {
 
 function StatCard({ title, value, icon, trend, description, highlight, isWarning }: any) {
   return (
-    <div className={`p-6 rounded-2xl border transition-all duration-300 ${
-      highlight 
-        ? 'bg-gradient-to-br from-white to-slate-50 dark:from-[#121212] dark:to-[#0a0a0a] border-[#d4af37]/30 shadow-sm dark:shadow-[0_0_20px_rgba(212,175,55,0.1)]' 
-        : 'bg-white dark:bg-[#0d0d0d] border-slate-100 dark:border-[#1a1a1a] shadow-sm'
-    }`}>
-      <div className="flex justify-between items-start mb-4">
-        <div className={`p-3 rounded-xl ${highlight ? 'bg-[#d4af37] text-black shadow-lg' : 'bg-[#141414] text-[#d4af37] border border-[#1a1a1a]'}`}>
+    <div style={{ 
+      padding: '1.5rem', 
+      borderRadius: '1.25rem', 
+      border: highlight ? '1px solid #d4af37' : '1px solid #e2e8f0', 
+      backgroundColor: '#ffffff',
+      boxShadow: highlight ? '0 10px 25px rgba(212,175,55,0.08)' : '0 1px 3px rgba(0,0,0,0.02)',
+      transition: 'transform 0.3s ease'
+    }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
+        <div style={{ 
+          padding: '0.75rem', 
+          borderRadius: '0.75rem', 
+          backgroundColor: highlight ? '#d4af37' : '#f8fafc', 
+          color: highlight ? 'white' : '#d4af37',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: highlight ? '0 4px 12px rgba(212,175,55,0.3)' : 'none'
+        }}>
           {icon}
         </div>
-        <span className={`text-[10px] font-bold px-2 py-1 rounded tracking-widest uppercase ${
-          isWarning ? 'bg-red-500/10 text-red-500' : 'bg-[#d4af37]/10 text-[#d4af37]'
-        }`}>
+        <span style={{ 
+          fontSize: '10px', 
+          fontWeight: 800, 
+          padding: '4px 8px', 
+          borderRadius: '4px', 
+          backgroundColor: isWarning ? 'rgba(239, 68, 68, 0.1)' : 'rgba(212, 175, 55, 0.1)', 
+          color: isWarning ? '#ef4444' : '#d4af37',
+          textTransform: 'uppercase',
+          letterSpacing: '0.05em'
+        }}>
           {trend}
         </span>
       </div>
       <div>
-        <p className="text-slate-400 dark:text-gray-500 text-xs font-bold uppercase tracking-widest mb-1">{title}</p>
-        <p className="text-3xl font-bold text-slate-900 dark:text-white mb-2">{value}</p>
-        <p className="text-xs text-slate-400 dark:text-gray-500">{description}</p>
+        <p style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.25rem', margin: 0 }}>{title}</p>
+        <p style={{ fontSize: '1.875rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.25rem', margin: 0, letterSpacing: '-0.025em' }}>{value}</p>
+        <p style={{ fontSize: '0.75rem', color: '#64748b', margin: 0 }}>{description}</p>
       </div>
     </div>
   );
