@@ -194,5 +194,44 @@ export const ro: Dictionary = {
     sectors: { title: "Alege sectorul tău", professional: { title: "Profesional", desc: "Contabilitate, Legal, Consultanță", industries: ["Contabilitate", "Consultanță fiscală", "Servicii juridice", "Strategie de afaceri"] }, education: { title: "Educație", desc: "Tutori, Traineri, Coachi", industries: ["Tutori academici", "Formare lingvistică", "Skill Coaching", "Profesori de muzică"] }, technical: { title: "Tehnic", desc: "Meserii, Reparații, Inginerie", industries: ["Instalații", "Electricitate", "Automotive", "Renovări"] } },
     contract: { title: "Acord de servicii standard", scrollingNotice: "Te rugăm să derulezi până jos pentru a accepta termenii.", agree: "Am citit și sunt de acord cu Acordul Master ConciergeAI.", clauses: { platform_fee: { title: "1. Taxa de serviciu a platformei", body: "ConciergeAI percepe un comision de 9% pentru rezervările finalizate cu succes." }, payments: { title: "2. Escrow și Plăți", body: "Plățile clienților sunt păstrate în escrow securizat. Plățile sunt declanșate la 48 de ore după ce clientul confirmă finalizarea lucrării." }, conduct: { title: "3. Standarde profesionale", body: "Specialiștii trebuie să mențină un rating minim de 4.0 stele. Nerespectarea standardelor de siguranță din UK poate duce la suspendarea imediată a contului." } } },
     buttons: { start: "Începe acum", next: "Pasul următor", back: "Pasul anterior", submit: "Finalizează înregistrarea" }
+  },
+  admin: {
+    sidebar: { overview: "Prezentare generală", analytics: "Analiză", bookings: "Rezervări", verifications: "Verificări", disputes: "Dispute", merchants: "Experți", payouts: "Plăți", users: "Utilizatori", settings: "Setări", terminal: "Acces Terminal" },
+    header: { internal: "Management Intern", operations: "Centru de Operațiuni Centrale", node: "Nod Regional" },
+    stats: { gmv: "GMV Total (30z)", netRevenue: "Venit Net", bookings: "Rezervări Finalizate", dailyAvg: "Medie Zilnică", processed: "Procesat cu succes", volume24h: "Volum procesare pe 24h" },
+    analytics: { gmvTitle: "Valoarea Brută a Mărfurilor (GMV)", gmvSub: "Tendințele valorii totale a rezervărilor pentru ultimele 30 de zile.", sectorDist: "Distribuția Sectoarelor", volTitle: "Volum Rezervări", live: "Stream Live Activ" },
+    bookings: { title: "Centru de Comandă Rezervări", sub: "Registru Neural de Rezervări", search: "Caută Rezervări...", id: "ID Rezervare", customer: "Client", amount: "Sumă", status: "Status", service: "Serviciu" },
+    verifications: { title: "Adjudecare Verificări", sub: "Revizuirea integrității documentelor de identitate", evidence: "Dovezi de Identitate", extraction: "Rezultat Extracție AI", passport: "Pașaport", faceMatch: "Potrivire Facială", confidence: "Încredere" },
+    disputes: { title: "Tribunal de Arbitraj", sub: "Rezoluția Disputelor și Auditul Dovezilor", reasoning: "Raționament Arbitru AI", gallery: "Galerie de Dovezi", verdict: "Verdict Final", confidence: "Încredere AI" },
+    payouts: { title: "Centru de Compensare Financiară", snapshot: "Instantaneu Date Financiare", pending: "Plăți în Așteptare", volume: "Volum Cumulat", security: "Status Audit Securitate", adjudication: "Revizuire Plăți", method: "Metodă de Plată" },
+    users: { title: "Director Clienți", sub: "Baza de date utilizatori și statistici recomandări", stats: "Metrici Cheie", registeredAt: "Timp Înregistrare", referrals: "Recomandări cu Succes" },
+    commissions: { title: "Control Global Comisioane", sub: "Venituri Platformă și Configurație Rată Bază", plateformFee: "Comision Suprascris de Admin", marketplaceFee: "Comision Bază Marketplace", adminControl: "Suprascriere Manuală Admin" },
+    disputes_mgr: { empty: "Nu există dispute în așteptare în acest moment.", viewDetails: "Revizuiește Detaliile și Adjudecă", status: { open: "Deschis", processing: "În Revizuire", settled: "Soluționat" } },
+    merchants_mgr: { empty: "Nu s-au găsit comercianți care să corespundă criteriilor.", status: { active: "Activ", suspended: "Suspendat", pending: "În așteptarea aprobării" } },
+  },
+  auth: {
+    login: {
+      title: "Bine ai revenit",
+      subtitle: "Reconectează-te cu cel mai important hub de experți din Regatul Unit.",
+      emailLabel: "Adresă de Email",
+      emailPlaceholder: "tu@example.com",
+      passwordLabel: "Parolă",
+      passwordPlaceholder: "Parola ta",
+      forgotPassword: "Ai uitat parola?",
+      submit: "Autentifică-te în Hub",
+      loading: "Autentificare...",
+      or: "sau",
+      google: "Continuă cu Google",
+      navToRegister: "Nou pe platformă?",
+      createAccount: "Creează cont",
+      error: "Email sau parolă nevalidă. Te rugăm să încerci din nou.",
+      success: "Cont creat! Te rugăm să te autentifici."
+    },
+    register: {
+      title: "Creează Cont", subtitle: "Începe-ți călătoria profesională.", firstNameLabel: "Prenume", lastNameLabel: "Nume", emailLabel: "Adresă de Email", accountTypeLabel: "Tip Cont", passwordLabel: "Parolă Securizată", passwordHint: "Minim 6 caractere", referralLabel: "Cod Recomandare (Opțional)", submit: "Alătură-te ConciergeAI", loading: "Creare Cont...", or: "sau", google: "Înregistrează-te cu Google", navToLogin: "Ești deja membru?", signIn: "Autentifică-te aici", roles: { customer: "Client (Caută Servicii)", merchant: "Expert (Oferă Servicii)" }
+    },
+    forgotPassword: {
+      title: "Am uitat parola", subtitle: "Introdu email-ul pentru a reseta parola.", emailLabel: "Adresă de Email", submit: "Trimite Link Resetare", loading: "Se trimite...", back: "Înapoi la Autentificare", success: "Link-ul de resetare a fost trimis pe email-ul tău."
+    }
   }
 };

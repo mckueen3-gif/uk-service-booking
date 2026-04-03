@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getUsers } from "@/lib/actions/admin";
+import { getUsers } from "@/app/actions/admin_actions";
 import { 
   Users, 
   Search, 

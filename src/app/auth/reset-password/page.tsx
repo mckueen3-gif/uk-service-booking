@@ -5,8 +5,10 @@ import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Lock, ArrowLeft, CheckCircle2, AlertCircle } from "lucide-react";
 import { resetPassword } from "@/app/actions/auth";
+import { getDictionary } from "@/lib/i18n/dictionary";
 
 function ResetPasswordForm() {
+  const t = getDictionary('zh-TW');
   const searchParams = useSearchParams();
   const router = useRouter();
   const token = searchParams.get("token");
@@ -20,12 +22,12 @@ function ResetPasswordForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!token) {
-      setError("Invalid or missing reset token.");
+      setError("無效或缺失的重設權杖。");
       return;
     }
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match.");
+      setError("密碼不相符。");
       return;
     }
 
@@ -41,28 +43,27 @@ function ResetPasswordForm() {
       } else {
         setSuccess(true);
         setLoading(false);
-        // Redirect to login after a short delay
         setTimeout(() => {
           router.push("/auth/login?reset=success");
         }, 2000);
       }
     } catch (err) {
-      setError("An unexpected error occurred. Please try again.");
+      setError("發生非預期錯誤，請稍後再試。");
       setLoading(false);
     }
   }
 
   if (success) {
     return (
-      <div className="glass-panel" style={{ width: '100%', maxWidth: '450px', display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: '3rem', textAlign: 'center' }}>
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.5rem' }}>
-          <div style={{ backgroundColor: 'rgba(34, 197, 94, 0.1)', padding: '1rem', borderRadius: '50%' }}>
-            <CheckCircle2 size={48} color="#22c55e" />
+      <div className="auth-card" style={{ textAlign: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
+          <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)', padding: '1rem', borderRadius: '50%' }}>
+            <CheckCircle2 size={48} color="#d4af37" />
           </div>
         </div>
-        <h1 className="title" style={{ fontSize: '2rem' }}>Password Reset!</h1>
+        <h1 className="hero-title" style={{ fontSize: '2rem', marginBottom: '1rem' }}>密碼重設成功！</h1>
         <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-          Your password has been successfully updated. Redirecting you to the login page...
+          您的密碼已成功更新。正在為您跳轉至登入頁面...
         </p>
       </div>
     );
@@ -70,79 +71,73 @@ function ResetPasswordForm() {
 
   if (!token) {
     return (
-      <div className="glass-panel" style={{ width: '100%', maxWidth: '450px', display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: '3rem', textAlign: 'center' }}>
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.5rem' }}>
+      <div className="auth-card" style={{ textAlign: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
           <AlertCircle size={48} color="#ef4444" />
         </div>
-        <h1 className="title" style={{ fontSize: '1.5rem' }}>Invalid Request</h1>
-        <p style={{ color: 'var(--text-secondary)' }}>The password reset link is missing or invalid.</p>
-        <Link href="/auth/forgot-password" className="btn btn-primary" style={{ marginTop: '1rem' }}>Request New Link</Link>
+        <h1 className="hero-title" style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>無效請求</h1>
+        <p style={{ color: 'var(--text-secondary)' }}>重設密碼連結已過期或無效。</p>
+        <Link href="/auth/forgot-password" className="btn btn-primary" style={{ marginTop: '2rem', width: '100%' }}>請求新連結</Link>
       </div>
     );
   }
 
   return (
-    <div className="glass-panel" style={{ width: '100%', maxWidth: '450px', display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: '3rem' }}>
-      <div style={{ textAlign: 'center' }}>
-        <h1 className="title" style={{ fontSize: '2.25rem', marginBottom: '0.75rem' }}>New Password</h1>
-        <p style={{ color: 'var(--text-secondary)' }}>Please enter your new password below.</p>
+    <div className="auth-card">
+      <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+        <h1 className="hero-title" style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>設定新密碼</h1>
+        <p style={{ color: 'var(--text-muted)' }}>請在下方輸入您的新密碼。</p>
       </div>
 
       {error && (
-        <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', padding: '0.75rem', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
+        <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.05)', color: '#ef4444', padding: '1rem', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem', border: '1px solid rgba(239, 68, 68, 0.12)', marginBottom: '1.5rem' }}>
           <AlertCircle size={18} />
           {error}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '1rem' }}>
-        <div>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.875rem' }}>New Password</label>
-          <div style={{ position: 'relative' }}>
-            <div style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }}>
-                <Lock size={18} />
-            </div>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        <div className="input-group revealed">
+          <label>新密碼</label>
+          <div className="input-wrapper">
+            <Lock className="input-icon" size={18} />
             <input 
               type="password" 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="input-field" 
+              className="premium-input" 
               placeholder="••••••••" 
               required 
               minLength={6}
               disabled={loading}
-              style={{ paddingLeft: '3rem' }}
             />
           </div>
         </div>
 
-        <div>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.875rem' }}>Confirm New Password</label>
-          <div style={{ position: 'relative' }}>
-            <div style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }}>
-                <Lock size={18} />
-            </div>
+        <div className="input-group revealed">
+          <label>確認新密碼</label>
+          <div className="input-wrapper">
+            <Lock className="input-icon" size={18} />
             <input 
               type="password" 
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="input-field" 
+              className="premium-input" 
               placeholder="••••••••" 
               required 
               disabled={loading}
-              style={{ paddingLeft: '3rem' }}
             />
           </div>
         </div>
 
-        <button type="submit" className="btn btn-primary" disabled={loading} style={{ width: '100%', padding: '1rem', opacity: loading ? 0.7 : 1 }}>
-          {loading ? "Updating..." : "Update Password"}
+        <button type="submit" className="btn btn-primary" disabled={loading} style={{ width: '100%', padding: '1rem' }}>
+          {loading ? "更新中..." : "更新密碼"}
         </button>
       </form>
 
-      <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-        <Link href="/auth/login" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)', fontSize: '0.875rem', textDecoration: 'none' }}>
-          <ArrowLeft size={16} /> Back to Sign In
+      <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+        <Link href="/auth/login" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-muted)', fontSize: '0.875rem', textDecoration: 'none', fontWeight: 600 }}>
+          <ArrowLeft size={16} /> 返回登入
         </Link>
       </div>
     </div>
@@ -151,8 +146,8 @@ function ResetPasswordForm() {
 
 export default function ResetPasswordPage() {
   return (
-    <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 'calc(100vh - 200px)', padding: '4rem 1.5rem' }}>
-      <Suspense fallback={<div className="glass-panel" style={{ padding: '3rem', textAlign: 'center' }}>Loading...</div>}>
+    <div className="auth-page-wrapper">
+      <Suspense fallback={<div className="auth-card" style={{ textAlign: 'center' }}>載入中...</div>}>
         <ResetPasswordForm />
       </Suspense>
     </div>

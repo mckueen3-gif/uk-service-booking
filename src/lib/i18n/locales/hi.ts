@@ -194,5 +194,44 @@ export const hi: Dictionary = {
     sectors: { title: "अपना क्षेत्र चुनें", professional: { title: "पेशेवर", desc: "लेखांकन, कानूनी, परामर्श", industries: ["लेखांकन", "कर परामर्श", "कानूनी सेवाएं", "व्यवसाय रणनीति"] }, education: { title: "शिक्षा", desc: "ट्यूटर, ट्रेनर, कोच", industries: ["एकेडमिक ट्यूटर", "भाषा प्रशिक्षण", "कौशल कोचिंग", "संगीत शिक्षक"] }, technical: { title: "तकनीकी", desc: "ट्रेड्स, मरम्मत, इंजीनियरिंग", industries: ["प्लंबिंग", "इलेक्ट्रिकल", "ऑटोमोटिव", "नवीनीकरण"] } },
     contract: { title: "मानक सेवा समझौता", scrollingNotice: "कृपया शर्तों को स्वीकार करने के लिए नीचे स्क्रॉल करें।", agree: "मैंने सर्विसहब मास्टर समझौते को पढ़ लिया है और उससे सहमत हूं।", clauses: { platform_fee: { title: "1. प्लेटफॉर्म सेवा शुल्क", body: "सफल बुकिंग पर सर्विसहब 9% कमीशन लेता है।" }, payments: { title: "2. एस्क्रो और पेआउट", body: "ग्राहक भुगतान सुरक्षित एस्क्रो में रखे जाते हैं। ग्राहक द्वारा काम पूरा होने की पुष्टि करने के 48 घंटे बाद पेआउट ट्रिगर किया जाता है।" }, conduct: { title: "3. पेशेवर मानक", body: "विशेषज्ञों को न्यूनतम 4.0-स्टार रेटिंग बनाए रखनी चाहिए। यूके सुरक्षा मानकों को पूरा करने में विफलता के परिणामस्वरूप खाता तत्काल निलंबित किया जा सकता है।" } } },
     buttons: { start: "शुरू करें", next: "अगला कदम", back: "पिछला कदम", submit: "ऑनबोर्डिंग पूरा करें" }
+  },
+  admin: {
+    sidebar: { overview: "अवलोकन", analytics: "विश्लेषिकी", bookings: "बुकिंग", verifications: "सत्यापन", disputes: "विवाद", merchants: "विशेषज्ञ", payouts: "भुगतान", users: "उपयोगकर्ता", settings: "सेटिंग्स", terminal: "टर्मिनल एक्सेस" },
+    header: { internal: "आंतरिक प्रबंधन", operations: "केंद्रीय संचालन हब", node: "क्षेत्रीय नोड" },
+    stats: { gmv: "कुल GMV (30 दिन)", netRevenue: "शुद्ध राजस्व", bookings: "बुकिंग पूर्ण", dailyAvg: "दैनिक औसत", processed: "सफलतापूर्वक संसाधित", volume24h: "24 घंटे प्रति प्रसंस्करण मात्रा" },
+    analytics: { gmvTitle: "सकल व्यापार मूल्य (GMV)", gmvSub: "पिछले 30 दिनों के लिए कुल बुकिंग मूल्य रुझान।", sectorDist: "क्षेत्र वितरण", volTitle: "बुकिंग मात्रा", live: "लाइव स्ट्रीम सक्रिय" },
+    bookings: { title: "बुकिंग कमांड हब", sub: "न्यूरल बुकिंग रजिस्ट्री", search: "बुकिंग खोजें...", id: "बुकिंग आईडी", customer: "ग्राहक", amount: "राशि", status: "स्थिति", service: "सेवा" },
+    verifications: { title: "सत्यापन अधिनिर्णय", sub: "पहचान दस्तावेज़ अखंडता समीक्षा", evidence: "पहचान प्रमाण", extraction: "AI निष्कर्षण परिणाम", passport: "पासपोर्ट", faceMatch: "चेहरा मिलान", confidence: "आत्मविश्वास" },
+    disputes: { title: "मध्यस्थता न्यायाधिकरण", sub: "विवाद समाधान और साक्ष्य ऑडिट", reasoning: "AI मध्यस्थ तर्क", gallery: "साक्ष्य गैलरी", verdict: "अंतिम फैसला", confidence: "AI आत्मविश्वास" },
+    payouts: { title: "वित्तीय निकासी केंद्र", snapshot: "वित्तीय डेटा स्नैپशॉट", pending: "लंबित भुगतान", volume: "संचयी मात्रा", security: "सुरक्षा ऑडिट स्थिति", adjudication: "भुगतान समीक्षा", method: "भुगतान विधि" },
+    users: { title: "ग्राहक निर्देशिका", sub: "उपयोगकर्ता डेटाबेस और रेफ़रल आँकड़े", stats: "प्रमुख मेट्रिक्स", registeredAt: "पंजीकरण समय", referrals: "सफल रेफ़रल" },
+    commissions: { title: "वैश्विक कमीशन नियंत्रण", sub: "प्लेटफ़ॉर्म राजस्व और आधार दर कॉन्फ़िगरेशन", plateformFee: "एडमिन ओवरराइड शुल्क", marketplaceFee: "आधार मार्केटप्लेस शुल्क", adminControl: "मैनुअल एडमिन ओवरराइड" },
+    disputes_mgr: { empty: "इस समय कोई लंबित विवाद नहीं है।", viewDetails: "विवरण की समीक्षा करें और निर्णय लें", status: { open: "खुला", processing: "समीक्षा में", settled: "सुलझाया गया" } },
+    merchants_mgr: { empty: "मानदंडों से मेल खाने वाला कोई व्यापारी नहीं मिला।", status: { active: "सक्रिय", suspended: "निलंबित", pending: "अनुमोदन लंबित" } },
+  },
+  auth: {
+    login: {
+      title: "स्वागत है",
+      subtitle: "यूके के अग्रणी विशेषज्ञ हब से फिर से जुड़ें।",
+      emailLabel: "ईमेल पता",
+      emailPlaceholder: "you@example.com",
+      passwordLabel: "पासवर्ड",
+      passwordPlaceholder: "आपका पासवर्ड",
+      forgotPassword: "पासवर्ड भूल गए?",
+      submit: "हब में साइन इन करें",
+      loading: "प्रमाणित किया जा रहा है...",
+      or: "या",
+      google: "Google के साथ जारी रखें",
+      navToRegister: "प्लेटफ़ॉर्म पर नए हैं?",
+      createAccount: "खाता बनाएँ",
+      error: "अमान्य ईमेल या पासवर्ड। कृपया पुनः प्रयास करें।",
+      success: "खाता बन गया! कृपया साइन इन करें।"
+    },
+    register: {
+      title: "खाता बनाएँ", subtitle: "अपनी पेशेवर यात्रा शुरू करें।", firstNameLabel: "नाम", lastNameLabel: "उपनाम", emailLabel: "ईमेल पता", accountTypeLabel: "खाते का प्रकार", passwordLabel: "सुरक्षित पासवर्ड", passwordHint: "न्यूनतम 6 अक्षर", referralLabel: "रेफ़रल कोड (वैकल्पिक)", submit: "ConciergeAI में शामिल हों", loading: "खाता बनाया जा रहा है...", or: "या", google: "Google के साथ पंजीकरण करें", navToLogin: "पहले से सदस्य हैं?", signIn: "यहाँ साइन इन करें", roles: { customer: "ग्राहक (सेवाओं की तलाश में)", merchant: "विशेषज्ञ (सेवाएँ प्रदान करना)" }
+    },
+    forgotPassword: {
+      title: "पासवर्ड भूल गए", subtitle: "अपना पासवर्ड रीसेट करने के लिए अपना ईमेल दर्ज करें।", emailLabel: "ईमेल पता", submit: "रीसेट लिंक भेजें", loading: "भेजा जा रहा है...", back: "लॉगिन पर वापस जाएँ", success: "रीसेट लिंक आपके ईमेल पर भेज दिया गया है।"
+    }
   }
 };

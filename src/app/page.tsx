@@ -12,12 +12,12 @@ export default function HomePage() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "ConciergeAI",
-    "url": "https://uk-service-booking.vercel.app",
+    "url": "https://conciergeai.uk",
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://uk-service-booking.vercel.app/services?q={search_term_string}"
+        "urlTemplate": "https://conciergeai.uk/services?q={search_term_string}"
       },
       "query-input": "required name=search_term_string"
     }
@@ -27,8 +27,8 @@ export default function HomePage() {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "ConciergeAI UK",
-    "url": "https://uk-service-booking.vercel.app",
-    "logo": "https://uk-service-booking.vercel.app/images/logo_concierge_ai.png",
+    "url": "https://conciergeai.uk",
+    "logo": "https://conciergeai.uk/images/logo_concierge_ai.png",
     "sameAs": [
       "https://facebook.com/conciergeaiuk",
       "https://twitter.com/conciergeaiuk"

@@ -194,5 +194,44 @@ export const ja: Dictionary = {
     sectors: { title: "セクターを選択", professional: { title: "プロフェッショナル", desc: "会計、法律、コンサルティング", industries: ["会計", "税務相談", "法的サービス", "経営戦略"] }, education: { title: "教育", desc: "講師、トレーナー、コーチ", industries: ["学術講師", "語学トレーニング", "スキルコーチ", "音楽講師"] }, technical: { title: "テクニカル", desc: "技術職、修理、エンジニアリング", industries: ["配管", "電気", "自動車", "リフォーム"] } },
     contract: { title: "標準サービス契約", scrollingNotice: "一番下までスクロールして規約に同意してください。", agree: "ConciergeAI基本合意書を読み、同意します。", clauses: { platform_fee: { title: "1. プラットフォーム利用料", body: "ConciergeAIは予約完了時に9%の手数料を申し受けます。" }, payments: { title: "2. エスクローと支払い", body: "顧客の支払いは安全なエスクローで保持されます。顧客が完了を確認してから48時間後に出金可能になります。" }, conduct: { title: "3. プロフェッショナル基準", body: "エキスパートは最低4.0の評価を維持する必要があります。英国の安全基準を満たさない場合、即座にアカウント停止となる場合があります。" } } },
     buttons: { start: "はじめる", next: "次へ", back: "戻る", submit: "登録を完了" }
+  },
+  admin: {
+    sidebar: { overview: "概要", analytics: "分析", bookings: "予約", verifications: "認証", disputes: "紛争", merchants: "エキスパート", payouts: "支払い", users: "ユーザー", settings: "設定", terminal: "ターミナル" },
+    header: { internal: "内部管理", operations: "中央オペレーションハブ", node: "リージョナルノード" },
+    stats: { gmv: "総GMV (30日)", netRevenue: "純収益", bookings: "完了した予約", dailyAvg: "日次平均", processed: "正常に処理済み", volume24h: "24時間あたりの処理量" },
+    analytics: { gmvTitle: "流通取引総額 (GMV)", gmvSub: "過去30日間の総予約金額の傾向。", sectorDist: "セクター分布", volTitle: "予約ボリューム", live: "ライブストリーム有効" },
+    bookings: { title: "予約コマンドハブ", sub: "ニューラル予約レジストリ", search: "予約を検索...", id: "予約ID", customer: "顧客", amount: "金額", status: "ステータス", service: "サービス" },
+    verifications: { title: "認証審査", sub: "本人確認書類の整合性確認", evidence: "本人確認証拠", extraction: "AI抽出結果", passport: "パスポート", faceMatch: "フェイスマッチ", confidence: "信頼度" },
+    disputes: { title: "仲裁裁判所", sub: "紛争解決および証拠監査", reasoning: "AI仲裁人の推論", gallery: "証拠ギャラリー", verdict: "最終判決", confidence: "AI信頼度" },
+    payouts: { title: "財務決済センター", snapshot: "財務データスナップショット", pending: "保留中の支払い", volume: "累積ボリューム", security: "セキュリティ監査ステータス", adjudication: "支払い審査", method: "支払い方法" },
+    users: { title: "顧客ディレクトリ", sub: "ユーザーデータベースおよび紹介統計", stats: "主要メトリクス", registeredAt: "登録日時", referrals: "紹介成功数" },
+    commissions: { title: "グローバル手数料管理", sub: "プラットフォーム収益および基本レート設定", plateformFee: "管理者オーバーライド手数料", marketplaceFee: "基本マーケットプレイス手数料", adminControl: "手動管理者オーバーライド" },
+    disputes_mgr: { empty: "現在、保留中の紛争はありません。", viewDetails: "詳細を確認して裁定する", status: { open: "未解決", processing: "審査中", settled: "解決済み" } },
+    merchants_mgr: { empty: "条件に一致するマーチャントは見つかりませんでした。", status: { active: "有効", suspended: "停止中", pending: "承認待ち" } },
+  },
+  auth: {
+    login: {
+      title: "お帰りなさい",
+      subtitle: "英国をリードするエキスパートハブに再接続します。",
+      emailLabel: "メールアドレス",
+      emailPlaceholder: "you@example.com",
+      passwordLabel: "密碼",
+      passwordPlaceholder: "パスワードを入力",
+      forgotPassword: "パスワードをお忘れですか？",
+      submit: "ハブにサインイン",
+      loading: "認証中...",
+      or: "または",
+      google: "Googleで続行",
+      navToRegister: "初めての方はこちら",
+      createAccount: "アカウント作成",
+      error: "メールアドレスまたはパスワードが無効です。もう一度お試しください。",
+      success: "アカウントが作成されました！サインインしてください。"
+    },
+    register: {
+      title: "アカウント作成", subtitle: "プロフェッショナルな旅を始めましょう。", firstNameLabel: "名", lastNameLabel: "姓", emailLabel: "メールアドレス", accountTypeLabel: "アカウントタイプ", passwordLabel: "安全なパスワード", passwordHint: "最低6文字", referralLabel: "紹介コード（任意）", submit: "ConciergeAIに参加する", loading: "アカウント作成中...", or: "または", google: "Googleで登録", navToLogin: "既にアカウントをお持ちですか？", signIn: "こちらからサインイン", roles: { customer: "顧客（サービスを探す）", merchant: "エキスパート（サービスを提供る）" }
+    },
+    forgotPassword: {
+      title: "パスワードを忘れた場合", subtitle: "パスワードをリセットするにはメールアドレスを入力してください。", emailLabel: "メールアドレス", submit: "リセットリンクを送信", loading: "送信中...", back: "ログインに戻る", success: "パスワードリセットリンクをメールで送信しました。"
+    }
   }
 };

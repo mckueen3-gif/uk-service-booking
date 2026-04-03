@@ -194,5 +194,44 @@ export const pa: Dictionary = {
     sectors: { title: "ਆਪਣਾ ਖੇਤਰ ਚੁਣੋ", professional: { title: "ਪੇਸ਼ੇਵਰ", desc: "ਅਕਾਉਂਟਿੰਗ, ਕਾਨੂੰਨੀ, ਸਲਾਹਕਾਰੀ", industries: ["ਅਕਾਉਂਟੈਂਟ", "ਟੈਕਸ ਸਲਾਹਕਾਰੀ", "ਕਾਨੂੰਨੀ ਸੇਵਾਵਾਂ", "ਬਿਜ਼ਨਸ ਰਣਨੀਤੀ"] }, education: { title: "ਸਿੱਖਿਆ", desc: "ਟਿਊਟਰ, ਟ੍ਰੇਨਰ, ਕੋਚ", industries: ["ਅਕਾਦਮਿਕ ਟਿਊਟਰ", "ਭਾਸ਼ਾ ਸਿਖਲਾਈ", "ਹੁਨਰ ਕੋਚਿੰਗ", "ਸੰਗੀਤ ਅਧਿਆਪਕ"] }, technical: { title: "ਤਕਨੀਕੀ", desc: "ਕਿੱਤੇ, ਮੁਰੰਮਤ, ਇੰਜੀਨੀਅਰਿੰਗ", industries: ["ਪਲੰਬਿੰਗ", "ਇਲੈਕਟ੍ਰੀਕਲ", "ਆਟੋਮੋਟਿਵ", "ਨਵੀਨੀਕਰਨ"] } },
     contract: { title: "ਮਿਆਰੀ ਸੇਵਾ ਸਮਝੌਤਾ", scrollingNotice: "ਸ਼ਰਤਾਂ ਨੂੰ ਸਵੀਕਾਰ ਕਰਨ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਹੇਠਾਂ ਤੱਕ ਸਕ੍ਰੋਲ ਕਰੋ।", agree: "ਮੈਂ ਸਰਵਿਸ ਹੱਬ ਮਾਸਟਰ ਸਮਝੌਤੇ ਨੂੰ ਪੜ੍ਹ ਲਿਆ ਹੈ ਅਤੇ ਇਸ ਨਾਲ ਸਹਿਮਤ ਹਾਂ।", clauses: { platform_fee: { title: "1. ਪਲੇਟਫਾਰਮ ਸੇਵਾ ਫੀਸ", body: "ਸਫਲ ਬੁਕਿੰਗ 'ਤੇ ਸਰਵਿਸ ਹੱਬ 9% ਕਮਿਸ਼ਨ ਲੈਂਦਾ ਹੈ।" }, payments: { title: "2. ਐਸਕਰੋ ਅਤੇ ਭੁਗਤਾਨ", body: "ਗਾਹਕ ਦੇ ਭੁਗਤਾਨ ਸੁਰੱਖਿਅਤ ਐਸਕਰੋ ਵਿੱਚ ਰੱਖੇ ਜਾਂਦੇ ਹਨ। ਭੁਗਤਾਨ ਗਾਹਕ ਵੱਲੋਂ ਕੰਮ ਪੂਰਾ ਹੋਣ ਦੀ ਪੁਸ਼ਟੀ ਕਰਨ ਦੇ 48 ਘੰਟਿਆਂ ਬਾਅਦ ਸ਼ੁਰੂ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।" }, conduct: { title: "3. ਪੇਸ਼ੇਵਰ ਮਿਆਰ", body: "ਮਾਹਰਾਂ ਨੂੰ ਘੱਟੋ-ਘੱਟ 4.0-ਸਟਾਰ ਰੇਟਿੰਗ ਬਣਾਈ ਰੱਖਣੀ ਚਾਹੀਦੀ ਹੈ। ਯੂਕੇ ਸੁਰੱਖਿਆ ਮਿਆਰਾਂ ਨੂੰ ਪੂਰਾ ਨਾ ਕਰਨ ਦੀ ਸੂਰਤ ਵਿੱਚ ਖਾਤਾ ਤੁਰੰਤ ਮੁਅੱਤਲ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।" } } },
     buttons: { start: "ਹੁਣੇ ਸ਼ੁਰੂ ਕਰੋ", next: "ਅਗਲਾ ਕਦਮ", back: "ਪਿਛਲਾ ਕਦਮ", submit: "ਆਨ-ਬੋਰਡਿੰਗ ਪੂਰੀ ਕਰੋ" }
+  },
+  admin: {
+    sidebar: { overview: "ਸੰਖੇਪ", analytics: "ਵਿਸ਼ਲੇਸ਼ਣ", bookings: "ਬੁਕਿੰਗ", verifications: "ਤਸਦੀਕ", disputes: "ਝਗੜੇ", merchants: "ਮਾਹਰ", payouts: "ਭੁਗਤਾਨ", users: "ਉਪਭੋਗਤਾ", settings: "ਸੈਟਿੰਗਾਂ", terminal: "ਟਰਮੀਨਲ ਐਕਸੈਸ" },
+    header: { internal: "ਅੰਦਰੂਨੀ ਪ੍ਰਬੰਧਨ", operations: "ਕੇਂਦਰੀ ਸੰਚਾਲਨ ਹੱਬ", node: "ਖੇਤਰੀ ਨੋਡ" },
+    stats: { gmv: "ਕੁੱਲ GMV (30 ਦਿਨ)", netRevenue: "ਸ਼ੁੱਧ ਆਮਦਨ", bookings: "ਬੁਕਿੰਗ ਮੁਕੰਮਲ", dailyAvg: "ਰੋਜ਼ਾਨਾ ਔਸਤ", processed: "ਸਫਲਤਾਪੂਰਵਕ ਪ੍ਰੋਸੈਸ ਕੀਤਾ ਗਿਆ", volume24h: "ਕੁੱਲ ਵਾਲੀਅਮ (24 ਘੰਟੇ)" },
+    analytics: { gmvTitle: "ਕੁੱਲ ਵਪਾਰਕ ਮੁੱਲ (GMV)", gmvSub: "ਪਿਛਲੇ 30 ਦਿਨਾਂ ਲਈ ਕੁੱਲ ਬੁਕਿੰਗ ਮੁੱਲ ਦੇ ਰੁਝਾਨ।", sectorDist: "ਸੈਕਟਰ ਵੰਡ", volTitle: "ਬੁਕਿੰਗ ਵਾਲੀਅਮ", live: "ਲਾਈਵ ਸਟ੍ਰੀਮ ਐਕਟਿਵ" },
+    bookings: { title: "ਬੁਕਿੰਗ ਕਮਾਂਡ ਹੱਬ", sub: "ਨਿਊਰਲ ਬੁਕਿੰਗ ਰਜਿਸਟਰੀ", search: "ਬੁਕਿੰਗ ਖੋਜੋ...", id: "ਬੁਕਿੰਗ ID", customer: "ਗਾਹਕ", amount: "ਰਕਮ", status: "Status", service: "ਸੇਵਾ" },
+    verifications: { title: "ਤਸਦੀਕ ਨਿਰਣਾ", sub: "ਪਛਾਣ ਦਸਤਾਵੇਜ਼ ਦੀ ਅਖੰਡਤਾ ਦੀ ਸਮੀਖਿਆ", evidence: "ਪਛਾਣ ਸਬੂਤ", extraction: "AI ਐਕਸਟਰੈਕਸ਼ਨ ਨਤੀਜਾ", passport: "ਪਾਸਪੋਰਟ", faceMatch: "ਚਿਹਰਾ ਮਿਲਾਣ", confidence: "ਭਰੋਸਾ" },
+    disputes: { title: "ਸਾਲਸੀ ਟ੍ਰਿਬਿਊਨਲ", sub: "ਝਗੜਾ ਨਿਪਟਾਰਾ ਅਤੇ ਸਬੂਤ ਆਡਿਟ", reasoning: "AI ਸਾਲਸੀ ਤਰਕ", gallery: "ਸਬੂਤ ਗੈਲਰੀ", verdict: "ਅੰਤਿਮ ਫੈਸਲਾ", confidence: "AI ਭਰੋਸਾ" },
+    payouts: { title: "ਵਿੱਤੀ ਕਲੀਅਰੈਂਸ ਸੈਂਟਰ", snapshot: "ਵਿੱਤੀ ਡੇਟਾ ਸਨੈਪਸ਼ਾਟ", pending: "ਲੰਬਿਤ ਭੁਗਤਾਨ", volume: "ਸੰਚਤ ਵਾਲੀਅਮ", security: "ਸੁਰੱਖਿਆ ਆਡਿਟ ਸਥਿਤੀ", adjudication: "ਭੁਗਤਾਨ ਸਮੀਖਿਆ", method: "ਭੁਗਤਾਨ ਵਿਧੀ" },
+    users: { title: "ਗਾਹਕ ਡਾਇਰੈਕਟਰੀ", sub: "ਉਪਭੋਗਤਾ ਡੇਟਾਬੇਸ ਅਤੇ ਰੈਫਰਲ ਅੰਕੜੇ", stats: "ਮੁੱਖ ਮੈਟ੍ਰਿਕਸ", registeredAt: "ਰਜਿਸਟਰੇਸ਼ਨ ਸਮਾਂ", referrals: "ਸਫਲ ਰੈਫਰਲ" },
+    commissions: { title: "ਗਲੋਬਲ ਕਮਿਸ਼ਨ ਕੰਟਰੋਲ", sub: "ਪਲੇਟਫਾਰਮ ਮਾਲੀਆ ਅਤੇ ਬੇਸ ਰੇਟ ਕੌਂਫਿਗਰ", plateformFee: "ਐਡਮਿਨ ਓਵਰਰਾਈਡ ਫੀਸ", marketplaceFee: "ਬੇਸ ਮਾਰਕੀਟਪਲੇਸ ਫੀਸ", adminControl: "ਮੈਨੂਅਲ ਐਡਮਿਨ ਓਵਰਰਾਈਡ" },
+    disputes_mgr: { empty: "ਇਸ ਸਮੇਂ ਕੋਈ ਲੰਬਿਤ ਝਗੜਾ ਨਹੀਂ ਹੈ।", viewDetails: "ਵੇਰਵਿਆਂ ਦੀ ਸਮੀਖਿਆ ਕਰੋ ਅਤੇ ਨਿਰਣਾ ਕਰੋ", status: { open: "ਖੁੱਲ੍ਹਾ", processing: "ਸਮੀਖਿਆ ਅਧੀਨ", settled: "ਹੱਲ ਹੋ ਗਿਆ" } },
+    merchants_mgr: { empty: "ਮਾਪਦੰਡਾਂ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਕੋਈ ਵਪਾਰੀ ਨਹੀਂ ਮਿਲਿਆ।", status: { active: "ਐਕਟਿਵ", suspended: "ਮੁਅੱਤਲ", pending: "ਪ੍ਰਵਾਨਗੀ ਲੰਬਿਤ" } },
+  },
+  auth: {
+    login: {
+      title: "ਜੀ ਆਇਆਂ ਨੂੰ",
+      subtitle: "UK ਦੇ ਮੋਹਰੀ ਮਾਹਰ ਹੱਬ ਨਾਲ ਦੁਬਾਰਾ ਜੁੜੋ।",
+      emailLabel: "ਈਮੇਲ ਪਤਾ",
+      emailPlaceholder: "you@example.com",
+      passwordLabel: "ਪਾਸਵਰਡ",
+      passwordPlaceholder: "ਤੁਹਾਡਾ ਪਾਸਵਰਡ",
+      forgotPassword: "ਪਾਸਵਰਡ ਭੁੱਲ ਗਏ?",
+      submit: "ਹੱਬ ਵਿੱਚ ਸਾਈਨ ਇਨ ਕਰੋ",
+      loading: "ਪ੍ਰਮਾਣਿਤ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ...",
+      or: "ਜਾਂ",
+      google: "Google ਦੇ ਨਾਲ ਜਾਰੀ ਰੱਖੋ",
+      navToRegister: "ਪਲੇਟਫਾਰਮ 'ਤੇ ਨਵੇਂ ਹੋ?",
+      createAccount: "ਖਾਤਾ ਬਣਾਓ",
+      error: "ਗਲਤ ਈਮੇਲ ਜਾਂ ਪਾਸਵਰਡ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
+      success: "ਖਾਤਾ ਬਣਾਇਆ ਗਿਆ! ਕਿਰਪਾ ਕਰਕੇ ਸਾਈਨ ਇਨ ਕਰੋ।"
+    },
+    register: {
+      title: "ਖਾਤਾ ਬਣਾਓ", subtitle: "ਆਪਣੀ ਪੇਸ਼ੇਵਰ ਯਾਤਰਾ ਸ਼ੁਰੂ ਕਰੋ।", firstNameLabel: "ਪਹਿਲਾ ਨਾਮ", lastNameLabel: "ਆਖਰੀ ਨਾਮ", emailLabel: "ਈਮੇਲ ਪਤਾ", accountTypeLabel: "ਖਾਤੇ ਦੀ ਕਿਸਮ", passwordLabel: "ਸੁਰੱਖਿਅਤ ਪਾਸਵਰਡ", passwordHint: "ਘੱਟੋ-ਘੱਟ 6 ਅੱਖਰ", referralLabel: "ਰੈਫਰਲ ਕੋਡ (ਵਿਕਲਪਿਕ)", submit: "Join ConciergeAI", loading: "ਖਾਤਾ ਬਣਾਇਆ ਜਾ ਰਿਹਾ ਹੈ...", or: "ਜਾਂ", google: "Google ਨਾਲ ਰਜਿਸਟਰ ਕਰੋ", navToLogin: "ਪਹਿਲਾਂ ਹੀ ਮੈਂਬਰ ਹੋ?", signIn: "ਇੱਥੇ ਸਾਈਨ ਇਨ ਕਰੋ", roles: { customer: "ਗਾਹਕ (ਸੇਵਾਵਾਂ ਦੀ ਭਾਲ ਕਰ ਰਹੇ ਹਨ)", merchant: "ਮਾਹਰ (ਸੇਵਾਵਾਂ ਪ੍ਰਦਾਨ ਕਰਨਾ)" }
+    },
+    forgotPassword: {
+      title: "ਪਾਸਵਰਡ ਭੁੱਲ ਗਏ", subtitle: "ਆਪਣਾ ਪਾਸਵਰਡ ਰੀਸੈਟ ਕਰਨ ਲਈ ਆਪਣੀ ਈਮੇਲ ਦਰਜ ਕਰੋ।", emailLabel: "ਈਮੇਲ ਪਤਾ", submit: "ਰੀਸੈਟ ਲਿੰਕ ਭੇਜੋ", loading: "ਭੇਜਿਆ ਜਾ ਰਿਹਾ ਹੈ...", back: "ਲੌਗਇਨ 'ਤੇ ਵਾਪਸ ਜਾਓ", success: "ਰੀਸੈਟ ਲਿੰਕ ਤੁਹਾਡੀ ਈਮੇਲ 'ਤੇ ਭੇਜ ਦਿੱਤਾ ਗਿਆ ਹੈ।"
+    }
   }
 };

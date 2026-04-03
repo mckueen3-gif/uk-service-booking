@@ -194,5 +194,44 @@ export const ur: Dictionary = {
     sectors: { title: "اپنا شعبہ منتخب کریں", professional: { title: "پیشہ ورانہ", desc: "اکاؤنٹنگ، قانونی، مشاورت", industries: ["اکاؤنٹنگ", "ٹیکس مشاورت", "قانونی خدمات", "کاروباری حکمت عملی"] }, education: { title: "تعلیم", desc: "اساتذہ، تربیت کار", industries: ["تعلیمی اساتذہ", "زبان کی تربیت", "مہارت کی کوچنگ", "موسیقی کے اساتذہ"] }, technical: { title: "تکنیکی", desc: "حرفہ، مرمت، انجینئرنگ", industries: ["پلمبنگ", "الیکٹریکل", "آٹوموٹیو", "تزئین و آرائش"] } },
     contract: { title: "معیاری سروس معاہدہ", scrollingNotice: "شرائط کو قبول کرنے کے لیے براہ کرم نیچے تک اسکرول کریں۔", agree: "میں نے سروس حب ماسٹر معاہدہ پڑھ لیا ہے اور اس سے اتفاق کرتا ہوں۔", clauses: { platform_fee: { title: "1. پلیٹ فارم سروس فیس", body: "سروس حب کامیاب بکنگ پر 9٪ کمیشن لیتا ہے۔" }, payments: { title: "2. ایسکرو اور ادائیگیاں", body: "گاہک کی ادائیگیاں محفوظ ایسکرو میں رکھی جاتی ہیں۔ ادائیگی گاہک کی طرف سے کام مکمل ہونے کی تصدیق کے 48 گھنٹے بعد شروع کی جاتی ہے۔" }, conduct: { title: "3. پیشہ ورانہ معیارات", body: "ماہرین کو کم از کم 4.0 اسٹار ریٹنگ برقرار رکھنی چاہیے۔ برطانیہ کے حفاظتی معیارات پر پورا نہ اترنے کی صورت میں اکاؤنٹ فوری طور پر معطل کیا جا سکتا ہے۔" } } },
     buttons: { start: "ابھی شروع کریں", next: "اگلا قدم", back: "پچھلا قدم", submit: "آن بورڈنگ مکمل کریں" }
+  },
+  admin: {
+    sidebar: { overview: "جائزہ", analytics: "تجزیات", bookings: "بکنگز", verifications: "تصدیق", disputes: "تنازعات", merchants: "ماہرین", payouts: "ادائیگیاں", users: "صارفین", settings: "ترتیبات", terminal: "ٹرمینل رسائی" },
+    header: { internal: "اندرونی انتظام", operations: "مرکزی آپریشنل حب", node: "علاقائی نوڈ" },
+    stats: { gmv: "کل GMV (30 دن)", netRevenue: "خالص آمدنی", bookings: "مکمل شدہ بکنگز", dailyAvg: "روزانہ اوسط", processed: "کامیابی سے پروسیس ہوا", volume24h: "24 گھنٹے پروسیسنگ والیوم" },
+    analytics: { gmvTitle: "مجموعی تجارتی قدر (GMV)", gmvSub: "گزشتہ 30 دنوں کے لیے کل بکنگ ویلیو کے رجحانات۔", sectorDist: "شعبہ جاتی تقسیم", volTitle: "بکنگ والیوم", live: "لائیو اسٹریم فعال ہے" },
+    bookings: { title: "بکنگ کمانڈ حب", sub: "نیورل بکنگ رجسٹری", search: "بکنگ تلاش کریں...", id: "بکنگ آئی ڈی", customer: "گاہک", amount: "رقم", status: "حالت", service: "سروس" },
+    verifications: { title: "تصدیقی فیصلہ", sub: "شناختی دستاویزات کی سالمیت کا جائزہ", evidence: "شناختی ثبوت", extraction: "AI نکالنے کا نتیجہ", passport: "پاسپورٹ", faceMatch: "چہرے کی مماثلت", confidence: "اعتماد" },
+    disputes: { title: "ثالثی ٹربیونل", sub: "تنازعات کا حل اور ثبوت کا آڈٹ", reasoning: "AI ثالث کی منطق", gallery: "ثبوت گیلری", verdict: "آخری فیصلہ", confidence: "AI اعتماد" },
+    payouts: { title: "مالیاتی کلیئرنس سینٹر", snapshot: "مالیاتی ڈیٹا اسنیپ شاٹ", pending: "زیر التواء ادائیگیاں", volume: "مجموعی والیوم", security: "سیکیورٹی آڈٹ کی صورتحال", adjudication: "ادائیگی کا جائزہ", method: "ادائیگی کا طریقہ" },
+    users: { title: "کسٹمر ڈائریکٹری", sub: "صارف ڈیٹا بیس اور ریفرل کے اعداد و شمار", stats: "اہم میٹرکس", registeredAt: "رجسٹریشن کا وقت", referrals: "کامیاب ریفرلز" },
+    commissions: { title: "عالمی کمیشن کنٹرول", sub: "پلیٹ فارم کی آمدنی اور بنیادی شرح کی ترتیب", plateformFee: "ایڈمن اوور رائیڈ فیس", marketplaceFee: "بنیادی مارکیٹ پلیس فیس", adminControl: "دستی ایڈمن اوور رائیڈ" },
+    disputes_mgr: { empty: "اس وقت کوئی زیر التواء تنازعہ نہیں ہے۔", viewDetails: "تفصیلات کا جائزہ لیں اور فیصلہ کریں", status: { open: "کھلا", processing: "جائزے کے تحت", settled: "حل ہو گیا" } },
+    merchants_mgr: { empty: "معیار پر پورا اترنے والا کوئی مرچنٹ نہیں ملا۔", status: { active: "سرگرم", suspended: "معطل", pending: "منظوری زیر التواء" } },
+  },
+  auth: {
+    login: {
+      title: "خوش آمدید",
+      subtitle: "برطانیہ کے صف اول کے ماہر حب سے دوبارہ جڑیں۔",
+      emailLabel: "ای میل ایڈریس",
+      emailPlaceholder: "you@example.com",
+      passwordLabel: "پاس ورڈ",
+      passwordPlaceholder: "آپ کا پاس ورڈ",
+      forgotPassword: "پاس ورڈ بھول گئے؟",
+      submit: "حب میں سائن ان کریں",
+      loading: "تصدیق ہو رہی ہے...",
+      or: "یا",
+      google: "Google کے ساتھ جاری رکھیں",
+      navToRegister: "پلیٹ فارم پر نئے ہیں؟",
+      createAccount: "اکاؤنٹ بنائیں",
+      error: "غلط ای میل یا پاس ورڈ۔ براہ کرم دوبارہ کوشش کریں۔",
+      success: "اکاؤنٹ بن گیا! براہ کرم سائن ان کریں۔"
+    },
+    register: {
+      title: "اکاؤنٹ بنائیں", subtitle: "اپنے پیشہ ورانہ سفر کا آغاز کریں۔", firstNameLabel: "نام", lastNameLabel: "خاندان کا نام", emailLabel: "ای میل ایڈریس", accountTypeLabel: "اکاؤنٹ کی قسم", passwordLabel: "محفوظ پاس ورڈ", passwordHint: "کم از کم 6 حروف", referralLabel: "ریفرل کوڈ (اختیاری)", submit: "Join ConciergeAI", loading: "اکاؤنٹ بنایا جا رہا ہے...", or: "یا", google: "Google کے ساتھ رجسٹر کریں", navToLogin: "پہلے سے ممبر ہیں؟", signIn: "یہاں سائن ان کریں", roles: { customer: "گاہک (سروسز کی تلاش)", merchant: "ماہر (سروسز فراہم کرنا)" }
+    },
+    forgotPassword: {
+      title: "پاس ورڈ بھول گئے", subtitle: "آپ کا پاس ورڈ ری سیٹ کرنے کے لیے اپنا ای میل درج کریں۔", emailLabel: "ای میل ایڈریس", submit: "ری سیٹ لنک بھیجیں", loading: "بھیجا جا رہا ہے...", back: "لاگ ان پر واپس جائیں", success: "ری سیٹ لنک آپ کے ای میل پر بھیج دیا گیا ہے۔"
+    }
   }
 };

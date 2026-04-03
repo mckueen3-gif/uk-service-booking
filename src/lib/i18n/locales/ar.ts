@@ -194,5 +194,44 @@ export const ar: Dictionary = {
     sectors: { title: "اختر قطاعك", professional: { title: "احترافي", desc: "محاسبة، قانوني، استشارات", industries: ["محاسبة", "استشارات ضرائب", "خدمات قانونية", "استراتيجية عمل"] }, education: { title: "تعليم", desc: "معلمون، مدربون", industries: ["معلمون أكاديميون", "تدريب لغات", "تدريب مهارات", "معلمو موسيقى"] }, technical: { title: "تقني", desc: "حرف، إصلاحات، هندسة", industries: ["سباكة", "كهرباء", "سيارات", "ترميم"] } },
     contract: { title: "اتفاقية الخدمة القياسية", scrollingNotice: "يرجى التمرير للأسفل للموافقة على الشروط.", agree: "لقد قرأت وأوافق على اتفاقية ConciergeAI الرئيسية.", clauses: { platform_fee: { title: "1. رسوم خدمة المنصة", body: "تتقاضى المنصة عمولة 9% على الحجوزات المكتملة بنجاح." }, payments: { title: "2. الضمان والمدفوعات", body: "يتم الاحتفاظ بمدفوعات العملاء في ضمان آمن. يتم تحويل الأموال بعد 48 ساعة من تأكيد العميل اكتمال المهمة." }, conduct: { title: "3. المعايير المهنية", body: "يجب على الخبراء الحفاظ على تقييم لا يقل عن 4.0 نجوم. قد يؤدي الفشل في تلبية معايير السلامة إلى تعليق الحساب فوراً." } } },
     buttons: { start: "ابدأ الآن", next: "الخطوة التالية", back: "الخطوة السابقة", submit: "إكمال الانضمام" }
+  },
+  admin: {
+    sidebar: { overview: "نظرة عامة", analytics: "التحليلات", bookings: "الحجوزات", verifications: "التحققات", disputes: "النزاعات", merchants: "الخبراء", payouts: "المدفوعات", users: "المستخدمين", settings: "الإعدادات", terminal: "الوصول إلى الوحدة الطرفية" },
+    header: { internal: "الإدارة الداخلية", operations: "مركز العمليات المركزي", node: "العقدة الإقليمية" },
+    stats: { gmv: "إجمالي حجم البضائع (30 يوم)", netRevenue: "صافي الإيرادات", bookings: "الحجوزات المكتملة", dailyAvg: "المتوسط اليومي", processed: "تمت المعالجة بنجاح", volume24h: "حجم المعالجة خلال 24 ساعة" },
+    analytics: { gmvTitle: "إجمالي قيمة البضائع (GMV)", gmvSub: "اتجاهات قيمة الحجز الإجمالية لآخر 30 يومًا.", sectorDist: "توزيع القطاعات", volTitle: "حجم الحجوزات", live: "البث المباشر نشط" },
+    bookings: { title: "مركز قيادة الحجوزات", sub: "سجل الحجوزات العصبي", search: "البحث في الحجوزات...", id: "معرف الحجز", customer: "العميل", amount: "المبلغ", status: "الحالة", service: "الخدمة" },
+    verifications: { title: "البت في التحقق", sub: "مراجعة سلامة وثائق الهوية", evidence: "أدلة الهوية", extraction: "نتائج استخراج الذكاء الاصطناعي", passport: "جواز السفر", faceMatch: "مطابقة الوجه", confidence: "الثقة" },
+    disputes: { title: "محكمة التحكيم", sub: "حل النزاعات وتدقيق الأدلة", reasoning: "استنتاج محكم الذكاء الاصطناعي", gallery: "معرض الأدلة", verdict: "الحكم النهائي", confidence: "ثقة الذكاء الاصطناعي" },
+    payouts: { title: "مركز التصفية المالية", snapshot: "لقطة البيانات المالية", pending: "المدفوعات المعلقة", volume: "الحجم التراكمي", security: "حالة التدقيق الأمني", adjudication: "مراجعة المدفوعات", method: "طريقة الدفع" },
+    users: { title: "دليل العملاء", sub: "قاعدة بيانات المستخدمين وإحصائيات الإحالة", stats: "المقاييس الرئيسية", registeredAt: "وقت التسجيل", referrals: "إحالات ناجحة" },
+    commissions: { title: "التحكم العالمي في العمولات", sub: "إيرادات المنصة وتكوين السعر الأساسي", plateformFee: "رسوم تجاوز المسؤول", marketplaceFee: "رسوم السوق الأساسية", adminControl: "تجاوز المسؤول اليدوي" },
+    disputes_mgr: { empty: "لا توجد نزاعات معلقة في الوقت الحالي.", viewDetails: "مراجعة التفاصيل والبت فيها", status: { open: "مفتوح", processing: "قيد المراجعة", settled: "تم الحل" } },
+    merchants_mgr: { empty: "لم يتم العثور على خبراء يطابقون المعايير.", status: { active: "نشط", suspended: "موقوف", pending: "في انتظار الموافقة" } },
+  },
+  auth: {
+    login: {
+      title: "مرحباً بعودتك",
+      subtitle: "تواصل مجدداً مع مركز الخبراء الرائد في المملكة المتحدة.",
+      emailLabel: "عنوان البريد الإلكتروني",
+      emailPlaceholder: "you@example.com",
+      passwordLabel: "كلمة المرور",
+      passwordPlaceholder: "كلمة المرور الخاصة بك",
+      forgotPassword: "هل نسيت كلمة المرور؟",
+      submit: "تسجيل الدخول إلى المركز",
+      loading: "جاري التحقق...",
+      or: "أو",
+      google: "المتابعة باستخدام Google",
+      navToRegister: "جديد في المنصة؟",
+      createAccount: "إنشاء حساب",
+      error: "البريد الإلكتروني أو كلمة المرور غير صالحة. يرجى المحاولة مرة أخرى.",
+      success: "تم إنشاء الحساب! يرجى تسجيل الدخول."
+    },
+    register: {
+      title: "إنشاء حساب", subtitle: "ابدأ رحلتك المهنية.", firstNameLabel: "الاسم الأول", lastNameLabel: "اسم العائلة", emailLabel: "عنوان البريد الإلكتروني", accountTypeLabel: "نوع الحساب", passwordLabel: "كلمة مرور آمنة", passwordHint: "6 أحرف كحد أدنى", referralLabel: "كود الإحالة (اختياري)", submit: "الانضمام إلى ConciergeAI", loading: "جاري إنشاء الحساب...", or: "أو", google: "التسجيل باستخدام Google", navToLogin: "عضو بالفعل؟", signIn: "سجل الدخول هنا", roles: { customer: "عميل (يبحث عن خدمات)", merchant: "خبير (يقدم خدمات)" }
+    },
+    forgotPassword: {
+      title: "نسيت كلمة المرور", subtitle: "أدخل بريدك الإلكتروني لإعادة تعيين كلمة المرور.", emailLabel: "عنوان البريد الإلكتروني", submit: "إرسال رابط إعادة التعيين", loading: "جاري الإرسال...", back: "العودة إلى تسجيل الدخول", success: "تم إرسال رابط إعادة التعيين إلى بريدك الإلكتروني."
+    }
   }
 };

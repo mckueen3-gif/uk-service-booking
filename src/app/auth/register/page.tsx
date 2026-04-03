@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { User, Mail, Shield, Lock, ChevronRight } from 'lucide-react';
 import '../auth.css';
+import { getDictionary } from '@/lib/i18n/dictionary';
 
 function RegisterForm() {
   const router = useRouter();
@@ -16,6 +17,7 @@ function RegisterForm() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [revealed, setRevealed] = useState(false);
+  const t = getDictionary('zh-TW');
 
   useEffect(() => {
     // Start stagger animation
@@ -28,11 +30,11 @@ function RegisterForm() {
     const res = await registerUser(formData);
     
     if ('error' in res && res.error) {
-      setError(res.error as string);
-      setLoading(false);
+       setError(res.error as string);
+       setLoading(false);
     } else {
-      const loginUrl = `/auth/login?registered=true${callbackUrl !== '/' ? `&callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`;
-      router.push(loginUrl);
+       const loginUrl = `/auth/login?registered=true${callbackUrl !== '/' ? `&callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`;
+       router.push(loginUrl);
     }
   }
 
@@ -40,9 +42,9 @@ function RegisterForm() {
     <div className="auth-page-wrapper">
       <div className="auth-card">
         <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-          <h1 className="hero-title" style={{ fontSize: '2.5rem', marginBottom: '0.75rem', display: 'block' }}>Create Account</h1>
+          <h1 className="hero-title" style={{ fontSize: '2.5rem', marginBottom: '0.75rem', display: 'block' }}>{t.auth.register.title}</h1>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
-            Empower your professional journey in the UK.
+            {t.auth.register.subtitle}
           </p>
         </div>
         
@@ -50,29 +52,30 @@ function RegisterForm() {
           
           {error && (
             <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ backgroundColor: 'rgba(219, 39, 119, 0.05)', color: '#db2777', padding: '1rem', borderRadius: '12px', fontSize: '0.875rem', border: '1px solid rgba(219, 39, 119, 0.2)', marginBottom: '1.5rem' }}>
+              <Shield size={18} style={{ marginRight: '8px', display: 'inline' }} />
               {error}
             </div>
           )}
 
           <div style={{ display: 'flex', gap: '1rem' }}>
              <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ flex: 1, animationDelay: '100ms' }}>
-               <label>First Name</label>
+               <label>{t.auth.register.firstNameLabel}</label>
                <div className="input-wrapper">
                  <User className="input-icon" size={18} />
-                 <input type="text" name="firstName" className="premium-input" placeholder="First Name" required disabled={loading} />
+                 <input type="text" name="firstName" className="premium-input" placeholder={t.auth.register.firstNameLabel} required disabled={loading} />
                </div>
              </div>
              <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ flex: 1, animationDelay: '150ms' }}>
-               <label>Last Name</label>
+               <label>{t.auth.register.lastNameLabel}</label>
                <div className="input-wrapper">
                  <User className="input-icon" size={18} />
-                 <input type="text" name="lastName" className="premium-input" placeholder="Last Name" required disabled={loading} />
+                 <input type="text" name="lastName" className="premium-input" placeholder={t.auth.register.lastNameLabel} required disabled={loading} />
                </div>
              </div>
           </div>
           
           <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '200ms' }}>
-            <label>Email Address</label>
+            <label>{t.auth.register.emailLabel}</label>
             <div className="input-wrapper">
               <Mail className="input-icon" size={18} />
               <input type="email" name="email" className="premium-input" placeholder="you@example.com" required disabled={loading} />
@@ -80,26 +83,26 @@ function RegisterForm() {
           </div>
 
           <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '250ms' }}>
-            <label>Account Type</label>
+            <label>{t.auth.register.accountTypeLabel}</label>
             <div className="input-wrapper">
               <Shield className="input-icon" size={18} />
-              <select name="role" className="premium-input" required defaultValue="CUSTOMER" disabled={loading} style={{ appearance: 'none' }}>
-                <option value="CUSTOMER">Customer (UK Householder)</option>
-                <option value="MERCHANT">Merchant (Expert/Service Provider)</option>
+              <select name="role" className="premium-input" required defaultValue="CUSTOMER" disabled={loading} style={{ appearance: 'none', cursor: 'pointer' }}>
+                <option value="CUSTOMER">{t.auth.register.roles.customer}</option>
+                <option value="MERCHANT">{t.auth.register.roles.merchant}</option>
               </select>
             </div>
           </div>
           
           <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '300ms' }}>
-            <label>Secure Password</label>
+            <label>{t.auth.register.passwordLabel}</label>
             <div className="input-wrapper">
               <Lock className="input-icon" size={18} />
-              <input type="password" name="password" className="premium-input" placeholder="Minimum 6 characters" required minLength={6} disabled={loading} />
+              <input type="password" name="password" className="premium-input" placeholder={t.auth.register.passwordHint} required minLength={6} disabled={loading} />
             </div>
           </div>
 
           <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '325ms' }}>
-            <label>Referral Code (Optional)</label>
+            <label>{t.auth.register.referralLabel}</label>
             <div className="input-wrapper">
               <User className="input-icon" size={18} />
               <input type="text" name="referredBy" className="premium-input" placeholder="e.g. ABC1234" defaultValue={searchParams.get('ref') || ''} disabled={loading} />
@@ -112,13 +115,13 @@ function RegisterForm() {
             disabled={loading} 
             style={{ width: '100%', padding: '1rem', marginTop: '1.5rem', animationDelay: '350ms' }}
           >
-            {loading ? "Establishing Account..." : "Join ConciergeAI"}
+            {loading ? t.auth.register.loading : t.auth.register.submit}
             <ChevronRight size={20} />
           </button>
         </form>
 
         <div className="divider">
-          <span>{revealed ? 'or' : ''}</span>
+          <span>{revealed ? t.auth.register.or : ''}</span>
         </div>
 
         <button 
@@ -132,11 +135,11 @@ function RegisterForm() {
             <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
             <path d="M12 5.38c1.62 0 3.06.56 4.21 1.66l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
           </svg>
-          Quick Sign up with Google
+          {t.auth.register.google}
         </button>
         
         <div style={{ textAlign: 'center', fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '2rem' }}>
-          Already part of the hub? <Link href="/auth/login" style={{ color: 'var(--accent-color)', fontWeight: 800 }}>Sign in here</Link>
+          {t.auth.register.navToLogin} <Link href="/auth/login" style={{ color: 'var(--accent-color)', fontWeight: 800 }}>{t.auth.register.signIn}</Link>
         </div>
       </div>
     </div>
@@ -145,7 +148,7 @@ function RegisterForm() {
 
 export default function RegisterPage() {
   return (
-    <Suspense fallback={<div className="auth-page-wrapper"><div className="auth-card" style={{ textAlign: 'center' }}>Initializing Hub...</div></div>}>
+    <Suspense fallback={<div className="auth-page-wrapper"><div className="auth-card" style={{ textAlign: 'center' }}>初始化中...</div></div>}>
       <RegisterForm />
     </Suspense>
   );

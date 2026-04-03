@@ -205,7 +205,9 @@ export const en: Dictionary = {
     disputes: { title: "Arbitration Tribunal", sub: "Dispute Resolution & Evidence Audit", reasoning: "AI Arbiter Reasoning", gallery: "Evidence Gallery", verdict: "Final Verdict", confidence: "AI Confidence" },
     payouts: { title: "Financial Clearance Center", snapshot: "Financial Data Snapshot", pending: "Pending Payouts", volume: "Cumulative Volume", security: "Security Audit Status", adjudication: "Payout Review", method: "Payment Method" },
     users: { title: "Customer Directory", sub: "User Database & Referral Statistics", stats: "Key Metrics", registeredAt: "Registration Time", referrals: "Successful Referrals" },
-    commissions: { title: "Global Commission Control", sub: "Platform Revenue & Base Rate Config", plateformFee: "Admin Override Fee", marketplaceFee: "Base Marketplace Fee", adminControl: "Manual Admin Override" }
+    commissions: { title: "Global Commission Control", sub: "Platform Revenue & Base Rate Config", plateformFee: "Admin Override Fee", marketplaceFee: "Base Marketplace Fee", adminControl: "Manual Admin Override" },
+    disputes_mgr: { empty: "No pending disputes at this time.", viewDetails: "Review Details & Adjudicate", status: { open: "Open", processing: "In Review", settled: "Resolved" } },
+    merchants_mgr: { empty: "No merchants found matching criteria.", status: { active: "Active", suspended: "Suspended", pending: "Pending Approval" } },
   },
   auth: {
     login: {
@@ -224,6 +226,12 @@ export const en: Dictionary = {
       createAccount: "Create account",
       error: "Invalid email or password. Please try again.",
       success: "Account created! Please sign in."
+    },
+    register: {
+      title: "Create Account", subtitle: "Start your professional journey.", firstNameLabel: "First Name", lastNameLabel: "Last Name", emailLabel: "Email Address", accountTypeLabel: "Account Type", passwordLabel: "Secure Password", passwordHint: "Min 6 characters", referralLabel: "Referral Code (Optional)", submit: "Join ConciergeAI", loading: "Creating Account...", or: "or", google: "Register with Google", navToLogin: "Already a member?", signIn: "Sign In here", roles: { customer: "Customer (Seeking Services)", merchant: "Expert (Providing Services)" }
+    },
+    forgotPassword: {
+      title: "Forgot Password", subtitle: "Enter your email to reset your password.", emailLabel: "Email Address", submit: "Send Reset Link", loading: "Sending...", back: "Back to Login", success: "Reset link sent to your email."
     }
   }
 };

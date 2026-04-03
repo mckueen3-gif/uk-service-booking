@@ -199,3 +199,152 @@ export async function reviewMerchantDocument(
   revalidatePath("/admin/merchants");
   return { success: true };
 }
+
+/**
+ * Fetch all pending or under-review merchant documents for the admin queue
+ */
+export async function getVerificationQueue() {
+  await ensureAdmin();
+
+  return await (prisma as any).merchantDocument.findMany({
+    where: {
+      status: {
+        in: [DocumentStatus.PENDING, DocumentStatus.UNDER_ADMIN_REVIEW]
+      }
+    },
+    include: {
+      merchant: true
+    },
+    orderBy: {
+      updatedAt: 'asc'
+    }
+  });
+}
+
+/**
+ * Approve a merchant document
+ */
+export async function approveVerification(documentId: string) {
+  return await reviewMerchantDocument(documentId, DocumentStatus.APPROVED, "Approved by administrator manual review");
+}
+
+/**
+ * Reject a merchant document
+ */
+export async function rejectVerification(documentId: string) {
+  return await reviewMerchantDocument(documentId, DocumentStatus.REJECTED, "Rejected by administrator manual review");
+}
+
+/**
+ * Fetch all registered users for the admin directory
+ */
+export async function getUsers() {
+  await ensureAdmin();
+
+  return await prisma.user.findMany({
+    orderBy: {
+      createdAt: 'desc'
+    }
+  });
+}
+
+/**
+ * Fetch all merchants for the admin directory
+ */
+export async function getAdminMerchants() {
+  await ensureAdmin();
+
+  return await prisma.merchant.findMany({
+    include: {
+      user: true,
+      documents: true,
+      bookings: true,
+    },
+    orderBy: {
+      createdAt: 'desc'
+    }
+  });
+}
+
+/**
+ * Toggle merchant verification status
+ */
+export async function toggleMerchantVerification(merchantId: string, isVerified: boolean) {
+  await ensureAdmin();
+
+  try {
+    await prisma.merchant.update({
+      where: { id: merchantId },
+      data: { isVerified }
+    });
+
+    revalidatePath("/admin/merchants");
+    revalidatePath("/admin/verifications");
+    return { success: true, message: `Merchant verification status set to ${isVerified}.` };
+  } catch (error) {
+    console.error("Merchant toggle error:", error);
+    return { success: false, message: "Failed to update merchant status." };
+  }
+}
+
+/**
+ * Fetch financial stats for the admin payout dashboard
+ */
+export async function getPayoutStats() {
+  await ensureAdmin();
+
+  // Mocking stats for a rich UI experience as specified in design requirements
+  return {
+    totalAssets: 142500,
+    pendingPayouts: 8420,
+    todayVolume: 2150,
+    revenueGrowth: "+12.5%",
+    marketplaceFee: "9%",
+    platformFee: "0.5%",
+    processedPayouts: await prisma.withdrawalRequest.findMany({
+      where: { status: 'COMPLETED' },
+      take: 10,
+      orderBy: { updatedAt: 'desc' }
+    })
+  };
+}
+
+/**
+ * Fetch all bookings for the admin management page
+ */
+export async function getAdminBookings() {
+  await ensureAdmin();
+
+  return await prisma.booking.findMany({
+    include: {
+      customer: true,
+      merchant: true,
+      service: true,
+    },
+    orderBy: {
+      createdAt: 'desc'
+    }
+  });
+}
+
+/**
+ * Fetch global analytics for the overview dashboard
+ */
+export async function getAdminAnalytics() {
+  await ensureAdmin();
+
+  const [totalBookings, totalMerchants, totalCustomers] = await Promise.all([
+    prisma.booking.count(),
+    prisma.merchant.count(),
+    prisma.user.count({ where: { role: 'CUSTOMER' } })
+  ]);
+
+  return {
+    totalBookings,
+    totalMerchants,
+    totalCustomers,
+    monthlyRevenue: 45200, // Mocked for design
+    bookingGrowth: "+18%",
+    activeUsersToday: 342
+  };
+}

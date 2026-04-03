@@ -162,6 +162,8 @@ export interface Dictionary {
     payouts: { title: string; snapshot: string; pending: string; volume: string; security: string; adjudication: string; method: string };
     users: { title: string; sub: string; stats: string; registeredAt: string; referrals: string };
     commissions: { title: string; sub: string; plateformFee: string; marketplaceFee: string; adminControl: string };
+    disputes_mgr: { empty: string; viewDetails: string; status: { open: string; processing: string; settled: string } };
+    merchants_mgr: { empty: string; status: { active: string; suspended: string; pending: string } };
   };
   auth: {
     login: {
@@ -179,6 +181,33 @@ export interface Dictionary {
       navToRegister: string;
       createAccount: string;
       error: string;
+      success: string;
+    },
+    register: {
+      title: string;
+      subtitle: string;
+      firstNameLabel: string;
+      lastNameLabel: string;
+      emailLabel: string;
+      accountTypeLabel: string;
+      passwordLabel: string;
+      passwordHint: string;
+      referralLabel: string;
+      submit: string;
+      loading: string;
+      or: string;
+      google: string;
+      navToLogin: string;
+      signIn: string;
+      roles: { customer: string; merchant: string };
+    },
+    forgotPassword: {
+      title: string;
+      subtitle: string;
+      emailLabel: string;
+      submit: string;
+      loading: string;
+      back: string;
       success: string;
     }
   };

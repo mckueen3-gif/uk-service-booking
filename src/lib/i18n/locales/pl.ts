@@ -194,5 +194,44 @@ export const pl: Dictionary = {
     sectors: { title: "Wybierz swój sektor", professional: { title: "Profesjonalne", desc: "Księgowość, prawo, konsulting", industries: ["Księgowość", "Doradztwo podatkowe", "Usługi prawne", "Strategia biznesowa"] }, education: { title: "Edukacja", desc: "Korepetytorzy, trenerzy, coachowie", industries: ["Korepetytorzy akademiccy", "Szkolenia językowe", "Coachingu umiejętności", "Nauczyciele muzyki"] }, technical: { title: "Techniczne", desc: "Rzemiosło, naprawy, inżynieria", industries: ["Hydraulika", "Elektryka", "Motoryzacja", "Remonty"] } },
     contract: { title: "Standardowa umowa serwisowa", scrollingNotice: "Przewiń na dół, aby zaakceptować warunki.", agree: "Przeczytałem i zgadzam się na Umowę Główną ConciergeAI.", clauses: { platform_fee: { title: "1. Opłata serwisowa platformy", body: "ConciergeAI pobiera 9% prowizji od pomyślnie zrealizowanych rezerwacji." }, payments: { title: "2. Escrow i wypłaty", body: "Płatności klientów są przechowywane w bezpiecznym depozycie escrow. Wypłaty są inicjowane 48 godzin po potwierdzeniu przez klienta zakończenia zadania." }, conduct: { title: "3. Standardy zawodowe", body: "Eksperci muszą utrzymywać minimalną ocenę 4,0 gwiazdki. Brak spełnienia brytyjskich standardów bezpieczeństwa może skutkować natychmiastowym zawieszeniem konta." } } },
     buttons: { start: "Zacznij teraz", next: "Następny krok", back: "Poprzedni krok", submit: "Zakończ rejestrację" }
+  },
+  admin: {
+    sidebar: { overview: "Przegląd", analytics: "Analityka", bookings: "Rezerwacje", verifications: "Weryfikacje", disputes: "Spory", merchants: "Eksperci", payouts: "Wypłaty", users: "Użytkownicy", settings: "Ustawienia", terminal: "Dostęp do terminala" },
+    header: { internal: "Zarządzanie wewnętrzne", operations: "Centralny hub operacyjny", node: "Węzeł regionalny" },
+    stats: { gmv: "Całkowity GMV (30 dni)", netRevenue: "Przychód netto", bookings: "Zakończone rezerwacje", dailyAvg: "Średnia dzienna", processed: "Pomyślnie przetworzono", volume24h: "Wolumen przetwarzania na 24h" },
+    analytics: { gmvTitle: "Wartość towarów brutto (GMV)", gmvSub: "Trendy całkowitej wartości rezerwacji z ostatnich 30 dni.", sectorDist: "Dystrybucja sektorowa", volTitle: "Wolumen rezerwacji", live: "Strumień na żywo aktywny" },
+    bookings: { title: "Centrum dowodzenia rezerwacjami", sub: "Neuralny rejestr rezerwacji", search: "Szukaj rezerwacji...", id: "ID rezerwacji", customer: "Klient", amount: "Kwota", status: "Status", service: "Usługa" },
+    verifications: { title: "Orzekanie weryfikacji", sub: "Przegląd integralności dokumentów tożsamości", evidence: "Dowód tożsamości", extraction: "Wynik ekstrakcji AI", passport: "Paszport", faceMatch: "Dopasowanie twarzy", confidence: "Pewność" },
+    disputes: { title: "Trybunał Arbitrażowy", sub: "Rozstrzyganie sporów i audyt dowodów", reasoning: "Argumentacja arbitra AI", gallery: "Galeria dowodów", verdict: "Ostateczny werdykt", confidence: "Pewność AI" },
+    payouts: { title: "Finansowe Centrum Rozliczeniowe", snapshot: "Migawka danych finansowych", pending: "Oczekujące wypłaty", volume: "Wolumen skumulowany", security: "Status audytu bezpieczeństwa", adjudication: "Przegląd wypłat", method: "Metoda płatności" },
+    users: { title: "Katalog klientów", sub: "Baza danych użytkowników i statystyki poleceń", stats: "Kluczowe wskaźniki", registeredAt: "Czas rejestracji", referrals: "Skuteczne polecenia" },
+    commissions: { title: "Globalna kontrola prowizji", sub: "Przychody platformy i konfiguracja stawki bazowej", plateformFee: "Prowizja nadpisana przez admina", marketplaceFee: "Bazowa prowizja marketplace", adminControl: "Ręczne nadpisanie przez admina" },
+    disputes_mgr: { empty: "Brak oczekujących sporów w tej chwili.", viewDetails: "Przeglądaj szczegóły i orzekaj", status: { open: "Otwarte", processing: "W trakcie przeglądu", settled: "Rozwiązane" } },
+    merchants_mgr: { empty: "Nie znaleziono wykonawców spełniających kryteria.", status: { active: "Aktywny", suspended: "Zawieszony", pending: "Oczekuje na zatwierdzenie" } },
+  },
+  auth: {
+    login: {
+      title: "Witaj ponownie",
+      subtitle: "Połącz się ponownie z wiodącym hubem ekspertów w Wielkiej Brytanii.",
+      emailLabel: "Adres e-mail",
+      emailPlaceholder: "ty@example.com",
+      passwordLabel: "Hasło",
+      passwordPlaceholder: "Twoje hasło",
+      forgotPassword: "Zapomniałeś hasła?",
+      submit: "Zaloguj się do Hubu",
+      loading: "Uwierzytelnianie...",
+      or: "lub",
+      google: "Kontynuuj z Google",
+      navToRegister: "Nowy na platformie?",
+      createAccount: "Utwórz konto",
+      error: "Nieprawidłowy e-mail lub hasło. Spróbuj ponownie.",
+      success: "Konto utworzone! Zaloguj się."
+    },
+    register: {
+      title: "Utwórz konto", subtitle: "Rozpocznij swoją profesjonalną podróż.", firstNameLabel: "Imię", lastNameLabel: "Nazwisko", emailLabel: "Adres e-mail", accountTypeLabel: "Typ konta", passwordLabel: "Bezpieczne hasło", passwordHint: "Min. 6 znaków", referralLabel: "Kod polecający (opcjonalnie)", submit: "Dołącz do ConciergeAI", loading: "Tworzenie konta...", or: "lub", google: "Zarejestruj się przez Google", navToLogin: "Jesteś już członkiem?", signIn: "Zaloguj się tutaj", roles: { customer: "Klient (szuka usług)", merchant: "Ekspert (świadczy usługi)" }
+    },
+    forgotPassword: {
+      title: "Zapomniałem hasła", subtitle: "Wpisz swój e-mail, aby zresetować hasło.", emailLabel: "Adres e-mail", submit: "Wyślij link do resetowania", loading: "Wysyłanie...", back: "Powrót do logowania", success: "Link do resetowania został wysłany na Twój e-mail."
+    }
   }
 };

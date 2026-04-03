@@ -118,7 +118,7 @@ export async function requestPasswordReset(emailInput: string) {
       }
     });
 
-    const resetUrl = `${process.env.NEXTAUTH_URL || 'https://uk-service-booking.vercel.app'}/auth/reset-password?token=${token}`;
+    const resetUrl = `${process.env.NEXTAUTH_URL || 'https://conciergeai.uk'}/auth/reset-password?token=${token}`;
 
     await sendEmail({
       to: email,

@@ -194,5 +194,44 @@ export const ko: Dictionary = {
     sectors: { title: "섹터 선택", professional: { title: "프로페셔널", desc: "회계, 법률, 컨설팅", industries: ["회계 사", "세무 컨설팅", "법률 서비스", "비즈니스 전략"] }, education: { title: "교육", desc: "튜터, 트레이너, 코치", industries: ["학술 튜터", "언어 교육", "기술 코칭", "음악 교사"] }, technical: { title: "테크니컬", desc: "기술직, 수리, 엔지니어링", industries: ["배관", "전기", "자동차", "리노베이션"] } },
     contract: { title: "표준 서비스 계약", scrollingNotice: "약관에 동의하려면 끝까지 스क्रोल해 주세요.", agree: "ConciergeAI 마스터 계약을 읽었으며 이에 동의합니다.", clauses: { platform_fee: { title: "1. 플랫폼 서비스 수수료", body: "ConciergeAI는 예약 성공 시 9%의 수수료를 부과합니다." }, payments: { title: "2. 에스크로 및 지급", body: "고객 결제는 안전한 에스크로에 보관됩니다. 고객이 작업 완료를 확인한 후 48시간 후에 지급이 활성화됩니다." }, conduct: { title: "3. 전문성 표준", body: "전문가는 최소 4.0점의 평점을 유지해야 합니다. 영국 안전 기준을 충족하지 못할 경우 즉시 계정이 정지될 수 있습니다." } } },
     buttons: { start: "시작하기", next: "다음 단계", back: "이전 단계", submit: "온보딩 완료" }
+  },
+  admin: {
+    sidebar: { overview: "개요", analytics: "분석", bookings: "예약", verifications: "인증", disputes: "분쟁", merchants: "전문가", payouts: "지급", users: "사용자", settings: "설정", terminal: "터미널 접속" },
+    header: { internal: "내부 관리", operations: "중앙 운영 허브", node: "지역 노드" },
+    stats: { gmv: "총 GMV (30일)", netRevenue: "순이익", bookings: "완료된 예약", dailyAvg: "일일 평균", processed: "성공적으로 처리됨", volume24h: "24시간당 처리량" },
+    analytics: { gmvTitle: "총 상품 판매액 (GMV)", gmvSub: "지난 30일 동안의 총 예약 가치 추세.", sectorDist: "부문별 분포", volTitle: "예약 규모", live: "라이브 스트림 활성화" },
+    bookings: { title: "예약 명령 허브", sub: "신경망 예약 등록부", search: "예약 검색...", id: "예약 ID", customer: "고객", amount: "금액", status: "狀態", service: "서비스" },
+    verifications: { title: "인증 심사", sub: "신원 확인 서류 무결성 검토", evidence: "신원 증거", extraction: "AI 추출 결과", passport: "여권", faceMatch: "얼굴 일치", confidence: "신뢰도" },
+    disputes: { title: "중재 재판소", sub: "분쟁 해결 및 증거 감사", reasoning: "AI 중재자 추론", gallery: "증거 갤러리", verdict: "최종 평결", confidence: "AI 신뢰도" },
+    payouts: { title: "재무 결제 센터", snapshot: "재무 데이터 스냅샷", pending: "대기 중인 지급", volume: "누적 거래액", security: "보안 감사 상태", adjudication: "지급 검토", method: "결제 수단" },
+    users: { title: "고객 디렉토리", sub: "사용자 데이터베이스 및 추천 통계", stats: "주요 지표", registeredAt: "등록 시간", referrals: "성공적인 추천" },
+    commissions: { title: "글로벌 수수료 제어", sub: "플랫폼 수익 및 기본 요율 구성", plateformFee: "관리자 수동 요율", marketplaceFee: "기본 마켓플레이스 수수료", adminControl: "수동 관리자 제어" },
+    disputes_mgr: { empty: "현재 보류 중인 분쟁이 없습니다.", viewDetails: "상세 검토 및 판결", status: { open: "접수됨", processing: "검토 중", settled: "해결됨" } },
+    merchants_mgr: { empty: "조건에 맞는 전문가를 찾을 수 없습니다.", status: { active: "활성", suspended: "정지", pending: "승인 대기" } },
+  },
+  auth: {
+    login: {
+      title: "다시 오신 것을 환영합니다",
+      subtitle: "영국 최고의 전문가 허브에 다시 연결하세요.",
+      emailLabel: "이메일 주소",
+      emailPlaceholder: "you@example.com",
+      passwordLabel: "密碼",
+      passwordPlaceholder: "비밀번호를 입력하세요",
+      forgotPassword: "비밀번호를 잊으셨나요?",
+      submit: "허브에 로그인",
+      loading: "인증 중...",
+      or: "또는",
+      google: "Google로 계속하기",
+      navToRegister: "플랫폼이 처음이신가요?",
+      createAccount: "계정 만들기",
+      error: "이메일 또는 비밀번호가 잘못되었습니다. 다시 시도하세요.",
+      success: "계정이 생성되었습니다! 로그인해 주세요."
+    },
+    register: {
+      title: "계정 만들기", subtitle: "전문가로서의 여정을 시작하세요.", firstNameLabel: "이름", lastNameLabel: "성", emailLabel: "이메일 주소", accountTypeLabel: "계정 유형", passwordLabel: "보안 비밀번호", passwordHint: "최소 6자", referralLabel: "추천 코드 (선택 사항)", submit: "ConciergeAI 가입하기", loading: "계정 생성 중...", or: "또는", google: "Google로 등록하기", navToLogin: "이미 회원이신가요?", signIn: "여기에서 로그인", roles: { customer: "고객 (서비스 찾기)", merchant: "전문가 (서비스 제공)" }
+    },
+    forgotPassword: {
+      title: "비밀번호 찾기", subtitle: "비밀번호를 재설정하려면 이메일을 입력하세요.", emailLabel: "이메일 주소", submit: "재설정 링크 전송", loading: "전송 중...", back: "로그인으로 돌아가기", success: "재설정 링크가 이메일로 전송되었습니다."
+    }
   }
 };
