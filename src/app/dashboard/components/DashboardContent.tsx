@@ -276,22 +276,22 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
         padding: '2.5rem', 
         borderRadius: '32px', 
         marginBottom: '3rem',
-        background: 'rgba(5, 5, 5, 0.6)',
-        border: '1px dashed rgba(212, 175, 55, 0.4)',
+        background: 'rgba(254, 252, 232, 0.5)',
+        border: '1px dashed rgba(212, 175, 55, 0.6)',
         display: 'flex',
         flexWrap: 'wrap',
         alignItems: 'center',
         justifyContent: 'space-between',
         gap: '2rem',
-        boxShadow: '0 10px 30px rgba(0,0,0,0.3)'
+        boxShadow: '0 4px 20px rgba(184, 134, 11, 0.05)'
       }}>
         <div style={{ display: 'flex', flex: '1 1 400px', gap: '1.5rem', alignItems: 'center' }}>
           <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)', padding: '1rem', borderRadius: '16px', color: '#d4af37' }}>
             <Gift size={32} />
           </div>
           <div style={{ flex: 1 }}>
-            <h3 style={{ fontSize: '1.5rem', fontWeight: 900, marginBottom: '0.4rem', color: '#fff' }}>{t.home.referralCTA.title}</h3>
-            <p style={{ color: '#999', fontSize: '0.95rem', lineHeight: 1.5 }}>
+            <h3 style={{ fontSize: '1.5rem', fontWeight: 900, marginBottom: '0.4rem', color: 'var(--text-primary)' }}>{t.home.referralCTA.title}</h3>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: 1.5 }}>
               {t.home.referralCTA.subtitle}
             </p>
           </div>
@@ -385,8 +385,9 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
                 display: 'flex', 
                 alignItems: 'center', 
                 gap: '1.25rem',
-                backgroundColor: 'rgba(5, 5, 5, 0.5)',
-                border: '1px solid rgba(255,255,255,0.05)',
+                backgroundColor: 'var(--surface-1)',
+                border: '1px solid rgba(184, 134, 11, 0.15)',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.03)',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 cursor: 'pointer'
               }}>
@@ -394,8 +395,8 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
                   <Car size={24} />
                 </div>
                 <div>
-                  <h4 style={{ color: '#fff', fontWeight: 800 }}>我的車庫</h4>
-                  <p style={{ color: '#999', fontSize: '0.8rem' }}>管理車輛資訊及保養記錄</p>
+                  <h4 style={{ color: 'var(--text-primary)', fontWeight: 800 }}>我的車庫</h4>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>管理車輛資訊及保養記錄</p>
                 </div>
               </div>
             </Link>
@@ -407,8 +408,9 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
                 display: 'flex', 
                 alignItems: 'center', 
                 gap: '1.25rem',
-                backgroundColor: 'rgba(5, 5, 5, 0.5)',
-                border: '1px solid rgba(255,255,255,0.05)',
+                backgroundColor: 'var(--surface-1)',
+                border: '1px solid rgba(184, 134, 11, 0.15)',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.03)',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 cursor: 'pointer'
               }}>
@@ -416,8 +418,8 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
                   <Home size={24} />
                 </div>
                 <div>
-                  <h4 style={{ color: '#fff', fontWeight: 800 }}>我的物業</h4>
-                  <p style={{ color: '#999', fontSize: '0.8rem' }}>查看物業細節及相關預約</p>
+                  <h4 style={{ color: 'var(--text-primary)', fontWeight: 800 }}>我的物業</h4>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>查看物業細節及相關預約</p>
                 </div>
               </div>
             </Link>
@@ -456,12 +458,13 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
                 <div key={booking.id} style={{
                   padding: '1.25rem',
                   borderRadius: '16px',
-                  backgroundColor: 'rgba(255,255,255,0.03)',
-                  border: '1px solid var(--border-color)',
+                  backgroundColor: 'white',
+                  border: '1px solid rgba(184, 134, 11, 0.2)',
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  transition: 'background 0.2s'
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
+                  transition: 'all 0.2s'
                 }}>
                   <div>
                     <h4 style={{ fontWeight: 700, marginBottom: '0.25rem' }}>

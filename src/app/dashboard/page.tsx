@@ -16,18 +16,18 @@ export default async function DashboardPage() {
 
   return (
     <div className="animate-fade-up">
-      {/* 🚀 INSTANT SHELL: Obsidian Gold Greeting (0ms) */}
+      {/* 🚀 INSTANT SHELL: Premium Pearl Gold Greeting (0ms) */}
       <section className="glass-panel" style={{ 
         padding: '2.5rem', 
         borderRadius: '32px', 
         marginBottom: '2.5rem',
-        background: 'rgba(5, 5, 5, 0.8)',
-        border: '1px solid rgba(212, 175, 55, 0.2)',
-        boxShadow: '0 20px 50px rgba(0,0,0,0.5), 0 0 20px rgba(212, 175, 55, 0.05)',
+        background: 'linear-gradient(135deg, #ffffff 0%, #fefce8 100%)',
+        border: '1px solid rgba(212, 175, 55, 0.3)',
+        boxShadow: '0 10px 40px rgba(184, 134, 11, 0.08), 0 0 0 1px rgba(184, 134, 11, 0.02)',
         backdropFilter: 'blur(16px)'
       }}>
         <DynamicGreeting userName={userName} />
-        <p style={{ color: '#999', fontSize: '1.1rem', maxWidth: '600px', fontWeight: 500 }}>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', maxWidth: '600px', fontWeight: 500 }}>
           Welcome back to your elite dashboard. Your private concierge is active and synced.
         </p>
       </section>
