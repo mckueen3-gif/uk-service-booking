@@ -25,115 +25,130 @@ export default async function AdminPayoutsPage() {
     .reduce((sum, r) => sum + r.amount, 0);
 
   return (
-    <div className="space-y-8 animate-in slide-in-from-bottom duration-700">
-      {/* Financial Health Snapshot */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-[#d4af37]/20 shadow-xl shadow-[#d4af37]/5">
-           <div className="flex items-center gap-3 mb-4">
-             <div className="p-3 rounded-xl bg-[#d4af37]/10 text-[#d4af37]">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+      {/* Financial Health Snapshot - Physical Grid */}
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+        gap: '1.5rem' 
+      }}>
+        <div style={{ padding: '1.5rem', borderRadius: '1.25rem', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 10px 30px rgba(0,0,0,0.03)' }}>
+           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1rem' }}>
+             <div style={{ padding: '12px', borderRadius: '12px', backgroundColor: 'rgba(212,175,55,0.1)', color: '#d4af37' }}>
                <Clock size={20} />
              </div>
              <div>
-               <h4 className="text-xs font-bold text-gray-500 uppercase tracking-widest">Pending Payouts</h4>
-               <p className="text-2xl font-bold text-white">£{pendingAmount.toLocaleString()}</p>
+               <h4 style={{ fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', margin: 0 }}>Pending Payouts</h4>
+               <p style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0f172a', margin: 0 }}>£{pendingAmount.toLocaleString()}</p>
              </div>
            </div>
-           <div className="h-1 w-full bg-gray-900 rounded-full overflow-hidden">
-             <div className="h-full bg-[#d4af37] w-1/3"></div>
+           <div style={{ height: '4px', width: '100%', backgroundColor: '#f1f5f9', borderRadius: '99px', overflow: 'hidden' }}>
+             <div style={{ height: '100%', backgroundColor: '#d4af37', width: '33%' }}></div>
            </div>
         </div>
 
-        <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-[#1a1a1a]">
-           <div className="flex items-center gap-3 mb-4">
-             <div className="p-3 rounded-xl bg-emerald-500/10 text-emerald-500">
+        <div style={{ padding: '1.5rem', borderRadius: '1.25rem', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 10px 30px rgba(0,0,0,0.03)' }}>
+           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1rem' }}>
+             <div style={{ padding: '12px', borderRadius: '12px', backgroundColor: 'rgba(16, 185, 129, 0.1)', color: '#10b981' }}>
                <CheckCircle2 size={20} />
              </div>
              <div>
-               <h4 className="text-xs font-bold text-gray-500 uppercase tracking-widest">Completed Today</h4>
-               <p className="text-2xl font-bold text-white">£1,240.00</p>
+               <h4 style={{ fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', margin: 0 }}>Completed Today</h4>
+               <p style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0f172a', margin: 0 }}>£1,240.00</p>
              </div>
            </div>
-           <p className="text-xs text-gray-500 flex items-center gap-1">
-             <TrendingUp size={12} className="text-emerald-500" />
+           <p style={{ fontSize: '12px', color: '#64748b', display: 'flex', alignItems: 'center', gap: '4px', margin: 0 }}>
+             <TrendingUp size={12} style={{ color: '#10b981' }} />
              Healthy cash flow confirmed
            </p>
         </div>
 
-        <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-[#1a1a1a]">
-           <div className="flex items-center gap-3 mb-4">
-             <div className="p-3 rounded-xl bg-blue-500/10 text-blue-500">
+        <div style={{ padding: '1.5rem', borderRadius: '1.25rem', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 10px 30px rgba(0,0,0,0.03)' }}>
+           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1rem' }}>
+             <div style={{ padding: '12px', borderRadius: '12px', backgroundColor: 'rgba(59, 130, 246, 0.1)', color: '#3b82f6' }}>
                <History size={20} />
              </div>
              <div>
-               <h4 className="text-xs font-bold text-gray-500 uppercase tracking-widest">Average Processing</h4>
-               <p className="text-2xl font-bold text-white">4.2h</p>
+               <h4 style={{ fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', margin: 0 }}>Average Processing</h4>
+               <p style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0f172a', margin: 0 }}>4.2h</p>
              </div>
            </div>
-           <p className="text-xs text-gray-500">Industry standard: 24-48h</p>
+           <p style={{ fontSize: '12px', color: '#64748b', margin: 0 }}>Industry standard: 24-48h</p>
         </div>
       </div>
 
-      <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-3xl overflow-hidden shadow-2xl">
-        <div className="p-6 border-b border-[#1a1a1a] flex justify-between items-center">
-           <h3 className="text-lg font-bold text-white flex items-center gap-2">
-             <CreditCard className="text-[#d4af37]" size={20} />
+      <div style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '2rem', overflow: 'hidden', boxShadow: '0 10px 40px rgba(0,0,0,0.03)' }}>
+        <div style={{ padding: '1.5rem', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+           <h3 style={{ fontSize: '1.125rem', fontWeight: 800, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '10px', margin: 0 }}>
+             <CreditCard style={{ color: '#d4af37' }} size={20} />
              Withdrawal Adjudication Center
            </h3>
-           <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-red-500/10 text-red-500 text-[10px] font-bold border border-red-500/20 uppercase tracking-widest">
+           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '6px 12px', borderRadius: '0.75rem', backgroundColor: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', fontSize: '10px', fontWeight: 900, border: '1px solid rgba(239,68,68,0.2)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
              <AlertTriangle size={14} /> Security Audit Active
            </div>
         </div>
 
-        <table className="w-full text-left border-collapse">
+        <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
           <thead>
-            <tr className="bg-[#111] border-b border-[#1a1a1a]">
-              <th className="p-4 text-[10px] font-black text-gray-600 uppercase tracking-widest">Merchant / Wallet Status</th>
-              <th className="p-4 text-[10px] font-black text-gray-600 uppercase tracking-widest">Request Details</th>
-              <th className="p-4 text-[10px] font-black text-gray-600 uppercase tracking-widest text-center">Security Check</th>
-              <th className="p-4 text-[10px] font-black text-gray-600 uppercase tracking-widest text-right">Action Center</th>
+            <tr style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+              <th style={{ padding: '1rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Merchant / Wallet Status</th>
+              <th style={{ padding: '1rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Request Details</th>
+              <th style={{ padding: '1rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', textAlign: 'center' }}>Security Check</th>
+              <th style={{ padding: '1rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', textAlign: 'right' }}>Action Center</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[#1a1a1a]">
+          <tbody>
             {requests.length === 0 ? (
               <tr>
-                <td colSpan={4} className="p-20 text-center text-gray-600 italic">No withdrawal requests found.</td>
+                <td colSpan={4} style={{ padding: '5rem 0', textAlign: 'center', color: '#94a3b8', fontStyle: 'italic', fontSize: '14px' }}>No withdrawal requests found.</td>
               </tr>
             ) : (
               requests.map((r) => (
-                <tr key={r.id} className="hover:bg-[#141414] transition-colors group">
-                  <td className="p-4">
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-xl bg-[#0a0a0a] border border-[#d4af37]/20 flex items-center justify-center text-[#d4af37] font-bold shadow-inner">
+                <tr key={r.id} style={{ borderBottom: '1px solid #f1f5f9', transition: 'background-color 0.2s' }}>
+                  <td style={{ padding: '1rem' }}>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem' }}>
+                      <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#d4af37', fontWeight: 800 }}>
                         {r.merchant.companyName?.[0]}
                       </div>
                       <div>
-                        <p className="text-sm font-bold text-white group-hover:text-[#d4af37] transition-colors">{r.merchant.companyName}</p>
-                        <div className="flex items-center gap-2 text-[10px] text-gray-500 font-bold uppercase tracking-tighter">
-                          <Wallet size={10} className="text-[#d4af37]" />
+                        <p style={{ fontSize: '0.875rem', fontWeight: 800, color: '#0f172a', margin: 0 }}>{r.merchant.companyName}</p>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '10px', color: '#64748b', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '2px' }}>
+                          <Wallet size={12} style={{ color: '#d4af37' }} />
                           Avail: £{r.merchant.wallet?.availableBalance.toFixed(2)}
                         </div>
                       </div>
                     </div>
                   </td>
-                  <td className="p-4">
-                    <p className="text-lg font-bold text-white tracking-tight">£{r.amount.toLocaleString()}</p>
-                    <p className="text-[10px] text-gray-600 font-bold uppercase tracking-widest">{format(new Date(r.createdAt), 'yyyy-MM-dd HH:mm')}</p>
+                  <td style={{ padding: '1rem' }}>
+                    <p style={{ fontSize: '1.125rem', fontWeight: 900, color: '#0f172a', margin: 0 }}>£{r.amount.toLocaleString()}</p>
+                    <p style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '2px', margin: 0 }}>{format(new Date(r.createdAt), 'yyyy-MM-dd HH:mm')}</p>
                   </td>
-                  <td className="p-4 text-center">
+                  <td style={{ padding: '1rem', textAlign: 'center' }}>
                     {r.status === "PENDING" ? (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/10 text-orange-500 text-[10px] font-black border border-orange-500/20 uppercase tracking-widest">
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '4px 12px', borderRadius: '99px', backgroundColor: 'rgba(249, 115, 22, 0.1)', color: '#f97316', fontSize: '10px', fontWeight: 900, border: '1px solid rgba(249,115,22,0.2)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
                         <Clock size={12} /> Awaiting Approval
                       </span>
                     ) : (
-                      <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black border uppercase tracking-widest ${
-                        r.status === "COMPLETED" || r.status === "APPROVED" ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : 'bg-red-500/10 text-red-500 border-red-500/20'
-                      }`}>
+                      <span style={{ 
+                        display: 'inline-flex', 
+                        alignItems: 'center', 
+                        gap: '6px', 
+                        padding: '4px 12px', 
+                        borderRadius: '99px', 
+                        fontSize: '10px', 
+                        fontWeight: 900, 
+                        border: '1px solid rgba(0,0,0,0.1)', 
+                        textTransform: 'uppercase', 
+                        letterSpacing: '0.1em',
+                        backgroundColor: (r.status === "COMPLETED" || r.status === "APPROVED") ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+                        color: (r.status === "COMPLETED" || r.status === "APPROVED") ? '#10b981' : '#ef4444'
+                      }}>
                         {r.status === "COMPLETED" ? <CheckCircle2 size={12} /> : <XCircle size={12} />}
                         {r.status}
                       </span>
                     )}
                   </td>
-                  <td className="p-4 text-right">
+                  <td style={{ padding: '1rem', textAlign: 'right' }}>
                     {r.status === "PENDING" && (
                       <PayoutButtons requestId={r.id} />
                     )}

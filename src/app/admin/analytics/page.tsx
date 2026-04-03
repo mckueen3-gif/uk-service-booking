@@ -39,9 +39,9 @@ export default function AnalyticsPage() {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] text-[#d4af37]">
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', color: '#d4af37' }}>
         <Loader2 className="animate-spin mb-4" size={40} />
-        <p className="text-sm font-bold uppercase tracking-widest animate-pulse">Synchronizing Neural Data...</p>
+        <p style={{ fontSize: '10px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.2em' }}>Synchronizing Neural Data...</p>
       </div>
     );
   }
@@ -50,10 +50,14 @@ export default function AnalyticsPage() {
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="space-y-8"
+      style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}
     >
-      {/* Stats Summary Bar */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Stats Summary Bar - Physical Grid */}
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+        gap: '1.5rem' 
+      }}>
          <MetricBox 
            icon={<Wallet size={20} />} 
            label="Total GMV (30d)" 
@@ -75,17 +79,24 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Main GMV Trend Area Chart */}
-      <div className="p-8 rounded-3xl bg-[#0d0d0d] border border-[#1a1a1a] shadow-2xl relative overflow-hidden group">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-[#d4af37]/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 group-hover:bg-[#d4af37]/10 transition-colors"></div>
-        <div className="flex justify-between items-center mb-10">
+      <div style={{ 
+        padding: '2rem', 
+        borderRadius: '1.5rem', 
+        backgroundColor: '#ffffff', 
+        border: '1px solid #e2e8f0', 
+        boxShadow: '0 20px 40px rgba(0,0,0,0.05)',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
           <div>
-            <h3 className="text-xl font-bold text-white mb-1 flex items-center gap-2">
-              <TrendingUp className="text-[#d4af37]" />
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '0.75rem', margin: 0 }}>
+              <TrendingUp style={{ color: '#d4af37' }} />
               Gross Merchandise Value (GMV)
             </h3>
-            <p className="text-gray-500 text-sm italic">Aggregate booking value trends for the last 30 days.</p>
+            <p style={{ color: '#94a3b8', fontSize: '0.875rem', fontStyle: 'italic', margin: 0 }}>Aggregate booking value trends for the last 30 days.</p>
           </div>
-          <div className="flex items-center gap-2 px-3 py-1 bg-[#d4af37]/10 border border-[#d4af37]/20 rounded-full text-[10px] font-bold text-[#d4af37] uppercase tracking-widest">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '2px', paddingLeft: '8px', paddingRight: '8px', paddingTop: '4px', paddingBottom: '4px', backgroundColor: 'rgba(212,175,55,0.1)', border: '1px solid rgba(212,175,55,0.2)', borderRadius: '999px', fontSize: '10px', fontWeight: 700, color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             Live Stream Active
           </div>
         </div>
@@ -122,11 +133,15 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Grid for Distribution and Volume */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', 
+        gap: '2rem' 
+      }}>
         {/* Sector Distribution Pie Chart */}
-        <div className="p-6 rounded-3xl bg-[#0d0d0d] border border-[#1a1a1a] shadow-xl">
-          <h4 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">Sector Distribution</h4>
-          <div className="h-[300px]">
+        <div style={{ padding: '1.5rem', borderRadius: '1.5rem', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 10px 25px rgba(0,0,0,0.03)' }}>
+          <h4 style={{ fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1.5rem', margin: 0 }}>Sector Distribution</h4>
+          <div style={{ height: '300px' }}>
              <ResponsiveContainer width="100%" height="100%">
                <PieChart>
                  <Pie
@@ -143,8 +158,8 @@ export default function AnalyticsPage() {
                    ))}
                  </Pie>
                  <Tooltip 
-                   contentStyle={{ backgroundColor: '#0a0a0a', border: '1px solid #1a1a1a', borderRadius: '8px' }}
-                   itemStyle={{ fontSize: '12px' }}
+                   contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', boxShadow: '0 10px 20px rgba(0,0,0,0.1)' }}
+                   itemStyle={{ fontSize: '12px', fontWeight: 600 }}
                  />
                  <Legend verticalAlign="bottom" height={36}/>
                </PieChart>
@@ -153,19 +168,19 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Volume Bar Chart */}
-        <div className="p-6 rounded-3xl bg-[#0d0d0d] border border-[#1a1a1a] shadow-xl">
-           <h4 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">Booking Volume</h4>
-           <div className="h-[300px]">
+        <div style={{ padding: '1.5rem', borderRadius: '1.5rem', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 10px 25px rgba(0,0,0,0.03)' }}>
+           <h4 style={{ fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1.5rem', margin: 0 }}>Booking Volume</h4>
+           <div style={{ height: '300px' }}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={data.dailyTrend}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#1a1a1a" vertical={false} />
-                  <XAxis dataKey="date" stroke="#4a4a4a" fontSize={10} axisLine={false} tickLine={false} />
-                  <YAxis stroke="#4a4a4a" fontSize={10} axisLine={false} tickLine={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                  <XAxis dataKey="date" stroke="#94a3b8" fontSize={10} axisLine={false} tickLine={false} />
+                  <YAxis stroke="#94a3b8" fontSize={10} axisLine={false} tickLine={false} />
                   <Tooltip 
-                    contentStyle={{ backgroundColor: '#0a0a0a', border: '1px solid #1a1a1a', borderRadius: '8px' }}
-                    cursor={{fill: '#1a1a1a'}}
+                    contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', boxShadow: '0 10px 20px rgba(0,0,0,0.1)' }}
+                    cursor={{fill: '#f8fafc'}}
                   />
-                  <Bar dataKey="bookings" fill="#aa8b2c" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="bookings" fill="#d4af37" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
            </div>
@@ -177,14 +192,22 @@ export default function AnalyticsPage() {
 
 function MetricBox({ icon, label, value, sub }: any) {
   return (
-    <div className="p-6 rounded-3xl bg-[#0d0d0d] border border-[#1a1a1a] hover:border-[#d4af37]/30 transition-all group overflow-hidden relative">
-      <div className="absolute top-0 right-0 p-8 opacity-[0.05] group-hover:scale-125 transition-transform duration-700 text-[#d4af37]">
+    <div style={{ 
+      padding: '1.5rem', 
+      borderRadius: '1.5rem', 
+      backgroundColor: '#ffffff', 
+      border: '1px solid #e2e8f0', 
+      position: 'relative',
+      overflow: 'hidden',
+      boxShadow: '0 4px 6px -1px rgba(0,0,0,0.01)'
+    }}>
+      <div style={{ position: 'absolute', top: 0, right: 0, padding: '2rem', opacity: 0.1, color: '#d4af37' }}>
         {icon}
       </div>
-      <div className="relative z-10">
-        <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-1">{label}</p>
-        <p className="text-3xl font-black text-white group-hover:text-[#d4af37] transition-colors">{value}</p>
-        <p className="text-[10px] text-gray-600 mt-1 font-bold uppercase">{sub}</p>
+      <div style={{ position: 'relative', zIndex: 10 }}>
+        <p style={{ fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem', margin: 0 }}>{label}</p>
+        <p style={{ fontSize: '1.875rem', fontWeight: 800, color: '#0f172a', margin: 0 }}>{value}</p>
+        <p style={{ fontSize: '10px', color: '#64748b', marginTop: '4px', fontWeight: 700, textTransform: 'uppercase', margin: 0 }}>{sub}</p>
       </div>
     </div>
   );

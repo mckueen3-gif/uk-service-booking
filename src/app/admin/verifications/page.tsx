@@ -22,30 +22,52 @@ export default async function VerificationsPage() {
   });
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center bg-[#0d0d0d] p-6 rounded-2xl border border-[#1a1a1a] mb-8">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
+        backgroundColor: '#ffffff', 
+        padding: '1.5rem', 
+        borderRadius: '1.25rem', 
+        border: '1px solid #e2e8f0', 
+        marginBottom: '1rem',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
+      }}>
         <div>
-          <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <ShieldCheck className="text-[#d4af37]" />
+          <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.75rem', margin: 0 }}>
+            <ShieldCheck style={{ color: '#d4af37' }} size={20} />
             Expert Verification Queue
           </h2>
-          <p className="text-sm text-gray-500 mt-1">Review licenses, insurance, and background checks manually.</p>
+          <p style={{ fontSize: '0.875rem', color: '#94a3b8', marginTop: '4px', margin: 0 }}>Review licenses, insurance, and background checks manually.</p>
         </div>
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
+        <div style={{ position: 'relative' }}>
+          <Search style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} size={18} />
           <input 
             type="text" 
             placeholder="Search merchants..." 
-            className="pl-10 pr-4 py-2 bg-[#141414] border border-[#1a1a1a] rounded-xl text-sm focus:border-[#d4af37] outline-none transition-all w-64"
+            style={{ 
+              paddingLeft: '40px', 
+              paddingRight: '16px', 
+              paddingTop: '8px', 
+              paddingBottom: '8px', 
+              backgroundColor: '#f8fafc', 
+              border: '1px solid #e2e8f0', 
+              borderRadius: '0.75rem', 
+              fontSize: '14px', 
+              color: '#0f172a',
+              outline: 'none',
+              width: '260px'
+            }}
           />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-4">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         {pendingDocs.length === 0 ? (
-          <div className="p-20 text-center rounded-3xl border border-[#1a1a1a] bg-[#0d0d0d]">
-             <CheckCircle2 size={48} className="mx-auto text-emerald-500 mb-4 opacity-20" />
-             <p className="text-gray-500 text-lg">No pending verifications found.</p>
+          <div style={{ padding: '5rem 0', textAlign: 'center', borderRadius: '1.5rem', border: '1px solid #e2e8f0', backgroundColor: '#ffffff' }}>
+             <CheckCircle2 size={48} style={{ margin: '0 auto', color: '#10b981', marginBottom: '1rem', opacity: 0.2 }} />
+             <p style={{ color: '#94a3b8', fontSize: '1.125rem', fontWeight: 600 }}>No pending verifications found.</p>
           </div>
         ) : (
           pendingDocs.map((doc) => (
@@ -61,46 +83,80 @@ function VerificationRow({ doc }: any) {
   const isHighConfidence = doc.confidence && doc.confidence > 0.8;
   
   return (
-    <div className="group bg-[#0d0d0d] border border-[#1a1a1a] rounded-2xl p-6 hover:border-[#d4af37]/30 transition-all shadow-lg">
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-        <div className="flex items-start gap-4">
-          <div className="w-12 h-12 rounded-xl bg-[#141414] border border-[#1a1a1a] flex items-center justify-center text-[#d4af37]">
+    <div style={{ 
+      backgroundColor: '#ffffff', 
+      border: '1px solid #e2e8f0', 
+      borderRadius: '1.25rem', 
+      padding: '1.5rem', 
+      boxShadow: '0 4px 6px rgba(0,0,0,0.01)',
+      transition: 'all 0.2s'
+    }}>
+      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: '1.5rem' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1.25rem' }}>
+          <div style={{ width: '48px', height: '48px', borderRadius: '0.75rem', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#d4af37' }}>
             <FileText size={24} />
           </div>
           <div>
-            <div className="flex items-center gap-2 mb-1">
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#d4af37]/10 text-[#d4af37] border border-[#d4af37]/20">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+              <span style={{ padding: '2px 8px', borderRadius: '99px', fontSize: '10px', fontWeight: 800, backgroundColor: 'rgba(212,175,55,0.1)', color: '#d4af37', border: '1px solid rgba(212,175,55,0.2)', textTransform: 'uppercase' }}>
                 {doc.type.replace('_', ' ')}
               </span>
-              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
-                doc.status === 'PENDING' ? 'bg-orange-500/10 text-orange-500 border border-orange-500/20' : 'bg-blue-500/10 text-blue-500 border border-blue-500/20'
-              }`}>
+              <span style={{ 
+                padding: '2px 8px', 
+                borderRadius: '99px', 
+                fontSize: '10px', 
+                fontWeight: 800, 
+                textTransform: 'uppercase',
+                backgroundColor: doc.status === 'PENDING' ? 'rgba(249, 115, 22, 0.1)' : 'rgba(59, 130, 246, 0.1)',
+                color: doc.status === 'PENDING' ? '#f97316' : '#3b82f6',
+                border: doc.status === 'PENDING' ? '1px solid rgba(249,115,22,0.2)' : '1px solid rgba(59,130,246,0.2)'
+              }}>
                 {doc.status.replace('_', ' ')}
               </span>
             </div>
-            <h3 className="text-white font-bold text-lg">{doc.merchant.companyName}</h3>
-            <p className="text-xs text-gray-500 mt-1">Submitted: {format(new Date(doc.createdAt), 'yyyy-MM-dd HH:mm')}</p>
+            <h3 style={{ margin: 0, color: '#0f172a', fontWeight: 800, fontSize: '1.125rem' }}>{doc.merchant.companyName}</h3>
+            <p style={{ margin: '4px 0 0 0', fontSize: '12px', color: '#94a3b8' }}>Submitted: {format(new Date(doc.createdAt), 'yyyy-MM-dd HH:mm')}</p>
           </div>
         </div>
 
-        {/* AI Insight Bridge */}
-        <div className="flex-1 max-w-md p-4 rounded-xl bg-[#141414] border border-white/5 mx-auto">
-          <div className="flex justify-between items-center mb-3">
-            <span className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">AI Extraction Result</span>
-            <div className={`flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded ${
-              isHighConfidence ? 'bg-emerald-500/10 text-emerald-500' : 'bg-red-500/10 text-red-500'
-            }`}>
+        {/* AI Insight Bridge - Physical Background */}
+        <div style={{ 
+          flex: 1, 
+          maxWidth: '440px', 
+          padding: '1rem', 
+          borderRadius: '1rem', 
+          backgroundColor: '#f8fafc', 
+          border: '1px solid #e2e8f0'
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+            <span style={{ fontSize: '10px', fontWeight: 900, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.1em' }}>AI Extraction Result</span>
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '4px', 
+              fontSize: '10px', 
+              fontWeight: 800, 
+              padding: '2px 6px', 
+              borderRadius: '4px',
+              backgroundColor: isHighConfidence ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+              color: isHighConfidence ? '#10b981' : '#ef4444'
+            }}>
               {Math.round((doc.confidence || 0) * 100)}% Confidence
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
              <div>
-               <p className="text-[10px] text-gray-500 font-bold uppercase">Reg #</p>
-               <p className="text-sm font-mono text-[#e5e5e5]">{doc.registrationNumber || 'NOT FOUND'}</p>
+               <p style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 900, textTransform: 'uppercase', margin: 0 }}>Reg #</p>
+               <p style={{ fontSize: '14px', fontFamily: 'monospace', color: '#334155', fontWeight: 700, margin: '2px 0 0 0' }}>{doc.registrationNumber || 'NOT FOUND'}</p>
              </div>
              <div>
-               <p className="text-[10px] text-gray-500 font-bold uppercase">Expiry</p>
-               <p className={`text-sm font-bold ${doc.expiryDate && new Date(doc.expiryDate) < new Date() ? 'text-red-500' : 'text-gray-100'}`}>
+               <p style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 900, textTransform: 'uppercase', margin: 0 }}>Expiry</p>
+               <p style={{ 
+                 fontSize: '14px', 
+                 fontWeight: 800, 
+                 margin: '2px 0 0 0',
+                 color: doc.expiryDate && new Date(doc.expiryDate) < new Date() ? '#ef4444' : '#0f172a'
+               }}>
                  {doc.expiryDate ? format(new Date(doc.expiryDate), 'yyyy-MM-dd') : 'UNKNOWN'}
                </p>
              </div>
@@ -108,15 +164,27 @@ function VerificationRow({ doc }: any) {
         </div>
 
         {/* Action Center Container */}
-        <div className="flex items-center gap-2">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <Link 
             href={doc.fileUrl} 
             target="_blank"
-            className="p-3 bg-[#111] hover:bg-[#1a1a1a] border border-white/5 rounded-xl text-gray-400 hover:text-white transition-all flex items-center gap-2 text-sm font-bold"
+            style={{ 
+              padding: '12px 20px', 
+              backgroundColor: '#ffffff', 
+              border: '1px solid #d4af37', 
+              borderRadius: '0.75rem', 
+              color: '#d4af37', 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '8px', 
+              fontSize: '14px', 
+              fontWeight: 800,
+              textDecoration: 'none'
+            }}
           >
             <Eye size={16} /> Inspect
           </Link>
-          <div className="h-8 w-px bg-gray-800 mx-2 hidden lg:block"></div>
+          <div style={{ width: '1px', height: '32px', backgroundColor: '#e2e8f0', margin: '0 8px' }}></div>
           <VerificationButtons documentId={doc.id} />
         </div>
       </div>

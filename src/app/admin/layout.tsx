@@ -62,28 +62,53 @@ export default async function AdminLayout({
           <span style={{ fontWeight: 'bold', fontSize: '1.25rem', color: '#d4af37' }}>ADMIN <span style={{ color: '#0f172a' }}>UK</span></span>
         </div>
 
-        <nav className="flex-1 p-4 space-y-1 mt-4 overflow-y-auto custom-scrollbar">
+        <nav style={{ 
+          flex: 1, 
+          padding: '1rem', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          gap: '4px', 
+          marginTop: '1rem', 
+          overflowY: 'auto' 
+        }}>
           <AdminNavLink href="/admin" icon={<LayoutDashboard size={20} />} label="Overview" />
           <AdminNavLink href="/admin/analytics" icon={<BarChart3 size={20} />} label="Analytics" />
           <AdminNavLink href="/admin/bookings" icon={<CalendarDays size={20} />} label="Bookings" />
           <AdminNavLink href="/admin/verifications" icon={<ShieldCheck size={20} />} label="Verifications" badge="3" />
           <AdminNavLink href="/admin/disputes" icon={<Gavel size={20} />} label="Disputes" badge="Review" />
-          <div className="py-2 border-t border-white/5 my-2"></div>
+          <div style={{ height: '1px', backgroundColor: '#f1f5f9', margin: '0.5rem 0' }}></div>
           <AdminNavLink href="/admin/merchants" icon={<Users size={20} />} label="Experts" />
           <AdminNavLink href="/admin/payouts" icon={<CreditCard size={20} />} label="Payouts" badge="New" />
           <AdminNavLink href="/admin/settings" icon={<Settings size={20} />} label="Settings" />
         </nav>
 
-        <div style={{ padding: '1rem', borderTop: '1px solid var(--border-color)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.75rem', borderRadius: '12px', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)' }}>
-            <div className="w-10 h-10 rounded-full bg-gray-800 border border-[#d4af37]/20 flex items-center justify-center">
-              <span className="text-xs font-bold text-[#d4af37]">AD</span>
+        <div style={{ padding: '1rem', borderTop: '1px solid #e2e8f0' }}>
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '12px', 
+            padding: '12px', 
+            borderRadius: '12px', 
+            backgroundColor: '#f8fafc', 
+            border: '1px solid #e2e8f0' 
+          }}>
+            <div style={{ 
+              width: '40px', 
+              height: '40px', 
+              borderRadius: '99px', 
+              backgroundColor: '#0f172a', 
+              border: '1px solid rgba(212,175,55,0.2)', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center' 
+            }}>
+              <span style={{ fontSize: '12px', fontWeight: 900, color: '#d4af37' }}>AD</span>
             </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold truncate text-slate-900 dark:text-[#e5e5e5]">{session.user.name || "Administrator"}</p>
-              <p className="text-[10px] text-slate-400 dark:text-gray-500 uppercase tracking-widest font-bold">Terminal Access</p>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <p style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: 0 }}>{session.user.name || "Administrator"}</p>
+              <p style={{ fontSize: '10px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800, margin: 0 }}>Terminal Access</p>
             </div>
-            <Link href="/api/auth/signout" className="p-2 text-gray-500 hover:text-white transition-colors">
+            <Link href="/api/auth/signout" style={{ color: '#64748b' }}>
               <LogOut size={16} />
             </Link>
           </div>

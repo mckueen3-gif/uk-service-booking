@@ -30,29 +30,46 @@ export default async function AdminDisputesPage() {
   });
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center bg-[#0d0d0d] p-6 rounded-3xl border border-[#1a1a1a] mb-8">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
+        backgroundColor: '#ffffff', 
+        padding: '1.5rem', 
+        borderRadius: '1.5rem', 
+        border: '1px solid #e2e8f0', 
+        marginBottom: '1rem',
+        boxShadow: '0 10px 40px rgba(0,0,0,0.04)'
+      }}>
         <div>
-          <h2 className="text-xl font-black text-white flex items-center gap-2">
-            <Gavel className="text-[#d4af37]" />
+          <h2 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.75rem', margin: 0 }}>
+            <Gavel style={{ color: '#d4af37' }} />
             Arbitration Tribunal
           </h2>
-          <p className="text-xs text-gray-500 mt-1 uppercase tracking-widest font-bold font-mono">Dispute Resolution Command Center</p>
+          <p style={{ fontSize: '10px', color: '#94a3b8', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.2em', fontWeight: 800, margin: 0, fontFamily: 'monospace' }}>Dispute Resolution Command Center</p>
         </div>
-        <div className="flex gap-4">
-           <div className="text-right">
-             <p className="text-[10px] text-gray-500 font-bold uppercase tracking-[0.2em]">Active Cases</p>
-             <p className="text-xl font-black text-[#d4af37]">{disputes.length}</p>
+        <div style={{ display: 'flex', gap: '1rem' }}>
+           <div style={{ textAlign: 'right' }}>
+             <p style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', margin: 0 }}>Active Cases</p>
+             <p style={{ fontSize: '1.5rem', fontWeight: 900, color: '#d4af37', margin: 0 }}>{disputes.length}</p>
            </div>
         </div>
       </div>
 
-      <div className="space-y-8">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
         {disputes.length === 0 ? (
-          <div className="p-32 text-center rounded-[3rem] border border-[#1a1a1a] bg-[#0d0d0d] shadow-inner">
-             <CheckCircle2 size={64} className="mx-auto text-[#d4af37] mb-6 opacity-20" />
-             <p className="text-gray-500 text-lg font-bold">No active disputes requiring human intervention.</p>
-             <p className="text-sm text-gray-600 mt-2 italic">Neural networks are handling low-risk cases automatically.</p>
+          <div style={{ 
+            padding: '8rem 0', 
+            textAlign: 'center', 
+            borderRadius: '2.5rem', 
+            border: '1px solid #e2e8f0', 
+            backgroundColor: '#ffffff',
+            boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.02)'
+          }}>
+             <CheckCircle2 size={64} style={{ margin: '0 auto', color: '#d4af37', marginBottom: '1.5rem', opacity: 0.2 }} />
+             <p style={{ color: '#0f172a', fontSize: '1.25rem', fontWeight: 800, margin: 0 }}>No active disputes requiring human intervention.</p>
+             <p style={{ color: '#94a3b8', fontSize: '0.875rem', marginTop: '0.5rem', fontStyle: 'italic', margin: 0 }}>Neural networks are handling low-risk cases automatically.</p>
           </div>
         ) : (
           disputes.map((dispute) => (
@@ -66,62 +83,70 @@ export default async function AdminDisputesPage() {
 
 function DisputeCard({ dispute }: any) {
   return (
-    <div className="bg-[#0d0d0d] border border-[#d4af37]/20 rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden group">
-      <div className="absolute top-0 right-0 p-12 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
+    <div style={{ 
+      backgroundColor: '#ffffff', 
+      border: '1px solid #e2e8f0', 
+      borderRadius: '2rem', 
+      padding: '2rem', 
+      boxShadow: '0 20px 50px rgba(0,0,0,0.04)',
+      position: 'relative',
+      overflow: 'hidden'
+    }}>
+      <div style={{ position: 'absolute', top: 0, right: 0, padding: '3rem', opacity: 0.03, color: '#0f172a' }}>
         <Gavel size={120} />
       </div>
 
-      <div className="flex flex-col xl:flex-row gap-12 relative z-10">
+      <div style={{ display: 'flex', flexDirection: 'row', gap: '3rem', position: 'relative', zIndex: 10 }}>
         {/* Left Side: Context & AI Reasoning */}
-        <div className="flex-1 space-y-6">
-          <div className="flex items-center gap-3 mb-6">
-             <span className="px-3 py-1 bg-red-500/10 text-red-500 text-[10px] font-black border border-red-500/20 rounded-full uppercase tracking-widest">Case #DIS-{dispute.id.slice(-6).toUpperCase()}</span>
-             <span className="text-gray-600 text-xs font-bold">{format(new Date(dispute.createdAt), 'MMM dd, HH:mm')}</span>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+             <span style={{ padding: '4px 12px', backgroundColor: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', fontSize: '10px', fontWeight: 900, border: '1px solid rgba(239,68,68,0.2)', borderRadius: '99px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Case #DIS-{dispute.id.slice(-6).toUpperCase()}</span>
+             <span style={{ color: '#94a3b8', fontSize: '12px', fontWeight: 700 }}>{format(new Date(dispute.createdAt), 'MMM dd, HH:mm')}</span>
           </div>
 
           <div>
-             <h3 className="text-2xl font-black text-white leading-tight">
-               {dispute.booking.customer.name} <span className="text-[#d4af37] mx-2">vs</span> {dispute.booking.merchant.companyName}
+             <h3 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0f172a', lineHeight: 1.2, margin: 0 }}>
+                {dispute.booking.customer.name} <span style={{ color: '#d4af37', margin: '0 8px' }}>vs</span> {dispute.booking.merchant.companyName}
              </h3>
-             <p className="text-gray-500 text-sm mt-2 italic">Reason for dispute: {dispute.reason}</p>
+             <p style={{ color: '#64748b', fontSize: '0.875rem', marginTop: '8px', fontStyle: 'italic', margin: 0 }}>Reason for dispute: {dispute.reason}</p>
           </div>
 
-          <div className="p-6 rounded-3xl bg-[#141414] border border-[#d4af37]/10 relative group/ai">
-             <div className="flex items-center gap-2 mb-4">
-                <div className="p-1.5 rounded-lg bg-[#d4af37] text-black">
+          <div style={{ padding: '1.5rem', borderRadius: '1.5rem', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}>
+             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
+                <div style={{ padding: '6px', borderRadius: '6px', backgroundColor: '#d4af37', color: '#ffffff' }}>
                    <AlertTriangle size={14} />
                 </div>
-                <h4 className="text-[10px] font-black text-[#d4af37] uppercase tracking-[0.2em]">AI Arbiter Premise</h4>
+                <h4 style={{ fontSize: '10px', fontWeight: 900, color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.15em', margin: 0 }}>AI Arbiter Premise</h4>
              </div>
-             <p className="text-sm text-[#e5e5e5] leading-relaxed italic">
+             <p style={{ fontSize: '0.875rem', color: '#334155', lineHeight: 1.6, fontStyle: 'italic', margin: 0 }}>
                "{dispute.aiReasoning || "Awaiting secondary neural analysis for this case context."}"
              </p>
-             <div className="mt-4 flex items-center gap-4">
-                <div className="flex-1 h-1 bg-gray-900 rounded-full overflow-hidden">
-                   <div className="h-full bg-[#d4af37] w-3/4"></div>
+             <div style={{ marginTop: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <div style={{ flex: 1, height: '4px', backgroundColor: '#e2e8f0', borderRadius: '99px', overflow: 'hidden' }}>
+                    <div style={{ height: '100%', backgroundColor: '#d4af37', width: '75%' }}></div>
                 </div>
-                <span className="text-[10px] font-black text-gray-500 uppercase">AI Confidence: 75%</span>
+                <span style={{ fontSize: '10px', fontWeight: 900, color: '#64748b', textTransform: 'uppercase' }}>AI Confidence: 75%</span>
              </div>
           </div>
         </div>
 
         {/* Middle: Evidence Gallery */}
-        <div className="w-full xl:w-80">
-          <h4 className="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-4 flex items-center gap-2">
-            <ImageIcon size={14} className="text-[#d4af37]" />
+        <div style={{ width: '320px' }}>
+          <h4 style={{ fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '8px', margin: 0 }}>
+            <ImageIcon size={14} style={{ color: '#d4af37' }} />
             Evidence Gallery
           </h4>
-          <div className="grid grid-cols-2 gap-3">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
              {dispute.evidence.length === 0 ? (
-               <div className="col-span-2 p-10 border border-dashed border-[#1a1a1a] rounded-2xl text-center text-gray-700">
+               <div style={{ gridColumn: 'span 2', padding: '2.5rem 0', border: '1px dashed #e2e8f0', borderRadius: '1rem', textAlign: 'center', color: '#94a3b8', fontSize: '12px' }}>
                   No visual proof provided.
                </div>
              ) : (
                dispute.evidence.map((ev: any, idx: number) => (
-                 <div key={idx} className="aspect-square rounded-2xl bg-gray-900 overflow-hidden border border-white/5 hover:border-[#d4af37]/30 transition-all cursor-zoom-in relative group/img">
-                    <img src={ev.fileUrl} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" />
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                       <span className="text-[10px] font-bold text-white uppercase">{ev.type}</span>
+                 <div key={idx} style={{ aspectRatio: '1/1', borderRadius: '1rem', backgroundColor: '#f1f5f9', overflow: 'hidden', border: '1px solid #e2e8f0', cursor: 'zoom-in', position: 'relative' }}>
+                    <img src={ev.fileUrl} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, backgroundColor: 'rgba(0,0,0,0.5)', padding: '4px', textAlign: 'center' }}>
+                       <span style={{ fontSize: '8px', fontWeight: 700, color: '#ffffff', textTransform: 'uppercase' }}>{ev.type}</span>
                     </div>
                  </div>
                ))
@@ -130,8 +155,8 @@ function DisputeCard({ dispute }: any) {
         </div>
 
         {/* Right Side: Decisions */}
-        <div className="w-full xl:w-64 border-t xl:border-t-0 xl:border-l border-[#1a1a1a] pt-8 xl:pt-0 xl:pl-8 flex flex-col justify-center">
-           <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-6 block text-center xl:text-left">Human Verdict Required</h4>
+        <div style={{ width: '260px', borderLeft: '1px solid #e2e8f0', paddingLeft: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+           <h4 style={{ fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1.5rem', margin: 0 }}>Human Verdict Required</h4>
            <DisputeActions disputeId={dispute.id} />
         </div>
       </div>
