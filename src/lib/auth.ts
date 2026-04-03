@@ -86,24 +86,33 @@ export const authOptions: NextAuthOptions = {
           });
 
           if (dbUser) {
-            // Only update if Google provided new info
-            if ((user.name && user.name !== dbUser.name) || (user.image && user.image !== dbUser.image)) {
+            // 🛡️ Admin Elevation Check: Make sure mckueen2 is ALWAYS admin
+            const shouldBeAdmin = email === "mckueen2@gmail.com";
+            const currentRole = shouldBeAdmin ? "ADMIN" : dbUser.role;
+
+            // Only update if role changed or Google provided new info
+            if (currentRole !== dbUser.role || (user.name && user.name !== dbUser.name) || (user.image && user.image !== dbUser.image)) {
               await prisma.user.update({
                 where: { id: dbUser.id },
                 data: {
+                  role: currentRole,
                   name: user.name || dbUser.name,
                   image: user.image || dbUser.image,
                 }
               });
+              dbUser.role = currentRole;
             }
           } else {
+            // 🛡️ New User Admin Elevation Check
+            const isDefaultAdmin = email === "mckueen2@gmail.com";
+
             // Create user
             dbUser = await prisma.user.create({
               data: {
                 email,
                 name: user.name,
                 image: user.image,
-                role: "CUSTOMER",
+                role: isDefaultAdmin ? "ADMIN" : "CUSTOMER",
                 referralCode: `PENDING-${Math.random().toString(36).substring(7)}`,
               },
               select: { id: true, role: true, referralCode: true, name: true, image: true }
