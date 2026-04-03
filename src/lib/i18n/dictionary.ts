@@ -163,6 +163,25 @@ export interface Dictionary {
     users: { title: string; sub: string; stats: string; registeredAt: string; referrals: string };
     commissions: { title: string; sub: string; plateformFee: string; marketplaceFee: string; adminControl: string };
   };
+  auth: {
+    login: {
+      title: string;
+      subtitle: string;
+      emailLabel: string;
+      emailPlaceholder: string;
+      passwordLabel: string;
+      passwordPlaceholder: string;
+      forgotPassword: string;
+      submit: string;
+      loading: string;
+      or: string;
+      google: string;
+      navToRegister: string;
+      createAccount: string;
+      error: string;
+      success: string;
+    }
+  };
 }
 
 export const dictionaries: Record<string, Dictionary> = {

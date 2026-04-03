@@ -203,8 +203,27 @@ export const en: Dictionary = {
     bookings: { title: "Booking Command Hub", sub: "Neural Booking Registry", search: "Search Bookings...", id: "Booking ID", customer: "Customer", amount: "Amount", status: "Status", service: "Service" },
     verifications: { title: "Verification Adjudication", sub: "Identity Document Integrity Review", evidence: "Identity Evidence", extraction: "AI Extraction Result", passport: "Passport", faceMatch: "Face Match", confidence: "Confidence" },
     disputes: { title: "Arbitration Tribunal", sub: "Dispute Resolution & Evidence Audit", reasoning: "AI Arbiter Reasoning", gallery: "Evidence Gallery", verdict: "Final Verdict", confidence: "AI Confidence" },
-    payouts: { title: "Financial Clearance", snapshot: "Financial Snapshot", pending: "Pending Payouts", volume: "Volume (Total)", security: "Security Audit", adjudication: "Withdrawal Adjudication", method: "Method" },
-    users: { title: "Customer Directory", sub: "User Database & Referral Stats", stats: "Key Stats", registeredAt: "Registered at", referrals: "Referrals Made" },
-    commissions: { title: "Commission Control", sub: "Platform Revenue & Rate Configuration", plateformFee: "Platform Overwrite Fee", marketplaceFee: "Base Marketplace Fee", adminControl: "Admin Control Overwrite" }
+    payouts: { title: "Financial Clearance Center", snapshot: "Financial Data Snapshot", pending: "Pending Payouts", volume: "Cumulative Volume", security: "Security Audit Status", adjudication: "Payout Review", method: "Payment Method" },
+    users: { title: "Customer Directory", sub: "User Database & Referral Statistics", stats: "Key Metrics", registeredAt: "Registration Time", referrals: "Successful Referrals" },
+    commissions: { title: "Global Commission Control", sub: "Platform Revenue & Base Rate Config", plateformFee: "Admin Override Fee", marketplaceFee: "Base Marketplace Fee", adminControl: "Manual Admin Override" }
+  },
+  auth: {
+    login: {
+      title: "Welcome Back",
+      subtitle: "Reconnect with the UK's leading expert hub.",
+      emailLabel: "Email Address",
+      emailPlaceholder: "you@example.com",
+      passwordLabel: "Password",
+      passwordPlaceholder: "Your password",
+      forgotPassword: "Forgot Password?",
+      submit: "Sign In to Hub",
+      loading: "Authenticating...",
+      or: "or",
+      google: "Continue with Google",
+      navToRegister: "New to the platform?",
+      createAccount: "Create account",
+      error: "Invalid email or password. Please try again.",
+      success: "Account created! Please sign in."
+    }
   }
 };

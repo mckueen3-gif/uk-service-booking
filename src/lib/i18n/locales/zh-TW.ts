@@ -207,5 +207,24 @@ export const zhTW: Dictionary = {
     payouts: { title: "財務清算中心", snapshot: "財務數據快照", pending: "待結算提現", volume: "累計交易量", security: "安全審計狀態", adjudication: "提現申請審核", method: "支付方式" },
     users: { title: "客戶目錄", sub: "用戶數據庫與推薦統計", stats: "關鍵指標", registeredAt: "註冊時間", referrals: "成功推薦次數" },
     commissions: { title: "佣金全局控制", sub: "平台收益率與基礎費率配置", plateformFee: "平台覆寫費率", marketplaceFee: "基礎存量費率", adminControl: "管理員人工覆寫" }
+  },
+  auth: {
+    login: {
+      title: "歡迎回來",
+      subtitle: "重新連接英國領先的專家中心。",
+      emailLabel: "電子郵件地址",
+      emailPlaceholder: "you@example.com",
+      passwordLabel: "密碼",
+      passwordPlaceholder: "您的密碼",
+      forgotPassword: "忘記密碼？",
+      submit: "登入控制面板",
+      loading: "驗證身分中...",
+      or: "或",
+      google: "使用 Google 帳戶繼續",
+      navToRegister: "還沒加入平台？",
+      createAccount: "建立帳戶",
+      error: "電子郵件或密碼無效。請再試一次。",
+      success: "帳戶已建立！請登入。"
+    }
   }
 };
