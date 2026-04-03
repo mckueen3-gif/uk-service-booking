@@ -111,7 +111,7 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
       });
 
       const response = await client.chat.completions.create({
-        model: "grok-4.20-reasoning",
+        model: "grok-4.20-0309-reasoning",
         messages: strictMessages,
         response_format: req.jsonMode ? { type: "json_object" } : undefined,
         temperature: 0.1,
@@ -157,8 +157,7 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
 
       // Part B: Feed Description to Grok 4.20 Reasoning
       if (visualDescription) {
-        console.info("[AI Provider] Step 2: Grok 4.20 Reasoning diagnosing based on visual report...");
-        const url = "https://api.x.ai/v1/responses";
+        console.info("[AI Provider] Step 2: Grok-2-1212 diagnosing based on visual report...");
         
         const combinedPrompt = `
           SYSTEM: ${req.systemPrompt || "You are an expert UK maintenance specialist."}
@@ -176,26 +175,19 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
           TASK: Based on the GROUND TRUTH visual report and user description, perform a professional diagnosis.
         `;
 
-        const res = await fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${process.env.XAI_API_KEY}`
-          },
-          body: JSON.stringify({
-            model: "grok-4.20-reasoning",
-            input: combinedPrompt
-          })
+        const client = await getXAIClient();
+        
+        const response = await client.chat.completions.create({
+          model: "grok-4.20-0309-reasoning",
+          messages: [
+            { role: "system", content: "You are an expert UK maintenance specialist. Strictly follow the provided technical visual report." },
+            { role: "user", content: combinedPrompt }
+          ],
+          response_format: req.jsonMode ? { type: "json_object" } : undefined,
         });
 
-        if (res.ok) {
-          const result = await res.json();
-          const content = result.output?.[0]?.content?.[0]?.text || result.text;
-          if (content) return content;
-        } else {
-          const errText = await res.text();
-          console.warn("[AI Provider] Grok 4.20 Reasoning failed in chain, falling back to other tiers...", res.status, errText);
-        }
+        const content = response.choices[0].message.content;
+        if (content) return content;
       }
     } catch (error: any) {
       console.error("[AI Provider] Vision Reasoning Chain failed:", error);
@@ -205,52 +197,42 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
   // 1. Try Grok 4.20 (Standard Reasoning fallback for text only)
   if (process.env.XAI_API_KEY) {
     try {
-      console.info("[AI Provider] Attempting Tier 1 (xAI Grok 4.20 Reasoning)...");
-      const url = "https://api.x.ai/v1/responses";
+      console.info("[AI Provider] Attempting Tier 1 (xAI Grok-4.20-0309-reasoning)...");
+      const client = await getXAIClient();
       
-      const combinedPrompt = req.systemPrompt 
-        ? `${req.systemPrompt}\n\nUSER REQUEST: ${messages.map(m => m.content).join("\n")}`
-        : messages.map(m => m.content).join("\n");
-
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${process.env.XAI_API_KEY}`
-        },
-        body: JSON.stringify({
-          model: "grok-4.20-reasoning",
-          input: combinedPrompt
-        })
+      const response = await client.chat.completions.create({
+        model: "grok-4.20-0309-reasoning",
+        messages: [
+          ...(req.systemPrompt ? [{ role: "system", content: req.systemPrompt }] : []),
+          ...messages
+        ] as any,
+        response_format: req.jsonMode ? { type: "json_object" } : undefined,
+        temperature: 0.1,
       });
 
-      if (res.ok) {
-        const result = await res.json();
-        const content = result.output?.[0]?.content?.[0]?.text || result.text;
-        if (content) return content;
-      }
+      const content = response.choices[0].message.content;
+      if (content) return content;
     } catch (error: any) {
-      console.error("[AI Provider] Grok 4.20 fallback failed...", error);
+      console.error("[AI Provider] Grok-2-1212 failed...", error);
     }
   }
 
   // 2. Try Grok 3 (Standard Chat)
   if (process.env.XAI_API_KEY) {
     try {
-      console.info("[AI Provider] Attempting Tier 2 (xAI Grok 3)...");
+      console.info("[AI Provider] Attempting Tier 2 (xAI Grok-4-fast-reasoning)...");
       const grokMessages: any[] = [];
       if (req.systemPrompt) {
         grokMessages.push({ role: "system", content: req.systemPrompt });
       }
 
       for (const m of messages) {
-        // Grok-3 on this account doesn't support vision, so we strip images but keep the text
         grokMessages.push({ role: m.role, content: m.content });
       }
 
       const client = await getXAIClient();
       const response = await client.chat.completions.create({
-        model: "grok-3",
+        model: "grok-4-fast-reasoning",
         messages: grokMessages,
         response_format: req.jsonMode ? { type: "json_object" } : undefined,
         temperature: 0.1,
