@@ -46,8 +46,8 @@ export default async function MerchantProfilePage({ params }: { params: Promise<
     "@type": "LocalBusiness",
     "name": merchant.companyName,
     "image": "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=300&q=80",
-    "@id": `https://conciergeai.uk/merchant/${currentMerchantId}`,
-    "url": `https://conciergeai.uk/merchant/${currentMerchantId}`,
+    "@id": `https://uk-service-booking.vercel.app/merchant/${currentMerchantId}`,
+    "url": `https://uk-service-booking.vercel.app/merchant/${currentMerchantId}`,
     "telephone": "+44 20 7946 0000",
     "address": {
       "@type": "PostalAddress",

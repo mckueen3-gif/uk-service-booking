@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   title: "ConciergeAI | Professional UK Service Booking",
   description: "Book verified electricians, plumbers, and home cleaners in the UK instantly.",
   alternates: {
-    canonical: 'https://conciergeai.uk',
+    canonical: 'https://uk-service-booking.vercel.app',
   },
 };
 

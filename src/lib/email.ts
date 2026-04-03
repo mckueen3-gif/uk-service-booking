@@ -20,7 +20,7 @@ export async function sendPlatformEmail({
 
   try {
     const data = await resend.emails.send({
-      from: 'ConciergeAI <noreply@conciergeai.uk>', // Updated to new official domain
+      from: 'ConciergeAI <noreply@uk-service-booking.vercel.app>', // Temporarily updated to Vercel domain
       to,
       subject,
       html,
@@ -51,7 +51,7 @@ export function getDisputeResolvedTemplate({ disputeId, decision, amount }: { di
           <p style="margin: 0;">涉及金額：<strong>£${amount}</strong></p>
         </div>
         <p>Stripe Escrow 系統已同步解除鎖定，資金正在安全移轉中。</p>
-        <a href="https://conciergeai.uk/dashboard/disputes/${disputeId}" style="display: inline-block; background-color: #0f172a; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-top: 20px;">
+        <a href="https://uk-service-booking.vercel.app/dashboard/disputes/${disputeId}" style="display: inline-block; background-color: #0f172a; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-top: 20px;">
           登入平台查看完整 JSON 分析報告
         </a>
       </div>
