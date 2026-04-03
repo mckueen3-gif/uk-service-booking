@@ -1,133 +1,157 @@
-import { prisma } from "@/lib/prisma";
+"use client";
+
+import { useEffect, useState } from "react";
+import { getMerchants } from "@/lib/actions/admin";
 import { 
   Users, 
+  Search, 
   MapPin, 
-  Star, 
+  ExternalLink, 
   ShieldCheck, 
-  ShieldAlert,
-  Search,
-  ExternalLink,
-  ChevronRight
+  AlertCircle,
+  MoreHorizontal,
+  Loader2,
+  Download
 } from "lucide-react";
-import Link from "next/link";
+import { motion } from "framer-motion";
+import { getDictionary } from "@/lib/i18n/dictionary";
 
-export const dynamic = "force-dynamic";
+export default function AdminExperts() {
+  const [merchants, setMerchants] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const t = getDictionary('zh-TW');
 
-export default async function AdminMerchantsPage() {
-  const merchants = await prisma.merchant.findMany({
-    include: { user: true },
-    orderBy: { createdAt: "desc" }
-  });
+  useEffect(() => {
+    async function load() {
+      const data = await getMerchants();
+      setMerchants(data);
+      setLoading(false);
+    }
+    load();
+  }, []);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'space-between', 
-        alignItems: 'center', 
-        backgroundColor: '#ffffff', 
-        padding: '1.5rem', 
-        borderRadius: '1.25rem', 
-        border: '1px solid #e2e8f0', 
-        marginBottom: '1rem',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
-      }}>
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}
+    >
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
-          <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.75rem', margin: 0 }}>
-            <Users style={{ color: '#d4af37' }} />
-            Expert Management Directory
-          </h2>
-          <p style={{ fontSize: '0.875rem', color: '#94a3b8', marginTop: '4px', margin: 0 }}>Full list of registered service providers across the UK.</p>
+          <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a', margin: 0 }}>{t.admin.sidebar.merchants}</h2>
+          <p style={{ color: '#94a3b8', fontSize: '0.875rem', fontStyle: 'italic', margin: 0 }}>全球專家神經網絡註冊表</p>
         </div>
-        <div style={{ position: 'relative' }}>
-          <Search style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} size={18} />
-          <input 
-            type="text" 
-            placeholder="Filter experts..." 
-            style={{ 
-              paddingLeft: '40px', 
-              paddingRight: '16px', 
-              paddingTop: '8px', 
-              paddingBottom: '8px', 
-              backgroundColor: '#f8fafc', 
-              border: '1px solid #e2e8f0', 
-              borderRadius: '0.75rem', 
-              fontSize: '14px', 
-              color: '#0f172a',
-              outline: 'none',
-              width: '260px'
-            }}
-          />
+        <div style={{ display: 'flex', gap: '1rem' }}>
+           <div style={{ position: 'relative' }}>
+             <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+             <input 
+               type="text" 
+               placeholder="按名稱、電子郵件、行業搜尋專家..." 
+               style={{ 
+                 padding: '0.6rem 1rem 0.6rem 2.5rem', 
+                 borderRadius: '12px', 
+                 border: '1px solid #e2e8f0', 
+                 fontSize: '14px',
+                 width: '350px',
+                 outline: 'none'
+               }} 
+             />
+           </div>
+           <button style={{ backgroundColor: '#0f172a', color: '#d4af37', padding: '0.6rem 1.25rem', borderRadius: '12px', fontSize: '12px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', cursor: 'pointer', border: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+             <Download size={16} />
+             數據導出
+           </button>
         </div>
       </div>
 
-      <div style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '1.25rem', overflow: 'hidden', boxShadow: '0 10px 40px rgba(0,0,0,0.03)' }}>
-        <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
+      <div style={{ 
+        backgroundColor: '#ffffff', 
+        borderRadius: '1.5rem', 
+        border: '1px solid #e2e8f0', 
+        overflow: 'hidden', 
+        boxShadow: '0 10px 25px rgba(0,0,0,0.02)' 
+      }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
           <thead>
             <tr style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
-              <th style={{ padding: '1rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Expert / Company</th>
-              <th style={{ padding: '1rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Location</th>
-              <th style={{ padding: '1rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', textAlign: 'center' }}>Status</th>
-              <th style={{ padding: '1rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', textAlign: 'center' }}>Rating</th>
-              <th style={{ padding: '1rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', textAlign: 'right' }}>Actions</th>
+              <th style={{ padding: '1.25rem 1.5rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>專家資料</th>
+              <th style={{ padding: '1.25rem 1.5rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>專業領域 / 商號</th>
+              <th style={{ padding: '1.25rem 1.5rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>資質狀態</th>
+              <th style={{ padding: '1.25rem 1.5rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>營收營運</th>
+              <th style={{ padding: '1.25rem 1.5rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}></th>
             </tr>
           </thead>
           <tbody>
-            {merchants.map((m) => (
-              <tr key={m.id} style={{ borderBottom: '1px solid #f1f5f9', transition: 'background-color 0.2s' }}>
-                <td style={{ padding: '1rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                    <div style={{ width: '40px', height: '40px', borderRadius: '8px', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#d4af37', fontWeight: 800 }}>
-                      {m.companyName?.[0]}
-                    </div>
-                    <div>
-                      <p style={{ fontSize: '0.875rem', fontWeight: 800, color: '#0f172a', margin: 0 }}>{m.companyName}</p>
-                      <p style={{ fontSize: '0.75rem', color: '#94a3b8', margin: 0 }}>{m.user.email}</p>
-                    </div>
-                  </div>
-                </td>
-                <td style={{ padding: '1rem' }}>
-                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#64748b' }}>
-                     <MapPin size={12} style={{ color: '#d4af37' }} />
-                     {m.city}
-                   </div>
-                </td>
-                <td style={{ padding: '1rem', textAlign: 'center' }}>
-                  {m.isVerified ? (
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '4px 10px', borderRadius: '99px', backgroundColor: 'rgba(16, 185, 129, 0.1)', color: '#10b981', fontSize: '10px', fontWeight: 800, border: '1px solid rgba(16,185,129,0.2)', textTransform: 'uppercase' }}>
-                      <ShieldCheck size={12} /> Verified
-                    </span>
-                  ) : (
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '4px 10px', borderRadius: '99px', backgroundColor: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', fontSize: '10px', fontWeight: 800, border: '1px solid rgba(239, 68, 68, 0.2)', textTransform: 'uppercase' }}>
-                      <ShieldAlert size={12} /> Pending
-                    </span>
-                  )}
-                </td>
-                <td style={{ padding: '1rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px', color: '#d4af37' }}>
-                    <Star size={14} fill="#d4af37" />
-                    <span style={{ fontSize: '0.875rem', fontWeight: 800, color: '#0f172a' }}>{m.averageRating.toFixed(1)}</span>
-                  </div>
-                </td>
-                <td style={{ padding: '1rem', textAlign: 'right' }}>
-                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '8px' }}>
-                     <Link 
-                       href={`/merchants/${m.id}`} 
-                       target="_blank"
-                       style={{ padding: '8px', color: '#94a3b8', transition: 'color 0.2s' }}
-                     >
-                       <ExternalLink size={18} />
-                     </Link>
-                     <button style={{ padding: '8px', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', color: '#d4af37', cursor: 'pointer' }}>
-                       <ChevronRight size={18} />
-                     </button>
-                   </div>
+            {loading ? (
+              [...Array(5)].map((_, i) => (
+                <tr key={i} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                  <td colSpan={5} style={{ padding: '1.5rem', textAlign: 'center' }}>
+                    <Loader2 className="animate-spin" size={24} color="#d4af37" style={{ margin: '0 auto' }} />
+                  </td>
+                </tr>
+              ))
+            ) : merchants.length === 0 ? (
+              <tr>
+                <td colSpan={5} style={{ padding: '4rem', textAlign: 'center', color: '#94a3b8', fontStyle: 'italic' }}>
+                  目前專家目錄中尚無紀錄
                 </td>
               </tr>
-            ))}
+            ) : (
+              merchants.map((merchant) => (
+                <tr key={merchant.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                  <td style={{ padding: '1.25rem 1.5rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                      <div style={{ width: '40px', height: '40px', borderRadius: '12px', backgroundColor: '#0f172a', border: '1px solid rgba(212,175,55,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: 900, color: '#d4af37' }}>
+                        {merchant.name?.slice(0, 2).toUpperCase()}
+                      </div>
+                      <div>
+                         <div style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a' }}>{merchant.name || "未知專家"}</div>
+                         <div style={{ fontSize: '12px', color: '#94a3b8' }}>{merchant.email}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td style={{ padding: '1.25rem 1.5rem' }}>
+                    <div style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>{merchant.businessName || "個人服務商"}</div>
+                    <div style={{ display: 'flex', gap: '4px', marginTop: '4px' }}>
+                      <span style={{ fontSize: '10px', padding: '2px 8px', borderRadius: '4px', backgroundColor: 'rgba(212,175,55,0.1)', color: '#d4af37', fontWeight: 800 }}>PRO Node</span>
+                    </div>
+                  </td>
+                  <td style={{ padding: '1.25rem 1.5rem' }}>
+                    <VerificationLabel verified={merchant.isVerified} />
+                  </td>
+                  <td style={{ padding: '1.25rem 1.5rem' }}>
+                    <div style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a' }}>£{(merchant.revenue || 0).toLocaleString()}</div>
+                    <div style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 700 }}>累計完成: {merchant.completedBookings || 0}</div>
+                  </td>
+                  <td style={{ padding: '1.25rem 1.5rem', textAlign: 'right' }}>
+                    <button style={{ background: 'none', border: 'none', color: '#d4af37', cursor: 'pointer' }}>
+                      <ExternalLink size={18} />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
+    </motion.div>
+  );
+}
+
+function VerificationLabel({ verified }: { verified: boolean }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+       {verified ? (
+         <>
+           <ShieldCheck size={16} color="#10b981" />
+           <span style={{ fontSize: '12px', fontWeight: 800, color: '#10b981' }}>已核准</span>
+         </>
+       ) : (
+         <>
+           <AlertCircle size={16} color="#f59e0b" />
+           <span style={{ fontSize: '12px', fontWeight: 800, color: '#f59e0b' }}>驗證中</span>
+         </>
+       )}
     </div>
   );
 }

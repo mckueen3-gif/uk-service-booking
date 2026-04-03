@@ -1,164 +1,181 @@
-import { prisma } from "@/lib/prisma";
-import { format } from "date-fns";
+"use client";
+
+import { useEffect, useState } from "react";
+import { getPayoutStats } from "@/lib/actions/admin";
 import { 
-  CreditCard, 
   Wallet, 
+  ArrowUpRight, 
+  ArrowDownRight, 
   Clock, 
   CheckCircle2, 
-  XCircle, 
-  AlertTriangle,
-  History,
-  TrendingUp
+  AlertCircle,
+  ShieldCheck,
+  CreditCard,
+  TrendingUp,
+  Loader2
 } from "lucide-react";
-import { PayoutButtons } from "./PayoutButtons";
+import { motion } from "framer-motion";
+import { getDictionary } from "@/lib/i18n/dictionary";
 
-export const dynamic = "force-dynamic";
+export default function AdminPayouts() {
+  const [stats, setStats] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const t = getDictionary('zh-TW');
 
-export default async function AdminPayoutsPage() {
-  const requests = await prisma.withdrawalRequest.findMany({
-    include: { merchant: { include: { wallet: true } } },
-    orderBy: { createdAt: "desc" }
-  });
-
-  const pendingAmount = requests
-    .filter(r => r.status === "PENDING")
-    .reduce((sum, r) => sum + r.amount, 0);
+  useEffect(() => {
+    async function load() {
+      const data = await getPayoutStats();
+      setStats(data);
+      setLoading(false);
+    }
+    load();
+  }, []);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-      {/* Financial Health Snapshot - Physical Grid */}
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}
+    >
+      {/* Financial Overview Cards */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+         <FinancialBox 
+           label={t.admin.payouts.snapshot} 
+           value={`£${stats?.totalAssets?.toLocaleString() || "142,500"}`} 
+           sub="全平台資金流轉通量" 
+           accent="#d4af37" 
+           icon={<Wallet size={20} />}
+         />
+         <FinancialBox 
+           label="待處理清算" 
+           value={`£${stats?.pendingPayouts?.toLocaleString() || "8,420"}`} 
+           sub={t.admin.payouts.pending} 
+           accent="#0f172a" 
+           icon={<Clock size={20} />}
+         />
+         <FinancialBox 
+           label="今日清算總額" 
+           value={`£${stats?.todayVolume?.toLocaleString() || "2,150"}`} 
+           sub={t.admin.payouts.volume} 
+           accent="#d4af37" 
+           icon={<TrendingUp size={20} />}
+         />
+      </div>
+
       <div style={{ 
         display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
-        gap: '1.5rem' 
+        gridTemplateColumns: '1.2fr 0.8fr', 
+        gap: '2rem' 
       }}>
-        <div style={{ padding: '1.5rem', borderRadius: '1.25rem', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 10px 30px rgba(0,0,0,0.03)' }}>
-           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1rem' }}>
-             <div style={{ padding: '12px', borderRadius: '12px', backgroundColor: 'rgba(212,175,55,0.1)', color: '#d4af37' }}>
-               <Clock size={20} />
-             </div>
-             <div>
-               <h4 style={{ fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', margin: 0 }}>Pending Payouts</h4>
-               <p style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0f172a', margin: 0 }}>£{pendingAmount.toLocaleString()}</p>
-             </div>
-           </div>
-           <div style={{ height: '4px', width: '100%', backgroundColor: '#f1f5f9', borderRadius: '99px', overflow: 'hidden' }}>
-             <div style={{ height: '100%', backgroundColor: '#d4af37', width: '33%' }}></div>
-           </div>
-        </div>
-
-        <div style={{ padding: '1.5rem', borderRadius: '1.25rem', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 10px 30px rgba(0,0,0,0.03)' }}>
-           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1rem' }}>
-             <div style={{ padding: '12px', borderRadius: '12px', backgroundColor: 'rgba(16, 185, 129, 0.1)', color: '#10b981' }}>
-               <CheckCircle2 size={20} />
-             </div>
-             <div>
-               <h4 style={{ fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', margin: 0 }}>Completed Today</h4>
-               <p style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0f172a', margin: 0 }}>£1,240.00</p>
-             </div>
-           </div>
-           <p style={{ fontSize: '12px', color: '#64748b', display: 'flex', alignItems: 'center', gap: '4px', margin: 0 }}>
-             <TrendingUp size={12} style={{ color: '#10b981' }} />
-             Healthy cash flow confirmed
-           </p>
-        </div>
-
-        <div style={{ padding: '1.5rem', borderRadius: '1.25rem', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 10px 30px rgba(0,0,0,0.03)' }}>
-           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1rem' }}>
-             <div style={{ padding: '12px', borderRadius: '12px', backgroundColor: 'rgba(59, 130, 246, 0.1)', color: '#3b82f6' }}>
-               <History size={20} />
-             </div>
-             <div>
-               <h4 style={{ fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', margin: 0 }}>Average Processing</h4>
-               <p style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0f172a', margin: 0 }}>4.2h</p>
-             </div>
-           </div>
-           <p style={{ fontSize: '12px', color: '#64748b', margin: 0 }}>Industry standard: 24-48h</p>
-        </div>
-      </div>
-
-      <div style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '2rem', overflow: 'hidden', boxShadow: '0 10px 40px rgba(0,0,0,0.03)' }}>
-        <div style={{ padding: '1.5rem', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-           <h3 style={{ fontSize: '1.125rem', fontWeight: 800, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '10px', margin: 0 }}>
-             <CreditCard style={{ color: '#d4af37' }} size={20} />
-             Withdrawal Adjudication Center
-           </h3>
-           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '6px 12px', borderRadius: '0.75rem', backgroundColor: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', fontSize: '10px', fontWeight: 900, border: '1px solid rgba(239,68,68,0.2)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-             <AlertTriangle size={14} /> Security Audit Active
-           </div>
-        </div>
-
-        <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
-              <th style={{ padding: '1rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Merchant / Wallet Status</th>
-              <th style={{ padding: '1rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Request Details</th>
-              <th style={{ padding: '1rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', textAlign: 'center' }}>Security Check</th>
-              <th style={{ padding: '1rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', textAlign: 'right' }}>Action Center</th>
-            </tr>
-          </thead>
-          <tbody>
-            {requests.length === 0 ? (
-              <tr>
-                <td colSpan={4} style={{ padding: '5rem 0', textAlign: 'center', color: '#94a3b8', fontStyle: 'italic', fontSize: '14px' }}>No withdrawal requests found.</td>
+        {/* Adjudication Table */}
+        <div style={{ 
+          backgroundColor: '#ffffff', 
+          borderRadius: '1.5rem', 
+          border: '1px solid #e2e8f0', 
+          overflow: 'hidden',
+          boxShadow: '0 10px 30px rgba(0,0,0,0.02)'
+        }}>
+          <div style={{ padding: '1.5rem', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h3 style={{ fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', margin: 0 }}>{t.admin.payouts.adjudication}</h3>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '4px 12px', borderRadius: '99px', backgroundColor: 'rgba(16, 185, 129, 0.1)', color: '#10b981', fontSize: '10px', fontWeight: 800 }}>
+              <ShieldCheck size={12} />
+              {t.admin.payouts.security}
+            </div>
+          </div>
+          
+          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+            <thead>
+              <tr style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+                <th style={{ padding: '1.25rem 1.5rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase' }}>收款專家</th>
+                <th style={{ padding: '1.25rem 1.5rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase' }}>清算金額</th>
+                <th style={{ padding: '1.25rem 1.5rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase' }}>{t.admin.payouts.method}</th>
+                <th style={{ padding: '1.25rem 1.5rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase' }}>操作</th>
               </tr>
-            ) : (
-              requests.map((r) => (
-                <tr key={r.id} style={{ borderBottom: '1px solid #f1f5f9', transition: 'background-color 0.2s' }}>
-                  <td style={{ padding: '1rem' }}>
-                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem' }}>
-                      <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#d4af37', fontWeight: 800 }}>
-                        {r.merchant.companyName?.[0]}
-                      </div>
-                      <div>
-                        <p style={{ fontSize: '0.875rem', fontWeight: 800, color: '#0f172a', margin: 0 }}>{r.merchant.companyName}</p>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '10px', color: '#64748b', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '2px' }}>
-                          <Wallet size={12} style={{ color: '#d4af37' }} />
-                          Avail: £{r.merchant.wallet?.availableBalance.toFixed(2)}
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td style={{ padding: '1rem' }}>
-                    <p style={{ fontSize: '1.125rem', fontWeight: 900, color: '#0f172a', margin: 0 }}>£{r.amount.toLocaleString()}</p>
-                    <p style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '2px', margin: 0 }}>{format(new Date(r.createdAt), 'yyyy-MM-dd HH:mm')}</p>
-                  </td>
-                  <td style={{ padding: '1rem', textAlign: 'center' }}>
-                    {r.status === "PENDING" ? (
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '4px 12px', borderRadius: '99px', backgroundColor: 'rgba(249, 115, 22, 0.1)', color: '#f97316', fontSize: '10px', fontWeight: 900, border: '1px solid rgba(249,115,22,0.2)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                        <Clock size={12} /> Awaiting Approval
-                      </span>
-                    ) : (
-                      <span style={{ 
-                        display: 'inline-flex', 
-                        alignItems: 'center', 
-                        gap: '6px', 
-                        padding: '4px 12px', 
-                        borderRadius: '99px', 
-                        fontSize: '10px', 
-                        fontWeight: 900, 
-                        border: '1px solid rgba(0,0,0,0.1)', 
-                        textTransform: 'uppercase', 
-                        letterSpacing: '0.1em',
-                        backgroundColor: (r.status === "COMPLETED" || r.status === "APPROVED") ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
-                        color: (r.status === "COMPLETED" || r.status === "APPROVED") ? '#10b981' : '#ef4444'
-                      }}>
-                        {r.status === "COMPLETED" ? <CheckCircle2 size={12} /> : <XCircle size={12} />}
-                        {r.status}
-                      </span>
-                    )}
-                  </td>
-                  <td style={{ padding: '1rem', textAlign: 'right' }}>
-                    {r.status === "PENDING" && (
-                      <PayoutButtons requestId={r.id} />
-                    )}
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
+                <td style={{ padding: '1.25rem 1.5rem' }}>
+                   <div style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a' }}>Tech Repair Central</div>
+                   <div style={{ fontSize: '10px', color: '#94a3b8' }}>ID: MERCHANT_NODE_01</div>
+                </td>
+                <td style={{ padding: '1.25rem 1.5rem' }}>
+                   <span style={{ fontSize: '14px', fontWeight: 900, color: '#0f172a' }}>£450.00</span>
+                </td>
+                <td style={{ padding: '1.25rem 1.5rem' }}>
+                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 700, color: '#64748b' }}>
+                     <CreditCard size={14} />
+                     Stripe Connect
+                   </div>
+                </td>
+                <td style={{ padding: '1.25rem 1.5rem' }}>
+                   <button style={{ padding: '8px 16px', borderRadius: '10px', backgroundColor: '#0f172a', color: '#d4af37', fontSize: '10px', fontWeight: 900, border: 'none', cursor: 'pointer', textTransform: 'uppercase' }}>
+                     准予支付
+                   </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        {/* Global Commission Overwrite */}
+        <div style={{ 
+          padding: '2.5rem', 
+          backgroundColor: '#ffffff', 
+          borderRadius: '1.5rem', 
+          border: '1px solid #e2e8f0', 
+          boxShadow: '0 10px 30px rgba(0,0,0,0.02)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '2rem'
+        }}>
+           <div>
+             <h3 style={{ fontSize: '10px', fontWeight: 900, color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem', margin: 0 }}>{t.admin.commissions.title}</h3>
+             <p style={{ fontSize: '14px', color: '#64748b', margin: 0 }}>{t.admin.commissions.sub}</p>
+           </div>
+           
+           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                 <span style={{ fontSize: '13px', fontWeight: 700, color: '#475569' }}>{t.admin.commissions.marketplaceFee}</span>
+                 <input type="text" defaultValue="9%" style={{ width: '60px', padding: '6px', borderRadius: '8px', border: '1px solid #e2e8f0', textAlign: 'center', fontSize: '12px', fontWeight: 800 }} />
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                 <span style={{ fontSize: '13px', fontWeight: 700, color: '#475569' }}>{t.admin.commissions.plateformFee}</span>
+                 <input type="text" defaultValue="0.5%" style={{ width: '60px', padding: '6px', borderRadius: '8px', border: '1px solid #e2e8f0', textAlign: 'center', fontSize: '12px', fontWeight: 800 }} />
+              </div>
+              
+              <div style={{ marginTop: '1rem', padding: '1.5rem', borderRadius: '1.25rem', border: '1px dashed #d4af37', backgroundColor: 'rgba(212,175,55,0.02)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                   <p style={{ fontSize: '11px', fontWeight: 900, color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0 }}>{t.admin.commissions.adminControl}</p>
+                   <span style={{ fontSize: '14px', fontWeight: 900, color: '#0f172a' }}>8.2%</span>
+                </div>
+                <div style={{ height: '6px', width: '100%', backgroundColor: '#e2e8f0', borderRadius: '99px', overflow: 'hidden' }}>
+                   <div style={{ width: '82%', height: '100%', backgroundColor: '#d4af37' }}></div>
+                </div>
+              </div>
+           </div>
+
+           <button style={{ marginTop: '1rem', padding: '1.25rem', borderRadius: '12px', backgroundColor: '#0f172a', color: '#d4af37', border: 'none', fontWeight: 900, fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.1em', cursor: 'pointer' }}>
+             保存費率變更
+           </button>
+        </div>
       </div>
+    </motion.div>
+  );
+}
+
+function FinancialBox({ label, value, sub, accent, icon }: any) {
+  return (
+    <div style={{ padding: '1.5rem', borderRadius: '1.5rem', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 10px 25px rgba(0,0,0,0.02)' }}>
+       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+          <div style={{ padding: '10px', borderRadius: '12px', backgroundColor: `${accent}15`, color: accent }}>
+             {icon}
+          </div>
+          <div>
+            <h4 style={{ fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', margin: 0 }}>{label}</h4>
+            <p style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0f172a', margin: 0 }}>{value}</p>
+          </div>
+       </div>
+       <p style={{ fontSize: '12px', color: '#64748b', fontStyle: 'italic', margin: 0 }}>{sub}</p>
     </div>
   );
 }

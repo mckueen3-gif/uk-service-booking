@@ -13,6 +13,7 @@ import {
   CalendarDays,
   Gavel
 } from "lucide-react";
+import { getDictionary } from "@/lib/i18n/dictionary";
 
 export default async function AdminLayout({
   children,
@@ -20,32 +21,26 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession();
+  const t = getDictionary('zh-TW'); // Locked to zh-TW per request
 
-  // Security Guard: Role Check (assuming role is in session)
-  // If role is missing from base NextAuth session, we'll need to fetch it or use the session correctly
   if (!session || !session.user) {
     redirect("/api/auth/signin?callbackUrl=/admin");
   }
-
-  // NOTE: If the session doesn't store the role yet, we may need to fetch the user 
-  // from DB here. For now, assuming current NextAuth setup handles roles.
-  // Actually, let's play it safe and check the session structure if we can.
 
   return (
     <div style={{ 
       display: 'flex', 
       minHeight: '100vh', 
-      backgroundColor: '#ffffff', // Direct color instead of variable
-      color: '#0f172a',           // Onyx slate
+      backgroundColor: '#ffffff', 
+      color: '#0f172a',           
       transition: 'all 0.3s ease' 
     }}>
-      {/* Visual Marker: If you see this red dot, the latest version is live! */}
       <div style={{ position: 'fixed', top: '10px', right: '10px', width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#ff4d4f', zIndex: 9999, boxShadow: '0 0 10px rgba(255,77,79,0.5)' }}></div>
-      {/* Sidebar - Fixed Left */}
+      
       <aside style={{ 
         width: '280px', 
         height: '100vh', 
-        backgroundColor: '#ffffff', // Forced white background
+        backgroundColor: '#ffffff', 
         borderRight: '1px solid #e2e8f0',
         display: 'flex',
         flexDirection: 'column',
@@ -71,15 +66,15 @@ export default async function AdminLayout({
           marginTop: '1rem', 
           overflowY: 'auto' 
         }}>
-          <AdminNavLink href="/admin" icon={<LayoutDashboard size={20} />} label="Overview" />
-          <AdminNavLink href="/admin/analytics" icon={<BarChart3 size={20} />} label="Analytics" />
-          <AdminNavLink href="/admin/bookings" icon={<CalendarDays size={20} />} label="Bookings" />
-          <AdminNavLink href="/admin/verifications" icon={<ShieldCheck size={20} />} label="Verifications" badge="3" />
-          <AdminNavLink href="/admin/disputes" icon={<Gavel size={20} />} label="Disputes" badge="Review" />
+          <AdminNavLink href="/admin" icon={<LayoutDashboard size={20} />} label={t.admin.sidebar.overview} />
+          <AdminNavLink href="/admin/analytics" icon={<BarChart3 size={20} />} label={t.admin.sidebar.analytics} />
+          <AdminNavLink href="/admin/bookings" icon={<CalendarDays size={20} />} label={t.admin.sidebar.bookings} />
+          <AdminNavLink href="/admin/verifications" icon={<ShieldCheck size={20} />} label={t.admin.sidebar.verifications} badge="3" />
+          <AdminNavLink href="/admin/disputes" icon={<Gavel size={20} />} label={t.admin.sidebar.disputes} badge="需審核" />
           <div style={{ height: '1px', backgroundColor: '#f1f5f9', margin: '0.5rem 0' }}></div>
-          <AdminNavLink href="/admin/merchants" icon={<Users size={20} />} label="Experts" />
-          <AdminNavLink href="/admin/payouts" icon={<CreditCard size={20} />} label="Payouts" badge="New" />
-          <AdminNavLink href="/admin/settings" icon={<Settings size={20} />} label="Settings" />
+          <AdminNavLink href="/admin/merchants" icon={<Users size={20} />} label={t.admin.sidebar.merchants} />
+          <AdminNavLink href="/admin/payouts" icon={<CreditCard size={20} />} label={t.admin.sidebar.payouts} badge="最新" />
+          <AdminNavLink href="/admin/settings" icon={<Settings size={20} />} label={t.admin.sidebar.settings} />
         </nav>
 
         <div style={{ padding: '1rem', borderTop: '1px solid #e2e8f0' }}>
@@ -105,8 +100,8 @@ export default async function AdminLayout({
               <span style={{ fontSize: '12px', fontWeight: 900, color: '#d4af37' }}>AD</span>
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <p style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: 0 }}>{session.user.name || "Administrator"}</p>
-              <p style={{ fontSize: '10px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800, margin: 0 }}>Terminal Access</p>
+              <p style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: 0 }}>{session.user.name || "管理員"}</p>
+              <p style={{ fontSize: '10px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800, margin: 0 }}>{t.admin.sidebar.terminal}</p>
             </div>
             <Link href="/api/auth/signout" style={{ color: '#64748b' }}>
               <LogOut size={16} />
@@ -115,12 +110,11 @@ export default async function AdminLayout({
         </div>
       </aside>
 
-      {/* Main Content */}
       <main style={{ flex: 1, marginLeft: '280px', padding: '2.5rem', backgroundColor: '#ffffff', minHeight: '100vh' }}>
         <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
           <div>
-            <h1 style={{ fontSize: '12px', fontWeight: 900, color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '0.5rem' }}>Internal Management</h1>
-            <p style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0f172a', letterSpacing: '-0.02em' }}>Central Operations Hub</p>
+            <h1 style={{ fontSize: '12px', fontWeight: 900, color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '0.5rem' }}>{t.admin.header.internal}</h1>
+            <p style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0f172a', letterSpacing: '-0.02em' }}>{t.admin.header.operations}</p>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <button style={{ 
@@ -137,7 +131,7 @@ export default async function AdminLayout({
             </button>
             <div style={{ width: '1px', height: '32px', backgroundColor: '#e2e8f0' }}></div>
             <div style={{ textAlign: 'right' }}>
-              <p style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Regional Node</p>
+              <p style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{t.admin.header.node}</p>
               <p style={{ fontSize: '0.9rem', fontWeight: 800, color: '#0f172a' }}>London, UK</p>
             </div>
           </div>

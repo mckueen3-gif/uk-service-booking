@@ -1,137 +1,137 @@
-import { prisma } from "@/lib/prisma";
+"use client";
+
+import { useEffect, useState } from "react";
+import { getUsers } from "@/lib/actions/admin";
 import { 
   Users, 
   Search, 
-  UserPlus, 
-  CreditCard, 
+  User, 
+  MoreHorizontal, 
+  Shield, 
   Calendar,
-  MoreVertical
+  Activity,
+  Loader2
 } from "lucide-react";
+import { motion } from "framer-motion";
+import { getDictionary } from "@/lib/i18n/dictionary";
 
-export default async function AdminUsersPage() {
-  const users = await prisma.user.findMany({
-    orderBy: { createdAt: 'desc' },
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      role: true,
-      // referralCode: true,    // Temporarily disabled for schema sync
-      // referralCredits: true, // Temporarily disabled for schema sync
-      createdAt: true
-    }
-  });
+export default function AdminUsers() {
+  const [users, setUsers] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const t = getDictionary('zh-TW');
 
-  const getRoleBadge = (role: string) => {
-    switch(role) {
-      case 'ADMIN': return { bg: 'rgba(99, 102, 241, 0.1)', text: '#6366f1', label: '管理員' };
-      case 'MERCHANT': return { bg: 'rgba(212, 175, 55, 0.1)', text: '#d4af37', label: '商戶/專家' };
-      default: return { bg: 'rgba(100, 116, 139, 0.1)', text: '#64748b', label: '一般客戶' };
+  useEffect(() => {
+    async function load() {
+      const data = await getUsers();
+      setUsers(data || []);
+      setLoading(false);
     }
-  };
+    load();
+  }, []);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'space-between', 
-        alignItems: 'center', 
-        backgroundColor: '#ffffff', 
-        padding: '1.5rem', 
-        borderRadius: '1.5rem', 
-        border: '1px solid #e2e8f0', 
-        marginBottom: '1rem',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
-      }}>
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}
+    >
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
-          <h2 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.75rem', margin: 0 }}>
-            <Users style={{ color: '#d4af37' }} />
-            User Management Hub
-          </h2>
-          <p style={{ fontSize: '0.875rem', color: '#94a3b8', marginTop: '4px', margin: 0 }}>Platform registration database and credit monitoring.</p>
+          <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a', margin: 0 }}>{t.admin.sidebar.users}</h2>
+          <p style={{ color: '#94a3b8', fontSize: '0.875rem', fontStyle: 'italic', margin: 0 }}>客戶與合作夥伴權限節點數據庫</p>
         </div>
-        <div style={{ position: 'relative' }}>
-          <Search style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} size={18} />
-          <input 
-            type="text" 
-            placeholder="Search name or email..." 
-            style={{ 
-              paddingLeft: '40px', 
-              paddingRight: '16px', 
-              paddingTop: '10px', 
-              paddingBottom: '10px', 
-              backgroundColor: '#f8fafc', 
-              border: '1px solid #e2e8f0', 
-              borderRadius: '0.75rem', 
-              fontSize: '14px', 
-              color: '#0f172a',
-              outline: 'none',
-              width: '300px'
-            }}
-          />
+        <div style={{ display: 'flex', gap: '1rem' }}>
+           <div style={{ position: 'relative' }}>
+             <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+             <input 
+               type="text" 
+               placeholder="按姓名、Email 或手機號碼搜尋..." 
+               style={{ 
+                 padding: '0.6rem 1rem 0.6rem 2.5rem', 
+                 borderRadius: '12px', 
+                 border: '1px solid #e2e8f0', 
+                 fontSize: '14px',
+                 width: '320px',
+                 outline: 'none'
+               }} 
+             />
+           </div>
         </div>
       </div>
 
-      <div style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '1.5rem', overflow: 'hidden', boxShadow: '0 10px 40px rgba(0,0,0,0.03)' }}>
+      <div style={{ 
+        backgroundColor: '#ffffff', 
+        borderRadius: '1.5rem', 
+        border: '1px solid #e2e8f0', 
+        overflow: 'hidden', 
+        boxShadow: '0 10px 25px rgba(0,0,0,0.02)' 
+      }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
           <thead>
             <tr style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
-              <th style={{ padding: '1rem 1.5rem', color: '#94a3b8', fontWeight: 800, fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Identity information</th>
-              <th style={{ padding: '1rem 1.5rem', color: '#94a3b8', fontWeight: 800, fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Role Status</th>
-              <th style={{ padding: '1rem 1.5rem', color: '#94a3b8', fontWeight: 800, fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Referral Code</th>
-              <th style={{ padding: '1rem 1.5rem', color: '#94a3b8', fontWeight: 800, fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Credits</th>
-              <th style={{ padding: '1rem 1.5rem', color: '#94a3b8', fontWeight: 800, fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Registration</th>
-              <th style={{ padding: '1rem 1.5rem', color: '#94a3b8', fontWeight: 800, fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', textAlign: 'right' }}>Actions</th>
+              <th style={{ padding: '1.25rem 1.5rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>客戶概況</th>
+              <th style={{ padding: '1.25rem 1.5rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>身份權限</th>
+              <th style={{ padding: '1.25rem 1.5rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>註冊日期</th>
+              <th style={{ padding: '1.25rem 1.5rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>活躍狀態</th>
+              <th style={{ padding: '1.25rem 1.5rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}></th>
             </tr>
           </thead>
           <tbody>
-            {(users as any[]).map((user) => {
-              const badge = getRoleBadge(user.role);
-              return (
-                <tr key={user.id} style={{ borderBottom: '1px solid #f1f5f9', transition: 'background-color 0.2s' }}>
-                  <td style={{ padding: '1rem 1.5rem' }}>
-                    <div style={{ color: '#0f172a', fontWeight: 800, fontSize: '0.95rem' }}>{user.name || "UNNAMED USER"}</div>
-                    <div style={{ color: '#64748b', fontSize: '0.8rem', fontWeight: 600 }}>{user.email}</div>
-                  </td>
-                  <td style={{ padding: '1rem 1.5rem' }}>
-                    <span style={{ 
-                      padding: '4px 10px', 
-                      borderRadius: '99px', 
-                      fontSize: '10px', 
-                      fontWeight: 900,
-                      backgroundColor: badge.bg,
-                      color: badge.text,
-                      border: `1px solid ${badge.text}20`,
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.05em'
-                    }}>
-                      {badge.label}
-                    </span>
-                  </td>
-                  <td style={{ padding: '1rem 1.5rem' }}>
-                    <code style={{ background: '#f8fafc', padding: '4px 8px', borderRadius: '6px', fontSize: '12px', color: '#64748b', border: '1px solid #e2e8f0', fontWeight: 700 }}>
-                      {user.referralCode || "N/A"}
-                    </code>
-                  </td>
-                  <td style={{ padding: '1rem 1.5rem', color: '#0f172a', fontWeight: 900, fontSize: '1rem' }}>
-                    £{(user.referralCredits || 0).toFixed(2)}
-                  </td>
-                  <td style={{ padding: '1rem 1.5rem', color: '#64748b', fontSize: '12px', fontWeight: 600 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <Calendar size={14} style={{ color: '#d4af37' }} /> {new Date(user.createdAt).toLocaleDateString()}
+            {loading ? (
+              [...Array(5)].map((_, i) => (
+                <tr key={i} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                   <td colSpan={5} style={{ padding: '1.5rem', textAlign: 'center' }}>
+                     <Loader2 className="animate-spin" size={24} color="#d4af37" style={{ margin: '0 auto' }} />
+                   </td>
+                </tr>
+              ))
+            ) : users.length === 0 ? (
+              <tr>
+                <td colSpan={5} style={{ padding: '4rem', textAlign: 'center', color: '#94a3b8', fontStyle: 'italic' }}>
+                  目前尚無用戶數據庫紀錄
+                </td>
+              </tr>
+            ) : (
+              users.map((user) => (
+                <tr key={user.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                  <td style={{ padding: '1.25rem 1.5rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                      <div style={{ width: '40px', height: '40px', borderRadius: '12px', backgroundColor: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#d4af37' }}>
+                        <User size={18} />
+                      </div>
+                      <div>
+                        <div style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a' }}>{user.name || "未登錄姓名"}</div>
+                        <div style={{ fontSize: '12px', color: '#94a3b8' }}>{user.email}</div>
+                      </div>
                     </div>
                   </td>
-                  <td style={{ padding: '1rem 1.5rem', textAlign: 'right' }}>
-                    <button style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer' }}>
-                      <MoreVertical size={18} />
+                  <td style={{ padding: '1.25rem 1.5rem' }}>
+                    <span style={{ fontSize: '10px', padding: '4px 10px', borderRadius: '999px', backgroundColor: user.role === 'MERCHANT' ? 'rgba(212,175,55,0.1)' : 'rgba(59,130,246,0.1)', color: user.role === 'MERCHANT' ? '#d4af37' : '#3b82f6', fontWeight: 900, textTransform: 'uppercase' }}>
+                      {user.role === 'MERCHANT' ? '專家合作夥伴' : '普通客戶'}
+                    </span>
+                  </td>
+                  <td style={{ padding: '1.25rem 1.5rem' }}>
+                    <span style={{ fontSize: '14px', color: '#475569', fontWeight: 700 }}>
+                      {new Date(user.createdAt).toLocaleDateString('zh-TW')}
+                    </span>
+                  </td>
+                  <td style={{ padding: '1.25rem 1.5rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10b981' }}></div>
+                      <span style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a' }}>正常通訊</span>
+                    </div>
+                  </td>
+                  <td style={{ padding: '1.25rem 1.5rem', textAlign: 'right' }}>
+                    <button style={{ background: 'none', border: 'none', color: '#d4af37', cursor: 'pointer' }}>
+                      <MoreHorizontal size={18} />
                     </button>
                   </td>
                 </tr>
-              );
-            })}
+              ))
+            )}
           </tbody>
         </table>
       </div>
-    </div>
+    </motion.div>
   );
 }

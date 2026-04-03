@@ -151,6 +151,18 @@ export interface Dictionary {
     contract: { title: string; scrollingNotice: string; agree: string; clauses: { platform_fee: { title: string; body: string }; payments: { title: string; body: string }; conduct: { title: string; body: string } } };
     buttons: { start: string; next: string; back: string; submit: string };
   };
+  admin: {
+    sidebar: { overview: string; analytics: string; bookings: string; verifications: string; disputes: string; merchants: string; payouts: string; users: string; settings: string; terminal: string };
+    header: { internal: string; operations: string; node: string };
+    stats: { gmv: string; netRevenue: string; bookings: string; dailyAvg: string; processed: string; volume24h: string };
+    analytics: { gmvTitle: string; gmvSub: string; sectorDist: string; volTitle: string; live: string };
+    bookings: { title: string; sub: string; search: string; id: string; customer: string; amount: string; status: string; service: string };
+    verifications: { title: string; sub: string; evidence: string; extraction: string; passport: string; faceMatch: string; confidence: string };
+    disputes: { title: string; sub: string; reasoning: string; gallery: string; verdict: string; confidence: string };
+    payouts: { title: string; snapshot: string; pending: string; volume: string; security: string; adjudication: string; method: string };
+    users: { title: string; sub: string; stats: string; registeredAt: string; referrals: string };
+    commissions: { title: string; sub: string; plateformFee: string; marketplaceFee: string; adminControl: string };
+  };
 }
 
 export const dictionaries: Record<string, Dictionary> = {

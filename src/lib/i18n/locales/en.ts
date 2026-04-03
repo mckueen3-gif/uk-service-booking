@@ -194,5 +194,17 @@ export const en: Dictionary = {
     sectors: { title: "Select Your Sector", professional: { title: "Professional", desc: "Accounting, Legal, Consulting", industries: ["Accounting", "Tax Consulting", "Legal Services", "Business Strategy"] }, education: { title: "Education", desc: "Tutors, Trainers, Coaches", industries: ["Academic Tutors", "Language Training", "Skill Coaching", "Music Teachers"] }, technical: { title: "Technical", desc: "Trades, Repairs, Engineering", industries: ["Plumbing", "Electrical", "Automotive", "Renovation"] } },
     contract: { title: "Standard Service Agreement", scrollingNotice: "Please scroll to the bottom to accept the terms.", agree: "I have read and agree to the ConciergeAI Master Agreement.", clauses: { platform_fee: { title: "1. Platform Service Fee", body: "ConciergeAI charges an 9% commission on successfully completed bookings." }, payments: { title: "2. Escrow & Payouts", body: "Customer payments are held in secure escrow. Payouts are triggered 48 hours after the customer confirms job completion." }, conduct: { title: "3. Professional Standards", body: "Experts must maintain a minimum 4.0-star rating. Failure to meet UK safety standards may result in immediate account suspension." } } },
     buttons: { start: "Get Started", next: "Next Step", back: "Prev Step", submit: "Complete Onboarding" }
+  },
+  admin: {
+    sidebar: { overview: "Overview", analytics: "Analytics", bookings: "Bookings", verifications: "Verifications", disputes: "Disputes", merchants: "Experts", payouts: "Payouts", users: "Users", settings: "Settings", terminal: "Terminal Access" },
+    header: { internal: "Internal Management", operations: "Central Operations Hub", node: "Regional Node" },
+    stats: { gmv: "Total GMV (30d)", netRevenue: "Net Revenue", bookings: "Bookings Completed", dailyAvg: "Daily Average", processed: "Successfully processed", volume24h: "Processing volume per 24h" },
+    analytics: { gmvTitle: "Gross Merchandise Value (GMV)", gmvSub: "Aggregate booking value trends for the last 30 days.", sectorDist: "Sector Distribution", volTitle: "Booking Volume", live: "Live Stream Active" },
+    bookings: { title: "Booking Command Hub", sub: "Neural Booking Registry", search: "Search Bookings...", id: "Booking ID", customer: "Customer", amount: "Amount", status: "Status", service: "Service" },
+    verifications: { title: "Verification Adjudication", sub: "Identity Document Integrity Review", evidence: "Identity Evidence", extraction: "AI Extraction Result", passport: "Passport", faceMatch: "Face Match", confidence: "Confidence" },
+    disputes: { title: "Arbitration Tribunal", sub: "Dispute Resolution & Evidence Audit", reasoning: "AI Arbiter Reasoning", gallery: "Evidence Gallery", verdict: "Final Verdict", confidence: "AI Confidence" },
+    payouts: { title: "Financial Clearance", snapshot: "Financial Snapshot", pending: "Pending Payouts", volume: "Volume (Total)", security: "Security Audit", adjudication: "Withdrawal Adjudication", method: "Method" },
+    users: { title: "Customer Directory", sub: "User Database & Referral Stats", stats: "Key Stats", registeredAt: "Registered at", referrals: "Referrals Made" },
+    commissions: { title: "Commission Control", sub: "Platform Revenue & Rate Configuration", plateformFee: "Platform Overwrite Fee", marketplaceFee: "Base Marketplace Fee", adminControl: "Admin Control Overwrite" }
   }
 };

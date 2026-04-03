@@ -1,174 +1,160 @@
-import { prisma } from "@/lib/prisma";
-import { format } from "date-fns";
+"use client";
+
+import { useEffect, useState } from "react";
+import { getBookings } from "@/lib/actions/admin";
 import { 
-  CalendarDays, 
+  MoreHorizontal, 
   Search, 
   Filter, 
-  CheckCircle2, 
-  XCircle, 
-  Clock, 
-  ExternalLink,
-  Wallet,
-  ArrowRightLeft
+  Download,
+  Calendar,
+  Clock,
+  CheckCircle2,
+  AlertCircle,
+  XCircle,
+  Loader2
 } from "lucide-react";
-import Link from "next/link";
-import { BookingAdminActions } from "./booking-actions";
+import { motion } from "framer-motion";
+import { getDictionary } from "@/lib/i18n/dictionary";
 
-export const dynamic = "force-dynamic";
+export default function AdminBookings() {
+  const [bookings, setBookings] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const t = getDictionary('zh-TW');
 
-export default async function AdminBookingsPage() {
-  const bookings = await prisma.booking.findMany({
-    include: {
-      customer: { select: { name: true, email: true } },
-      merchant: { select: { companyName: true } }
-    },
-    orderBy: { createdAt: "desc" }
-  });
+  useEffect(() => {
+    async function load() {
+      const data = await getBookings();
+      setBookings(data);
+      setLoading(false);
+    }
+    load();
+  }, []);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-      <div style={{ 
-        display: 'flex', 
-        flexDirection: 'row', 
-        justifyContent: 'space-between', 
-        alignItems: 'center', 
-        backgroundColor: '#ffffff', 
-        padding: '1.5rem', 
-        borderRadius: '1.5rem', 
-        border: '1px solid #e2e8f0', 
-        gap: '1rem',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
-      }}>
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}
+    >
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
-          <h2 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0, letterSpacing: '-0.025em' }}>
-            <CalendarDays style={{ color: '#d4af37' }} />
-            Booking Command Hub
-          </h2>
-          <p style={{ fontSize: '10px', color: '#94a3b8', marginTop: '6px', textTransform: 'uppercase', letterSpacing: '0.2em', fontWeight: 800, margin: 0, fontFamily: 'monospace' }}>Neural Booking Registry</p>
+          <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a', margin: 0 }}>{t.admin.bookings.title}</h2>
+          <p style={{ color: '#94a3b8', fontSize: '0.875rem', fontStyle: 'italic', margin: 0 }}>{t.admin.bookings.sub}</p>
         </div>
-        <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-          <div style={{ position: 'relative' }}>
-            <Search style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} size={16} />
-            <input 
-              type="text" 
-              placeholder="Search ID, Customer, Expert..." 
-              style={{ 
-                paddingLeft: '40px', 
-                paddingRight: '16px', 
-                paddingTop: '10px', 
-                paddingBottom: '10px', 
-                backgroundColor: '#f8fafc', 
-                border: '1px solid #e2e8f0', 
-                borderRadius: '0.75rem', 
-                fontSize: '12px', 
-                color: '#0f172a',
-                outline: 'none',
-                width: '260px'
-              }}
-            />
-          </div>
-          <button style={{ padding: '10px', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '0.75rem', color: '#94a3b8', cursor: 'pointer' }}>
-            <Filter size={18} />
-          </button>
+        <div style={{ display: 'flex', gap: '1rem' }}>
+           <div style={{ position: 'relative' }}>
+             <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+             <input 
+               type="text" 
+               placeholder={t.admin.bookings.search}
+               style={{ 
+                 padding: '0.6rem 1rem 0.6rem 2.5rem', 
+                 borderRadius: '12px', 
+                 border: '1px solid #e2e8f0', 
+                 fontSize: '14px',
+                 width: '300px',
+                 outline: 'none'
+               }} 
+             />
+           </div>
+           <button style={{ backgroundColor: '#0f172a', color: '#d4af37', padding: '0.6rem 1.25rem', borderRadius: '12px', fontSize: '12px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', cursor: 'pointer', border: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+             <Download size={16} />
+             數據導出
+           </button>
         </div>
       </div>
 
-      <div style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '1.5rem', overflow: 'hidden', boxShadow: '0 10px 40px rgba(0,0,0,0.03)' }}>
-        <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
+      <div style={{ 
+        backgroundColor: '#ffffff', 
+        borderRadius: '1.5rem', 
+        border: '1px solid #e2e8f0', 
+        overflow: 'hidden', 
+        boxShadow: '0 10px 25px rgba(0,0,0,0.02)' 
+      }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
           <thead>
             <tr style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
-              <th style={{ padding: '1rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Transaction ID / Sector</th>
-              <th style={{ padding: '1rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Parties</th>
-              <th style={{ padding: '1rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Financials</th>
-              <th style={{ padding: '1rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', textAlign: 'center' }}>Lifecycle</th>
-              <th style={{ padding: '1rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', textAlign: 'right' }}>Admin Control</th>
+              <th style={{ padding: '1.25rem 1.5rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{t.admin.bookings.id}</th>
+              <th style={{ padding: '1.25rem 1.5rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{t.admin.bookings.customer}</th>
+              <th style={{ padding: '1.25rem 1.5rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{t.admin.bookings.service}</th>
+              <th style={{ padding: '1.25rem 1.5rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{t.admin.bookings.amount}</th>
+              <th style={{ padding: '1.25rem 1.5rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{t.admin.bookings.status}</th>
+              <th style={{ padding: '1.25rem 1.5rem', fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}></th>
             </tr>
           </thead>
           <tbody>
-            {bookings.map((booking) => (
-              <tr key={booking.id} style={{ borderBottom: '1px solid #f1f5f9', transition: 'background-color 0.2s' }}>
-                <td style={{ padding: '1rem' }}>
-                  <span style={{ fontSize: '10px', fontFamily: 'monospace', color: '#94a3b8', display: 'block', marginBottom: '4px' }}>#{booking.id.slice(-8).toUpperCase()}</span>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <span style={{ 
-                      padding: '2px 8px', 
-                      borderRadius: '4px', 
-                      fontSize: '8px', 
-                      fontWeight: 900, 
-                      letterSpacing: '0.1em', 
-                      textTransform: 'uppercase',
-                      backgroundColor: booking.isEducation ? 'rgba(59, 130, 246, 0.1)' : 'rgba(212, 175, 55, 0.1)',
-                      color: booking.isEducation ? '#3b82f6' : '#d4af37',
-                      border: booking.isEducation ? '1px solid rgba(59, 130, 246, 0.2)' : '1px solid rgba(212, 175, 55, 0.2)'
-                    }}>
-                      {booking.isEducation ? 'Education' : 'Field Service'}
-                    </span>
-                  </div>
-                </td>
-                <td style={{ padding: '1rem' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                    <p style={{ fontSize: '0.875rem', fontWeight: 800, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '6px', margin: 0 }}>
-                      {booking.customer.name}
-                      <ArrowRightLeft size={10} style={{ color: '#94a3b8' }} />
-                      {booking.merchant.companyName}
-                    </p>
-                    <p style={{ fontSize: '10px', color: '#64748b', fontWeight: 700, margin: 0 }}>{booking.customer.email}</p>
-                  </div>
-                </td>
-                <td style={{ padding: '1rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div style={{ padding: '8px', borderRadius: '8px', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', color: '#d4af37' }}>
-                      <Wallet size={14} />
-                    </div>
-                    <div>
-                      <p style={{ fontSize: '0.875rem', fontWeight: 900, color: '#0f172a', margin: 0 }}>£{booking.totalAmount.toFixed(2)}</p>
-                      <p style={{ fontSize: '9px', color: '#d4af37', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '2px', margin: 0 }}>Fee: £{booking.platformFee.toFixed(2)}</p>
-                    </div>
-                  </div>
-                </td>
-                <td style={{ padding: '1rem', textAlign: 'center' }}>
-                  <StatusBadge status={booking.status} />
-                  <p style={{ fontSize: '9px', color: '#64748b', fontWeight: 700, marginTop: '4px', textTransform: 'uppercase', margin: 0 }}>Sch: {format(new Date(booking.scheduledDate), 'MMM dd, HH:mm')}</p>
-                </td>
-                <td style={{ padding: '1rem', textAlign: 'right' }}>
-                  <BookingAdminActions bookingId={booking.id} status={booking.status} />
-                </td>
-              </tr>
-            ))}
+            {loading ? (
+              [...Array(5)].map((_, i) => (
+                <tr key={i} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                  <td colSpan={6} style={{ padding: '1.5rem', textAlign: 'center' }}>
+                    <Loader2 className="animate-spin" size={24} color="#d4af37" style={{ margin: '0 auto' }} />
+                  </td>
+                </tr>
+              ))
+            ) : bookings.length === 0 ? (
+               <tr>
+                 <td colSpan={6} style={{ padding: '4rem', textAlign: 'center', color: '#94a3b8', fontSize: '14px', fontStyle: 'italic' }}>
+                   暫無預訂紀錄
+                 </td>
+               </tr>
+            ) : (
+              bookings.map((booking) => (
+                <tr key={booking.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                  <td style={{ padding: '1.25rem 1.5rem' }}>
+                    <span style={{ fontSize: '12px', fontWeight: 700, color: '#d4af37', fontFamily: 'monospace' }}>#{booking.id.slice(-8).toUpperCase()}</span>
+                  </td>
+                  <td style={{ padding: '1.25rem 1.5rem' }}>
+                    <div style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a' }}>{booking.customer?.name || "未知用戶"}</div>
+                    <div style={{ fontSize: '12px', color: '#94a3b8' }}>{booking.customer?.email}</div>
+                  </td>
+                  <td style={{ padding: '1.25rem 1.5rem' }}>
+                    <div style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>{booking.serviceName}</div>
+                    <div style={{ fontSize: '10px', color: '#d4af37', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.05em' }}>專家 ID: {booking.merchantId?.slice(0, 8)}</div>
+                  </td>
+                  <td style={{ padding: '1.25rem 1.5rem' }}>
+                    <span style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a' }}>£{booking.amount}</span>
+                  </td>
+                  <td style={{ padding: '1.25rem 1.5rem' }}>
+                    <StatusBadge status={booking.status} />
+                  </td>
+                  <td style={{ padding: '1.25rem 1.5rem', textAlign: 'right' }}>
+                    <button style={{ background: 'none', border: 'none', color: '#d4af37', cursor: 'pointer' }}>
+                      <MoreHorizontal size={18} />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 function StatusBadge({ status }: { status: string }) {
-  const styles: Record<string, { bg: string, text: string, border: string }> = {
-    PENDING: { bg: 'rgba(249, 115, 22, 0.1)', text: '#f97316', border: '1px solid rgba(249,115,22,0.2)' },
-    CONFIRMED: { bg: 'rgba(59, 130, 246, 0.1)', text: '#3b82f6', border: '1px solid rgba(59,130,246,0.2)' },
-    COMPLETED: { bg: 'rgba(16, 185, 129, 0.1)', text: '#10b981', border: '1px solid rgba(16,185,129,0.2)' },
-    CANCELLED: { bg: 'rgba(239, 68, 68, 0.1)', text: '#ef4444', border: '1px solid rgba(239, 68, 68, 0.2)' },
+  const configs: any = {
+    COMPLETED: { color: '#10b981', bg: 'rgba(16, 185, 129, 0.1)', text: '已完成' },
+    PENDING: { color: '#f59e0b', bg: 'rgba(245, 158, 11, 0.1)', text: '處理中' },
+    CANCELLED: { color: '#ef4444', bg: 'rgba(239, 68, 68, 0.1)', text: '已取消' },
+    PAID: { color: '#d4af37', bg: 'rgba(212, 175, 55, 0.1)', text: '已付款' }
   };
 
-  const style = styles[status] || styles.PENDING;
+  const config = configs[status] || { color: '#94a3b8', bg: '#f1f5f9', text: status };
 
   return (
     <span style={{ 
-      display: 'inline-flex', 
-      alignItems: 'center', 
-      gap: '4px', 
-      padding: '4px 10px', 
-      borderRadius: '99px', 
+      padding: '4px 12px', 
+      borderRadius: '999px', 
       fontSize: '10px', 
       fontWeight: 900, 
-      backgroundColor: style.bg,
-      color: style.text,
-      border: style.border,
-      textTransform: 'uppercase', 
-      letterSpacing: '0.1em'
+      color: config.color, 
+      backgroundColor: config.bg,
+      textTransform: 'uppercase',
+      letterSpacing: '0.05em'
     }}>
-      {status === 'COMPLETED' ? <CheckCircle2 size={12} /> : status === 'CANCELLED' ? <XCircle size={12} /> : <Clock size={12} />}
-      {status}
+      {config.text}
     </span>
   );
 }

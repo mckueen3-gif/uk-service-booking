@@ -1,165 +1,146 @@
-import { prisma } from "@/lib/prisma";
+"use client";
+
+import { useEffect, useState } from "react";
+import { getDisputes } from "@/lib/actions/admin";
 import { 
   Gavel, 
-  ShieldAlert, 
+  Scale, 
+  Image as ImageIcon, 
   MessageSquare, 
-  Image as ImageIcon,
+  AlertTriangle,
   CheckCircle2,
   XCircle,
-  AlertTriangle,
-  ArrowRight
+  Loader2,
+  FileText
 } from "lucide-react";
-import { DisputeActions } from "./dispute-actions";
-import { format } from "date-fns";
+import { motion } from "framer-motion";
+import { getDictionary } from "@/lib/i18n/dictionary";
 
-export const dynamic = "force-dynamic";
+export default function AdminDisputes() {
+  const [disputes, setDisputes] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const t = getDictionary('zh-TW');
 
-export default async function AdminDisputesPage() {
-  const disputes = await prisma.dispute.findMany({
-    where: { status: "OPEN" },
-    include: {
-      booking: {
-        include: {
-          customer: { select: { name: true } },
-          merchant: { select: { companyName: true } }
-        }
-      },
-      evidence: true
-    },
-    orderBy: { createdAt: "desc" }
-  });
+  useEffect(() => {
+    async function load() {
+      const data = await getDisputes();
+      setDisputes(data || []);
+      setLoading(false);
+    }
+    load();
+  }, []);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'space-between', 
-        alignItems: 'center', 
-        backgroundColor: '#ffffff', 
-        padding: '1.5rem', 
-        borderRadius: '1.5rem', 
-        border: '1px solid #e2e8f0', 
-        marginBottom: '1rem',
-        boxShadow: '0 10px 40px rgba(0,0,0,0.04)'
-      }}>
-        <div>
-          <h2 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.75rem', margin: 0 }}>
-            <Gavel style={{ color: '#d4af37' }} />
-            Arbitration Tribunal
-          </h2>
-          <p style={{ fontSize: '10px', color: '#94a3b8', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.2em', fontWeight: 800, margin: 0, fontFamily: 'monospace' }}>Dispute Resolution Command Center</p>
-        </div>
-        <div style={{ display: 'flex', gap: '1rem' }}>
-           <div style={{ textAlign: 'right' }}>
-             <p style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', margin: 0 }}>Active Cases</p>
-             <p style={{ fontSize: '1.5rem', fontWeight: 900, color: '#d4af37', margin: 0 }}>{disputes.length}</p>
-           </div>
-        </div>
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}
+    >
+      <div>
+        <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a', margin: 0 }}>{t.admin.disputes.title}</h2>
+        <p style={{ color: '#94a3b8', fontSize: '0.875rem', fontStyle: 'italic', margin: 0 }}>{t.admin.disputes.sub}</p>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-        {disputes.length === 0 ? (
-          <div style={{ 
-            padding: '8rem 0', 
-            textAlign: 'center', 
-            borderRadius: '2.5rem', 
-            border: '1px solid #e2e8f0', 
-            backgroundColor: '#ffffff',
-            boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.02)'
-          }}>
-             <CheckCircle2 size={64} style={{ margin: '0 auto', color: '#d4af37', marginBottom: '1.5rem', opacity: 0.2 }} />
-             <p style={{ color: '#0f172a', fontSize: '1.25rem', fontWeight: 800, margin: 0 }}>No active disputes requiring human intervention.</p>
-             <p style={{ color: '#94a3b8', fontSize: '0.875rem', marginTop: '0.5rem', fontStyle: 'italic', margin: 0 }}>Neural networks are handling low-risk cases automatically.</p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        {loading ? (
+          <div style={{ padding: '4rem', textAlign: 'center' }}>
+            <Loader2 className="animate-spin" size={40} color="#d4af37" style={{ margin: '0 auto' }} />
+          </div>
+        ) : disputes.length === 0 ? (
+          <div style={{ padding: '4rem', textAlign: 'center', backgroundColor: '#f8fafc', borderRadius: '1.5rem', border: '1px dashed #e2e8f0' }}>
+            <p style={{ color: '#94a3b8', fontStyle: 'italic' }}>目前系統中沒有待處理的爭議案件</p>
           </div>
         ) : (
           disputes.map((dispute) => (
-            <DisputeCard key={dispute.id} dispute={dispute} />
+            <div key={dispute.id} style={{ 
+              backgroundColor: '#ffffff', 
+              borderRadius: '1.5rem', 
+              border: '1px solid #e2e8f0', 
+              overflow: 'hidden',
+              boxShadow: '0 10px 30px rgba(0,0,0,0.03)',
+              display: 'grid',
+              gridTemplateColumns: 'minmax(0, 1.2fr) minmax(0, 0.8fr)',
+              minHeight: '450px'
+            }}>
+              {/* Left: Case Content */}
+              <div style={{ padding: '2.5rem', borderRight: '1px solid #f1f5f9' }}>
+                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
+                   <div style={{ padding: '0.6rem', borderRadius: '10px', backgroundColor: 'rgba(212,175,55,0.1)', color: '#d4af37' }}>
+                     <Gavel size={22} />
+                   </div>
+                   <div>
+                     <h3 style={{ fontSize: '14px', fontWeight: 900, color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.1em', margin: 0 }}>案件編號: {dispute.bookingId.slice(-8).toUpperCase()}</h3>
+                     <p style={{ fontSize: '12px', color: '#94a3b8', margin: 0 }}>關聯預訂: #{dispute.bookingId.slice(0, 8)}</p>
+                   </div>
+                 </div>
+
+                 <div style={{ marginBottom: '2.5rem' }}>
+                   <p style={{ fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                     <Scale size={14} />
+                     {t.admin.disputes.reasoning}
+                   </p>
+                   <div style={{ padding: '1.5rem', borderRadius: '1.25rem', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', color: '#334155', fontSize: '14px', lineHeight: '1.7', position: 'relative' }}>
+                      {dispute.aiReasoning || "AI 正在分析買賣雙方的通訊記錄與證據鏈..."}
+                   </div>
+                 </div>
+
+                 <div>
+                    <p style={{ fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <ImageIcon size={14} />
+                      {t.admin.disputes.gallery}
+                    </p>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))', gap: '1rem' }}>
+                       {(!dispute.evidence || dispute.evidence.length === 0) ? (
+                         <div style={{ gridColumn: 'span 3', padding: '2rem', borderRadius: '12px', border: '1px dashed #e2e8f0', textAlign: 'center', color: '#94a3b8', fontSize: '12px' }}>
+                           暫無上傳的證據圖像
+                         </div>
+                       ) : (
+                         dispute.evidence.map((url: string, index: number) => (
+                           <div key={index} style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid #e2e8f0', aspectRatio: '1', backgroundColor: '#f8fafc' }}>
+                             <img src={url} alt={`Evidence ${index}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                           </div>
+                         ))
+                       )}
+                    </div>
+                 </div>
+              </div>
+
+              {/* Right: Adjudication Panel */}
+              <div style={{ padding: '2.5rem', display: 'flex', flexDirection: 'column', backgroundColor: '#fcfcfc' }}>
+                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '3rem' }}>
+                    <div>
+                      <h4 style={{ fontSize: '18px', fontWeight: 800, color: '#0f172a', margin: 0 }}>{dispute.customer?.name || "用戶"}</h4>
+                      <p style={{ fontSize: '12px', color: '#94a3b8', margin: '2px 0 0 0' }}>連同專家: {dispute.merchant?.name}</p>
+                    </div>
+                    <div style={{ textAlign: 'right' }}>
+                       <p style={{ fontSize: '10px', fontWeight: 900, color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0 }}>{t.admin.disputes.confidence}</p>
+                       <p style={{ fontSize: '2.25rem', fontWeight: 900, color: '#0f172a', margin: 0 }}>{(dispute.aiConfidence * 100).toFixed(0)}%</p>
+                    </div>
+                 </div>
+
+                 <div style={{ flex: 1 }}>
+                    <div style={{ padding: '1.5rem', borderRadius: '1.5rem', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 4px 20px rgba(0,0,0,0.02)' }}>
+                       <p style={{ fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>{t.admin.disputes.verdict}</p>
+                       <p style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
+                         {dispute.aiVerdict === 'REFUND' ? '建議處理：向客戶發起部分/全額退款' : '建議處理：駁回申請並向專家撥款'}
+                       </p>
+                    </div>
+                 </div>
+
+                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '2rem' }}>
+                    <button style={{ backgroundColor: '#0f172a', color: '#d4af37', border: 'none', padding: '1.1rem', borderRadius: '12px', fontWeight: 900, fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.05em', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+                      <CheckCircle2 size={16} />
+                      採納 AI 建議並結算
+                    </button>
+                    <button style={{ backgroundColor: 'transparent', color: '#64748b', border: '1px solid #e2e8f0', padding: '1rem', borderRadius: '12px', fontWeight: 800, fontSize: '12px', cursor: 'pointer' }}>
+                      人工介入審核
+                    </button>
+                 </div>
+              </div>
+            </div>
           ))
         )}
       </div>
-    </div>
-  );
-}
-
-function DisputeCard({ dispute }: any) {
-  return (
-    <div style={{ 
-      backgroundColor: '#ffffff', 
-      border: '1px solid #e2e8f0', 
-      borderRadius: '2rem', 
-      padding: '2rem', 
-      boxShadow: '0 20px 50px rgba(0,0,0,0.04)',
-      position: 'relative',
-      overflow: 'hidden'
-    }}>
-      <div style={{ position: 'absolute', top: 0, right: 0, padding: '3rem', opacity: 0.03, color: '#0f172a' }}>
-        <Gavel size={120} />
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'row', gap: '3rem', position: 'relative', zIndex: 10 }}>
-        {/* Left Side: Context & AI Reasoning */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-             <span style={{ padding: '4px 12px', backgroundColor: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', fontSize: '10px', fontWeight: 900, border: '1px solid rgba(239,68,68,0.2)', borderRadius: '99px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Case #DIS-{dispute.id.slice(-6).toUpperCase()}</span>
-             <span style={{ color: '#94a3b8', fontSize: '12px', fontWeight: 700 }}>{format(new Date(dispute.createdAt), 'MMM dd, HH:mm')}</span>
-          </div>
-
-          <div>
-             <h3 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0f172a', lineHeight: 1.2, margin: 0 }}>
-                {dispute.booking.customer.name} <span style={{ color: '#d4af37', margin: '0 8px' }}>vs</span> {dispute.booking.merchant.companyName}
-             </h3>
-             <p style={{ color: '#64748b', fontSize: '0.875rem', marginTop: '8px', fontStyle: 'italic', margin: 0 }}>Reason for dispute: {dispute.reason}</p>
-          </div>
-
-          <div style={{ padding: '1.5rem', borderRadius: '1.5rem', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}>
-             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
-                <div style={{ padding: '6px', borderRadius: '6px', backgroundColor: '#d4af37', color: '#ffffff' }}>
-                   <AlertTriangle size={14} />
-                </div>
-                <h4 style={{ fontSize: '10px', fontWeight: 900, color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.15em', margin: 0 }}>AI Arbiter Premise</h4>
-             </div>
-             <p style={{ fontSize: '0.875rem', color: '#334155', lineHeight: 1.6, fontStyle: 'italic', margin: 0 }}>
-               "{dispute.aiReasoning || "Awaiting secondary neural analysis for this case context."}"
-             </p>
-             <div style={{ marginTop: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <div style={{ flex: 1, height: '4px', backgroundColor: '#e2e8f0', borderRadius: '99px', overflow: 'hidden' }}>
-                    <div style={{ height: '100%', backgroundColor: '#d4af37', width: '75%' }}></div>
-                </div>
-                <span style={{ fontSize: '10px', fontWeight: 900, color: '#64748b', textTransform: 'uppercase' }}>AI Confidence: 75%</span>
-             </div>
-          </div>
-        </div>
-
-        {/* Middle: Evidence Gallery */}
-        <div style={{ width: '320px' }}>
-          <h4 style={{ fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '8px', margin: 0 }}>
-            <ImageIcon size={14} style={{ color: '#d4af37' }} />
-            Evidence Gallery
-          </h4>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-             {dispute.evidence.length === 0 ? (
-               <div style={{ gridColumn: 'span 2', padding: '2.5rem 0', border: '1px dashed #e2e8f0', borderRadius: '1rem', textAlign: 'center', color: '#94a3b8', fontSize: '12px' }}>
-                  No visual proof provided.
-               </div>
-             ) : (
-               dispute.evidence.map((ev: any, idx: number) => (
-                 <div key={idx} style={{ aspectRatio: '1/1', borderRadius: '1rem', backgroundColor: '#f1f5f9', overflow: 'hidden', border: '1px solid #e2e8f0', cursor: 'zoom-in', position: 'relative' }}>
-                    <img src={ev.fileUrl} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, backgroundColor: 'rgba(0,0,0,0.5)', padding: '4px', textAlign: 'center' }}>
-                       <span style={{ fontSize: '8px', fontWeight: 700, color: '#ffffff', textTransform: 'uppercase' }}>{ev.type}</span>
-                    </div>
-                 </div>
-               ))
-             )}
-          </div>
-        </div>
-
-        {/* Right Side: Decisions */}
-        <div style={{ width: '260px', borderLeft: '1px solid #e2e8f0', paddingLeft: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-           <h4 style={{ fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1.5rem', margin: 0 }}>Human Verdict Required</h4>
-           <DisputeActions disputeId={dispute.id} />
-        </div>
-      </div>
-    </div>
+    </motion.div>
   );
 }

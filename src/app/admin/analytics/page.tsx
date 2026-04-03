@@ -20,13 +20,25 @@ import {
   Legend
 } from "recharts";
 import { motion } from "framer-motion";
-import { TrendingUp, Users, Calendar, Wallet, Loader2 } from "lucide-react";
+import { 
+  TrendingUp, 
+  Users, 
+  Calendar, 
+  Wallet,
+  ArrowUpRight,
+  ArrowDownRight,
+  Download,
+  Loader2,
+  Activity
+} from "lucide-react";
+import { getDictionary } from "@/lib/i18n/dictionary";
 
 const COLORS = ["#d4af37", "#aa8b2c", "#c5a028", "#8e731f"];
 
 export default function AnalyticsPage() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const t = getDictionary('zh-TW');
 
   useEffect(() => {
     async function load() {
@@ -41,7 +53,7 @@ export default function AnalyticsPage() {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', color: '#d4af37' }}>
         <Loader2 className="animate-spin mb-4" size={40} />
-        <p style={{ fontSize: '10px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.2em' }}>Synchronizing Neural Data...</p>
+        <p style={{ fontSize: '10px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.2em' }}>系統數據同步中...</p>
       </div>
     );
   }
@@ -52,7 +64,6 @@ export default function AnalyticsPage() {
       animate={{ opacity: 1, y: 0 }}
       style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}
     >
-      {/* Stats Summary Bar - Physical Grid */}
       <div style={{ 
         display: 'grid', 
         gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
@@ -60,25 +71,24 @@ export default function AnalyticsPage() {
       }}>
          <MetricBox 
            icon={<Wallet size={20} />} 
-           label="Total GMV (30d)" 
+           label={t.admin.stats.gmv} 
            value={`£${data.summary.totalGMV.toLocaleString()}`} 
-           sub={`Net Revenue: £${data.summary.totalRevenue.toLocaleString()}`}
+           sub={`${t.admin.stats.netRevenue}: £${data.summary.totalRevenue.toLocaleString()}`}
          />
          <MetricBox 
            icon={<Calendar size={20} />} 
-           label="Bookings Completed" 
+           label={t.admin.stats.bookings} 
            value={data.summary.count.toString()} 
-           sub="Successfully processed"
+           sub={t.admin.stats.processed}
          />
          <MetricBox 
            icon={<Users size={20} />} 
-           label="Daily Average" 
+           label={t.admin.stats.dailyAvg} 
            value={(data.summary.totalGMV / 30).toFixed(2)} 
-           sub="Processing volume per 24h"
+           sub={t.admin.stats.volume24h}
          />
       </div>
 
-      {/* Main GMV Trend Area Chart */}
       <div style={{ 
         padding: '2rem', 
         borderRadius: '1.5rem', 
@@ -92,12 +102,12 @@ export default function AnalyticsPage() {
           <div>
             <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '0.75rem', margin: 0 }}>
               <TrendingUp style={{ color: '#d4af37' }} />
-              Gross Merchandise Value (GMV)
+              {t.admin.analytics.gmvTitle}
             </h3>
-            <p style={{ color: '#94a3b8', fontSize: '0.875rem', fontStyle: 'italic', margin: 0 }}>Aggregate booking value trends for the last 30 days.</p>
+            <p style={{ color: '#94a3b8', fontSize: '0.875rem', fontStyle: 'italic', margin: 0 }}>{t.admin.analytics.gmvSub}</p>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '2px', paddingLeft: '8px', paddingRight: '8px', paddingTop: '4px', paddingBottom: '4px', backgroundColor: 'rgba(212,175,55,0.1)', border: '1px solid rgba(212,175,55,0.2)', borderRadius: '999px', fontSize: '10px', fontWeight: 700, color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-            Live Stream Active
+            {t.admin.analytics.live}
           </div>
         </div>
 
@@ -140,7 +150,7 @@ export default function AnalyticsPage() {
       }}>
         {/* Sector Distribution Pie Chart */}
         <div style={{ padding: '1.5rem', borderRadius: '1.5rem', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 10px 25px rgba(0,0,0,0.03)' }}>
-          <h4 style={{ fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1.5rem', margin: 0 }}>Sector Distribution</h4>
+          <h4 style={{ fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1.5rem', margin: 0 }}>{t.admin.analytics.sectorDist}</h4>
           <div style={{ height: '300px' }}>
              <ResponsiveContainer width="100%" height="100%">
                <PieChart>
@@ -169,7 +179,7 @@ export default function AnalyticsPage() {
 
         {/* Volume Bar Chart */}
         <div style={{ padding: '1.5rem', borderRadius: '1.5rem', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 10px 25px rgba(0,0,0,0.03)' }}>
-           <h4 style={{ fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1.5rem', margin: 0 }}>Booking Volume</h4>
+           <h4 style={{ fontSize: '10px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1.5rem', margin: 0 }}>{t.admin.analytics.volTitle}</h4>
            <div style={{ height: '300px' }}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={data.dailyTrend}>

@@ -195,5 +195,17 @@ export const zhTW: Dictionary = {
     sectors: { title: "選擇您的行業", professional: { title: "專業服務", desc: "會計、法律、諮詢", industries: ["會計師", "稅務諮詢", "法律服務", "商業戰略"] }, education: { title: "教育輔導", desc: "導師、培訓師、教練", industries: ["學科導師", "語言培訓", "技能教練", "音樂老師"] }, technical: { title: "技術維修", desc: "技工、維修、工程", industries: ["水電工", "電力工程師", "汽車維修", "房屋裝修"] } },
     contract: { title: "標準服務協議", scrollingNotice: "請滾動到底部以接受條款。", agree: "我已閱讀並同意 ConciergeAI 主協議。", clauses: { platform_fee: { title: "1. 平台服務費", body: "ConciergeAI 對成功預訂收取 9% 的佣金。" }, payments: { title: "2. 託管與撥款", body: "客戶付款保存在安全託管中。在客戶確認工作完成 48 小時後觸發撥款。" }, conduct: { title: "3. 專業標準", body: "專家必須保持最低 4.0 星評分。未能達到英國安全標準可能導致帳戶立即停權。" } } },
     buttons: { start: "馬上開始", next: "下一步", back: "上一步", submit: "完成入駐" }
+  },
+  admin: {
+    sidebar: { overview: "營運總覽", analytics: "數據分析", bookings: "預訂管理", verifications: "資質審核", disputes: "爭議仲裁", merchants: "服務專家", payouts: "財務結算", users: "客戶中心", settings: "系統設置", terminal: "終端存取" },
+    header: { internal: "內部管理系統", operations: "全球運營指揮中心", node: "區域節點" },
+    stats: { gmv: "月度交易總額 (GMV)", netRevenue: "平台淨收益", bookings: "已完成預訂", dailyAvg: "日均處理量", processed: "已成功處理", volume24h: "24小時交易通量" },
+    analytics: { gmvTitle: "商品交易總額 (GMV) 趨勢", gmvSub: "過去 30 天內的訂單總價值波動圖表。", sectorDist: "行業占比分佈", volTitle: "訂單處理通量", live: "實時數據流已激活" },
+    bookings: { title: "預訂調度中心", sub: "神經網絡預訂註冊表", search: "搜尋預訂紀錄...", id: "預訂編號", customer: "客戶名稱", amount: "金額", status: "狀態", service: "服務項目" },
+    verifications: { title: "身分資質審核", sub: "身分證明文件完整性審核", evidence: "身分證明證據", extraction: "AI 數據提取結果", passport: "護照/身分證", faceMatch: "人臉匹配度", confidence: "AI 置信度" },
+    disputes: { title: "爭議裁決法庭", sub: "爭議解決與證據審計終端", reasoning: "AI 仲裁員推理過程", gallery: "證據展示庫", verdict: "最終裁決結果", confidence: "AI 判定可靠度" },
+    payouts: { title: "財務清算中心", snapshot: "財務數據快照", pending: "待結算提現", volume: "累計交易量", security: "安全審計狀態", adjudication: "提現申請審核", method: "支付方式" },
+    users: { title: "客戶目錄", sub: "用戶數據庫與推薦統計", stats: "關鍵指標", registeredAt: "註冊時間", referrals: "成功推薦次數" },
+    commissions: { title: "佣金全局控制", sub: "平台收益率與基礎費率配置", plateformFee: "平台覆寫費率", marketplaceFee: "基礎存量費率", adminControl: "管理員人工覆寫" }
   }
 };
