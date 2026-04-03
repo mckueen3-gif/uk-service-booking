@@ -45,14 +45,24 @@ export async function POST(req: NextRequest) {
 
     let questions;
     try {
-      questions = JSON.parse(response);
-      // If it's wrapped in an object like { questions: [...] }
+      // 🛠️ Robust JSON Extraction: 移除 Grok 有可能包含的 Markdown 標籤或前後文字
+      let cleanResponse = response.trim();
+      if (cleanResponse.includes('```')) {
+        const match = cleanResponse.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+        if (match && match[1]) {
+          cleanResponse = match[1].trim();
+        }
+      }
+      
+      questions = JSON.parse(cleanResponse);
+      
+      // If result is wrapped in an object like { questions: [...] }
       if (!Array.isArray(questions) && questions.questions) {
         questions = questions.questions;
       }
     } catch (e) {
       console.error("[AI Diagnostic] Failed to parse AI response:", response);
-      throw new Error("Invalid AI response format");
+      throw new Error(`AI response format mismatch. Raw output length: ${response.length}`);
     }
 
     return NextResponse.json({ questions });

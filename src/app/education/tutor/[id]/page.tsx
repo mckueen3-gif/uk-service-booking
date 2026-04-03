@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState } from 'react';
-import { MapPin, Star, Sparkles, BookOpen, Clock, Video, UserCheck, ShieldCheck, GraduationCap } from 'lucide-react';
+import { MapPin, Star, Sparkles, BookOpen, Clock, Video, UserCheck, ShieldCheck, GraduationCap, Lock } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslation } from '@/components/LanguageContext';
+import { useSession } from 'next-auth/react';
 
 export default function TutorProfilePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = React.use(params);
@@ -11,7 +12,8 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [showAITrial, setShowAITrial] = useState(false);
-  const [challengeState, setChallengeState] = useState<'idle' | 'loading' | 'active' | 'completed' | 'error'>('idle');
+  const [challengeState, setChallengeState] = useState<'idle' | 'loading' | 'active' | 'completed' | 'error' | 'login-required'>('idle');
+  const { data: session, status } = useSession();
   const [questions, setQuestions] = useState<any[]>([]);
   const [currentStep, setCurrentStep] = useState(0);
   const [score, setScore] = useState(0);
@@ -35,6 +37,13 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
   // 🚀 AI Challenge Logic
   const startChallenge = async () => {
     if (!profile) return;
+    
+    // 🛡️ 引導登入：若未登入則切換至引導狀態
+    if (status === 'unauthenticated') {
+      setChallengeState('login-required');
+      return;
+    }
+
     setChallengeState('loading');
     setQuestions([]);
     setCurrentStep(0);
@@ -428,6 +437,32 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
                   </button>
                   <button onClick={() => setChallengeState('idle')} style={{ padding: '1rem 2rem', border: 'none', background: 'transparent', color: 'var(--text-secondary)', cursor: 'pointer', fontWeight: 600 }}>
                     Try Again
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* 🛡️ login-required State: 專業登入引導面板 */}
+            {challengeState === 'login-required' && (
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ 
+                  width: '80px', height: '80px', borderRadius: '50%', 
+                  backgroundColor: 'rgba(99, 102, 241, 0.1)', 
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  margin: '0 auto 1.5rem'
+                }}>
+                  <Lock size={40} color="var(--accent-color)" />
+                </div>
+                <h2 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '1rem' }}>會員限定功能</h2>
+                <p style={{ color: 'var(--text-secondary)', marginBottom: '2.5rem', fontSize: '1.1rem', lineHeight: 1.6 }}>
+                  AI 診斷試堂是為 <b>ConciergeAI</b> 會員提供的專屬服務。請先登入您的帳戶，以便我們為您記錄與分析學習進度。
+                </p>
+                <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+                  <Link href={`/auth/login?callbackUrl=${encodeURIComponent(window.location.href)}`} className="btn btn-primary" style={{ padding: '1rem 3rem', textDecoration: 'none' }}>
+                    立即登入
+                  </Link>
+                  <button onClick={() => setShowAITrial(false)} style={{ padding: '1rem 2rem', border: 'none', background: 'transparent', color: 'var(--text-secondary)', cursor: 'pointer', fontWeight: 600 }}>
+                    稍後再說
                   </button>
                 </div>
               </div>
