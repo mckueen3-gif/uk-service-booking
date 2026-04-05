@@ -19,8 +19,11 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({ currentCredits,
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [statusMsg, setStatusMsg] = useState({ type: '', text: '' });
 
-  // Handle new JSON structure (metadata + vouchers)
-  const { vouchers, metadata } = vouchersData as any;
+  // Handle new JSON structure (metadata + vouchers) with safety fallback
+  const rawData = vouchersData as any;
+  const vouchers = rawData?.vouchers || (Array.isArray(rawData) ? rawData : []);
+  const metadata = rawData?.metadata || {};
+  
   const isLocked = currentCredits < 10;
 
   const filteredVouchers = useMemo(() => {
