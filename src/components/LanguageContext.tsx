@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { Locale, Dictionary, dictionaries } from '@/lib/i18n/dictionary';
 
 interface LanguageContextType {
@@ -61,8 +62,22 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
 export function useTranslation() {
   const context = useContext(LanguageContext);
+  const pathname = usePathname();
+
   if (context === undefined) {
     throw new Error('useTranslation must be used within a LanguageProvider');
   }
+
+  // Force zh-TW for auth and join pages
+  const isAuthPage = pathname?.startsWith('/auth') || pathname === '/join';
+  if (isAuthPage) {
+    return {
+      ...context,
+      locale: 'zh-TW' as Locale,
+      t: dictionaries['zh-TW'],
+      isRTL: false
+    };
+  }
+
   return context;
 }

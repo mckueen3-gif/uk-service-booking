@@ -9,9 +9,11 @@ import LiveProfilePreview from '@/components/joining/LiveProfilePreview';
 import { ChevronRight, ChevronLeft, CheckCircle2, Building2, Mail, Globe, User, Loader2, MapPin, Sparkles, Wand2, Calculator, Gift, ShieldCheck } from 'lucide-react';
 import { createMerchantAction } from '@/app/actions/merchant';
 import { fetchBusinessInfoWithAI } from '@/app/actions/ai_onboarding';
+import { getDictionary } from '@/lib/i18n/dictionary';
 
 export default function JoinPage() {
-  const { t, locale } = useTranslation();
+  const t = getDictionary('zh-TW');
+  const { locale } = useTranslation();
   const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [aiLoading, setAiLoading] = useState(false);
