@@ -24,7 +24,7 @@ export interface Dictionary {
       bookings: { q: string; a: string }[];
     };
   };
-  footer: { tagline: string; explore: string; legal: string; support: string; rights: string; terms: string; privacy: string; cookies: string; help: string; contact: string; aiDiagnosis: string; homeCleaning: string; plumbingServices: string; automotiveServices: string };
+  footer: { tagline: string; explore: string; legal: string; support: string; rights: string; terms: string; privacy: string; cookies: string; help: string; contact: string; aiDiagnosis: string; homeCleaning: string; plumbingServices: string; automotiveServices: string; trustSignal: string };
   search: { 
     filters: string; keyword: string; location: string; category: string; minRating: string; verifiedOnly: string; 
     apply: string; sortBy: string; sortRating: string; sortJobs: string; sortDistance: string; sortPrice: string; 
@@ -72,6 +72,17 @@ export interface Dictionary {
         joinedAt: string;
         validUntil: string;
         availableNow: string;
+        rewards: {
+          title: string;
+          subtitle: string;
+          myVault: string;
+          redeemBtn: string;
+          statusProcessing: string;
+          statusReady: string;
+          voucherDisclaimer: string;
+          confirmRedeem: string;
+          requestSuccess: string;
+        };
       };
       bookings: { title: string; viewAll: string; empty: string; completed: string; actions: { confirm: string; complete: string; variation: string } };
       status: { pending: string; confirmed: string; completed: string; cancelled: string };
@@ -95,7 +106,14 @@ export interface Dictionary {
     search: { filters: string; mode: string; online: string; offline: string; hybrid: string; priceRange: string; level: string; student: string; pro: string; expert: string; apply: string; resultsTitle: string; foundCount: string; placeholder: string };
     common: { reviews: string; hr: string; bookTrial: string };
     tutorCard: { demoDesc: string };
-    tutorProfile: { verified: string; about: string; education: string; experience: string; portfolio: string; reviews: string; availability: string; bookNow: string; aiTrial: string; trialChallenge: string; startChallenge: string; cancel: string };
+    tutorProfile: { 
+      verified: string; about: string; education: string; experience: string; portfolio: string; reviews: string; availability: string; bookNow: string; 
+      aiTrial: string; trialChallenge: string; startChallenge: string; cancel: string;
+      loadingChallenge: string; analyzing: string; questionLabel: string; of: string; explanation: string; nextQuestion: string; finishChallenge: string;
+      scoreResult: string; assessment: string; 
+      assessmentLevels: { excellent: string; progress: string; starting: string };
+      assessmentDesc: string; bookFirstLesson: string; tryAgain: string;
+    };
   };
   home: {
     hero: { badge: string; title1: string; title2: string; subtitle: string; searchPlaceholder: string; locationPlaceholder: string; aiMatch: string; searchBtn: string };

@@ -27,7 +27,7 @@ export const en: Dictionary = {
       ]
     }
   },
-  footer: { tagline: "Connect with the UK's top certified professionals.", explore: "Explore", legal: "Legal", support: "Support", rights: "© 2024 UK Service Hub. All rights reserved.", terms: "Terms of Service", privacy: "Privacy Policy", cookies: "Cookie Policy", help: "Help Center", contact: "Contact Support", aiDiagnosis: "AI Diagnostics", homeCleaning: "Home Cleaning", plumbingServices: "Plumbing Services", automotiveServices: "Automotive Services" },
+  footer: { tagline: "Connect with the UK's top certified professionals.", explore: "Explore", legal: "Legal", support: "Support", rights: "© 2024 UK Service Hub. All rights reserved.", terms: "Terms of Service", privacy: "Privacy Policy", cookies: "Cookie Policy", help: "Help Center", contact: "Contact Support", aiDiagnosis: "AI Diagnostics", homeCleaning: "Home Cleaning", plumbingServices: "Plumbing Services", automotiveServices: "Automotive Services", trustSignal: "Rated Excellent on Trustpilot" },
   search: { 
     filters: "Filters", keyword: "Keyword", location: "Location", category: "Category", minRating: "Min Rating", verifiedOnly: "Verified Only", 
     apply: "Apply Filters", sortBy: "Sort By", sortRating: "Rating", sortJobs: "Jobs Done", sortDistance: "Distance", sortPrice: "Price", 
@@ -75,7 +75,18 @@ export const en: Dictionary = {
         expired: "Expired",
         joinedAt: "Joined at",
         validUntil: "Valid until",
-        availableNow: "Available Now"
+        availableNow: "Available Now",
+        rewards: {
+          title: "Redeem Digital Cash Voucher",
+          subtitle: "* Manual review required. Codes issued within 24 hours.",
+          myVault: "My Digital Card Vault",
+          redeemBtn: "Redeem",
+          statusProcessing: "Processing...",
+          statusReady: "Ready to Use",
+          voucherDisclaimer: "Valid at major UK retail chains and payment systems.",
+          confirmRedeem: "Confirm point deduction for a cash voucher? Issued within 24 hours.",
+          requestSuccess: "Request successful! We are allocating your code. Check your vault soon.",
+        },
       },
       bookings: { title: "Recent Appointments", viewAll: "View All Bookings", empty: "No recent bookings", completed: "Completed", actions: { confirm: "Confirm", complete: "Mark Complete", variation: "Request Extra" } },
       status: { pending: "Pending", confirmed: "Confirmed", completed: "Completed", cancelled: "Cancelled" },
@@ -99,7 +110,27 @@ export const en: Dictionary = {
     search: { filters: "Search Filters", mode: "Teaching Mode", online: "Online", offline: "In-Person", hybrid: "Hybrid", priceRange: "Hourly Rate", level: "Tutor Level", student: "Student", pro: "Professional", expert: "Master/PhD", apply: "Apply Filters", resultsTitle: "Available Tutors", foundCount: "{{count}} tutors matching", placeholder: "Search by subject or name" },
     common: { reviews: "Reviews", hr: "hr", bookTrial: "Book Trial" },
     tutorCard: { demoDesc: "Passionate educator with a PhD and over 10 years of experience helping 100+ students achieve their goals." },
-    tutorProfile: { verified: "Verified Educator", about: "About Me", education: "Education", experience: "Teaching Experience", portfolio: "Student Success Stories", reviews: "Student Reviews", availability: "Weekly Schedule", bookNow: "Book a Lesson", aiTrial: "AI Evaluation Trial", trialChallenge: "Attempt the AI subject challenge for a session discount!", startChallenge: "Start Challenge", cancel: "Cancel" }
+    tutorProfile: { 
+      verified: "Verified Educator", about: "About Me", education: "Education", experience: "Teaching Experience", portfolio: "Student Success Stories", reviews: "Student Reviews", availability: "Weekly Schedule", bookNow: "Book a Lesson", 
+      aiTrial: "AI Tutor Trial", trialChallenge: "Academic Diagnostic", startChallenge: "Start AI Challenge", cancel: "Not Now",
+      loadingChallenge: "AI is preparing your challenge...",
+      analyzing: "Analyzing curriculum for {subject}",
+      questionLabel: "Question",
+      of: "of",
+      explanation: "Explanation:",
+      nextQuestion: "Next Question",
+      finishChallenge: "Finish Challenge",
+      scoreResult: "Your Score:",
+      assessment: "Assessment:",
+      assessmentLevels: {
+        excellent: "Excellent Foundation",
+        progress: "Ready for Progress",
+        starting: "Starting Journey"
+      },
+      assessmentDesc: "Your expert has received the results and will tailor your lesson accordingly!",
+      bookFirstLesson: "Book Your First Lesson",
+      tryAgain: "Try Again"
+    }
   },
   home: {
     hero: { badge: "Certified UK Local Masters", title1: "Book Top-Rated", title2: "Local Experts", subtitle: "Instant access to the top 1% of UK service professionals. Verified, insured, and AI-monitored for guaranteed quality.", searchPlaceholder: "I need a...", locationPlaceholder: "London, UK", aiMatch: "Smart Match", searchBtn: "Search Experts" },

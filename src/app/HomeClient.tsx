@@ -436,43 +436,6 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* Trustpilot / Review Section */}
-      <section style={{ padding: '6rem 0', background: 'var(--bg-secondary)', borderTop: '1px solid var(--border-color)' }}>
-        <div className="container">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '4rem', flexWrap: 'wrap', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
-            
-            <div className="reveal" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', minWidth: '250px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 900, fontSize: '1.5rem', marginBottom: '1rem' }}>
-                <Star size={28} fill="#00b67a" color="#00b67a"/> Trustpilot
-              </div>
-              <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', marginBottom: '1.5rem', fontWeight: 500 }}>{t.home.reviews.excellent} {t.home.reviews.basedOn} 21,105 reviews</p>
-              <div style={{ display: 'flex', gap: '4px' }}>
-                {[1,2,3,4,5].map(i => <div key={i} style={{ backgroundColor: '#00b67a', color: 'white', padding: '4px', borderRadius: '4px' }}><Star size={18} fill="white" color="white"/></div>)}
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', gap: '2rem', flex: 1, overflow: 'hidden', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
-              {[
-                { id: 1, title: "Highly Recommended", desc: "The expert was incredibly professional and efficient. Best booking experience!", author: "Sarah Jenkins" },
-                { id: 2, title: "Exceptional Quality", desc: "Found the perfect plumber within minutes. The transparency is amazing.", author: "David Miller" },
-              ].map((rev, idx) => (
-                <div key={rev.id} className={`glass-panel reveal stagger-${idx + 1}`} style={{ flex: 1, minWidth: '280px', padding: '2rem', textAlign: 'inherit' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
-                    <div style={{ display: 'flex', gap: '2px' }}>
-                      {[1,2,3,4,5].map(i => <Star key={i} size={14} fill="#00b67a" color="#00b67a"/>)}
-                    </div>
-                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{t.home.reviews.verified}</span>
-                  </div>
-                  <h4 style={{ fontSize: '1.1rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '0.75rem' }}>{rev.title}</h4>
-                  <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: '1.25rem' }}>"{rev.desc}"</p>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--text-primary)' }}>{rev.author}</div>
-                </div>
-              ))}
-            </div>
-
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

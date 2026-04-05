@@ -22,8 +22,8 @@ import { useSession, signOut } from "next-auth/react";
 const STATUS_COLOR: Record<string, { bg: string; text: string }> = {
   CONFIRMED: { bg: 'rgba(212, 175, 55, 0.12)', text: '#d4af37' },
   PENDING:   { bg: 'rgba(245, 158, 11, 0.12)',  text: '#f59e0b' },
-  COMPLETED: { bg: 'rgba(255, 255, 255, 0.05)', text: '#fff' },
-  CANCELLED: { bg: 'rgba(239, 68, 68, 0.05)',   text: '#999' },
+  COMPLETED: { bg: 'rgba(16, 185, 129, 0.1)',   text: '#059669' },
+  CANCELLED: { bg: 'rgba(100, 116, 139, 0.1)',  text: '#64748b' },
 };
 
 const STATUS_LABEL = (t: any): Record<string, string> => ({
@@ -337,11 +337,12 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
                   style={{ 
                     padding: '0.6rem 1rem', 
                     borderRadius: '10px', 
-                    background: 'rgba(255,255,255,0.05)', 
+                    background: 'rgba(255,255,255,0.4)', 
                     border: '1px solid var(--border-color)',
-                    color: 'white',
+                    color: '#1a1a1a',
                     width: '140px',
-                    fontSize: '0.9rem'
+                    fontSize: '0.9rem',
+                    fontWeight: 600
                   }} 
                 />
                 <button 

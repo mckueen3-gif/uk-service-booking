@@ -1,0 +1,226 @@
+{
+  "metadata": {
+    "lastUpdated": "2026-04-05T00:16:25.061Z",
+    "totalBrands": 31,
+    "engineVersion": "3.0.0-AI"
+  },
+  "vouchers": [
+    {
+      "name": "Tesco",
+      "category": "Supermarkets",
+      "type": "Instore/Online",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "ASDA",
+      "category": "Supermarkets",
+      "type": "Instore/Online",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "Sainsbury's",
+      "category": "Supermarkets",
+      "type": "Instore/Online",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "Morrisons",
+      "category": "Supermarkets",
+      "type": "Instore",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "Waitrose",
+      "category": "Supermarkets",
+      "type": "Instore/Online",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "Iceland",
+      "category": "Supermarkets",
+      "type": "Instore",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "M&S Food",
+      "category": "Supermarkets",
+      "type": "Instore",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "Aldi",
+      "category": "Supermarkets",
+      "type": "Instore",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "Lidl",
+      "category": "Supermarkets",
+      "type": "Instore",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "Amazon.co.uk",
+      "category": "Retail",
+      "type": "Online",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "Argos",
+      "category": "Retail",
+      "type": "Online/Instore",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "Currys",
+      "category": "Retail",
+      "type": "Online/Instore",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "Boots",
+      "category": "Retail",
+      "type": "Online/Instore",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "IKEA",
+      "category": "Home",
+      "type": "Online/Instore",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "B&Q",
+      "category": "Home",
+      "type": "Online/Instore",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "Deliveroo",
+      "category": "Food & Drink",
+      "type": "Online",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "Just Eat",
+      "category": "Food & Drink",
+      "type": "Online",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "Uber Eats",
+      "category": "Food & Drink",
+      "type": "Online",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "Nando's",
+      "category": "Food & Drink",
+      "type": "Instore",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "Starbucks",
+      "category": "Food & Drink",
+      "type": "Instore",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "Costa Coffee",
+      "category": "Food & Drink",
+      "type": "Instore",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "Uber",
+      "category": "Travel",
+      "type": "Online",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "Airbnb",
+      "category": "Travel",
+      "type": "Online",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "Spotify",
+      "category": "Entertainment",
+      "type": "Online",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "Netflix",
+      "category": "Entertainment",
+      "type": "Online",
+      "isNew": false,
+      "isPumpedUp": false
+    },
+    {
+      "name": "The White Company",
+      "category": "Retail",
+      "type": "Online/Instore",
+      "isNew": true,
+      "isPumpedUp": false
+    },
+    {
+      "name": "Lush",
+      "category": "Health & Beauty",
+      "type": "Instore",
+      "isNew": true,
+      "isPumpedUp": false
+    },
+    {
+      "name": "Wagamama",
+      "category": "Food & Drink",
+      "type": "Instore",
+      "isNew": false,
+      "isPumpedUp": true
+    },
+    {
+      "name": "National Express",
+      "category": "Travel",
+      "type": "Online",
+      "isNew": false,
+      "isPumpedUp": true
+    },
+    {
+      "name": "Halfords",
+      "category": "Retail",
+      "type": "Online/Instore",
+      "isNew": true,
+      "isPumpedUp": false
+    },
+    {
+      "name": "Greggs",
+      "category": "Food & Drink",
+      "type": "Instore",
+      "isNew": false,
+      "isPumpedUp": true
+    }
+  ]
+}

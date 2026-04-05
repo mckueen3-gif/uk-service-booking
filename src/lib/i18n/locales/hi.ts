@@ -27,7 +27,7 @@ export const hi: Dictionary = {
       ]
     }
   },
-  footer: { tagline: "यूके के शीर्ष प्रमाणित पेशेवरों से जुड़ें।", explore: "एक्सप्लोर", legal: "कानूनी", support: "सहायता", rights: "© 2024 यूके सर्विस हब। सर्वाधिकार सुरक्षित।", terms: "सेवा की शर्तें", privacy: "गोपनीयता नीति", cookies: "कुकी नीति", help: "सहायता केंद्र", contact: "सहायता से संपर्क करें", aiDiagnosis: "AI निदान", homeCleaning: "घर की सफाई", plumbingServices: "प्लंबिंग सेवाएं", automotiveServices: "ऑटोमोटिव सेवाएं" },
+  footer: { tagline: "यूके के शीर्ष प्रमाणित पेशेवरों से जुड़ें।", explore: "एक्सप्लोर", legal: "कानूनी", support: "सहायता", rights: "© 2024 यूके सर्विस हब। सर्वाधिकार सुरक्षित।", terms: "सेवा की शर्तें", privacy: "गोपनीयता नीति", cookies: "कुकी नीति", help: "सहायता केंद्र", contact: "सहायता से संपर्क करें", aiDiagnosis: "AI निदान", homeCleaning: "घर की सफाई", plumbingServices: "प्लंबिंग सेवाएं", automotiveServices: "ऑटोमोटिव सेवाएं", trustSignal: "Trustpilot पर उत्कृष्ट रेट किया गया" },
   search: { 
     filters: "फ़िल्टर", keyword: "कीवर्ड", location: "स्थान", category: "श्रेणी", minRating: "न्यूनतम रेटिंग", verifiedOnly: "केवल सत्यापित", 
     apply: "फ़िल्टर लागू करें", sortBy: "क्रमित करें", sortRating: "रेटिंग", sortJobs: "किए गए काम", sortDistance: "दूरी", sortPrice: "कीमत", 
@@ -75,7 +75,18 @@ export const hi: Dictionary = {
         expired: "समाप्त",
         joinedAt: "में शामिल हुए",
         validUntil: "तक वैध",
-        availableNow: "अब उपलब्ध"
+        availableNow: "अब उपलब्ध",
+        rewards: {
+          title: "डिजिटल कैश वाउचर रिडीम करें",
+          subtitle: "* मैनुअल समीक्षा आवश्यक है। कोड 24 घंटे के भीतर जारी किए जाते हैं।",
+          myVault: "मेरा डिजिटल कार्ड वॉलेट",
+          redeemBtn: "रिडीम करें",
+          statusProcessing: "प्रसंस्करण...",
+          statusReady: "इस्तेमाल के लिए तैयार",
+          voucherDisclaimer: "प्रमुख ब्रिटिश खुदरा श्रृंखलाओं और भुगतान प्रणालियों में मान्य है।",
+          confirmRedeem: "कैश वाउचर के लिए अंक कटौती की पुष्टि करें? 24 घंटे में जारी किया जाएगा।",
+          requestSuccess: "अनुरोध सफल रहा! हम आपका कोड आवंटित कर रहे हैं। जल्द ही अपना वॉलेट जांचें।",
+        },
       },
       bookings: { title: "हालिया नियुक्तियां", viewAll: "सभी बुकिंग देखें", empty: "कोई हालिया बुकिंग नहीं", completed: "पूरा हुआ", actions: { confirm: "पुष्टि करें", complete: "पूरा मार्क करें", variation: "अतिरिक्त अनुरोध करें" } },
       status: { pending: "लंबित", confirmed: "पुष्टि की गई", completed: "पूरा हुआ", cancelled: "रद्द किया गया" },
@@ -99,7 +110,27 @@ export const hi: Dictionary = {
     search: { filters: "खोज फ़िल्टर", mode: "शिक्षण मोड", online: "ऑनलाइन", offline: "व्यक्तिगत रूप से", hybrid: "हाइब्रिड", priceRange: "प्रति घंटा दर", level: "ट्यूटर स्तर", student: "विश्वविद्यालय छात्र", pro: "पेशेवर शिक्षक", expert: "मास्टर/पीएचडी", apply: "फ़िल्टर लागू करें", resultsTitle: "उपलब्ध ट्यूटर", foundCount: "{{count}} ट्यूटर मिले", placeholder: "विषय या नाम से खोजें" },
     common: { reviews: "समीक्षाएं", hr: "घंटा", bookTrial: "ट्रायल बुक करें" },
     tutorCard: { demoDesc: "पीएचडी और 10+ वर्षों के अनुभव के साथ उत्साही शिक्षक, जिन्होंने 100+ छात्रों को उनके लक्ष्य प्राप्त करने में मदद की है।" },
-    tutorProfile: { verified: "सत्यापित शिक्षक", about: "मेरे बारे में", education: "शिक्षा", experience: "शिक्षण अनुभव", portfolio: "छात्र सफलता की कहानियाँ", reviews: "छात्र समीक्षाएं", availability: "साप्ताहिक शेड्यूल", bookNow: "एक सबक बुक करें", aiTrial: "AI मूल्यांकन ट्रायल", trialChallenge: "सत्र छूट के लिए AI विषय चुनौती का प्रयास करें!", startChallenge: "चुनौती शुरू करें", cancel: "रद्द करें" }
+    tutorProfile: { 
+      verified: "सत्यापित शिक्षक", about: "मेरे बारे में", education: "शिक्षा", experience: "शिक्षण अनुभव", portfolio: "छात्र सफलता की कहानियाँ", reviews: "छात्र समीक्षाएं", availability: "साप्ताहिक शेड्यूल", bookNow: "एक सबक बुक करें", 
+      aiTrial: "AI मूल्यांकन ट्रायल", trialChallenge: "एकेडमिक डायग्नोस्टिक", startChallenge: "AI चुनौती शुरू करें", cancel: "अभी नहीं",
+      loadingChallenge: "AI आपकी चुनौती तैयार कर रहा है...",
+      analyzing: "{subject} के लिए पाठ्यक्रम का विश्लेषण",
+      questionLabel: "प्रश्न",
+      of: "/",
+      explanation: "व्याख्या:",
+      nextQuestion: "अगला प्रश्न",
+      finishChallenge: "चुनौती समाप्त करें",
+      scoreResult: "आपका स्कोर:",
+      assessment: "मूल्यांकन:",
+      assessmentLevels: {
+        excellent: "उत्कृष्ट आधार",
+        progress: "प्रगति के लिए तैयार",
+        starting: "यात्रा की शुरुआत"
+      },
+      assessmentDesc: "आपके विशेषज्ञ ने परिणाम प्राप्त कर लिए हैं और वे आपके सत्र को उसके अनुसार तैयार करेंगे!",
+      bookFirstLesson: "अपना पहला सबक बुक करें",
+      tryAgain: "पुनः प्रयास करें"
+    }
   },
   home: {
     hero: { badge: "प्रमाणित यूके स्थानीय विशेषज्ञ", title1: "टॉप-रेटेड बुक करें", title2: "स्थानीय विशेषज्ञ", subtitle: "यूके के शीर्ष 1% सेवा पेशेवरों तक त्वरित पहुँच। सत्यापित, बीमित, और गारंटीकृत गुणवत्ता के लिए AI-निगरानी।", searchPlaceholder: "मुझे चाहिए एक...", locationPlaceholder: "लंदन, यूके", aiMatch: "स्मार्ट मैच", searchBtn: "विशेषज्ञ खोजें" },

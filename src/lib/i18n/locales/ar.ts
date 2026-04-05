@@ -27,7 +27,7 @@ export const ar: Dictionary = {
       ]
     }
   },
-  footer: { tagline: "تواصل مع أفضل المحترفين المعتمدين في المملكة المتحدة.", explore: "استكشف", legal: "قانوني", support: "الدعم", rights: "© 2024 مركز خدمات المملكة المتحدة. جميع الحقوق محفوظة.", terms: "شروط الخدمة", privacy: "سياسة الخصوصية", cookies: "سياسة ملفات تعريف الارتباط", help: "مركز المساعدة", contact: "الاتصال بالدعم", aiDiagnosis: "تشخيصات AI", homeCleaning: "تنظيف المنزل", plumbingServices: "خدمات السباكة", automotiveServices: "خدمات السيارات" },
+  footer: { tagline: "تواصل مع أفضل المحترفين المعتمدين في المملكة المتحدة.", explore: "استكشف", legal: "قانوني", support: "الدعم", rights: "© 2024 مركز خدمات المملكة المتحدة. جميع الحقوق محفوظة.", terms: "شروط الخدمة", privacy: "سياسة الخصوصية", cookies: "سياسة ملفات تعريف الارتباط", help: "مركز المساعدة", contact: "الاتصال بالدعم", aiDiagnosis: "تشخيصات AI", homeCleaning: "تنظيف المنزل", plumbingServices: "خدمات السباكة", automotiveServices: "خدمات السيارات", trustSignal: "تقييم ممتاز على Trustpilot" },
   search: { 
     filters: "الفلاتر", keyword: "الكلمة المفتاحية", location: "الموقع", category: "الفئة", minRating: "أدنى تقييم", verifiedOnly: "الموثقون فقط", 
     apply: "تطبيق الفلاتر", sortBy: "ترتيب حسب", sortRating: "التقييم", sortJobs: "المهام المنجزة", sortDistance: "المسافة", sortPrice: "السعر", 
@@ -75,7 +75,18 @@ export const ar: Dictionary = {
         expired: "منتهي",
         joinedAt: "سجل في",
         validUntil: "صالح حتى",
-        availableNow: "متاح الآن"
+        availableNow: "متاح الآن",
+        rewards: {
+          title: "استبدال قسيمة نقدية رقمية",
+          subtitle: "* مراجعة يدوية مطلوبة. تصدر الرموز خلال 24 ساعة.",
+          myVault: "خزنة بطاقتي الرقمية",
+          redeemBtn: "استبدال",
+          statusProcessing: "جاري المعالجة...",
+          statusReady: "جاهزة للاستخدام",
+          voucherDisclaimer: "صالحة في سلاسل المتاجر الكبرى وأنظمة الدفع.",
+          confirmRedeem: "تأكيد خصم النقاط مقابل قسيمة نقدية؟ تصدر في غضون 24 ساعة.",
+          requestSuccess: "تم الطلب بنجاح! نحن بصدد تخصيص الرمز الخاص بك. تحقق من الخزنة قريبًا.",
+        },
       },
       bookings: { title: "المواعيد الأخيرة", viewAll: "عرض جميع الحجوزات", empty: "لا توجد حجوزات أخيرة", completed: "مكتمل", actions: { confirm: "تأكيد", complete: "تحديد كمكتمل", variation: "طلب إضافي" } },
       status: { pending: "معلق", confirmed: "مؤكد", completed: "مكتمل", cancelled: "ملغى" },
@@ -99,7 +110,27 @@ export const ar: Dictionary = {
     search: { filters: "فلاتر البحث", mode: "وضع التدريس", online: "عبر الإنترنت", offline: "حضورياً", hybrid: "هجين", priceRange: "سعر الساعة", level: "مستوى المعلم", student: "طالب جامعي", pro: "معلم محترف", expert: "ماجستير/دكتوراه", apply: "تطبيق الفلاتر", resultsTitle: "المعلمون المتاحون", foundCount: "تم العثور على {{count}} معلم", placeholder: "ابحث حسب المادة أو الاسم" },
     common: { reviews: "تقييمات", hr: "ساعة", bookTrial: "حجز تجربة" },
     tutorCard: { demoDesc: "معلم شغوف حاصل على دكتوراة وخبرة تزيد عن 10 سنوات لمساعدة أكثر من 100 طالب في تحقيق أهدافهم." },
-    tutorProfile: { verified: "معلم موثق", about: "عني", education: "التعليم", experience: "خبرة التدريس", portfolio: "قصص نجاح الطلاب", reviews: "تقييمات الطلاب", availability: "الجدول الأسبوعي", bookNow: "حجز حصة", aiTrial: "تجربة تقييم الذكاء الاصطناعي", trialChallenge: "جرب تحدي مادة الذكاء الاصطناعي للحصول على خصم!", startChallenge: "بدء التحدي", cancel: "إلغاء" }
+    tutorProfile: { 
+      verified: "معلم موثق", about: "عني", education: "التعليم", experience: "خبرة التدريس", portfolio: "قصص نجاح الطلاب", reviews: "تقييمات الطلاب", availability: "الجدول الأسبوعي", bookNow: "حجز حصة", 
+      aiTrial: "تجربة تقييم الذكاء الاصطناعي", trialChallenge: "학술 진단 التحدي الأكاديمي", startChallenge: "بدء التحدي", cancel: "ليس الآن",
+      loadingChallenge: "الذكاء الاصطناعي يجهز التحدي الخاص بك...",
+      analyzing: "تحليل المنهج الدراسي لـ {subject}",
+      questionLabel: "سؤال",
+      of: "من",
+      explanation: "شرح:",
+      nextQuestion: "السؤال التالي",
+      finishChallenge: "إنهاء التحدي",
+      scoreResult: "نتيجتك:",
+      assessment: "التقييم:",
+      assessmentLevels: {
+        excellent: "أساس ممتاز",
+        progress: "جاهز للتقدم",
+        starting: "بداية الرحلة"
+      },
+      assessmentDesc: "تلقى خبيرك النتائج وسيقوم بتخصيص درسك وفقًا لذلك!",
+      bookFirstLesson: "احجز درسك الأول",
+      tryAgain: "حاول مرة أخرى"
+    }
   },
   home: {
     hero: { badge: "محترفون محليون معتمدون", title1: "احجز الأفضل تقييماً", title2: "خبراء محليون", subtitle: "وصول فوري إلى أفضل 1% من محترفي الخدمة في المملكة المتحدة. موثقون، مؤمن عليهم، ومراقبون بالذكاء الاصطناعي لضمان الجودة.", searchPlaceholder: "أحتاج إلى...", locationPlaceholder: "لندن، المملكة المتحدة", aiMatch: "مطابقة ذكية", searchBtn: "البحث عن خبراء" },

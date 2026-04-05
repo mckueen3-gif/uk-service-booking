@@ -27,7 +27,7 @@ export const ko: Dictionary = {
       ]
     }
   },
-  footer: { tagline: "영국 최고의 인증된 전문가와 연결하세요.", explore: "탐색", legal: "법적 정보", support: "지원", rights: "© 2024 UK Service Hub. All rights reserved.", terms: "이용 약관", privacy: "개인정보 처리방침", cookies: "쿠키 정책", help: "도움말 센터", contact: "고객 지원", aiDiagnosis: "AI 진단", homeCleaning: "홈 클리닝", plumbingServices: "배관 서비스", automotiveServices: "자동차 수리" },
+  footer: { tagline: "영국 최고의 인증된 전문가와 연결하세요.", explore: "탐색", legal: "법적 정보", support: "지원", rights: "© 2024 UK Service Hub. All rights reserved.", terms: "이용 약관", privacy: "개인정보 처리방침", cookies: "쿠키 정책", help: "도움말 센터", contact: "고객 지원", aiDiagnosis: "AI 진단", homeCleaning: "홈 클리닝", plumbingServices: "배관 서비스", automotiveServices: "자동차 수리", trustSignal: "Trustpilot에서 우수 등급" },
   search: { 
     filters: "필터", keyword: "키워드", location: "위치", category: "카테고리", minRating: "최소 평점", verifiedOnly: "인증됨만", 
     apply: "필터 적용", sortBy: "정렬 기준", sortRating: "평점순", sortJobs: "작업 완료순", sortDistance: "거리순", sortPrice: "가격순", 
@@ -75,7 +75,18 @@ export const ko: Dictionary = {
         expired: "만료됨",
         joinedAt: "가입일",
         validUntil: "유효기간",
-        availableNow: "현재 이용 가능"
+        availableNow: "현재 이용 가능",
+        rewards: {
+          title: "디지털 상품권 교환",
+          subtitle: "* 수동 검토가 필요합니다. 코드는 24시간 이내에 발급됩니다.",
+          myVault: "디지털 카드 보관함",
+          redeemBtn: "교환하기",
+          statusProcessing: "처리 중...",
+          statusReady: "사용 가능",
+          voucherDisclaimer: "주요 소매점 및 결제 데ビット 시스템에서 사용할 수 있습니다.",
+          confirmRedeem: "포인트를 상품권으로 교환하시겠습니까? 24시간 이내에 발급됩니다.",
+          requestSuccess: "신청이 완료되었습니다! 코드를 할당하고 있습니다. 곧 보관함을 확인해 주세요.",
+        },
       },
       bookings: { title: "최근 예약", viewAll: "모든 예약 보기", empty: "최근 예약이 없습니다", completed: "완료", actions: { confirm: "확정", complete: "완료 표시", variation: "추가 결제 요청" } },
       status: { pending: "대기 중", confirmed: "확정됨", completed: "완료", cancelled: "취소됨" },
@@ -99,7 +110,27 @@ export const ko: Dictionary = {
     search: { filters: "검색 필터", mode: "수업 방식", online: "온라인", offline: "대면", hybrid: "혼합", priceRange: "시간당 비용", level: "튜터 레벨", student: "대학생", pro: "전문 교사", expert: "석사/박사", apply: "필터 적용", resultsTitle: "이용 가능한 튜터", foundCount: "{{count}}명의 튜터를 찾았습니다", placeholder: "과목 또는 이름으로 검색" },
     common: { reviews: "리뷰", hr: "시간", bookTrial: "체험 수업 예약" },
     tutorCard: { demoDesc: "PhD 학위와 10년 이상의 경험을 가진 열정적인 교육자로, 100명 이상의 학생이 목표를 달성하도록 도왔습니다." },
-    tutorProfile: { verified: "인증된 교육자", about: "자기 소개", education: "학력", experience: "교육 경험", portfolio: "학생 성공 사례", reviews: "학생 리뷰", availability: "주간 일정", bookNow: "수업 예약", aiTrial: "AI 평가 체험", trialChallenge: "수업 할인을 위해 AI 과목 챌린지에 도전하세요!", startChallenge: "챌린지 시작", cancel: "취소" }
+    tutorProfile: { 
+      verified: "인증된 교육자", about: "자기 소개", education: "학력", experience: "교육 경험", portfolio: "학생 성공 사례", reviews: "학생 리뷰", availability: "주간 일정", bookNow: "수업 예약", 
+      aiTrial: "AI 평가 체험", trialChallenge: "학술 진단 테스트", startChallenge: "챌린지 시작", cancel: "나중에",
+      loadingChallenge: "AI가 진단 문제를 준비하고 있습니다...",
+      analyzing: "{subject} 커리뮬럼 분석 중",
+      questionLabel: "문제",
+      of: "/",
+      explanation: "해설:",
+      nextQuestion: "다음 문제",
+      finishChallenge: "평가 완료",
+      scoreResult: "점수:",
+      assessment: "평가:",
+      assessmentLevels: {
+        excellent: "매우 탄탄한 기초",
+        progress: "학습 준비 완료",
+        starting: "학습의 시작 단계"
+      },
+      assessmentDesc: "강사가 평가 결과를 확인했습니다. 이에 맞춰 수업을 준비하겠습니다!",
+      bookFirstLesson: "첫 수업 예약하기",
+      tryAgain: "다시 시도"
+    }
   },
   home: {
     hero: { badge: "인증된 영국 현지 마스터", title1: "최고 평점의", title2: "현지 전문가 예약", subtitle: "영국 상위 1% 서비스 전문가에게 즉시 액세스하세요. 품질 보증을 위해 인증되고 보험에 가입되었으며 AI로 모니터링됩니다.", searchPlaceholder: "필요한 서비스...", locationPlaceholder: "런던, 영국", aiMatch: "스마트 매칭", searchBtn: "전문가 검색" },

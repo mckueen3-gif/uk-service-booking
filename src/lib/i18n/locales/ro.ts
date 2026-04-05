@@ -27,7 +27,7 @@ export const ro: Dictionary = {
       ]
     }
   },
-  footer: { tagline: "Conectează-te cu cei mai buni profesioniști certificați din Marea Britanie.", explore: "Explorează", legal: "Legal", support: "Suport", rights: "© 2024 UK Service Hub. Toate drepturile rezervate.", terms: "Termeni de serviciu", privacy: "Politica de confidențialitate", cookies: "Politica de cookie-uri", help: "Centru de ajutor", contact: "Contactează suportul", aiDiagnosis: "Diagnostic AI", homeCleaning: "Curățenie acasă", plumbingServices: "Servicii instalații", automotiveServices: "Servicii auto" },
+  footer: { tagline: "Conectează-te cu cei mai buni profesioniști certificați din Marea Britanie.", explore: "Explorează", legal: "Legal", support: "Suport", rights: "© 2024 UK Service Hub. All rights reserved.", terms: "Termeni de serviciu", privacy: "Politica de confidențialitate", cookies: "Politica de cookie-uri", help: "Centru de ajutor", contact: "Contactează suportul", aiDiagnosis: "Diagnostic AI", homeCleaning: "Curățenie acasă", plumbingServices: "Servicii instalații", automotiveServices: "Servicii auto", trustSignal: "Excelent pe Trustpilot" },
   search: { 
     filters: "Filtre", keyword: "Cuvânt cheie", location: "Locație", category: "Categorie", minRating: "Rating minim", verifiedOnly: "Doar verificați", 
     apply: "Aplică filtre", sortBy: "Sortează după", sortRating: "Rating", sortJobs: "Lucrări finalizate", sortDistance: "Distanță", sortPrice: "Preț", 
@@ -75,7 +75,18 @@ export const ro: Dictionary = {
         expired: "Expirat",
         joinedAt: "Înregistrat la",
         validUntil: "Valabil până la",
-        availableNow: "Disponibil acum"
+        availableNow: "Disponibil acum",
+        rewards: {
+          title: "Răscumpărați Voucher în numerar",
+          subtitle: "* Necesită revizuire manuală. Coduri emise în 24h.",
+          myVault: "Portofoliul meu de carduri digitale",
+          redeemBtn: "Răscumpără",
+          statusProcessing: "Procesare...",
+          statusReady: "Gata de utilizare",
+          voucherDisclaimer: "Valabil în marile lanțuri britanice și sisteme de plată.",
+          confirmRedeem: "Confirmați deducerea punctelor pentru un voucher? Emis în 24h.",
+          requestSuccess: "Cerere reușită! Vă alocăm codul. Verificați portofoliul în curând.",
+        },
       },
       bookings: { title: "Programări recente", viewAll: "Vezi toate rezervările", empty: "Nicio rezervare recentă", completed: "Finalizat", actions: { confirm: "Confirmă", complete: "Marchează ca finalizat", variation: "Solicită extra" } },
       status: { pending: "În așteptare", confirmed: "Confirmat", completed: "Finalizat", cancelled: "Anulat" },
@@ -99,7 +110,27 @@ export const ro: Dictionary = {
     search: { filters: "Filtre de căutare", mode: "Mod de predare", online: "Online", offline: "În persoană", hybrid: "Hibrid", priceRange: "Tarif orar", level: "Nivel tutor", student: "Student universitar", pro: "Profesor profesionist", expert: "Master/Doctorat", apply: "Aplică filtre", resultsTitle: "Tutori disponibili", foundCount: "{{count}} tutori găsiți", placeholder: "Caută după subiect sau nume" },
     common: { reviews: "Recenzii", hr: "oră", bookTrial: "Rezervă lecție de probă" },
     tutorCard: { demoDesc: "Educator pasionat cu doctorat și peste 10 ani de experiență, ajutând peste 100 de studenți să își atingă obiectivele." },
-    tutorProfile: { verified: "Educator verificat", about: "Despre mine", education: "Educație", experience: "Experiență în predare", portfolio: "Povești de succes ale studenților", reviews: "Recenzii studenți", availability: "Program săptămânal", bookNow: "Rezervă o lecție", aiTrial: "Lecție de probă cu evaluare AI", trialChallenge: "Încearcă provocarea AI pentru o reducere la sesiune!", startChallenge: "Începe provocarea", cancel: "Anulează" }
+    tutorProfile: { 
+      verified: "Educator verificat", about: "Despre mine", education: "Educație", experience: "Experiență în predare", portfolio: "Povești de succes ale studenților", reviews: "Recenzii studenți", availability: "Program săptămânal", bookNow: "Rezervă o lecție", 
+      aiTrial: "Lecție de probă cu evaluare AI", trialChallenge: "학술 진단 Provocare AI", startChallenge: "Începe provocarea", cancel: "Mai târziu",
+      loadingChallenge: "AI vă pregătește provocarea...",
+      analyzing: "Analizarea curriculumului pentru {subject}",
+      questionLabel: "Întrebare",
+      of: "din",
+      explanation: "Explicație:",
+      nextQuestion: "Următoarea întrebare",
+      finishChallenge: "Termină provocarea",
+      scoreResult: "Scorul tău:",
+      assessment: "Evaluare:",
+      assessmentLevels: {
+        excellent: "Fundație excelentă",
+        progress: "Gata pentru progres",
+        starting: "Începutul călătoriei"
+      },
+      assessmentDesc: "Expertul tău a primit rezultatele și își va adapta lecția în consecință!",
+      bookFirstLesson: "Rezervă prima lecție",
+      tryAgain: "Încearcă din nou"
+    }
   },
   home: {
     hero: { badge: "Maeștri locali certificați din UK", title1: "Rezervă experți", title2: "locali de top", subtitle: "Acces instantaneu la primii 1% dintre profesioniștii de servicii din UK. Verificați, asigurați și monitorizați de AI pentru calitate garantată.", searchPlaceholder: "Am nevoie de...", locationPlaceholder: "Londra, UK", aiMatch: "Potrivire inteligentă", searchBtn: "Caută experți" },

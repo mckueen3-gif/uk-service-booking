@@ -28,8 +28,13 @@ export default function DynamicGreeting({ userName }: { userName: string }) {
   }, []);
 
   return (
-    <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem', color: '#fff' }}>
-      {greeting}，<span style={{ color: '#d4af37', textShadow: '0 0 20px rgba(212, 175, 55, 0.3)' }}>{userName}</span> {icon}
+    <h1 style={{ 
+      fontSize: '2.5rem', 
+      fontWeight: 900, 
+      marginBottom: '0.5rem', 
+      color: '#2d2d2d'
+    }}>
+      {greeting}，<span style={{ color: '#b8860b' }}>{userName}</span> {icon}
     </h1>
   );
 }

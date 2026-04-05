@@ -27,7 +27,7 @@ export const ur: Dictionary = {
       ]
     }
   },
-  footer: { tagline: "برطانیہ کے اعلیٰ ترین تصدیق شدہ پیشہ ور افراد سے جڑیں۔", explore: "ایکسپلور", legal: "قانونی", support: "سپورٹ", rights: "© 2024 یوکے سروس حب۔ تمام حقوق محفوظ ہیں۔", terms: "سروس کی شرائط", privacy: "رازداری کی پالیسی", cookies: "کوکی پالیسی", help: "مدد کا مرکز", contact: "سپورٹ سے رابطہ کریں", aiDiagnosis: "AI تشخیص", homeCleaning: "گھر کی صفائی", plumbingServices: "پلمبنگ سروسز", automotiveServices: "آٹوموٹیو سروسز" },
+  footer: { tagline: "برطانیہ کے اعلیٰ ترین تصدیق شدہ پیشہ ور افراد سے جڑیں۔", explore: "ایکسپلور", legal: "قانونی", support: "سپورٹ", rights: "© 2024 یوکے سروس حب۔ تمام حقوق محفوظ ہیں۔", terms: "سروس کی شرائط", privacy: "رازداری کی پالیسی", cookies: "کوکی پالیسی", help: "مدد کا مرکز", contact: "سپورٹ سے رابطہ کریں", aiDiagnosis: "AI تشخیص", homeCleaning: "گھر کی صفائی", plumbingServices: "پلمبنگ سروسز", automotiveServices: "آٹوموٹیو سروسز", trustSignal: "Trustpilot پر بہترین ریٹیڈ" },
   search: { 
     filters: "فلٹرز", keyword: "کلیدی لفظ", location: "مقام", category: "زمرہ", minRating: "کم از کم ریٹنگ", verifiedOnly: "صرف تصدیق شدہ", 
     apply: "فلٹرز لگائیں", sortBy: "ترتیب دیں", sortRating: "ریٹنگ", sortJobs: "مکمل شدہ کام", sortDistance: "فاصلہ", sortPrice: "قیمت", 
@@ -75,7 +75,18 @@ export const ur: Dictionary = {
         expired: "میعاد ختم",
         joinedAt: "شامل ہوا",
         validUntil: "تک کارآمد",
-        availableNow: "ابھی دستیاب"
+        availableNow: "ابھی دستیاب",
+        rewards: {
+          title: "ڈیجیٹل کیش واؤچر تبدیل کریں",
+          subtitle: "* دستی جائزہ درکار ہے۔ کوڈ 24 گھنٹوں کے اندر جاری کیے جاتے ہیں۔",
+          myVault: "میرا ڈیجیٹل کارڈ والٹ",
+          redeemBtn: "تبدیل کریں",
+          statusProcessing: "پروسیسنگ...",
+          statusReady: "استعمال کے لیے تیار",
+          voucherDisclaimer: "برطانیہ کے بڑے ریٹیل چینز اور ادائیگی کے نظاموں میں کارآمد ہے۔",
+          confirmRedeem: "کیش واؤچر کے لیے پوائنٹس کی کٹوتی کی تصدیق کریں؟ 24 گھنٹوں میں جاری کیا جائے گا۔",
+          requestSuccess: "درخواست کامیاب رہی! ہم آپ کا کوڈ الاٹ کر رہے ہیں۔ جلد ہی اپنا والٹ چیک کریں۔",
+        },
       },
       bookings: { title: "حالیہ تقرریاں", viewAll: "تمام بکنگ دیکھیں", empty: "کوئی حالیہ بکنگ نہیں", completed: "مکمل", actions: { confirm: "تصدیق کریں", complete: "مکمل نشان زد کریں", variation: "اضافی درخواست کریں" } },
       status: { pending: "زیر التواء", confirmed: "تصدیق شدہ", completed: "مکمل", cancelled: "منسوخ" },
@@ -99,7 +110,27 @@ export const ur: Dictionary = {
     search: { filters: "تلاش کے فلٹرز", mode: "تدریس کا طریقہ", online: "آن لائن", offline: "بذاتِ خود", hybrid: "ہائبرڈ", priceRange: "فی گھنٹہ ریٹ", level: "ٹیچر کا لیول", student: "یونیورسٹی کا طالب علم", pro: "پیشہ ور ٹیچر", expert: "ماسٹر/پی ایچ ڈی", apply: "فلٹرز لگائیں", resultsTitle: "دستیاب اساتذہ", foundCount: "{{count}} اساتذہ ملے", placeholder: "مضمون یا نام سے تلاش کریں" },
     common: { reviews: "تبصرے", hr: "گھنٹہ", bookTrial: "ٹرائل بک کریں" },
     tutorCard: { demoDesc: "پی ایچ ڈی اور 10 سال سے زیادہ کا تجربہ رکھنے والا ایک پرجوش معلم، جس نے 100 سے زیادہ طلباء کو ان کے مقاصد حاصل کرنے میں مدد کی ہے۔" },
-    tutorProfile: { verified: "تصدیق شدہ معلم", about: "میرے بارے میں", education: "تعلیم", experience: "تدریس کا تجربہ", portfolio: "کامیاب طلباء کی کہانیاں", reviews: "طلباء کے تبصرے", availability: "ہفتہ وار شیڈول", bookNow: "لیکچر بک کریں", aiTrial: "AI تشخیصی ٹرائل", trialChallenge: "سیشن ڈسکاؤنٹ کے لیے AI سبجیکٹ چیلنج آزمائیں!", startChallenge: "چیلنج شروع کریں", cancel: "منسوخ کریں" }
+    tutorProfile: { 
+      verified: "تصدیق شدہ معلم", about: "میرے بارے میں", education: "تعلیم", experience: "تدریس کا تجربہ", portfolio: "کامیاب طلباء کی کہانیاں", reviews: "طلباء کے تبصرے", availability: "ہفتہ وار شیڈول", bookNow: "لیکچر بک کریں", 
+      aiTrial: "AI تشخیصی ٹرائل", trialChallenge: "학술 진단 نچلی چیلنج", startChallenge: "چیلنج شروع کریں", cancel: "ابھی نہیں",
+      loadingChallenge: "AI آپ کا چیلنج تیار کر رہا ہے...",
+      analyzing: "{subject} کے نصاب کا تجزیہ",
+      questionLabel: "سوال",
+      of: "/",
+      explanation: "وضاحت:",
+      nextQuestion: "اگلا سوال",
+      finishChallenge: "چیلنج ختم کریں",
+      scoreResult: "آپ کا سکور:",
+      assessment: "تشخیص:",
+      assessmentLevels: {
+        excellent: "بہترین بنیاد",
+        progress: "پیشرفت کے لیے تیار",
+        starting: "سفر کا آغاز"
+      },
+      assessmentDesc: "آپ کے ماہر کو نتائج موصول ہو گئے ہیں اور وہ اس کے مطابق آپ کا سیشن تیار کریں گے!",
+      bookFirstLesson: "اپنا پہلا सबक بک کریں",
+      tryAgain: "دوبارہ کوشش کریں"
+    }
   },
   home: {
     hero: { badge: "برطانیہ کے تصدیق شدہ مقامی ماہرین", title1: "ٹاپ ریٹڈ", title2: "مقامی ماہرین بک کریں", subtitle: "برطانیہ کے ٹاپ 1٪ سروس پروفیشنلز تک فوری رسائی۔ ضمانت شدہ معیار کے لیے تصدیق شدہ، بیمہ شدہ اور AI مانیٹر شدہ۔", searchPlaceholder: "مجھے ضرورت ہے ایک...", locationPlaceholder: "لندن، برطانیہ", aiMatch: "سمارٹ میچ", searchBtn: "ماہرین تلاش کریں" },

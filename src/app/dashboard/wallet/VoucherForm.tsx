@@ -28,7 +28,7 @@ export default function VoucherForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1rem' }}>
+    <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1.25rem' }}>
       <div style={{ position: 'relative' }}>
         <input 
           type="text" 
@@ -38,38 +38,61 @@ export default function VoucherForm() {
           disabled={loading}
           style={{ 
             width: '100%', 
-            padding: '1rem 1rem 1rem 3rem', 
-            borderRadius: '12px', 
-            border: '2px solid #f1f5f9', 
-            fontSize: '1rem',
-            fontWeight: 600,
-            textTransform: 'uppercase'
+            padding: '1.25rem 1.25rem 1.25rem 3.5rem', 
+            borderRadius: '16px', 
+            background: '#fff', 
+            border: '1.5px solid #d4af37', 
+            color: '#0f172a',
+            fontSize: '1.1rem',
+            fontWeight: 700,
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+            outline: 'none',
+            boxShadow: '0 4px 15px rgba(184, 134, 11, 0.08)',
+            transition: 'all 0.3s ease'
           }}
+          className="focus-gold-glow"
         />
-        <Ticket size={20} color="#94a3b8" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
+        <Ticket size={24} color="#d4af37" style={{ position: 'absolute', left: '1.25rem', top: '50%', transform: 'translateY(-50%)', opacity: 0.8 }} />
       </div>
       
       <button 
         type="submit" 
         disabled={loading || !code}
-        className="btn btn-primary"
-        style={{ width: '100%', padding: '1rem', borderRadius: '12px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem' }}
+        style={{ 
+          width: '100%', 
+          padding: '1.25rem', 
+          borderRadius: '16px', 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          gap: '0.75rem',
+          background: 'linear-gradient(135deg, #d4af37 0%, #b8860b 100%)',
+          color: '#000',
+          fontSize: '1.1rem',
+          fontWeight: 900,
+          border: 'none',
+          cursor: loading || !code ? 'not-allowed' : 'pointer',
+          boxShadow: '0 10px 20px rgba(212,175,55,0.2)',
+          transition: 'all 0.3s ease'
+        }}
+        className="hover-brighten"
       >
-        {loading ? <Loader2 size={18} className="animate-spin" /> : "立即兌換"}
+        {loading ? <Loader2 size={20} className="animate-spin" /> : "立即兌換服務券"}
       </button>
 
       {message && (
         <div style={{ 
           display: 'flex', 
           alignItems: 'center', 
-          gap: '0.6rem', 
-          padding: '1rem', 
-          borderRadius: '10px', 
-          fontSize: '0.9rem',
-          fontWeight: 600,
-          backgroundColor: message.type === 'success' ? '#ecfdf5' : '#fef2f2',
-          color: message.type === 'success' ? '#d4af37' : '#dc2626',
-          border: `1px solid ${message.type === 'success' ? '#facc15' : '#fca5a5'}`
+          gap: '0.75rem', 
+          padding: '1rem 1.25rem', 
+          borderRadius: '12px', 
+          fontSize: '0.95rem',
+          fontWeight: 700,
+          backgroundColor: message.type === 'success' ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+          color: message.type === 'success' ? '#22c55e' : '#ef4444',
+          border: `1px solid ${message.type === 'success' ? 'rgba(34, 197, 94, 0.2)' : 'rgba(239, 68, 68, 0.2)'}`
         }} className="animate-fade-up">
           {message.type === 'success' ? <CheckCircle2 size={18} /> : <AlertCircle size={18} />}
           {message.text}

@@ -28,7 +28,7 @@ export const zhTW: Dictionary = {
       ]
     }
   },
-  footer: { tagline: "聯繫英國頂尖認證專業人士。", explore: "探索", legal: "法律", support: "技術支援", rights: "© 2024 UK Service Hub. 保留所有權利。", terms: "服務條款", privacy: "隱私政策", cookies: "Cookie 政策", help: "幫助中心", contact: "聯繫支援", aiDiagnosis: "AI 診斷", homeCleaning: "家庭清潔", plumbingServices: "水電服務", automotiveServices: "汽車維修" },
+  footer: { tagline: "聯繫英國頂尖認證專業人士。", explore: "探索", legal: "法律", support: "技術支援", rights: "© 2024 UK Service Hub. 保留所有權利。", terms: "服務條款", privacy: "隱私政策", cookies: "Cookie 政策", help: "幫助中心", contact: "聯繫支援", aiDiagnosis: "AI 診斷", homeCleaning: "家庭清潔", plumbingServices: "水電服務", automotiveServices: "汽車維修", trustSignal: "Trustpilot 優異評價" },
   search: { 
     filters: "篩選條件", keyword: "關鍵字", location: "地點", category: "類別", minRating: "最低評分", verifiedOnly: "僅顯示已驗證", 
     apply: "應用篩選", sortBy: "排序方式", sortRating: "評分", sortJobs: "完成數量", sortDistance: "距離", sortPrice: "價格", 
@@ -76,7 +76,18 @@ export const zhTW: Dictionary = {
         expired: "已過期",
         joinedAt: "註冊於",
         validUntil: "截止",
-        availableNow: "目前可用"
+        availableNow: "目前可用",
+        rewards: {
+          title: "兌換電子現金券 (Cash Rewards)",
+          subtitle: "* 兌換後將人工審核，現金券代碼將在 24 小時內發出。",
+          myVault: "我的虛擬卡包 (Digital Card Vault)",
+          redeemBtn: "兌換",
+          statusProcessing: "配碼中...",
+          statusReady: "可用禮券 (Ready to Use)",
+          voucherDisclaimer: "可在各大連鎖商店及支付系統使用",
+          confirmRedeem: "確定扣除點數來兌換現金券嗎？系統將在 24 小時內為您發碼。",
+          requestSuccess: "申請成功！我們正在為您配碼，請稍後查看您的虛擬卡包。",
+        },
       },
       bookings: { title: "近期預約", viewAll: "查看所有預訂", empty: "近期無預約", completed: "已完成", actions: { confirm: "確認", complete: "標記為完成", variation: "請求額外支付" } },
       status: { pending: "等待中", confirmed: "已確認", completed: "已完成", cancelled: "已取消" },
@@ -100,7 +111,27 @@ export const zhTW: Dictionary = {
     search: { filters: "搜索篩選", mode: "授課模式", online: "線上", offline: "面對面", hybrid: "混合模式", priceRange: "時薪範圍", level: "導師等級", student: "在校大學生", pro: "專業老師", expert: "專家/博士", apply: "應用篩選", resultsTitle: "可選導師", foundCount: "找到 {{count}} 位匹配導師", placeholder: "按科目或姓名搜尋" },
     common: { reviews: "評價", hr: "小時", bookTrial: "預定試聽" },
     tutorCard: { demoDesc: "資深教育者，擁有博士學位及超過 10 年經驗，已協助超過 100 位學生達成學習目標。" },
-    tutorProfile: { verified: "認證教育者", about: "關於我", education: "教育背景", experience: "教學經驗", portfolio: "學生成功案例", reviews: "學生評價", availability: "每週行程", bookNow: "立即預訂", aiTrial: "AI 評估試聽", trialChallenge: "嘗試 AI 學科挑戰，贏取課後優惠！", startChallenge: "開始挑戰", cancel: "取消" }
+    tutorProfile: { 
+      verified: "認證教育者", about: "關於我", education: "教育背景", experience: "教學經驗", portfolio: "學生成功案例", reviews: "學生評價", availability: "每週行程", bookNow: "立即預訂", 
+      aiTrial: "AI 試堂", trialChallenge: "學術診斷測試", startChallenge: "開始 AI 測試", cancel: "暫時不要",
+      loadingChallenge: "AI 正在為您準備題目...",
+      analyzing: "正在為您分析 {subject} 課程內容",
+      questionLabel: "題目",
+      of: "之",
+      explanation: "答案解析：",
+      nextQuestion: "下一題",
+      finishChallenge: "完成測試",
+      scoreResult: "測試得分：",
+      assessment: "學術評估：",
+      assessmentLevels: {
+        excellent: "基礎非常紮實",
+        progress: "具備進步潛力",
+        starting: "學習旅程起點"
+      },
+      assessmentDesc: "您的導師已收到評估結果，將為您量身打造教學計畫！",
+      bookFirstLesson: "預約您的第一堂課",
+      tryAgain: "重新測試"
+    }
   },
   home: {
     hero: { badge: "經過認證的英國本地大師", title1: "預約頂級評分", title2: "本地專家", subtitle: "即時聯繫英國前 1% 的服務專業人士。經過驗證、已投保並由 AI 監控，確保品質卓越。", searchPlaceholder: "我需要...", locationPlaceholder: "倫敦, 英國", aiMatch: "智能匹配", searchBtn: "搜尋專家" },

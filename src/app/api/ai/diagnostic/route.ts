@@ -13,23 +13,39 @@ export async function POST(req: NextRequest) {
 
   let primaryError: any = null;
   try {
-    const { subject, level, tutorName } = await req.json();
+    const { subject, level, tutorName, locale } = await req.json();
 
     if (!subject || !level) {
       return NextResponse.json({ error: "Missing subject or level" }, { status: 400 });
     }
 
-    console.info(`[AI Diagnostic] Generating questions for ${subject} (${level}) by ${tutorName}...`);
+    const languageMap: Record<string, string> = {
+      'en': 'English',
+      'zh-TW': 'Traditional Chinese (繁體中文)',
+      'ja': 'Japanese (日本語)',
+      'ko': 'Korean (한국어)',
+      'hi': 'Hindi (हिन्दी)',
+      'ar': 'Arabic (العربية)',
+      'pl': 'Polish (Polski)',
+      'ro': 'Romanian (Română)',
+      'ur': 'Urdu (اردو)',
+      'pa': 'Punjabi (ਪੰਜਾਬੀ)'
+    };
+    const targetLanguage = languageMap[locale] || 'English';
+
+    console.info(`[AI Diagnostic] Generating ${targetLanguage} questions for ${subject} (${level}) by ${tutorName}...`);
     
     const systemPrompt = `You are an elite UK private tutor. 
     Your goal is to generate a high-quality diagnostic challenge for a student interested in [${subject}] at [${level}] level with tutor [${tutorName}].
     
+    IMPORTANT: You MUST generate all content (question, options, and explanation) in ${targetLanguage}.
+    
     CRITICAL: Return ONLY a JSON array of exactly 5 question objects. 
     Each object must have:
-    - 'question': string (The diagnostic question)
-    - 'options': string[] (Exactly 4 choices)
+    - 'question': string (The diagnostic question in ${targetLanguage})
+    - 'options': string[] (Exactly 4 choices in ${targetLanguage})
     - 'correctIndex': number (0-3 representing the correct option)
-    - 'explanation': string (A short, encouraging explanation for the correct answer)
+    - 'explanation': string (A short, encouraging explanation for the correct answer in ${targetLanguage})
 
     Tone: Professional, expert, and encouraging.
     Format: Pure JSON array. No markdown, no introductory text.`;

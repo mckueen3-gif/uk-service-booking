@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from "@/components/LanguageContext";
-import { Globe, User, MapPin, Mail, Phone, LifeBuoy, ChevronRight, Navigation, PenTool, Sun, Moon, Droplets, Wrench, GraduationCap, Calculator, Scale, Briefcase, Sparkles, Car, ChevronDown } from "lucide-react";
+import { Globe, User, MapPin, Mail, Phone, LifeBuoy, ChevronRight, Navigation, PenTool, Sun, Moon, Droplets, Wrench, GraduationCap, Calculator, Scale, Briefcase, Sparkles, Car, ChevronDown, Star } from "lucide-react";
 import NavbarSearch from "@/app/components/NavbarSearch";
 import NotificationHub from "@/components/dashboard/NotificationHub";
 import { useLocation, ALL_UK } from "@/components/LocationContext";
@@ -468,7 +468,34 @@ export function AppFooter() {
            </div>
         </div>
 
-        <div style={{ borderTop: isObsidianPage ? '1px solid rgba(255,255,255,0.05)' : '1px solid var(--border-color)', paddingTop: '2rem', textAlign: 'center' }}>
+        <div style={{ 
+          borderTop: isObsidianPage ? '1px solid rgba(255,255,255,0.05)' : '1px solid var(--border-color)', 
+          paddingTop: '2rem', 
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '1.5rem'
+        }}>
+           {/* Subtle Trustpilot Signal */}
+           <div style={{ 
+              display: 'inline-flex', 
+              alignItems: 'center', 
+              gap: '0.75rem', 
+              padding: '0.5rem 1.25rem', 
+              borderRadius: '2rem', 
+              background: isObsidianPage ? 'rgba(255,255,255,0.03)' : 'var(--surface-1)',
+              border: `1px solid ${isObsidianPage ? 'rgba(212,175,55,0.15)' : 'var(--border-color)'}`,
+              boxShadow: 'var(--shadow-sm)',
+              transition: 'all 0.3s ease'
+           }} className="hover-scale">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                 <Star size={14} fill="#00b67a" color="#00b67a" />
+                 <span style={{ fontSize: '0.85rem', fontWeight: 800, color: isObsidianPage ? 'white' : 'var(--text-primary)', marginLeft: '2px' }}>Trustpilot</span>
+              </div>
+              <div style={{ width: '1px', height: '14px', background: 'var(--border-color)', opacity: 0.5 }}></div>
+              <span style={{ fontSize: '0.85rem', fontWeight: 600, color: obsidianGold }}>{t.footer.trustSignal}</span>
+           </div>
+
            <p style={{ color: isObsidianPage ? '#444' : 'var(--text-secondary)', fontSize: '0.85rem' }}>&copy; {new Date().getFullYear()} ConciergeAI UK. {t.footer.rights}</p>
         </div>
       </div>

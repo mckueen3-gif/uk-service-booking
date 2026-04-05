@@ -1,4 +1,5 @@
 import { getServerSession } from "next-auth/next";
+/* 🚀 CACHE BUST: 2026-04-04 14:44 - FORCING GOLD REBUILD */
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import WalletContent from "./components/WalletContent";

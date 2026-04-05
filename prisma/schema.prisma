@@ -89,6 +89,7 @@ model User {
   referralsMade      Referral[] @relation("Referrer")
   referralReceived   Referral?  @relation("Referee")
   creditTransactions CreditTransaction[]
+  redemptionRequests RedemptionRequest[]
   notifications      Notification[]
   conversations      Conversation[] @relation("CustomerConversations")
 
@@ -469,6 +470,7 @@ enum TransactionType {
   SPENT_BOOKING
   VOUCHER_REDEEM
   ADMIN_ADJUSTMENT
+  REDEMPTION_VOUCHER
 }
 
 model CreditTransaction {
@@ -509,6 +511,25 @@ model Voucher {
   updatedAt   DateTime @updatedAt
 
   @@index([code])
+}
+
+model RedemptionRequest {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  amount        Float
+  brandName     String?  // The brand selected in the marketplace (e.g. Adidas, ASDA)
+  status        String   @default("PENDING") // PENDING, COMPLETED, REJECTED
+  voucherCode   String?  // Fulfilled by admin (Digital code)
+  adminNotes    String?
+  
+  issuedAt      DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId])
+  @@index([status])
 }
 
 model Conversation {

@@ -8,7 +8,7 @@ import { useSession } from 'next-auth/react';
 
 export default function TutorProfilePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = React.use(params);
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [showAITrial, setShowAITrial] = useState(false);
@@ -59,7 +59,8 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
         body: JSON.stringify({
           subject: subject,
           level: "GCSE",
-          tutorName: profile.name
+          tutorName: profile.name,
+          locale: locale
         })
       });
 
@@ -322,8 +323,8 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
                 <div className="loader" style={{ marginBottom: '2rem' }}>
                    <Sparkles size={48} className="animate-pulse" color="#facc15" style={{ margin: '0 auto' }} />
                 </div>
-                <h3 style={{ fontSize: '1.5rem', fontWeight: 800 }}>AI is preparing your challenge...</h3>
-                <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem' }}>Analyzing curriculum for {subjectList[0]}</p>
+                <h3 style={{ fontSize: '1.5rem', fontWeight: 800 }}>{t.education_sec.tutorProfile.loadingChallenge}</h3>
+                <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem' }}>{t.education_sec.tutorProfile.analyzing.replace('{subject}', subjectList[0])}</p>
               </div>
             )}
 
@@ -332,7 +333,7 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                    <div style={{ fontSize: '0.9rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--accent-color)' }}>
-                      Question {currentStep + 1} of {questions.length}
+                      {t.education_sec.tutorProfile.questionLabel} {currentStep + 1} {t.education_sec.tutorProfile.of} {questions.length}
                    </div>
                    <div style={{ width: '200px', height: '6px', backgroundColor: 'var(--surface-2)', borderRadius: '3px', position: 'relative' }}>
                       <div style={{ 
@@ -398,7 +399,7 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
 
                 {showExplanation && (
                   <div className="animate-fade-up" style={{ padding: '1.5rem', backgroundColor: 'var(--bg-secondary)', borderRadius: '16px', marginBottom: '2rem', borderLeft: '4px solid #facc15' }}>
-                     <h5 style={{ fontWeight: 800, marginBottom: '0.4rem', color: '#facc15' }}>Explanation:</h5>
+                     <h5 style={{ fontWeight: 800, marginBottom: '0.4rem', color: '#facc15' }}>{t.education_sec.tutorProfile.explanation}</h5>
                      <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
                         {questions[currentStep].explanation}
                      </p>
@@ -407,7 +408,7 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
 
                 {selectedIdx !== null && (
                   <button onClick={nextQuestion} className="btn btn-primary" style={{ width: '100%', padding: '1rem', fontSize: '1.1rem' }}>
-                    {currentStep === questions.length - 1 ? "Finish Challenge" : "Next Question"}
+                    {currentStep === questions.length - 1 ? t.education_sec.tutorProfile.finishChallenge : t.education_sec.tutorProfile.nextQuestion}
                   </button>
                 )}
               </div>
@@ -424,19 +425,19 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
                 }}>
                   <UserCheck size={48} color="#facc15" />
                 </div>
-                <h2 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem' }}>Your Score: {score} / {questions.length}</h2>
+                <h2 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem' }}>{t.education_sec.tutorProfile.scoreResult} {score} / {questions.length}</h2>
                 <div style={{ fontSize: '1.2rem', color: 'var(--accent-color)', fontWeight: 800, marginBottom: '2rem' }}>
-                   Assessment: {score >= 4 ? "Excellent Foundation" : score >= 2 ? "Ready for Progress" : "Starting Journey"}
+                   {t.education_sec.tutorProfile.assessment} {score >= 4 ? t.education_sec.tutorProfile.assessmentLevels.excellent : score >= 2 ? t.education_sec.tutorProfile.assessmentLevels.progress : t.education_sec.tutorProfile.assessmentLevels.starting}
                 </div>
                 <p style={{ color: 'var(--text-secondary)', marginBottom: '3rem', fontSize: '1.1rem', lineHeight: 1.6 }}>
-                   {profile.name} has received your assessment. They can now tailor your first lesson precisely to your strengths!
+                   {t.education_sec.tutorProfile.assessmentDesc}
                 </p>
                 <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
                   <button onClick={() => setShowAITrial(false)} className="btn btn-primary" style={{ padding: '1rem 3rem' }}>
-                    Book Your First Lesson
+                    {t.education_sec.tutorProfile.bookFirstLesson}
                   </button>
                   <button onClick={() => setChallengeState('idle')} style={{ padding: '1rem 2rem', border: 'none', background: 'transparent', color: 'var(--text-secondary)', cursor: 'pointer', fontWeight: 600 }}>
-                    Try Again
+                    {t.education_sec.tutorProfile.tryAgain}
                   </button>
                 </div>
               </div>

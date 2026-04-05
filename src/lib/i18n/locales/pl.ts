@@ -27,7 +27,7 @@ export const pl: Dictionary = {
       ]
     }
   },
-  footer: { tagline: "Połącz się z najlepszymi certyfikowanymi profesjonalistami w Wielkiej Brytanii.", explore: "Eksploruj", legal: "Prawo", support: "Wsparcie", rights: "© 2024 UK Service Hub. Wszelkie prawa zastrzeżone.", terms: "Warunki korzystania", privacy: "Polityka prywatności", cookies: "Polityka plików cookie", help: "Centrum pomocy", contact: "Kontakt ze wsparciem", aiDiagnosis: "Diagnostyka AI", homeCleaning: "Sprzątanie domu", plumbingServices: "Usługi hydrauliczne", automotiveServices: "Usługi motoryzacyjne" },
+  footer: { tagline: "Połącz się z najlepszymi certyfikowanymi profesjonalistami w Wielkiej Brytanii.", explore: "Eksploruj", legal: "Prawo", support: "Wsparcie", rights: "© 2024 UK Service Hub. Wszelkie prawa zastrzeżone.", terms: "Warunki korzystania", privacy: "Polityka prywatności", cookies: "Polityka plików cookie", help: "Centrum pomocy", contact: "Kontakt ze wsparciem", aiDiagnosis: "Diagnostyka AI", homeCleaning: "Sprzątanie domu", plumbingServices: "Usługi hydrauliczne", automotiveServices: "Usługi motoryzacyjne", trustSignal: "Ocena doskonała na Trustpilot" },
   search: { 
     filters: "Filtry", keyword: "Słowo kluczowe", location: "Lokalizacja", category: "Kategoria", minRating: "Min. ocena", verifiedOnly: "Tylko zweryfikowani", 
     apply: "Zastosuj filtry", sortBy: "Sortuj według", sortRating: "Ocena", sortJobs: "Wykonane zadania", sortDistance: "Odległość", sortPrice: "Cena", 
@@ -75,7 +75,18 @@ export const pl: Dictionary = {
         expired: "Wygasł",
         joinedAt: "Dołączył w",
         validUntil: "Ważne do",
-        availableNow: "Dostępne teraz"
+        availableNow: "Dostępne teraz",
+        rewards: {
+          title: "Wymień na voucher gotówkowy",
+          subtitle: "* Wymagany przegląd ręczny. Kody wydawane w ciągu 24h.",
+          myVault: "Mój wirtualny portfel kart",
+          redeemBtn: "Wymień",
+          statusProcessing: "Przetwarzanie...",
+          statusReady: "Gotowy do użycia",
+          voucherDisclaimer: "Ważny w głównych brytyjskich sieciach handlowych i systemach płatniczych.",
+          confirmRedeem: "Potwierdzić odliczenie punktów na voucher? Wydawany w ciągu 24h.",
+          requestSuccess: "Zlecenie udane! Alokujemy Twój kod. Sprawdź portfel wkrótce.",
+        },
       },
       bookings: { title: "Ostatnie spotkania", viewAll: "Zobacz wszystkie rezerwacje", empty: "Brak ostatnich rezerwacji", completed: "Zakończone", actions: { confirm: "Potwierdź", complete: "Oznacz jako zakończone", variation: "Poproś o dodatek" } },
       status: { pending: "Oczekujące", confirmed: "Potwierdzone", completed: "Zakończone", cancelled: "Anulowane" },
@@ -99,7 +110,27 @@ export const pl: Dictionary = {
     search: { filters: "Filtry wyszukiwania", mode: "Tryb nauki", online: "Online", offline: "Stacjonarnie", hybrid: "Hybrydowo", priceRange: "Stawka godzinowa", level: "Poziom korepetytora", student: "Student", pro: "Nauczyciel profesjonalny", expert: "Mistrz/Doktor", apply: "Zastosuj filtry", resultsTitle: "Dostępni korepetytorzy", foundCount: "Znaleziono {{count}} korepetytorów", placeholder: "Szukaj według przedmiotu lub nazwiska" },
     common: { reviews: "Opinie", hr: "godz", bookTrial: "Zarezerwuj lekcję próbną" },
     tutorCard: { demoDesc: "Pasjonat edukacji z tytułem doktora i ponad 10-letnim doświadczeniem w pomaganiu 100+ studentom w osiąganiu ich celów." },
-    tutorProfile: { verified: "Zweryfikowany edukator", about: "O mnie", education: "Edukacja", experience: "Doświadczenie w nauczaniu", portfolio: "Historie sukcesu uczniów", reviews: "Opinie uczniów", availability: "Tygodniowy grafik", bookNow: "Zarezerwuj lekcję", aiTrial: "Lekcja próbna z oceną AI", trialChallenge: "Podejmij wyzwanie przedmiotowe AI, aby otrzymać zniżkę!", startChallenge: "Rozpocznij wyzwanie", cancel: "Anuluj" }
+    tutorProfile: { 
+      verified: "Zweryfikowany edukator", about: "O mnie", education: "Edukacja", experience: "Doświadczenie w nauczaniu", portfolio: "Historie sukcesu uczniów", reviews: "Opinie uczniów", availability: "Tygodniowy grafik", bookNow: "Zarezerwuj lekcję", 
+      aiTrial: "Lekcja próbna z oceną AI", trialChallenge: "학술 진단 Wyzwanie AI", startChallenge: "Rozpocznij wyzwanie", cancel: "Później",
+      loadingChallenge: "AI przygotowuje Twoje wyzwanie...",
+      analyzing: "Analizowanie programu nauczania dla {subject}",
+      questionLabel: "Pytanie",
+      of: "z",
+      explanation: "Wyjaśnienie:",
+      nextQuestion: "Następne pytanie",
+      finishChallenge: "Zakończ wyzwanie",
+      scoreResult: "Twój wynik:",
+      assessment: "Ocena:",
+      assessmentLevels: {
+        excellent: "Doskonałe podstawy",
+        progress: "Gotowy na postępy",
+        starting: "Początek podróży"
+      },
+      assessmentDesc: "Twój ekspert otrzymał wyniki i odpowiednio dostosuje Twoją lekcję!",
+      bookFirstLesson: "Zarezerwuj pierwszą lekcję",
+      tryAgain: "Spróbuj ponownie"
+    }
   },
   home: {
     hero: { badge: "Certyfikowani brytyjscy lokalni mistrzowie", title1: "Rezerwuj najwyżej ocenianych", title2: "Lokalnych ekspertów", subtitle: "Natychmiastowy dostęp do najlepszego 1% brytyjskich profesjonalistów. Zweryfikowani, ubezpieczeni i monitorowani przez AI dla gwarantowanej jakości.", searchPlaceholder: "Potrzebuję...", locationPlaceholder: "Londyn, Wielka Brytania", aiMatch: "Inteligentne dopasowanie", searchBtn: "Szukaj ekspertów" },

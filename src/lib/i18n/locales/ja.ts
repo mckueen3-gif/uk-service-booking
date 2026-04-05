@@ -27,7 +27,7 @@ export const ja: Dictionary = {
       ]
     }
   },
-  footer: { tagline: "英国トップクラスの認定プロフェッショナルとつながる。", explore: "探す", legal: "法的情報", support: "サポート", rights: "© 2024 UK Service Hub. All rights reserved.", terms: "利用規約", privacy: "プライバシーポリシー", cookies: "クッキーポリシー", help: "ヘルプセンター", contact: "お問い合わせ", aiDiagnosis: "AI診断", homeCleaning: "ハウスクリーニング", plumbingServices: "配管サービス", automotiveServices: "自動車修理" },
+  footer: { tagline: "英国トップクラスの認定プロフェッショナルとつながる。", explore: "探す", legal: "法的情報", support: "サポート", rights: "© 2024 UK Service Hub. All rights reserved.", terms: "利用規約", privacy: "プライバシーポリシー", cookies: "クッキーポリシー", help: "ヘルプセンター", contact: "お問い合わせ", aiDiagnosis: "AI診断", homeCleaning: "ハウスクリーニング", plumbingServices: "配管サービス", automotiveServices: "自動車修理", trustSignal: "Trustpilotで最高評価" },
   search: { 
     filters: "フィルター", keyword: "キーワード", location: "場所", category: "カテゴリー", minRating: "最低評価", verifiedOnly: "認証済みのみ", 
     apply: "フィルターを適用", sortBy: "並べ替え", sortRating: "評価", sortJobs: "実績数", sortDistance: "距離", sortPrice: "料金", 
@@ -75,7 +75,18 @@ export const ja: Dictionary = {
         expired: "期限切れ",
         joinedAt: "登録日",
         validUntil: "有効期限",
-        availableNow: "現在利用可能"
+        availableNow: "現在利用可能",
+        rewards: {
+          title: "電子キャッシュ券の交換",
+          subtitle: "* 手動審査が必要です。コードは24時間以内に発行されます。",
+          myVault: "デジタルカード・ウォレット",
+          redeemBtn: "交換する",
+          statusProcessing: "処理中...",
+          statusReady: "利用可能",
+          voucherDisclaimer: "主要な小売店や決済デビットシステムで利用可能です。",
+          confirmRedeem: "ポイントをキャッシュ券に交換しますか？24時間以内に発行されます。",
+          requestSuccess: "申請が完了しました！コードを割り当てています。まもなくウォレットをご確認ください。",
+        },
       },
       bookings: { title: "最近の予約", viewAll: "すべての予約を見る", empty: "最近の予約はありません", completed: "完了", actions: { confirm: "確定", complete: "完了にする", variation: "追加支払いをリクエスト" } },
       status: { pending: "保留中", confirmed: "確定済み", completed: "完了", cancelled: "キャンセル済み" },
@@ -99,7 +110,27 @@ export const ja: Dictionary = {
     search: { filters: "検索フィルター", mode: "授業形式", online: "オンライン", offline: "対面", hybrid: "ハイブリッド", priceRange: "時給", level: "講師レベル", student: "大学生", pro: "プロ講師", expert: "修士・博士", apply: "フィルターを適用", resultsTitle: "受講可能な講師", foundCount: "{{count}}名の講師が見つかりました", placeholder: "科目や名前で検索" },
     common: { reviews: "レビュー", hr: "時間", bookTrial: "試聴を予約" },
     tutorCard: { demoDesc: "博士号を持ち、10年以上の経験を持つ情熱的な教育者。100名以上の学生の目標達成をサポートしてきました。" },
-    tutorProfile: { verified: "認定講師", about: "自己紹介", education: "学歴", experience: "指導経験", portfolio: "合格・成功実績", reviews: "受講生のレビュー", availability: "週間スケジュール", bookNow: "レッスンを予約", aiTrial: "AI評価トライアル", trialChallenge: "AIチャレンジに挑戦して割引をゲット！", startChallenge: "チャレンジ開始", cancel: "キャンセル" }
+    tutorProfile: { 
+      verified: "認定講師", about: "自己紹介", education: "学歴", experience: "指導経験", portfolio: "合格・成功実績", reviews: "受講生のレビュー", availability: "週間スケジュール", bookNow: "レッスンを予約", 
+      aiTrial: "AI評価体験", trialChallenge: "學術診斷テスト", startChallenge: "チャレンジ開始", cancel: "後で",
+      loadingChallenge: "AIが診断問題を準備しています...",
+      analyzing: "{subject}のカリキュラムを分析中",
+      questionLabel: "問題",
+      of: "/",
+      explanation: "解説:",
+      nextQuestion: "次の問題",
+      finishChallenge: "テストを終了",
+      scoreResult: "スコア:",
+      assessment: "評価:",
+      assessmentLevels: {
+        excellent: "素晴らしい基礎知識",
+        progress: "学習の準備完了",
+        starting: "学習のスタートライン"
+      },
+      assessmentDesc: "講師が評価結果を受け取りました。これに基づいてレッスンをカスタマイズします！",
+      bookFirstLesson: "最初のレッスンを予約する",
+      tryAgain: "もう一度挑戦"
+    }
   },
   home: {
     hero: { badge: "英国認定ローカルマスター", title1: "高評価のプロを", title2: "予約する", subtitle: "英国トップ1%の専門家に即座にアクセス。認証済み、保険加入済み、AI監視による品質保証。", searchPlaceholder: "探しているのは...", locationPlaceholder: "ロンドン、英国", aiMatch: "スマートマッチ", searchBtn: "エキスパートを検索" },

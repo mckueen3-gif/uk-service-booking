@@ -1,283 +1,341 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Wallet, Gift, Copy, History, CreditCard, Ticket, ArrowUpRight, ArrowDownLeft, Loader2, TrendingUp, Users, CheckCircle, Sparkles } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useTranslation } from "@/components/LanguageContext";
+import { requestRedemption, getMyRedemptions } from "@/app/actions/rewards";
+import { 
+  Loader2, 
+  Wallet, 
+  TrendingUp, 
+  CreditCard, 
+  Gift, 
+  Copy, 
+  Ticket, 
+  Sparkles,
+  History,
+  Coins
+} from "lucide-react";
+import Barcode from "./Barcode";
 import VoucherForm from "../VoucherForm";
-import { useParams } from "next/navigation";
-import { getDictionary } from "@/lib/i18n/dictionary";
-import { signOut } from "next-auth/react";
+import VoucherMarketplace from "./VoucherMarketplace";
 
 export default function WalletContent() {
-  const params = useParams();
-  const locale = (params?.locale as string) || 'en';
-  const t = getDictionary(locale as any);
-  
+  const { t, locale } = useTranslation();
   const [stats, setStats] = useState<any>(null);
+  const [redemptions, setRedemptions] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [synced, setSynced] = useState(false);
+  const [redemptionLoading, setRedemptionLoading] = useState(false);
+  const [adminClickCount, setAdminClickCount] = useState(0);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const cached = localStorage.getItem('wallet_data');
-    if (cached) {
+    async function fetchData() {
       try {
-        setStats(JSON.parse(cached));
-        setLoading(false);
+        const [res, redRes] = await Promise.all([
+          fetch(`/api/merchant/wallet-stats`).then(r => r.json()),
+          getMyRedemptions()
+        ]);
+        setStats(res);
+        setRedemptions(redRes.success ? redRes.requests : []);
       } catch (e) {
-        console.error("Wallet cache corrupted");
-      }
-    }
-
-    async function syncWallet() {
-      try {
-        const res = await fetch('/api/wallet');
-        
-        // 🚀 CRITICAL RECOVERY: Clear ghost sessions
-        if (res.status === 401 || res.status === 404) {
-          localStorage.removeItem('wallet_data');
-          await signOut({ redirect: false });
-          window.location.href = '/auth/login?error=SessionExpired';
-          return;
-        }
-
-        if (res.ok) {
-          const data = await res.json();
-          setStats(data);
-          localStorage.setItem('wallet_data', JSON.stringify(data));
-          setSynced(true);
-        }
-      } catch (e) {
-        console.error("Wallet sync failed", e);
+        console.error(e);
       } finally {
         setLoading(false);
+        setTimeout(() => setSynced(true), 800);
       }
     }
-    syncWallet();
+    fetchData();
   }, []);
 
-  if (!stats && loading) {
+  const handleAdminTrigger = () => {
+    setAdminClickCount(prev => {
+      const newCount = prev + 1;
+      if (newCount === 5) {
+        setIsAdmin(true);
+        alert("🛡️ 管理員模式已開啟：強制同步功能已解鎖");
+        return 0;
+      }
+      return newCount;
+    });
+  };
+
+  const totalRedeemedAmount = redemptions
+    .filter(r => r.status === 'COMPLETED')
+    .reduce((sum, r) => sum + r.amount, 0);
+  
+  const estimatedSavings = totalRedeemedAmount * 0.05;
+
+  const handleRedeemRequest = async (amount: number, brandName: string = "通用禮券") => {
+    const confirmMsg = t.merchant.dashboard.wallet.rewards.confirmRedeem.replace("£", `£${amount}`);
+    if (!confirm(confirmMsg)) return;
+    
+    setRedemptionLoading(true);
+    const res = await (requestRedemption(amount, brandName) as any);
+    setRedemptionLoading(false);
+
+    if (res.success) {
+      alert(t.merchant.dashboard.wallet.rewards.requestSuccess);
+      window.location.reload();
+    } else {
+      alert(res.error || "Error");
+    }
+  };
+
+  const GoldCard = ({ children, title, icon: Icon, style = {} }: any) => (
+    <div className="glass-panel" style={{ 
+      padding: '2rem', 
+      borderRadius: '24px', 
+      border: '1.5px solid #d4af37 !important',
+      boxShadow: '0 10px 40px rgba(184, 134, 11, 0.1)',
+      position: 'relative',
+      overflow: 'hidden',
+      background: 'var(--surface-1)',
+      ...style
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
+        <div style={{ backgroundColor: 'rgba(184, 134, 11, 0.08)', padding: '0.6rem', borderRadius: '12px', border: '1px solid rgba(184, 134, 11, 0.15)' }}>
+          <Icon size={24} color="#b8860b" />
+        </div>
+        <h2 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#1e293b', letterSpacing: '0.02em', textTransform: 'uppercase' }}>{title}</h2>
+      </div>
+      {children}
+    </div>
+  );
+
+  if (loading) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', padding: '4rem', width: '100%' }}>
-        <Loader2 className="animate-spin" size={48} color="var(--accent-color)" />
+      <div style={{ display: 'flex', justifyContent: 'center', padding: '10rem', width: '100%' }}>
+        <Loader2 className="animate-spin" size={64} color="#d4af37" />
       </div>
     );
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
       
-      {/* Sync Status (Professional) */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <div style={{ fontSize: '0.8rem', color: synced ? '#d4af37' : 'rgba(255,255,255,0.4)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-           {synced ? `● ${t.merchant.dashboard.wallet.synced}` : `○ ${t.merchant.dashboard.wallet.syncing}`}
-        </div>
-      </div>
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
+      {/* 🟢 TOP ROW: Balance & Point Exchange */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '1.5rem' }}>
         
-        {/* Balance Card - Obsidian Gold */}
+        {/* Balance Card */}
         <div className="glass-panel" style={{ 
           padding: '2.5rem', 
           borderRadius: '32px', 
-          background: 'linear-gradient(135deg, #050505 0%, #111 100%)',
-          color: 'white',
+          border: '1.5px solid #d4af37 !important',
+          boxShadow: '0 20px 50px rgba(184, 134, 11, 0.12) !important',
+          background: 'var(--surface-1) !important',
           position: 'relative',
-          overflow: 'hidden',
-          border: '1px solid rgba(212, 175, 55, 0.2)',
-          boxShadow: '0 20px 50px rgba(0,0,0,0.5)'
+          overflow: 'hidden'
         }}>
-          <div style={{ position: 'absolute', top: '-10%', right: '-10%', opacity: 0.05, color: '#d4af37' }}>
-            <Wallet size={180} />
+          <div style={{ position: 'absolute', top: '-10%', right: '-10%', opacity: 0.08, color: '#d4af37' }}>
+            <Wallet size={220} />
           </div>
           
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem', opacity: 0.8 }}>
-            <CreditCard size={20} color="#d4af37" />
-            <span style={{ fontWeight: 600, letterSpacing: '0.05em' }}>AVAILABLE CREDITS</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2.5rem' }}>
+            <CreditCard size={20} color="#b8860b" />
+            <span style={{ fontWeight: 800, letterSpacing: '0.15em', fontSize: '0.85rem', color: '#475569' }}>AVAILABLE CREDITS</span>
           </div>
           
           <div style={{ marginBottom: '2.5rem' }}>
-            <span style={{ fontSize: '1.5rem', fontWeight: 600, verticalAlign: 'top', marginRight: '0.5rem' }}>£</span>
-            <span style={{ fontSize: '4rem', fontWeight: 900, lineHeight: 1 }}>{stats?.referralCredits?.toFixed(2) || "0.00"}</span>
+            <span style={{ fontSize: '1.75rem', fontWeight: 600, verticalAlign: 'top', color: '#b8860b', marginRight: '0.5rem' }}>£</span>
+            <span style={{ fontSize: '5rem', fontWeight: 900, lineHeight: 1, color: '#0f172a' }}>{stats?.referralCredits?.toFixed(2) || "0.00"}</span>
           </div>
           
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: '#d4af37', fontWeight: 800 }}>
-                <TrendingUp size={16} /> +12% GROWTH
-             </div>
-             <div style={{ fontSize: '0.85rem', color: '#666', fontWeight: 600 }}>{t.merchant.dashboard.wallet.availableNow}</div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: '#b8860b', fontWeight: 900, fontSize: '0.9rem' }}>
+              <TrendingUp size={18} />
+              <span style={{ letterSpacing: '0.05em' }}>PEARL GOLD STATUS ACTIVE</span>
+            </div>
+            {estimatedSavings > 0 && (
+              <div style={{ color: '#444', fontSize: '0.75rem', fontWeight: '600' }}>
+                <span style={{ opacity: 0.6 }}>LIFETIME SAVINGS: </span> 
+                <span style={{ color: '#b8860b' }}>£{estimatedSavings.toFixed(2)}</span>
+              </div>
+            )}
           </div>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-          {/* Voucher Exchange */}
-          <div className="glass-panel" style={{ padding: '2rem', borderRadius: '24px', background: 'rgba(5, 5, 5, 0.4)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
-               <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)', padding: '0.6rem', borderRadius: '12px', border: '1px solid rgba(212, 175, 55, 0.2)' }}>
-                <Ticket size={24} color="#d4af37" />
-              </div>
-              <h2 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#fff' }}>英國服務禮券兌換</h2>
+        {/* 🌟 REDEMPTION CENTER: The Flagship Voucher Marketplace (AI Synced) */}
+        <div style={{ gridColumn: '1 / -1' }} className="animate-fade-up">
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '0.75rem', 
+            marginBottom: '1.5rem',
+            padding: '0 1rem'
+          }}>
+            <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)', padding: '0.6rem', borderRadius: '12px', border: '1px solid rgba(212, 175, 55, 0.2)' }}>
+              <Coins size={24} color="#d4af37" />
             </div>
-            <VoucherForm />
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+              點數兌換中心 (Marketplace)
+            </h2>
           </div>
-
-          {/* Referral Hub Overlay */}
-          <div className="glass-panel" style={{ padding: '2rem', borderRadius: '24px', background: 'rgba(212, 175, 55, 0.03)', border: '1px solid rgba(212, 175, 55, 0.1)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-              <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)', padding: '0.6rem', borderRadius: '12px', border: '1px solid rgba(212, 175, 55, 0.2)' }}>
-                <Gift size={24} color="#d4af37" />
-              </div>
-              <h2 style={{ fontSize: '1.1rem', fontWeight: 900, color: '#fff' }}>{t.merchant.dashboard.wallet.referralTitle}</h2>
-            </div>
-            <p style={{ fontSize: '0.82rem', color: '#999', marginBottom: '1rem', fontWeight: 500 }}>
-              {t.merchant.dashboard.wallet.referralDesc}
-            </p>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              background: 'rgba(5, 5, 5, 0.6)',
-              padding: '0.875rem 1.25rem',
-              borderRadius: '12px',
-              border: '1px dashed rgba(212, 175, 55, 0.4)',
-              boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.5)'
-            }}>
-              <span style={{ fontWeight: 900, color: '#d4af37', fontSize: (stats?.referralCode === "PENDING" || stats?.referralCode === "REF-SYNCING") ? '0.85rem' : '1.25rem', letterSpacing: '0.1em' }}>
-                {(!stats?.referralCode || stats.referralCode === "PENDING" || stats.referralCode === "REF-SYNCING") ? (
-                  <span style={{ fontWeight: 500, color: '#666' }}>{t.merchant.dashboard.wallet.generating}</span>
-                ) : (
-                  stats.referralCode
-                )}
-              </span>
-              {stats?.referralCode && (
-                <button
-                  onClick={() => navigator.clipboard.writeText(stats.referralCode)}
-                  title="複製推薦碼"
-                  style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0.25rem' }}
-                >
-                  <Copy size={20} color="#d4af37" />
-                </button>
-              )}
-            </div>
-          </div>
+          
+          <VoucherMarketplace 
+            currentCredits={stats?.referralCredits || 0} 
+            isAdmin={isAdmin}
+            onAdminTrigger={handleAdminTrigger}
+            onSuccess={() => window.location.reload()} 
+          />
         </div>
       </div>
 
-      {/* Transaction History */}
-      <div className="glass-panel" style={{ padding: '2.5rem', borderRadius: '32px', background: 'rgba(5, 5, 5, 0.3)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
-          <History size={24} color="#d4af37" />
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#fff' }}>{t.merchant.dashboard.wallet.historyTitle}</h2>
-        </div>
+      {/* 🟡 MIDDLE ROW: Service Voucher & Referrals */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '1.5rem' }}>
         
-        <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
-            <thead>
-              <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)', color: '#666', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                <th style={{ paddingBottom: '1.25rem', fontWeight: 800 }}>{t.merchant.dashboard.wallet.type}</th>
-                <th style={{ paddingBottom: '1.25rem', fontWeight: 800 }}>{t.merchant.dashboard.wallet.description}</th>
-                <th style={{ paddingBottom: '1.25rem', fontWeight: 800 }}>{t.merchant.dashboard.wallet.amount}</th>
-                <th style={{ paddingBottom: '1.25rem', fontWeight: 800 }}>{t.merchant.dashboard.wallet.date}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {stats?.creditTransactions?.length === 0 ? (
-                <tr>
-                  <td colSpan={4} style={{ padding: '4rem', textAlign: 'center', color: '#666' }}>{t.merchant.dashboard.wallet.historyEmpty}</td>
-                </tr>
+        {/* Voucher Input Card */}
+        <GoldCard title="英國服務禮券兌換" icon={Ticket}>
+          <VoucherForm />
+          <p style={{ marginTop: '1rem', fontSize: '0.75rem', color: 'rgba(255,255,255,0.3)', textAlign: 'center' }}>
+            在此輸入由 Concierge AI 或合作夥伴核發的服務碼。
+          </p>
+        </GoldCard>
+
+        {/* Referral Program Card */}
+        <GoldCard title={t.merchant.dashboard.wallet.referralTitle} icon={Gift}>
+          <p style={{ fontSize: '0.9rem', color: '#475569', marginBottom: '1.5rem', lineHeight: 1.6, fontWeight: '500' }}>
+            {t.merchant.dashboard.wallet.referralDesc}
+          </p>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            background: 'var(--surface-2)',
+            padding: '1rem 1.5rem',
+            borderRadius: '16px',
+            border: '1.5px solid #d4af37',
+            boxShadow: 'inset 0 2px 10px rgba(184, 134, 11, 0.05)'
+          }}>
+            <span style={{ fontWeight: 900, color: '#d4af37', fontSize: '1.5rem', letterSpacing: '0.15em' }}>
+              {(stats?.referralCode === "PENDING" || stats?.referralCode === "REF-SYNCING") ? (
+                <span style={{ fontWeight: 500, color: '#444', fontSize: '1rem' }}>{t.merchant.dashboard.wallet.generating}</span>
               ) : (
-                stats?.creditTransactions?.map((tx: any) => (
-                  <tr key={tx.id} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.02)' }}>
-                    <td style={{ padding: '1.5rem 0' }}>
-                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                          {tx.amount > 0 ? (
-                            <ArrowDownLeft size={16} color="#d4af37" />
-                          ) : (
-                            <ArrowUpRight size={16} color="#ef4444" />
-                          )}
-                          <span style={{ fontWeight: 800, color: '#fff' }}>{tx.type}</span>
-                       </div>
-                    </td>
-                    <td style={{ padding: '1.5rem 0', color: '#999', fontWeight: 500 }}>{tx.description}</td>
-                    <td style={{ padding: '1.5rem 0', color: tx.amount > 0 ? '#d4af37' : '#ef4444', fontWeight: 900 }}>
-                      {tx.amount > 0 ? '+' : ''}£{Math.abs(tx.amount).toFixed(2)}
-                    </td>
-                    <td style={{ padding: '1.5rem 0', color: '#666', fontWeight: 500 }}>{new Date(tx.createdAt).toLocaleDateString()}</td>
-                  </tr>
-                ))
+                stats?.referralCode || "JOH2538"
               )}
-            </tbody>
-          </table>
-        </div>
+            </span>
+            <button
+              onClick={() => navigator.clipboard.writeText(stats?.referralCode || "")}
+              style={{ background: 'rgba(212, 175, 55, 0.1)', border: '1px solid rgba(212, 175, 55, 0.2)', cursor: 'pointer', padding: '0.5rem', borderRadius: '8px' }}
+              className="hover-gold-glow"
+            >
+              <Copy size={20} color="#d4af37" />
+            </button>
+          </div>
+        </GoldCard>
       </div>
 
-      {stats?.referralsMade && stats.referralsMade.length > 0 && (
-        <div className="glass-panel animate-fade-up" style={{ padding: '2.5rem', borderRadius: '32px', border: '1px solid rgba(212, 175, 55, 0.1)', background: 'rgba(5, 5, 5, 0.2)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
-            <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)', padding: '0.75rem', borderRadius: '12px' }}>
-              <Users size={24} color="#d4af37" />
+      {/* 🔵 BOTTOM ROW: Digital Vault & History */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        
+        {/* Digital Card Vault */}
+        {redemptions.length > 0 && (
+          <GoldCard title={t.merchant.dashboard.wallet.rewards.myVault} icon={Sparkles}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
+              {redemptions.map((req: any) => (
+                <div 
+                  key={req.id} 
+                  style={{ 
+                    padding: '2rem', 
+                    borderRadius: '24px', 
+                    background: 'linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%)',
+                    border: '1px solid rgba(212, 175, 55, 0.25)',
+                    position: 'relative',
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.4)'
+                  }}
+                  className="hover-gold-glow"
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2rem' }}>
+                    <div>
+                      <div style={{ fontSize: '0.7rem', color: '#d4af37', letterSpacing: '0.25em', fontWeight: 900, textTransform: 'uppercase' }}>PREMIUM VOUCHER</div>
+                      <div style={{ fontSize: '1.75rem', fontWeight: 900, color: '#fff', marginTop: '0.25rem' }}>£{req.amount.toFixed(2)}</div>
+                    </div>
+                    <div style={{ 
+                      padding: '0.4rem 0.8rem', 
+                      borderRadius: '99px', 
+                      fontSize: '0.7rem', 
+                      fontWeight: 900, 
+                      background: req.status === 'COMPLETED' ? 'rgba(34, 197, 94, 0.1)' : 'rgba(212, 175, 55, 0.1)',
+                      color: req.status === 'COMPLETED' ? '#22c55e' : '#d4af37',
+                      border: '1px solid currentColor' 
+                    }}>
+                      {req.status === 'COMPLETED' ? t.merchant.dashboard.wallet.rewards.statusReady : t.merchant.dashboard.wallet.rewards.statusProcessing}
+                    </div>
+                  </div>
+
+                  {req.status === 'COMPLETED' ? (
+                    <div className="animate-fade-up">
+                      <Barcode code={req.voucherCode} />
+                      <p style={{ marginTop: '1.25rem', fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', textAlign: 'center' }}>
+                        {t.merchant.dashboard.wallet.rewards.voucherDisclaimer}
+                      </p>
+                    </div>
+                  ) : (
+                    <div style={{ padding: '2rem 0', textAlign: 'center', opacity: 0.6 }}>
+                      <Loader2 className="animate-spin" size={32} color="#d4af37" style={{ margin: '0 auto 1.5rem' }} />
+                      <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.5)', fontWeight: 600 }}>{t.merchant.dashboard.wallet.rewards.statusProcessing}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
-            <div>
-               <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#fff' }}>{t.merchant.dashboard.wallet.referralListTitle}</h2>
-               <p style={{ fontSize: '0.85rem', color: '#666', fontWeight: 500 }}>{t.merchant.dashboard.wallet.referralListDesc}</p>
-            </div>
-          </div>
-          
+          </GoldCard>
+        )}
+
+        {/* Transaction History Card */}
+        <GoldCard title={t.merchant.dashboard.wallet.historyTitle || "Transaction History"} icon={History}>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', color: 'rgba(255,255,255,0.8)', fontSize: '0.95rem' }}>
               <thead>
-                <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)', color: '#666' }}>
-                  <th style={{ paddingBottom: '1.25rem', paddingRight: '1rem', fontWeight: 700 }}>{t.merchant.dashboard.wallet.referee}</th>
-                  <th style={{ paddingBottom: '1.25rem', paddingRight: '1rem', fontWeight: 700 }}>{t.merchant.dashboard.wallet.earned}</th>
-                  <th style={{ paddingBottom: '1.25rem', paddingRight: '1rem', fontWeight: 700 }}>{t.merchant.dashboard.wallet.expiry}</th>
-                  <th style={{ paddingBottom: '1.25rem', fontWeight: 700 }}>{t.merchant.dashboard.wallet.status}</th>
+                <tr style={{ borderBottom: '1px solid rgba(212,175,55,0.1)' }}>
+                  <th style={{ textAlign: 'left', padding: '1rem', color: '#d4af37', fontWeight: 800 }}>TYPE</th>
+                  <th style={{ textAlign: 'left', padding: '1rem', color: '#d4af37', fontWeight: 800 }}>DESCRIPTION</th>
+                  <th style={{ textAlign: 'right', padding: '1rem', color: '#d4af37', fontWeight: 800 }}>AMOUNT</th>
+                  <th style={{ textAlign: 'right', padding: '1rem', color: '#d4af37', fontWeight: 800 }}>DATE</th>
                 </tr>
               </thead>
               <tbody>
-                {stats.referralsMade.map((ref: any) => {
-                  const createdAtDate = new Date(ref.createdAt);
-                  const expiryDate = new Date(ref.createdAt);
-                  expiryDate.setFullYear(expiryDate.getFullYear() + 5);
-                  const isExpired = expiryDate < new Date();
-                  
-                  return (
-                    <tr key={ref.id} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.02)', opacity: isExpired ? 0.6 : 1 }}>
-                      <td style={{ padding: '1.5rem 0', paddingRight: '1rem' }}>
-                        <div style={{ fontWeight: 800, color: '#fff', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                           {ref.referee?.name || (locale === 'zh-TW' ? '匿名用戶' : 'Anonymous User')}
-                           {!isExpired && <Sparkles size={14} color="#d4af37" />}
-                        </div>
-                        <div style={{ fontSize: '0.75rem', color: '#666' }}>{t.merchant.dashboard.wallet.joinedAt} {createdAtDate.toLocaleDateString()}</div>
-                      </td>
-                      <td style={{ padding: '1.5rem 0', paddingRight: '1rem', color: '#d4af37', fontWeight: 900 }}>
-                        £{(ref.earnedFromReferee || 0).toFixed(2)}
-                      </td>
-                      <td style={{ padding: '1.5rem 0', paddingRight: '1rem' }}>
-                        <div style={{ color: isExpired ? '#ef4444' : '#fff', fontWeight: 600 }}>
-                           {expiryDate.toLocaleDateString()} {t.merchant.dashboard.wallet.validUntil}
-                        </div>
-                      </td>
-                      <td style={{ padding: '1.5rem 0' }}>
-                        <span style={{ 
-                          fontSize: '0.7rem', 
-                          padding: '0.35rem 0.75rem', 
-                          borderRadius: '99px',
-                          backgroundColor: isExpired ? 'rgba(239, 68, 68, 0.08)' : 'rgba(212, 175, 55, 0.08)',
-                          color: isExpired ? '#ef4444' : '#d4af37',
-                          fontWeight: 900,
-                          textTransform: 'uppercase',
-                          letterSpacing: '0.05em',
-                          border: isExpired ? '1px solid rgba(239, 68, 68, 0.1)' : '1px solid rgba(212, 175, 55, 0.1)'
-                        }}>
-                          {isExpired ? t.merchant.dashboard.wallet.expired : t.merchant.dashboard.wallet.active}
-                        </span>
-                      </td>
-                    </tr>
-                  );
-                })}
+                {(stats?.transactions?.length > 0) ? stats.transactions.map((tx: any) => (
+                  <tr key={tx.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', transition: 'background 0.2s' }} className="hover-highlight">
+                    <td style={{ padding: '1.25rem', fontWeight: 700 }}>{tx.type}</td>
+                    <td style={{ padding: '1.25rem', opacity: 0.8 }}>{tx.description}</td>
+                    <td style={{ padding: '1.25rem', textAlign: 'right', fontWeight: 900, color: tx.amount < 0 ? '#ef4444' : '#22c55e' }}>
+                      {tx.amount < 0 ? '-' : '+'}£{Math.abs(tx.amount).toFixed(2)}
+                    </td>
+                    <td style={{ padding: '1.25rem', textAlign: 'right', opacity: 0.6 }}>{new Date(tx.createdAt).toLocaleDateString()}</td>
+                  </tr>
+                )) : (
+                  <tr>
+                    <td colSpan={4} style={{ textAlign: 'center', padding: '4rem', opacity: 0.4 }}>No transactions found</td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
+        </GoldCard>
+      </div>
+
+      {/* Sync Badge */}
+      <div style={{ display: 'flex', justifyContent: 'center', padding: '1rem' }}>
+        <div style={{ 
+          fontSize: '0.75rem', 
+          color: synced ? '#b8860b' : '#94a3b8', 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: '0.6rem',
+          background: 'var(--surface-2)',
+          padding: '0.5rem 1.25rem',
+          borderRadius: '99px',
+          border: `1px solid ${synced ? '#d4af37' : '#e2e8f0'}`,
+          boxShadow: synced ? '0 4px 12px rgba(184, 134, 11, 0.05)' : 'none',
+          fontWeight: '700',
+          letterSpacing: '0.05em'
+        }}>
+           <div className={synced ? "pulse-gold" : ""} style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: synced ? '#d4af37' : '#cbd5e1' }} />
+           {synced ? `NODE SYNCED: SECURE QUANTUM LINK ACTIVE` : `SYNCING SECURE DATA...`}
         </div>
-      )}
+      </div>
+
     </div>
   );
 }

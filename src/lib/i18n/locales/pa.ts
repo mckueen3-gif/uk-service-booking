@@ -27,7 +27,7 @@ export const pa: Dictionary = {
       ]
     }
   },
-  footer: { tagline: "ਯੂਕੇ ਦੇ ਚੋਟੀ ਦੇ ਪ੍ਰਮਾਣਿਤ ਪੇਸ਼ੇਵਰਾਂ ਨਾਲ ਜੁੜੋ।", explore: "ਐਕਸਪਲੋਰ", legal: "ਕਾਨੂੰਨੀ", support: "ਸਹਾਇਤਾ", rights: "© 2024 ਯੂਕੇ ਸਰਵਿਸ ਹੱਬ। ਸਾਰੇ ਹੱਕ ਰਾਖਵੇਂ ਹਨ।", terms: "ਸੇਵਾ ਦੀਆਂ ਸ਼ਰਤਾਂ", privacy: "ਪਰਾਈਵੇਸੀ ਪਾਲਿਸੀ", cookies: "ਕੂਕੀ ਪਾਲਿਸੀ", help: "ਮਦਦ ਕੇਂਦਰ", contact: "ਸਹਾਇਤਾ ਨਾਲ ਸੰਪਰਕ ਕਰੋ", aiDiagnosis: "AI ਜਾਂਚ", homeCleaning: "ਘਰ ਦੀ ਸਫਾਈ", plumbingServices: "ਪਲੰਬਿੰਗ ਸੇਵਾਵਾਂ", automotiveServices: "ਆਟੋਮੋਟਿਵ ਸੇਵਾਵਾਂ" },
+  footer: { tagline: "ਯੂਕੇ ਦੇ ਚੋਟੀ ਦੇ ਪ੍ਰਮਾਣਿਤ ਪੇਸ਼ੇਵਰਾਂ ਨਾਲ ਜੁੜੋ।", explore: "ਐਕਸਪਲੋਰ", legal: "ਕਾਨੂੰਨੀ", support: "ਸਹਾਇਤਾ", rights: "© 2024 ਯੂਕੇ ਸਰਵਿਸ ਹੱਬ। ਸਾਰੇ ਹੱਕ ਰਾਖਵੇਂ ਹਨ।", terms: "ਸੇਵਾ ਦੀਆਂ ਸ਼ਰਤਾਂ", privacy: "ਪਰਾਈਵੇਸੀ ਪਾਲਿਸੀ", cookies: "ਕੂਕੀ ਪਾਲਿਸੀ", help: "ਮਦਦ ਕੇਂਦਰ", contact: "ਸਹਾਇਤਾ ਨਾਲ ਸੰਪਰਕ ਕਰੋ", aiDiagnosis: "AI ਜਾਂਚ", homeCleaning: "ਘਰ ਦੀ ਸਫਾਈ", plumbingServices: "ਪਲੰਬਿੰਗ ਸੇਵਾਵਾਂ", automotiveServices: "ਆਟੋਮੋਟਿਵ ਸੇਵਾਵਾਂ", trustSignal: "Trustpilot 'ਤੇ ਸ਼ਾਨਦਾਰ ਰੇਟਿੰਗ" },
   search: { 
     filters: "ਫਿਲਟਰ", keyword: "ਕੀਵਰਡ", location: "ਸਥਾਨ", category: "ਸ਼੍ਰੇਣੀ", minRating: "ਘੱਟੋ-ਘੱਟ ਰੇਟਿੰਗ", verifiedOnly: "ਸਿਰਫ਼ ਪ੍ਰਮਾਣਿਤ", 
     apply: "ਫਿਲਟਰ ਲਾਗੂ ਕਰੋ", sortBy: "ਤਰਤੀਬ ਦਿਓ", sortRating: "ਰੇਟਿੰਗ", sortJobs: "ਕੀਤੇ ਹੋਏ ਕੰਮ", sortDistance: "ਦੂਰੀ", sortPrice: "ਕੀਮਤ", 
@@ -75,7 +75,18 @@ export const pa: Dictionary = {
         expired: "ਮਿਆਦ ਪੁੱਗ ਗਈ",
         joinedAt: "ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਏ",
         validUntil: "ਤੱਕ ਵੈਧ",
-        availableNow: "ਹੁਣ ਉਪਲਬਧ"
+        availableNow: "ਹੁਣ ਉਪਲਬਧ",
+        rewards: {
+          title: "ਡਿਜੀਟਲ ਕੈਸ਼ ਵਾਊਚਰ ਰਿਡੀਮ ਕਰੋ",
+          subtitle: "* ਮੈਨੂਅਲ ਸਮੀਖਿਆ ਜ਼ਰੂਰੀ ਹੈ। ਕੋਡ 24 ਘੰਟਿਆਂ ਦੇ ਅੰਦਰ ਜਾਰੀ ਕੀਤੇ ਜਾਣਗੇ।",
+          myVault: "ਮੇਰਾ ਡਿਜੀਟਲ ਕਾਰਡ ਵਾਲਿਟ",
+          redeemBtn: "ਰਿਡੀਮ ਕਰੋ",
+          statusProcessing: "ਪ੍ਰੋਸੈਸਿੰਗ...",
+          statusReady: "ਵਰਤਣ ਲਈ ਤਿਆਰ",
+          voucherDisclaimer: "ਵੱਡੀਆਂ ਬ੍ਰਿਟਿਸ਼ ਰਿਟੇਲ ਚੇਨਾਂ ਅਤੇ ਭੁਗਤਾਨ ਪ੍ਰਣਾਲੀਆਂ ਵਿੱਚ ਵੈਧ ਹੈ।",
+          confirmRedeem: "ਕੈਸ਼ ਵਾਊਚਰ ਲਈ ਪੁਆਇੰਟ ਕਟੌਤੀ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ? 24 ਘੰਟਿਆਂ ਵਿੱਚ ਜਾਰੀ ਕੀਤਾ ਜਾਵੇਗਾ।",
+          requestSuccess: "ਬੇਨਤੀ ਸਫਲ ਰਹੀ! ਅਸੀਂ ਤੁਹਾਡਾ ਕੋਡ ਅਲਾਟ ਕਰ ਰਹੇ ਹਾਂ। ਜਲਦੀ ਹੀ ਆਪਣੇ ਵਾਲਿਟ ਦੀ ਜਾਂਚ ਕਰੋ।",
+        },
       },
       bookings: { title: "ਹਾਲੀਆ ਮੁਲਾਕाਤਾਂ", viewAll: "ਸਾਰੀਆਂ ਬੁਕਿੰਗਾਂ ਦੇਖੋ", empty: "ਕੋਈ ਹਾਲੀਆ ਬੁਕਿੰਗ ਨਹੀਂ", completed: "ਪੂਰਾ ਹੋਇਆ", actions: { confirm: "ਪੁਸ਼ਟੀ ਕਰੋ", complete: "ਪੂਰਾ ਮਾਰਕ ਕਰੋ", variation: "ਵਾਧੂ ਬੇਨਤੀ ਕਰੋ" } },
       status: { pending: "ਬਕਾਇਆ", confirmed: "ਪੁਸ਼ਟੀ ਕੀਤੀ", completed: "ਪੂਰਾ ਹੋਇਆ", cancelled: "ਰੱਦ ਕੀਤਾ ਗਿਆ" },
@@ -99,7 +110,27 @@ export const pa: Dictionary = {
     search: { filters: "ਖੋਜ ਫਿਲਟਰ", mode: "ਪੜ੍ਹਾਉਣ ਦਾ ਤਰੀਕਾ", online: "ਆਨਲਾਈਨ", offline: "ਖੁਦ ਮਿਲ ਕੇ", hybrid: "ਹਾਈਬ੍ਰਿਡ", priceRange: "ਪ੍ਰਤੀ ਘੰਟਾ ਰੇਟ", level: "ਟਿਊਟਰ ਦਾ ਪੱਧਰ", student: "ਯੂਨੀਵਰਸਿਟੀ ਵਿਦਿਆਰਥੀ", pro: "ਪੇਸ਼ੇਵਰ ਅਧਿਆਪਕ", expert: "ਮਾਸਟਰ/ਪੀਐਚਡੀ", apply: "ਫਿਲਟਰ ਲਾਗੂ ਕਰੋ", resultsTitle: "ਉਪਲਬਧ ਟਿਊਟਰ", foundCount: "{{count}} ਟਿਊਟਰ ਮਿਲੇ", placeholder: "ਵਿਸ਼ੇ ਜਾਂ ਨਾਮ ਨਾਲ ਖੋਜ ਕਰੋ" },
     common: { reviews: "ਸਮੀਖਿਆਵਾਂ", hr: "ਘੰਟਾ", bookTrial: "ਟ੍ਰਾਇਲ ਬੁੱਕ ਕਰੋ" },
     tutorCard: { demoDesc: "ਪੀਐਚਡੀ ਅਤੇ 10+ ਸਾਲਾਂ ਦੇ ਤਜ਼ਰਬੇ ਵਾਲਾ ਇੱਕ ਉਤਸ਼ਾਹੀ ਸਿੱਖਿਆ ਸ਼ਾਸਤਰੀ, ਜਿਸਨੇ 100+ ਵਿਦਿਆਰਥੀਆਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੇ ਟੀਚੇ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕੀਤੀ ਹੈ।" },
-    tutorProfile: { verified: "ਪ੍ਰਮਾਣਿਤ ਸਿੱਖਿਆ ਸ਼ਾਸਤਰੀ", about: "ਮੇਰੇ ਬਾਰੇ", education: "ਸਿੱਖਿਆ", experience: "ਪੜ੍ਹਾਉਣ ਦਾ ਤਜ਼ਰਬਾ", portfolio: "ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਸਫਲਤਾ ਦੀਆਂ ਕਹਾਣੀਆਂ", reviews: "ਵਿਦਿਆਰਥੀਆਂ ਦੀਆਂ ਸਮੀਖਿਆਵਾਂ", availability: "ਹਫ਼ਤਾਵਾਰ ਸ਼ਡਿਊਲ", bookNow: "ਲੈਕਚਰ ਬੁੱਕ ਕਰੋ", aiTrial: "AI ਮੁਲਾਂਕਣ ਟ੍ਰਾਇਲ", trialChallenge: "ਸੈਸ਼ਨ ਡਿਸਕਾਉਂਟ ਲਈ AI ਵਿਸ਼ਾ ਚੁਣੌਤੀ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ!", startChallenge: "ਚੁਣੌਤੀ ਸ਼ੁਰੂ ਕਰੋ", cancel: "ਰੱਦ ਕਰੋ" }
+    tutorProfile: { 
+      verified: "ਪ੍ਰਮਾਣਿਤ ਸਿੱਖਿਆ ਸ਼ਾਸਤਰੀ", about: "ਮੇਰੇ ਬਾਰੇ", education: "ਸਿੱਖਿਆ", experience: "ਪੜ੍ਹਾਉਣ ਦਾ ਤਜ਼ਰਬਾ", portfolio: "ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਸਫਲਤਾ ਦੀਆਂ ਕਹਾਣੀਆਂ", reviews: "ਵਿਦਿਆਰਥੀਆਂ ਦੀਆਂ ਸਮੀਖਿਆਵਾਂ", availability: "ਹਫ਼ਤਾਵਾਰ ਸ਼ਡਿਊਲ", bookNow: "ਲੈਕਚਰ ਬੁੱਕ ਕਰੋ", 
+      aiTrial: "AI ਮੁਲਾਂਕਣ ਟ੍ਰਾਇਲ", trialChallenge: "학술 진단 ਅਕਾਦਮਿਕ ਚੁਣੌਤੀ", startChallenge: "ਚੁਣੌਤੀ ਸ਼ੁਰੂ ਕਰੋ", cancel: "ਅਜੇ ਨਹੀਂ",
+      loadingChallenge: "AI ਤੁਹਾਡੀ ਚੁਣੌਤੀ ਤਿਆਰ ਕਰ ਰਿਹਾ ਹੈ...",
+      analyzing: "{subject} ਲਈ ਪਾਠਕ੍ਰਮ ਦਾ ਵਿਸ਼ਲੇਸ਼ਣ",
+      questionLabel: "ਸਵਾਲ",
+      of: "/",
+      explanation: "ਵਿਆਖਿਆ:",
+      nextQuestion: "ਅਗਲਾ ਸਵਾਲ",
+      finishChallenge: "ਚੁਣੌਤੀ ਖਤਮ ਕਰੋ",
+      scoreResult: "ਤੁਹਾਡਾ ਸਕੋਰ:",
+      assessment: "ਮੁਲਾਂਕਣ:",
+      assessmentLevels: {
+        excellent: "ਸ਼ਾਨਦਾਰ ਆਧਾਰ",
+        progress: "ਤਰੱਕੀ ਲਈ ਤਿਆਰ",
+        starting: "ਯਾਤਰਾ ਦੀ ਸ਼ੁਰੂਆਤ"
+      },
+      assessmentDesc: "ਤੁਹਾਡੇ ਮਾਹਰ ਨੂੰ ਨਤੀਜੇ ਮਿਲ ਗਏ ਹਨ ਅਤੇ ਉਹ ਤੁਹਾਡੇ ਸੈਸ਼ਨ ਨੂੰ ਉਸ ਅਨੁਸਾਰ ਤਿਆਰ ਕਰਨਗੇ!",
+      bookFirstLesson: "ਆਪਣਾ ਪਹਿਲਾ ਸਬਕ ਬੁੱਕ ਕਰੋ",
+      tryAgain: "ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ"
+    }
   },
   home: {
     hero: { badge: "ਪ੍ਰਮਾਣਿਤ ਯੂਕੇ ਸਥਾਨਕ ਮਾਹਰ", title1: "ਟੌਪ-ਰੇਟਿਡ", title2: "ਸਥਾਨਕ ਮਾਹਰ ਬੁੱਕ ਕਰੋ", subtitle: "ਯੂਕੇ ਦੇ ਟੌਪ 1% ਸਰਵਿਸ ਪ੍ਰੋਫੈਸ਼ਨਲਜ਼ ਤੱਕ ਤੁਰੰਤ ਪਹੁੰਚ। ਗਾਰੰਟੀਸ਼ੁਦਾ ਗੁਣਵੱਤਾ ਲਈ ਪ੍ਰਮਾਣਿਤ, ਬੀਮਾਯੁਕਤ ਅਤੇ AI ਨਿਗਰਾਨੀ ਵਾਲੇ।", searchPlaceholder: "ਮੈਨੂੰ ਲੋੜ ਹੈ ਇੱਕ...", locationPlaceholder: "ਲੰਡਨ, ਯੂਕੇ", aiMatch: "ਸਮਾਰਟ ਮੈਚ", searchBtn: "ਮਾਹਰ ਲੱਭੋ" },
