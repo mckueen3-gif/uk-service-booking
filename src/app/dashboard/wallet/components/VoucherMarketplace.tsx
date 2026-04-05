@@ -13,7 +13,12 @@ interface VoucherMarketplaceProps {
   onSuccess: () => void;
 }
 
-const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({ currentCredits, isAdmin, onAdminTrigger, onSuccess }) => {
+const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({ 
+  currentCredits = 0, 
+  isAdmin = false, 
+  onAdminTrigger = () => {}, 
+  onSuccess = () => {} 
+}) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [category, setCategory] = useState('All');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -21,13 +26,15 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({ currentCredits,
 
   // Handle new JSON structure (metadata + vouchers) with safety fallback
   const rawData = vouchersData as any;
-  const vouchers = rawData?.vouchers || (Array.isArray(rawData) ? rawData : []);
+  const vouchers = Array.isArray(rawData?.vouchers) ? rawData.vouchers : (Array.isArray(rawData) ? rawData : []);
   const metadata = rawData?.metadata || {};
   
   const isLocked = currentCredits < 10;
 
   const filteredVouchers = useMemo(() => {
+    if (!Array.isArray(vouchers)) return [];
     return vouchers.filter((v: any) => {
+      if (!v || !v.name) return false;
       const matchesSearch = v.name.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesCategory = category === 'All' || v.category === category;
       return matchesSearch && matchesCategory;
