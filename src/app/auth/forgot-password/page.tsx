@@ -4,10 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { Mail, ArrowLeft, CheckCircle2, AlertCircle } from "lucide-react";
 import { requestPasswordReset } from "@/app/actions/auth";
-import { getDictionary } from "@/lib/i18n/dictionary";
+import { useTranslation } from "@/components/LanguageContext";
 
 export default function ForgotPasswordPage() {
-  const t = getDictionary('zh-TW');
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);

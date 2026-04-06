@@ -172,14 +172,44 @@ export interface Dictionary {
   admin: {
     sidebar: { overview: string; analytics: string; bookings: string; verifications: string; disputes: string; merchants: string; payouts: string; users: string; settings: string; terminal: string };
     header: { internal: string; operations: string; node: string };
-    stats: { gmv: string; netRevenue: string; bookings: string; dailyAvg: string; processed: string; volume24h: string };
+    stats: {
+      gmv: string;
+      netRevenue: string;
+      bookings: string;
+      dailyAvg: string;
+      processed: string;
+      volume24h: string;
+      syncing: string;
+    };
     analytics: { gmvTitle: string; gmvSub: string; sectorDist: string; volTitle: string; live: string };
     bookings: { title: string; sub: string; search: string; id: string; customer: string; amount: string; status: string; service: string };
-    verifications: { title: string; sub: string; evidence: string; extraction: string; passport: string; faceMatch: string; confidence: string };
+    verifications: { 
+      title: string; 
+      sub: string; 
+      evidence: string; 
+      extraction: string; 
+      passport: string; 
+      faceMatch: string; 
+      confidence: string;
+      fullName: string;
+      idNumber: string;
+      expiryDate: string;
+      dob: string;
+    };
     disputes: { title: string; sub: string; reasoning: string; gallery: string; verdict: string; confidence: string };
     payouts: { title: string; snapshot: string; pending: string; volume: string; security: string; adjudication: string; method: string };
     users: { title: string; sub: string; stats: string; registeredAt: string; referrals: string };
-    commissions: { title: string; sub: string; plateformFee: string; marketplaceFee: string; adminControl: string };
+    commissions: { 
+      title: string; 
+      sub: string; 
+      plateformFee: string; 
+      marketplaceFee: string; 
+      adminControl: string;
+      weightedAvg: string;
+      totalJobs: string;
+      deliveryVolume: string;
+      merchantDetails: string;
+    };
     disputes_mgr: { empty: string; viewDetails: string; status: { open: string; processing: string; settled: string } };
     merchants_mgr: { empty: string; status: { active: string; suspended: string; pending: string } };
   };

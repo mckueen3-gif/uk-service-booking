@@ -5,10 +5,10 @@ import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Lock, ArrowLeft, CheckCircle2, AlertCircle } from "lucide-react";
 import { resetPassword } from "@/app/actions/auth";
-import { getDictionary } from "@/lib/i18n/dictionary";
+import { useTranslation } from "@/components/LanguageContext";
 
 function ResetPasswordForm() {
-  const t = getDictionary('zh-TW');
+  const { t } = useTranslation();
   const searchParams = useSearchParams();
   const router = useRouter();
   const token = searchParams.get("token");

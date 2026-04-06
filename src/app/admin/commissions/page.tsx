@@ -8,7 +8,14 @@ import {
 import { getCommissionRate } from "@/lib/commission";
 import CommissionEditor from "./CommissionEditor";
 
+import { cookies } from "next/headers";
+import { dictionaries, Locale } from "@/lib/i18n/dictionary";
+
 export default async function AdminCommissionsPage() {
+  const cookieStore = await cookies();
+  const locale = (cookieStore.get('user-locale')?.value as Locale) || 'zh-TW';
+  const t = dictionaries[locale] || dictionaries['zh-TW'];
+
   const merchants = await prisma.merchant.findMany({
     orderBy: { completedJobsCount: 'desc' }
   });
@@ -36,9 +43,9 @@ export default async function AdminCommissionsPage() {
         <div>
           <h2 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.75rem', margin: 0 }}>
             <Percent style={{ color: '#d4af37' }} />
-            Platform Commission Control
+            {t.admin.commissions.title}
           </h2>
-          <p style={{ fontSize: '0.875rem', color: '#94a3b8', marginTop: '4px', margin: 0 }}>Monitor merchant commission rates and platform yield performance.</p>
+          <p style={{ fontSize: '0.875rem', color: '#94a3b8', marginTop: '4px', margin: 0 }}>{t.admin.commissions.sub}</p>
         </div>
       </div>
 
@@ -48,22 +55,22 @@ export default async function AdminCommissionsPage() {
             <Percent size={18} /> Avg Commission Rate
           </div>
           <div style={{ fontSize: '2.5rem', fontWeight: 900, color: '#0f172a' }}>{(avgCommission * 100).toFixed(1)}%</div>
-          <p style={{ color: '#94a3b8', fontSize: '12px', marginTop: '8px', margin: 0 }}>Platform-wide weighted average</p>
+          <p style={{ color: '#94a3b8', fontSize: '12px', marginTop: '8px', margin: 0 }}>{t.admin.commissions.weightedAvg}</p>
         </div>
 
         <div style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '1.25rem', padding: '1.5rem', boxShadow: '0 10px 30px rgba(0,0,0,0.03)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#d4af37', marginBottom: '12px', fontWeight: 900, fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-            <TrendingUp size={18} /> Total Settled Jobs
+            <TrendingUp size={18} /> {t.admin.commissions.totalJobs}
           </div>
           <div style={{ fontSize: '2.5rem', fontWeight: 900, color: '#0f172a' }}>{totalCompletedJobs}</div>
-          <p style={{ color: '#94a3b8', fontSize: '12px', marginTop: '8px', margin: 0 }}>Successful service delivery volume</p>
+          <p style={{ color: '#94a3b8', fontSize: '12px', marginTop: '8px', margin: 0 }}>{t.admin.commissions.deliveryVolume}</p>
         </div>
       </div>
 
       <div style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '2rem', padding: '1.5rem', boxShadow: '0 10px 40px rgba(0,0,0,0.03)' }}>
         <h2 style={{ fontSize: '1.125rem', fontWeight: 900, color: '#0f172a', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px', margin: 0 }}>
           <PieChart size={20} style={{ color: '#6366f1' }} />
-          Merchant Commission Details
+          {t.admin.commissions.merchantDetails}
         </h2>
         
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>

@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useTranslation } from '@/components/LanguageContext';
 import OnboardingHero from '@/components/joining/OnboardingHero';
 import SectorSelector from '@/components/joining/SectorSelector';
@@ -9,11 +10,10 @@ import LiveProfilePreview from '@/components/joining/LiveProfilePreview';
 import { ChevronRight, ChevronLeft, CheckCircle2, Building2, Mail, Globe, User, Loader2, MapPin, Sparkles, Wand2, Calculator, Gift, ShieldCheck } from 'lucide-react';
 import { createMerchantAction } from '@/app/actions/merchant';
 import { fetchBusinessInfoWithAI } from '@/app/actions/ai_onboarding';
-import { getDictionary } from '@/lib/i18n/dictionary';
 
-export default function JoinPage() {
-  const t = getDictionary('zh-TW');
-  const { locale } = useTranslation();
+function JoinPageContent() {
+  const { t, locale } = useTranslation();
+  const searchParams = useSearchParams();
   const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [aiLoading, setAiLoading] = useState(false);
@@ -983,5 +983,12 @@ export default function JoinPage() {
         }
       `}</style>
     </div>
+  );
+}
+export default function JoinPage() {
+  return (
+    <Suspense fallback={<div className="join-layout"><div className="join-container" style={{ textAlign: 'center' }}>正在載入入駐程序...</div></div>}>
+      <JoinPageContent />
+    </Suspense>
   );
 }

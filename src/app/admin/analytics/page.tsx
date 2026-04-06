@@ -31,14 +31,14 @@ import {
   Loader2,
   Activity
 } from "lucide-react";
-import { getDictionary } from "@/lib/i18n/dictionary";
+import { useTranslation } from "@/components/LanguageContext";
 
 const COLORS = ["#d4af37", "#aa8b2c", "#c5a028", "#8e731f"];
 
 export default function AnalyticsPage() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const t = getDictionary('zh-TW');
+  const { t } = useTranslation();
 
   useEffect(() => {
     async function load() {
@@ -53,7 +53,7 @@ export default function AnalyticsPage() {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', color: '#d4af37' }}>
         <Loader2 className="animate-spin mb-4" size={40} />
-        <p style={{ fontSize: '10px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.2em' }}>系統數據同步中...</p>
+        <p style={{ fontSize: '10px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.2em' }}>{t.admin.stats.syncing || "SYSTEM SYNCING..."}</p>
       </div>
     );
   }

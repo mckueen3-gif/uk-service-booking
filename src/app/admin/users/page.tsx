@@ -13,12 +13,12 @@ import {
   Loader2
 } from "lucide-react";
 import { motion } from "framer-motion";
-import { getDictionary } from "@/lib/i18n/dictionary";
+import { useTranslation } from "@/components/LanguageContext";
 
 export default function AdminUsers() {
   const [users, setUsers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const t = getDictionary('zh-TW');
+  const { t } = useTranslation();
 
   useEffect(() => {
     async function load() {

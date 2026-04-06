@@ -13,7 +13,8 @@ import {
   CalendarDays,
   Gavel
 } from "lucide-react";
-import { getDictionary } from "@/lib/i18n/dictionary";
+import { getDictionary, dictionaries, Locale } from "@/lib/i18n/dictionary";
+import { cookies } from "next/headers";
 
 function AdminNavLink({ href, icon, label, badge, active }: { href: string; icon: React.ReactNode; label: string; badge?: string; active?: boolean }) {
   return (
@@ -66,7 +67,9 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession();
-  const t = getDictionary('zh-TW'); // Locked to zh-TW per request
+  const cookieStore = await cookies();
+  const locale = (cookieStore.get('user-locale')?.value as Locale) || 'zh-TW';
+  const t = dictionaries[locale] || dictionaries['zh-TW'];
 
   if (!session || !session.user || (session.user as any).role !== "ADMIN") {
     redirect("/auth/login?callbackUrl=/admin&error=AccessDenied");
@@ -131,7 +134,7 @@ export default async function AdminLayout({
            <div style={{ fontSize: '10px', fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.15em', padding: '0 1.25rem', margin: '1.5rem 0 0.75rem' }}>商務管理</div>
            <AdminNavLink href="/admin/merchants" icon={<Users size={18} />} label={t.admin.sidebar.merchants} />
            <AdminNavLink href="/admin/payouts" icon={<CreditCard size={18} />} label={t.admin.sidebar.payouts} />
-           <AdminNavLink href="/admin/settings" icon={<Settings size={18} />} label={t.admin.sidebar.settings} />
+           <AdminNavLink href="/admin/commissions" icon={<Settings size={18} />} label={t.admin.sidebar.settings} />
         </nav>
 
         <div style={{ padding: '1.25rem', borderTop: '1px solid #f1f5f9' }}>

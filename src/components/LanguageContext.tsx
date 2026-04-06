@@ -36,6 +36,10 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const setLocale = (newLocale: Locale) => {
     setLocaleState(newLocale);
     localStorage.setItem('user-locale', newLocale);
+    
+    // Set cookie for Server Components (expires in 1 year)
+    document.cookie = `user-locale=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
+    
     // Update document dir and lang for SEO and accessibility
     document.documentElement.lang = newLocale;
     document.documentElement.dir = (newLocale === 'ar' || newLocale === 'ur') ? 'rtl' : 'ltr';
@@ -62,21 +66,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
 export function useTranslation() {
   const context = useContext(LanguageContext);
-  const pathname = usePathname();
 
   if (context === undefined) {
     throw new Error('useTranslation must be used within a LanguageProvider');
-  }
-
-  // Force zh-TW for auth and join pages
-  const isAuthPage = pathname?.startsWith('/auth') || pathname === '/join';
-  if (isAuthPage) {
-    return {
-      ...context,
-      locale: 'zh-TW' as Locale,
-      t: dictionaries['zh-TW'],
-      isRTL: false
-    };
   }
 
   return context;

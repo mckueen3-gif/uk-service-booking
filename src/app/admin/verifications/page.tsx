@@ -14,12 +14,12 @@ import {
   Fingerprint
 } from "lucide-react";
 import { motion } from "framer-motion";
-import { getDictionary } from "@/lib/i18n/dictionary";
+import { useTranslation } from "@/components/LanguageContext";
 
 export default function AdminVerifications() {
   const [queues, setQueues] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const t = getDictionary('zh-TW');
+  const { t } = useTranslation();
 
   useEffect(() => {
     async function load() {
@@ -154,10 +154,10 @@ export default function AdminVerifications() {
                   </h3>
                   
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
-                     <DataPoint label="姓名 (AI 提取)" value={item.aiExtraction?.fullName || "無法識別"} />
-                     <DataPoint label="證件號碼 (AI 提取)" value={item.aiExtraction?.idNumber || "無法識別"} />
-                     <DataPoint label="有效期限" value={item.aiExtraction?.expiryDate || "未標註"} />
-                     <DataPoint label="出生日期" value={item.aiExtraction?.dob || "未標註"} />
+                     <DataPoint label={t.admin.verifications.fullName || "Full Name (AI)"} value={item.aiExtraction?.fullName || "..."} />
+                     <DataPoint label={t.admin.verifications.idNumber || "ID Number (AI)"} value={item.aiExtraction?.idNumber || "..."} />
+                     <DataPoint label={t.admin.verifications.expiryDate || "Expiry Date"} value={item.aiExtraction?.expiryDate || "..."} />
+                     <DataPoint label={t.admin.verifications.dob || "DOB"} value={item.aiExtraction?.dob || "..."} />
                   </div>
                 </div>
 

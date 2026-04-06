@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getDictionary } from "@/lib/i18n/dictionary";
+import { useTranslation } from "@/components/LanguageContext";
 import { 
   BarChart, 
   Bar, 
@@ -29,7 +29,7 @@ const mockData = [
 ];
 
 export default function AdminDashboard() {
-  const t = getDictionary('zh-TW');
+  const { t } = useTranslation();
   
   return (
     <motion.div 

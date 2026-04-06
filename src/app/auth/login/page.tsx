@@ -6,7 +6,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Mail, Lock, LogIn, AlertCircle, CheckCircle2 } from 'lucide-react';
 import '../auth.css';
-import { getDictionary } from '@/lib/i18n/dictionary';
+import { useTranslation } from '@/components/LanguageContext';
 
 function LoginForm() {
   const router = useRouter();
@@ -17,7 +17,7 @@ function LoginForm() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [revealed, setRevealed] = useState(false);
-  const t = getDictionary('zh-TW');
+  const { t } = useTranslation();
 
   useEffect(() => {
     setTimeout(() => setRevealed(true), 100);
