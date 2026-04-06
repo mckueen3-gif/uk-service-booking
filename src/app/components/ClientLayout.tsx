@@ -224,59 +224,57 @@ export function AppNavbar({ session }: { session: any }) {
             {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
           </button>
 
-          {/* Premium Custom Language Switcher */}
-          {!isAuthPage && (
-            <div style={{ position: 'relative' }}>
-              <div 
-                onClick={() => toggleDropdown('languages')}
-                style={{ 
-                  display: 'flex', alignItems: 'center', gap: '6px', 
-                  cursor: 'pointer', padding: '0.4rem 0.8rem', 
-                  borderRadius: '2rem', 
-                  border: `1px solid ${isObsidianPage ? 'rgba(212,175,55,0.2)' : 'var(--border-color)'}`,
-                  backgroundColor: activeDropdown === 'languages' ? (isObsidianPage ? 'rgba(212,175,55,0.1)' : 'rgba(212,175,55,0.05)') : (isObsidianPage ? '#0f0f0f' : 'var(--surface-1)'), 
-                  color: isObsidianPage ? 'white' : 'var(--text-primary)',
-                  fontWeight: 600, fontSize: '0.9rem', transition: 'all 0.2s',
-                  boxShadow: isObsidianPage ? 'none' : 'var(--shadow-sm)'
-                }} className="hover-border active-scale">
-                 <Globe size={16} color={obsidianGold} />
-                 <span>{currentLanguage.label.split(' ')[0]}</span>
-                 <ChevronDown size={14} style={{ transform: activeDropdown === 'languages' ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s', opacity: 0.6 }} />
-              </div>
-
-              {activeDropdown === 'languages' && (
-                <div style={{
-                  position: 'absolute', top: '100%', right: '0', marginTop: '0.5rem',
-                  width: '180px', 
-                  backgroundColor: isObsidianPage ? '#0f0f0f' : 'var(--surface-1)', 
-                  borderRadius: '1rem',
-                  boxShadow: isObsidianPage ? '0 20px 40px rgba(0,0,0,0.8)' : '0 20px 25px -5px rgba(0, 0, 0, 0.1)', 
-                  border: `1px solid ${isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--border-color)'}`,
-                  padding: '0.5rem', zIndex: 1000,
-                  backdropFilter: 'blur(20px)',
-                  display: 'flex', flexDirection: 'column', gap: '2px',
-                  maxHeight: '400px', overflowY: 'auto'
-                }}>
-                  {languages.map(lang => (
-                    <div
-                      key={lang.code}
-                      onClick={(e) => { e.stopPropagation(); setLocale(lang.code as any); setActiveDropdown(null); }}
-                      style={{
-                        padding: '0.6rem 0.8rem', borderRadius: '0.5rem', cursor: 'pointer',
-                        fontSize: '0.9rem', fontWeight: locale === lang.code ? 700 : 500,
-                        backgroundColor: locale === lang.code ? (isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--accent-soft)') : 'transparent',
-                        color: locale === lang.code ? obsidianGold : (isObsidianPage ? 'white' : 'var(--text-primary)'),
-                        transition: 'all 0.2s'
-                      }}
-                      className={locale !== lang.code ? "hover-bg" : ""}
-                    >
-                      {lang.label}
-                    </div>
-                  ))}
-                </div>
-              )}
+          {/* Premium Custom Language Switcher - Always Visible */}
+          <div style={{ position: 'relative' }}>
+            <div 
+              onClick={() => toggleDropdown('languages')}
+              style={{ 
+                display: 'flex', alignItems: 'center', gap: '6px', 
+                cursor: 'pointer', padding: '0.4rem 0.8rem', 
+                borderRadius: '2rem', 
+                border: `1px solid ${isObsidianPage ? 'rgba(212,175,55,0.2)' : 'var(--border-color)'}`,
+                backgroundColor: activeDropdown === 'languages' ? (isObsidianPage ? 'rgba(212,175,55,0.1)' : 'rgba(212,175,55,0.05)') : (isObsidianPage ? '#0f0f0f' : 'var(--surface-1)'), 
+                color: isObsidianPage ? 'white' : 'var(--text-primary)',
+                fontWeight: 600, fontSize: '0.9rem', transition: 'all 0.2s',
+                boxShadow: isObsidianPage ? 'none' : 'var(--shadow-sm)'
+              }} className="hover-border active-scale">
+               <Globe size={16} color={obsidianGold} />
+               <span>{currentLanguage.label.split(' ')[0]}</span>
+               <ChevronDown size={14} style={{ transform: activeDropdown === 'languages' ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s', opacity: 0.6 }} />
             </div>
-          )}
+
+            {activeDropdown === 'languages' && (
+              <div style={{
+                position: 'absolute', top: '100%', right: '0', marginTop: '0.5rem',
+                width: '180px', 
+                backgroundColor: isObsidianPage ? '#0f0f0f' : 'var(--surface-1)', 
+                borderRadius: '1rem',
+                boxShadow: isObsidianPage ? '0 20px 40px rgba(0,0,0,0.8)' : '0 20px 25px -5px rgba(0, 0, 0, 0.1)', 
+                border: `1px solid ${isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--border-color)'}`,
+                padding: '0.5rem', zIndex: 1000,
+                backdropFilter: 'blur(20px)',
+                display: 'flex', flexDirection: 'column', gap: '2px',
+                maxHeight: '400px', overflowY: 'auto'
+              }}>
+                {languages.map(lang => (
+                  <div
+                    key={lang.code}
+                    onClick={(e) => { e.stopPropagation(); setLocale(lang.code as any); setActiveDropdown(null); }}
+                    style={{
+                      padding: '0.6rem 0.8rem', borderRadius: '0.5rem', cursor: 'pointer',
+                      fontSize: '0.9rem', fontWeight: locale === lang.code ? 700 : 500,
+                      backgroundColor: locale === lang.code ? (isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--accent-soft)') : 'transparent',
+                      color: locale === lang.code ? obsidianGold : (isObsidianPage ? 'white' : 'var(--text-primary)'),
+                      transition: 'all 0.2s'
+                    }}
+                    className={locale !== lang.code ? "hover-bg" : ""}
+                  >
+                    {lang.label}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
 
           <div style={{ position: 'relative' }}>
             <div 

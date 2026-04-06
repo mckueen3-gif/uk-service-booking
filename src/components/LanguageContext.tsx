@@ -18,18 +18,20 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   // Initialize from localStorage
   useEffect(() => {
-    const savedLocale = localStorage.getItem('user-locale') as Locale;
-    if (savedLocale && dictionaries[savedLocale]) {
-      setLocaleState(savedLocale);
+    // 優先從 localStorage 讀取，如果不匹配則從 Cookie 讀取
+    const saved = localStorage.getItem('user-locale') as Locale;
+    if (saved && dictionaries[saved]) {
+      setLocaleState(saved);
     } else {
-      // Try to detect browser language
-      const browserLang = navigator.language.split('-')[0];
-      if (browserLang === 'zh') setLocaleState('zh-TW');
-      else if (browserLang === 'hi') setLocaleState('hi');
-      else if (browserLang === 'ar') setLocaleState('ar');
-      else if (browserLang === 'ja') setLocaleState('ja');
-      else if (browserLang === 'ko') setLocaleState('ko');
-      else if (browserLang === 'pa') setLocaleState('pa');
+      // 降級方案：從 Cookie 中讀取
+      const cookieValue = typeof document !== 'undefined' ? document.cookie
+        .split('; ')
+        .find(row => row.startsWith('user-locale='))
+        ?.split('=')[1] as Locale : undefined;
+      
+      if (cookieValue && dictionaries[cookieValue]) {
+        setLocaleState(cookieValue);
+      }
     }
   }, []);
 
