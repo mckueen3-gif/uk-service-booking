@@ -498,7 +498,7 @@ export function AppFooter() {
            </div>
 
            <div style={{ color: isObsidianPage ? 'rgba(255,255,255,0.4)' : 'var(--text-muted)', fontSize: '0.9rem' }}>
-            © {new Date().getFullYear()} Concierge AI. {t.footer.rights} (Concierge V4.2 LIVE)
+            © {new Date().getFullYear()} Concierge AI. {t.footer.rights} (Concierge V4.2 LIVE - Ref: V42_DEPLOY_CB_8822)
           </div>
         </div>
       </div>
