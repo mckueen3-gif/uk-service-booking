@@ -330,7 +330,7 @@ export const en: Dictionary = {
   },
   auth: {
     login: {
-      title: "Secure Access",
+      title: "Secure Node Access",
       subtitle: "Establish a connection to the elite service network.",
       emailLabel: "Authentication Email",
       emailPlaceholder: "identity@concierge.ai",
