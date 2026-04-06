@@ -17,7 +17,6 @@ export function AppNavbar({ session }: { session: any }) {
   const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
 
-  const isAuthPage = pathname?.startsWith('/auth') || pathname === '/join';
   const isObsidianPage = pathname?.startsWith('/join') || pathname?.includes('/merchant') || pathname?.startsWith('/dashboard') || pathname?.startsWith('/admin');
   const obsidianBg = theme === 'dark' ? '#050505' : 'var(--bg-primary)';
   const obsidianGold = '#d4af37';
@@ -359,7 +358,7 @@ export function AppNavbar({ session }: { session: any }) {
                   <User size={16} /> {session.user.name} 
                 </span>
               </Link>
-              {!isObsidianPage && <a href="/api/auth/signout" style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', textDecoration: 'none' }}>{t.nav.logout}</a>}
+              {!isObsidianPage && pathname !== '/auth/login' && pathname !== '/auth/register' && <a href="/api/auth/signout" style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', textDecoration: 'none' }}>{t.nav.logout}</a>}
             </div>
           ) : (
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>

@@ -18,12 +18,13 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   // Initialize from localStorage
   useEffect(() => {
-    // 優先從 localStorage 讀取，如果不匹配則從 Cookie 讀取
-    const saved = localStorage.getItem('user-locale') as Locale;
+    // Phase 1: High-priority localStorage check
+    const saved = typeof window !== 'undefined' ? localStorage.getItem('user-locale') as Locale : null;
+    
     if (saved && dictionaries[saved]) {
       setLocaleState(saved);
     } else {
-      // 降級方案：從 Cookie 中讀取
+      // Phase 2: Fallback to Cookie (Essential for persistence across path jumps)
       const cookieValue = typeof document !== 'undefined' ? document.cookie
         .split('; ')
         .find(row => row.startsWith('user-locale='))
