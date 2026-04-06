@@ -50,7 +50,7 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
+    <html lang="en" className={`${inter.variable} ${outfit.variable}`} data-concierge-version="4.4-OMEGA">
       <body>
         <ScrollProgress />
         <GoogleMapsProvider>
