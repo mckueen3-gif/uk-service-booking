@@ -84,7 +84,7 @@ export default function ForgotPasswordPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="premium-input" 
-                placeholder="you@example.com" 
+                placeholder={t.auth.forgotPassword.emailPlaceholder} 
                 required 
                 disabled={loading}
               />

@@ -259,10 +259,47 @@ export const en: Dictionary = {
       success: "Account created! Please sign in."
     },
     register: {
-      title: "Create Account", subtitle: "Start your professional journey.", firstNameLabel: "First Name", lastNameLabel: "Last Name", emailLabel: "Email Address", accountTypeLabel: "Account Type", passwordLabel: "Secure Password", passwordHint: "Min 6 characters", referralLabel: "Referral Code (Optional)", submit: "Join ConciergeAI", loading: "Creating Account...", or: "or", google: "Register with Google", navToLogin: "Already a member?", signIn: "Sign In here", roles: { customer: "Customer (Seeking Services)", merchant: "Expert (Providing Services)" }
+      title: "Create Account", 
+      subtitle: "Start your professional journey.", 
+      firstNameLabel: "First Name", 
+      lastNameLabel: "Last Name", 
+      emailLabel: "Email Address", 
+      emailPlaceholder: "you@example.com",
+      accountTypeLabel: "Account Type", 
+      passwordLabel: "Secure Password", 
+      passwordHint: "Min 6 characters", 
+      referralLabel: "Referral Code (Optional)", 
+      referralPlaceholder: "e.g. ABC1234",
+      submit: "Join ConciergeAI", 
+      loading: "Creating Account...", 
+      or: "or", 
+      google: "Register with Google", 
+      navToLogin: "Already a member?", 
+      signIn: "Sign In here", 
+      roles: { customer: "Customer (Seeking Services)", merchant: "Expert (Providing Services)" }
     },
     forgotPassword: {
-      title: "Forgot Password", subtitle: "Enter your email to reset your password.", emailLabel: "Email Address", submit: "Send Reset Link", loading: "Sending...", back: "Back to Login", success: "Reset link sent to your email."
+      title: "Forgot Password", 
+      subtitle: "Enter your email to reset your password.", 
+      emailLabel: "Email Address", 
+      emailPlaceholder: "you@example.com",
+      submit: "Send Reset Link", 
+      loading: "Sending...", 
+      back: "Back to Login", 
+      success: "Reset link sent to your email."
+    },
+    resetPassword: {
+      title: "Set New Password",
+      subtitle: "Enter your new password below.",
+      passwordLabel: "New Password",
+      confirmPasswordLabel: "Confirm New Password",
+      submit: "Update Password",
+      loading: "Updating...",
+      back: "Back to Login",
+      success: "Password reset successful!",
+      invalidToken: "Invalid or missing reset token.",
+      notMatch: "Passwords do not match.",
+      error: "An unexpected error occurred, please try again."
     }
   }
 };

@@ -78,7 +78,14 @@ function RegisterForm() {
             <label>{t.auth.register.emailLabel}</label>
             <div className="input-wrapper">
               <Mail className="input-icon" size={18} />
-              <input type="email" name="email" className="premium-input" placeholder="you@example.com" required disabled={loading} />
+              <input 
+                type="email" 
+                name="email" 
+                className="premium-input" 
+                placeholder={t.auth.register.emailPlaceholder} 
+                required 
+                disabled={loading} 
+              />
             </div>
           </div>
 
@@ -105,7 +112,7 @@ function RegisterForm() {
             <label>{t.auth.register.referralLabel}</label>
             <div className="input-wrapper">
               <User className="input-icon" size={18} />
-              <input type="text" name="referredBy" className="premium-input" placeholder="e.g. ABC1234" defaultValue={searchParams.get('ref') || ''} disabled={loading} />
+              <input type="text" name="referredBy" className="premium-input" placeholder={t.auth.register.referralPlaceholder} defaultValue={searchParams.get('ref') || ''} disabled={loading} />
             </div>
           </div>
           

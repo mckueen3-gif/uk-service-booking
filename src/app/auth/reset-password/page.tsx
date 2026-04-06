@@ -22,12 +22,12 @@ function ResetPasswordForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!token) {
-      setError("無效或缺失的重設權杖。");
+      setError(t.auth.resetPassword.invalidToken);
       return;
     }
 
     if (password !== confirmPassword) {
-      setError("密碼不相符。");
+      setError(t.auth.resetPassword.notMatch);
       return;
     }
 
@@ -48,7 +48,7 @@ function ResetPasswordForm() {
         }, 2000);
       }
     } catch (err) {
-      setError("發生非預期錯誤，請稍後再試。");
+      setError(t.auth.resetPassword.error);
       setLoading(false);
     }
   }
@@ -61,7 +61,7 @@ function ResetPasswordForm() {
             <CheckCircle2 size={48} color="#d4af37" />
           </div>
         </div>
-        <h1 className="hero-title" style={{ fontSize: '2rem', marginBottom: '1rem' }}>密碼重設成功！</h1>
+        <h1 className="hero-title" style={{ fontSize: '2rem', marginBottom: '1rem' }}>{t.auth.resetPassword.success}</h1>
         <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
           您的密碼已成功更新。正在為您跳轉至登入頁面...
         </p>
@@ -75,7 +75,7 @@ function ResetPasswordForm() {
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
           <AlertCircle size={48} color="#ef4444" />
         </div>
-        <h1 className="hero-title" style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>無效請求</h1>
+        <h1 className="hero-title" style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{t.auth.resetPassword.invalidToken}</h1>
         <p style={{ color: 'var(--text-secondary)' }}>重設密碼連結已過期或無效。</p>
         <Link href="/auth/forgot-password" className="btn btn-primary" style={{ marginTop: '2rem', width: '100%' }}>請求新連結</Link>
       </div>
@@ -85,8 +85,8 @@ function ResetPasswordForm() {
   return (
     <div className="auth-card">
       <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-        <h1 className="hero-title" style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>設定新密碼</h1>
-        <p style={{ color: 'var(--text-muted)' }}>請在下方輸入您的新密碼。</p>
+        <h1 className="hero-title" style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>{t.auth.resetPassword.title}</h1>
+        <p style={{ color: 'var(--text-muted)' }}>{t.auth.resetPassword.subtitle}</p>
       </div>
 
       {error && (
@@ -98,7 +98,7 @@ function ResetPasswordForm() {
 
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         <div className="input-group revealed">
-          <label>新密碼</label>
+          <label>{t.auth.resetPassword.passwordLabel}</label>
           <div className="input-wrapper">
             <Lock className="input-icon" size={18} />
             <input 
@@ -115,7 +115,7 @@ function ResetPasswordForm() {
         </div>
 
         <div className="input-group revealed">
-          <label>確認新密碼</label>
+          <label>{t.auth.resetPassword.confirmPasswordLabel}</label>
           <div className="input-wrapper">
             <Lock className="input-icon" size={18} />
             <input 
@@ -131,13 +131,13 @@ function ResetPasswordForm() {
         </div>
 
         <button type="submit" className="btn btn-primary" disabled={loading} style={{ width: '100%', padding: '1rem' }}>
-          {loading ? "更新中..." : "更新密碼"}
+          {loading ? t.auth.resetPassword.loading : t.auth.resetPassword.submit}
         </button>
       </form>
 
       <div style={{ textAlign: 'center', marginTop: '2rem' }}>
         <Link href="/auth/login" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-muted)', fontSize: '0.875rem', textDecoration: 'none', fontWeight: 600 }}>
-          <ArrowLeft size={16} /> 返回登入
+          <ArrowLeft size={16} /> {t.auth.resetPassword.back}
         </Link>
       </div>
     </div>
@@ -147,7 +147,7 @@ function ResetPasswordForm() {
 export default function ResetPasswordPage() {
   return (
     <div className="auth-page-wrapper">
-      <Suspense fallback={<div className="auth-card" style={{ textAlign: 'center' }}>載入中...</div>}>
+      <Suspense fallback={<div className="auth-card" style={{ textAlign: 'center' }}>正在同步安全協議...</div>}>
         <ResetPasswordForm />
       </Suspense>
     </div>

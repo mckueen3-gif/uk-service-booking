@@ -207,10 +207,12 @@ export interface Dictionary {
       firstNameLabel: string;
       lastNameLabel: string;
       emailLabel: string;
+      emailPlaceholder: string;
       accountTypeLabel: string;
       passwordLabel: string;
       passwordHint: string;
       referralLabel: string;
+      referralPlaceholder: string;
       submit: string;
       loading: string;
       or: string;
@@ -223,10 +225,24 @@ export interface Dictionary {
       title: string;
       subtitle: string;
       emailLabel: string;
+      emailPlaceholder: string;
       submit: string;
       loading: string;
       back: string;
       success: string;
+    },
+    resetPassword: {
+      title: string;
+      subtitle: string;
+      passwordLabel: string;
+      confirmPasswordLabel: string;
+      submit: string;
+      loading: string;
+      back: string;
+      success: string;
+      invalidToken: string;
+      notMatch: string;
+      error: string;
     }
   };
 }

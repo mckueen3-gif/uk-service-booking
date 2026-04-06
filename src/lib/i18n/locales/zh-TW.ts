@@ -265,10 +265,12 @@ export const zhTW: Dictionary = {
       firstNameLabel: "名字",
       lastNameLabel: "姓氏",
       emailLabel: "電子郵件地址",
+      emailPlaceholder: "you@example.com",
       accountTypeLabel: "帳戶類型",
       passwordLabel: "安全密碼",
       passwordHint: "至少 6 個字元",
       referralLabel: "推薦碼（選填）",
+      referralPlaceholder: "例如：ABC1234",
       submit: "加入 ConciergeAI",
       loading: "帳戶建立中...",
       or: "或",
@@ -281,10 +283,24 @@ export const zhTW: Dictionary = {
       title: "忘記密碼",
       subtitle: "輸入您的電子郵件以重設密碼。",
       emailLabel: "電子郵件地址",
+      emailPlaceholder: "you@example.com",
       submit: "發送重設連結",
       loading: "發送中...",
       back: "返回登入",
       success: "重設連結已發送至您的郵箱。"
+    },
+    resetPassword: {
+      title: "設定新密碼",
+      subtitle: "請在下方輸入您的新密碼。",
+      passwordLabel: "新密碼",
+      confirmPasswordLabel: "確認新密碼",
+      submit: "更新密碼",
+      loading: "更新中...",
+      back: "返回登入",
+      success: "密碼重設成功！",
+      invalidToken: "無效或缺失的重設權杖。",
+      notMatch: "密碼不相符。",
+      error: "發生非預期錯誤，請稍後再試。"
     }
   }
 };
