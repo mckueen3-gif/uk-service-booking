@@ -224,7 +224,7 @@ export function AppNavbar({ session }: { session: any }) {
           </button>
 
           {/* Premium Custom Language Switcher - Always Visible */}
-          <div style={{ position: 'relative' }}>
+          <div id="V42_LANG_SWITCHER_VERIFY" style={{ position: 'relative' }}>
             <div 
               onClick={() => toggleDropdown('languages')}
               style={{ 
@@ -497,7 +497,9 @@ export function AppFooter() {
               <span style={{ fontSize: '0.85rem', fontWeight: 600, color: obsidianGold }}>{t.footer.trustSignal}</span>
            </div>
 
-           <p style={{ color: isObsidianPage ? '#444' : 'var(--text-secondary)', fontSize: '0.85rem' }}>&copy; {new Date().getFullYear()} ConciergeAI UK. {t.footer.rights}</p>
+           <div style={{ color: isObsidianPage ? 'rgba(255,255,255,0.4)' : 'var(--text-muted)', fontSize: '0.9rem' }}>
+            © {new Date().getFullYear()} Concierge AI. {t.footer.rights} (Concierge V4.2 LIVE)
+          </div>
         </div>
       </div>
     </footer>
