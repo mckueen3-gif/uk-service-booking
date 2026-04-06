@@ -38,14 +38,14 @@ const baseBrands = [
   { name: "Netflix", category: "Entertainment", type: "Online" }
 ];
 
-// AI-Scouted brands (Dynamically found via recent research)
+// AI-Scouted brands (Dynamically found via recent research for April 5, 2026)
 const aiScoutedBrands = [
-  { name: "The White Company", category: "Retail", type: "Online/Instore", isNew: true },
-  { name: "Lush", category: "Health & Beauty", type: "Instore", isNew: true },
-  { name: "Wagamama", category: "Food & Drink", type: "Instore", isPumpedUp: true },
-  { name: "National Express", category: "Travel", type: "Online", isPumpedUp: true },
-  { name: "Halfords", category: "Retail", type: "Online/Instore", isNew: true },
-  { name: "Greggs", category: "Food & Drink", type: "Instore", isPumpedUp: true }
+  { name: "Tesco Marketplace", category: "Retail", type: "Online", isPumpedUp: true, deal: "Triple Points until April 7" },
+  { name: "Sainsbury's", category: "Supermarkets", type: "Instore", isPumpedUp: true, deal: "15p Easter Vegetables" },
+  { name: "Deliveroo", category: "Food & Drink", type: "Online", isNew: true, deal: "Free Plus Silver for Prime Members" },
+  { name: "Amazon UK", category: "Retail", type: "Online", isNew: true, deal: "Up to 50% off Clearance" },
+  { name: "ASDA Rewards", category: "Supermarkets", type: "Instore/Online", isPumpedUp: true, deal: "New Cashpot Missions" },
+  { name: "Morrisons", category: "Supermarkets", type: "Instore", isNew: true, deal: "Seasonal Veg from 4p" }
 ];
 
 async function syncVouchers() {
