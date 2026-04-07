@@ -47,11 +47,12 @@ function SearchContent() {
   };
 
   return (
-    <div className="container" style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
+    <div className="container mobile-stack" style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
       
       {/* Filters Sidebar */}
-      <aside style={{ 
-        width: '300px', 
+      <aside className="glass-panel" style={{ 
+        width: 'var(--mobile-sidebar-width, 300px)', 
+        flexShrink: 0,
         backgroundColor: 'var(--surface-1)', 
         padding: '1.5rem', 
         borderRadius: '24px', 
@@ -126,7 +127,7 @@ function SearchContent() {
 
       {/* Results Area */}
       <div style={{ flex: 1 }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem', flexWrap: 'wrap', gap: '1.5rem' }}>
           <div>
             <h1 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '0.5rem' }}>{t.education_sec.search.resultsTitle}</h1>
             <p style={{ color: 'var(--text-secondary)' }}>{format(t.education_sec.search.foundCount, { count: tutors.length })}</p>
@@ -134,7 +135,7 @@ function SearchContent() {
           
           <div style={{ 
             display: 'flex', alignItems: 'center', backgroundColor: 'var(--surface-1)', 
-            padding: '0.5rem 1rem', borderRadius: '12px', border: '1px solid var(--border-color)', width: '300px'
+            padding: '0.5rem 1rem', borderRadius: '12px', border: '1px solid var(--border-color)', width: 'min(100%, 300px)'
           }}>
             <Search size={18} color="var(--text-muted)" style={{ marginRight: '0.75rem' }} />
             <input 
