@@ -214,27 +214,6 @@ export function AppNavbar({ session }: { session: any }) {
              )}
           </div>
 
-          <button 
-            onClick={toggleTheme}
-            style={{ 
-              background: isObsidianPage ? (theme === 'dark' ? 'rgba(255,255,255,0.05)' : 'var(--surface-2)') : 'var(--surface-2)', 
-              border: `1px solid ${isObsidianPage ? 'rgba(212,175,55,0.2)' : 'var(--border-color)'}`, 
-              borderRadius: '0.75rem', 
-              padding: '0.4rem', 
-              cursor: 'pointer', 
-              color: obsidianGold,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: 'all 0.3s ease',
-              boxShadow: 'var(--shadow-sm)'
-            }}
-            className="hover-scale"
-            title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
-          >
-            {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
-          </button>
-
           {/* Language Switcher */}
           <div style={{ position: 'relative' }}>
             <div 
@@ -358,6 +337,27 @@ export function AppNavbar({ session }: { session: any }) {
           <div style={{ width: '220px' }}>
             <NavbarSearch />
           </div>
+
+          <button 
+            onClick={toggleTheme}
+            style={{ 
+              background: isObsidianPage ? (theme === 'dark' ? 'rgba(255,255,255,0.05)' : 'var(--surface-2)') : 'var(--surface-2)', 
+              border: `1px solid ${isObsidianPage ? 'rgba(212,175,55,0.2)' : 'var(--border-color)'}`, 
+              borderRadius: '0.75rem', 
+              padding: '0.4rem', 
+              cursor: 'pointer', 
+              color: obsidianGold,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'all 0.3s ease',
+              boxShadow: 'var(--shadow-sm)'
+            }}
+            className="hover-scale active-scale"
+            title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+          >
+            {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+          </button>
           
           {session?.user ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
@@ -384,7 +384,10 @@ export function AppNavbar({ session }: { session: any }) {
         </div>
 
         {/* Mobile Header Icons (Always visible) */}
-        <div className="show-only-mobile" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div className="show-only-mobile" style={{ 
+          display: 'none', // Overridden by CSS .show-only-mobile { display: block !important; }
+          alignItems: 'center', gap: '1rem' 
+        }}>
           <button 
              onClick={toggleTheme}
              style={{ background: 'none', border: 'none', color: obsidianGold, padding: '0.5rem' }}
