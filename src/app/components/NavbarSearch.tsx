@@ -35,7 +35,7 @@ export default function NavbarSearch() {
         top: '50%', 
         transform: 'translateY(-50%)', 
         opacity: 1, 
-        color: 'var(--text-primary)' 
+        color: '#d4af37' 
       }}>
         <Search size={18} />
       </i>

@@ -119,7 +119,7 @@ export function AppNavbar({ session }: { session: any }) {
                onClick={() => toggleDropdown('cities')}
                style={{ 
                  display: 'flex', alignItems: 'center', gap: '4px', 
-                 cursor: 'pointer', fontWeight: 800, color: isObsidianPage ? (theme === 'dark' ? 'white' : 'var(--text-primary)') : 'var(--text-primary)',
+                 cursor: 'pointer', fontWeight: 800, color: obsidianGold,
                  padding: '0.3rem 0.6rem', borderRadius: '0.6rem',
                  backgroundColor: activeDropdown === 'cities' ? (isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--surface-2)') : 'transparent',
                  transition: '0.2s'
@@ -233,7 +233,7 @@ export function AppNavbar({ session }: { session: any }) {
                 borderRadius: '2rem', 
                 border: `1px solid ${isObsidianPage ? 'rgba(212,175,55,0.2)' : 'var(--border-color)'}`,
                 backgroundColor: activeDropdown === 'languages' ? (isObsidianPage ? 'rgba(212,175,55,0.1)' : 'rgba(212,175,55,0.05)') : (isObsidianPage ? '#0f0f0f' : 'var(--surface-1)'), 
-                color: isObsidianPage ? 'white' : 'var(--text-primary)',
+                color: obsidianGold,
                 fontWeight: 600, fontSize: '0.9rem', transition: 'all 0.2s',
                 boxShadow: isObsidianPage ? 'none' : 'var(--shadow-sm)'
               }} className="hover-border active-scale">
@@ -280,7 +280,7 @@ export function AppNavbar({ session }: { session: any }) {
               onClick={() => toggleDropdown('services')}
               style={{ 
                 cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', 
-                color: activeDropdown === 'services' ? obsidianGold : (isObsidianPage ? 'white' : 'var(--text-primary)'), 
+                color: obsidianGold, 
                 fontWeight: 700, fontSize: '1.05rem', padding: '0.5rem 0'
               }}
             >
@@ -362,11 +362,11 @@ export function AppNavbar({ session }: { session: any }) {
             </div>
           ) : (
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-              <Link href="/join" style={{ color: isObsidianPage ? 'white' : 'var(--text-primary)', fontWeight: 700, textDecoration: 'none', fontSize: '1.05rem' }}>{t.nav.join}</Link>
+              <Link href="/join" style={{ color: obsidianGold, fontWeight: 700, textDecoration: 'none', fontSize: '1.05rem' }}>{t.nav.join}</Link>
               <Link href="/auth/login" className="btn btn-primary" style={{ 
                 textDecoration: 'none', padding: '0.5rem 1.5rem', fontSize: '0.9rem',
                 backgroundColor: isObsidianPage ? obsidianGold : 'var(--accent-color)',
-                color: isObsidianPage ? 'black' : 'white'
+                color: 'black'
               }}>{t.nav.login}</Link>
             </div>
           )}
