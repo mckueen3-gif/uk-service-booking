@@ -60,68 +60,68 @@ export default function ChatWidget() {
 
   return (
     <div style={{ position: 'fixed', bottom: '30px', right: '30px', zIndex: 1000, fontFamily: 'inherit' }}>
-      {/* Floating Button - Obsidian Gold Glow */}
+      {/* Floating Button - Pearl Gold Glow */}
       {!isOpen && (
         <button 
           onClick={() => setIsOpen(true)}
-          style={{ width: '60px', height: '60px', borderRadius: '50%', backgroundColor: '#0a0a0a', color: '#d4af37', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid #d4af37', boxShadow: '0 8px 32px rgba(212, 175, 55, 0.3)', transition: 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)' }}
+          style={{ width: '60px', height: '60px', borderRadius: '50%', backgroundColor: 'var(--surface-1)', color: 'var(--accent-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px solid var(--accent-color)', boxShadow: 'var(--shadow-lg)', transition: 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)' }}
           onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1) rotate(5deg)'}
           onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1) rotate(0deg)'}
         >
           <MessageSquare size={28} />
-          <div style={{ position: 'absolute', top: '2px', right: '2px', width: '12px', height: '12px', backgroundColor: '#d4af37', borderRadius: '50%', border: '2px solid #000' }}></div>
+          <div style={{ position: 'absolute', top: '2px', right: '2px', width: '12px', height: '12px', backgroundColor: 'var(--accent-color)', borderRadius: '50%', border: '2px solid var(--bg-primary)' }}></div>
         </button>
       )}
 
-      {/* Chat Window - Premium Obsidian Glass */}
+      {/* Chat Window - Premium Pearl/Obsidian Glass */}
       {isOpen && (
         <div style={{ 
           width: '380px', 
           height: '550px', 
-          backgroundColor: 'rgba(5, 5, 5, 0.95)', 
-          backdropFilter: 'blur(20px)', 
+          backgroundColor: 'var(--glass-bg)', 
+          backdropFilter: 'blur(32px) saturate(180%)', 
           borderRadius: '24px', 
-          border: '1px solid rgba(212, 175, 55, 0.2)',
+          border: '1px solid var(--border-color)',
           display: 'flex',
           flexDirection: 'column',
           overflow: 'hidden',
-          boxShadow: '0 20px 50px rgba(0,0,0,0.8)',
+          boxShadow: 'var(--shadow-xl)',
           animation: 'chat-fade-in 0.3s ease-out'
         }}>
-          {/* Header - Metallic Gold Gradient */}
-          <div style={{ padding: '1.25rem', background: 'linear-gradient(135deg, #1a1a1a, #000)', color: '#d4af37', borderBottom: '1px solid rgba(212, 175, 55, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          {/* Header - Pearl Gold Gradient */}
+          <div style={{ padding: '1.25rem', background: 'var(--surface-1)', color: 'var(--accent-color)', borderBottom: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <div style={{ width: '40px', height: '40px', borderRadius: '12px', backgroundColor: 'rgba(212, 175, 55, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(212, 175, 55, 0.3)' }}>
-                <Bot size={24} color="#d4af37" />
+              <div style={{ width: '40px', height: '40px', borderRadius: '12px', backgroundColor: 'var(--accent-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--accent-soft)' }}>
+                <Bot size={24} color="var(--accent-color)" />
               </div>
               <div>
-                <div style={{ fontWeight: 800, fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#fff' }}>
-                  ConciergeAI <span style={{ color: '#d4af37' }}>Aura</span> <Sparkles size={14} color="#d4af37" />
+                <div style={{ fontWeight: 800, fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-primary)' }}>
+                  ConciergeAI <span style={{ color: 'var(--accent-color)' }}>Aura</span> <Sparkles size={14} color="var(--accent-color)" />
                 </div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--gold-200, #d4af37)', opacity: 0.8 }}>Elite Concierge Assistant</div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', opacity: 0.8 }}>Elite Concierge Assistant</div>
               </div>
             </div>
-            <button onClick={() => setIsOpen(false)} style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', opacity: 0.6 }}><X size={20} /></button>
+            <button onClick={() => setIsOpen(false)} style={{ background: 'none', border: 'none', color: 'var(--text-primary)', cursor: 'pointer', opacity: 0.6 }}><X size={20} /></button>
           </div>
 
           {/* Messages */}
-          <div style={{ flex: 1, overflowY: 'auto', padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem', background: 'radial-gradient(circle at top right, rgba(212, 175, 55, 0.03), transparent)' }}>
+          <div style={{ flex: 1, overflowY: 'auto', padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem', background: 'var(--bg-primary)' }}>
             {messages.map((msg, i) => (
               <div key={i} style={{ display: 'flex', gap: '0.75rem', flexDirection: msg.role === 'user' ? 'row-reverse' : 'row', alignItems: 'flex-start' }}>
-                <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: msg.role === 'user' ? '#d4af37' : 'rgba(212, 175, 55, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, border: msg.role === 'user' ? 'none' : '1px solid rgba(212, 175, 55, 0.2)' }}>
-                  {msg.role === 'user' ? <UserIcon size={18} color="#000" /> : <Bot size={18} color="#d4af37" />}
+                <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: msg.role === 'user' ? 'var(--accent-color)' : 'var(--accent-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, border: msg.role === 'user' ? 'none' : '1px solid var(--border-color)' }}>
+                  {msg.role === 'user' ? <UserIcon size={18} color="var(--text-contrast)" /> : <Bot size={18} color="var(--accent-color)" />}
                 </div>
                 <div style={{ 
                   maxWidth: '80%', 
                   padding: '0.8rem 1rem', 
                   borderRadius: msg.role === 'user' ? '16px 4px 16px 16px' : '4px 16px 16px 16px', 
-                  backgroundColor: msg.role === 'user' ? '#d4af37' : 'rgba(255,255,255,0.03)',
-                  color: msg.role === 'user' ? '#000' : '#eee',
+                  backgroundColor: msg.role === 'user' ? 'var(--accent-color)' : 'var(--surface-2)',
+                  color: msg.role === 'user' ? 'var(--text-contrast)' : 'var(--text-primary)',
                   fontSize: '0.9rem',
-                  fontWeight: msg.role === 'user' ? 600 : 400,
+                  fontWeight: msg.role === 'user' ? 700 : 400,
                   lineHeight: 1.5,
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                  border: msg.role === 'user' ? 'none' : '1px solid rgba(255,255,255,0.05)'
+                  boxShadow: 'var(--shadow-sm)',
+                  border: '1px solid var(--border-color)'
                 }}>
                   {msg.content}
                 </div>
@@ -129,10 +129,10 @@ export default function ChatWidget() {
             ))}
             {isLoading && (
               <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-                <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: 'rgba(212, 175, 55, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(212, 175, 55, 0.2)' }}>
-                  <Bot size={18} color="#d4af37" />
+                <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: 'var(--accent-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--border-color)' }}>
+                  <Bot size={18} color="var(--accent-color)" />
                 </div>
-                <div style={{ padding: '0.8rem 1rem', borderRadius: '4px 16px 16px 16px', backgroundColor: 'rgba(255,255,255,0.03)', color: '#d4af37' }}>
+                <div style={{ padding: '0.8rem 1rem', borderRadius: '4px 16px 16px 16px', backgroundColor: 'var(--surface-2)', color: 'var(--accent-color)' }}>
                   <Loader2 size={16} className="animate-spin" />
                 </div>
               </div>
@@ -140,21 +140,21 @@ export default function ChatWidget() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Footer Input - Obsidian Style */}
-          <form onSubmit={handleSend} style={{ padding: '1.25rem', backgroundColor: '#000', borderTop: '1px solid rgba(212, 175, 55, 0.14)', display: 'flex', gap: '0.75rem' }}>
+          {/* Footer Input - Pearl Style */}
+          <form onSubmit={handleSend} style={{ padding: '1.25rem', backgroundColor: 'var(--surface-1)', borderTop: '1px solid var(--border-color)', display: 'flex', gap: '0.75rem' }}>
             <input 
               type="text" 
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask your concierge..."
-              style={{ flex: 1, backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(212, 175, 55, 0.2)', borderRadius: '12px', padding: '0.75rem 1rem', color: '#fff', fontSize: '0.9rem', outline: 'none' }}
+              style={{ flex: 1, backgroundColor: 'var(--bg-primary)', border: '1px solid var(--border-color)', borderRadius: '12px', padding: '0.75rem 1rem', color: 'var(--text-primary)', fontSize: '0.9rem', outline: 'none' }}
             />
             <button 
               type="submit"
               disabled={isLoading}
-              style={{ width: '42px', height: '42px', borderRadius: '10px', backgroundColor: '#d4af37', color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: 'none', transition: 'all 0.2s' }}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#fef08a'}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#d4af37'}
+              style={{ width: '42px', height: '42px', borderRadius: '10px', backgroundColor: 'var(--accent-color)', color: 'var(--text-contrast)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: 'none', transition: 'all 0.2s' }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--accent-hover)'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--accent-color)'}
             >
               <Send size={18} />
             </button>

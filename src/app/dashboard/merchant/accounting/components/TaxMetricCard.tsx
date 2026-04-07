@@ -28,23 +28,32 @@ export default function TaxMetricCard({ title, value, description, icon, isLocke
       opacity: isLocked ? 0.7 : 1
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div style={{ color: '#d4af37', backgroundColor: 'rgba(212, 175, 55, 0.1)', padding: '0.6rem', borderRadius: '12px' }}>
+        <div style={{ 
+          padding: '0.65rem',
+          backgroundColor: 'var(--accent-soft)', 
+          borderRadius: '12px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: 'var(--accent-color)'
+        }}>
           {icon}
         </div>
         {isLocked && <Lock size={16} color="#666" />}
       </div>
 
       <div>
-        <h3 style={{ fontSize: '0.85rem', color: '#666', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{title}</h3>
-        <p style={{ fontSize: '1.75rem', fontWeight: 900, color: isLocked ? '#444' : 'white', margin: '0.25rem 0' }}>{value}</p>
-        <p style={{ fontSize: '0.75rem', color: '#555', fontWeight: 500 }}>{description}</p>
+        <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '0.25rem' }}>{title}</div>
+        <div style={{ fontSize: '1.25rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>{value}</div>
+        <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: 500 }}>{description}</p>
       </div>
 
       {isLocked && (
         <div style={{ 
           position: 'absolute', 
           inset: 0, 
-          backgroundColor: 'rgba(5, 5, 5, 0.2)', 
+          backgroundColor: 'var(--surface-1)', 
+          opacity: 0.2,
           zIndex: 1 
         }} />
       )}
