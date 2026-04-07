@@ -11,11 +11,12 @@ import { SERVICE_TEMPLATES } from '@/lib/constants/service_templates';
 import { 
   Plus, Trash2, Edit3, Check, X, 
   Search, Briefcase, Info, AlertCircle,
-  Tag, ChevronRight, PlusCircle, ArrowLeft
+  Tag, ChevronRight, PlusCircle, ArrowLeft, GraduationCap
 } from 'lucide-react';
 import Link from 'next/link';
-
+import { useTranslation } from '@/components/LanguageContext';
 export default function MerchantServicesPage() {
+  const { t } = useTranslation();
   const [services, setServices] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAddModal, setShowAddModal] = useState(false);
@@ -27,7 +28,8 @@ export default function MerchantServicesPage() {
     name: '',
     category: 'Accounting',
     price: 0,
-    description: ''
+    description: '',
+    subjects: ''
   });
 
   const loadServices = async () => {
@@ -53,7 +55,7 @@ export default function MerchantServicesPage() {
       loadServices();
       setShowAddModal(false);
       setEditingService(null);
-      setFormData({ name: '', category: 'Accounting', price: 0, description: '' });
+      setFormData({ name: '', category: 'Accounting', price: 0, description: '', subjects: '' });
     }
   };
 
@@ -170,7 +172,17 @@ export default function MerchantServicesPage() {
 
               <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
                  <button 
-                   onClick={() => { setEditingService(s); setFormData({ name: s.name, category: s.category, price: s.price, description: s.description || '' }); setShowAddModal(true); }}
+                   onClick={() => { 
+                     setEditingService(s); 
+                     setFormData({ 
+                       name: s.name, 
+                       category: s.category, 
+                       price: s.price, 
+                       description: s.description || '',
+                       subjects: s.subjects || ''
+                     }); 
+                     setShowAddModal(true); 
+                   }}
                    style={{ padding: '0.5rem', borderRadius: '10px', border: '1px solid var(--border-color)', backgroundColor: 'white', cursor: 'pointer' }}
                  >
                    <Edit3 size={18} />
@@ -208,8 +220,35 @@ export default function MerchantServicesPage() {
                   <option value="Automotive">Automotive</option>
                   <option value="Plumbing">Plumbing</option>
                   <option value="Cleaning">Cleaning</option>
+                  <option value="Education">Education & Tutoring</option>
+                  <option value="Technology">Technology & AI</option>
+                  <option value="Legal">Legal Services</option>
                 </select>
               </div>
+
+              {formData.category === 'Education' && (
+                <div className="animate-fade-in" style={{ padding: '1rem', backgroundColor: 'var(--bg-secondary)', borderRadius: '16px', border: '1px solid var(--border-color)' }}>
+                  <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginBottom: '0.75rem', color: 'var(--accent-color)' }}>
+                    <GraduationCap size={18} />
+                    <span style={{ fontSize: '0.85rem', fontWeight: 800 }}>專業教育賽道標籤 Specialized Tracks</span>
+                  </div>
+                  
+                  <div style={{ marginBottom: '1rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, marginBottom: '0.4rem', color: 'var(--text-secondary)' }}>專攻學科/技能 (e.g. Maths, AI, ADHD Support)</label>
+                    <input 
+                      required={formData.category === 'Education'}
+                      value={formData.subjects} 
+                      onChange={e => setFormData({...formData, subjects: e.target.value})} 
+                      placeholder="關鍵字會影響搜尋排名..."
+                      style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid var(--border-color)', fontSize: '0.9rem' }} 
+                    />
+                  </div>
+
+                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                    提示：建議在名稱或學科中包含 <strong>STEM</strong>, <strong>SEN</strong>, 或 <strong>Academic</strong> 等關鍵字。
+                  </div>
+                </div>
+              )}
               <div>
                 <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>服務價格 Price (£)</label>
                 <input required type="number" value={formData.price} onChange={e => setFormData({...formData, price: parseFloat(e.target.value)})} style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', border: '1px solid var(--border-color)' }} />

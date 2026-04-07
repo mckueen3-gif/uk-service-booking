@@ -64,7 +64,7 @@ export async function addServiceFromTemplate(templateId: string, customPrice?: n
 /**
  * Manually adds or updates a service.
  */
-export async function upsertService(data: { id?: string, name: string, category: string, price: number, description?: string }) {
+export async function upsertService(data: { id?: string, name: string, category: string, price: number, description?: string, subjects?: string }) {
   const merchantId = await getMerchantId();
   if (!merchantId) return { error: "Merchant not found" };
 
@@ -76,7 +76,8 @@ export async function upsertService(data: { id?: string, name: string, category:
            name: data.name,
            category: data.category,
            price: data.price,
-           description: data.description
+           description: data.description,
+           subjects: data.subjects
          }
        });
        revalidatePath('/dashboard/merchant/services');
@@ -88,7 +89,8 @@ export async function upsertService(data: { id?: string, name: string, category:
            name: data.name,
            category: data.category,
            price: data.price,
-           description: data.description
+           description: data.description,
+           subjects: data.subjects
          }
        });
        revalidatePath('/dashboard/merchant/services');

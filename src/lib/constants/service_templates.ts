@@ -98,34 +98,50 @@ export const SERVICE_TEMPLATES: ServiceTemplate[] = [
   {
     id: 'edu_academic',
     category: 'Education',
-    name: '1-on-1 GCSE/A-Level Tutoring',
-    description: 'Personalized academic support for UK national curriculum subjects.',
-    defaultPrice: 40,
+    name: 'Academic Excellence: GCSE/A-Level Prep',
+    description: 'Personalized 1-on-1 support for UK national curriculum subjects with subject specialists.',
+    defaultPrice: 45,
+    isMonthly: false
+  },
+  {
+    id: 'edu_stem',
+    category: 'Education',
+    name: 'STEM & AI: Coding & Data Science',
+    description: 'Expert-led technical training in Python, Generative AI, Robotics, and Computer Science.',
+    defaultPrice: 60,
+    isMonthly: false
+  },
+  {
+    id: 'edu_sen',
+    category: 'Education',
+    name: 'Special Education (SEN): ADHD/Autism Support',
+    description: 'Specialized 1-on-1 learning support for students with neurodiverse needs (ADHD, ASD, Dyslexia).',
+    defaultPrice: 55,
     isMonthly: false
   },
   {
     id: 'edu_ielts',
     category: 'Education',
-    name: 'IELTS/TOEFL English Prep',
-    description: 'Intensive English language preparation for international exams.',
-    defaultPrice: 45,
+    name: 'Global Languages: IELTS/Business English',
+    description: 'Intensive preparation for IELTS, Duolingo, or Business English with native-level experts.',
+    defaultPrice: 40,
+    isMonthly: false
+  },
+  {
+    id: 'edu_career',
+    category: 'Education',
+    name: 'Career Strategy: Interview & MBA Prep',
+    description: 'High-end coaching for investment banking, consulting, and MBA application strategies.',
+    defaultPrice: 85,
     isMonthly: false
   },
   {
     id: 'edu_music',
     category: 'Education',
-    name: 'Piano/Guitar Lesson (60 min)',
-    description: 'Private music tuition for all levels with experienced instructors.',
-    defaultPrice: 35,
+    name: 'Creative Arts: Instrument & Portfolio',
+    description: 'Private music tuition (Piano/Guitar) or professional art portfolio development.',
+    defaultPrice: 40,
     isMonthly: false
-  },
-  {
-    id: 'edu_coding',
-    category: 'Education',
-    name: 'Coding Bootcamp Part-time (Monthly)',
-    description: 'Guided project-based learning in Python, Java, or Web Development.',
-    defaultPrice: 250,
-    isMonthly: true
   }
 ];
 
