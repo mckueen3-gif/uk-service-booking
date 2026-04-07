@@ -107,13 +107,16 @@ export const zhTW: Dictionary = {
   education_sec: {
     hero: { badge: "英國頂尖導師", title1: "掌握新技能", title2: "與全球專家學習", subtitle: "聯繫學術、語言和專業技能領域的頂級導師。為您的成功量身定制 1 對 1 學習路徑。", searchPlaceholder: "您想學習什麼？", searchBtn: "尋找導師" },
     forYou: { title: "為您推薦", match: "AI 匹配度", viewProfile: "查看檔案" },
-    categories: { title: "探索類別", browseBtn: "瀏覽全部", items: { 
-      academic: { title: "學術輔導", desc: "GCSE, A-Levels, IELTS 等學科強化" }, 
-      language: { title: "語言學習", desc: "英語、拼音、法語、普通話進階" }, 
-      professional: { title: "職場技能", desc: "專業資格試、行業實務培訓及工作坊" }, 
-      children: { title: "幼兒教育", desc: "蒙特梭利、STEM 啟蒙、興趣班" }, 
-      exam: { title: "證照考試", desc: "大學入學考試、成人考證、專業試" }, 
-      workshops: { title: "專題工作坊", desc: "實作課程、廚藝、生活美學小班課" } 
+    categories: { title: "探索專業類別", browseBtn: "瀏覽全部", items: { 
+      academic: { title: "學術卓越", desc: "GCSE, A-Levels, IB, 11+ 入學考試專修" }, 
+      language: { title: "全球語言", desc: "雅思 IELTS, 多鄰國, 商務英語及多國語" }, 
+      stem: { title: "科技前瞻 (STEM)", desc: "Python, 生成式 AI 應用, 數據科學" }, 
+      arts: { title: "創意藝術", desc: "藝術作品集指導, 鋼琴, 室內設計" }, 
+      finance: { title: "精英證照", desc: "CFA, ACCA, PMP 各行業專業認證" }, 
+      career: { title: "職涯戰略", desc: "投行/諮詢面試訓練, 領導力, MBA 策劃" }, 
+      junior: { title: "幼兒啟蒙", desc: "Phonics 自然拼讀, 邏輯開發, 才藝培養" }, 
+      masterclass: { title: "專題大師課", desc: "投資研討會, 藝術工作坊, 生活美學" },
+      sen: { title: "SEN 專業輔導", desc: "ADHD, 讀寫障礙, 自閉症, 心理健康支持" }
     } },
     search: { filters: "搜索篩選", mode: "授課模式", online: "線上", offline: "面對面", hybrid: "混合模式", priceRange: "時薪範圍", level: "導師等級", student: "在校大學生", pro: "專業老師", expert: "專家/博士", apply: "應用篩選", resultsTitle: "可選導師", foundCount: "找到 {{count}} 位匹配導師", placeholder: "按科目或姓名搜尋" },
     common: { reviews: "評價", hr: "小時", bookTrial: "預定試聽" },

@@ -106,13 +106,16 @@ export const ro: Dictionary = {
   education_sec: {
     hero: { badge: "Tutori de elită din UK", title1: "Stăpânește noi abilități", title2: "Cu experți globali", subtitle: "Conectează-te cu tutori de top pentru studii academice, limbi străine și abilități profesionale. Învățare 1-la-1 personalizată pentru succesul tău.", searchPlaceholder: "Ce vrei să înveți?", searchBtn: "Găsește tutori" },
     forYou: { title: "Recomandat pentru tine", match: "Scor potrivire AI", viewProfile: "Vezi profil" },
-    categories: { title: "Explorați categoriile", browseBtn: "Răsfoiți toate", items: { 
-      academic: { title: "Centru Academic", desc: "IELTS, GCSE, A-Levels și altele" }, 
-      language: { title: "Laborator Lingvistic", desc: "Engleză, chineză, spaniolă, franceză" }, 
-      professional: { title: "Professional Hub", desc: "Business, Interview Prep, Career Skills" }, 
-      children: { title: "Children's Education", desc: "Early Learning, Discovery, STEM" }, 
-      exam: { title: "Exam Prep", desc: "Entrance Exams, Professional Certifications" }, 
-      workshops: { title: "Workshops", desc: "Hands-on Skills, Arts, Cooking, Lifestyle" } 
+    categories: { title: "Explorați categoriile profesionale", browseBtn: "Răsfoiți toate", items: { 
+      academic: { title: "Academic Excellence", desc: "GCSE, A-Levels, IB, 11+ Entrance Prep" }, 
+      language: { title: "Global Languages", desc: "IELTS, Duolingo, Business English & more" }, 
+      stem: { title: "STEM & AI", desc: "Python, Generative AI, Coding, Data Science" }, 
+      arts: { title: "Creative Arts", desc: "Portfolio, Piano, Design, Fine Arts" }, 
+      finance: { title: "Elite Certifications", desc: "CFA, ACCA, PMP, Professional Certs" }, 
+      career: { title: "Career Strategy", desc: "Interview Prep, Leadership, MBA Strategy" }, 
+      junior: { title: "Junior Scholars", desc: "Phonics, Logic, Talent Development" }, 
+      masterclass: { title: "Knowledge Workshops", desc: "Investment, Lifestyle, Masterclasses" },
+      sen: { title: "Special Education (SEN)", desc: "ADHD, Dyslexia, Autism, Mental Health" }
     } },
     search: { filters: "Filtre de căutare", mode: "Mod de predare", online: "Online", offline: "În persoană", hybrid: "Hibrid", priceRange: "Tarif orar", level: "Nivel tutor", student: "Student universitar", pro: "Profesor profesionist", expert: "Master/Doctorat", apply: "Aplică filtre", resultsTitle: "Tutori disponibili", foundCount: "{{count}} tutori găsiți", placeholder: "Caută după subiect sau nume" },
     common: { reviews: "Recenzii", hr: "oră", bookTrial: "Rezervă lecție de probă" },

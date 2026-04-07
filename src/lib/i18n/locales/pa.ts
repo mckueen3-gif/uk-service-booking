@@ -106,7 +106,17 @@ export const pa: Dictionary = {
   education_sec: {
     hero: { badge: "ਯੂਕੇ ਦੇ ਕੁਲੀਨ ਟਿਊਟਰ", title1: "ਨਵੇਂ ਹੁਨਰ ਸਿੱਖੋ", title2: "ਗਲੋਬਲ ਮਾਹਰਾਂ ਦੇ ਨਾਲ", subtitle: "ਅਕਾਦਮਿਕ, ਭਾਸ਼ਾਵਾਂ ਅਤੇ ਪੇਸ਼ੇਵਰ ਹੁਨਰਾਂ ਲਈ ਉੱਚ ਪੱਧਰੀ ਟਿਊਟਰਾਂ ਨਾਲ ਜੁੜੋ। ਤੁਹਾਡੀ ਸਫਲਤਾ ਲਈ ਤਿਆਰ ਕੀਤੀ ਗਈ ਵਿਅਕਤੀਗਤ 1-ਤੋਂ-1 ਸਿੱਖਿਆ।", searchPlaceholder: "ਤੁਸੀਂ ਕੀ ਸਿੱਖਣਾ ਚਾਹੁੰਦੇ ਹੋ?", searchBtn: "ਟਿਊਟਰ ਲੱਭੋ" },
     forYou: { title: "ਤੁਹਾਡੇ ਲਈ ਸਿਫ਼ਾਰਿਸ਼ ਕੀਤੀ", match: "AI ਮੈਚ ਸਕੋਰ", viewProfile: "ਪ੍ਰੋਫਾਈਲ ਦੇਖੋ" },
-    categories: { title: "ਸ਼੍ਰੇਣੀਆਂ ਦੇਖੋ", browseBtn: "ਸਾਰੇ ਦੇਖੋ", items: { academic: { title: "ਅਕਾਦਮਿਕ ਕੇਂਦਰ", desc: "ਆਈਲੈਟਸ, ਜੀਸੀਐਸਈ, ਏ-ਲੈਵਲ ਅਤੇ ਹੋਰ" }, languages: { title: "ਭਾਸ਼ਾ ਲੈਬ", desc: "ਅੰਗਰੇਜ਼ੀ, ਚੀਨੀ, ਸਪੈਨਿਸ਼..." }, coding: { title: "ਕੋਡ ਅਕੈਡਮੀ", desc: "ਪਾਈਥਨ, ਵੈੱਬ ਡਿਵ”, AI..." }, music: { title: "ਸੰਗੀਤ ਅਤੇ ਕਲਾ", desc: "ਪਿਆਨੋ, ਡਿਜ਼ਾਈਨ, ਫਾਈਨ ਆਰਟਸ" } } },
+    categories: { title: "ਸ਼੍ਰੇਣੀਆਂ ਦੇਖੋ", browseBtn: "ਸਾਰੇ ਦੇਖੋ", items: { 
+      academic: { title: "Academic Excellence", desc: "GCSE, A-Levels, IB, 11+ Entrance Prep" }, 
+      language: { title: "Global Languages", desc: "IELTS, Duolingo, Business English & more" }, 
+      stem: { title: "STEM & AI", desc: "Python, Generative AI, Coding, Data Science" }, 
+      arts: { title: "Creative Arts", desc: "Portfolio, Piano, Design, Fine Arts" }, 
+      finance: { title: "Elite Certifications", desc: "CFA, ACCA, PMP, Professional Certs" }, 
+      career: { title: "Career Strategy", desc: "Interview Prep, Leadership, MBA Strategy" }, 
+      junior: { title: "Junior Scholars", desc: "Phonics, Logic, Talent Development" }, 
+      masterclass: { title: "Knowledge Workshops", desc: "Investment, Lifestyle, Masterclasses" },
+      sen: { title: "Special Education (SEN)", desc: "ADHD, Dyslexia, Autism, Mental Health" }
+    } },
     search: { filters: "ਖੋਜ ਫਿਲਟਰ", mode: "ਪੜ੍ਹਾਉਣ ਦਾ ਤਰੀਕਾ", online: "ਆਨਲਾਈਨ", offline: "ਖੁਦ ਮਿਲ ਕੇ", hybrid: "ਹਾਈਬ੍ਰਿਡ", priceRange: "ਪ੍ਰਤੀ ਘੰਟਾ ਰੇਟ", level: "ਟਿਊਟਰ ਦਾ ਪੱਧਰ", student: "ਯੂਨੀਵਰਸਿਟੀ ਵਿਦਿਆਰਥੀ", pro: "ਪੇਸ਼ੇਵਰ ਅਧਿਆਪਕ", expert: "ਮਾਸਟਰ/ਪੀਐਚਡੀ", apply: "ਫਿਲਟਰ ਲਾਗੂ ਕਰੋ", resultsTitle: "ਉਪਲਬਧ ਟਿਊਟਰ", foundCount: "{{count}} ਟਿਊਟਰ ਮਿਲੇ", placeholder: "ਵਿਸ਼ੇ ਜਾਂ ਨਾਮ ਨਾਲ ਖੋਜ ਕਰੋ" },
     common: { reviews: "ਸਮੀਖਿਆਵਾਂ", hr: "ਘੰਟਾ", bookTrial: "ਟ੍ਰਾਇਲ ਬੁੱਕ ਕਰੋ" },
     tutorCard: { demoDesc: "ਪੀਐਚਡੀ ਅਤੇ 10+ ਸਾਲਾਂ ਦੇ ਤਜ਼ਰਬੇ ਵਾਲਾ ਇੱਕ ਉਤਸ਼ਾਹੀ ਸਿੱਖਿਆ ਸ਼ਾਸਤਰੀ, ਜਿਸਨੇ 100+ ਵਿਦਿਆਰਥੀਆਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੇ ਟੀਚੇ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕੀਤੀ ਹੈ।" },

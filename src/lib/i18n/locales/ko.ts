@@ -107,12 +107,15 @@ export const ko: Dictionary = {
     hero: { badge: "영국 엘리트 튜터", title1: "새로운 기술 마스터", title2: "글로벌 전문가와 함께", subtitle: "학업, 언어, 전문 기술을 위한 최고 수준의 튜터와 연결하세요. 당신의 성공을 위해 설계된 맞춤형 1:1 학습.", searchPlaceholder: "무엇을 배우고 싶으신가요?", searchBtn: "튜터 찾기" },
     forYou: { title: "당신을 위한 추천", match: "AI 매칭 점수", viewProfile: "프로필 보기" },
     categories: { title: "카테고리 탐색", browseBtn: "전체 보기", items: { 
-      academic: { title: "학술 서포트", desc: "GCSE, A-Levels, IELTS 등 학업 강화" }, 
-      language: { title: "언어 학습", desc: "영어, 중국어, 프랑스어, 다국어 지원" }, 
-      professional: { title: "비즈니스·커리어", desc: "전문 자격증, 면접 대비, 실무 교육" }, 
-      children: { title: "어린이·유아 교육", desc: "조기 교육, STEM, 전인 교육" }, 
-      exam: { title: "시험 대비", desc: "입학 시험, 국가 자격증, 전문 시험" }, 
-      workshops: { title: "워크숍", desc: "실기술, 요리, 라이프스타일, 체험형 학습" } 
+      academic: { title: "학술卓越", desc: "GCSE, A-Levels, IB, 11+ 입학 시험 전수" }, 
+      language: { title: "글로벌 언어", desc: "IELTS, Duolingo, 비즈니스 영어 & 다국어" }, 
+      stem: { title: "STEM & AI", desc: "Python, 생성 AI, 코딩, 데이터 사이언스" }, 
+      arts: { title: "크리에이티브 아트", desc: "포트폴리오 제작, 피아노, 디자인, 미술" }, 
+      finance: { title: "엘리트 자격증", desc: "CFA, ACCA, PMP, 전문 자격 인증" }, 
+      career: { title: "커리어 전략", desc: "면접 대비, 리더십, MBA 전략" }, 
+      junior: { title: "주니어 아카데미", desc: "파닉스, 논리 개발, 재능 육성" }, 
+      masterclass: { title: "지식 워크숍", desc: "투자 세미나, 라이프스타일, 마스터클래스" },
+      sen: { title: "특수 교육 (SEN)", desc: "ADHD, 난독증, 자폐증, 심리 케어 지원" }
     } },
     search: { filters: "검색 필터", mode: "수업 방식", online: "온라인", offline: "대면", hybrid: "혼합", priceRange: "시간당 비용", level: "튜터 레벨", student: "대학생", pro: "전문 교사", expert: "석사/박사", apply: "필터 적용", resultsTitle: "이용 가능한 튜터", foundCount: "{{count}}명의 튜터를 찾았습니다", placeholder: "과목 또는 이름으로 검색" },
     common: { reviews: "리뷰", hr: "시간", bookTrial: "체험 수업 예약" },

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Search, MapPin, Sparkles, Globe, Briefcase, GraduationCap, Clock, Award, Users } from 'lucide-react';
+import { Search, MapPin, Sparkles, Globe, Briefcase, GraduationCap, Clock, Award, Users, Zap, Palette, Heart } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '@/components/LanguageContext';
 import TutorCard from '@/components/education/TutorCard';
@@ -24,10 +24,13 @@ export default function EducationLandingPage() {
   const categories = [
     { id: 'academic', icon: <GraduationCap size={28} />, color: '#6366f1' },
     { id: 'language', icon: <Globe size={28} />, color: '#facc15' },
-    { id: 'professional', icon: <Briefcase size={28} />, color: '#f59e0b' },
-    { id: 'children', icon: <Users size={28} />, color: '#ec4899' },
-    { id: 'exam', icon: <Award size={28} />, color: '#8b5cf6' },
-    { id: 'workshops', icon: <Clock size={28} />, color: '#14b8a6' },
+    { id: 'stem', icon: <Zap size={28} />, color: '#10b981' },
+    { id: 'arts', icon: <Palette size={28} />, color: '#f43f5e' },
+    { id: 'finance', icon: <Award size={28} />, color: '#8b5cf6' },
+    { id: 'career', icon: <Briefcase size={28} />, color: '#f59e0b' },
+    { id: 'junior', icon: <Users size={28} />, color: '#ec4899' },
+    { id: 'masterclass', icon: <Clock size={28} />, color: '#14b8a6' },
+    { id: 'sen', icon: <Heart size={28} />, color: '#ef4444' },
   ];
 
   React.useEffect(() => {

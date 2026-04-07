@@ -107,12 +107,15 @@ export const ar: Dictionary = {
     hero: { badge: "نخبة المعلمين في المملكة المتحدة", title1: "أتقن مهارات جديدة", title2: "مع خبراء عالميين", subtitle: "تواصل مع نخبة المعلمين للأكاديميين واللغات والمهارات المهنية. تعلم مخصص 1 لـ 1 مصمم لنجاحك.", searchPlaceholder: "ماذا تريد أن تتعلم؟", searchBtn: "البحث عن معلمين" },
     forYou: { title: "موصى به لك", match: "درجة المطابقة بالذكاء الاصطناعي", viewProfile: "عرض الملف الشخصي" },
     categories: { title: "استكشاف الفئات", browseBtn: "تصفح الكل", items: { 
-      academic: { title: "مركز أكاديمي", desc: "IELTS, GCSE, A-Levels و المزيد" }, 
-      language: { title: "مختبر لغوي", desc: "الإنجليزية، الصينية، الإسبانية، الفرنسية" }, 
-      professional: { title: "مركز احترافي", desc: "الأعمال، التحضير للمقابلات، مهارات مهنية" }, 
-      children: { title: "تعليم الأطفال", desc: "التعليم المبكر، الاكتشاف، STEM" }, 
-      exam: { title: "تحضير للامتحانات", desc: "امتحانات القبول، شهادات احترافية" }, 
-      workshops: { title: "ورش عمل", desc: "مهارات عملية، فنون، طهي، نمط حياة" } 
+      academic: { title: "Academic Excellence", desc: "GCSE, A-Levels, IB, 11+ Entrance Prep" }, 
+      language: { title: "Global Languages", desc: "IELTS, Duolingo, Business English & more" }, 
+      stem: { title: "STEM & AI", desc: "Python, Generative AI, Coding, Data Science" }, 
+      arts: { title: "Creative Arts", desc: "Portfolio, Piano, Design, Fine Arts" }, 
+      finance: { title: "Elite Certifications", desc: "CFA, ACCA, PMP, Professional Certs" }, 
+      career: { title: "Career Strategy", desc: "Interview Prep, Leadership, MBA Strategy" }, 
+      junior: { title: "Junior Scholars", desc: "Phonics, Logic, Talent Development" }, 
+      masterclass: { title: "Knowledge Workshops", desc: "Investment, Lifestyle, Masterclasses" },
+      sen: { title: "Special Education (SEN)", desc: "ADHD, Dyslexia, Autism, Mental Health" }
     } },
     search: { filters: "فلاتر البحث", mode: "وضع التدريس", online: "عبر الإنترنت", offline: "حضورياً", hybrid: "هجين", priceRange: "سعر الساعة", level: "مستوى المعلم", student: "طالب جامعي", pro: "معلم محترف", expert: "ماجستير/دكتوراه", apply: "تطبيق الفلاتر", resultsTitle: "المعلمون المتاحون", foundCount: "تم العثور على {{count}} معلم", placeholder: "ابحث حسب المادة أو الاسم" },
     common: { reviews: "تقييمات", hr: "ساعة", bookTrial: "حجز تجربة" },
