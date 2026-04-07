@@ -217,7 +217,12 @@ export const zhTW: Dictionary = {
       uploadFormatHint: "支援格式：JPG, PNG, WebP (最大 10MB)",
       descriptionPlaceholder: "選填：描述問題詳情（例如：『大雨後水管開始漏水』或『引擎發出喀噠聲』）",
       strictMode: "嚴格視覺模式",
-      strictModeHint: "高精度視覺推理 (深度分析模式)"
+      strictModeHint: "高精度視覺推理 (深度分析模式)",
+      authRequired: "會員專屬：請登入以使用 AI 診斷", 
+      limitReached: "今日 5 次診斷額度已用完", 
+      limitReachedHint: "您可以直接聯繫我們為您挑選的專業師傅，或明天再次嘗試。", 
+      remaining: "今日剩餘次數", 
+      findSpecialist: "立即聯絡專業師傅"
     }
   },
   onboarding: {

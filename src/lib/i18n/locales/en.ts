@@ -216,7 +216,12 @@ export const en: Dictionary = {
       uploadFormatHint: "Supported formats: JPG, PNG, WebP (Max 10MB)",
       descriptionPlaceholder: "Optional: Describe the problem to help the AI understand (e.g., 'The pipe started leaking after a heavy rain' or 'The engine makes a clicking sound')",
       strictMode: "Strict Vision Mode",
-      strictModeHint: "High-fidelity visual reasoning (Deep analysis)"
+      strictModeHint: "High-fidelity visual reasoning (Deep analysis)",
+      authRequired: "Members Only: Please log in to use AI Diagnosis", 
+      limitReached: "Your daily limit (5/5) has been reached", 
+      limitReachedHint: "You can contact our recommended specialists directly or try again tomorrow.", 
+      remaining: "Remaining daily uses", 
+      findSpecialist: "Contact a Specialist Now"
     }
   },
   onboarding: {

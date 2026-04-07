@@ -5,9 +5,12 @@ import {
   Camera, Upload, Sparkles, Loader2, ChevronRight, 
   AlertCircle, CheckCircle2, Info, ArrowLeft, ShieldCheck
 } from 'lucide-react';
-import { getAIDiagnosis } from '@/app/actions/diagnosis';
+import { getAIDiagnosis, getAIDiagnosisCount } from '@/app/actions/diagnosis';
 import DiagnosisResult from './DiagnosisResult';
 import { useTranslation } from '@/components/LanguageContext';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { useEffect } from 'react';
 
 interface AIDiagnosisResult {
   id: string;
@@ -33,6 +36,7 @@ export default function DiagnosisTool() {
     { id: 'Cleaning', label: t.diagnosis?.tool?.categories?.cleaning || "專業清潔", icon: '✨' },
   ];
 
+  const { data: session } = useSession();
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [category, setCategory] = useState('');
@@ -41,7 +45,18 @@ export default function DiagnosisTool() {
   const [strictMode, setStrictMode] = useState(false);
   const [result, setResult] = useState<AIDiagnosisResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [quotaExceeded, setQuotaExceeded] = useState(false);
+  const [remainingUses, setRemainingUses] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (session) {
+      getAIDiagnosisCount().then(res => {
+        setRemainingUses(res.remaining ?? 5);
+        if (res.remaining === 0) setQuotaExceeded(true);
+      });
+    }
+  }, [session]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -62,29 +77,109 @@ export default function DiagnosisTool() {
     setError(null);
 
     try {
-      const reader = new FileReader();
-      reader.onloadend = async () => {
-        const base64data = reader.result as string;
-        const res = await getAIDiagnosis(base64data, category, locale, description, strictMode);
-        
-        if (res.error) {
-          setError(res.error);
-        } else if (res.diagnosis) {
-          setResult({ ...res.diagnosis, provider: (res as any).provider });
-        }
-        setLoading(false);
+      // 1. Image Compression (Client-side to prevent 'stuck' large payloads)
+      const compressImage = async (file: File): Promise<string> => {
+        return new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = (event) => {
+            const img = new Image();
+            img.src = event.target?.result as string;
+            img.onload = () => {
+              const canvas = document.createElement('canvas');
+              const MAX_WIDTH = 1200;
+              const MAX_HEIGHT = 1200;
+              let width = img.width;
+              let height = img.height;
+
+              if (width > height) {
+                if (width > MAX_WIDTH) {
+                  height *= MAX_WIDTH / width;
+                  width = MAX_WIDTH;
+                }
+              } else {
+                if (height > MAX_HEIGHT) {
+                  width *= MAX_HEIGHT / height;
+                  height = MAX_HEIGHT;
+                }
+              }
+              canvas.width = width;
+              canvas.height = height;
+              const ctx = canvas.getContext('2d');
+              ctx?.drawImage(img, 0, 0, width, height);
+              resolve(canvas.toDataURL('image/jpeg', 0.8)); // 80% quality
+            };
+          };
+        });
       };
-      reader.onerror = () => {
-        setError("Failed to read image file.");
-        setLoading(false);
-      };
-      reader.readAsDataURL(file!);
+
+      const base64data = await compressImage(file!);
+      const res = await getAIDiagnosis(base64data, category, locale, description, strictMode);
+      
+      if (res.error === "AUTH_REQUIRED") {
+        window.location.href = "/auth/login?callbackUrl=/diagnosis";
+        return;
+      }
+
+      if (res.error === "LIMIT_REACHED") {
+        setQuotaExceeded(true);
+        setError(null);
+      } else if (res.error) {
+        setError(res.error);
+      } else if (res.diagnosis) {
+        setResult({ ...res.diagnosis, provider: (res as any).provider });
+        if (res.remainingUses !== undefined) setRemainingUses(res.remainingUses);
+      }
+      setLoading(false);
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : String(err);
       setError(t.diagnosis.tool.errorUnexpected + errorMessage);
       setLoading(false);
     }
   };
+
+  if (!session) {
+    return (
+      <div className="glass-panel reveal active" style={{ padding: '3rem', textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
+        <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'var(--accent-soft)', color: 'var(--accent-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 2rem' }}>
+          <ShieldCheck size={40} />
+        </div>
+        <h2 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '1rem' }}>{t.diagnosis.tool.authRequired}</h2>
+        <p style={{ color: 'var(--text-muted)', marginBottom: '2.5rem', fontSize: '1.1rem' }}>{t.auth.login.subtitle}</p>
+        <Link href="/auth/login?callbackUrl=/diagnosis">
+          <button className="btn btn-primary" style={{ padding: '1rem 3rem' }}>{t.nav.login}</button>
+        </Link>
+      </div>
+    );
+  }
+
+  if (quotaExceeded) {
+    return (
+      <div className="glass-panel reveal active" style={{ padding: '3rem', textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
+        <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: '#fef2f2', color: '#b91c1c', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 2rem' }}>
+          <AlertCircle size={40} />
+        </div>
+        <h2 style={{ fontSize: '2.2rem', fontWeight: 950, marginBottom: '1rem', color: '#b91c1c' }}>{t.diagnosis.tool.limitReached}</h2>
+        <p style={{ color: 'var(--text-muted)', marginBottom: '3rem', fontSize: '1.2rem', fontWeight: 500 }}>{t.diagnosis.tool.limitReachedHint}</p>
+        
+        <div style={{ background: 'var(--surface-2)', padding: '2.5rem', borderRadius: '2rem', border: '1px solid var(--border-color)' }}>
+          <h3 style={{ fontSize: '1.2rem', fontWeight: 800, marginBottom: '1.5rem' }}>{t.diagnosis.tool.bookSpecialist}</h3>
+          <Link href={`/services/results?category=${category || 'Plumbing'}`}>
+            <button className="btn btn-primary" style={{ width: '100%', padding: '1.25rem', fontSize: '1.1rem' }}>
+              {t.diagnosis.tool.findSpecialist} <ChevronRight size={20} />
+            </button>
+          </Link>
+        </div>
+        
+        <button 
+          onClick={() => setQuotaExceeded(false)}
+          style={{ marginTop: '2rem', background: 'transparent', border: 'none', color: 'var(--amber-600)', fontWeight: 700, cursor: 'pointer', fontSize: '0.95rem' }}
+        >
+          ← {t.diagnosis.tool.newDiagnosis}
+        </button>
+      </div>
+    );
+  }
 
   if (result) {
     return (
@@ -104,8 +199,13 @@ export default function DiagnosisTool() {
   return (
     <div className="glass-panel reveal active" style={{ padding: '2.5rem', maxWidth: '800px', margin: '0 auto' }}>
       <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-        <div style={{ display: 'inline-flex', padding: '1.25rem', borderRadius: '1.25rem', background: 'var(--accent-soft)', color: 'var(--accent-color)', marginBottom: '1.25rem' }}>
+        <div style={{ display: 'inline-flex', padding: '1.25rem', borderRadius: '1.25rem', background: 'var(--accent-soft)', color: 'var(--accent-color)', marginBottom: '1.25rem', position: 'relative' }}>
           <Sparkles size={36} strokeWidth={1.5} />
+          {remainingUses !== null && (
+            <div style={{ position: 'absolute', top: '-10px', right: '-40px', background: 'var(--accent-color)', color: 'black', padding: '0.2rem 0.6rem', borderRadius: '1rem', fontSize: '0.75rem', fontWeight: 800, boxShadow: 'var(--shadow-sm)', whiteSpace: 'nowrap' }}>
+              {t.diagnosis.tool.remaining}: {remainingUses} / 5
+            </div>
+          )}
         </div>
         <h2 style={{ fontSize: '2.5rem', fontWeight: 950, marginBottom: '0.75rem', letterSpacing: '-0.02em' }}>{t.diagnosis.tool.title}</h2>
         <p style={{ color: 'var(--text-muted)', fontSize: '1.15rem', fontWeight: 500 }}>{t.diagnosis.tool.subtitle}</p>

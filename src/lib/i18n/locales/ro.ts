@@ -216,7 +216,12 @@ export const ro: Dictionary = {
       uploadFormatHint: "Suportă JPG, PNG",
       descriptionPlaceholder: "Spune-ne mai multe despre ce s-a întâmplat...",
       strictMode: "Mod Vedere Strict",
-      strictModeHint: "Raționament vizual de înaltă fidelitate (analiză profundă)"
+      strictModeHint: "Raționament vizual de înaltă fidelitate (analiză profundă)",
+      authRequired: "Members Only: Please log in to use AI Diagnosis", 
+      limitReached: "Your daily limit (5/5) has been reached", 
+      limitReachedHint: "You can contact our recommended specialists directly or try again tomorrow.", 
+      remaining: "Remaining daily uses", 
+      findSpecialist: "Contact a Specialist Now"
     }
   },
   onboarding: {

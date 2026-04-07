@@ -216,7 +216,12 @@ export const hi: Dictionary = {
       uploadFormatHint: "JPG, PNG समर्थित",
       descriptionPlaceholder: "हमें बताएं कि क्या हुआ...",
       strictMode: "सख्त दृष्टि मोड",
-      strictModeHint: "उच्च-सटीकता दृश्य तर्क (गहन विश्लेषण)"
+      strictModeHint: "उच्च-सटीकता दृश्य तर्क (गहन विश्लेषण)",
+      authRequired: "Members Only: Please log in to use AI Diagnosis", 
+      limitReached: "Your daily limit (5/5) has been reached", 
+      limitReachedHint: "You can contact our recommended specialists directly or try again tomorrow.", 
+      remaining: "Remaining daily uses", 
+      findSpecialist: "Contact a Specialist Now"
     }
   },
   onboarding: {

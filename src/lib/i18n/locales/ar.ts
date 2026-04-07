@@ -216,7 +216,12 @@ export const ar: Dictionary = {
       uploadFormatHint: "يدعم JPG, PNG",
       descriptionPlaceholder: "أخبرنا المزيد عما حدث...",
       strictMode: "وضع الرؤية الصارم",
-      strictModeHint: "الاستدلال البصري عالي الدقة (تحليل عميق)"
+      strictModeHint: "الاستدلال البصري عالي الدقة (تحليل عميق)",
+      authRequired: "Members Only: Please log in to use AI Diagnosis", 
+      limitReached: "Your daily limit (5/5) has been reached", 
+      limitReachedHint: "You can contact our recommended specialists directly or try again tomorrow.", 
+      remaining: "Remaining daily uses", 
+      findSpecialist: "Contact a Specialist Now"
     }
   },
   onboarding: {

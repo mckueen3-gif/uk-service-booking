@@ -10,6 +10,30 @@ export async function getAIDiagnosis(imageUrl: string, category: string, locale:
     const session = (await getServerSession(authOptions)) as any;
     const userId = session?.user?.id;
 
+    if (!userId) {
+      return { error: "AUTH_REQUIRED", success: false };
+    }
+
+    // 0. Quota Check (5 per day)
+    const startOfToday = new Date();
+    startOfToday.setUTCHours(0, 0, 0, 0);
+
+    const diagnosisCount = await prisma.aiDiagnosis.count({
+      where: { 
+        userId, 
+        createdAt: { gte: startOfToday } 
+      }
+    });
+
+    if (diagnosisCount >= 5) {
+      return { 
+        error: "LIMIT_REACHED", 
+        success: false, 
+        count: diagnosisCount,
+        category 
+      };
+    }
+
     // 1. Prepare Image Data (Base64 is required for both Gemini and Grok)
     let base64Image;
     let mimeType = "image/jpeg";
@@ -68,7 +92,7 @@ export async function getAIDiagnosis(imageUrl: string, category: string, locale:
     const savedDiagnosis = await prisma.aiDiagnosis.create({
       data: {
         userId,
-        imageUrl,
+        imageUrl: imageUrl.length > 2000 ? "data:image/optimized;base64,OPTIMIZED_PAYLOAD" : imageUrl, // Prevent DB bloat from raw high-res base64
         category,
         issue: diagnosisData.issue,
         suggestedFix: diagnosisData.suggestedFix,
@@ -78,7 +102,12 @@ export async function getAIDiagnosis(imageUrl: string, category: string, locale:
       }
     });
 
-    return { success: true, diagnosis: savedDiagnosis, provider: modelName };
+    return { 
+      success: true, 
+      diagnosis: savedDiagnosis, 
+      provider: modelName,
+      remainingUses: 5 - (diagnosisCount + 1)
+    };
   } catch (err: any) {
     console.error("AI Diagnosis Error:", err);
     // Be more descriptive about the failure
@@ -107,5 +136,26 @@ export async function getRecentDiagnoses() {
     } catch (err) {
         console.error("Get Recent Diagnoses Error:", err);
         return { diagnoses: [] };
+    }
+}
+
+export async function getAIDiagnosisCount() {
+    const session = (await getServerSession(authOptions)) as any;
+    if (!session?.user?.id) return { count: 0 };
+
+    const startOfToday = new Date();
+    startOfToday.setUTCHours(0, 0, 0, 0);
+
+    try {
+        const count = await prisma.aiDiagnosis.count({
+            where: { 
+                userId: session.user.id, 
+                createdAt: { gte: startOfToday } 
+            }
+        });
+        return { count, remaining: Math.max(0, 5 - count) };
+    } catch (err) {
+        console.error("Get Diagnosis Count Error:", err);
+        return { count: 0, remaining: 5 };
     }
 }

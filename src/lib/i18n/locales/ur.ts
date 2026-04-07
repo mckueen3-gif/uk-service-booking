@@ -216,7 +216,12 @@ export const ur: Dictionary = {
       uploadFormatHint: "JPG، PNG سپورٹڈ",
       descriptionPlaceholder: "ہمیں بتائیں کہ کیا ہوا...",
       strictMode: "سخت بصری وضع",
-      strictModeHint: "اعلیٰ درستگی والا بصری استدلال (گہرا تجزیہ)"
+      strictModeHint: "اعلیٰ درستگی والا بصری استدلال (گہرا تجزیہ)",
+      authRequired: "Members Only: Please log in to use AI Diagnosis", 
+      limitReached: "Your daily limit (5/5) has been reached", 
+      limitReachedHint: "You can contact our recommended specialists directly or try again tomorrow.", 
+      remaining: "Remaining daily uses", 
+      findSpecialist: "Contact a Specialist Now"
     }
   },
   onboarding: {

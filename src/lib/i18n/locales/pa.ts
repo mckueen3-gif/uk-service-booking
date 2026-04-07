@@ -216,7 +216,12 @@ export const pa: Dictionary = {
       uploadFormatHint: "JPG, PNG ਸਪੋਰਟਡ",
       descriptionPlaceholder: "ਸਾਨੂੰ ਦੱਸੋ ਕੀ ਹੋਇਆ ਸੀ...",
       strictMode: "ਸਖ਼ਤ ਵਿਜ਼ਨ ਮੋਡ",
-      strictModeHint: "ਉੱਚ-ਸ਼ੁੱਧਤਾ ਵਿਜ਼ੂਅਲ ਤਰਕ (ਡੂੰਘਾ ਵਿਸ਼ਲੇਸ਼ਣ)"
+      strictModeHint: "ਉੱਚ-ਸ਼ੁੱਧਤਾ ਵਿਜ਼ੂਅਲ ਤਰਕ (ਡੂੰਘਾ ਵਿਸ਼ਲੇਸ਼ਣ)",
+      authRequired: "Members Only: Please log in to use AI Diagnosis", 
+      limitReached: "Your daily limit (5/5) has been reached", 
+      limitReachedHint: "You can contact our recommended specialists directly or try again tomorrow.", 
+      remaining: "Remaining daily uses", 
+      findSpecialist: "Contact a Specialist Now"
     }
   },
   onboarding: {

@@ -216,7 +216,12 @@ export const ja: Dictionary = {
       uploadFormatHint: "JPG, PNG対応",
       descriptionPlaceholder: "詳しい状況を教えてください...",
       strictMode: "厳格なビジョンモード",
-      strictModeHint: "高精度な視覚推理 (詳細分析)"
+      strictModeHint: "高精度な視覚推理 (詳細分析)",
+      authRequired: "会員限定：ログインしてAI診断を使いましょう", 
+      limitReached: "本日の診断上限（5回）に達しました", 
+      limitReachedHint: "おすすめの専門家に直接相談するか、明日またお試しください。", 
+      remaining: "本日の残り回数", 
+      findSpecialist: "今すぐ専門家に相談する"
     }
   },
   onboarding: {

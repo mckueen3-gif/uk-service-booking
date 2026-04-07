@@ -160,6 +160,7 @@ export interface Dictionary {
       guaranteedRepairs: string; disputeResolution: string; fastTurnaround: string; responseHours: string;
       errorPhotoCategory: string; errorUnexpected: string; uploadFormatHint: string; descriptionPlaceholder: string;
       strictMode: string; strictModeHint: string;
+      authRequired: string; limitReached: string; limitReachedHint: string; remaining: string; findSpecialist: string;
     };
   };
   onboarding: {

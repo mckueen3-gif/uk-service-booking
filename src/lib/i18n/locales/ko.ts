@@ -216,7 +216,12 @@ export const ko: Dictionary = {
       uploadFormatHint: "JPG, PNG 지원",
       descriptionPlaceholder: "무슨 일이 일어났는지 자세히 알려주세요...",
       strictMode: "엄격한 비전 모드",
-      strictModeHint: "고정밀 시각적 추론 (정밀 분석)"
+      strictModeHint: "고정밀 시각적 추론 (정밀 분석)",
+      authRequired: "회원 전용: AI 진단을 사용하려면 로그인하세요", 
+      limitReached: "일일 한도(5/5)에 도달했습니다", 
+      limitReachedHint: "추천 전문가에게 직접 문의하거나 내일 다시 시도해 보세요.", 
+      remaining: "남은 일일 횟수", 
+      findSpecialist: "지금 전문가에게 문의하기"
     }
   },
   onboarding: {

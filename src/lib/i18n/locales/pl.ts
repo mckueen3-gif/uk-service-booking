@@ -216,7 +216,12 @@ export const pl: Dictionary = {
       uploadFormatHint: "Obsługuje JPG, PNG",
       descriptionPlaceholder: "Powiedz nam więcej o tym, co się stało...",
       strictMode: "Tryb ścisłej wizji",
-      strictModeHint: "Wysoka dokładność rozumowania wizualnego (głęboka analiza)"
+      strictModeHint: "Wysoka dokładność rozumowania wizualnego (głęboka analiza)",
+      authRequired: "Members Only: Please log in to use AI Diagnosis", 
+      limitReached: "Your daily limit (5/5) has been reached", 
+      limitReachedHint: "You can contact our recommended specialists directly or try again tomorrow.", 
+      remaining: "Remaining daily uses", 
+      findSpecialist: "Contact a Specialist Now"
     }
   },
   onboarding: {
