@@ -16,7 +16,7 @@ const DEMO_TUTORS = [
 import { useTranslation } from '@/components/LanguageContext';
 
 function SearchContent() {
-  const { t } = useTranslation();
+  const { t, format } = useTranslation();
   const searchParams = useSearchParams();
   const router = useRouter();
   const initialQuery = searchParams.get('q') || '';
@@ -129,7 +129,7 @@ function SearchContent() {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem' }}>
           <div>
             <h1 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '0.5rem' }}>{t.education_sec.search.resultsTitle}</h1>
-            <p style={{ color: 'var(--text-secondary)' }}>{t.education_sec.search.foundCount.replace("{{count}}", String(tutors.length))}</p>
+            <p style={{ color: 'var(--text-secondary)' }}>{format(t.education_sec.search.foundCount, { count: tutors.length })}</p>
           </div>
           
           <div style={{ 

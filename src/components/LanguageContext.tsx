@@ -7,11 +7,24 @@ import { Locale, Dictionary, dictionaries } from '@/lib/i18n/dictionary';
 interface LanguageContextType {
   locale: Locale;
   t: Dictionary;
+  format: (template: string, params: Record<string, string | number>) => string;
   setLocale: (locale: Locale) => void;
   isRTL: boolean;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
+/**
+ * Helper to replace {{var}} or {var} in strings
+ */
+export const interpolate = (str: string, params: Record<string, string | number>) => {
+  if (!str) return "";
+  return Object.entries(params).reduce((acc, [key, val]) => {
+    // Handle both {{key}} and {key}
+    const regex = new RegExp(`(\\{\\{${key}\\}\\}|\\{${key}\\})`, 'g');
+    return acc.replace(regex, val.toString());
+  }, str);
+};
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>('en');
@@ -56,6 +69,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const value = {
     locale,
     t: dictionaries[locale],
+    format: interpolate,
     setLocale,
     isRTL: locale === 'ar' || locale === 'ur'
   };

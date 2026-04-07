@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { GoogleMap, OverlayView, OverlayViewF } from '@react-google-maps/api';
-import { MapPin, Star, X, ExternalLink, RefreshCw } from 'lucide-react';
+import { MapPin, Star, X, ExternalLink, RefreshCw, Navigation as NavIcon, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslation } from "@/components/LanguageContext";
 import { useGoogleMaps, MAP_STYLES } from './GoogleMapProvider';
@@ -37,11 +37,12 @@ const DEFAULT_CENTER = {
 };
 
 export default function MapView({ merchants, onSearchInBounds }: MapViewProps) {
-  const { t, isRTL } = useTranslation();
+  const { t, format, isRTL } = useTranslation();
   const { isLoaded, loadError } = useGoogleMaps();
   const [selectedMerchant, setSelectedMerchant] = useState<Merchant | null>(null);
   const [map, setMap] = useState<google.maps.Map | null>(null);
   const [showSearchButton, setShowSearchButton] = useState(false);
+  const [forceSimulated, setForceSimulated] = useState(false);
 
   // Filter valid coordinates
   const validMerchants = useMemo(() => {
@@ -113,11 +114,11 @@ export default function MapView({ merchants, onSearchInBounds }: MapViewProps) {
       boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.1)',
       direction: 'ltr'
     }}>
-      {!isLoaded ? (
+      {(!isLoaded || forceSimulated) && !forceSimulated ? (
         <div className="glass-panel" style={{ padding: '5rem', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
            Loading Google Maps Engine...
         </div>
-      ) : loadError ? (
+      ) : (loadError || forceSimulated) ? (
         <SimulatedMap 
           merchants={validMerchants} 
           selectedMerchant={selectedMerchant}
@@ -126,6 +127,30 @@ export default function MapView({ merchants, onSearchInBounds }: MapViewProps) {
         />
       ) : (
         <>
+          {/* Map Bypass Toggle - Visible if Map Engine loads but might be broken */}
+          <button 
+            onClick={() => setForceSimulated(true)}
+            style={{
+              position: 'absolute',
+              bottom: '24px',
+              [isRTL ? 'right' : 'left']: '24px',
+              zIndex: 50,
+              padding: '0.5rem 1rem',
+              borderRadius: '99px',
+              background: 'var(--surface-1)',
+              border: '1px solid var(--border-color)',
+              color: 'var(--text-muted)',
+              fontSize: '0.7rem',
+              fontWeight: 800,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px'
+            }}
+          >
+            <NavIcon size={12} /> Map not loading correctly? Click for Bypass
+          </button>
+
           <GoogleMap
             mapContainerStyle={MAP_CONTAINER_STYLE}
             center={center}
@@ -313,7 +338,7 @@ export default function MapView({ merchants, onSearchInBounds }: MapViewProps) {
             borderRadius: '1rem', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', display: 'flex', alignItems: 'center', gap: '8px' 
           }}>
             <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: 'var(--accent-color)' }} />
-            <span style={{ fontSize: '0.85rem', fontWeight: 700 }}>{merchants.length} {t.search.foundCount}</span>
+            <span style={{ fontSize: '0.85rem', fontWeight: 700 }}>{format(t.search.foundCount, { count: merchants.length })}</span>
           </div>
         </div>
       )}

@@ -25,7 +25,7 @@ const getCategoryIcon = (category: string) => {
 };
 
 export default function RecommendationEngine() {
-  const { t, isRTL } = useTranslation();
+  const { t, format, isRTL } = useTranslation();
   const { city } = useLocation();
   const [recommendations, setRecommendations] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -88,9 +88,10 @@ export default function RecommendationEngine() {
          {recommendations.map((rec, index) => {
            // Translation logic
            const displayTitle = rec.titleKey 
-             ? t.home.recommendationResults[rec.titleKey as keyof typeof t.home.recommendationResults]
-                 .replace('{{city}}', city || 'London')
-                 .replace('{{category}}', t.home.recommendationResults[rec.categoryKey as keyof typeof t.home.recommendationResults] || rec.category)
+             ? format(t.home.recommendationResults[rec.titleKey as keyof typeof t.home.recommendationResults], {
+                 city: city || 'London',
+                 category: t.home.recommendationResults[rec.categoryKey as keyof typeof t.home.recommendationResults] || rec.category
+               })
              : rec.title;
 
            const displaySubtitle = rec.subtitleKey

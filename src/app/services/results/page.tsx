@@ -13,7 +13,7 @@ import { ALL_UK } from '@/components/LocationContext';
 
 function SearchResults() {
   const searchParams = useSearchParams();
-  const { t, isRTL } = useTranslation();
+  const { t, format, isRTL } = useTranslation();
   const { city, setCity } = useLocation();
   
   const [results, setResults] = useState<any[]>([]);
@@ -223,7 +223,7 @@ function SearchResults() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <h1 style={{ fontSize: '1.75rem', fontWeight: 900 }}>
-                  {loading ? t.search.searching : `${results.length} ${t.search.foundCount}`}
+                  {loading ? t.search.searching : format(t.search.foundCount, { count: results.length })}
                 </h1>
                 
                 {/* View Mode Toggle */}
