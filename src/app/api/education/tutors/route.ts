@@ -20,10 +20,20 @@ export async function GET(req: NextRequest) {
         services: {
           some: {
             category: "Education",
-            OR: q ? [
-              { name: { contains: q, mode: 'insensitive' } },
-              { subjects: { contains: q, mode: 'insensitive' } }
-            ] : undefined
+            AND: [
+              q ? {
+                OR: [
+                  { name: { contains: q, mode: 'insensitive' } },
+                  { subjects: { contains: q, mode: 'insensitive' } }
+                ]
+              } : {},
+              category ? {
+                OR: [
+                  { name: { contains: category, mode: 'insensitive' } },
+                  { subjects: { contains: category, mode: 'insensitive' } }
+                ]
+              } : {}
+            ]
           }
         }
       },

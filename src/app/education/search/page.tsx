@@ -24,9 +24,11 @@ function SearchContent() {
   const [tutors, setTutors] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const category = searchParams.get('category') || '';
+
   React.useEffect(() => {
     setLoading(true);
-    fetch(`/api/education/tutors?q=${encodeURIComponent(query)}`)
+    fetch(`/api/education/tutors?q=${encodeURIComponent(query)}&category=${encodeURIComponent(category)}`)
       .then(res => res.json())
       .then(data => {
         setTutors(data.tutors || []);
@@ -36,7 +38,7 @@ function SearchContent() {
         console.error(e);
         setLoading(false);
       });
-  }, [query]);
+  }, [query, category]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && query.trim()) {
@@ -60,6 +62,28 @@ function SearchContent() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1.5rem' }}>
           <Filter size={20} />
           <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>{t.education_sec.search.filters}</h2>
+        </div>
+
+        {/* Category Filter */}
+        <div style={{ marginBottom: '2rem' }}>
+          <h4 style={{ fontWeight: 700, marginBottom: '1rem', color: 'var(--text-secondary)' }}>{t.education_sec.categories.title}</h4>
+          <div style={{ display: 'grid', gap: '0.75rem' }}>
+            {['academic', 'language', 'stem', 'arts', 'finance', 'career', 'junior', 'masterclass', 'sen'].map(catId => (
+              <label key={catId} style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', fontSize: '0.95rem' }}>
+                <input 
+                  type="checkbox" 
+                  checked={searchParams.get('category') === catId}
+                  onChange={(e) => {
+                    const params = new URLSearchParams(searchParams.toString());
+                    if (e.target.checked) params.set('category', catId);
+                    else params.delete('category');
+                    router.push(`/education/search?${params.toString()}`);
+                  }}
+                /> 
+                {t.education_sec.categories.items[catId]?.title || catId}
+              </label>
+            ))}
+          </div>
         </div>
 
         <div style={{ marginBottom: '2rem' }}>
