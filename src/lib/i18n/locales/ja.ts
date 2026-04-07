@@ -27,6 +27,24 @@ export const ja: Dictionary = {
       ]
     }
   },
+  aura: {
+    welcome: "こんにちは！英国サービスコンシェルジュのAuraです。本日はどのようなご用件でしょうか？",
+    offline: "オフライン",
+    ready: "オンラインで対応可能です",
+    placeholder: "Auraに質問する...",
+    error: "申し訳ありません。現在接続に問題が発生しています。後でもう一度お試しください。",
+    footer: "安全なAIアシスタント • プラットフォームバージョン 1.2",
+    suggestions: {
+      refund: "返金方法は？",
+      dispute: "修理トラブル？",
+      warranty: "保証について",
+      booking: "予約について",
+      refundQuery: "返金を申請するにはどうすればいいですか？手続きを教えてください。",
+      disputeQuery: "修理の品質や価格に不満がある場合はどうすればいいですか？",
+      warrantyQuery: "プラットフォームのサービスには保証がありますか？",
+      bookingQuery: "近くの技術者を予約するにはどうすればいいですか？"
+    }
+  },
   footer: { tagline: "英国トップクラスの認定プロフェッショナルとつながる。", explore: "探す", legal: "法的情報", support: "サポート", rights: "© 2024 UK Service Hub. All rights reserved.", terms: "利用規約", privacy: "プライバシーポリシー", cookies: "クッキーポリシー", help: "ヘルプセンター", contact: "お問い合わせ", aiDiagnosis: "AI診断", homeCleaning: "ハウスクリーニング", plumbingServices: "配管サービス", automotiveServices: "自動車修理", trustSignal: "Trustpilotで最高評価" },
   search: { 
     filters: "フィルター", keyword: "キーワード", location: "場所", category: "カテゴリー", minRating: "最低評価", verifiedOnly: "認証済みのみ", 

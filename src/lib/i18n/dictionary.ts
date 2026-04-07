@@ -24,6 +24,24 @@ export interface Dictionary {
       bookings: { q: string; a: string }[];
     };
   };
+  aura: {
+    welcome: string;
+    offline: string;
+    ready: string;
+    placeholder: string;
+    error: string;
+    footer: string;
+    suggestions: {
+      refund: string;
+      dispute: string;
+      warranty: string;
+      booking: string;
+      refundQuery: string;
+      disputeQuery: string;
+      warrantyQuery: string;
+      bookingQuery: string;
+    };
+  };
   footer: { tagline: string; explore: string; legal: string; support: string; rights: string; terms: string; privacy: string; cookies: string; help: string; contact: string; aiDiagnosis: string; homeCleaning: string; plumbingServices: string; automotiveServices: string; trustSignal: string };
   search: { 
     filters: string; keyword: string; location: string; category: string; minRating: string; verifiedOnly: string; 

@@ -27,6 +27,24 @@ export const en: Dictionary = {
       ]
     }
   },
+  aura: {
+    welcome: "Hello! I am Aura, your UK Service Concierge. How can I assist you today?",
+    offline: "Offline",
+    ready: "Online & Ready to assist",
+    placeholder: "Ask Aura anything...",
+    error: "I'm sorry, I'm having trouble connecting right now. Please try again later.",
+    footer: "Secure AI Assistance • Platform Version 1.2",
+    suggestions: {
+      refund: "How to refund?",
+      dispute: "Repair dispute?",
+      warranty: "Warranty terms",
+      booking: "About booking",
+      refundQuery: "How do I apply for a refund? What is the process?",
+      disputeQuery: "What should I do if there is a dispute over repair quality or price?",
+      warrantyQuery: "Do the services provided by the platform have a warranty?",
+      bookingQuery: "How can I book a technician near me?"
+    }
+  },
   footer: { tagline: "Connect with the UK's top certified professionals.", explore: "Explore", legal: "Legal", support: "Support", rights: "© 2024 UK Service Hub. All rights reserved.", terms: "Terms of Service", privacy: "Privacy Policy", cookies: "Cookie Policy", help: "Help Center", contact: "Contact Support", aiDiagnosis: "AI Diagnostics", homeCleaning: "Home Cleaning", plumbingServices: "Plumbing Services", automotiveServices: "Automotive Services", trustSignal: "Rated Excellent on Trustpilot" },
   search: { 
     filters: "Filters", keyword: "Keyword", location: "Location", category: "Category", minRating: "Min Rating", verifiedOnly: "Verified Only", 

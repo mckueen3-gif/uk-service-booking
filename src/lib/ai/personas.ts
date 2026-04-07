@@ -32,9 +32,28 @@ export const RECOMMENDATION_GUIDELINES = `
 /**
  * Builds the complete system prompt by combining modular pieces.
  */
-export function buildConciergeSystemPrompt(dynamicContext: string = ""): string {
+export function buildConciergeSystemPrompt(dynamicContext: string = "", locale: string = "en"): string {
+  const languageMap: Record<string, string> = {
+    'zh-TW': 'Traditional Chinese (繁體中文)',
+    'en': 'English',
+    'hi': 'Hindi (हिन्दी)',
+    'ar': 'Arabic (العربية)',
+    'ja': 'Japanese (日本語)',
+    'ko': 'Korean (한국어)',
+    'pl': 'Polish (Polski)',
+    'ro': 'Romanian (Română)',
+    'ur': 'Urdu (اردو)',
+    'pa': 'Punjabi (ਪੰਜਾਬੀ)'
+  };
+
+  const targetLanguage = languageMap[locale] || 'English';
+
   return `
     ${CONCIERGE_PERSONA}
+    
+    LANGUAGE REQUIREMENT:
+    - You MUST respond in ${targetLanguage}.
+    - Ensure the tone matches the British-English concierge style (Professional, Polite, Reassuring) even in the translated language.
     
     USER DATA & SERVICE CONTEXT:
     ${dynamicContext}

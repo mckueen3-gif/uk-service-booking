@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, Sparkles, User, MessageSquare, RotateCw } from 'lucide-react';
+import { useTranslation } from '@/components/LanguageContext';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -9,19 +10,33 @@ interface Message {
 }
 
 export default function AIChatbot() {
+  const { t, locale, isRTL } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: 'Hello! I am Aura, your UK Service Concierge. How can I assist you today?' }
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  // Initialize/Update welcome message when translation is available
+  useEffect(() => {
+    // If the conversation is empty or only has the welcome message, sync it with the current language
+    setMessages(prev => {
+      if (prev.length <= 1) {
+        return [{ role: 'assistant', content: t.aura.welcome }];
+      }
+      return prev;
+    });
+  }, [t.aura.welcome]);
+
+  // Handle RTL layout adjustments
+  const rightPos = isRTL ? 'auto' : '24px';
+  const leftPos = isRTL ? '24px' : 'auto';
+
   const suggestions = [
-    { label: '如何退款？', query: '如何申請退款？退款流程是什麼？' },
-    { label: '維修有爭議？', query: '如果對維修品質或價格有爭議，該如何處理？' },
-    { label: '保固條款', query: '平台提供的服務有保固嗎？' },
-    { label: '關於預約', query: '我該如何預約附近的技師？' },
+    { label: t.aura.suggestions.refund, query: t.aura.suggestions.refundQuery },
+    { label: t.aura.suggestions.dispute, query: t.aura.suggestions.disputeQuery },
+    { label: t.aura.suggestions.warranty, query: t.aura.suggestions.warrantyQuery },
+    { label: t.aura.suggestions.booking, query: t.aura.suggestions.bookingQuery },
   ];
 
   useEffect(() => {
@@ -43,7 +58,10 @@ export default function AIChatbot() {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: [...messages, userMsg] }),
+        body: JSON.stringify({ 
+          messages: [...messages, userMsg],
+          locale
+        }),
       });
 
       const data = await response.json();
@@ -52,14 +70,14 @@ export default function AIChatbot() {
       }
     } catch (error) {
       console.error('Chat Error:', error);
-      setMessages(prev => [...prev, { role: 'assistant', content: "I'm sorry, I'm having trouble connecting right now. Please try again later." }]);
+      setMessages(prev => [...prev, { role: 'assistant', content: t.aura.error }]);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div style={{ position: 'fixed', bottom: '24px', right: '24px', zIndex: 1000 }}>
+    <div style={{ position: 'fixed', bottom: '24px', right: rightPos, left: leftPos, zIndex: 1000 }}>
       {/* Floating Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
@@ -89,7 +107,8 @@ export default function AIChatbot() {
           style={{
             position: 'absolute',
             bottom: '80px',
-            right: 0,
+            right: isRTL ? 'auto' : 0,
+            left: isRTL ? 0 : 'auto',
             width: '380px',
             height: '520px',
             backgroundColor: '#ffffff',
@@ -98,7 +117,9 @@ export default function AIChatbot() {
             display: 'flex',
             flexDirection: 'column',
             overflow: 'hidden',
-            border: '1px solid #e2e8f0'
+            border: '1px solid #e2e8f0',
+            textAlign: isRTL ? 'right' : 'left',
+            direction: isRTL ? 'rtl' : 'ltr'
           }}
         >
           {/* Header */}
@@ -108,16 +129,17 @@ export default function AIChatbot() {
             color: 'white',
             display: 'flex',
             alignItems: 'center',
-            gap: '0.75rem'
+            gap: '0.75rem',
+            flexDirection: isRTL ? 'row-reverse' : 'row'
           }}>
             <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', padding: '0.5rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)' }}>
               <Sparkles size={20} color="#38bdf8" />
             </div>
             <div>
               <div style={{ fontWeight: 800, fontSize: '1rem', letterSpacing: '0.025em' }}>Aura Concierge</div>
-              <div style={{ fontSize: '0.7rem', opacity: 0.8, display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <div style={{ fontSize: '0.7rem', opacity: 0.8, display: 'flex', alignItems: 'center', gap: '4px', justifyContent: isRTL ? 'flex-end' : 'flex-start' }}>
                 <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#22c55e' }}></div>
-                Online & Ready to assist
+                {t.aura.ready}
               </div>
             </div>
           </div>
@@ -131,7 +153,7 @@ export default function AIChatbot() {
               <div key={i} style={{ 
                 display: 'flex', 
                 gap: '0.75rem', 
-                flexDirection: m.role === 'user' ? 'row-reverse' : 'row',
+                flexDirection: m.role === 'user' ? (isRTL ? 'row' : 'row-reverse') : (isRTL ? 'row-reverse' : 'row'),
                 alignItems: 'flex-start'
               }}>
                 <div style={{ 
@@ -151,7 +173,9 @@ export default function AIChatbot() {
                 <div style={{ 
                   maxWidth: '80%',
                   padding: '0.875rem 1.125rem',
-                  borderRadius: m.role === 'user' ? '16px 4px 16px 16px' : '4px 16px 16px 16px',
+                  borderRadius: m.role === 'user' 
+                    ? (isRTL ? '16px 16px 16px 4px' : '16px 4px 16px 16px') 
+                    : (isRTL ? '16px 16px 4px 16px' : '4px 16px 16px 16px'),
                   backgroundColor: m.role === 'user' ? '#0f766e' : '#ffffff',
                   color: m.role === 'user' ? 'white' : '#1e293b',
                   fontSize: '0.9rem',
@@ -164,11 +188,11 @@ export default function AIChatbot() {
               </div>
             ))}
             {isLoading && (
-              <div style={{ display: 'flex', gap: '0.75rem' }}>
+              <div style={{ display: 'flex', gap: '0.75rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
                 <div style={{ width: '32px', height: '32px', borderRadius: '10px', backgroundColor: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #e2e8f0' }}>
                   <MessageSquare size={16} color="#0f766e" />
                 </div>
-                <div style={{ padding: '0.875rem', backgroundColor: '#ffffff', borderRadius: '4px 16px 16px 16px', border: '1px solid #e2e8f0' }}>
+                <div style={{ padding: '0.875rem', backgroundColor: '#ffffff', borderRadius: isRTL ? '16px 16px 4px 16px' : '4px 16px 16px 16px', border: '1px solid #e2e8f0' }}>
                   <RotateCw size={16} className="animate-spin" color="#64748b" />
                 </div>
               </div>
@@ -176,7 +200,7 @@ export default function AIChatbot() {
 
             {/* Suggestion Chips */}
             {!isLoading && messages.length < 3 && (
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem', justifyContent: isRTL ? 'flex-start' : 'flex-start' }}>
                 {suggestions.map((s, i) => (
                   <button
                     key={i}
@@ -203,13 +227,13 @@ export default function AIChatbot() {
 
           {/* Input Area */}
           <div style={{ padding: '1.25rem', backgroundColor: '#ffffff', borderTop: '1px solid #e2e8f0' }}>
-            <div style={{ position: 'relative', display: 'flex', gap: '0.5rem' }}>
+            <div style={{ position: 'relative', display: 'flex', gap: '0.5rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="Ask Aura anything..."
+                placeholder={t.aura.placeholder}
                 style={{
                   flex: 1,
                   padding: '0.75rem 1rem',
@@ -217,7 +241,8 @@ export default function AIChatbot() {
                   border: '1px solid #e2e8f0',
                   outline: 'none',
                   fontSize: '0.9rem',
-                  transition: 'border-color 0.2s'
+                  transition: 'border-color 0.2s',
+                  textAlign: isRTL ? 'right' : 'left'
                 }}
               />
               <button
@@ -234,14 +259,15 @@ export default function AIChatbot() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   cursor: isLoading ? 'default' : 'pointer',
-                  transition: 'all 0.2s'
+                  transition: 'all 0.2s',
+                  transform: isRTL ? 'scaleX(-1)' : 'none'
                 }}
               >
                 <Send size={18} />
               </button>
             </div>
             <p style={{ fontSize: '0.65rem', color: '#94a3b8', textAlign: 'center', marginTop: '0.75rem' }}>
-              Secure AI Assistance • Platform Version 1.2
+              {t.aura.footer}
             </p>
           </div>
         </div>

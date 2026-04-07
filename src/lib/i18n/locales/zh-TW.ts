@@ -28,6 +28,24 @@ export const zhTW: Dictionary = {
       ]
     }
   },
+  aura: {
+    welcome: "您好！我是 Aura，您的英國服務管家。今天有什麼我可以幫您的嗎？",
+    offline: "離線",
+    ready: "在線並隨時為您服務",
+    placeholder: "詢問 Aura 任何問題...",
+    error: "抱歉，我目前連線遇到一些問題。請稍後再試。",
+    footer: "安全 AI 助手 • 平台版本 1.2",
+    suggestions: {
+      refund: "如何退款？",
+      dispute: "維修有爭議？",
+      warranty: "保固條款",
+      booking: "關於預約",
+      refundQuery: "如何申請退款？退款流程是什麼？",
+      disputeQuery: "如果對維修品質或價格有爭議，該如何處理？",
+      warrantyQuery: "平台提供的服務有保固嗎？",
+      bookingQuery: "我該如何預約附近的技師？"
+    }
+  },
   footer: { tagline: "聯繫英國頂尖認證專業人士。", explore: "探索", legal: "法律", support: "技術支援", rights: "© 2024 UK Service Hub. 保留所有權利。", terms: "服務條款", privacy: "隱私政策", cookies: "Cookie 政策", help: "幫助中心", contact: "聯繫支援", aiDiagnosis: "AI 診斷", homeCleaning: "家庭清潔", plumbingServices: "水電服務", automotiveServices: "汽車維修", trustSignal: "Trustpilot 優異評價" },
   search: { 
     filters: "篩選條件", keyword: "關鍵字", location: "地點", category: "類別", minRating: "最低評分", verifiedOnly: "僅顯示已驗證", 

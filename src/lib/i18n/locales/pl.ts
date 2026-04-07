@@ -27,6 +27,24 @@ export const pl: Dictionary = {
       ]
     }
   },
+  aura: {
+    welcome: "Cześć! Jestem Aura, Twój konsjerż usług w Wielkiej Brytanii. W czym mogę Ci dzisiaj pomóc?",
+    offline: "Offline",
+    ready: "Online i gotowy do pomocy",
+    placeholder: "Zapytaj Aurę o cokolwiek...",
+    error: "Przepraszam, mam teraz problem z połączeniem. Spróbuj ponownie później.",
+    footer: "Bezpieczna pomoc AI • Wersja platformy 1.2",
+    suggestions: {
+      refund: "Jak uzyskać zwrot?",
+      dispute: "Spór o naprawę?",
+      warranty: "Warunki gwarancji",
+      booking: "O rezerwacji",
+      refundQuery: "Jak ubiegać się o zwrot pieniędzy? Jaki jest proces?",
+      disputeQuery: "Co mam zrobić, jeśli wystąpi spór dotyczący jakości lub ceny naprawy?",
+      warrantyQuery: "Czy usługi świadczone przez platformę mają gwarancję?",
+      bookingQuery: "Jak mogę zarezerwować technika w mojej okolicy?"
+    }
+  },
   footer: { tagline: "Połącz się z najlepszymi certyfikowanymi profesjonalistami w Wielkiej Brytanii.", explore: "Eksploruj", legal: "Prawo", support: "Wsparcie", rights: "© 2024 UK Service Hub. Wszelkie prawa zastrzeżone.", terms: "Warunki korzystania", privacy: "Polityka prywatności", cookies: "Polityka plików cookie", help: "Centrum pomocy", contact: "Kontakt ze wsparciem", aiDiagnosis: "Diagnostyka AI", homeCleaning: "Sprzątanie domu", plumbingServices: "Usługi hydrauliczne", automotiveServices: "Usługi motoryzacyjne", trustSignal: "Ocena doskonała na Trustpilot" },
   search: { 
     filters: "Filtry", keyword: "Słowo kluczowe", location: "Lokalizacja", category: "Kategoria", minRating: "Min. ocena", verifiedOnly: "Tylko zweryfikowani", 

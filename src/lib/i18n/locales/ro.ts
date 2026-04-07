@@ -27,6 +27,24 @@ export const ro: Dictionary = {
       ]
     }
   },
+  aura: {
+    welcome: "Bună! Sunt Aura, concierge-ul tău pentru servicii în Marea Britanie. Cu ce te pot ajuta astăzi?",
+    offline: "Offline",
+    ready: "Online și gata să te ajute",
+    placeholder: "Întreabă Aura orice...",
+    error: "Îmi pare rău, am probleme de conexiune acum. Vă rugăm să încercați din nou mai târziu.",
+    footer: "Asistență AI Securizată • Versiunea Platformei 1.2",
+    suggestions: {
+      refund: "Cum se face rambursarea?",
+      dispute: "Litigiu reparație?",
+      warranty: "Termeni garanție",
+      booking: "Despre rezervare",
+      refundQuery: "Cum pot solicita o rambursare? Care este procesul?",
+      disputeQuery: "Ce ar trebui să fac dacă există o dispută privind calitatea sau prețul reparației?",
+      warrantyQuery: "Serviciile oferite de platformă au garanție?",
+      bookingQuery: "Cum pot rezerva un tehnician lângă mine?"
+    }
+  },
   footer: { tagline: "Conectează-te cu cei mai buni profesioniști certificați din Marea Britanie.", explore: "Explorează", legal: "Legal", support: "Suport", rights: "© 2024 UK Service Hub. All rights reserved.", terms: "Termeni de serviciu", privacy: "Politica de confidențialitate", cookies: "Politica de cookie-uri", help: "Centru de ajutor", contact: "Contactează suportul", aiDiagnosis: "Diagnostic AI", homeCleaning: "Curățenie acasă", plumbingServices: "Servicii instalații", automotiveServices: "Servicii auto", trustSignal: "Excelent pe Trustpilot" },
   search: { 
     filters: "Filtre", keyword: "Cuvânt cheie", location: "Locație", category: "Categorie", minRating: "Rating minim", verifiedOnly: "Doar verificați", 

@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {
-    const { messages, city, category } = await req.json();
+    const { messages, city, category, locale = 'en' } = await req.json();
     
     // 1. Gather Context (Fail-safe modularized fetching)
     const [timelineContext, merchantContext] = await Promise.all([
@@ -22,7 +22,7 @@ export async function POST(req: Request) {
     `;
 
     // 2. Assemble System Prompt from Modular Persona
-    const systemPrompt = buildConciergeSystemPrompt(dynamicContext);
+    const systemPrompt = buildConciergeSystemPrompt(dynamicContext, locale);
 
     // 3. Generate content via Unified AI Provider
     const content = await generateAIContent({

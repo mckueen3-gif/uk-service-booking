@@ -27,6 +27,24 @@ export const ko: Dictionary = {
       ]
     }
   },
+  aura: {
+    welcome: "안녕하세요! 저는 Aura입니다. 영국 서비스 컨시어지입니다. 무엇을 도와드릴까요?",
+    offline: "오프라인",
+    ready: "온라인 및 지원 가능",
+    placeholder: "Aura에게 무엇이든 물어보세요...",
+    error: "죄송합니다. 현재 연결에 문제가 생겼습니다. 나중에 다시 시도해 주세요.",
+    footer: "안전한 AI 지원 • 플랫폼 버전 1.2",
+    suggestions: {
+      refund: "환불 방법은?",
+      dispute: "수리 분쟁?",
+      warranty: "보증 조건",
+      booking: "예약 관련",
+      refundQuery: "환불을 어떻게 신청하나요? 절차가 어떻게 되나요?",
+      disputeQuery: "수리 품질이나 가격에 분쟁이 생기면 어떻게 해야 하나요?",
+      warrantyQuery: "플랫폼에서 제공하는 서비스에 보증이 있나요?",
+      bookingQuery: "주변 기술자를 어떻게 예약하나요?"
+    }
+  },
   footer: { tagline: "영국 최고의 인증된 전문가와 연결하세요.", explore: "탐색", legal: "법적 정보", support: "지원", rights: "© 2024 UK Service Hub. All rights reserved.", terms: "이용 약관", privacy: "개인정보 처리방침", cookies: "쿠키 정책", help: "도움말 센터", contact: "고객 지원", aiDiagnosis: "AI 진단", homeCleaning: "홈 클리닝", plumbingServices: "배관 서비스", automotiveServices: "자동차 수리", trustSignal: "Trustpilot에서 우수 등급" },
   search: { 
     filters: "필터", keyword: "키워드", location: "위치", category: "카테고리", minRating: "최소 평점", verifiedOnly: "인증됨만", 
