@@ -97,17 +97,17 @@ export default function MerchantDashboard() {
 
   if (loading) {
     return (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '80vh', backgroundColor: '#050505' }}>
-        <div className="animate-spin" style={{ width: '40px', height: '40px', border: '4px solid rgba(212, 175, 55, 0.1)', borderTopColor: '#d4af37', borderRadius: '50%' }} />
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '80vh', backgroundColor: 'var(--bg-primary)' }}>
+        <div className="animate-spin" style={{ width: '40px', height: '40px', border: '4px solid var(--accent-soft)', borderTopColor: 'var(--accent-color)', borderRadius: '50%' }} />
       </div>
     );
   }
 
   return (
-    <div style={{ padding: '2rem 1.5rem', maxWidth: '1200px', backgroundColor: '#050505', minHeight: '100vh', color: '#fff' }}>
+    <div style={{ padding: '2rem 1.5rem', maxWidth: '1200px', backgroundColor: 'var(--bg-primary)', minHeight: '100vh', color: 'var(--text-primary)' }}>
       <header style={{ marginBottom: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
         <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-          <div style={{ position: 'relative', width: '80px', height: '80px', borderRadius: '50%', border: '4px solid #111', boxShadow: '0 0 20px rgba(212, 175, 55, 0.2)', overflow: 'hidden' }} className="hover-scale">
+          <div style={{ position: 'relative', width: '80px', height: '80px', borderRadius: '50%', border: '4px solid var(--surface-1)', boxShadow: 'var(--shadow-md)', overflow: 'hidden' }} className="hover-scale">
              <img src={stats?.avatarUrl || "https://ui-avatars.com/api/?name=Merchant"} style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
              <input title={t.merchant.dashboard.avatar.hint} type="file" accept="image/*" onChange={(e) => {
                 const file = e.target.files?.[0];
@@ -123,22 +123,22 @@ export default function MerchantDashboard() {
                   reader.readAsDataURL(file);
                 }
              }} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer' }} />
-             <div style={{ position: 'absolute', bottom: 0, width: '100%', background: 'rgba(212, 175, 55, 0.8)', color: '#000', fontSize: '0.65rem', fontWeight: 800, textAlign: 'center', padding: '2px 0', pointerEvents: 'none' }}>
+             <div style={{ position: 'absolute', bottom: 0, width: '100%', background: 'var(--accent-color)', color: 'var(--text-contrast)', fontSize: '0.65rem', fontWeight: 800, textAlign: 'center', padding: '2px 0', pointerEvents: 'none' }}>
                {t.merchant.dashboard.avatar.upload}
              </div>
           </div>
           <div>
-            <h1 style={{ fontSize: '2.2rem', fontWeight: 900, marginBottom: '0.25rem', color: '#fff' }}>
-              ConciergeAI <span style={{ color: '#d4af37' }}>Expert Dashboard</span>
+            <h1 style={{ fontSize: '2.2rem', fontWeight: 900, marginBottom: '0.25rem', color: 'var(--text-primary)' }}>
+              ConciergeAI <span style={{ color: 'var(--accent-color)' }}>Expert Dashboard</span>
             </h1>
-            <p style={{ color: '#999' }}>
+            <p style={{ color: 'var(--text-secondary)' }}>
               {t.merchant.dashboard.welcome.replace('{name}', stats?.companyName || 'Partner')}
             </p>
           </div>
         </div>
         <div style={{ display: 'flex', gap: '0.75rem' }}>
-           <Link href="/services/results" className="btn" style={{ padding: '0.6rem 1rem', fontSize: '0.9rem', backgroundColor: '#1a1a1a', border: '1px solid #333', color: '#d4af37', borderRadius: '12px', textDecoration: 'none' }}>{t.merchant.dashboard.previewProfile}</Link>
-           <Link href="/dashboard/merchant/services" className="btn" style={{ padding: '0.6rem 1.2rem', fontSize: '0.9rem', textDecoration: 'none', backgroundColor: '#d4af37', color: '#000', borderRadius: '12px', fontWeight: 700 }}>{t.merchant.dashboard.manageServices}</Link>
+           <Link href="/services/results" className="btn" style={{ padding: '0.6rem 1rem', fontSize: '0.9rem', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)', color: 'var(--accent-color)', borderRadius: '12px', textDecoration: 'none' }}>{t.merchant.dashboard.previewProfile}</Link>
+           <Link href="/dashboard/merchant/services" className="btn" style={{ padding: '0.6rem 1.2rem', fontSize: '0.9rem', textDecoration: 'none', backgroundColor: 'var(--accent-color)', color: 'var(--text-contrast)', borderRadius: '12px', fontWeight: 700 }}>{t.merchant.dashboard.manageServices}</Link>
         </div>
       </header>
 
@@ -152,10 +152,10 @@ export default function MerchantDashboard() {
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '2rem' }}>
         {/* Main Bookings List - Dark Mode Glass */}
-        <section style={{ padding: '1.5rem', borderRadius: '24px', backgroundColor: '#0c0c0c', border: '1px solid #222' }}>
+        <section style={{ padding: '1.5rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#fff' }}>{t.merchant.dashboard.bookings.title}</h2>
-            <Link href="#" style={{ fontSize: '0.85rem', color: '#d4af37', fontWeight: 600 }}>{t.merchant.dashboard.bookings.viewAll}</Link>
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)' }}>{t.merchant.dashboard.bookings.title}</h2>
+            <Link href="#" style={{ fontSize: '0.85rem', color: 'var(--accent-color)', fontWeight: 600 }}>{t.merchant.dashboard.bookings.viewAll}</Link>
           </div>
 
           {bookings.length === 0 ? (
@@ -166,14 +166,14 @@ export default function MerchantDashboard() {
           ) : (
             <div style={{ display: 'grid', gap: '1rem' }}>
               {bookings.map((booking) => (
-                <div key={booking.id} style={{ display: 'grid', gridTemplateColumns: '1fr 120px 140px', gap: '1.5rem', padding: '1.25rem', backgroundColor: '#111', border: '1px solid #222', borderRadius: '16px', alignItems: 'center' }}>
+                <div key={booking.id} style={{ display: 'grid', gridTemplateColumns: '1fr 120px 140px', gap: '1.5rem', padding: '1.25rem', backgroundColor: 'var(--glass-bg)', border: '1px solid var(--border-color)', borderRadius: '16px', alignItems: 'center' }}>
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                    <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#1a1a1a', border: '1px solid #d4af37', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, color: '#d4af37' }}>
+                    <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: 'var(--accent-soft)', border: '1px solid var(--accent-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, color: 'var(--accent-color)' }}>
                       {booking.customer?.name?.[0] || 'U'}
                     </div>
                     <div>
-                      <div style={{ fontWeight: 800, color: '#fff' }}>{booking.service?.name}</div>
-                      <div style={{ fontSize: '0.85rem', color: '#666' }}>
+                      <div style={{ fontWeight: 800, color: 'var(--text-primary)' }}>{booking.service?.name}</div>
+                      <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
                         {t.booking.labels.merchant}: {booking.customer?.name} · {new Date(booking.scheduledDate).toLocaleDateString()}
                       </div>
                     </div>
@@ -346,8 +346,8 @@ function QuickLink({ label }: { label: string }) {
 function VariationModal({ isOpen, onClose, onSubmit, booking, amount, setAmount, desc, setDesc, photo, setPhoto, loading, t }: any) {
   if (!isOpen) return null;
   return (
-    <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(5, 5, 5, 0.95)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, backdropFilter: 'blur(12px)', animation: 'fadeIn 0.3s ease-out' }}>
-       <div style={{ width: '100%', maxWidth: '480px', padding: '2.5rem', borderRadius: '32px', backgroundColor: '#0c0c0c', border: '1px solid rgba(212, 175, 55, 0.3)', color: '#fff', boxShadow: '0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(212, 175, 55, 0.05)' }}>
+    <div style={{ position: 'fixed', inset: 0, backgroundColor: 'var(--glass-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, backdropFilter: 'blur(12px)', animation: 'fadeIn 0.3s ease-out' }}>
+       <div style={{ width: '100%', maxWidth: '480px', padding: '2.5rem', borderRadius: '32px', backgroundColor: 'var(--surface-1)', border: '1px solid var(--glass-border)', color: 'var(--text-primary)', boxShadow: 'var(--shadow-xl)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
               <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)', padding: '0.5rem', borderRadius: '10px' }}>

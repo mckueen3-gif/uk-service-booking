@@ -30,14 +30,14 @@
   --accent-hover: #926207;
   --accent-soft: rgba(184, 134, 11, 0.08);
   
-  --text-primary: #0f172a;   /* Deep Onyx for headers */
+  --text-primary: #000000;   /* Pure Onyx for absolute legibility */
   --text-secondary: #334155; /* Refined Slate for body */
   --text-muted: #64748b;     /* Muted Slate */
   --text-contrast: #ffffff;
   
-  --border-color: rgba(184, 134, 11, 0.12);
-  --glass-bg: rgba(255, 255, 255, 0.85);
-  --glass-border: rgba(255, 255, 255, 0.4);
+  --border-color: rgba(184, 134, 11, 0.2); /* Enhanced visibility */
+  --glass-bg: rgba(255, 255, 255, 0.95); /* Opaque White Glass for Pearl UI */
+  --glass-border: rgba(212, 175, 55, 0.3);
   
   /* Luxury Shadows */
   --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.02);
@@ -65,18 +65,18 @@
   --surface-2: #171717;
   --surface-3: #262626;
   
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-muted: #71717a;
+  --text-primary: #ffffff;
+  --text-secondary: #e2e8f0;
+  --text-muted: #94a3b8;
   --text-contrast: #050505;
   
   --accent-color: #d4af37; /* Vibrant Gold for Dark Mode */
   --accent-hover: #f1c40f;
   --accent-soft: rgba(212, 175, 55, 0.12);
   
-  --border-color: rgba(212, 175, 55, 0.2);
-  --glass-bg: rgba(5, 5, 5, 0.85);
-  --glass-border: rgba(212, 175, 55, 0.25);
+  --border-color: rgba(212, 175, 55, 0.3);
+  --glass-bg: rgba(10, 10, 10, 0.92); /* Opaque Obsidian Glass */
+  --glass-border: rgba(212, 175, 55, 0.3);
 
   --gold-50: #110e03;
   --soft-gradient: linear-gradient(135deg, #050505 0%, #1a1505 100%);

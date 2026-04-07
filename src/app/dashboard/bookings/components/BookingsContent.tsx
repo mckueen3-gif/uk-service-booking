@@ -96,14 +96,14 @@ export default function BookingsContent() {
               padding: '0.75rem 1rem 0.75rem 2.75rem',
               borderRadius: '12px',
               border: '1px solid var(--border-color)',
-              background: 'rgba(5, 5, 5, 0.5)',
-              color: '#fff',
+              background: 'var(--surface-1)',
+              color: 'var(--text-primary)',
               fontSize: '0.95rem',
               fontWeight: 600,
               outline: 'none',
               transition: 'border-color 0.2s'
             }}
-            onFocus={e => e.currentTarget.style.borderColor = '#d4af37'}
+            onFocus={e => e.currentTarget.style.borderColor = 'var(--accent-color)'}
             onBlur={e => e.currentTarget.style.borderColor = 'var(--border-color)'}
           />
         </div>
@@ -183,15 +183,16 @@ export default function BookingsContent() {
                 style={{
                   padding: '1.75rem',
                   borderRadius: '32px',
-                  background: 'rgba(5, 5, 5, 0.5)',
-                  border: '1px solid rgba(255, 255, 255, 0.05)',
+                  backgroundColor: 'var(--glass-bg)',
+                  border: '1px solid var(--border-color)',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '1.25rem',
-                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  boxShadow: 'var(--shadow-md)'
                 }}
-                onMouseOver={e => e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.3)'}
-                onMouseOut={e => e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)'}
+                onMouseOver={e => e.currentTarget.style.borderColor = 'var(--accent-color)'}
+                onMouseOut={e => e.currentTarget.style.borderColor = 'var(--border-color)'}
               >
                 {/* Header row */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -253,8 +254,8 @@ export default function BookingsContent() {
                   marginTop: '0.25rem', 
                   padding: '1rem', 
                   borderRadius: '16px', 
-                  backgroundColor: 'rgba(5, 5, 5, 0.8)', 
-                  border: '1px solid rgba(212, 175, 55, 0.1)',
+                  backgroundColor: 'var(--bg-secondary)', 
+                  border: '1px solid var(--border-color)',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '0.75rem'
