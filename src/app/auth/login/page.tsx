@@ -1,4 +1,5 @@
 'use client';
+export const dynamic = 'force-dynamic';
 
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
@@ -39,7 +40,8 @@ function LoginForm() {
     });
 
     if (result?.error) {
-      setError(t.auth.login.error);
+      // result.error for credentials is usually 'CredentialsSignin'
+      setError(t.auth.errors.invalidCredentials);
       setLoading(false);
     } else {
       router.push(callbackUrl);
@@ -129,8 +131,9 @@ function LoginForm() {
 }
 
 export default function LoginPage() {
+  const { t } = useTranslation();
   return (
-    <Suspense fallback={<div className="auth-page-wrapper"><div className="auth-card" style={{ textAlign: 'center' }}>正在載入安全中心...</div></div>}>
+    <Suspense fallback={<div className="auth-page-wrapper"><div className="auth-card" style={{ textAlign: 'center' }}>{t.auth.loading.preparing}</div></div>}>
       <LoginForm />
     </Suspense>
   );

@@ -1,16 +1,19 @@
-let _stripe: any = null;
+import type Stripe from "stripe";
 
-export async function getStripeClient() {
+let _stripe: Stripe | null = null;
+
+export async function getStripeClient(): Promise<Stripe> {
   if (!process.env.STRIPE_SECRET_KEY) {
     console.warn("⚠️ STRIPE_SECRET_KEY is missing in your environment!");
   }
   
   if (!_stripe) {
-    const { default: Stripe } = await import("stripe");
-    _stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_mock", {
-      apiVersion: "2026-02-25.clover" as any,
+    const { default: StripeClient } = await import("stripe");
+    _stripe = new StripeClient(process.env.STRIPE_SECRET_KEY || "sk_test_mock", {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      apiVersion: "2024-12-18.preview" as any,
       typescript: true,
     });
   }
-  return _stripe;
+  return _stripe!;
 }

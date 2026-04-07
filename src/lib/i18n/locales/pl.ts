@@ -227,16 +227,27 @@ export const pl: Dictionary = {
     buttons: { start: "Zacznij teraz", next: "Następny krok", back: "Poprzedni krok", submit: "Zakończ rejestrację" }
   },
   admin: {
-    sidebar: { overview: "Przegląd", analytics: "Analityka", bookings: "Rezerwacje", verifications: "Weryfikacje", disputes: "Spory", merchants: "Eksperci", payouts: "Wypłaty", users: "Użytkownicy", settings: "Ustawienia", terminal: "Dostęp do terminala" },
-    header: { internal: "Zarządzanie wewnętrzne", operations: "Centralny hub operacyjny", node: "Węzeł regionalny" },
-    stats: { gmv: "Całkowity GMV (30 dni)", netRevenue: "Przychód netto", bookings: "Zakończone rezerwacje", dailyAvg: "Średnia dzienna", processed: "Pomyślnie przetworzono", volume24h: "Wolumen przetwarzania na 24h" },
+    sidebar: { 
+      overview: "Centrum Operacyjne (Operations)", 
+      analytics: "Globalna Analityka Danych (Analytics)", 
+      bookings: "Centralny Rejestr Rezerwacji (Registry)", 
+      verifications: "Audyt Integralności Tożsamości (Audit)", 
+      disputes: "Trybunał Arbitrażowy (Tribunal)", 
+      merchants: "Certyfikowani Specjaliści (Specialists)", 
+      payouts: "Centrum Rozliczeń i Płatności (Settlement)", 
+      users: "Katalog Klientów Systemowych (Directory)", 
+      settings: "Konfiguracja Rdzenia Systemu (Config)", 
+      terminal: "Terminal Root Zarządzania" 
+    },
+    header: { internal: "Zabezpieczone Zarządzanie Wewnętrzne", operations: "Centralne Dowództwo Operacyjne", node: "Aktywny Węzeł Wdrożeniowy" },
+    stats: { gmv: "Całkowity GMV (30 dni)", netRevenue: "Przychód netto", bookings: "Zakończone rezerwacje", dailyAvg: "Średnia dzienna", processed: "Pomyślnie przetworzono", volume24h: "Wolumen przetwarzania na 24h", syncing: "Synchronizowanie danych..." },
     analytics: { gmvTitle: "Wartość towarów brutto (GMV)", gmvSub: "Trendy całkowitej wartości rezerwacji z ostatnich 30 dni.", sectorDist: "Dystrybucja sektorowa", volTitle: "Wolumen rezerwacji", live: "Strumień na żywo aktywny" },
     bookings: { title: "Centrum dowodzenia rezerwacjami", sub: "Neuralny rejestr rezerwacji", search: "Szukaj rezerwacji...", id: "ID rezerwacji", customer: "Klient", amount: "Kwota", status: "Status", service: "Usługa" },
-    verifications: { title: "Orzekanie weryfikacji", sub: "Przegląd integralności dokumentów tożsamości", evidence: "Dowód tożsamości", extraction: "Wynik ekstrakcji AI", passport: "Paszport", faceMatch: "Dopasowanie twarzy", confidence: "Pewność" },
+    verifications: { title: "Orzekanie weryfikacji", sub: "Przegląd integralności dokumentów tożsamości", evidence: "Dowód tożsamości", extraction: "Wynik ekstrakcji AI", passport: "Paszport", faceMatch: "Dopasowanie twarzy", confidence: "Pewność", fullName: "Imię i nazwisko (AI)", idNumber: "Numer dokumentu (AI)", expiryDate: "Data ważności", dob: "Data urodzenia" },
     disputes: { title: "Trybunał Arbitrażowy", sub: "Rozstrzyganie sporów i audyt dowodów", reasoning: "Argumentacja arbitra AI", gallery: "Galeria dowodów", verdict: "Ostateczny werdykt", confidence: "Pewność AI" },
     payouts: { title: "Finansowe Centrum Rozliczeniowe", snapshot: "Migawka danych finansowych", pending: "Oczekujące wypłaty", volume: "Wolumen skumulowany", security: "Status audytu bezpieczeństwa", adjudication: "Przegląd wypłat", method: "Metoda płatności" },
     users: { title: "Katalog klientów", sub: "Baza danych użytkowników i statystyki poleceń", stats: "Kluczowe wskaźniki", registeredAt: "Czas rejestracji", referrals: "Skuteczne polecenia" },
-    commissions: { title: "Globalna kontrola prowizji", sub: "Przychody platformy i konfiguracja stawki bazowej", plateformFee: "Prowizja nadpisana przez admina", marketplaceFee: "Bazowa prowizja marketplace", adminControl: "Ręczne nadpisanie przez admina" },
+    commissions: { title: "Globalna kontrola prowizji", sub: "Przychody platformy i konfiguracja stawki bazowej", plateformFee: "Prowizja nadpisana przez admina", marketplaceFee: "Bazowa prowizja marketplace", adminControl: "Ręczne nadpisanie przez admina", weightedAvg: "Średnia ważona rentowność", totalJobs: "Suma wykonanych zadań", deliveryVolume: "Przepustowość marketplace", merchantDetails: "Szczegóły stawek eksperta" },
     disputes_mgr: { empty: "Brak oczekujących sporów w tej chwili.", viewDetails: "Przeglądaj szczegóły i orzekaj", status: { open: "Otwarte", processing: "W trakcie przeglądu", settled: "Rozwiązane" } },
     merchants_mgr: { empty: "Nie znaleziono wykonawców spełniających kryteria.", status: { active: "Aktywny", suspended: "Zawieszony", pending: "Oczekuje na zatwierdzenie" } },
   },
@@ -259,10 +270,48 @@ export const pl: Dictionary = {
       success: "Konto utworzone! Zaloguj się."
     },
     register: {
-      title: "Utwórz konto", subtitle: "Rozpocznij swoją profesjonalną podróż.", firstNameLabel: "Imię", lastNameLabel: "Nazwisko", emailLabel: "Adres e-mail", accountTypeLabel: "Typ konta", passwordLabel: "Bezpieczne hasło", passwordHint: "Min. 6 znaków", referralLabel: "Kod polecający (opcjonalnie)", submit: "Dołącz do ConciergeAI", loading: "Tworzenie konta...", or: "lub", google: "Zarejestruj się przez Google", navToLogin: "Jesteś już członkiem?", signIn: "Zaloguj się tutaj", roles: { customer: "Klient (szuka usług)", merchant: "Ekspert (świadczy usługi)" }
+      title: "Utwórz konto", subtitle: "Rozpocznij swoją profesjonalną podróż.", firstNameLabel: "Imię", lastNameLabel: "Nazwisko", emailLabel: "Adres e-mail", emailPlaceholder: "identity@concierge.ai", accountTypeLabel: "Typ konta", passwordLabel: "Bezpieczne hasło", passwordHint: "Min. 6 znaków", referralLabel: "Kod polecający (opcjonalnie)", referralPlaceholder: "np. ALPHA-99", submit: "Dołącz do ConciergeAI", loading: "Tworzenie konta...", or: "lub", google: "Zarejestruj się przez Google", navToLogin: "Jesteś już członkiem?", signIn: "Zaloguj się tutaj", roles: { customer: "Klient (szuka usług)", merchant: "Ekspert (świadczy usługi)" }
     },
     forgotPassword: {
-      title: "Zapomniałem hasła", subtitle: "Wpisz swój e-mail, aby zresetować hasło.", emailLabel: "Adres e-mail", submit: "Wyślij link do resetowania", loading: "Wysyłanie...", back: "Powrót do logowania", success: "Link do resetowania został wysłany na Twój e-mail."
+      title: "Odzyskiwanie tożsamości",
+      subtitle: "Wpisz zarejestrowany e-mail w celu weryfikacji.",
+      emailLabel: "E-mail odzyskiwania",
+      emailPlaceholder: "identity@concierge.ai",
+      submit: "Poproś o token odzyskiwania",
+      loading: "Generowanie tokena...",
+      back: "Powrót do logowania",
+      success: "Token odzyskiwania został wysłany.",
+      error: "Nie udało się wysłać e-maila. Sprawdź adres.",
+      successDetail: "Bezpieczny link resetujący został wysłany na {email}. Sprawdź skrzynkę, aby kontynuować."
+    },
+    resetPassword: {
+      title: "Rekonfiguracja dostępu",
+      subtitle: "Ustaw nowe poświadczenia bezpieczeństwa poniżej.",
+      passwordLabel: "Nowy klucz główny",
+      confirmPasswordLabel: "Potwierdź klucz główny",
+      submit: "Zakończ konfigurację",
+      loading: "Synchronizacja poświadczeń...",
+      back: "Wróć do Hubu",
+      success: "Poświadczenia zaktualizowane pomyślnie.",
+      invalidToken: "Token wygasł lub naruszono jego integralność.",
+      notMatch: "Poświadczenia nie są zgodne. Sprawdź i spróbuj ponownie.",
+      error: "Wystąpił błąd konfiguracji systemu. Skontaktuj się ze wsparciem.",
+      successDetail: "Dostęp został pomyślnie zaktualizowany. Przekierowanie do centrum zarządzania...",
+      invalidTokenDetail: "Dostarczony token odzyskiwania jest nieprawidłowy lub wygasł.",
+      requestNewLink: "Poproś o nowy link"
+    },
+    errors: {
+      missingFields: "Brak wymaganych pól weryfikacji tożsamości.",
+      passwordTooShort: "Klucz bezpieczeństwa musi mieć min. 6 znaków.",
+      emailExists: "Ta tożsamość jest już zarejestrowana w węźle centralnym.",
+      invalidCredentials: "Uwierzytelnienie nieudane. Sprawdź informacje.",
+      serverError: "Wystąpił błąd wewnętrzny podczas wdrażania systemu.",
+      resetFailed: "Nie udało się przetworzyć żądania odzyskiwania.",
+      invalidReset: "Nieprawidłowy lub wygasły link odzyskiwania."
+    },
+    loading: {
+      preparing: "Zabezpieczanie dostępu do węzła...",
+      initializing: "Inicjowanie wdrażania sieci..."
     }
   }
 };

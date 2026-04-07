@@ -7,7 +7,7 @@ import { recordInitialBookingPayment, completeBookingFunds } from "@/lib/finance
 
 async function ensureAdmin() {
   const session = await getServerSession();
-  if (!session || (session.user as any).role !== "ADMIN") {
+  if (!session || session.user.role !== "ADMIN") {
     throw new Error("Unauthorized");
   }
 }
@@ -49,7 +49,7 @@ export async function adminForceComplete(bookingId: string) {
     }
 
     // Use our central finance library to release funds
-    await completeBookingFunds(bookingId);
+    await completeBookingFunds(booking as any); // Cast slightly to match the extended Booking type if needed
 
     revalidatePath("/admin/bookings");
     revalidatePath("/admin");

@@ -22,12 +22,13 @@ if (globalForPrisma.prisma) {
     idleTimeoutMillis: 10000,
   });
   
-  const adapter = new PrismaPg(pool as any);
+  // @ts-expect-error - PrismaPg expects a compatible Pool version, but types may mismatch due to nested dependencies
+  const adapter = new PrismaPg(pool);
   
   prismaClient = new PrismaClient({ 
     adapter,
     log: process.env.NODE_ENV === "development" ? ["error", "warn"] : ["error"],
-  } as any);
+  });
   
   // Cache globally in ALL environments to prevent leaks on warm invocations
   globalForPrisma.prisma = prismaClient;
@@ -41,13 +42,13 @@ export const prisma = prismaClient;
  * We retry up to 2 times with a short delay before giving up.
  */
 export async function safeDbQuery<T>(queryFn: () => Promise<T>, retries = 2, delay = 300): Promise<T> {
-  let lastError;
+  let lastError: Error | unknown;
   for (let i = 0; i <= retries; i++) {
     try {
       return await queryFn();
-    } catch (error: any) {
+    } catch (error: unknown) {
       lastError = error;
-      const errorStr = String(error);
+      const errorStr = error instanceof Error ? error.message : String(error);
       const isPoolIssue = errorStr.includes("pool") || errorStr.includes("client") || errorStr.includes("timeout") || errorStr.includes("6543") || errorStr.includes("MaxClients");
       
       if (isPoolIssue && i < retries) {

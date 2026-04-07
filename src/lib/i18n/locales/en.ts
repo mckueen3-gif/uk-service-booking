@@ -374,7 +374,9 @@ export const en: Dictionary = {
       submit: "Request Recovery Token", 
       loading: "Issuing Token...", 
       back: "Return to Terminal", 
-      success: "Recovery token dispatched to your designated inbox."
+      success: "Recovery token dispatched to your designated inbox.",
+      error: "Could not send recovery email. Verify address.",
+      successDetail: "A secure reset link has been dispatched to {email}. Verify your inbox to proceed."
     },
     resetPassword: {
       title: "Reconfigure Access",
@@ -387,7 +389,23 @@ export const en: Dictionary = {
       success: "Credentials updated successfully.",
       invalidToken: "Token expired or integrity breached.",
       notMatch: "Credential mismatch. Verify and retry.",
-      error: "Strategic configuration error. Contact support."
+      error: "Strategic configuration error. Contact support.",
+      successDetail: "Access credentials have been successfully updated. Redirecting to access hub...",
+      invalidTokenDetail: "The provided recovery token is either expired or lacks integrity.",
+      requestNewLink: "Request New Token"
+    },
+    errors: {
+      missingFields: "Missing required identity fields.",
+      passwordTooShort: "Security key must be at least 6 characters.",
+      emailExists: "Identity already registered in the central node.",
+      invalidCredentials: "Authentication failed. Verify credentials.",
+      serverError: "Internal system error during deployment.",
+      resetFailed: "Failed to process recovery request.",
+      invalidReset: "Invalid or expired recovery link."
+    },
+    loading: {
+      preparing: "Securing Node Access...",
+      initializing: "Initializing Network Deployment..."
     }
   }
 };

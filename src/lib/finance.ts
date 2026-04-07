@@ -1,6 +1,7 @@
 import { prisma } from './prisma';
 import { getCommissionRate } from './commission';
 import { getStripeClient } from './stripe';
+import { Booking } from '@prisma/client';
 
 /**
  * Calculates the platform commission based on the merchant's settings.
@@ -34,7 +35,7 @@ export async function calculateCommission(merchantId: string, amount: number) {
 export async function updateMerchantWallet(merchantId: string, amount: number, isPending: boolean = false) {
   const { merchantPayout } = await calculateCommission(merchantId, amount);
 
-  return await (prisma as any).merchantWallet.upsert({
+  return await prisma.merchantWallet.upsert({
     where: { merchantId },
     update: {
       totalEarned: isPending ? undefined : { increment: merchantPayout },
@@ -55,7 +56,7 @@ export async function updateMerchantWallet(merchantId: string, amount: number, i
  * This is used for simple/full payments (like Education after 14 days).
  */
 export async function movePendingToAvailable(merchantId: string, netAmount: number) {
-  return await (prisma as any).merchantWallet.update({
+  return await prisma.merchantWallet.update({
     where: { merchantId },
     data: {
       pendingBalance: { decrement: netAmount },
@@ -69,7 +70,7 @@ export async function movePendingToAvailable(merchantId: string, netAmount: numb
  * For Repairs: Captures the 80% hold and releases both deposit + balance.
  * For Education: Does nothing (funds stay pending until 14-day cooling-off expires).
  */
-export async function completeBookingFunds(booking: any) {
+export async function completeBookingFunds(booking: Booking & { isEducation?: boolean; stripeBalanceIntentId?: string | null; depositPaid: number; balanceAmount?: number | null }) {
   // If Education, funds stay pending for the 14-day legal cooling-off period.
   if (booking.isEducation) {
     return { success: true, message: "Education funds stay pending for 14-day cooling-off." };
@@ -80,9 +81,10 @@ export async function completeBookingFunds(booking: any) {
     try {
       const stripe = await getStripeClient();
       await stripe.paymentIntents.capture(booking.stripeBalanceIntentId);
-    } catch (err: any) {
-      console.error(`[Finance] Stripe Capture Failed for Booking ${booking.id}:`, err.message);
-      throw new Error(`Failed to capture balance: ${err.message}`);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error(`[Finance] Stripe Capture Failed for Booking ${booking.id}:`, message);
+      throw new Error(`Failed to capture balance: ${message}`);
     }
   }
 

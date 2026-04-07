@@ -1,12 +1,13 @@
-// Lazy instance holder
-let _grok: any = null;
+import OpenAI from "openai";
 
-async function getGrokClient() {
+// Lazy instance holder
+let _grok: OpenAI | null = null;
+
+async function getGrokClient(): Promise<OpenAI> {
   const apiKey = process.env.XAI_API_KEY;
   if (!apiKey) throw new Error("XAI_API_KEY is missing");
   
   if (!_grok) {
-    const { default: OpenAI } = await import("openai");
     _grok = new OpenAI({
       apiKey: apiKey,
       baseURL: "https://api.x.ai/v1",
@@ -80,7 +81,7 @@ export async function getGrokDiagnosis(
     const content = response.choices[0].message.content;
     if (!content) return null;
 
-    return JSON.parse(content) as GrokDiagnosisOutput;
+    return JSON.parse(content) as unknown as GrokDiagnosisOutput;
   } catch (error) {
     console.error("[Grok Vision Error]:", error);
     return null;

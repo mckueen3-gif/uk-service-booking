@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma';
-import { getDistance } from '@/lib/geo';
 import { getMaintenanceTimeline } from '@/app/actions/maintenance';
+import { Prisma } from '@prisma/client';
 
 export interface MerchantContextOptions {
   city?: string;
@@ -16,7 +16,7 @@ export async function getEliteMerchantContext(options: MerchantContextOptions = 
   try {
     const { city, category, limit = 3 } = options;
     
-    const where: any = {
+    const where: Prisma.MerchantWhereInput = {
       isVerified: true,
       averageRating: { gte: 4.5 }
     };

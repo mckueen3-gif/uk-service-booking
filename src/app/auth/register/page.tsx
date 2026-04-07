@@ -1,4 +1,5 @@
 'use client';
+export const dynamic = 'force-dynamic';
 
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
@@ -30,9 +31,11 @@ function RegisterForm() {
     const res = await registerUser(formData);
     
     if ('error' in res && res.error) {
-       setError(res.error as string);
-       setLoading(false);
-    } else {
+        // Map server error key to dictionary string
+        const errorKey = res.error as keyof typeof t.auth.errors;
+        setError(t.auth.errors[errorKey] || t.auth.errors.serverError);
+        setLoading(false);
+     } else {
        const loginUrl = `/auth/login?registered=true${callbackUrl !== '/' ? `&callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`;
        router.push(loginUrl);
     }
@@ -154,8 +157,9 @@ function RegisterForm() {
 }
 
 export default function RegisterPage() {
+  const { t } = useTranslation();
   return (
-    <Suspense fallback={<div className="auth-page-wrapper"><div className="auth-card" style={{ textAlign: 'center' }}>初始化中...</div></div>}>
+    <Suspense fallback={<div className="auth-page-wrapper"><div className="auth-card" style={{ textAlign: 'center' }}>{t.auth.loading.initializing}</div></div>}>
       <RegisterForm />
     </Suspense>
   );

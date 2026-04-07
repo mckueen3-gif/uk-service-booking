@@ -22,14 +22,15 @@ export default function ForgotPasswordPage() {
       const res = await requestPasswordReset(email);
       
       if (res.error) {
-        setError(res.error);
+        const errorKey = res.error as keyof typeof t.auth.errors;
+        setError(t.auth.errors[errorKey] || t.auth.forgotPassword.error);
         setLoading(false);
       } else {
         setSubmitted(true);
         setLoading(false);
       }
     } catch (err) {
-      setError("發生非預期錯誤，請稍後再試。");
+      setError(t.auth.errors.serverError);
       setLoading(false);
     }
   }
@@ -45,7 +46,7 @@ export default function ForgotPasswordPage() {
           </div>
           <h1 className="hero-title" style={{ fontSize: '2rem', marginBottom: '1rem' }}>{t.auth.forgotPassword.success}</h1>
           <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-            我們已將重設密碼連結發送至 <strong>{email}</strong>，請檢查您的收件匣。
+            {t.auth.forgotPassword.successDetail.replace('{email}', email)}
           </p>
           <div style={{ marginTop: '2rem' }}>
             <Link href="/auth/login" className="btn btn-primary" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>

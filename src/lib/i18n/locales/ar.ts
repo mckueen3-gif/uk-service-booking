@@ -6,7 +6,7 @@ export const ar: Dictionary = {
     dashboard: "لوحة التحكم", aiDiagnosis: "تشخيص AI", education: "التعليم" 
   },
   common: { viewProfile: "عرض الملف الشخصي", reviews: "تقييمات", hr: "ساعة", copy: "نسخ", copied: "تم النسخ!" },
-  hero: { title: "اعثر على أفضل مزودي الخدمة", subtitle: "تواصل مع محترفين معتمدين في منطقتك.", searchPlaceholder: "ما هي الخدمة التي تحتاجها؟", badge: "سوق الخدمات رقم 1 في المملكة المتحدة" },
+  hero: { title: "اعثر على أفضل مزودي الخدمة", subtitle: "تواصل مع محترفين معتمدين في منطقتਕ.", searchPlaceholder: "ما هي الخدمة التي تحتاجها؟", badge: "سوق الخدمات رقم 1 في المملكة المتحدة" },
   faq: {
     title: "الأسئلة الشائعة",
     subtitle: "كل ما تحتاج لمعرفته حول منصة حجز الخدمات في المملكة المتحدة.",
@@ -82,7 +82,7 @@ export const ar: Dictionary = {
           myVault: "خزنة بطاقتي الرقمية",
           redeemBtn: "استبدال",
           statusProcessing: "جاري المعالجة...",
-          statusReady: "جاهزة للاستخدام",
+          statusReady: "جاهزة للاستخدم",
           voucherDisclaimer: "صالحة في سلاسل المتاجر الكبرى وأنظمة الدفع.",
           confirmRedeem: "تأكيد خصم النقاط مقابل قسيمة نقدية؟ تصدر في غضون 24 ساعة.",
           requestSuccess: "تم الطلب بنجاح! نحن بصدد تخصيص الرمز الخاص بك. تحقق من الخزنة قريبًا.",
@@ -112,7 +112,7 @@ export const ar: Dictionary = {
     tutorCard: { demoDesc: "معلم شغوف حاصل على دكتوراة وخبرة تزيد عن 10 سنوات لمساعدة أكثر من 100 طالب في تحقيق أهدافهم." },
     tutorProfile: { 
       verified: "معلم موثق", about: "عني", education: "التعليم", experience: "خبرة التدريس", portfolio: "قصص نجاح الطلاب", reviews: "تقييمات الطلاب", availability: "الجدول الأسبوعي", bookNow: "حجز حصة", 
-      aiTrial: "تجربة تقييم الذكاء الاصطناعي", trialChallenge: "학술 진단 التحدي الأكاديمي", startChallenge: "بدء التحدي", cancel: "ليس الآن",
+      aiTrial: "تجربة تقييم الذكاء الاصطناعي", trialChallenge: "學術診斷 التحدي الأكاديمي", startChallenge: "بدء التحدي", cancel: "ليس الآن",
       loadingChallenge: "الذكاء الاصطناعي يجهز التحدي الخاص بك...",
       analyzing: "تحليل المنهج الدراسي لـ {subject}",
       questionLabel: "سؤال",
@@ -145,7 +145,7 @@ export const ar: Dictionary = {
       accounting: "محاسبة وقانون",
       autoRepair: "صيانة سيارات",
       homeSub: "خبراء إصلاح موثوقون بالقرب منك",
-      cleanSub: "خبراء محليون موثقون متاحون اليوم",
+      cleanSub: "خبراء محليون موثوقون متاحون اليوم",
       accountSub: "محاسبون ومساعدون قانونيون ذوو تقييم عالٍ",
       autoSub: "ميكانيكيون محترفون لسيارتك",
       assetMatch: "مطابقة الأصول",
@@ -158,7 +158,7 @@ export const ar: Dictionary = {
     eliteBadge: "نخبة المحترفين",
     defaultCategory: "خبير خدمة",
     noResults: "لم يتم العثور على مختصين في هذه الفئة.",
-    categories: { plumbing: "سباكة", repairs: "إصلاحات", renovation: "ترميم", education: "تعليم", accounting: "محاسبة", legal: "قانوني", commercial: "تجاري", cleaning: "تنظيف", car: "سيارات" },
+    categories: { plumbing: "سباكة", repairs: "إصلاحات", renovation: "ترميم", education: "تعليم", accounting: "محاسبة", legal: "قانوني", commercial: "تجاري", cleaning: "تنظيف", car: "سیارات" },
     sections: {
       plumbing: { title: "سباكة وكهرباء", desc: "من تسريبات الطوارئ إلى إعادة التمديدات، نصلك بمحترفين معتمدين.", items: ["إصلاح الأنابيب", "إعادة التمديدات", "تركيب الأجهزة", "صيانة الغلايات", "المفاتيح", "المنزل الذكي"] },
       repairs: { title: "عامل صيانة منزلي", desc: "تجميع الأثاث، ترميم الجدران، استبدال الأبواب - كل المهام المنزلية المزعجة حُلت.", items: ["تجميع الأثاث", "الأبواب/النوافذ", "ترميم الجدران", "تركيب الأرفف", "الطلاء", "مهام يدوية"] },
@@ -227,23 +227,34 @@ export const ar: Dictionary = {
     buttons: { start: "ابدأ الآن", next: "الخطوة التالية", back: "الخطوة السابقة", submit: "إكمال الانضمام" }
   },
   admin: {
-    sidebar: { overview: "نظرة عامة", analytics: "التحليلات", bookings: "الحجوزات", verifications: "التحققات", disputes: "النزاعات", merchants: "الخبراء", payouts: "المدفوعات", users: "المستخدمين", settings: "الإعدادات", terminal: "الوصول إلى الوحدة الطرفية" },
-    header: { internal: "الإدارة الداخلية", operations: "مركز العمليات المركزي", node: "العقدة الإقليمية" },
-    stats: { gmv: "إجمالي حجم البضائع (30 يوم)", netRevenue: "صافي الإيرادات", bookings: "الحجوزات المكتملة", dailyAvg: "المتوسط اليومي", processed: "تمت المعالجة بنجاح", volume24h: "حجم المعالجة خلال 24 ساعة" },
+    sidebar: { 
+      overview: "مركز العمليات (Operations)", 
+      analytics: "تحليلات البيانات العالمية (Analytics)", 
+      bookings: "سجل الحجوزات المركزي (Registry)", 
+      verifications: "تدقيق سلامة الهوية (Audit)", 
+      disputes: "محكمة التحكيم (Tribunal)", 
+      merchants: "الأخصائيون المعتمدون (Specialists)", 
+      payouts: "مركز التسوية والمدفوعات (Settlement)", 
+      users: "دليل عملاء النظام (Directory)", 
+      settings: "تكوين نواة النظام (Config)", 
+      terminal: "محطة إدارة الجذر (Root Terminal)" 
+    },
+    header: { internal: "إدارة داخلية مؤمنة", operations: "قيادة العمليات المركزية", node: "نود النشر النشط" },
+    stats: { gmv: "إجمالي حجم البضائع (30 يوم)", netRevenue: "صافي الإيرادات", bookings: "الحجوزات المكتملة", dailyAvg: "المتوسط اليومي", processed: "تمت المعالجة بنجاح", volume24h: "حجم المعالجة خلال 24 ساعة", syncing: "جاري مزامنة بيانات النظام..." },
     analytics: { gmvTitle: "إجمالي قيمة البضائع (GMV)", gmvSub: "اتجاهات قيمة الحجز الإجمالية لآخر 30 يومًا.", sectorDist: "توزيع القطاعات", volTitle: "حجم الحجوزات", live: "البث المباشر نشط" },
     bookings: { title: "مركز قيادة الحجوزات", sub: "سجل الحجوزات العصبي", search: "البحث في الحجوزات...", id: "معرف الحجز", customer: "العميل", amount: "المبلغ", status: "الحالة", service: "الخدمة" },
-    verifications: { title: "البت في التحقق", sub: "مراجعة سلامة وثائق الهوية", evidence: "أدلة الهوية", extraction: "نتائج استخراج الذكاء الاصطناعي", passport: "جواز السفر", faceMatch: "مطابقة الوجه", confidence: "الثقة" },
+    verifications: { title: "البت في التحقق", sub: "مراجعة سلامة وثائق الهوية", evidence: "أدلة الهوية", extraction: "نتائج استخراج الذكاء الاصطناعي", passport: "جواز السفر", faceMatch: "مطابقة الوجه", confidence: "الثقة", fullName: "الاسم الكامل (مستخرج بالذكاء الاصطناعي)", idNumber: "رقم الهوية (مستخرج بالذكاء الاصطناعي)", expiryDate: "تاريخ الانتهاء", dob: "تاريخ الميلاد" },
     disputes: { title: "محكمة التحكيم", sub: "حل النزاعات وتدقيق الأدلة", reasoning: "استنتاج محكم الذكاء الاصطناعي", gallery: "معرض الأدلة", verdict: "الحكم النهائي", confidence: "ثقة الذكاء الاصطناعي" },
     payouts: { title: "مركز التصفية المالية", snapshot: "لقطة البيانات المالية", pending: "المدفوعات المعلقة", volume: "الحجم التراكمي", security: "حالة التدقيق الأمني", adjudication: "مراجعة المدفوعات", method: "طريقة الدفع" },
     users: { title: "دليل العملاء", sub: "قاعدة بيانات المستخدمين وإحصائيات الإحالة", stats: "المقاييس الرئيسية", registeredAt: "وقت التسجيل", referrals: "إحالات ناجحة" },
-    commissions: { title: "التحكم العالمي في العمولات", sub: "إيرادات المنصة وتكوين السعر الأساسي", plateformFee: "رسوم تجاوز المسؤول", marketplaceFee: "رسوم السوق الأساسية", adminControl: "تجاوز المسؤول اليدوي" },
+    commissions: { title: "التحكم العالمي في العمولات", sub: "إيرادات المنصة وتكوين السعر الأساسي", plateformFee: "رسوم تجاوز المسؤول", marketplaceFee: "رسوم السوق الأساسية", adminControl: "تجاوز المسؤول اليدوي", weightedAvg: "متوسط عائد المنصة المرجح", totalJobs: "إجمالي المهام المصفاة", deliveryVolume: "حجم تداول السوق", merchantDetails: "بروتوكولات ورسوم الخبراء" },
     disputes_mgr: { empty: "لا توجد نزاعات معلقة في الوقت الحالي.", viewDetails: "مراجعة التفاصيل والبت فيها", status: { open: "مفتوح", processing: "قيد المراجعة", settled: "تم الحل" } },
     merchants_mgr: { empty: "لم يتم العثور على خبراء يطابقون المعايير.", status: { active: "نشط", suspended: "موقوف", pending: "في انتظار الموافقة" } },
   },
   auth: {
     login: {
-      title: "مرحباً بعودتك",
-      subtitle: "تواصل مجدداً مع مركز الخبراء الرائد في المملكة المتحدة.",
+      title: "وصول العقدة المؤمن",
+      subtitle: "تأسيس اتصال آمن بشبكة الخدمات العالمية.",
       emailLabel: "عنوان البريد الإلكتروني",
       emailPlaceholder: "you@example.com",
       passwordLabel: "كلمة المرور",
@@ -259,10 +270,48 @@ export const ar: Dictionary = {
       success: "تم إنشاء الحساب! يرجى تسجيل الدخول."
     },
     register: {
-      title: "إنشاء حساب", subtitle: "ابدأ رحلتك المهنية.", firstNameLabel: "الاسم الأول", lastNameLabel: "اسم العائلة", emailLabel: "عنوان البريد الإلكتروني", accountTypeLabel: "نوع الحساب", passwordLabel: "كلمة مرور آمنة", passwordHint: "6 أحرف كحد أدنى", referralLabel: "كود الإحالة (اختياري)", submit: "الانضمام إلى ConciergeAI", loading: "جاري إنشاء الحساب...", or: "أو", google: "التسجيل باستخدام Google", navToLogin: "عضو بالفعل؟", signIn: "سجل الدخول هنا", roles: { customer: "عميل (يبحث عن خدمات)", merchant: "خبير (يقدم خدمات)" }
+      title: "إنشاء حساب", subtitle: "ابدأ رحلتك المهنية.", firstNameLabel: "الاسم الأول", lastNameLabel: "اسم العائلة", emailLabel: "عنوان البريد الإلكتروني", emailPlaceholder: "identity@concierge.ai", accountTypeLabel: "نوع الحساب", passwordLabel: "كلمة مرور آمنة", passwordHint: "6 أحرف كحد أدنى", referralLabel: "كود الإحالة (اختياري)", referralPlaceholder: "مثلاً: ALPHA-99", submit: "الانضمام إلى ConciergeAI", loading: "جاري إنشاء الحساب...", or: "أو", google: "التسجيل باستخدام Google", navToLogin: "عضو بالفعل؟", signIn: "سجل الدخول هنا", roles: { customer: "عميل (يبحث عن خدمات)", merchant: "خبير (يقدم خدمات)" }
     },
     forgotPassword: {
-      title: "نسيت كلمة المرور", subtitle: "أدخل بريدك الإلكتروني لإعادة تعيين كلمة المرور.", emailLabel: "عنوان البريد الإلكتروني", submit: "إرسال رابط إعادة التعيين", loading: "جاري الإرسال...", back: "العودة إلى تسجيل الدخول", success: "تم إرسال رابط إعادة التعيين إلى بريدك الإلكتروني."
+      title: "استعادة الاعتماد",
+      subtitle: "تحقق من الهوية عبر البريد الإلكتروني لإعادة التعيين الآمن.",
+      emailLabel: "بريد الاستعادة",
+      emailPlaceholder: "identity@concierge.ai",
+      submit: "طلب رمز الاستعادة",
+      loading: "إصدار الرمز...",
+      back: "العودة إلى الجهاز",
+      success: "تم إرسال رمز الاستعادة إلى صندوق الوارد الخاص بك.",
+      error: "تعذر إرسال بريد الاستعادة. تحقق من العنوان.",
+      successDetail: "تم إرسال رابط إعادة التعيين الآمن إلى {email}. تحقق من بريدك للمتابعة."
+    },
+    resetPassword: {
+      title: "إعادة تكوين الوصول",
+      subtitle: "حدد اعتمادات أمان جديدة أدناه.",
+      passwordLabel: "مفتاح الربط الجديد",
+      confirmPasswordLabel: "التحقق من مفتاح الربط",
+      submit: "إنهاء التكوين",
+      loading: "مزامنة الاعتمادات...",
+      back: "العودة إلى مركز الوصول",
+      success: "تم تحديث الاعتمادات بنجاح.",
+      invalidToken: "انتهت صلاحية الرمز أو تم اختراق نزاهته.",
+      notMatch: "عدم تطابق الاعتبارات. تحقق وأعد المحاولة.",
+      error: "خطأ في التكوين الاستراتيجي. اتصل بالدعم.",
+      successDetail: "تم تحديث اعتمادات الوصول بنجاح. جارٍ التوجيه إلى مركز الوصول...",
+      invalidTokenDetail: "رمز الاستعادة المقدم إما منتهي الصلاحية أو يفتقر إلى النزاهة.",
+      requestNewLink: "طلب رمز جديد"
+    },
+    errors: {
+      missingFields: "حقول الهوية المطلوبة مفقودة.",
+      passwordTooShort: "يجب أن يكون مفتاح الأمان 6 أحرف على الأقل.",
+      emailExists: "الهوية مسجلة بالفعل في العقدة المركزية.",
+      invalidCredentials: "فشل المصادقة. تحقق من الاعتمادات.",
+      serverError: "خطأ في النظام الداخلي أثناء النشر.",
+      resetFailed: "فشل في معالجة طلب الاستعادة.",
+      invalidReset: "رابط استعادة غير صالح أو منتهي الصلاحية."
+    },
+    loading: {
+      preparing: "تأمين الوصول إلى العقدة...",
+      initializing: "بدء نشر الشبكة..."
     }
   }
 };

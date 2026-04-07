@@ -229,14 +229,14 @@ export const ja: Dictionary = {
   admin: {
     sidebar: { overview: "概要", analytics: "分析", bookings: "予約", verifications: "認証", disputes: "紛争", merchants: "エキスパート", payouts: "支払い", users: "ユーザー", settings: "設定", terminal: "ターミナル" },
     header: { internal: "内部管理", operations: "中央オペレーションハブ", node: "リージョナルノード" },
-    stats: { gmv: "総GMV (30日)", netRevenue: "純収益", bookings: "完了した予約", dailyAvg: "日次平均", processed: "正常に処理済み", volume24h: "24時間あたりの処理量" },
+    stats: { gmv: "総GMV (30日)", netRevenue: "純収益", bookings: "完了した予約", dailyAvg: "日次平均", processed: "正常に処理済み", volume24h: "24時間あたりの処理量", syncing: "システムデータを同期中..." },
     analytics: { gmvTitle: "流通取引総額 (GMV)", gmvSub: "過去30日間の総予約金額の傾向。", sectorDist: "セクター分布", volTitle: "予約ボリューム", live: "ライブストリーム有効" },
     bookings: { title: "予約コマンドハブ", sub: "ニューラル予約レジストリ", search: "予約を検索...", id: "予約ID", customer: "顧客", amount: "金額", status: "ステータス", service: "サービス" },
-    verifications: { title: "認証審査", sub: "本人確認書類の整合性確認", evidence: "本人確認証拠", extraction: "AI抽出結果", passport: "パスポート", faceMatch: "フェイスマッチ", confidence: "信頼度" },
+    verifications: { title: "認証審査", sub: "本人確認書類の整合性確認", evidence: "本人確認証拠", extraction: "AI抽出結果", passport: "パスポート", faceMatch: "フェイスマッチ", confidence: "信頼度", fullName: "フルネーム (AI抽出)", idNumber: "書類番号 (AI抽出)", expiryDate: "有効期限", dob: "生年月日" },
     disputes: { title: "仲裁裁判所", sub: "紛争解決および証拠監査", reasoning: "AI仲裁人の推論", gallery: "証拠ギャラリー", verdict: "最終判決", confidence: "AI信頼度" },
     payouts: { title: "財務決済センター", snapshot: "財務データスナップショット", pending: "保留中の支払い", volume: "累積ボリューム", security: "セキュリティ監査ステータス", adjudication: "支払い審査", method: "支払い方法" },
     users: { title: "顧客ディレクトリ", sub: "ユーザーデータベースおよび紹介統計", stats: "主要メトリクス", registeredAt: "登録日時", referrals: "紹介成功数" },
-    commissions: { title: "グローバル手数料管理", sub: "プラットフォーム収益および基本レート設定", plateformFee: "管理者オーバーライド手数料", marketplaceFee: "基本マーケットプレイス手数料", adminControl: "手動管理者オーバーライド" },
+    commissions: { title: "グローバル手数料管理", sub: "プラットフォーム収益および基本レート設定", plateformFee: "管理者オーバーライド手数料", marketplaceFee: "基本マーケットプレイス手数料", adminControl: "手動管理者オーバーライド", weightedAvg: "プラットフォーム加重平均収益", totalJobs: "累計完了案件数", deliveryVolume: "マーケットプレイス総取引量", merchantDetails: "エキスパート個別レート" },
     disputes_mgr: { empty: "現在、保留中の紛争はありません。", viewDetails: "詳細を確認して裁定する", status: { open: "未解決", processing: "審査中", settled: "解決済み" } },
     merchants_mgr: { empty: "条件に一致するマーチャントは見つかりませんでした。", status: { active: "有効", suspended: "停止中", pending: "承認待ち" } },
   },
@@ -259,10 +259,48 @@ export const ja: Dictionary = {
       success: "アカウントが作成されました！サインインしてください。"
     },
     register: {
-      title: "アカウント作成", subtitle: "プロフェッショナルな旅を始めましょう。", firstNameLabel: "名", lastNameLabel: "姓", emailLabel: "メールアドレス", accountTypeLabel: "アカウントタイプ", passwordLabel: "安全なパスワード", passwordHint: "最低6文字", referralLabel: "紹介コード（任意）", submit: "ConciergeAIに参加する", loading: "アカウント作成中...", or: "または", google: "Googleで登録", navToLogin: "既にアカウントをお持ちですか？", signIn: "こちらからサインイン", roles: { customer: "顧客（サービスを探す）", merchant: "エキスパート（サービスを提供る）" }
+      title: "アカウント作成", subtitle: "プロフェッショナルな旅を始めましょう。", firstNameLabel: "名", lastNameLabel: "姓", emailLabel: "メールアドレス", emailPlaceholder: "identity@concierge.ai", accountTypeLabel: "アカウントタイプ", passwordLabel: "安全なパスワード", passwordHint: "最低6文字", referralLabel: "紹介コード（任意）", referralPlaceholder: "例：ALPHA-99", submit: "ConciergeAIに参加する", loading: "アカウント作成中...", or: "または", google: "Googleで登録", navToLogin: "既にアカウントをお持ちですか？", signIn: "こちらからサインイン", roles: { customer: "顧客（サービスを探す）", merchant: "エキスパート（サービスを提供する）" }
     },
     forgotPassword: {
-      title: "パスワードを忘れた場合", subtitle: "パスワードをリセットするにはメールアドレスを入力してください。", emailLabel: "メールアドレス", submit: "リセットリンクを送信", loading: "送信中...", back: "ログインに戻る", success: "パスワードリセットリンクをメールで送信しました。"
+      title: "認証情報リカバリ",
+      subtitle: "本人確認のため登録メールアドレスを入力してください。",
+      emailLabel: "リカバリ用メール",
+      emailPlaceholder: "identity@concierge.ai",
+      submit: "リカバリトークンをリクエスト",
+      loading: "トークンを発行中...",
+      back: "ログインに戻る",
+      success: "リカバリトークンをメールで送信しました。",
+      error: "リカバリメールを送信できませんでした。アドレスを確認してください。",
+      successDetail: "安全なリセットリンクを {email} に送信しました。メールを確認して続行してください。"
+    },
+    resetPassword: {
+      title: "アクセスの再設定",
+      subtitle: "新しいセキュリティ認証情報を設定してください。",
+      passwordLabel: "新しいマスターキー",
+      confirmPasswordLabel: "マスターキーの確認",
+      submit: "設定を完了する",
+      loading: "認証情報を同期中...",
+      back: "ハブに戻る",
+      success: "認証情報を正常に更新しました。",
+      invalidToken: "トークンの期限が切れているか、完全性が損なわれています。",
+      notMatch: "認証情報が一致しません。確認して再試行してください。",
+      error: "システム構成エラーが発生しました。サポートに連絡してください。",
+      successDetail: "認証情報が正常に更新されました。管理ハブにリダイレクトしています...",
+      invalidTokenDetail: "提供されたリカバリトークンは期限切れか、無効です。",
+      requestNewLink: "新しいトークンをリクエスト"
+    },
+    errors: {
+      missingFields: "必須の身元確認フィールドが不足しています。",
+      passwordTooShort: "セキュリティキーは6文字以上である必要があります。",
+      emailExists: "このIDは既に中央ノードに登録されています。",
+      invalidCredentials: "認証に失敗しました。情報を確認してください。",
+      serverError: "システムエラーが発生しました。",
+      resetFailed: "リカバリリクエストの処理に失敗しました。",
+      invalidReset: "リカバリリンクが無効か、期限切れです。"
+    },
+    loading: {
+      preparing: "ノードアクセスを確保中...",
+      initializing: "ネットワーク展開を初期化中..."
     }
   }
 };

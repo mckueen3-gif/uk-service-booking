@@ -229,14 +229,14 @@ export const ko: Dictionary = {
   admin: {
     sidebar: { overview: "개요", analytics: "분석", bookings: "예약", verifications: "인증", disputes: "분쟁", merchants: "전문가", payouts: "지급", users: "사용자", settings: "설정", terminal: "터미널 접속" },
     header: { internal: "내부 관리", operations: "중앙 운영 허브", node: "지역 노드" },
-    stats: { gmv: "총 GMV (30일)", netRevenue: "순이익", bookings: "완료된 예약", dailyAvg: "일일 평균", processed: "성공적으로 처리됨", volume24h: "24시간당 처리량" },
+    stats: { gmv: "총 GMV (30일)", netRevenue: "순이익", bookings: "완료된 예약", dailyAvg: "일일 평균", processed: "성공적으로 처리됨", volume24h: "24시간당 처리량", syncing: "시스템 데이터를 동기화 중..." },
     analytics: { gmvTitle: "총 상품 판매액 (GMV)", gmvSub: "지난 30일 동안의 총 예약 가치 추세.", sectorDist: "부문별 분포", volTitle: "예약 규모", live: "라이브 스트림 활성화" },
     bookings: { title: "예약 명령 허브", sub: "신경망 예약 등록부", search: "예약 검색...", id: "예약 ID", customer: "고객", amount: "금액", status: "狀態", service: "서비스" },
-    verifications: { title: "인증 심사", sub: "신원 확인 서류 무결성 검토", evidence: "신원 증거", extraction: "AI 추출 결과", passport: "여권", faceMatch: "얼굴 일치", confidence: "신뢰도" },
+    verifications: { title: "인증 심사", sub: "신원 확인 서류 무결성 검토", evidence: "신원 증거", extraction: "AI 추출 결과", passport: "여권", faceMatch: "얼굴 일치", confidence: "신뢰도", fullName: "성명 (AI 추출)", idNumber: "문서 번호 (AI 추출)", expiryDate: "만료일", dob: "생년월일" },
     disputes: { title: "중재 재판소", sub: "분쟁 해결 및 증거 감사", reasoning: "AI 중재자 추론", gallery: "증거 갤러리", verdict: "최종 평결", confidence: "AI 신뢰도" },
     payouts: { title: "재무 결제 센터", snapshot: "재무 데이터 스냅샷", pending: "대기 중인 지급", volume: "누적 거래액", security: "보안 감사 상태", adjudication: "지급 검토", method: "결제 수단" },
     users: { title: "고객 디렉토리", sub: "사용자 데이터베이스 및 추천 통계", stats: "주요 지표", registeredAt: "등록 시간", referrals: "성공적인 추천" },
-    commissions: { title: "글로벌 수수료 제어", sub: "플랫폼 수익 및 기본 요율 구성", plateformFee: "관리자 수동 요율", marketplaceFee: "기본 마켓플레이스 수수료", adminControl: "수동 관리자 제어" },
+    commissions: { title: "글로벌 수수료 제어", sub: "플랫폼 수익 및 기본 요율 구성", plateformFee: "관리자 수동 요율", marketplaceFee: "기본 마켓플레이스 수수료", adminControl: "수동 관리자 제어", weightedAvg: "플랫폼 가중 평균 수익률", totalJobs: "누적 예약 건수", deliveryVolume: "마켓플레이스 총 거래량", merchantDetails: "전문가별 세부 요율" },
     disputes_mgr: { empty: "현재 보류 중인 분쟁이 없습니다.", viewDetails: "상세 검토 및 판결", status: { open: "접수됨", processing: "검토 중", settled: "해결됨" } },
     merchants_mgr: { empty: "조건에 맞는 전문가를 찾을 수 없습니다.", status: { active: "활성", suspended: "정지", pending: "승인 대기" } },
   },
@@ -259,10 +259,48 @@ export const ko: Dictionary = {
       success: "계정이 생성되었습니다! 로그인해 주세요."
     },
     register: {
-      title: "계정 만들기", subtitle: "전문가로서의 여정을 시작하세요.", firstNameLabel: "이름", lastNameLabel: "성", emailLabel: "이메일 주소", accountTypeLabel: "계정 유형", passwordLabel: "보안 비밀번호", passwordHint: "최소 6자", referralLabel: "추천 코드 (선택 사항)", submit: "ConciergeAI 가입하기", loading: "계정 생성 중...", or: "또는", google: "Google로 등록하기", navToLogin: "이미 회원이신가요?", signIn: "여기에서 로그인", roles: { customer: "고객 (서비스 찾기)", merchant: "전문가 (서비스 제공)" }
+      title: "계정 만들기", subtitle: "전문가로서의 여정을 시작하세요.", firstNameLabel: "이름", lastNameLabel: "성", emailLabel: "이메일 주소", emailPlaceholder: "identity@concierge.ai", accountTypeLabel: "계정 유형", passwordLabel: "보안 비밀번호", passwordHint: "최소 6자", referralLabel: "추천 코드 (선택 사항)", referralPlaceholder: "예: ALPHA-99", submit: "ConciergeAI 가입하기", loading: "계정 생성 중...", or: "또는", google: "Google로 등록하기", navToLogin: "이미 회원이신가요?", signIn: "여기에서 로그인", roles: { customer: "고객 (서비스 찾기)", merchant: "전문가 (서비스 제공)" }
     },
     forgotPassword: {
-      title: "비밀번호 찾기", subtitle: "비밀번호를 재설정하려면 이메일을 입력하세요.", emailLabel: "이메일 주소", submit: "재설정 링크 전송", loading: "전송 중...", back: "로그인으로 돌아가기", success: "재설정 링크가 이메일로 전송되었습니다."
+      title: "인증 정보 복구",
+      subtitle: "보안 설정을 위해 등록된 이메일을 확인하세요.",
+      emailLabel: "복구용 이메일",
+      emailPlaceholder: "identity@concierge.ai",
+      submit: "복구 토큰 요청",
+      loading: "토큰 발행 중...",
+      back: "로그인으로 돌아가기",
+      success: "복구 토큰이 이메일로 전송되었습니다.",
+      error: "복구 이메일을 보낼 수 없습니다. 주소를 확인하세요.",
+      successDetail: "안전한 재설정 링크가 {email}로 전송되었습니다. 이메일을 확인하여 진행하세요."
+    },
+    resetPassword: {
+      title: "액세스 재구성",
+      subtitle: "아래에 새로운 보안 인증 정보를 설정하세요.",
+      passwordLabel: "새 마스터 키",
+      confirmPasswordLabel: "마스터 키 확인",
+      submit: "구성 완료",
+      loading: "인증 정보 동기화 중...",
+      back: "허브로 돌아가기",
+      success: "인증 정보가 성공적으로 업데이트되었습니다.",
+      invalidToken: "토큰이 만료되었거나 무결성이 훼손되었습니다.",
+      notMatch: "인증 정보가 일치하지 않습니다. 다시 시도해 주세요.",
+      error: "시스템 구성 오류가 발생했습니다. 고객 지원에 문의하세요.",
+      successDetail: "액세스 인증 정보가 성공적으로 업데이트되었습니다. 보안 허브로 리다이렉트 중...",
+      invalidTokenDetail: "제공된 복구 토큰이 만료되었거나 유효하지 않습니다.",
+      requestNewLink: "새 토큰 요청"
+    },
+    errors: {
+      missingFields: "필수 신원 확인 필드가 누락되었습니다.",
+      passwordTooShort: "보안 키는 최소 6자 이상이어야 합니다.",
+      emailExists: "이 신원은 이미 시스템에 등록되어 있습니다.",
+      invalidCredentials: "인증에 실패했습니다. 정보를 확인하세요.",
+      serverError: "시스템 배포 중 내부 오류가 발생했습니다.",
+      resetFailed: "복구 요청을 처리하지 못했습니다.",
+      invalidReset: "유효하지 않거나 만료된 복구 링크입니다."
+    },
+    loading: {
+      preparing: "노드 액세스 확보 중...",
+      initializing: "네트워크 배포 초기화 중..."
     }
   }
 };

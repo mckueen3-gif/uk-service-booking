@@ -38,7 +38,8 @@ function ResetPasswordForm() {
       const res = await resetPassword(token, password);
 
       if (res.error) {
-        setError(res.error);
+        const errorKey = res.error as keyof typeof t.auth.errors;
+        setError(t.auth.errors[errorKey] || t.auth.resetPassword.error);
         setLoading(false);
       } else {
         setSuccess(true);
@@ -63,7 +64,7 @@ function ResetPasswordForm() {
         </div>
         <h1 className="hero-title" style={{ fontSize: '2rem', marginBottom: '1rem' }}>{t.auth.resetPassword.success}</h1>
         <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-          您的密碼已成功更新。正在為您跳轉至登入頁面...
+          {t.auth.resetPassword.successDetail}
         </p>
       </div>
     );
@@ -76,8 +77,8 @@ function ResetPasswordForm() {
           <AlertCircle size={48} color="#ef4444" />
         </div>
         <h1 className="hero-title" style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{t.auth.resetPassword.invalidToken}</h1>
-        <p style={{ color: 'var(--text-secondary)' }}>重設密碼連結已過期或無效。</p>
-        <Link href="/auth/forgot-password" className="btn btn-primary" style={{ marginTop: '2rem', width: '100%' }}>請求新連結</Link>
+        <p style={{ color: 'var(--text-secondary)' }}>{t.auth.resetPassword.invalidTokenDetail}</p>
+        <Link href="/auth/forgot-password" className="btn btn-primary" style={{ marginTop: '2rem', width: '100%' }}>{t.auth.resetPassword.requestNewLink}</Link>
       </div>
     );
   }
@@ -145,9 +146,10 @@ function ResetPasswordForm() {
 }
 
 export default function ResetPasswordPage() {
+  const { t } = useTranslation();
   return (
     <div className="auth-page-wrapper">
-      <Suspense fallback={<div className="auth-card" style={{ textAlign: 'center' }}>正在同步安全協議...</div>}>
+      <Suspense fallback={<div className="auth-card" style={{ textAlign: 'center' }}>{t.auth.loading.preparing}</div>}>
         <ResetPasswordForm />
       </Suspense>
     </div>

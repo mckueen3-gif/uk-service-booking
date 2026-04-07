@@ -4,6 +4,30 @@ import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "./prisma";
 import bcrypt from "bcryptjs";
 import { generateUniqueReferralCode } from "./referral-utils";
+import type { DefaultSession, DefaultUser } from "next-auth";
+
+declare module "next-auth" {
+  interface Session extends DefaultSession {
+    user: {
+      id: string;
+      role: string;
+      referralCode: string;
+    } & DefaultSession["user"];
+  }
+
+  interface User extends DefaultUser {
+    role: string;
+    referralCode: string;
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    id: string;
+    role: string;
+    referralCode: string;
+  }
+}
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -42,7 +66,7 @@ export const authOptions: NextAuthOptions = {
           email: user.email,
           name: user.name,
           role: user.role,
-          referralCode: user.referralCode
+          referralCode: user.referralCode || "REF-SYNCING"
         };
       }
     })
@@ -50,9 +74,9 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user, trigger, session }) {
       if (user) {
-        token.role = (user as any).role;
+        token.role = user.role;
         token.id = user.id;
-        token.referralCode = (user as any).referralCode;
+        token.referralCode = user.referralCode;
       }
       
       if (!token.referralCode) {
@@ -66,9 +90,9 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       if (session.user) {
-        (session.user as any).role = token.role;
-        (session.user as any).id = token.id;
-        (session.user as any).referralCode = token.referralCode;
+        session.user.role = token.role;
+        session.user.id = token.id;
+        session.user.referralCode = token.referralCode;
       }
       return session;
     },
@@ -121,8 +145,8 @@ export const authOptions: NextAuthOptions = {
 
           // 🛡️ BIND DB ID to JWT token immediately
           user.id = dbUser.id;
-          (user as any).role = dbUser.role;
-          (user as any).referralCode = dbUser.referralCode || "REF-SYNCING";
+          user.role = dbUser.role;
+          user.referralCode = dbUser.referralCode || "REF-SYNCING";
           
           return true;
         } catch (error) {

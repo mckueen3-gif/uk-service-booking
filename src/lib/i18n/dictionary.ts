@@ -260,6 +260,8 @@ export interface Dictionary {
       loading: string;
       back: string;
       success: string;
+      error: string;
+      successDetail: string;
     },
     resetPassword: {
       title: string;
@@ -273,6 +275,22 @@ export interface Dictionary {
       invalidToken: string;
       notMatch: string;
       error: string;
+      successDetail: string;
+      invalidTokenDetail: string;
+      requestNewLink: string;
+    },
+    errors: {
+      missingFields: string;
+      passwordTooShort: string;
+      emailExists: string;
+      invalidCredentials: string;
+      serverError: string;
+      resetFailed: string;
+      invalidReset: string;
+    },
+    loading: {
+      preparing: string;
+      initializing: string;
     }
   };
 }

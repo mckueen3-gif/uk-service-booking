@@ -227,16 +227,27 @@ export const ro: Dictionary = {
     buttons: { start: "Începe acum", next: "Pasul următor", back: "Pasul anterior", submit: "Finalizează înregistrarea" }
   },
   admin: {
-    sidebar: { overview: "Prezentare generală", analytics: "Analiză", bookings: "Rezervări", verifications: "Verificări", disputes: "Dispute", merchants: "Experți", payouts: "Plăți", users: "Utilizatori", settings: "Setări", terminal: "Acces Terminal" },
-    header: { internal: "Management Intern", operations: "Centru de Operațiuni Centrale", node: "Nod Regional" },
-    stats: { gmv: "GMV Total (30z)", netRevenue: "Venit Net", bookings: "Rezervări Finalizate", dailyAvg: "Medie Zilnică", processed: "Procesat cu succes", volume24h: "Volum procesare pe 24h" },
+    sidebar: { 
+      overview: "Centru de Operațiuni (Operations)", 
+      analytics: "Analiză Globală Date (Analytics)", 
+      bookings: "Registru Central Rezervări (Registry)", 
+      verifications: "Audit Integritate Identitate (Audit)", 
+      disputes: "Tribunal Arbitraj (Tribunal)", 
+      merchants: "Specialiști Certificați (Specialists)", 
+      payouts: "Centru Decontare și Plăți (Settlement)", 
+      users: "Directoriu Clienți System (Directory)", 
+      settings: "Configurare Nucleu Sistem (Config)", 
+      terminal: "Terminal Root de Management" 
+    },
+    header: { internal: "Administrare Internă Securizată", operations: "Comandament Central Operațiuni", node: "Nod Activ de Implementare" },
+    stats: { gmv: "GMV Total (30z)", netRevenue: "Venit Net", bookings: "Rezervări Finalizate", dailyAvg: "Medie Zilnică", processed: "Procesat cu succes", volume24h: "Volum procesare pe 24h", syncing: "Sincronizarea datelor..." },
     analytics: { gmvTitle: "Valoarea Brută a Mărfurilor (GMV)", gmvSub: "Tendințele valorii totale a rezervărilor pentru ultimele 30 de zile.", sectorDist: "Distribuția Sectoarelor", volTitle: "Volum Rezervări", live: "Stream Live Activ" },
     bookings: { title: "Centru de Comandă Rezervări", sub: "Registru Neural de Rezervări", search: "Caută Rezervări...", id: "ID Rezervare", customer: "Client", amount: "Sumă", status: "Status", service: "Serviciu" },
-    verifications: { title: "Adjudecare Verificări", sub: "Revizuirea integrității documentelor de identitate", evidence: "Dovezi de Identitate", extraction: "Rezultat Extracție AI", passport: "Pașaport", faceMatch: "Potrivire Facială", confidence: "Încredere" },
+    verifications: { title: "Adjudecare Verificări", sub: "Revizuirea integrității documentelor de identitate", evidence: "Dovezi de Identitate", extraction: "Rezultat Extracție AI", passport: "Pașaport", faceMatch: "Potrivire Facială", confidence: "Încredere", fullName: "Nume complet (AI)", idNumber: "Număr ID (AI)", expiryDate: "Data expirării", dob: "Data nașterii" },
     disputes: { title: "Tribunal de Arbitraj", sub: "Rezoluția Disputelor și Auditul Dovezilor", reasoning: "Raționament Arbitru AI", gallery: "Galerie de Dovezi", verdict: "Verdict Final", confidence: "Încredere AI" },
     payouts: { title: "Centru de Compensare Financiară", snapshot: "Instantaneu Date Financiare", pending: "Plăți în Așteptare", volume: "Volum Cumulat", security: "Status Audit Securitate", adjudication: "Revizuire Plăți", method: "Metodă de Plată" },
     users: { title: "Director Clienți", sub: "Baza de date utilizatori și statistici recomandări", stats: "Metrici Cheie", registeredAt: "Timp Înregistrare", referrals: "Recomandări cu Succes" },
-    commissions: { title: "Control Global Comisioane", sub: "Venituri Platformă și Configurație Rată Bază", plateformFee: "Comision Suprascris de Admin", marketplaceFee: "Comision Bază Marketplace", adminControl: "Suprascriere Manuală Admin" },
+    commissions: { title: "Control Global Comisioane", sub: "Venituri Platformă și Configurație Rată Bază", plateformFee: "Comision Suprascris de Admin", marketplaceFee: "Comision Bază Marketplace", adminControl: "Suprascriere Manuală Admin", weightedAvg: "Randament mediu ponderat", totalJobs: "Total joburi procesate", deliveryVolume: "Capacitate Marketplace", merchantDetails: "Detalii protocoale experți" },
     disputes_mgr: { empty: "Nu există dispute în așteptare în acest moment.", viewDetails: "Revizuiește Detaliile și Adjudecă", status: { open: "Deschis", processing: "În Revizuire", settled: "Soluționat" } },
     merchants_mgr: { empty: "Nu s-au găsit comercianți care să corespundă criteriilor.", status: { active: "Activ", suspended: "Suspendat", pending: "În așteptarea aprobării" } },
   },
@@ -259,10 +270,48 @@ export const ro: Dictionary = {
       success: "Cont creat! Te rugăm să te autentifici."
     },
     register: {
-      title: "Creează Cont", subtitle: "Începe-ți călătoria profesională.", firstNameLabel: "Prenume", lastNameLabel: "Nume", emailLabel: "Adresă de Email", accountTypeLabel: "Tip Cont", passwordLabel: "Parolă Securizată", passwordHint: "Minim 6 caractere", referralLabel: "Cod Recomandare (Opțional)", submit: "Alătură-te ConciergeAI", loading: "Creare Cont...", or: "sau", google: "Înregistrează-te cu Google", navToLogin: "Ești deja membru?", signIn: "Autentifică-te aici", roles: { customer: "Client (Caută Servicii)", merchant: "Expert (Oferă Servicii)" }
+      title: "Creează Cont", subtitle: "Începe-ți călătoria profesională.", firstNameLabel: "Prenume", lastNameLabel: "Nume", emailLabel: "Adresă de Email", emailPlaceholder: "identity@concierge.ai", accountTypeLabel: "Tip Cont", passwordLabel: "Parolă Securizată", passwordHint: "Minim 6 caractere", referralLabel: "Cod Recomandare (Opțional)", referralPlaceholder: "ex: ALPHA-99", submit: "Alătură-te ConciergeAI", loading: "Creare Cont...", or: "sau", google: "Înregistrează-te cu Google", navToLogin: "Ești deja membru?", signIn: "Autentifică-te aici", roles: { customer: "Client (Caută Servicii)", merchant: "Expert (Oferă Servicii)" }
     },
     forgotPassword: {
-      title: "Am uitat parola", subtitle: "Introdu email-ul pentru a reseta parola.", emailLabel: "Adresă de Email", submit: "Trimite Link Resetare", loading: "Se trimite...", back: "Înapoi la Autentificare", success: "Link-ul de resetare a fost trimis pe email-ul tău."
+      title: "Recuperare Identitate",
+      subtitle: "Introduceți email-ul înregistrat pentru verificare.",
+      emailLabel: "Email recuperare",
+      emailPlaceholder: "identity@concierge.ai",
+      submit: "Solicită token recuperare",
+      loading: "Se emite token-ul...",
+      back: "Înapoi la Autentificare",
+      success: "Token-ul de recuperare a fost trimis.",
+      error: "Nu s-a putut trimite email-ul de recuperare. Verificați adresa.",
+      successDetail: "Link-ul securizat de resetare a fost trimis la {email}. Verificați inbox-ul pentru a continua."
+    },
+    resetPassword: {
+      title: "Reconfigurare Acces",
+      subtitle: "Setați noile acreditări de securitate mai jos.",
+      passwordLabel: "Noua cheie master",
+      confirmPasswordLabel: "Confirmă cheia master",
+      submit: "Finalizează setarea",
+      loading: "Sincronizare acreditări...",
+      back: "Înapoi la Hub",
+      success: "Acreditări actualizate cu succes.",
+      invalidToken: "Token-ul a expirat sau integritatea a fost compromisă.",
+      notMatch: "Acreditările nu se potrivesc. Reîncercați.",
+      error: "Eroare de configurare sistem. Contactați suportul.",
+      successDetail: "Acreditările de acces au fost actualizate. Redirecționare către panoul de control...",
+      invalidTokenDetail: "Token-ul de recuperare furnizat este nevalid sau expirat.",
+      requestNewLink: "Solicită un nou link"
+    },
+    errors: {
+      missingFields: "Lipsesc câmpurile obligatorii pentru identitate.",
+      passwordTooShort: "Cheia de securitate trebuie să aibă minim 6 caractere.",
+      emailExists: "Această identitate este deja înregistrată în nodul central.",
+      invalidCredentials: "Autentificare eșuată. Verificați informațiile.",
+      serverError: "Eroare internă în timpul implementării sistemului.",
+      resetFailed: "Cererea de recuperare nu a putut fi procesată.",
+      invalidReset: "Link de recuperare nevalid sau expirat."
+    },
+    loading: {
+      preparing: "Securizarea accesului la nod...",
+      initializing: "Inițializarea implementării rețelei..."
     }
   }
 };

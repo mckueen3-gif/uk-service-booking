@@ -133,7 +133,7 @@ export const pa: Dictionary = {
     }
   },
   home: {
-    hero: { badge: "ਪ੍ਰਮਾਣਿਤ ਯੂਕੇ ਸਥਾਨਕ ਮਾਹਰ", title1: "ਟੌਪ-ਰੇਟਿਡ", title2: "ਸਥਾਨਕ ਮਾਹਰ ਬੁੱਕ ਕਰੋ", subtitle: "ਯੂਕੇ ਦੇ ਟੌਪ 1% ਸਰਵਿਸ ਪ੍ਰੋਫੈਸ਼ਨਲਜ਼ ਤੱਕ ਤੁਰੰਤ ਪਹੁੰਚ। ਗਾਰੰਟੀਸ਼ੁਦਾ ਗੁਣਵੱਤਾ ਲਈ ਪ੍ਰਮਾਣਿਤ, ਬੀਮਾਯੁਕਤ ਅਤੇ AI ਨਿਗਰਾਨੀ ਵਾਲੇ।", searchPlaceholder: "ਮੈਨੂੰ ਲੋੜ ਹੈ ਇੱਕ...", locationPlaceholder: "ਲੰਡਨ, ਯੂਕੇ", aiMatch: "ਸਮਾਰਟ ਮੈਚ", searchBtn: "ਮਾਹਰ ਲੱਭੋ" },
+    hero: { badge: "ਪ੍ਰਮਾਣਿਤ ਯੂਕੇ ਸਥਾਨਕ ਮਾਹਰ", title1: "ਟੌਪ-ਰੇਟਿਡ", title2: "ਸਥਾਨਕ ਮਾਹਰ ਬੁੱਕ ਕਰੋ", subtitle: "ਯੂਕੇ ਦੇ ਟੌਪ 1% ਸਰਵਿਸ ਪੇਸ਼ੇਵਰਾਂ ਤੱਕ ਤੁਰੰਤ ਪਹੁੰਚ। ਗਾਰੰਟੀਸ਼ੁਦਾ ਗੁਣਵੱਤਾ ਲਈ ਪ੍ਰਮਾਣਿਤ, ਬੀਮਾਯੁਕਤ ਅਤੇ AI ਨਿਗਰਾਨੀ ਵਾਲੇ।", searchPlaceholder: "ਮੈਨੂੰ ਲੋੜ ਹੈ ਇੱਕ...", locationPlaceholder: "ਲੰਡਨ, ਯੂਕੇ", aiMatch: "ਸਮਾਰਟ ਮੈਚ", searchBtn: "ਮਾਹਰ ਲੱਭੋ" },
     recommendation: { title1: "ਵਿਅਕਤੀਗਤ", title2: "ਤੁਹਾਡੇ ਲਈ", subtitle: "ਤੁਹਾਡੀਆਂ ਹਾਲੀਆ ਲੋੜਾਂ ਅਤੇ ਸਥਾਨ ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਚੋਟੀ ਦੇ ਮਾਹਰ।", browse: "ਸਾਰੇ ਮਾਹਰ ਦੇਖੋ" },
     recommendationResults: {
       trendingTitle: "ਰੁਝਾਨ",
@@ -227,23 +227,34 @@ export const pa: Dictionary = {
     buttons: { start: "ਹੁਣੇ ਸ਼ੁਰੂ ਕਰੋ", next: "ਅਗਲਾ ਕਦਮ", back: "ਪਿਛਲਾ ਕਦਮ", submit: "ਆਨ-ਬੋਰਡਿੰਗ ਪੂਰੀ ਕਰੋ" }
   },
   admin: {
-    sidebar: { overview: "ਸੰਖੇਪ", analytics: "ਵਿਸ਼ਲੇਸ਼ਣ", bookings: "ਬੁਕਿੰਗ", verifications: "ਤਸਦੀਕ", disputes: "ਝਗੜੇ", merchants: "ਮਾਹਰ", payouts: "ਭੁਗਤਾਨ", users: "ਉਪਭੋਗਤਾ", settings: "ਸੈਟਿੰਗਾਂ", terminal: "ਟਰਮੀਨਲ ਐਕਸੈਸ" },
-    header: { internal: "ਅੰਦਰੂਨੀ ਪ੍ਰਬੰਧਨ", operations: "ਕੇਂਦਰੀ ਸੰਚਾਲਨ ਹੱਬ", node: "ਖੇਤਰੀ ਨੋਡ" },
-    stats: { gmv: "ਕੁੱਲ GMV (30 ਦਿਨ)", netRevenue: "ਸ਼ੁੱਧ ਆਮਦਨ", bookings: "ਬੁਕਿੰਗ ਮੁਕੰਮਲ", dailyAvg: "ਰੋਜ਼ਾਨਾ ਔਸਤ", processed: "ਸਫਲਤਾਪੂਰਵਕ ਪ੍ਰੋਸੈਸ ਕੀਤਾ ਗਿਆ", volume24h: "ਕੁੱਲ ਵਾਲੀਅਮ (24 ਘੰਟੇ)" },
+    sidebar: { 
+      overview: "ਓਪਰੇਸ਼ਨ ਸੈਂਟਰ (Operations)", 
+      analytics: "ਗਲੋਬਲ ਡਾਟਾ ਵਿਸ਼ਲੇਸ਼ਣ (Analytics)", 
+      bookings: "ਕੇਂਦਰੀ ਬੁਕਿੰਗ ਰਜਿਸਟਰੀ (Registry)", 
+      verifications: "ਪਛਾਣ ਆਡਿਟ (Audit)", 
+      disputes: "ਸਾਲਸੀ ਟ੍ਰਿਬਿਊਨਲ (Tribunal)", 
+      merchants: "ਪ੍ਰਮਾਣਿਤ ਪੇਸ਼ੇਵਰ (Specialists)", 
+      payouts: "ਸੈਟਲਮੈਂਟ ਸੈਂਟਰ (Settlement)", 
+      users: "ਸਿਸਟਮ ਡਾਇਰੈਕਟਰੀ (Directory)", 
+      settings: "ਸਿਸਟਮ ਕੌਂਫਿਗਰੇਸ਼ਨ (Config)", 
+      terminal: "ਰੂਟ ਮੈਨੇਜਮੈਂਟ ਟਰਮੀਨਲ" 
+    },
+    header: { internal: "ਸੁਰੱਖਿਅਤ ਅੰਦਰੂਨੀ ਪ੍ਰਬੰਧਨ", operations: "ਕੇਂਦਰੀ ਸੰਚਾਲਨ ਕਮਾਂਡ", node: "ਸਰਗਰਮ ਡਿਪਲਾਇਮੈਂਟ ਨੋਡ" },
+    stats: { gmv: "ਕੁੱਲ GMV (30 ਦਿਨ)", netRevenue: "ਸ਼ੁੱਧ ਆਮਦਨ", bookings: "ਬੁਕਿੰਗ ਮੁਕੰਮਲ", dailyAvg: "ਰੋਜ਼ਾਨਾ ਔਸਤ", processed: "ਸਫਲਤਾਪੂਰਵਕ ਪ੍ਰੋਸੈਸ ਕੀਤਾ ਗਿਆ", volume24h: "ਕੁੱਲ ਵਾਲੀਅਮ (24 ਘੰਟੇ)", syncing: "ਸਿਸਟਮ ਡਾਟਾ ਸਿੰਕ ਹੋ ਰਿਹਾ ਹੈ..." },
     analytics: { gmvTitle: "ਕੁੱਲ ਵਪਾਰਕ ਮੁੱਲ (GMV)", gmvSub: "ਪਿਛਲੇ 30 ਦਿਨਾਂ ਲਈ ਕੁੱਲ ਬੁਕਿੰਗ ਮੁੱਲ ਦੇ ਰੁਝਾਨ।", sectorDist: "ਸੈਕਟਰ ਵੰਡ", volTitle: "ਬੁਕਿੰਗ ਵਾਲੀਅਮ", live: "ਲਾਈਵ ਸਟ੍ਰੀਮ ਐਕਟਿਵ" },
     bookings: { title: "ਬੁਕਿੰਗ ਕਮਾਂਡ ਹੱਬ", sub: "ਨਿਊਰਲ ਬੁਕਿੰਗ ਰਜਿਸਟਰੀ", search: "ਬੁਕਿੰਗ ਖੋਜੋ...", id: "ਬੁਕਿੰਗ ID", customer: "ਗਾਹਕ", amount: "ਰਕਮ", status: "Status", service: "ਸੇਵਾ" },
-    verifications: { title: "ਤਸਦੀਕ ਨਿਰਣਾ", sub: "ਪਛਾਣ ਦਸਤਾਵੇਜ਼ ਦੀ ਅਖੰਡਤਾ ਦੀ ਸਮੀਖਿਆ", evidence: "ਪਛਾਣ ਸਬੂਤ", extraction: "AI ਐਕਸਟਰੈਕਸ਼ਨ ਨਤੀਜਾ", passport: "ਪਾਸਪੋਰਟ", faceMatch: "ਚਿਹਰਾ ਮਿਲਾਣ", confidence: "ਭਰੋਸਾ" },
+    verifications: { title: "ਤਸਦੀਕ ਨਿਰਣਾ", sub: "ਪਛਾਣ ਦਸਤਾਵੇਜ਼ ਦੀ ਅਖੰਡਤਾ ਦੀ ਸਮੀਖਿਆ", evidence: "ਪਛਾਣ ਸਬੂਤ", extraction: "AI ਐਕਸਟਰੈਕਸ਼ਨ ਨਤੀਜਾ", passport: "ਪਾਸਪੋਰਟ", faceMatch: "ਚਿਹਰਾ ਮਿਲਾਣ", confidence: "ਭਰੋਸਾ", fullName: "ਪੂਰਾ ਨਾਮ (AI ਦੁਆਰਾ)", idNumber: "ID ਨੰਬਰ (AI ਦੁਆਰਾ)", expiryDate: "ਮਿਆਦ ਪੁੱਗਣ ਦੀ ਮਿਤੀ", dob: "ਜਨਮ ਮਿਤੀ" },
     disputes: { title: "ਸਾਲਸੀ ਟ੍ਰਿਬਿਊਨਲ", sub: "ਝਗੜਾ ਨਿਪਟਾਰਾ ਅਤੇ ਸਬੂਤ ਆਡਿਟ", reasoning: "AI ਸਾਲਸੀ ਤਰਕ", gallery: "ਸਬੂਤ ਗੈਲਰੀ", verdict: "ਅੰਤਿਮ ਫੈਸਲਾ", confidence: "AI ਭਰੋਸਾ" },
     payouts: { title: "ਵਿੱਤੀ ਕਲੀਅਰੈਂਸ ਸੈਂਟਰ", snapshot: "ਵਿੱਤੀ ਡੇਟਾ ਸਨੈਪਸ਼ਾਟ", pending: "ਲੰਬਿਤ ਭੁਗਤਾਨ", volume: "ਸੰਚਤ ਵਾਲੀਅਮ", security: "ਸੁਰੱਖਿਆ ਆਡਿਟ ਸਥਿਤੀ", adjudication: "ਭੁਗਤਾਨ ਸਮੀਖਿਆ", method: "ਭੁਗਤਾਨ ਵਿਧੀ" },
     users: { title: "ਗਾਹਕ ਡਾਇਰੈਕਟਰੀ", sub: "ਉਪਭੋਗਤਾ ਡੇਟਾਬੇਸ ਅਤੇ ਰੈਫਰਲ ਅੰਕੜੇ", stats: "ਮੁੱਖ ਮੈਟ੍ਰਿਕਸ", registeredAt: "ਰਜਿਸਟਰੇਸ਼ਨ ਸਮਾਂ", referrals: "ਸਫਲ ਰੈਫਰਲ" },
-    commissions: { title: "ਗਲੋਬਲ ਕਮਿਸ਼ਨ ਕੰਟਰੋਲ", sub: "ਪਲੇਟਫਾਰਮ ਮਾਲੀਆ ਅਤੇ ਬੇਸ ਰੇਟ ਕੌਂਫਿਗਰ", plateformFee: "ਐਡਮਿਨ ਓਵਰਰਾਈਡ ਫੀਸ", marketplaceFee: "ਬੇਸ ਮਾਰਕੀਟਪਲੇਸ ਫੀਸ", adminControl: "ਮੈਨੂਅਲ ਐਡਮਿਨ ਓਵਰਰਾਈਡ" },
+    commissions: { title: "ਗਲੋਬਲ ਕਮਿਸ਼ਨ ਕੰਟਰੋਲ", sub: "ਪਲੇਟਫਾਰਮ ਮਾਲੀਆ ਅਤੇ ਬੇਸ ਰੇਟ ਕੌਂਫਿਗਰ", plateformFee: "ਐਡਮਿਨ ਓਵਰਰਾਈਡ ਫੀਸ", marketplaceFee: "ਬੇਸ ਮਾਰਕੀਟਪਲੇਸ ਫੀਸ", adminControl: "ਮੈਨੂਅਲ ਐਡਮਿਨ ਓਵਰਰਾਈਡ", weightedAvg: "ਭਾਰੀ ਔਸਤ ਉਪਜ", totalJobs: "ਕੁੱਲ ਮੁਕੰਮਲ ਕੀਤੇ ਕੰਮ", deliveryVolume: "ਮਾਰਕੀਟਪਲੇਸ ਥ੍ਰੂਪੁੱਟ ਵਾਲੀਅਮ", merchantDetails: "ਮਾਹਰ ਪ੍ਰੋਟੋਕੋਲ ਵੇਰਵੇ" },
     disputes_mgr: { empty: "ਇਸ ਸਮੇਂ ਕੋਈ ਲੰਬਿਤ ਝਗੜਾ ਨਹੀਂ ਹੈ।", viewDetails: "ਵੇਰਵਿਆਂ ਦੀ ਸਮੀਖਿਆ ਕਰੋ ਅਤੇ ਨਿਰਣਾ ਕਰੋ", status: { open: "ਖੁੱਲ੍ਹਾ", processing: "ਸਮੀਖਿਆ ਅਧੀਨ", settled: "ਹੱਲ ਹੋ ਗਿਆ" } },
     merchants_mgr: { empty: "ਮਾਪਦੰਡਾਂ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਕੋਈ ਵਪਾਰੀ ਨਹੀਂ ਮਿਲਿਆ।", status: { active: "ਐਕਟਿਵ", suspended: "ਮੁਅੱਤਲ", pending: "ਪ੍ਰਵਾਨਗੀ ਲੰਬਿਤ" } },
   },
   auth: {
     login: {
-      title: "ਜੀ ਆਇਆਂ ਨੂੰ",
-      subtitle: "UK ਦੇ ਮੋਹਰੀ ਮਾਹਰ ਹੱਬ ਨਾਲ ਦੁਬਾਰਾ ਜੁੜੋ।",
+      title: "ਸੁਰੱਖਿਅਤ ਨੋਡ ਐਕਸੈਸ",
+      subtitle: "ਗਲੋਬਲ ਸਰਵਿਸ ਨੈੱਟਵਰਕ ਨਾਲ ਸੁਰੱਖਿਅਤ ਕਨੈਕਸ਼ਨ ਸਥਾਪਤ ਕਰਨਾ।",
       emailLabel: "ਈਮੇਲ ਪਤਾ",
       emailPlaceholder: "you@example.com",
       passwordLabel: "ਪਾਸਵਰਡ",
@@ -259,10 +270,48 @@ export const pa: Dictionary = {
       success: "ਖਾਤਾ ਬਣਾਇਆ ਗਿਆ! ਕਿਰਪਾ ਕਰਕੇ ਸਾਈਨ ਇਨ ਕਰੋ।"
     },
     register: {
-      title: "ਖਾਤਾ ਬਣਾਓ", subtitle: "ਆਪਣੀ ਪੇਸ਼ੇਵਰ ਯਾਤਰਾ ਸ਼ੁਰੂ ਕਰੋ।", firstNameLabel: "ਪਹਿਲਾ ਨਾਮ", lastNameLabel: "ਆਖਰੀ ਨਾਮ", emailLabel: "ਈਮੇਲ ਪਤਾ", accountTypeLabel: "ਖਾਤੇ ਦੀ ਕਿਸਮ", passwordLabel: "ਸੁਰੱਖਿਅਤ ਪਾਸਵਰਡ", passwordHint: "ਘੱਟੋ-ਘੱਟ 6 ਅੱਖਰ", referralLabel: "ਰੈਫਰਲ ਕੋਡ (ਵਿਕਲਪਿਕ)", submit: "Join ConciergeAI", loading: "ਖਾਤਾ ਬਣਾਇਆ ਜਾ ਰਿਹਾ ਹੈ...", or: "ਜਾਂ", google: "Google ਨਾਲ ਰਜਿਸਟਰ ਕਰੋ", navToLogin: "ਪਹਿਲਾਂ ਹੀ ਮੈਂਬਰ ਹੋ?", signIn: "ਇੱਥੇ ਸਾਈਨ ਇਨ ਕਰੋ", roles: { customer: "ਗਾਹਕ (ਸੇਵਾਵਾਂ ਦੀ ਭਾਲ ਕਰ ਰਹੇ ਹਨ)", merchant: "ਮਾਹਰ (ਸੇਵਾਵਾਂ ਪ੍ਰਦਾਨ ਕਰਨਾ)" }
+      title: "ਖਾਤਾ ਬਣਾਓ", subtitle: "ਆਪਣੀ ਪੇਸ਼ੇਵਰ ਯਾਤਰਾ ਸ਼ੁਰੂ ਕਰੋ।", firstNameLabel: "ਪਹਿਲਾ ਨਾਮ", lastNameLabel: "ਆਖਰੀ ਨਾਮ", emailLabel: "ਈਮੇਲ ਪਤਾ", emailPlaceholder: "identity@concierge.ai", accountTypeLabel: "ਖਾਤੇ ਦੀ ਕਿਸਮ", passwordLabel: "ਸੁਰੱਖਿਅਤ ਪਾਸਵਰਡ", passwordHint: "ਘੱਟੋ-ਘੱਟ 6 ਅੱਖਰ", referralLabel: "ਰੈਫਰਲ ਕੋਡ (ਵਿਕਲਪਿਕ)", referralPlaceholder: "ਜਿਵੇਂ ਕਿ ALPHA-99", submit: "Join ConciergeAI", loading: "ਖਾਤਾ ਬਣਾਇਆ ਜਾ ਰਿਹਾ ਹੈ...", or: "ਜਾਂ", google: "Google ਨਾਲ ਰਜਿਸਟਰ ਕਰੋ", navToLogin: "ਪਹਿਲਾਂ ਹੀ ਮੈਂਬਰ ਹੋ?", signIn: "ਇੱਥੇ ਸਾਈਨ ਇਨ ਕਰੋ", roles: { customer: "ਗਾਹਕ (ਸੇਵਾਵਾਂ ਦੀ ਭਾਲ ਕਰ ਰਹੇ ਹਨ)", merchant: "ਮਾਹਰ (ਸੇਵਾਵਾਂ ਪ੍ਰਦਾਨ ਕਰਨਾ)" }
     },
     forgotPassword: {
-      title: "ਪਾਸਵਰਡ ਭੁੱਲ ਗਏ", subtitle: "ਆਪਣਾ ਪਾਸਵਰਡ ਰੀਸੈਟ ਕਰਨ ਲਈ ਆਪਣੀ ਈਮੇਲ ਦਰਜ ਕਰੋ।", emailLabel: "ਈਮੇਲ ਪਤਾ", submit: "ਰੀਸੈਟ ਲਿੰਕ ਭੇਜੋ", loading: "ਭੇਜਿਆ ਜਾ ਰਿਹਾ ਹੈ...", back: "ਲੌਗਇਨ 'ਤੇ ਵਾਪਸ ਜਾਓ", success: "ਰੀਸੈਟ ਲਿੰਕ ਤੁਹਾਡੀ ਈਮੇਲ 'ਤੇ ਭੇਜ ਦਿੱਤਾ ਗਿਆ ਹੈ।"
+      title: "ਪਛਾਣ ਦੀ ਬਹਾਲੀ",
+      subtitle: "ਪੁਸ਼ਟੀ ਲਈ ਆਪਣੀ ਰਜਿਸਟਰਡ ਈਮੇਲ ਦਰਜ ਕਰੋ।",
+      emailLabel: "ਬਹਾਲੀ ਈਮੇਲ",
+      emailPlaceholder: "identity@concierge.ai",
+      submit: "ਬਹਾਲੀ ਟੋਕਨ ਦੀ ਬੇਨਤੀ ਕਰੋ",
+      loading: "ਟੋਕਨ ਜਾਰੀ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ...",
+      back: "ਲੌਗਇਨ 'ਤੇ ਵਾਪਸ ਜਾਓ",
+      success: "ਬਹਾਲੀ ਟੋਕਨ ਭੇਜ ਦਿੱਤਾ ਗਿਆ ਹੈ।",
+      error: "ਈਮੇਲ ਭੇਜਣ ਵਿੱਚ ਅਸਫਲ। ਪਤਾ ਚੈੱਕ ਕਰੋ।",
+      successDetail: "ਇੱਕ ਸੁਰੱਖਿਅਤ ਰੀਸੈਟ ਲਿੰਕ {email} 'ਤੇ ਭੇਜ ਦਿੱਤਾ ਗਿਆ ਹੈ। ਜਾਰੀ ਰੱਖਣ ਲਈ ਆਪਣਾ ਇਨਬਾਕਸ ਚੈੱਕ ਕਰੋ।"
+    },
+    resetPassword: {
+      title: "ਪਹੁੰਚ ਦੀ ਮੁੜ ਕੌਂਫਿਗਰੇਸ਼ਨ",
+      subtitle: "ਹੇਠਾਂ ਆਪਣੇ ਨਵੇਂ ਸੁਰੱਖਿਆ ਪ੍ਰਮਾਣ ਪੱਤਰ ਸੈੱਟ ਕਰੋ।",
+      passwordLabel: "ਨਵਾਂ ਮਾਸਟਰ ਕੀ",
+      confirmPasswordLabel: "ਮਾਸਟਰ ਕੀ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ",
+      submit: "ਸੈੱਟਅੱਪ ਪੂਰਾ ਕਰੋ",
+      loading: "ਪ੍ਰਮਾਣ ਪੱਤਰ ਸਿੰਕ ਕੀਤੇ ਜਾ ਰਹੇ ਹਨ...",
+      back: "ਹੱਬ 'ਤੇ ਵਾਪਸ ਜਾਓ",
+      success: "ਪ੍ਰਮਾਣ ਪੱਤਰ ਸਫਲਤਾਪੂਰਵਕ ਅਪਡੇਟ ਹੋ ਗਏ।",
+      invalidToken: "ਟੋਕਨ ਦੀ ਮਿਆਦ ਖਤਮ ਹੋ ਗਈ ਹੈ ਜਾਂ ਸੁਰੱਖਿਆ ਨਾਲ ਸਮਝੌਤਾ ਹੋਇਆ ਹੈ।",
+      notMatch: "ਪ੍ਰਮਾਣ ਪੱਤਰ ਮੇਲ ਨਹੀਂ ਖਾਂਦੇ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
+      error: "ਸਿਸਟਮ ਕੌਂਫਿਗਰੇਸ਼ਨ ਵਿੱਚ ਗਲਤੀ। ਸਹਾਇਤਾ ਨਾਲ ਸੰਪਰਕ ਕਰੋ।",
+      successDetail: "ਪਹੁੰਚ ਪ੍ਰਮਾਣ ਪੱਤਰ ਸਫਲਤਾਪੂਰਵਕ ਅਪਡੇਟ ਹੋ ਗਏ। ਮੈਨੇਜਮੈਂਟ ਹੱਬ 'ਤੇ ਰੀਡਾਇਰੈਕਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ...",
+      invalidTokenDetail: "ਪ੍ਰਦਾਨ ਕੀਤਾ ਗਿਆ ਬਹਾਲੀ ਟੋਕਨ ਗਲਤ ਹੈ ਜਾਂ ਮਿਆਦ ਹੁਣ ਖਤਮ ਹੋ ਚੁੱਕੀ ਹੈ।",
+      requestNewLink: "ਨਵਾਂ ਲਿੰਕ ਮੰਗੋ"
+    },
+    errors: {
+      missingFields: "ਲੋੜੀਂਦੇ ਪਛਾਣ ਫੀਲਡ ਗਾਇਬ ਹਨ।",
+      passwordTooShort: "ਸੁਰੱਖਿਆ ਕੁੰਜੀ ਘੱਟੋ-ਘੱਟ 6 ਅੱਖਰਾਂ ਦੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।",
+      emailExists: "ਇਹ ਪਛਾਣ ਕੇਂਦਰੀ ਨੋਡ 'ਤੇ ਪਹਿਲਾਂ ਹੀ ਰਜਿਸਟਰਡ ਹੈ।",
+      invalidCredentials: "ਪ੍ਰਮਾਣਿਕਤਾ ਅਸਫਲ ਰਹੀ। ਜਾਣਕਾਰੀ ਚੈੱਕ ਕਰੋ।",
+      serverError: "ਸਿਸਟਮ ਦੀ ਤਾਇਨਾਤੀ ਦੌਰਾਨ ਅੰਦਰੂਨੀ ਗਲਤੀ ਹੋਈ।",
+      resetFailed: "ਬਹਾਲੀ ਦੀ ਬੇਨਤੀ 'ਤੇ ਕਾਰਵਾਈ ਕਰਨ ਵਿੱਚ ਅਸਫਲ।",
+      invalidReset: "ਗਲਤ ਜਾਂ ਮਿਆਦ ਪੁੱਗ ਚੁੱਕਾ ਬਹਾਲੀ ਲਿੰਕ।"
+    },
+    loading: {
+      preparing: "ਨੋਡ ਤੱਕ ਪਹੁੰਚ ਸੁਰੱਖਿਅਤ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ...",
+      initializing: "ਨੈੱਟਵਰਕ ਦੀ ਤਾਇਨਾਤੀ ਸ਼ੁਰੂ ਹੋ ਰਹੀ ਹੈ..."
     }
   }
 };

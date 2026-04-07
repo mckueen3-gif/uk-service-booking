@@ -21,11 +21,11 @@ export async function registerUser(formData: FormData) {
   const referredBy = formData.get("referredBy") as string; // Optional referral code
 
   if (!email || !password || !firstName || !lastName || !role) {
-    return { error: "Missing required fields" };
+    return { error: "missingFields" };
   }
 
   if (password.length < 6) {
-    return { error: "Password must be at least 6 characters" };
+    return { error: "passwordTooShort" };
   }
 
   const existingUser = await prisma.user.findUnique({ 
@@ -33,7 +33,7 @@ export async function registerUser(formData: FormData) {
     select: { id: true, email: true } // Explicit select to bypass missing columns
   });
   if (existingUser) {
-    return { error: "Email already registered in the system" };
+    return { error: "emailExists" };
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -85,8 +85,7 @@ export async function registerUser(formData: FormData) {
       return { success: true, userId: user.id };
     });
   } catch (e: any) {
-    console.error("Registration error:", e);
-    return { error: e.message || "Registration failed due to server error" };
+    return { error: "serverError" };
   }
 }
 
@@ -137,14 +136,13 @@ export async function requestPasswordReset(emailInput: string) {
     console.log(`[AUTH_LOG] Reset link generated for ${email}: ${resetUrl}`);
     return { success: true };
   } catch (e) {
-    console.error("Password reset request error:", e);
-    return { error: "Failed to process reset request" };
+    return { error: "resetFailed" };
   }
 }
 
 export async function resetPassword(token: string, newPassword: string) {
   if (newPassword.length < 6) {
-    return { error: "Password must be at least 6 characters" };
+    return { error: "passwordTooShort" };
   }
 
   try {
@@ -153,7 +151,7 @@ export async function resetPassword(token: string, newPassword: string) {
     });
 
     if (!resetToken || resetToken.expires < new Date()) {
-      return { error: "Invalid or expired reset link" };
+      return { error: "invalidReset" };
     }
 
     const hashedPassword = await bcrypt.hash(newPassword, 10);
@@ -170,7 +168,6 @@ export async function resetPassword(token: string, newPassword: string) {
 
     return { success: true };
   } catch (e) {
-    console.error("Password reset error:", e);
-    return { error: "Failed to reset password" };
+    return { error: "serverError" };
   }
 }

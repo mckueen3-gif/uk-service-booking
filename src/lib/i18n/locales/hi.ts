@@ -227,23 +227,34 @@ export const hi: Dictionary = {
     buttons: { start: "शुरू करें", next: "अगला कदम", back: "पिछला कदम", submit: "ऑनबोर्डिंग पूरा करें" }
   },
   admin: {
-    sidebar: { overview: "अवलोकन", analytics: "विश्लेषिकी", bookings: "बुकिंग", verifications: "सत्यापन", disputes: "विवाद", merchants: "विशेषज्ञ", payouts: "भुगतान", users: "उपयोगकर्ता", settings: "सेटिंग्स", terminal: "टर्मिनल एक्सेस" },
-    header: { internal: "आंतरिक प्रबंधन", operations: "केंद्रीय संचालन हब", node: "क्षेत्रीय नोड" },
-    stats: { gmv: "कुल GMV (30 दिन)", netRevenue: "शुद्ध राजस्व", bookings: "बुकिंग पूर्ण", dailyAvg: "दैनिक औसत", processed: "सफलतापूर्वक संसाधित", volume24h: "24 घंटे प्रति प्रसंस्करण मात्रा" },
+    sidebar: { 
+      overview: "संचालन केंद्र (Operations)", 
+      analytics: "वैश्विक डेटा विश्लेषिकी (Analytics)", 
+      bookings: "केंद्रीय बुकिंग रजिस्ट्री (Registry)", 
+      verifications: "पहचान और अखंडता ऑडिट (Audit)", 
+      disputes: "मध्यस्थता न्यायाधिकरण (Tribunal)", 
+      merchants: "प्रमाणित विशेषज्ञ (Specialists)", 
+      payouts: "निपटान और भुगतान केंद्र (Settlement)", 
+      users: "सिस्टम ग्राहक निर्देशिका (Directory)", 
+      settings: "सिस्टम कोर कॉन्फ़िगरेशन (Config)", 
+      terminal: "रूट प्रबंधन टर्मिनल (Root Terminal)" 
+    },
+    header: { internal: "सुरक्षित आंतरिक प्रबंधन", operations: "केंद्रीय परिचालन कमांड", node: "सक्रिय नोड परिनियोजन" },
+    stats: { gmv: "कुल GMV (30 दिन)", netRevenue: "शुद्ध राजस्व", bookings: "बुकिंग पूर्ण", dailyAvg: "दैनिक औसत", processed: "सफलतापूर्वक संसाधित", volume24h: "24 घंटे प्रति प्रसंस्करण मात्रा", syncing: "सिस्टम डेटा सिंक हो रहा है..." },
     analytics: { gmvTitle: "सकल व्यापार मूल्य (GMV)", gmvSub: "पिछले 30 दिनों के लिए कुल बुकिंग मूल्य रुझान।", sectorDist: "क्षेत्र वितरण", volTitle: "बुकिंग मात्रा", live: "लाइव स्ट्रीम सक्रिय" },
     bookings: { title: "बुकिंग कमांड हब", sub: "न्यूरल बुकिंग रजिस्ट्री", search: "बुकिंग खोजें...", id: "बुकिंग आईडी", customer: "ग्राहक", amount: "राशि", status: "स्थिति", service: "सेवा" },
-    verifications: { title: "सत्यापन अधिनिर्णय", sub: "पहचान दस्तावेज़ अखंडता समीक्षा", evidence: "पहचान प्रमाण", extraction: "AI निष्कर्षण परिणाम", passport: "पासपोर्ट", faceMatch: "चेहरा मिलान", confidence: "आत्मविश्वास" },
+    verifications: { title: "सत्यापन अधिनिर्णय", sub: "पहचान दस्तावेज़ अखंडता समीक्षा", evidence: "पहचान प्रमाण", extraction: "AI निष्कर्षण परिणाम", passport: "पासपोर्ट", faceMatch: "चेहरा मिलान", confidence: "आत्मविश्वास", fullName: "पूरा नाम (AI निकाला गया)", idNumber: "आईडी नंबर (AI निकाला गया)", expiryDate: "समाप्ति तिथि", dob: "जन्म तिथि" },
     disputes: { title: "मध्यस्थता न्यायाधिकरण", sub: "विवाद समाधान और साक्ष्य ऑडिट", reasoning: "AI मध्यस्थ तर्क", gallery: "साक्ष्य गैलरी", verdict: "अंतिम फैसला", confidence: "AI आत्मविश्वास" },
-    payouts: { title: "वित्तीय निकासी केंद्र", snapshot: "वित्तीय डेटा स्नैپशॉट", pending: "लंबित भुगतान", volume: "संचयी मात्रा", security: "सुरक्षा ऑडिट स्थिति", adjudication: "भुगतान समीक्षा", method: "भुगतान विधि" },
+    payouts: { title: "वित्तीय निकासी केंद्र", snapshot: "वित्तीय डेटा स्नैपशॉट", pending: "लंबित भुगतान", volume: "संचयी मात्रा", security: "सुरक्षा ऑडिट स्थिति", adjudication: "भुगतान समीक्षा", method: "भुगतान विधि" },
     users: { title: "ग्राहक निर्देशिका", sub: "उपयोगकर्ता डेटाबेस और रेफ़रल आँकड़े", stats: "प्रमुख मेट्रिक्स", registeredAt: "पंजीकरण समय", referrals: "सफल रेफ़रल" },
-    commissions: { title: "वैश्विक कमीशन नियंत्रण", sub: "प्लेटफ़ॉर्म राजस्व और आधार दर कॉन्फ़िगरेशन", plateformFee: "एडमिन ओवरराइड शुल्क", marketplaceFee: "आधार मार्केटप्लेस शुल्क", adminControl: "मैनुअल एडमिन ओवरराइड" },
+    commissions: { title: "वैश्विक कमीशन नियंत्रण", sub: "प्लेटफ़ॉर्म राजस्व और आधार दर कॉन्फ़िगरेशन", plateformFee: "एडमिन ओवरराइड शुल्क", marketplaceFee: "आधार मार्केटप्लेस शुल्क", adminControl: "मैनुअल एडमिन ओवरराइड", weightedAvg: "प्लेटफ़ॉर्म भारित औसत उपज", totalJobs: "कुल निपटाए गए कार्य", deliveryVolume: "मार्केटप्लेस थ्रूपुट वॉल्यूम", merchantDetails: "विशेषज्ञ प्रोटोकॉल और दरें" },
     disputes_mgr: { empty: "इस समय कोई लंबित विवाद नहीं है।", viewDetails: "विवरण की समीक्षा करें और निर्णय लें", status: { open: "खुला", processing: "समीक्षा में", settled: "सुलझाया गया" } },
     merchants_mgr: { empty: "मानदंडों से मेल खाने वाला कोई व्यापारी नहीं मिला।", status: { active: "सक्रिय", suspended: "निलंबित", pending: "अनुमोदन लंबित" } },
   },
   auth: {
     login: {
-      title: "स्वागत है",
-      subtitle: "यूके के अग्रणी विशेषज्ञ हब से फिर से जुड़ें।",
+      title: "सुरक्षित नोड एक्सेस",
+      subtitle: "वैश्विक सेवा नेटवर्क के साथ सुरक्षित कनेक्शन स्थापित करना।",
       emailLabel: "ईमेल पता",
       emailPlaceholder: "you@example.com",
       passwordLabel: "पासवर्ड",
@@ -259,10 +270,48 @@ export const hi: Dictionary = {
       success: "खाता बन गया! कृपया साइन इन करें।"
     },
     register: {
-      title: "खाता बनाएँ", subtitle: "अपनी पेशेवर यात्रा शुरू करें।", firstNameLabel: "नाम", lastNameLabel: "उपनाम", emailLabel: "ईमेल पता", accountTypeLabel: "खाते का प्रकार", passwordLabel: "सुरक्षित पासवर्ड", passwordHint: "न्यूनतम 6 अक्षर", referralLabel: "रेफ़रल कोड (वैकल्पिक)", submit: "ConciergeAI में शामिल हों", loading: "खाता बनाया जा रहा है...", or: "या", google: "Google के साथ पंजीकरण करें", navToLogin: "पहले से सदस्य हैं?", signIn: "यहाँ साइन इन करें", roles: { customer: "ग्राहक (सेवाओं की तलाश में)", merchant: "विशेषज्ञ (सेवाएँ प्रदान करना)" }
+      title: "खाता बनाएँ", subtitle: "अपनी पेशेवर यात्रा शुरू करें।", firstNameLabel: "नाम", lastNameLabel: "उपनाम", emailLabel: "ईमेल पता", emailPlaceholder: "identity@concierge.ai", accountTypeLabel: "खाते का प्रकार", passwordLabel: "सुरक्षित पासवर्ड", passwordHint: "न्यूनतम 6 अक्षर", referralLabel: "रेफ़रल कोड (वैकल्पिक)", referralPlaceholder: "उदा. ALPHA-99", submit: "ConciergeAI में शामिल हों", loading: "खाता बनाया जा रहा है...", or: "या", google: "Google के साथ पंजीकरण करें", navToLogin: "पहले से सदस्य हैं?", signIn: "यहाँ साइन इन करें", roles: { customer: "ग्राहक (सेवाओं की तलाश में)", merchant: "विशेषज्ञ (सेवाएँ प्रदान करना)" }
     },
     forgotPassword: {
-      title: "पासवर्ड भूल गए", subtitle: "अपना पासवर्ड रीसेट करने के लिए अपना ईमेल दर्ज करें।", emailLabel: "ईमेल पता", submit: "रीसेट लिंक भेजें", loading: "भेजा जा रहा है...", back: "लॉगिन पर वापस जाएँ", success: "रीसेट लिंक आपके ईमेल पर भेज दिया गया है।"
+      title: "पहचान पुनर्प्राप्ति",
+      subtitle: "सुरक्षित रीसेट के लिए ईमेल के माध्यम से पहचान सत्यापित करें।",
+      emailLabel: "पुनर्प्राप्ति ईमेल",
+      emailPlaceholder: "identity@concierge.ai",
+      submit: "पुनर्प्राप्ति कोड का अनुरोध करें",
+      loading: "कोड जारी किया जा रहा है...",
+      back: "डिवाइस पर वापस जाएं",
+      success: "पुनर्प्राप्ति कोड आपके इनबॉक्स में भेज दिया गया है।",
+      error: "पुनर्प्राप्ति ईमेल भेजने में असमर्थ। पता जांचें।",
+      successDetail: "{email} पर सुरक्षित रीसेट लिंक भेज दिया गया है। आगे बढ़ने के लिए अपना ईमेल देखें।"
+    },
+    resetPassword: {
+      title: "एक्सेस पुनर्गठन करें",
+      subtitle: "नीचे नए सुरक्षा प्रमाण सेट करें।",
+      passwordLabel: "नया एक्सेस कुंजी",
+      confirmPasswordLabel: "एक्सेस कुंजी सत्यापित करें",
+      submit: "कॉन्फ़िगरेशन समाप्त करें",
+      loading: "क्रेडेंशियल सिंक हो रहे हैं...",
+      back: "एक्सेस हब पर वापस जाएं",
+      success: "क्रेडेंशियल सफलतापूर्वक अपडेट किए गए।",
+      invalidToken: "टोकन समाप्त हो गया है या इसकी अखंडता से समझौता किया गया है।",
+      notMatch: "क्रेडेंशियल बेमेल। जांचें और पुन: प्रयास करें।",
+      error: "रणनीतिक कॉन्फ़िगरेशन त्रुटि। सहायता से संपर्क करें।",
+      successDetail: "एक्सेस क्रेडेंशियल सफलतापूर्वक अपडेट किए गए। एक्सेस हब पर रीडायरेक्ट किया जा रहा है...",
+      invalidTokenDetail: "प्रदान किया गया रीसेट टोकन या तो समाप्त हो गया है या इसमें अखंडता की कमी है।",
+      requestNewLink: "नया टोकन अनुरोध करें"
+    },
+    errors: {
+      missingFields: "आवश्यक पहचान फ़ील्ड गुम हैं।",
+      passwordTooShort: "सुरक्षा कुंजी कम से कम 6 अक्षरों की होनी चाहिए।",
+      emailExists: "पहचान पहले से ही केंद्रीय नोड में दर्ज है।",
+      invalidCredentials: "प्रमाणीकरण विफल। क्रेडेंशियल जांचें।",
+      serverError: "परिनियोजन के दौरान आंतरिक सिस्टम त्रुटि।",
+      resetFailed: "रीसेट अनुरोध को संसाधित करने में विफल।",
+      invalidReset: "अमान्य या समाप्त हो चुका रीसेट लिंक।"
+    },
+    loading: {
+      preparing: "नोड एक्सेस सुरक्षित किया जा रहा है...",
+      initializing: "नेटवर्क परिनियोजन शुरू किया जा रहा है..."
     }
   }
 };

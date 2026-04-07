@@ -1,25 +1,26 @@
-// Lazy instance holders
-let _genAI: any = null;
-let _xai: any = null;
-let _openai: any = null;
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import OpenAI from "openai";
 
-async function getGeminiClient() {
+// Lazy instance holders
+let _genAI: GoogleGenerativeAI | null = null;
+let _xai: OpenAI | null = null;
+let _openai: OpenAI | null = null;
+
+async function getGeminiClient(): Promise<GoogleGenerativeAI> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error("GEMINI_API_KEY is missing");
   
   if (!_genAI) {
-    const { GoogleGenerativeAI } = await import("@google/generative-ai");
     _genAI = new GoogleGenerativeAI(apiKey);
   }
   return _genAI;
 }
 
-async function getXAIClient() {
+async function getXAIClient(): Promise<OpenAI> {
   const apiKey = process.env.XAI_API_KEY;
   if (!apiKey) throw new Error("XAI_API_KEY is missing");
 
   if (!_xai) {
-    const { default: OpenAI } = await import("openai");
     _xai = new OpenAI({ 
       apiKey: apiKey, 
       baseURL: "https://api.x.ai/v1" 
@@ -28,12 +29,11 @@ async function getXAIClient() {
   return _xai;
 }
 
-async function getOpenAIClient() {
+async function getOpenAIClient(): Promise<OpenAI> {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) throw new Error("OPENAI_API_KEY is missing");
 
   if (!_openai) {
-    const { default: OpenAI } = await import("openai");
     _openai = new OpenAI({ apiKey });
   }
   return _openai;
@@ -45,11 +45,12 @@ async function getOpenAIClient() {
 async function withRetry<T>(fn: () => Promise<T>, retries = 3, delay = 1000): Promise<T> {
   try {
     return await fn();
-  } catch (error: any) {
-    const isRetryable = error.message?.includes('503') || 
-                        error.message?.includes('429') || 
-                        error.status === 503 || 
-                        error.status === 429;
+  } catch (error: unknown) {
+    const errorWithStatus = error as { message?: string, status?: number };
+    const isRetryable = errorWithStatus.message?.includes('503') || 
+                        errorWithStatus.message?.includes('429') || 
+                        errorWithStatus.status === 503 || 
+                        errorWithStatus.status === 429;
     
     if (retries > 0 && isRetryable) {
       console.warn(`[AI Provider] transient error detected, retrying in ${delay}ms... (${retries} retries left)`);
@@ -81,7 +82,7 @@ interface AIRequest {
  * Centralized AI provider that prioritizes xAI Grok and falls back to Google Gemini.
  * Coordinates between multiple models and handles reliability (retries).
  */
-export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err: any) => void }): Promise<string> {
+export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err: Error | unknown) => void }): Promise<string> {
   const messages: AIMessage[] = req.messages ? [...req.messages] : [];
   
   if (req.prompt) {
@@ -94,7 +95,7 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
       console.info("[AI Provider] Entering STRICT VISION MODE (Grok native vision reasoning)...");
       const client = await getXAIClient();
       
-      const strictMessages: any[] = [];
+      const strictMessages: OpenAI.Chat.ChatCompletionMessageParam[] = [];
       if (req.systemPrompt) {
         strictMessages.push({ role: "system", content: `${req.systemPrompt}\n\nSTRICT INSTRUCTION: Perform a multi-step visual verification. Check for subtle indicators of damage, age, and environmental context. Do not hallucinate parts. If the image is unclear, state the uncertainty.` });
       }
@@ -122,8 +123,8 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
         console.info("[AI Provider] Strict Vision Mode Success.");
         return content;
       }
-    } catch (error: any) {
-      console.error("[AI Provider] Strict Vision Mode failed, falling back to chain...", error);
+    } catch (error: unknown) {
+      console.error("[AI Provider] Strict Vision Mode failed, falling back to chain...", error instanceof Error ? error.message : String(error));
     }
   }
 
@@ -189,8 +190,8 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
         const content = response.choices[0].message.content;
         if (content) return content;
       }
-    } catch (error: any) {
-      console.error("[AI Provider] Vision Reasoning Chain failed:", error);
+    } catch (error: unknown) {
+      console.error("[AI Provider] Vision Reasoning Chain failed:", error instanceof Error ? error.message : String(error));
     }
   }
 
@@ -205,15 +206,15 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
         messages: [
           ...(req.systemPrompt ? [{ role: "system", content: req.systemPrompt }] : []),
           ...messages
-        ] as any,
+        ] as OpenAI.Chat.ChatCompletionMessageParam[],
         response_format: req.jsonMode ? { type: "json_object" } : undefined,
         temperature: 0.1,
       });
 
       const content = response.choices[0].message.content;
       if (content) return content;
-    } catch (error: any) {
-      console.error("[AI Provider] Grok-2-1212 failed...", error);
+    } catch (error: unknown) {
+      console.error("[AI Provider] Grok-2-1212 failed...", error instanceof Error ? error.message : String(error));
     }
   }
 
@@ -221,13 +222,13 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
   if (process.env.XAI_API_KEY) {
     try {
       console.info("[AI Provider] Attempting Tier 2 (xAI Grok-4-fast-reasoning)...");
-      const grokMessages: any[] = [];
+      const grokMessages: OpenAI.Chat.ChatCompletionMessageParam[] = [];
       if (req.systemPrompt) {
         grokMessages.push({ role: "system", content: req.systemPrompt });
       }
 
       for (const m of messages) {
-        grokMessages.push({ role: m.role, content: m.content });
+        grokMessages.push({ role: m.role as "user" | "assistant" | "system", content: m.content });
       }
 
       const client = await getXAIClient();
@@ -240,8 +241,8 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
 
       const content = response.choices[0].message.content;
       if (content) return content;
-    } catch (error: any) {
-      console.error("[AI Provider] Grok failed, moving to next tier...", error);
+    } catch (error: unknown) {
+      console.error("[AI Provider] Grok failed, moving to next tier...", error instanceof Error ? error.message : String(error));
       if (req.onPrimaryError) req.onPrimaryError(error);
     }
   }
@@ -250,7 +251,7 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
   if (process.env.OPENAI_API_KEY && req.image) {
     try {
       console.info("[AI Provider] Attempting OpenAI Vision (GPT-4o-mini)...");
-      const openaiMessages: any[] = [];
+      const openaiMessages: OpenAI.Chat.ChatCompletionMessageParam[] = [];
       if (req.systemPrompt) {
         openaiMessages.push({ role: "system", content: req.systemPrompt });
       }
@@ -268,7 +269,7 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
             ]
           });
         } else {
-          openaiMessages.push({ role: m.role, content: m.content });
+          openaiMessages.push({ role: m.role as "user" | "assistant" | "system", content: m.content });
         }
       }
 
@@ -282,8 +283,8 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
 
       const content = response.choices[0].message.content;
       if (content) return content;
-    } catch (error: any) {
-      console.error("[AI Provider] OpenAI Vision failed...", error);
+    } catch (error: unknown) {
+      console.error("[AI Provider] OpenAI Vision failed...", error instanceof Error ? error.message : String(error));
     }
   }
 
@@ -297,7 +298,7 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
   const model = geminiClient.getGenerativeModel({ model: "gemini-2.0-flash" });
 
   const contents = messages.map((m, idx) => {
-    const parts: any[] = [{ text: m.content }];
+    const parts: import("@google/generative-ai").Part[] = [{ text: m.content }];
     if (m.role === 'user' && req.image && idx === messages.length - 1) {
       parts.push({
         inlineData: {
@@ -307,7 +308,7 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
       });
     }
     return {
-      role: m.role === 'assistant' ? 'model' : 'user',
+      role: (m.role === 'assistant' ? 'model' : m.role === 'system' ? 'user' : 'user') as "user" | "model",
       parts
     };
   });
@@ -317,7 +318,7 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
   const result = await withRetry(async () => {
     return await model.generateContent({
       contents,
-      systemInstruction: systemInstruction as any,
+      systemInstruction: systemInstruction as import("@google/generative-ai").Content,
       generationConfig: req.jsonMode ? { responseMimeType: "application/json" } : undefined
     });
   });
