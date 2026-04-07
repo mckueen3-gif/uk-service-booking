@@ -92,7 +92,7 @@ export async function getAIDiagnosis(imageUrl: string, category: string, locale:
     const savedDiagnosis = await prisma.aiDiagnosis.create({
       data: {
         userId,
-        imageUrl: imageUrl.length > 2000 ? "data:image/optimized;base64,OPTIMIZED_PAYLOAD" : imageUrl, // Prevent DB bloat from raw high-res base64
+        imageUrl, // Now safe because frontend compresses to ~200KB
         category,
         issue: diagnosisData.issue,
         suggestedFix: diagnosisData.suggestedFix,
