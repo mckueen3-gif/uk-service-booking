@@ -106,7 +106,14 @@ export const ar: Dictionary = {
   education_sec: {
     hero: { badge: "نخبة المعلمين في المملكة المتحدة", title1: "أتقن مهارات جديدة", title2: "مع خبراء عالميين", subtitle: "تواصل مع نخبة المعلمين للأكاديميين واللغات والمهارات المهنية. تعلم مخصص 1 لـ 1 مصمم لنجاحك.", searchPlaceholder: "ماذا تريد أن تتعلم؟", searchBtn: "البحث عن معلمين" },
     forYou: { title: "موصى به لك", match: "درجة المطابقة بالذكاء الاصطناعي", viewProfile: "عرض الملف الشخصي" },
-    categories: { title: "استكشف الفئات", browseBtn: "تصفح الكل", items: { academic: { title: "المركز الأكاديمي", desc: "آيلتس، جي سي إس إي والمزيد" }, languages: { title: "مختبر اللغات", desc: "الإنجليزية، الصينية، الإسبانية..." }, coding: { title: "أكاديمية البرمجة", desc: "بايثون، تطوير الويب، ذكاء اصطناعي..." }, music: { title: "الموسيقى والفن", desc: "بيانو، تصميم، فنون جميلة" } } },
+    categories: { title: "استكشاف الفئات", browseBtn: "تصفح الكل", items: { 
+      academic: { title: "مركز أكاديمي", desc: "IELTS, GCSE, A-Levels و المزيد" }, 
+      language: { title: "مختبر لغوي", desc: "الإنجليزية، الصينية، الإسبانية، الفرنسية" }, 
+      professional: { title: "مركز احترافي", desc: "الأعمال، التحضير للمقابلات، مهارات مهنية" }, 
+      children: { title: "تعليم الأطفال", desc: "التعليم المبكر، الاكتشاف، STEM" }, 
+      exam: { title: "تحضير للامتحانات", desc: "امتحانات القبول، شهادات احترافية" }, 
+      workshops: { title: "ورش عمل", desc: "مهارات عملية، فنون، طهي، نمط حياة" } 
+    } },
     search: { filters: "فلاتر البحث", mode: "وضع التدريس", online: "عبر الإنترنت", offline: "حضورياً", hybrid: "هجين", priceRange: "سعر الساعة", level: "مستوى المعلم", student: "طالب جامعي", pro: "معلم محترف", expert: "ماجستير/دكتوراه", apply: "تطبيق الفلاتر", resultsTitle: "المعلمون المتاحون", foundCount: "تم العثور على {{count}} معلم", placeholder: "ابحث حسب المادة أو الاسم" },
     common: { reviews: "تقييمات", hr: "ساعة", bookTrial: "حجز تجربة" },
     tutorCard: { demoDesc: "معلم شغوف حاصل على دكتوراة وخبرة تزيد عن 10 سنوات لمساعدة أكثر من 100 طالب في تحقيق أهدافهم." },

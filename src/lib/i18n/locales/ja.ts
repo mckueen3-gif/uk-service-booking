@@ -106,7 +106,14 @@ export const ja: Dictionary = {
   education_sec: {
     hero: { badge: "英国エリート講師", title1: "新しいスキルをマスター", title2: "世界の専門家と学ぶ", subtitle: "学術、言語、専門スキルのトップ講師とつながる。あなたの成功のためにデザインされた1対1の個別学習。", searchPlaceholder: "何を学びたいですか？", searchBtn: "講師を探す" },
     forYou: { title: "あなたへのおすすめ", match: "AIマッチ度", viewProfile: "プロフィールを表示" },
-    categories: { title: "カテゴリーから探す", browseBtn: "すべて見る", items: { academic: { title: "アカデミック・ハブ", desc: "IELTS, GCSE, A-Levelsなど" }, languages: { title: "ランゲージ・ラボ", desc: "英語、中国語、スペイン語..." }, coding: { title: "コード・アカデミー", desc: "Python, Web開発, AI..." }, music: { title: "音楽・アート", desc: "ピアノ、デザイン、美術" } } },
+    categories: { title: "カテゴリーを探す", browseBtn: "すべて見る", items: { 
+      academic: { title: "学術サポート", desc: "GCSE, A-Levels, IELTS 等の学力強化" }, 
+      language: { title: "語学学習", desc: "英語、中国語、フランス語、多言語対応" }, 
+      professional: { title: "ビジネス・キャリア", desc: "専門資格、面接対策、実務トレーニング" }, 
+      children: { title: "子供・幼児教育", desc: "早期教育、STEM、情操教育" }, 
+      exam: { title: "試験対策", desc: "入学試験、国家資格、プロフェッショナル試験" }, 
+      workshops: { title: "ワークショップ", desc: "実技、料理、ライフスタイル、体験型学習" } 
+    } },
     search: { filters: "検索フィルター", mode: "授業形式", online: "オンライン", offline: "対面", hybrid: "ハイブリッド", priceRange: "時給", level: "講師レベル", student: "大学生", pro: "プロ講師", expert: "修士・博士", apply: "フィルターを適用", resultsTitle: "受講可能な講師", foundCount: "{{count}}名の講師が見つかりました", placeholder: "科目や名前で検索" },
     common: { reviews: "レビュー", hr: "時間", bookTrial: "試聴を予約" },
     tutorCard: { demoDesc: "博士号を持ち、10年以上の経験を持つ情熱的な教育者。100名以上の学生の目標達成をサポートしてきました。" },

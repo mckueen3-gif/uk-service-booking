@@ -106,7 +106,14 @@ export const ko: Dictionary = {
   education_sec: {
     hero: { badge: "영국 엘리트 튜터", title1: "새로운 기술 마스터", title2: "글로벌 전문가와 함께", subtitle: "학업, 언어, 전문 기술을 위한 최고 수준의 튜터와 연결하세요. 당신의 성공을 위해 설계된 맞춤형 1:1 학습.", searchPlaceholder: "무엇을 배우고 싶으신가요?", searchBtn: "튜터 찾기" },
     forYou: { title: "당신을 위한 추천", match: "AI 매칭 점수", viewProfile: "프로필 보기" },
-    categories: { title: "카테고리 둘러보기", browseBtn: "모두 보기", items: { academic: { title: "학업 허브", desc: "IELTS, GCSE, A-Levels 등" }, languages: { title: "언어 랩", desc: "영어, 중국어, 스페인어..." }, coding: { title: "코드 아카데미", desc: "Python, 웹 개발, AI..." }, music: { title: "음악 및 예술", desc: "피아노, 디자인, 미술" } } },
+    categories: { title: "카테고리 탐색", browseBtn: "전체 보기", items: { 
+      academic: { title: "학술 서포트", desc: "GCSE, A-Levels, IELTS 등 학업 강화" }, 
+      language: { title: "언어 학습", desc: "영어, 중국어, 프랑스어, 다국어 지원" }, 
+      professional: { title: "비즈니스·커리어", desc: "전문 자격증, 면접 대비, 실무 교육" }, 
+      children: { title: "어린이·유아 교육", desc: "조기 교육, STEM, 전인 교육" }, 
+      exam: { title: "시험 대비", desc: "입학 시험, 국가 자격증, 전문 시험" }, 
+      workshops: { title: "워크숍", desc: "실기술, 요리, 라이프스타일, 체험형 학습" } 
+    } },
     search: { filters: "검색 필터", mode: "수업 방식", online: "온라인", offline: "대면", hybrid: "혼합", priceRange: "시간당 비용", level: "튜터 레벨", student: "대학생", pro: "전문 교사", expert: "석사/박사", apply: "필터 적용", resultsTitle: "이용 가능한 튜터", foundCount: "{{count}}명의 튜터를 찾았습니다", placeholder: "과목 또는 이름으로 검색" },
     common: { reviews: "리뷰", hr: "시간", bookTrial: "체험 수업 예약" },
     tutorCard: { demoDesc: "PhD 학위와 10년 이상의 경험을 가진 열정적인 교육자로, 100명 이상의 학생이 목표를 달성하도록 도왔습니다." },

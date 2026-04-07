@@ -106,7 +106,14 @@ export const en: Dictionary = {
   education_sec: {
     hero: { badge: "UK Elite Tutors", title1: "Master New Skills", title2: "With Global Experts", subtitle: "Connect with top-tier tutors for academics, languages, and professional skills. Tailored 1-on-1 learning designed for your success.", searchPlaceholder: "What do you want to learn?", searchBtn: "Find Tutors" },
     forYou: { title: "Recommended for You", match: "AI Match Score", viewProfile: "View Profile" },
-    categories: { title: "Explore Categories", browseBtn: "Browse All", items: { academic: { title: "Academic Hub", desc: "IELTS, GCSE, A-Levels & more" }, languages: { title: "Language Lab", desc: "English, Chinese, Spanish..." }, coding: { title: "Code Academy", desc: "Python, Web Dev, AI..." }, music: { title: "Music & Art", desc: "Piano, Design, Fine Arts" } } },
+    categories: { title: "Explore Categories", browseBtn: "Browse All", items: { 
+      academic: { title: "Academic Hub", desc: "IELTS, GCSE, A-Levels & more" }, 
+      language: { title: "Language Lab", desc: "English, Chinese, Spanish, French" }, 
+      professional: { title: "Professional Hub", desc: "Business, Interview Prep, Career Skills" }, 
+      children: { title: "Children's Education", desc: "Early Learning, Discovery, STEM" }, 
+      exam: { title: "Exam Prep", desc: "Entrance Exams, Professional Certifications" }, 
+      workshops: { title: "Workshops", desc: "Hands-on Skills, Arts, Cooking, Lifestyle" } 
+    } },
     search: { filters: "Search Filters", mode: "Teaching Mode", online: "Online", offline: "In-Person", hybrid: "Hybrid", priceRange: "Hourly Rate", level: "Tutor Level", student: "Student", pro: "Professional", expert: "Master/PhD", apply: "Apply Filters", resultsTitle: "Available Tutors", foundCount: "{{count}} tutors matching", placeholder: "Search by subject or name" },
     common: { reviews: "Reviews", hr: "hr", bookTrial: "Book Trial" },
     tutorCard: { demoDesc: "Passionate educator with a PhD and over 10 years of experience helping 100+ students achieve their goals." },

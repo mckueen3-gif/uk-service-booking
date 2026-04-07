@@ -106,7 +106,14 @@ export const hi: Dictionary = {
   education_sec: {
     hero: { badge: "यूके के विशिष्ट ट्यूटर", title1: "नए कौशल सीखें", title2: "वैश्विक विशेषज्ञों के साथ", subtitle: "शिक्षा, भाषाओं और पेशेवर कौशलों के लिए शीर्ष स्तर के ट्यूटर्स से जुड़ें। आपकी सफलता के लिए डिज़ाइन की गई व्यक्तिगत 1-ऑन-1 शिक्षा।", searchPlaceholder: "आप क्या सीखना चाहते हैं?", searchBtn: "ट्यूटर खोजें" },
     forYou: { title: "आपके लिए अनुशंसित", match: "AI मैच स्कोर", viewProfile: "प्रोफ़ाइल देखें" },
-    categories: { title: "श्रेणियां खोजें", browseBtn: "सभी देखें", items: { academic: { title: "एकेडमिक हब", desc: "IELTS, GCSE, A-Levels और बहुत कुछ" }, languages: { title: "भाषा लैब", desc: "अंग्रेजी, चीनी, स्पेनिश..." }, coding: { title: "कोड अकादमी", desc: "पायथन, वेब देव, AI..." }, music: { title: "संगीत और कला", desc: "पियानो, डिज़ाइन, ललित कला" } } },
+    categories: { title: "श्रेणियां खोजें", browseBtn: "सभी देखें", items: { 
+      academic: { title: "एकेडमिक हब", desc: "IELTS, GCSE, A-Levels और बहुत कुछ" }, 
+      language: { title: "भाषा लैब", desc: "English, Chinese, Spanish, French" }, 
+      professional: { title: "Professional Hub", desc: "Business, Interview Prep, Career Skills" }, 
+      children: { title: "Children's Education", desc: "Early Learning, Discovery, STEM" }, 
+      exam: { title: "Exam Prep", desc: "Entrance Exams, Professional Certifications" }, 
+      workshops: { title: "Workshops", desc: "Hands-on Skills, Arts, Cooking, Lifestyle" } 
+    } },
     search: { filters: "खोज फ़िल्टर", mode: "शिक्षण मोड", online: "ऑनलाइन", offline: "व्यक्तिगत रूप से", hybrid: "हाइब्रिड", priceRange: "प्रति घंटा दर", level: "ट्यूटर स्तर", student: "विश्वविद्यालय छात्र", pro: "पेशेवर शिक्षक", expert: "मास्टर/पीएचडी", apply: "फ़िल्टर लागू करें", resultsTitle: "उपलब्ध ट्यूटर", foundCount: "{{count}} ट्यूटर मिले", placeholder: "विषय या नाम से खोजें" },
     common: { reviews: "समीक्षाएं", hr: "घंटा", bookTrial: "ट्रायल बुक करें" },
     tutorCard: { demoDesc: "पीएचडी और 10+ वर्षों के अनुभव के साथ उत्साही शिक्षक, जिन्होंने 100+ छात्रों को उनके लक्ष्य प्राप्त करने में मदद की है।" },

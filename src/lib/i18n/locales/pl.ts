@@ -106,7 +106,14 @@ export const pl: Dictionary = {
   education_sec: {
     hero: { badge: "Brytyjscy elitarni korepetytorzy", title1: "Opanuj nowe umiejętności", title2: "Z globalnymi ekspertami", subtitle: "Połącz się z korepetytorami najwyższej klasy w naukach akademickich, językach i umiejętnościach zawodowych. Dopasowana nauka 1 na 1 zaprojektowana dla Twojego sukcesu.", searchPlaceholder: "Czego chcesz się nauczyć?", searchBtn: "Znajdź korepetytorów" },
     forYou: { title: "Polecane dla Ciebie", match: "Wynik dopasowania AI", viewProfile: "Zobacz profil" },
-    categories: { title: "Eksploruj kategorie", browseBtn: "Przeglądaj wszystkie", items: { academic: { title: "Centrum Akademickie", desc: "IELTS, GCSE, A-Levels i inne" }, languages: { title: "Laboratorium Językowe", desc: "Angielski, chiński, hiszpański..." }, coding: { title: "Akademia Kodowania", desc: "Python, Web Dev, AI..." }, music: { title: "Muzyka i Sztuka", desc: "Pianino, Projektowanie, Sztuki Piękne" } } },
+    categories: { title: "Eksploruj kategorie", browseBtn: "Przeglądaj wszystkie", items: { 
+      academic: { title: "Centrum Akademickie", desc: "IELTS, GCSE, A-Levels i inne" }, 
+      language: { title: "Laboratorium Językowe", desc: "English, Chinese, Spanish, French" }, 
+      professional: { title: "Professional Hub", desc: "Business, Interview Prep, Career Skills" }, 
+      children: { title: "Children's Education", desc: "Early Learning, Discovery, STEM" }, 
+      exam: { title: "Exam Prep", desc: "Entrance Exams, Professional Certifications" }, 
+      workshops: { title: "Workshops", desc: "Hands-on Skills, Arts, Cooking, Lifestyle" } 
+    } },
     search: { filters: "Filtry wyszukiwania", mode: "Tryb nauki", online: "Online", offline: "Stacjonarnie", hybrid: "Hybrydowo", priceRange: "Stawka godzinowa", level: "Poziom korepetytora", student: "Student", pro: "Nauczyciel profesjonalny", expert: "Mistrz/Doktor", apply: "Zastosuj filtry", resultsTitle: "Dostępni korepetytorzy", foundCount: "Znaleziono {{count}} korepetytorów", placeholder: "Szukaj według przedmiotu lub nazwiska" },
     common: { reviews: "Opinie", hr: "godz", bookTrial: "Zarezerwuj lekcję próbną" },
     tutorCard: { demoDesc: "Pasjonat edukacji z tytułem doktora i ponad 10-letnim doświadczeniem w pomaganiu 100+ studentom w osiąganiu ich celów." },
