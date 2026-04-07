@@ -52,7 +52,7 @@ export default function SearchHero() {
   return (
     <section style={{ 
       position: 'relative', 
-      padding: '10rem 2rem 8rem', 
+      padding: 'clamp(6rem, 15vh, 10rem) 1.5rem 6rem', 
       textAlign: 'center',
       background: 'var(--soft-gradient)', 
       overflow: 'hidden',
@@ -65,8 +65,8 @@ export default function SearchHero() {
         <div style={{ 
           display: 'inline-flex', alignItems: 'center', gap: '0.6rem', 
           padding: '0.6rem 1.4rem', backgroundColor: 'var(--surface-1)', 
-          color: 'var(--amber-700)', borderRadius: '2rem', fontSize: '0.9rem', 
-          fontWeight: 800, marginBottom: '2.5rem',
+          color: 'var(--amber-700)', borderRadius: '2rem', fontSize: '0.85rem', 
+          fontWeight: 800, marginBottom: '2rem',
           boxShadow: 'var(--shadow-md)',
           border: '1px solid var(--border-color)',
           flexDirection: isRTL ? 'row-reverse' : 'row'
@@ -76,10 +76,10 @@ export default function SearchHero() {
         </div>
 
         <h1 style={{ 
-          fontSize: '5rem', 
+          fontSize: 'clamp(2.5rem, 8vw, 5rem)', 
           fontWeight: 950, 
           lineHeight: 1, 
-          marginBottom: '2rem', 
+          marginBottom: '1.5rem', 
           letterSpacing: '-0.04em',
           color: 'var(--text-primary)' 
         }}>
@@ -92,10 +92,10 @@ export default function SearchHero() {
         </h1>
 
         <p style={{ 
-          fontSize: '1.4rem', 
+          fontSize: 'clamp(1.1rem, 3vw, 1.4rem)', 
           color: 'var(--text-muted)', 
           maxWidth: '750px', 
-          margin: '0 auto 4rem',
+          margin: '0 auto 3rem',
           lineHeight: 1.6,
           fontWeight: 500
         }}>
@@ -104,7 +104,7 @@ export default function SearchHero() {
 
         <form 
           onSubmit={handleSearch}
-          className="glass-panel" 
+          className="glass-panel mobile-stack" 
           style={{ 
             display: 'flex', 
             gap: '1rem', 
@@ -114,11 +114,10 @@ export default function SearchHero() {
             border: '1px solid var(--glass-border)',
             backgroundColor: 'var(--glass-bg)',
             backdropFilter: 'blur(15px)',
-            flexWrap: 'wrap',
             flexDirection: isRTL ? 'row-reverse' : 'row'
           }}
         >
-          <div style={{ flex: 2, minWidth: '280px', position: 'relative', display: 'flex', alignItems: 'center' }}>
+          <div style={{ flex: 2, minWidth: 'min(100%, 280px)', position: 'relative', display: 'flex', alignItems: 'center' }}>
              <Search size={22} style={{ position: 'absolute', [isRTL ? 'right' : 'left']: '1.5rem', color: 'var(--text-muted)' }} />
              <input 
                 type="text" 
@@ -127,12 +126,12 @@ export default function SearchHero() {
                 placeholder={t.home.hero.searchPlaceholder}
                 style={{ 
                   width: '100%', 
-                  padding: `1.5rem ${isRTL ? '4rem' : '10rem'} 1.5rem ${isRTL ? '10rem' : '4.5rem'} `, 
+                  padding: isRTL ? '1.5rem 4rem 1.5rem 9rem' : '1.5rem 9rem 1.5rem 4.5rem', 
                   backgroundColor: 'var(--surface-2)', 
                   border: '1px solid var(--border-color)', 
                   borderRadius: '1.25rem', 
                   color: 'var(--text-primary)', 
-                  fontSize: '1.15rem', 
+                  fontSize: 'clamp(0.95rem, 2vw, 1.15rem)', 
                   outline: 'none',
                   textAlign: 'inherit',
                   fontWeight: 600,
@@ -154,11 +153,12 @@ export default function SearchHero() {
                 }}
               >
                 {isAiLoading ? <Loader2 size={16} className="animate-spin" /> : <Sparkles size={16} />}
-                {t.home.hero.aiMatch}
+                <span className="hide-on-mobile">{t.home.hero.aiMatch}</span>
+                <span className="show-only-mobile">AI</span>
               </button>
            </div>
 
-          <div style={{ flex: 1, minWidth: '220px', position: 'relative', display: 'flex', alignItems: 'center' }}>
+          <div style={{ flex: 1, minWidth: 'min(100%, 220px)', position: 'relative', display: 'flex', alignItems: 'center' }}>
              <MapPin size={22} style={{ position: 'absolute', [isRTL ? 'right' : 'left']: '1.5rem', color: 'var(--text-muted)' }} />
              <input 
                 type="text" 
@@ -175,7 +175,7 @@ export default function SearchHero() {
                   border: '1px solid var(--border-color)', 
                   borderRadius: '1.25rem', 
                   color: 'var(--text-primary)', 
-                  fontSize: '1.15rem', 
+                  fontSize: 'clamp(0.95rem, 2vw, 1.15rem)', 
                   outline: 'none',
                   textAlign: 'inherit',
                   fontWeight: 600,
@@ -209,6 +209,7 @@ export default function SearchHero() {
               minHeight: '75px',
               background: 'linear-gradient(135deg, var(--amber-600), var(--amber-800))',
               flex: '0 0 auto',
+              width: 'var(--mobile-btn-width, auto)',
               flexDirection: isRTL ? 'row-reverse' : 'row',
               boxShadow: '0 10px 25px -5px rgba(212, 175, 55, 0.4)'
             }}
@@ -216,10 +217,9 @@ export default function SearchHero() {
              {t.home.hero.searchBtn} <ArrowRight size={22} style={{ transform: isRTL ? 'rotate(180deg)' : 'none' }} />
           </button>
         </form>
-
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '2.5rem', marginTop: '4rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '3rem', flexDirection: isRTL ? 'row-reverse' : 'row', flexWrap: 'wrap' }}>
            {['MOT Testing', 'Oil Change', 'Deep Cleaning', 'Legal Aid'].map(tag => (
-             <span key={tag} style={{ fontSize: '0.9rem', cursor: 'pointer', color: 'var(--text-muted)' }} onClick={() => setQuery(tag)}>
+             <span key={tag} style={{ fontSize: '0.85rem', cursor: 'pointer', color: 'var(--text-muted)', border: '1px solid var(--border-color)', padding: '0.5rem 1rem', borderRadius: '1rem', background: 'var(--surface-1)' }} onClick={() => setQuery(tag)}>
                {isRTL ? '' : 'Popular: '} 
                <strong style={{ textDecoration: 'underline', color: 'var(--accent-color)' }}>{tag}</strong>
                {isRTL ? ' :شائع' : ''}

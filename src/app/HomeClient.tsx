@@ -93,13 +93,12 @@ export default function HomeClient() {
 
       {/* NEW: AI Instant Diagnosis CTA */}
       <section className="container reveal stagger-1" style={{ maxWidth: '1200px', marginTop: '4rem' }}>
-        <div className="glass-panel" style={{ 
+        <div className="glass-panel mobile-stack" style={{ 
           display: 'flex', 
           alignItems: 'center', 
-          gap: '3rem', 
-          padding: '3rem',
+          gap: 'clamp(1.5rem, 5vw, 3rem)', 
+          padding: 'clamp(1.5rem, 5vw, 3rem)',
           background: 'var(--soft-gradient)',
-          flexWrap: 'wrap',
           overflow: 'hidden',
           position: 'relative'
         }}>
@@ -110,7 +109,7 @@ export default function HomeClient() {
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'var(--amber-600)', color: 'white', padding: '0.4rem 1rem', borderRadius: '2rem', fontSize: '0.75rem', fontWeight: 800, marginBottom: '1.5rem', boxShadow: '0 4px 12px rgba(212, 175, 55, 0.2)' }}>
               <Sparkles size={14} /> {t.home.aiCTA.badge}
             </div>
-            <h2 style={{ fontSize: '3rem', fontWeight: 950, marginBottom: '1.5rem', lineHeight: 1.1 }}>
+            <h2 style={{ fontSize: 'clamp(1.8rem, 5vw, 3rem)', fontWeight: 950, marginBottom: '1.5rem', lineHeight: 1.1 }}>
               {t.home.aiCTA.title1} <br />
               <span style={{ color: 'var(--amber-600)' }}>{t.home.aiCTA.title2}</span>
             </h2>
@@ -131,17 +130,16 @@ export default function HomeClient() {
       </section>
       {/* NEW: Referral Program Passive Income CTA */}
       <section className="container reveal stagger-1" style={{ maxWidth: '1200px', marginTop: '4rem' }}>
-        <div className="glass-panel" style={{ 
-          padding: '4rem',
+        <div className="glass-panel mobile-stack" style={{ 
+          padding: 'clamp(1.5rem, 6vw, 4rem)',
           background: 'linear-gradient(135deg, var(--surface-2) 0%, var(--bg-secondary) 100%)',
           borderRadius: 'var(--radius-xl)',
           position: 'relative',
           overflow: 'hidden',
           border: '1px solid var(--border-color)',
           display: 'flex',
-          alignItems: 'center',
-          gap: '4rem',
-          flexWrap: 'wrap'
+          alignItems: 'center', 
+          gap: 'clamp(2rem, 8vw, 4rem)'
         }}>
           {/* Decorative elements */}
           <div style={{ position: 'absolute', top: '-20px', left: '-20px', width: '100px', height: '100px', borderRadius: '50%', background: 'var(--accent-soft)', opacity: 0.1, zIndex: 0 }}></div>
@@ -163,7 +161,7 @@ export default function HomeClient() {
             }}>
               <Users size={16} /> {t.home.referralCTA.badge}
             </div>
-            <h2 style={{ fontSize: '3.2rem', fontWeight: 950, marginBottom: '1.5rem', lineHeight: 1.1, color: 'var(--text-primary)', fontFamily: 'var(--font-heading)' }}>
+            <h2 style={{ fontSize: 'clamp(2rem, 6vw, 3.2rem)', fontWeight: 950, marginBottom: '1.5rem', lineHeight: 1.1, color: 'var(--text-primary)', fontFamily: 'var(--font-heading)' }}>
               {t.home.referralCTA.title}
             </h2>
             <p style={{ fontSize: '1.25rem', color: 'var(--text-muted)', marginBottom: '2.5rem', lineHeight: 1.6, fontWeight: 500 }}>
@@ -305,11 +303,11 @@ export default function HomeClient() {
         { id: 'legal', data: t.home.sections.legal, bg: 'var(--bg-primary)', fullImg: '/images/legal_hero.png' },
         { id: 'commercial', data: t.home.sections.commercial, bg: 'var(--bg-secondary)', fullImg: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop' }
       ].map((sec, idx) => (
-        <section key={sec.id} id={`section-${sec.id}`} style={{ backgroundColor: sec.bg, padding: '8rem 0', overflow: 'hidden' }}>
+        <section key={sec.id} id={`section-${sec.id}`} style={{ backgroundColor: sec.bg, padding: 'clamp(4rem, 10vw, 8rem) 0', overflow: 'hidden' }}>
           <div className="container">
-            <div style={{ 
+            <div className="mobile-stack" style={{ 
               display: 'flex', 
-              gap: '5rem', 
+              gap: 'clamp(2rem, 8vw, 5rem)', 
               alignItems: 'center', 
               flexDirection: isRTL ? (idx % 2 === 0 ? 'row-reverse' : 'row') : (idx % 2 === 0 ? 'row' : 'row-reverse')
             }}>
@@ -318,8 +316,8 @@ export default function HomeClient() {
                   <div style={{ width: '40px', height: '1.5px', background: 'var(--accent-color)' }}></div>
                   {t.merchant.background}
                 </div>
-                <h2 style={{ fontSize: '3.5rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '1.5rem', lineHeight: 1.1, fontFamily: 'var(--font-heading)' }}>{sec.data.title}</h2>
-                <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', lineHeight: 1.8, marginBottom: '2.5rem', fontWeight: 500 }}>{sec.data.desc}</p>
+                <h2 style={{ fontSize: 'clamp(2.2rem, 7vw, 3.5rem)', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '1.5rem', lineHeight: 1.1, fontFamily: 'var(--font-heading)' }}>{sec.data.title}</h2>
+                <p style={{ fontSize: '1.15rem', color: 'var(--text-muted)', lineHeight: 1.8, marginBottom: '2.5rem', fontWeight: 500 }}>{sec.data.desc}</p>
                 
                 <div style={{ 
                   display: 'grid', 

@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from "@/components/LanguageContext";
-import { Globe, User, MapPin, ChevronRight, Navigation, PenTool, Sun, Moon, Droplets, Wrench, GraduationCap, Calculator, Scale, Briefcase, Sparkles, Car, ChevronDown, Star } from "lucide-react";
+import { Globe, User, MapPin, ChevronRight, Navigation, PenTool, Sun, Moon, Droplets, Wrench, GraduationCap, Calculator, Scale, Briefcase, Sparkles, Car, ChevronDown, Star, Menu, X } from "lucide-react";
 import NavbarSearch from "@/app/components/NavbarSearch";
 import NotificationHub from "@/components/dashboard/NotificationHub";
 import { useLocation, ALL_UK } from "@/components/LocationContext";
@@ -23,6 +23,7 @@ export function AppNavbar({ session }: { session: any }) {
 
   // State to manage which dropdown is active
   const [activeDropdown, setActiveDropdown] = React.useState<string | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const navRef = React.useRef<HTMLElement>(null);
 
   // Close dropdowns on outside click
@@ -96,13 +97,26 @@ export function AppNavbar({ session }: { session: any }) {
         alignItems: 'center', 
         height: '100%'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', flex: 1 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          {/* Mobile Menu Toggle */}
+          <button 
+            type="button"
+            className="show-only-mobile"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            style={{ 
+              background: 'none', border: 'none', cursor: 'pointer', color: obsidianGold,
+              padding: '0.5rem', display: 'flex', alignItems: 'center'
+            }}
+          >
+            {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+
           <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
             <img 
               src="/images/logo_concierge_ai.png" 
               alt="ConciergeAI Logo" 
               style={{ 
-                height: '56px', 
+                height: '48px', 
                 width: 'auto',
                 filter: isObsidianPage ? 'drop-shadow(0 0 10px rgba(212, 175, 55, 0.2))' : 'none',
                 backgroundColor: 'transparent',
@@ -111,8 +125,9 @@ export function AppNavbar({ session }: { session: any }) {
           </Link>
         </div>
         
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-          {/* City Selector (Moved to right section for cleaner dashboard look) */}
+        {/* Desktop Nav Items */}
+        <div className="hide-on-mobile" style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flex: 1, justifyContent: 'flex-end' }}>
+          {/* City Selector */}
           <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: isObsidianPage ? (theme === 'dark' ? '#666' : 'var(--text-secondary)') : 'var(--text-secondary)' }}>
              <MapPin size={16} color={obsidianGold} />
              <div 
@@ -198,10 +213,7 @@ export function AppNavbar({ session }: { session: any }) {
                </div>
              )}
           </div>
-        </div>
-        
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-          {/* Theme Toggle - Now always visible for better UX in dashboard */}
+
           <button 
             onClick={toggleTheme}
             style={{ 
@@ -223,8 +235,8 @@ export function AppNavbar({ session }: { session: any }) {
             {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
           </button>
 
-          {/* Premium Custom Language Switcher - Always Visible */}
-          <div id="V42_LANG_SWITCHER_VERIFY" style={{ position: 'relative' }}>
+          {/* Language Switcher */}
+          <div style={{ position: 'relative' }}>
             <div 
               onClick={() => toggleDropdown('languages')}
               style={{ 
@@ -361,17 +373,139 @@ export function AppNavbar({ session }: { session: any }) {
               {!isObsidianPage && pathname !== '/auth/login' && pathname !== '/auth/register' && <a href="/api/auth/signout" style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', textDecoration: 'none' }}>{t.nav.logout}</a>}
             </div>
           ) : (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-              <Link href="/join" style={{ color: obsidianGold, fontWeight: 700, textDecoration: 'none', fontSize: '1.05rem' }}>{t.nav.join}</Link>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
               <Link href="/auth/login" className="btn btn-primary" style={{ 
                 textDecoration: 'none', padding: '0.5rem 1.5rem', fontSize: '0.9rem',
                 backgroundColor: isObsidianPage ? obsidianGold : 'var(--accent-color)',
-                color: 'black'
+                color: isObsidianPage ? 'black' : 'white'
               }}>{t.nav.login}</Link>
             </div>
           )}
         </div>
+
+        {/* Mobile Header Icons (Always visible) */}
+        <div className="show-only-mobile" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <button 
+             onClick={toggleTheme}
+             style={{ background: 'none', border: 'none', color: obsidianGold, padding: '0.5rem' }}
+          >
+             {theme === 'light' ? <Moon size={22} /> : <Sun size={22} />}
+          </button>
+          {session?.user ? (
+            <Link href="/dashboard" style={{ color: obsidianGold }}>
+               <User size={22} />
+            </Link>
+          ) : (
+            <Link href="/auth/login" style={{ color: obsidianGold }}>
+               <User size={22} />
+            </Link>
+          )}
+        </div>
       </nav>
+
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <div style={{ 
+          position: 'fixed', top: '80px', left: 0, width: '100%', height: 'calc(100vh - 80px)',
+          background: isObsidianPage ? '#050505' : 'var(--bg-primary)',
+          zIndex: 99, padding: '2rem', overflowY: 'auto',
+          display: 'flex', flexDirection: 'column', gap: '2rem'
+        }}>
+           {/* Section 1: Search & Diagnosis */}
+           <div>
+              <h4 style={{ color: obsidianGold, fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '1rem', letterSpacing: '0.1em' }}>Quick Actions</h4>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                 <div style={{ width: '100%' }}><NavbarSearch /></div>
+                 <Link href="/diagnosis" onClick={() => setMobileMenuOpen(false)} style={{ 
+                    display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem', borderRadius: '1rem',
+                    background: 'var(--accent-soft)', color: obsidianGold, textDecoration: 'none', fontWeight: 800
+                 }}>
+                    <PenTool size={20} /> {t.nav.aiDiagnosis}
+                 </Link>
+              </div>
+           </div>
+
+           {/* Section 2: Location & Language */}
+           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <div onClick={() => toggleDropdown('mobile-cities')} style={{ 
+                padding: '1rem', borderRadius: '1rem', background: 'var(--surface-2)', border: '1px solid var(--border-color)',
+                display: 'flex', flexDirection: 'column', gap: '0.5rem'
+              }}>
+                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: obsidianGold, fontWeight: 800, fontSize: '0.8rem' }}>
+                    <MapPin size={16} /> {t.search.location}
+                 </div>
+                 <div style={{ fontSize: '1rem', fontWeight: 700, display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: obsidianGold }}>
+                    {displayCity} <ChevronDown size={14} />
+                 </div>
+              </div>
+
+              <div onClick={() => toggleDropdown('mobile-langs')} style={{ 
+                padding: '1rem', borderRadius: '1rem', background: 'var(--surface-2)', border: '1px solid var(--border-color)',
+                display: 'flex', flexDirection: 'column', gap: '0.5rem'
+              }}>
+                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: obsidianGold, fontWeight: 800, fontSize: '0.8rem' }}>
+                    <Globe size={16} /> Language
+                 </div>
+                 <div style={{ fontSize: '1rem', fontWeight: 700, display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: obsidianGold }}>
+                    {currentLanguage.label.split(' ')[0]} <ChevronDown size={14} />
+                 </div>
+              </div>
+           </div>
+
+           {/* Location Dropdown Mobile */}
+           {activeDropdown === 'mobile-cities' && (
+             <div className="glass-panel" style={{ padding: '1rem', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', maxHeight: '200px', overflowY: 'auto' }}>
+                {sortedCities.map(c => (
+                  <button key={c} onClick={() => { setCity(c); setActiveDropdown(null); }} style={{ 
+                    padding: '0.5rem', borderRadius: '0.5rem', border: 'none', background: city === c ? obsidianGold : 'var(--surface-3)',
+                    color: city === c ? 'black' : 'inherit', fontWeight: 700, fontSize: '0.8rem'
+                  }}>{c}</button>
+                ))}
+             </div>
+           )}
+
+           {/* Language Dropdown Mobile */}
+           {activeDropdown === 'mobile-langs' && (
+             <div className="glass-panel" style={{ padding: '1rem', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', maxHeight: '200px', overflowY: 'auto' }}>
+                {languages.map(l => (
+                  <button key={l.code} onClick={() => { setLocale(l.code as any); setActiveDropdown(null); }} style={{ 
+                    padding: '0.5rem', borderRadius: '0.5rem', border: 'none', background: locale === l.code ? obsidianGold : 'var(--surface-3)',
+                    color: locale === l.code ? 'black' : 'inherit', fontWeight: 700, fontSize: '0.8rem'
+                  }}>{l.label}</button>
+                ))}
+             </div>
+           )}
+
+           {/* Section 3: Services */}
+           <div>
+              <h4 style={{ color: obsidianGold, fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '1rem', letterSpacing: '0.1em' }}>Explore Services</h4>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+                 {servicesList.map(s => (
+                   <Link key={s.id} href={s.path} onClick={() => setMobileMenuOpen(false)} style={{ 
+                      padding: '1rem', borderRadius: '0.75rem', background: 'var(--surface-1)', border: '1px solid var(--border-color)',
+                      textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'inherit', fontWeight: 600, fontSize: '0.85rem'
+                   }}>
+                      <div style={{ color: obsidianGold }}>{s.icon}</div> {s.label}
+                   </Link>
+                 ))}
+              </div>
+           </div>
+
+           {/* Auth CTA Mobile */}
+           <div style={{ marginTop: 'auto', display: 'flex', gap: '1rem' }}>
+              <Link href="/join" onClick={() => setMobileMenuOpen(false)} style={{ 
+                flex: 1, padding: '1.25rem', textAlign: 'center', borderRadius: '1rem',
+                border: `1.5px solid ${obsidianGold}`, color: obsidianGold, fontWeight: 900, textDecoration: 'none'
+              }}>Become Expert</Link>
+              {!session?.user && (
+                <Link href="/auth/login" onClick={() => setMobileMenuOpen(false)} style={{ 
+                  flex: 1, padding: '1.25rem', textAlign: 'center', borderRadius: '1rem',
+                  background: obsidianGold, color: 'black', fontWeight: 900, textDecoration: 'none'
+                }}>Login</Link>
+              )}
+           </div>
+        </div>
+      )}
     </header>
   );
 }

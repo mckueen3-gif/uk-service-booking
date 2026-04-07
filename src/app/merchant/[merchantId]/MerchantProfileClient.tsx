@@ -40,7 +40,7 @@ export default function MerchantProfileClient({ merchant, currentMerchantId }: M
       {/* Hero Banner Area - Optimized for Experts */}
       <div style={{ 
         position: 'relative', 
-        height: '420px', 
+        height: 'clamp(300px, 50vh, 420px)', 
         backgroundColor: 'var(--surface-3)', 
         backgroundImage: isAccounting 
           ? `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1920')` 
@@ -56,8 +56,8 @@ export default function MerchantProfileClient({ merchant, currentMerchantId }: M
           background: 'linear-gradient(to top, var(--bg-primary) 0%, transparent 100%)' 
         }} />
         
-        <div className="container" style={{ position: 'relative', zIndex: 10, paddingBottom: '3.5rem', width: '100%' }}>
-          <div className="animate-fade-up hero-content" style={{ display: 'flex', alignItems: 'center', gap: '2.5rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+        <div className="container" style={{ position: 'relative', zIndex: 10, paddingBottom: 'clamp(1.5rem, 5vw, 3.5rem)', width: '100%' }}>
+          <div className="animate-fade-up hero-content mobile-stack" style={{ display: 'flex', alignItems: 'center', gap: '2.5rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
              <div className="animate-float hero-avatar" style={{ 
                width: '140px', 
                height: '140px', 
@@ -72,7 +72,7 @@ export default function MerchantProfileClient({ merchant, currentMerchantId }: M
              </div>
              <div style={{ textAlign: isRTL ? 'right' : 'left' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', marginBottom: '0.75rem', flexWrap: 'wrap', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
-                    <h1 style={{ color: 'var(--text-primary)', margin: 0, fontSize: '3rem', fontWeight: 950, letterSpacing: '-0.02em' }}>{merchant.companyName}</h1>
+                    <h1 style={{ color: 'var(--text-primary)', margin: 0, fontSize: 'clamp(1.8rem, 6vw, 3rem)', fontWeight: 950, letterSpacing: '-0.02em' }}>{merchant.companyName}</h1>
                     {merchant.isVerified && (
                       <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                         <span style={{ 
@@ -100,12 +100,12 @@ export default function MerchantProfileClient({ merchant, currentMerchantId }: M
                       </div>
                     )}
                 </div>
-                <p style={{ fontSize: '1.4rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '1rem' }}>
+                <p style={{ fontSize: 'clamp(1rem, 3vw, 1.4rem)', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '1rem' }}>
                   {isAccounting 
                     ? "Tailored for UK overseas residents and SMEs. Compliant filing for your business." 
                     : (merchant.description || "Service Provider")}
                 </p>
-                <div className="hero-stats" style={{ display: 'flex', alignItems: 'center', gap: '2rem', color: 'var(--text-muted)', fontSize: '1rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+                <div className="hero-stats" style={{ display: 'flex', alignItems: 'center', gap: 'clamp(1rem, 4vw, 2rem)', color: 'var(--text-muted)', fontSize: '0.9rem', flexDirection: isRTL ? 'row-reverse' : 'row', flexWrap: 'wrap' }}>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
                      <Star size={18} fill="var(--accent-color)" color="var(--accent-color)" />
                      <strong style={{ color: 'var(--text-primary)' }}>{merchant.averageRating}</strong> ({merchant.totalReviews} {t.merchant.realReviews})
@@ -122,7 +122,12 @@ export default function MerchantProfileClient({ merchant, currentMerchantId }: M
         </div>
       </div>
 
-      <div className="container" style={{ display: 'grid', gridTemplateColumns: isRTL ? '380px 1fr' : '1fr 380px', gap: '3rem', marginTop: '4rem' }}>
+      <div className="container mobile-stack" style={{ 
+        display: 'flex', 
+        gap: '3rem', 
+        marginTop: '4rem',
+        flexDirection: isRTL ? 'row-reverse' : 'row'
+      }}>
         
         {/* Main Content */}
         <div style={{ order: isRTL ? 2 : 1 }}>
@@ -200,7 +205,7 @@ export default function MerchantProfileClient({ merchant, currentMerchantId }: M
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '2rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 340px), 1fr))', gap: '2rem' }}>
                 {(isAccounting ? [
                   { id: 'tax-1', name: 'Income Tax', price: '150', category: 'Accounting', description: 'Personal self-assessment and tax planning.' },
                   { id: 'acc-1', name: 'Annual Accounts', price: '450', category: 'Accounting', description: 'Preparation and filing of statutory accounts.' },
@@ -322,7 +327,7 @@ export default function MerchantProfileClient({ merchant, currentMerchantId }: M
         </div>
 
         {/* Sidebar - Sticky Card */}
-        <div style={{ order: isRTL ? 1 : 2 }}>
+        <div style={{ flex: '0 0 380px', maxWidth: '100%' }}>
            <div style={{ 
              position: 'sticky', 
              top: '100px', 

@@ -85,10 +85,10 @@ function SearchResults() {
 
   return (
     <div className="container" style={{ paddingTop: '5rem', paddingBottom: '10rem', direction: isRTL ? 'rtl' : 'ltr' }}>
-      <div className="search-results-grid" style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'minmax(280px, 300px) 1fr', 
-        gap: '2.5rem' 
+      <div className="search-results-grid mobile-stack" style={{ 
+        display: 'flex', 
+        gap: '2.5rem',
+        flexDirection: isRTL ? 'row-reverse' : 'row'
       }}>
         
         {/* Sidebar Filters */}
@@ -97,7 +97,9 @@ function SearchResults() {
           borderRadius: '1.5rem', 
           backgroundColor: 'var(--surface-1)', 
           border: '1px solid var(--border-color)', 
-          height: 'fit-content' 
+          height: 'fit-content',
+          flex: '0 0 300px',
+          width: 'var(--mobile-sidebar-width, auto)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '2rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
             <Filter size={20} color="var(--accent-color)" />
@@ -219,7 +221,7 @@ function SearchResults() {
         </aside>
 
         {/* Results Main */}
-        <main>
+        <main style={{ flex: 1 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <h1 style={{ fontSize: '1.75rem', fontWeight: 900 }}>
@@ -303,9 +305,8 @@ function SearchResults() {
           ) : (
             <div style={{ display: 'grid', gap: '1.5rem' }}>
               {results.map((merchant: any) => (
-                <Link key={merchant.id} href={`/merchant/${merchant.id}`} style={{ 
-                  display: 'grid', 
-                  gridTemplateColumns: isRTL ? '120px 1fr 150px' : '150px 1fr 120px', 
+                <Link key={merchant.id} href={`/merchant/${merchant.id}`} className="mobile-stack" style={{ 
+                  display: 'flex', 
                   gap: '1.5rem', 
                   padding: '1.5rem', 
                   backgroundColor: 'var(--bg-secondary)', 
@@ -329,30 +330,30 @@ function SearchResults() {
                       <Sparkles size={10} /> {t.home.hero.aiMatch}
                     </div>
                   )}
-                  <div style={{ width: '100%', aspectRatio: '1', borderRadius: '1rem', overflow: 'hidden' }}>
+                  <div style={{ width: 'var(--mobile-card-img-size, 150px)', flexShrink: 0, aspectRatio: '1', borderRadius: '1rem', overflow: 'hidden' }}>
                     <img src={`https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=200&auto=format&fit=crop`} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </div>
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', flexDirection: 'inherit' }}>
-                      <h2 style={{ fontSize: '1.2rem', fontWeight: 800 }}>{merchant.companyName}</h2>
-                      {merchant.isVerified && <VerifiedBadge size={16} />}
-                    </div>
-                    <div style={{ display: 'flex', gap: '1rem', color: 'var(--text-secondary)', fontSize: '0.85rem', flexDirection: 'inherit' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                        <Star size={14} color="#f59e0b" fill="#f59e0b" />
-                        <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{merchant.averageRating.toFixed(1)}</span>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', flexDirection: 'inherit' }}>
+                        <h2 style={{ fontSize: '1.2rem', fontWeight: 800 }}>{merchant.companyName}</h2>
+                        {merchant.isVerified && <VerifiedBadge size={16} />}
                       </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                        <MapPin size={14} />
-                        <span>{merchant.city}</span>
+                      <div style={{ display: 'flex', gap: '1rem', color: 'var(--text-secondary)', fontSize: '0.85rem', flexDirection: 'inherit' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                          <Star size={14} color="#f59e0b" fill="#f59e0b" />
+                          <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{merchant.averageRating.toFixed(1)}</span>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                          <MapPin size={14} />
+                          <span>{merchant.city}</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-end', gap: '0.5rem' }}>
-                    <div style={{ fontSize: '0.75rem', opacity: 0.6 }}>{t.search.basePrice}</div>
-                    <div style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--accent-color)' }}>£{merchant.basePrice}</div>
-                    <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)' }}>{t.search.viewDetails}</div>
-                  </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-end', gap: '0.25rem', minWidth: '120px' }}>
+                      <div style={{ fontSize: '0.75rem', opacity: 0.6 }}>{t.search.basePrice}</div>
+                      <div style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--accent-color)' }}>£{merchant.basePrice}</div>
+                      <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)' }}>{t.search.viewDetails}</div>
+                    </div>
                 </Link>
               ))}
             </div>

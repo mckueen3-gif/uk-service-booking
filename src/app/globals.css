@@ -51,6 +51,10 @@
   --font-heading: 'Outfit', sans-serif;
   --font-body: 'Inter', sans-serif;
 
+  /* Responsive Breakpoints */
+  --breakpoint-mobile: 768px;
+  --breakpoint-tablet: 1024px;
+
   --premium-gradient: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
   --soft-gradient: linear-gradient(135deg, var(--bg-primary) 0%, var(--gold-50) 100%);
 }
@@ -112,6 +116,35 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 2rem;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+}
+
+/* --- Responsive Utilities --- */
+.hide-on-mobile {
+  display: block;
+}
+
+.show-only-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+  .show-only-mobile {
+    display: block !important;
+  }
+  .mobile-stack {
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+  }
 }
 
 /* --- Sophisticated Glass --- */
