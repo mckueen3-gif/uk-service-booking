@@ -27,6 +27,7 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
   ];
 
   const businessItems = isMerchant ? [
+    { href: "/dashboard/merchant/schedule", label: "預約日程 (Schedule)", icon: Calendar },
     { href: "/dashboard/services", label: "服務管理 (Services)", icon: ScrollText },
     { href: "/dashboard/merchant/availability", label: "可用時段 (Availability)", icon: Clock },
     { href: "/dashboard/analytics", label: "績效分析 (Analytics)", icon: BarChart3 },

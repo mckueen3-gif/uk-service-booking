@@ -226,3 +226,32 @@ export async function updateMerchantAvatar(avatarUrl: string) {
     return { error: err.message };
   }
 }
+
+export async function rescheduleBooking(bookingId: string, newDate: string) {
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant not found" };
+
+  try {
+    const booking = await prisma.booking.update({
+      where: { id: bookingId, merchantId },
+      data: { scheduledDate: new Date(newDate) },
+      include: { customer: true }
+    });
+
+    // Notify customer about rescheduling
+    await createNotification({
+      userId: (booking as any).customerId,
+      title: "📅 預約時間已更改",
+      message: `您的預約 #${bookingId.slice(-6)} 已被服務商重新安排至 ${new Date(newDate).toLocaleString()}。`,
+      type: 'ALERT',
+      link: `/dashboard`
+    });
+
+    revalidatePath('/dashboard/merchant');
+    revalidatePath('/dashboard/merchant/schedule');
+    return { success: true, booking };
+  } catch (err: any) {
+    console.error("Reschedule Booking Error:", err);
+    return { error: err.message };
+  }
+}

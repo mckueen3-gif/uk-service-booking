@@ -10,12 +10,14 @@ import {
 } from 'lucide-react';
 import { getMessages, sendMessage, getConversations } from "@/app/actions/chat";
 import { useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 interface ChatProps {
   initialConversationId?: string;
 }
 
 export default function ChatInterface({ initialConversationId }: ChatProps) {
+  const { data: session } = useSession();
   const searchParams = useSearchParams();
   const [conversations, setConversations] = useState<any[]>([]);
   const [currentConvoId, setCurrentConvoId] = useState<string | null>(initialConversationId || null);
@@ -26,6 +28,8 @@ export default function ChatInterface({ initialConversationId }: ChatProps) {
   const [sending, setSending] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  const userId = (session?.user as any)?.id;
+
   // Polling for new messages
   useEffect(() => {
     async function init() {
@@ -33,12 +37,20 @@ export default function ChatInterface({ initialConversationId }: ChatProps) {
       
       // If we have a merchantId but no convo, try to get/start it
       const mid = searchParams?.get("merchantId");
-      if (mid && !currentConvoId) {
-         const res = await sendMessage({ merchantId: mid, content: "你好，我有服務預約細節想諮詢 (Hi, I have an inquiry about a booking)." });
+      const cid = searchParams?.get("customerId");
+
+      if ((mid || cid) && !currentConvoId) {
+         setLoading(true);
+         const res = await sendMessage({ 
+           merchantId: mid || undefined, 
+           customerId: cid || undefined,
+           content: "你好，我有服務預約細節想諮詢 (Hi, I have an inquiry about a booking)." 
+         });
          if (res.success && res.message) {
             setCurrentConvoId((res.message as any).conversationId);
             await loadConversations(true);
          }
+         setLoading(false);
       }
     }
     init();
@@ -46,8 +58,14 @@ export default function ChatInterface({ initialConversationId }: ChatProps) {
     const interval = setInterval(() => {
       loadConversations(true);
       if (currentConvoId) loadMessages(currentConvoId, true);
-    }, 5000);
+    }, 4000); // 4 seconds polling
     return () => clearInterval(interval);
+  }, [currentConvoId, searchParams, userId]);
+
+  useEffect(() => {
+    if (currentConvoId) {
+      loadMessages(currentConvoId);
+    }
   }, [currentConvoId]);
 
   async function loadConversations(silent = false) {
@@ -60,8 +78,11 @@ export default function ChatInterface({ initialConversationId }: ChatProps) {
   async function loadMessages(id: string, silent = false) {
     const res = await getMessages(id);
     if (res.messages) {
-      setMessages(res.messages);
-      if (!silent) scrollToBottom();
+      // Only update if message count changed or first load
+      if (res.messages.length !== messages.length || !silent) {
+        setMessages(res.messages);
+        if (!silent || (res.messages.length > messages.length)) scrollToBottom();
+      }
     }
   }
 
@@ -84,10 +105,10 @@ export default function ChatInterface({ initialConversationId }: ChatProps) {
     const optimisticMessage = {
       id: `temp-${Date.now()}`,
       content: content,
-      senderId: 'ME',
+      senderId: userId,
       createdAt: new Date().toISOString(),
       isRead: false,
-      isPending: true // Visual indicator if needed
+      isPending: true
     };
     
     setMessages(prev => [...prev, optimisticMessage]);
@@ -100,10 +121,8 @@ export default function ChatInterface({ initialConversationId }: ChatProps) {
     });
 
     if (res.success) {
-      // Replace optimistic message with real message or just refresh
       loadMessages(currentConvoId, true);
     } else {
-      // Handle failure: optionally remove the optimistic message
       setMessages(prev => prev.filter(m => m.id !== optimisticMessage.id));
     }
     setSending(false);
@@ -185,13 +204,13 @@ export default function ChatInterface({ initialConversationId }: ChatProps) {
             {/* Content */}
             <div ref={scrollRef} style={{ flex: 1, overflowY: 'auto', padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                {messages.map(m => (
-                 <div key={m.id} style={{ alignSelf: m.senderId === 'ME' ? 'flex-end' : 'flex-start', maxWidth: '70%' }}>
-                    <div style={{ padding: '0.75rem 1rem', borderRadius: '16px', backgroundColor: m.senderId === 'ME' ? 'var(--accent-color)' : 'var(--surface-1)', color: m.senderId === 'ME' ? 'white' : 'var(--text-primary)', border: m.senderId === 'ME' ? 'none' : '1px solid var(--border-color)', boxShadow: 'var(--shadow-sm)', fontSize: '0.95rem', fontWeight: 500, lineHeight: 1.5 }}>
+                 <div key={m.id} style={{ alignSelf: m.senderId === userId ? 'flex-end' : 'flex-start', maxWidth: '70%' }}>
+                    <div style={{ padding: '0.75rem 1rem', borderRadius: '16px', backgroundColor: m.senderId === userId ? 'var(--accent-color)' : 'var(--surface-1)', color: m.senderId === userId ? 'white' : 'var(--text-primary)', border: m.senderId === userId ? 'none' : '1px solid var(--border-color)', boxShadow: 'var(--shadow-sm)', fontSize: '0.95rem', fontWeight: 500, lineHeight: 1.5 }}>
                        {m.content}
                     </div>
-                    <div style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', marginTop: '0.3rem', display: 'flex', justifyContent: m.senderId === 'ME' ? 'flex-end' : 'flex-start', alignItems: 'center', gap: '4px' }}>
+                    <div style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', marginTop: '0.3rem', display: 'flex', justifyContent: m.senderId === userId ? 'flex-end' : 'flex-start', alignItems: 'center', gap: '4px' }}>
                        {new Date(m.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                       {m.senderId === 'ME' && (m.isRead ? <CheckCheck size={12} color="#facc15" /> : <Check size={12} />)}
+                       {m.senderId === userId && (m.isRead ? <CheckCheck size={12} color="#facc15" /> : <Check size={12} />)}
                     </div>
                  </div>
                ))}
