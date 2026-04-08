@@ -32,7 +32,7 @@ export default function DynamicGreeting({ userName }: { userName: string }) {
       fontSize: '2.5rem', 
       fontWeight: 900, 
       marginBottom: '0.5rem', 
-      color: '#2d2d2d'
+      color: 'var(--text-primary)'
     }}>
       {greeting}，<span style={{ color: '#b8860b' }}>{userName}</span> {icon}
     </h1>

@@ -44,7 +44,7 @@ function StatCard({ icon, title, value, trend, loading }: {
     <div className="glass-panel animate-fade-up" style={{
       padding: '1.5rem',
       borderRadius: '20px',
-      background: 'linear-gradient(135deg, #ffffff 0%, #f5ecd7 100%)',
+      background: 'var(--soft-gradient)',
       border: '1px solid rgba(212, 175, 55, 0.25)',
       boxShadow: '0 8px 20px rgba(184, 134, 11, 0.05)'
     }}>
@@ -278,7 +278,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
         padding: '2.5rem', 
         borderRadius: '32px', 
         marginBottom: '3rem',
-        background: 'linear-gradient(135deg, #ffffff 0%, #fef9c3 100%)',
+        background: 'var(--soft-gradient)',
         border: '1px dashed rgba(212, 175, 55, 0.6)',
         display: 'flex',
         flexWrap: 'wrap',
@@ -388,7 +388,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
                 display: 'flex', 
                 alignItems: 'center', 
                 gap: '1.25rem',
-                background: 'linear-gradient(135deg, #ffffff 0%, #f5e9ce 100%)',
+                background: 'var(--soft-gradient)',
                 border: '1px solid rgba(212, 175, 55, 0.3)',
                 boxShadow: '0 4px 12px rgba(184, 134, 11, 0.1)',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -398,8 +398,8 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
                   <Car size={24} />
                 </div>
                 <div>
-                  <h4 style={{ color: '#554411', fontWeight: 800 }}>我的車庫</h4>
-                  <p style={{ color: '#887744', fontSize: '0.8rem' }}>管理車輛資訊及保養記錄</p>
+                  <h4 style={{ color: 'var(--accent-color)', fontWeight: 800 }}>我的車庫</h4>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>管理車輛資訊及保養記錄</p>
                 </div>
               </div>
             </Link>
@@ -411,7 +411,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
                 display: 'flex', 
                 alignItems: 'center', 
                 gap: '1.25rem',
-                background: 'linear-gradient(135deg, #ffffff 0%, #f5e9ce 100%)',
+                background: 'var(--soft-gradient)',
                 border: '1px solid rgba(212, 175, 55, 0.3)',
                 boxShadow: '0 4px 12px rgba(184, 134, 11, 0.1)',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -421,8 +421,8 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
                   <Home size={24} />
                 </div>
                 <div>
-                  <h4 style={{ color: '#554411', fontWeight: 800 }}>我的物業</h4>
-                  <p style={{ color: '#887744', fontSize: '0.8rem' }}>查看物業細節及相關預約</p>
+                  <h4 style={{ color: 'var(--accent-color)', fontWeight: 800 }}>我的物業</h4>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>查看物業細節及相關預約</p>
                 </div>
               </div>
             </Link>
@@ -461,7 +461,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
                 <div key={booking.id} style={{
                   padding: '1.25rem',
                   borderRadius: '16px',
-                  background: 'linear-gradient(135deg, #ffffff 0%, #fcf7e8 100%)',
+                   background: 'var(--soft-gradient)',
                   border: '1px solid rgba(184, 134, 11, 0.25)',
                   display: 'flex',
                   justifyContent: 'space-between',

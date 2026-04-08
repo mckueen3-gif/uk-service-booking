@@ -21,13 +21,13 @@ export default async function DashboardPage() {
         padding: '2.5rem', 
         borderRadius: '32px', 
         marginBottom: '2.5rem',
-        background: 'linear-gradient(135deg, #ffffff 0%, #e9d5a3 100%)',
+        background: 'var(--soft-gradient)',
         border: '1px solid rgba(212, 175, 55, 0.4)',
         boxShadow: '0 10px 40px rgba(184, 134, 11, 0.1), 0 0 0 1px rgba(184, 134, 11, 0.05)',
         backdropFilter: 'blur(16px)'
       }}>
         <DynamicGreeting userName={userName} />
-        <p style={{ color: '#554411', fontSize: '1.1rem', maxWidth: '600px', fontWeight: 600 }}>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', maxWidth: '600px', fontWeight: 600 }}>
           Welcome back to your elite dashboard. Your private concierge is active and synced.
         </p>
       </section>

@@ -3,7 +3,7 @@ import { Dictionary } from '../dictionary';
 
 export const zhTW: Dictionary = {
   nav: { 
-    browse: "瀏覽服務", join: "成為專家", login: "登入", logout: "登出", 
+    browse: "瀏覽服務", join: "成為專家", login: "登入", register: "註冊", logout: "登出", 
     dashboard: "我的控制面板", aiDiagnosis: "AI 診斷", education: "教育輔導" 
   },
   common: { viewProfile: "查看檔案", reviews: "則評價", hr: "小時", copy: "複製", copied: "已複製！" },

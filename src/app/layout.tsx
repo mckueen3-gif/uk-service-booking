@@ -6,10 +6,8 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import AIChatbot from "@/components/AIChatbot";
 import StructuredData from "@/components/StructuredData";
-import ChatWidget from "@/components/chat/ChatWidget";
 import NavbarSearch from "@/app/components/NavbarSearch";
 import CookieBanner from "@/components/legal/CookieBanner";
-import NotificationHub from "@/components/dashboard/NotificationHub";
 import ScrollProgress from "@/app/components/ScrollProgress";
 import { User } from "lucide-react";
 
@@ -65,7 +63,6 @@ export default async function RootLayout({
                   <AppFooter />
                   <AIChatbot />
                   <CookieBanner />
-                  <NotificationHub /> 
                 </LocationProvider>
               </LanguageProvider>
             </ThemeProvider>

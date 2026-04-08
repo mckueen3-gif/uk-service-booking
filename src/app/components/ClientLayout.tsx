@@ -321,7 +321,6 @@ export function AppNavbar({ session }: { session: any }) {
               </div>
             )}
           </div>
-
           <Link href="/diagnosis" style={{ 
             color: obsidianGold, 
             fontWeight: 800, 
@@ -332,6 +331,21 @@ export function AppNavbar({ session }: { session: any }) {
             gap: '0.4rem'
           }}>
             <PenTool size={18} /> {t.nav.aiDiagnosis}
+          </Link>
+
+          <Link href="/join" style={{ 
+            color: obsidianGold, 
+            fontWeight: 800, 
+            textDecoration: 'none', 
+            fontSize: '1.05rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.4rem',
+            padding: '0.5rem 0.75rem',
+            borderRadius: '0.75rem',
+            transition: '0.2s'
+          }} className="hover-bg">
+            <Briefcase size={18} /> {t.nav.join}
           </Link>
           
           <div style={{ width: '220px' }}>
@@ -370,15 +384,23 @@ export function AppNavbar({ session }: { session: any }) {
                   <User size={16} /> {session.user.name} 
                 </span>
               </Link>
-              {!isObsidianPage && pathname !== '/auth/login' && pathname !== '/auth/register' && <a href="/api/auth/signout" style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', textDecoration: 'none' }}>{t.nav.logout}</a>}
+              {isObsidianPage && pathname !== '/auth/login' && pathname !== '/auth/register' && (
+                <a href="/api/auth/signout" style={{ color: '#ef4444', fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none' }}>
+                  {t.nav.logout}
+                </a>
+              )}
             </div>
           ) : (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <Link href="/auth/login" className="btn btn-primary" style={{ 
-                textDecoration: 'none', padding: '0.5rem 1.5rem', fontSize: '0.9rem',
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <Link href="/auth/login" style={{ 
+                textDecoration: 'none', color: obsidianGold, fontWeight: 700, fontSize: '0.9rem'
+              }}>{t.nav.login}</Link>
+              <div style={{ width: '1px', height: '14px', backgroundColor: 'var(--border-color)', opacity: 0.5 }}></div>
+              <Link href="/auth/register" className="btn btn-primary" style={{ 
+                textDecoration: 'none', padding: '0.5rem 1.25rem', fontSize: '0.9rem',
                 backgroundColor: isObsidianPage ? obsidianGold : 'var(--accent-color)',
                 color: isObsidianPage ? 'black' : 'white'
-              }}>{t.nav.login}</Link>
+              }}>{t.nav.register}</Link>
             </div>
           )}
         </div>
@@ -495,17 +517,24 @@ export function AppNavbar({ session }: { session: any }) {
            </div>
 
            {/* Auth CTA Mobile */}
-           <div style={{ marginTop: 'auto', display: 'flex', gap: '1rem' }}>
-              <Link href="/join" onClick={() => setMobileMenuOpen(false)} style={{ 
-                flex: 1, padding: '1.25rem', textAlign: 'center', borderRadius: '1rem',
-                border: `1.5px solid ${obsidianGold}`, color: obsidianGold, fontWeight: 900, textDecoration: 'none'
-              }}>Become Expert</Link>
-              {!session?.user && (
-                <Link href="/auth/login" onClick={() => setMobileMenuOpen(false)} style={{ 
-                  flex: 1, padding: '1.25rem', textAlign: 'center', borderRadius: '1rem',
-                  background: obsidianGold, color: 'black', fontWeight: 900, textDecoration: 'none'
-                }}>Login</Link>
-              )}
+           <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+             <Link href="/join" onClick={() => setMobileMenuOpen(false)} style={{ 
+               width: '100%', padding: '1rem', textAlign: 'center', borderRadius: '1rem',
+               border: `1.5px solid ${obsidianGold}`, color: obsidianGold, fontWeight: 900, textDecoration: 'none'
+             }}>{t.nav.join}</Link>
+             
+             {!session?.user && (
+               <div style={{ display: 'flex', gap: '0.75rem' }}>
+                 <Link href="/auth/login" onClick={() => setMobileMenuOpen(false)} style={{ 
+                   flex: 1, padding: '1rem', textAlign: 'center', borderRadius: '1rem',
+                   background: 'transparent', border: '1.5px solid var(--border-color)', color: obsidianGold, fontWeight: 900, textDecoration: 'none'
+                 }}>{t.nav.login}</Link>
+                 <Link href="/auth/register" onClick={() => setMobileMenuOpen(false)} style={{ 
+                   flex: 1, padding: '1rem', textAlign: 'center', borderRadius: '1rem',
+                   background: obsidianGold, color: 'black', fontWeight: 900, textDecoration: 'none'
+                 }}>{t.nav.register}</Link>
+               </div>
+             )}
            </div>
         </div>
       )}

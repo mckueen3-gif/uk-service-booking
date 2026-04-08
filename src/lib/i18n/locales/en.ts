@@ -2,7 +2,7 @@ import { Dictionary } from '../dictionary';
 
 export const en: Dictionary = {
   nav: { 
-    browse: "Browse Services", join: "Join as Expert", login: "Sign In", logout: "Logout", 
+    browse: "Browse Services", join: "Join as Expert", login: "Sign In", register: "Register", logout: "Logout", 
     dashboard: "My Dashboard", aiDiagnosis: "AI Diagnosis", education: "Education" 
   },
   common: { viewProfile: "View Profile", reviews: "reviews", hr: "hr", copy: "Copy", copied: "Copied!" },

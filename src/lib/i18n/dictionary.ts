@@ -10,7 +10,7 @@ import { ur } from './locales/ur';
 import { pa } from './locales/pa';
 
 export interface Dictionary {
-  nav: { browse: string; join: string; login: string; logout: string; dashboard: string; aiDiagnosis: string; education: string };
+  nav: { browse: string; join: string; login: string; register: string; logout: string; dashboard: string; aiDiagnosis: string; education: string };
   common: { viewProfile: string; reviews: string; hr: string; copy: string; copied: string };
   hero: { title: string; subtitle: string; searchPlaceholder: string; badge: string };
   faq: {
