@@ -2,7 +2,7 @@ import { Dictionary } from '../dictionary';
 
 export const ar: Dictionary = {
   nav: { 
-    browse: "تصفح الخدمات", join: "انضم كخبير", login: "تسجيل الدخول", logout: "تسجيل الخروج", 
+    browse: "تصفح الخدمات", join: "انضم كخبير", login: "تسجيل الدخول", register: "تسجيل", logout: "تسجيل الخروج", 
     dashboard: "لوحة التحكم", aiDiagnosis: "تشخيص AI", education: "التعليم" 
   },
   common: { viewProfile: "عرض الملف الشخصي", reviews: "تقييمات", hr: "ساعة", copy: "نسخ", copied: "تم النسخ!" },

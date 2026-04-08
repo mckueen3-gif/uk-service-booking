@@ -2,7 +2,7 @@ import { Dictionary } from '../dictionary';
 
 export const pa: Dictionary = {
   nav: { 
-    browse: "ਸੇਵਾਵਾਂ ਦੇਖੋ", join: "ਮਾਹਰ ਵਜੋਂ ਜੁੜੋ", login: "ਲੌਗਇਨ", logout: "ਲੌਗਆਉਟ", 
+    browse: "ਸੇਵਾਵਾਂ ਦੇਖੋ", join: "ਮਾਹਰ ਵਜੋਂ ਜੁੜੋ", login: "ਲੌਗਇਨ", register: "ਰਜਿਸਟਰ", logout: "ਲੌਗਆਉਟ", 
     dashboard: "ਮੇਰਾ ਡੈਸ਼ਬੋਰਡ", aiDiagnosis: "AI ਜਾਂਚ", education: "ਸਿੱਖਿਆ" 
   },
   common: { viewProfile: "ਪ੍ਰੋਫਾਈਲ ਦੇਖੋ", reviews: "ਰਿਵਿਊ", hr: "ਘੰਟਾ", copy: "ਕਾਪੀ", copied: "ਕਾਪੀ ਹੋ ਗਿਆ!" },

@@ -2,7 +2,7 @@ import { Dictionary } from '../dictionary';
 
 export const ur: Dictionary = {
   nav: { 
-    browse: "سروسز تلاش کریں", join: "ماہر کے طور پر شامل ہوں", login: "لاگ ان", logout: "لاگ آؤٹ", 
+    browse: "سروسز تلاش کریں", join: "ماہر کے طور پر شامل ہوں", login: "لاگ ان", register: "رجسٹر", logout: "لاگ آؤٹ", 
     dashboard: "میرا ڈیش بورڈ", aiDiagnosis: "AI تشخیص", education: "تعلیم" 
   },
   common: { viewProfile: "پروفائل دیکھیں", reviews: "تبصرے", hr: "گھنٹہ", copy: "کاپی", copied: "کاپی ہو گیا!" },

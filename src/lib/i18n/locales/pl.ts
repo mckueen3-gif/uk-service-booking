@@ -2,7 +2,7 @@ import { Dictionary } from '../dictionary';
 
 export const pl: Dictionary = {
   nav: { 
-    browse: "Przeglądaj usługi", join: "Dołącz jako ekspert", login: "Zaloguj się", logout: "Wyloguj się", 
+    browse: "Przeglądaj usługi", join: "Dołącz jako ekspert", login: "Zaloguj się", register: "Zarejestruj się", logout: "Wyloguj się", 
     dashboard: "Mój panel", aiDiagnosis: "Diagnoza AI", education: "Edukacja" 
   },
   common: { viewProfile: "Zobacz profil", reviews: "opinii", hr: "godz", copy: "Kopiuj", copied: "Skopiowano!" },

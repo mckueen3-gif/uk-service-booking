@@ -2,7 +2,7 @@ import { Dictionary } from '../dictionary';
 
 export const ko: Dictionary = {
   nav: { 
-    browse: "서비스 둘러보기", join: "전문가로 참여", login: "로그인", logout: "로그아웃", 
+    browse: "서비스 둘러보기", join: "전문가로 참여", login: "로그인", register: "등록", logout: "로그아웃", 
     dashboard: "내 대시보드", aiDiagnosis: "AI 진단", education: "교육 지원" 
   },
   common: { viewProfile: "프로필 보기", reviews: "개의 리뷰", hr: "시간", copy: "복사", copied: "복사됨!" },

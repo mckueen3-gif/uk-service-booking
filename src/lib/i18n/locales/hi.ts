@@ -2,7 +2,7 @@ import { Dictionary } from '../dictionary';
 
 export const hi: Dictionary = {
   nav: { 
-    browse: "सेवाएं देखें", join: "विशेषज्ञ के रूप में जुड़ें", login: "साइन इन", logout: "लॉगआउट", 
+    browse: "सेवाएं देखें", join: "विशेषज्ञ के रूप में जुड़ें", login: "साइन इन", register: "पंजीकरण", logout: "लॉगआउट", 
     dashboard: "मेरा डैशबोर्ड", aiDiagnosis: "AI निदान", education: "शिक्षा" 
   },
   common: { viewProfile: "प्रोफ़ाइल देखें", reviews: "समीक्षाएं", hr: "घंटा", copy: "कॉपी", copied: "कॉपी किया गया!" },

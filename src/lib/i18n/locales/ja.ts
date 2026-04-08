@@ -2,7 +2,7 @@ import { Dictionary } from '../dictionary';
 
 export const ja: Dictionary = {
   nav: { 
-    browse: "サービスを探す", join: "エキスパートとして登録", login: "ログイン", logout: "ログアウト", 
+    browse: "サービスを探す", join: "エキスパートとして登録", login: "ログイン", register: "登録", logout: "ログアウト", 
     dashboard: "ダッシュボード", aiDiagnosis: "AI診断", education: "教育サポート" 
   },
   common: { viewProfile: "プロフィールを表示", reviews: "件のレビュー", hr: "時間", copy: "コピー", copied: "コピーしました！" },

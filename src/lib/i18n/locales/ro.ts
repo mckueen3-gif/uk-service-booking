@@ -2,7 +2,7 @@ import { Dictionary } from '../dictionary';
 
 export const ro: Dictionary = {
   nav: { 
-    browse: "Răsfoiește servicii", join: "Alătură-te ca expert", login: "Autentificare", logout: "Deconectare", 
+    browse: "Răsfoiește servicii", join: "Alătură-te ca expert", login: "Autentificare", register: "Înregistrare", logout: "Deconectare", 
     dashboard: "Panoul meu", aiDiagnosis: "Diagnostic AI", education: "Educație" 
   },
   common: { viewProfile: "Vezi profil", reviews: "recenzii", hr: "oră", copy: "Copiază", copied: "Copiat!" },
