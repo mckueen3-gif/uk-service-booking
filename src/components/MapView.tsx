@@ -2,7 +2,10 @@
 
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { GoogleMap, OverlayView, OverlayViewF } from '@react-google-maps/api';
-import { MapPin, Star, X, ExternalLink, RefreshCw, Navigation as NavIcon, Sparkles } from 'lucide-react';
+import { 
+  MapPin, Star, X, ExternalLink, RefreshCw, 
+  Navigation as NavIcon, Sparkles, Loader2, AlertCircle, Zap 
+} from 'lucide-react';
 import Link from 'next/link';
 import { useTranslation } from "@/components/LanguageContext";
 import { useGoogleMaps, MAP_STYLES } from './GoogleMapProvider';
@@ -43,6 +46,33 @@ export default function MapView({ merchants, onSearchInBounds }: MapViewProps) {
   const [map, setMap] = useState<google.maps.Map | null>(null);
   const [showSearchButton, setShowSearchButton] = useState(false);
   const [forceSimulated, setForceSimulated] = useState(false);
+  const [hasTimedOut, setHasTimedOut] = useState(false);
+
+  // Persistence for Discovery Mode preference
+  useEffect(() => {
+    const pref = localStorage.getItem('map-discovery-pref');
+    if (pref === 'true') {
+      setForceSimulated(true);
+    }
+  }, []);
+
+  const handleDiscoveryToggle = (val: boolean) => {
+    setForceSimulated(val);
+    localStorage.setItem('map-discovery-pref', val.toString());
+  };
+
+  // Detect if Google Maps fails to render correctly (Oops box doesn't call onLoad)
+  useEffect(() => {
+    if (isLoaded && !map && !forceSimulated) {
+      const timer = setTimeout(() => {
+        if (!map) {
+          console.warn("Google Maps render timeout - triggering Discovery Mode fallback");
+          setHasTimedOut(true);
+        }
+      }, 5000); // 5 second grace period
+      return () => clearTimeout(timer);
+    }
+  }, [isLoaded, map, forceSimulated]);
 
   // Filter valid coordinates
   const validMerchants = useMemo(() => {
@@ -114,41 +144,66 @@ export default function MapView({ merchants, onSearchInBounds }: MapViewProps) {
       boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.1)',
       direction: 'ltr'
     }}>
-      {(!isLoaded || forceSimulated) && !forceSimulated ? (
-        <div className="glass-panel" style={{ padding: '5rem', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-           Loading Google Maps Engine...
+      {( (!isLoaded || !map) && !forceSimulated && !hasTimedOut && !loadError) ? (
+        <div style={{ padding: '5rem', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--surface-1)' }}>
+           <Loader2 className="animate-spin" size={48} color="var(--accent-color)" />
+           <p style={{ marginTop: '1.5rem', fontWeight: 800, color: 'var(--text-secondary)' }}>Initializing Orbital Mapping Engine...</p>
         </div>
-      ) : (loadError || forceSimulated) ? (
-        <SimulatedMap 
-          merchants={validMerchants} 
-          selectedMerchant={selectedMerchant}
-          onSelect={(m: Merchant) => setSelectedMerchant(m)}
-          onClose={() => setSelectedMerchant(null)}
-        />
+      ) : (loadError || forceSimulated || hasTimedOut) ? (
+        <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+          <SimulatedMap 
+            merchants={validMerchants} 
+            selectedMerchant={selectedMerchant}
+            onSelect={(m: Merchant) => setSelectedMerchant(m)}
+            onClose={() => setSelectedMerchant(null)}
+          />
+          {(hasTimedOut || loadError) && !forceSimulated && (
+            <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100 }}>
+              <div className="glass-panel animate-scale-in" style={{ padding: '2.5rem', borderRadius: '2rem', backgroundColor: 'var(--surface-1)', border: '2px solid #facc15', maxWidth: '400px', textAlign: 'center', boxShadow: 'var(--shadow-xl)' }}>
+                <AlertCircle size={48} color="#facc15" style={{ margin: '0 auto 1.5rem' }} />
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 900, marginBottom: '1rem' }}>Map Connectivity Issue</h3>
+                <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '2rem' }}>
+                  The global mapping engine is currently restricted or billing-disabled in this environment.
+                </p>
+                <button 
+                  onClick={() => handleDiscoveryToggle(true)}
+                  style={{ width: '100%', padding: '1rem', borderRadius: '1rem', backgroundColor: 'var(--accent-color)', color: 'white', border: 'none', fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
+                >
+                  <Sparkles size={18} /> Switch to Discovery Mode
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       ) : (
         <>
-          {/* Map Bypass Toggle - Visible if Map Engine loads but might be broken */}
+          {/* Map Bypass Toggle - Professional Label */}
           <button 
-            onClick={() => setForceSimulated(true)}
+            onClick={() => handleDiscoveryToggle(true)}
             style={{
               position: 'absolute',
               bottom: '24px',
               [isRTL ? 'right' : 'left']: '24px',
               zIndex: 50,
-              padding: '0.5rem 1rem',
+              padding: '0.6rem 1.25rem',
               borderRadius: '99px',
-              background: 'var(--surface-1)',
-              border: '1px solid var(--border-color)',
-              color: 'var(--text-muted)',
-              fontSize: '0.7rem',
-              fontWeight: 800,
+              background: 'rgba(0,0,0,0.85)',
+              border: '1px solid var(--accent-color)',
+              color: 'var(--accent-color)',
+              fontSize: '0.75rem',
+              fontWeight: 900,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '6px'
+              gap: '8px',
+              backdropFilter: 'blur(8px)',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+              transition: 'all 0.2s'
             }}
+            onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+            onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
           >
-            <NavIcon size={12} /> Map not loading correctly? Click for Bypass
+            <Zap size={14} /> ⚡ SWITCH TO FAST DISCOVERY MODE
           </button>
 
           <GoogleMap

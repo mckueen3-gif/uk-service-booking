@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, ReactNode } from 'react';
+import React, { createContext, useContext, ReactNode, useEffect } from 'react';
 import { useJsApiLoader } from '@react-google-maps/api';
 
 const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
@@ -117,6 +117,12 @@ export function GoogleMapsProvider({ children }: { children: ReactNode }) {
     googleMapsApiKey: GOOGLE_MAPS_API_KEY,
     libraries: LIBRARIES,
   });
+
+  useEffect(() => {
+    if (loadError) {
+      console.error("Google Maps Load Error:", loadError);
+    }
+  }, [loadError]);
 
   return (
     <GoogleMapsContext.Provider value={{ isLoaded, loadError }}>
