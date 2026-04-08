@@ -606,9 +606,6 @@ export function AppFooter() {
                  <Link href="/services?category=Plumbing" style={{ color: isObsidianPage ? '#666' : 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.95rem', fontWeight: 500 }}>
                    {isRTL ? 'خدمات السباكة Plumbing' : 'Plumbing Services'}
                  </Link>
-                 <Link href="/services?category=Automotive" style={{ color: isObsidianPage ? '#666' : 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.95rem', fontWeight: 500 }}>
-                   {t.faq.categories.disputes} - Automotive
-                 </Link>
                  <Link href="/diagnosis" style={{ color: obsidianGold, textDecoration: 'none', fontSize: '0.95rem', fontWeight: 700 }}>
                    {t.footer.aiDiagnosis} ✨
                  </Link>

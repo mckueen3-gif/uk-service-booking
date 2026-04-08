@@ -217,7 +217,6 @@ export default function MerchantServicesPage() {
                 <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>類別 Category</label>
                 <select value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})} style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
                   <option value="Accounting">Accounting & Tax</option>
-                  <option value="Automotive">Automotive</option>
                   <option value="Plumbing">Plumbing</option>
                   <option value="Cleaning">Cleaning</option>
                   <option value="Education">Education & Tutoring</option>

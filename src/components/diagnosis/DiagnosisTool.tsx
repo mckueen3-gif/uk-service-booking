@@ -30,7 +30,6 @@ export default function DiagnosisTool() {
   // Reactive categories to ensure language switching works instantly
   const CATEGORIES = [
     { id: 'Plumbing', label: t.diagnosis?.tool?.categories?.plumbing || "水電工程", icon: '🚰' },
-    { id: 'Automotive', label: t.diagnosis?.tool?.categories?.auto || "汽車維修", icon: '🚗' },
     { id: 'Renovation', label: t.diagnosis?.tool?.categories?.renovation || "房屋裝修", icon: '🏠' },
     { id: 'Electrical', label: t.diagnosis?.tool?.categories?.electrical || "電力工程", icon: '⚡' },
     { id: 'Cleaning', label: t.diagnosis?.tool?.categories?.cleaning || "專業清潔", icon: '✨' },

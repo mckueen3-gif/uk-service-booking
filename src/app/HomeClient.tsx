@@ -44,7 +44,6 @@ export default function HomeClient() {
     { id: 'legal', label: t.home.categories.legal, icon: <Scale size={28} strokeWidth={1.5} />, category: 'Legal' },
     { id: 'commercial', label: t.home.categories.commercial, icon: <Briefcase size={28} strokeWidth={1.5} />, category: 'Commercial' },
     { id: 'cleaning', label: t.home.categories.cleaning, icon: <Sparkles size={28} strokeWidth={1.5} />, category: 'Cleaning' },
-    { id: 'car', label: t.home.categories.car, icon: <Car size={28} strokeWidth={1.5} />, category: 'Automotive' },
   ];
 
   useEffect(() => {

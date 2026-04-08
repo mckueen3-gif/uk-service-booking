@@ -156,7 +156,6 @@ function SearchResults() {
                    <option value="Legal">{t.home.categories.legal}</option>
                    <option value="Commercial">{t.home.categories.commercial}</option>
                    <option value="Cleaning">{t.home.categories.cleaning}</option>
-                   <option value="Automotive">{t.home.categories.car}</option>
                  </select>
             </div>
 
