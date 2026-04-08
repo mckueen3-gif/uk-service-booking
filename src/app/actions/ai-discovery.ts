@@ -91,7 +91,8 @@ export async function getPersonalizedFeed(city?: string) {
 
     const recommendations = [];
 
-    // Logic: Map vehicles to Auto/Tires/MOT
+    // Logic: Map vehicles to Auto/Tires/MOT (Temporarily disabled - Car repair hidden)
+    /*
     for (const v of vehicles) {
       recommendations.push({
         id: `v_${v.id}`,
@@ -103,6 +104,7 @@ export async function getPersonalizedFeed(city?: string) {
         reasonKey: "assetMatch"
       });
     }
+    */
 
     // Logic: Map properties to Home/Cleaning/Plumbing
     for (const p of properties) {
@@ -117,27 +119,27 @@ export async function getPersonalizedFeed(city?: string) {
       });
     }
 
-    // Fallback: Trending with variety
+    // Fallback: Trending with variety (Auto Repair hidden)
     if (recommendations.length === 0) {
       recommendations.push(
         { 
           id: 't1', 
           titleKey: 'trendingTitle',
-          categoryKey: 'autoRepair', 
-          subtitleKey: 'autoSub',
-          category: "Auto", 
-          query: "Repair", 
-          icon: "Car", 
-          reasonKey: "trending" 
-        },
-        { 
-          id: 't2', 
-          titleKey: 'ukWideTitle', 
           categoryKey: 'homeRepair', 
           subtitleKey: 'homeSub',
           category: "Repair", 
           query: "Repair", 
           icon: "Hammer", 
+          reasonKey: "trending" 
+        },
+        { 
+          id: 't2', 
+          titleKey: 'topRatedTitle', 
+          categoryKey: 'deepCleaning', 
+          subtitleKey: 'cleanSub',
+          category: "Cleaning", 
+          query: "Clean", 
+          icon: "Sparkles", 
           reasonKey: "trending" 
         }
       );
@@ -161,11 +163,11 @@ export async function getPersonalizedFeed(city?: string) {
         { 
           id: 'f2', 
           titleKey: 'ukWideTitle', 
-          categoryKey: 'autoRepair', 
-          subtitleKey: 'autoSub',
-          category: "Auto", 
-          query: "Repair", 
-          icon: "Car", 
+          categoryKey: 'deepCleaning', 
+          subtitleKey: 'cleanSub',
+          category: "Cleaning", 
+          query: "Clean", 
+          icon: "Sparkles", 
           reasonKey: "trending" 
         }
       ]

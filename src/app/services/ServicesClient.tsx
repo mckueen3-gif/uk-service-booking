@@ -15,7 +15,6 @@ interface ServicesClientProps {
 const CATEGORIES = [
   { id: 'all', name: '所有類別', count: null },
   { id: 'plumber', name: '水電工', count: null },
-  { id: 'auto', name: '汽車維修', count: null },
   { id: 'accounting', name: '會計服務', count: null },
   { id: 'renovation', name: '房屋裝修', count: null },
 ];
