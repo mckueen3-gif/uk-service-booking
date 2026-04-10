@@ -217,11 +217,35 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--accent-color);
   color: white;
   box-shadow: 0 8px 15px -3px rgba(212, 175, 55, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 20%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(30deg);
+  transition: none;
+  animation: none;
+}
+
+.btn-primary:hover::after {
+  animation: button-shimmer 0.8s forwards;
+}
+
+@keyframes button-shimmer {
+  0% { left: -60%; }
+  100% { left: 140%; }
 }
 
 .btn-primary:hover {
   background: var(--accent-hover);
-  transform: scale(1.02);
+  transform: translateY(-2px);
   box-shadow: 0 12px 25px -5px rgba(212, 175, 55, 0.3);
 }
 
@@ -329,3 +353,30 @@ h1, h2, h3, h4, h5, h6 {
 .pulse-gold {
   animation: pulse-gold 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
 }
+
+.social-icon-hover:hover {
+  color: #d4af37 !important;
+  background: rgba(212, 175, 55, 0.1) !important;
+  transform: translateY(-2px);
+}
+
+.link-hover:hover {
+  color: #d4af37 !important;
+  padding-left: 4px;
+}
+
+/* --- Fluid Navbar Utilities --- */
+.fluid-nav-item {
+  white-space: nowrap !important;
+  font-size: clamp(0.75rem, 1.05vw, 1.05rem) !important;
+}
+
+.fluid-nav-gap {
+  gap: clamp(0.5rem, 1.1vw, 1.25rem) !important;
+}
+
+.fluid-search-container {
+  width: clamp(140px, 15vw, 220px) !important;
+  transition: width 0.3s ease;
+}
+

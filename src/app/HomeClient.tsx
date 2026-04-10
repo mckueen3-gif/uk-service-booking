@@ -90,41 +90,92 @@ export default function HomeClient() {
         <RecommendationEngine />
       </div>
 
-      {/* NEW: AI Instant Diagnosis CTA */}
+      {/* Social Proof / Trusted By Section */}
+      <section className="reveal stagger-2" style={{ padding: '3rem 0', background: 'var(--surface-2)', marginTop: '4rem', overflow: 'hidden' }}>
+        <div className="container" style={{ textAlign: 'center' }}>
+          <p style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.2rem', marginBottom: '2.5rem' }}>
+            Trusted by UK Residents & Verified by
+          </p>
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center', 
+            gap: 'clamp(2rem, 8vw, 6rem)', 
+            flexWrap: 'wrap',
+            opacity: 0.6,
+            filter: 'grayscale(100%)'
+          }}>
+            {['Trustpilot', 'Checkatrade', 'HMRC Approved', 'Stripe Secure', 'Gas Safe'].map(brand => (
+              <span key={brand} style={{ fontSize: '1.5rem', fontWeight: 900, fontFamily: 'var(--font-heading)', color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+                {brand}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* AI Instant Diagnosis CTA - PROMINENT POSITION */}
       <section className="container reveal stagger-1" style={{ maxWidth: '1200px', marginTop: '4rem' }}>
         <div className="glass-panel mobile-stack" style={{ 
           display: 'flex', 
           alignItems: 'center', 
           gap: 'clamp(1.5rem, 5vw, 3rem)', 
-          padding: 'clamp(1.5rem, 5vw, 3rem)',
+          padding: 'clamp(2rem, 6vw, 4rem)',
           background: 'var(--soft-gradient)',
           overflow: 'hidden',
-          position: 'relative'
+          position: 'relative',
+          border: '2px solid var(--amber-500)',
+          boxShadow: '0 20px 40px -10px rgba(212, 175, 55, 0.2)'
         }}>
           {/* Decorative Background Element */}
-          <div style={{ position: 'absolute', top: '-10%', right: '-5%', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, var(--amber-100) 0%, transparent 70%)', opacity: 0.5 }}></div>
+          <div style={{ position: 'absolute', top: '-10%', right: '-5%', width: '400px', height: '400px', borderRadius: '50%', background: 'radial-gradient(circle, var(--amber-100) 0%, transparent 70%)', opacity: 0.6 }}></div>
 
-          <div style={{ flex: '1 1 400px', zIndex: 1 }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'var(--amber-600)', color: 'white', padding: '0.4rem 1rem', borderRadius: '2rem', fontSize: '0.75rem', fontWeight: 800, marginBottom: '1.5rem', boxShadow: '0 4px 12px rgba(212, 175, 55, 0.2)' }}>
-              <Sparkles size={14} /> {t.home.aiCTA.badge}
+          <div style={{ flex: '1 1 500px', zIndex: 1 }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', background: 'var(--amber-600)', color: 'white', padding: '0.5rem 1.25rem', borderRadius: '2rem', fontSize: '0.8rem', fontWeight: 800, marginBottom: '1.5rem', boxShadow: '0 4px 12px rgba(212, 175, 55, 0.3)' }}>
+              <Sparkles size={16} /> {t.home.aiCTA.badge}
             </div>
-            <h2 style={{ fontSize: 'clamp(1.8rem, 5vw, 3rem)', fontWeight: 950, marginBottom: '1.5rem', lineHeight: 1.1 }}>
+            <h2 style={{ fontSize: 'clamp(2.2rem, 6vw, 3.8rem)', fontWeight: 950, marginBottom: '1.5rem', lineHeight: 1.05, letterSpacing: '-0.02em' }}>
               {t.home.aiCTA.title1} <br />
               <span style={{ color: 'var(--amber-600)' }}>{t.home.aiCTA.title2}</span>
             </h2>
-            <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', marginBottom: '2.5rem', lineHeight: 1.6, fontWeight: 500 }}>
+            <p style={{ fontSize: '1.25rem', color: 'var(--text-muted)', marginBottom: '3rem', lineHeight: 1.6, fontWeight: 500, maxWidth: '600px' }}>
               {t.home.aiCTA.subtitle}
             </p>
-            <Link href="/diagnosis">
-              <button className="btn btn-primary" style={{ padding: '1.25rem 2.5rem', fontSize: '1.1rem' }}>
-                {t.home.aiCTA.button} <ChevronRight size={20} />
+            <Link href="/diagnosis" style={{ textDecoration: 'none' }}>
+              <button className="btn btn-primary" style={{ padding: '1.5rem 3.5rem', fontSize: '1.2rem', background: 'linear-gradient(135deg, var(--amber-600), var(--amber-800))' }}>
+                {t.home.aiCTA.button} <ChevronRight size={22} style={{ marginLeft: '0.5rem' }} />
               </button>
             </Link>
           </div>
           
-          <div style={{ flex: '1 1 300px', height: '400px', zIndex: 1, borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: 'var(--shadow-lg)' }}>
+          <div style={{ flex: '1 1 400px', height: '450px', zIndex: 1, borderRadius: '2.5rem', overflow: 'hidden', boxShadow: 'var(--shadow-2xl)', transform: 'perspective(1000px) rotateY(-5deg) rotateX(2deg)' }}>
              <img src="/images/ai-diagnosis-hero.png" alt="AI Diagnosis" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
+        </div>
+      </section>
+
+      {/* NEW: How It Works Section */}
+      <section className="container reveal stagger-2" style={{ maxWidth: '1200px', marginTop: '6rem', padding: '4rem 0' }}>
+        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+          <h2 style={{ fontSize: '3rem', fontWeight: 950, marginBottom: '1rem', color: 'var(--text-primary)' }}>{t.home.howItWorks.title}</h2>
+          <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', fontWeight: 500 }}>{t.home.howItWorks.subtitle}</p>
+        </div>
+        
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2.5rem' }}>
+          {[
+            { title: t.home.howItWorks.step1Title, desc: t.home.howItWorks.step1Desc, icon: <Sparkles size={32} /> },
+            { title: t.home.howItWorks.step2Title, desc: t.home.howItWorks.step2Desc, icon: <Users size={32} /> },
+            { title: t.home.howItWorks.step3Title, desc: t.home.howItWorks.step3Desc, icon: <ShieldCheck size={32} /> },
+            { title: t.home.howItWorks.step4Title, desc: t.home.howItWorks.step4Desc, icon: <CheckCircle2 size={32} /> }
+          ].map((item, i) => (
+            <div key={i} className="glass-panel reveal" style={{ padding: '3rem 2rem', textAlign: 'center', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem', background: 'var(--surface-1)' }}>
+              <div style={{ width: '80px', height: '80px', borderRadius: '2rem', backgroundColor: 'var(--accent-soft)', color: 'var(--accent-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
+                {item.icon}
+              </div>
+              <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-primary)' }}>{item.title}</h3>
+              <p style={{ color: 'var(--text-muted)', lineHeight: 1.6, fontSize: '0.95rem', fontWeight: 500 }}>{item.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
       {/* NEW: Referral Program Passive Income CTA */}
@@ -371,7 +422,7 @@ export default function HomeClient() {
               Elite Local <span style={{ color: 'var(--accent-color)' }}>{t.search.filters}</span>
             </h2>
             <p style={{ maxWidth: '600px', margin: '0 auto', color: 'var(--text-muted)', fontSize: '1.25rem', fontWeight: 500 }}>
-              {t.home.hero.subtitle}
+              {t.home.recommendation.subtitle}
             </p>
           </div>
 
@@ -433,6 +484,23 @@ export default function HomeClient() {
         </div>
       </section>
 
+      {/* Floating AI Diagnosis Button */}
+      <Link href="/diagnosis" style={{ position: 'fixed', bottom: '2rem', right: '2rem', zIndex: 100, textDecoration: 'none' }}>
+        <button className="btn btn-primary float" style={{ 
+          padding: '1.25rem', 
+          borderRadius: '50%', 
+          width: '70px', 
+          height: '70px', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          background: 'linear-gradient(135deg, var(--amber-500), var(--amber-700))',
+          boxShadow: '0 10px 30px rgba(212, 175, 55, 0.5)',
+          border: '2px solid white'
+        }}>
+          <Sparkles size={32} />
+        </button>
+      </Link>
     </div>
   );
 }

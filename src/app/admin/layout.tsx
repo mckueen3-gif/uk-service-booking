@@ -134,6 +134,7 @@ export default async function AdminLayout({
            <div style={{ fontSize: '10px', fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.15em', padding: '0 1.25rem', margin: '1.5rem 0 0.75rem' }}>商務管理</div>
            <AdminNavLink href="/admin/merchants" icon={<Users size={18} />} label={t.admin.sidebar.merchants} />
            <AdminNavLink href="/admin/payouts" icon={<CreditCard size={18} />} label={t.admin.sidebar.payouts} />
+           <AdminNavLink href="/admin/settings" icon={<Settings size={18} />} label={t.admin.settings_mgr.title} />
            <AdminNavLink href="/admin/commissions" icon={<Settings size={18} />} label={t.admin.sidebar.settings} />
         </nav>
 

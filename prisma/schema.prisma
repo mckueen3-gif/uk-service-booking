@@ -197,8 +197,24 @@ model Merchant {
 model PlatformSettings {
   id                   String   @id @default("global")
   defaultCommissionRate Float    @default(0.09)
+  
+  // Corporate Info
+  companyName         String   @default("ConciergeAI UK")
+  officeAddress       String   @default("London, UK")
+  contactPhone        String   @default("+44 20 1234 5678")
+  contactEmail        String   @default("support@conciergeai.uk")
+  companyRegistration String   @default("12345678")
+  vatRegistration     String   @default("GB123456789")
+  
+  // Social Links
+  facebookUrl         String   @default("https://facebook.com/conciergeai")
+  twitterUrl          String   @default("https://twitter.com/conciergeai")
+  instagramUrl        String   @default("https://instagram.com/conciergeai")
+  linkedinUrl         String   @default("https://linkedin.com/company/conciergeai")
+  
   updatedAt            DateTime @updatedAt
 }
+
 
 model PromoCode {
   id              String   @id @default(cuid())

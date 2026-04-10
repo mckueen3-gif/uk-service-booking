@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from "@/components/LanguageContext";
-import { Globe, User, MapPin, ChevronRight, Navigation, PenTool, Sun, Moon, Droplets, Wrench, GraduationCap, Calculator, Scale, Briefcase, Sparkles, Car, ChevronDown, Star, Menu, X } from "lucide-react";
+import { Globe, User, MapPin, ChevronRight, Navigation, PenTool, Sun, Moon, Droplets, Wrench, GraduationCap, Calculator, Scale, Briefcase, Sparkles, Car, ChevronDown, Star, Menu, X, Mail, Phone, Share2, MessageSquare } from "lucide-react";
 import NavbarSearch from "@/app/components/NavbarSearch";
 import NotificationHub from "@/components/dashboard/NotificationHub";
 import { useLocation, ALL_UK } from "@/components/LocationContext";
@@ -126,9 +126,9 @@ export function AppNavbar({ session }: { session: any }) {
         </div>
         
         {/* Desktop Nav Items */}
-        <div className="hide-on-mobile" style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flex: 1, justifyContent: 'flex-end' }}>
+        <div className="hide-on-mobile fluid-nav-gap" style={{ display: 'flex', alignItems: 'center', flex: 1, justifyContent: 'flex-end' }}>
           {/* City Selector */}
-          <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: isObsidianPage ? (theme === 'dark' ? '#666' : 'var(--text-secondary)') : 'var(--text-secondary)' }}>
+          <div className="fluid-nav-item" style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '0.5rem', color: isObsidianPage ? (theme === 'dark' ? '#666' : 'var(--text-secondary)') : 'var(--text-secondary)' }}>
              <MapPin size={16} color={obsidianGold} />
              <div 
                onClick={() => toggleDropdown('cities')}
@@ -218,6 +218,7 @@ export function AppNavbar({ session }: { session: any }) {
           <div style={{ position: 'relative' }}>
             <div 
               onClick={() => toggleDropdown('languages')}
+              className="hover-border active-scale fluid-nav-item"
               style={{ 
                 display: 'flex', alignItems: 'center', gap: '6px', 
                 cursor: 'pointer', padding: '0.4rem 0.8rem', 
@@ -225,9 +226,9 @@ export function AppNavbar({ session }: { session: any }) {
                 border: `1px solid ${isObsidianPage ? 'rgba(212,175,55,0.2)' : 'var(--border-color)'}`,
                 backgroundColor: activeDropdown === 'languages' ? (isObsidianPage ? 'rgba(212,175,55,0.1)' : 'rgba(212,175,55,0.05)') : (isObsidianPage ? '#0f0f0f' : 'var(--surface-1)'), 
                 color: obsidianGold,
-                fontWeight: 600, fontSize: '0.9rem', transition: 'all 0.2s',
+                fontWeight: 600, transition: 'all 0.2s',
                 boxShadow: isObsidianPage ? 'none' : 'var(--shadow-sm)'
-              }} className="hover-border active-scale">
+              }}>
                <Globe size={16} color={obsidianGold} />
                <span>{currentLanguage.label.split(' ')[0]}</span>
                <ChevronDown size={14} style={{ transform: activeDropdown === 'languages' ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s', opacity: 0.6 }} />
@@ -269,10 +270,11 @@ export function AppNavbar({ session }: { session: any }) {
           <div style={{ position: 'relative' }}>
             <div 
               onClick={() => toggleDropdown('services')}
+              className="fluid-nav-item"
               style={{ 
                 cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', 
                 color: obsidianGold, 
-                fontWeight: 700, fontSize: '1.05rem', padding: '0.5rem 0'
+                fontWeight: 700, padding: '0.5rem 0'
               }}
             >
               {t.nav.browse}
@@ -321,11 +323,10 @@ export function AppNavbar({ session }: { session: any }) {
               </div>
             )}
           </div>
-          <Link href="/diagnosis" style={{ 
+          <Link href="/diagnosis" className="fluid-nav-item" style={{ 
             color: obsidianGold, 
             fontWeight: 800, 
             textDecoration: 'none', 
-            fontSize: '1.05rem',
             display: 'flex',
             alignItems: 'center',
             gap: '0.4rem'
@@ -333,22 +334,21 @@ export function AppNavbar({ session }: { session: any }) {
             <PenTool size={18} /> {t.nav.aiDiagnosis}
           </Link>
 
-          <Link href="/join" style={{ 
+          <Link href="/join" className="hover-bg fluid-nav-item" style={{ 
             color: obsidianGold, 
             fontWeight: 800, 
             textDecoration: 'none', 
-            fontSize: '1.05rem',
             display: 'flex',
             alignItems: 'center',
             gap: '0.4rem',
             padding: '0.5rem 0.75rem',
             borderRadius: '0.75rem',
             transition: '0.2s'
-          }} className="hover-bg">
+          }}>
             <Briefcase size={18} /> {t.nav.join}
           </Link>
           
-          <div style={{ width: '220px' }}>
+          <div className="fluid-search-container">
             <NavbarSearch />
           </div>
 
@@ -392,12 +392,12 @@ export function AppNavbar({ session }: { session: any }) {
             </div>
           ) : (
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <Link href="/auth/login" style={{ 
-                textDecoration: 'none', color: obsidianGold, fontWeight: 700, fontSize: '0.9rem'
+              <Link href="/auth/login" className="fluid-nav-item" style={{ 
+                textDecoration: 'none', color: obsidianGold, fontWeight: 700
               }}>{t.nav.login}</Link>
               <div style={{ width: '1px', height: '14px', backgroundColor: 'var(--border-color)', opacity: 0.5 }}></div>
-              <Link href="/auth/register" className="btn btn-primary" style={{ 
-                textDecoration: 'none', padding: '0.5rem 1.25rem', fontSize: '0.9rem',
+              <Link href="/auth/register" className="btn btn-primary fluid-nav-item" style={{ 
+                textDecoration: 'none', padding: '0.5rem 1.25rem',
                 backgroundColor: isObsidianPage ? obsidianGold : 'var(--accent-color)',
                 color: isObsidianPage ? 'black' : 'white'
               }}>{t.nav.register}</Link>
@@ -550,27 +550,55 @@ export function AppFooter() {
   const obsidianBg = theme === 'dark' ? '#050505' : 'var(--bg-secondary)';
   const obsidianGold = '#d4af37';
 
+  // Dynamic Settings
+  const [settings, setSettings] = React.useState<any>(null);
+
+  React.useEffect(() => {
+    fetch('/api/admin/settings')
+      .then(res => res.json())
+      .then(data => setSettings(data))
+      .catch(err => console.error("Footer settings fetch failed", err));
+  }, []);
+
+  // Helpers to fallback to translation if DB is not ready or missing fields
+  const getVal = (dbKey: string, tVal: string) => settings?.[dbKey] || tVal;
+
   return (
     <footer style={{ 
       backgroundColor: isObsidianPage ? obsidianBg : 'var(--bg-secondary)', 
       color: isObsidianPage ? 'white' : 'var(--text-primary)', 
       borderTop: isObsidianPage ? `1px solid rgba(212, 175, 55, 0.1)` : '1px solid var(--border-color)', 
-      padding: '5rem 0 2rem 0', 
+      padding: '5rem 0 3rem 0', 
       marginTop: 'auto',
       direction: isRTL ? 'rtl' : 'ltr',
-      transition: 'all 0.5s ease'
+      transition: 'all 0.5s ease',
+      position: 'relative',
+      overflow: 'hidden'
     }}>
-      <div className="container">
+      {/* Decorative Gradient Background for Obsidian Pages */}
+      {isObsidianPage && (
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '1px',
+          background: `linear-gradient(90deg, transparent, ${obsidianGold}, transparent)`,
+          opacity: 0.3
+        }}></div>
+      )}
+
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div style={{ 
           display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', 
           gap: '3rem', 
           marginBottom: '4rem', 
           textAlign: isRTL ? 'right' : 'left'
         }}>
-           {/* Brand Column */}
-           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', marginBottom: '0.5rem' }}>
+           {/* Brand & About Column */}
+           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', gridColumn: 'span 1' }}>
+              <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
                 <img 
                   src="/images/logo_concierge_ai.png" 
                   alt="ConciergeAI" 
@@ -581,66 +609,137 @@ export function AppFooter() {
                   }} 
                 />
               </Link>
-              <p style={{ color: isObsidianPage ? '#888' : 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.6 }}>{t.footer.tagline}</p>
-              <Link href="/join" style={{ 
-                marginTop: '0.5rem',
-                color: obsidianGold, 
-                fontWeight: 700, 
-                textDecoration: 'none', 
-                fontSize: '0.9rem',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '4px'
+              <p style={{ 
+                color: isObsidianPage ? '#aaa' : 'var(--text-secondary)', 
+                fontSize: '0.9rem', 
+                lineHeight: 1.7,
+                maxWidth: '300px'
               }}>
-                {t.nav.join} <ChevronRight size={14} />
-              </Link>
+                {getVal('aboutUs', t?.footer?.aboutUs || 'ConciergeAI UK - Elite Service Network')}
+              </p>
+              
+              <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
+                {[
+                  { name: 'Facebook', url: settings?.facebookUrl || t?.footer?.social?.facebook || '#', svg: <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/> },
+                  { name: 'Twitter', url: settings?.twitterUrl || t?.footer?.social?.twitter || '#', svg: <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/> },
+                  { name: 'Instagram', url: settings?.instagramUrl || t?.footer?.social?.instagram || '#', svg: <><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></> },
+                  { name: 'LinkedIn', url: settings?.linkedinUrl || t?.footer?.social?.linkedin || '#', svg: <><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></> }
+                ].map((social, idx) => (
+                  <a key={idx} href={social.url} target="_blank" rel="noopener noreferrer" style={{
+                    color: isObsidianPage ? '#888' : 'var(--text-muted)',
+                    transition: 'color 0.3s ease',
+                    padding: '8px',
+                    borderRadius: '50%',
+                    background: isObsidianPage ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }} className="social-icon-hover" title={social.name}>
+                    <svg 
+                      viewBox="0 0 24 24" 
+                      width="18" 
+                      height="18" 
+                      stroke="currentColor" 
+                      strokeWidth="2" 
+                      fill="none" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                    >
+                      {social.svg}
+                    </svg>
+                  </a>
+                ))}
+              </div>
            </div>
 
            {/* Services Column */}
            <div>
-              <h4 style={{ fontWeight: 700, marginBottom: '1.5rem', fontSize: '1.1rem', color: isObsidianPage ? 'white' : 'inherit' }}>{t.footer.explore}</h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                 <Link href="/services?category=Cleaning" style={{ color: isObsidianPage ? '#666' : 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.95rem', fontWeight: 500 }}>
-                   {isRTL ? 'تنظيف المنزل Cleaning' : 'Home Cleaning'}
-                 </Link>
-                 <Link href="/services?category=Plumbing" style={{ color: isObsidianPage ? '#666' : 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.95rem', fontWeight: 500 }}>
-                   {isRTL ? 'خدمات السباكة Plumbing' : 'Plumbing Services'}
-                 </Link>
-                 <Link href="/diagnosis" style={{ color: obsidianGold, textDecoration: 'none', fontSize: '0.95rem', fontWeight: 700 }}>
-                   {t.footer.aiDiagnosis} ✨
-                 </Link>
-              </div>
+              <h4 style={{ fontWeight: 700, marginBottom: '1.5rem', fontSize: '1.1rem', color: isObsidianPage ? 'white' : 'inherit' }}>{t?.footer?.explore || 'Explore'}</h4>
+              <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                 {[
+                   { name: t?.footer?.homeCleaning || 'Home Cleaning', href: "/services?category=Cleaning" },
+                   { name: t?.footer?.plumbingServices || 'Plumbing', href: "/services?category=Plumbing" },
+                   { name: t?.footer?.automotiveServices || 'Automotive', href: "/services?category=Automotive" },
+                   { name: (t?.footer?.aiDiagnosis || 'AI Diagnosis') + " ✨", href: "/diagnosis", highlight: true }
+                 ].map((link, idx) => (
+                   <Link key={idx} href={link.href} style={{ 
+                     color: link.highlight ? obsidianGold : (isObsidianPage ? '#888' : 'var(--text-secondary)'), 
+                     textDecoration: 'none', 
+                     fontSize: '0.95rem', 
+                     fontWeight: link.highlight ? 700 : 500,
+                     transition: 'all 0.3s ease'
+                   }} className="link-hover">
+                     {link.name}
+                   </Link>
+                 ))}
+              </nav>
            </div>
 
            {/* Legal Column */}
            <div>
-              <h4 style={{ fontWeight: 700, marginBottom: '1.5rem', fontSize: '1.1rem', color: isObsidianPage ? 'white' : 'inherit' }}>{t.footer.legal}</h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                 <Link href="/legal/terms" style={{ color: isObsidianPage ? '#666' : 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.9rem' }}>{t.footer.terms}</Link>
-                 <Link href="/legal/privacy" style={{ color: isObsidianPage ? '#666' : 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.9rem' }}>{t.footer.privacy}</Link>
-                 <Link href="/legal/cookies" style={{ color: isObsidianPage ? '#666' : 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.9rem' }}>{t.footer.cookies}</Link>
-              </div>
+              <h4 style={{ fontWeight: 700, marginBottom: '1.5rem', fontSize: '1.1rem', color: isObsidianPage ? 'white' : 'inherit' }}>{t?.footer?.legal || 'Legal'}</h4>
+              <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                 {[
+                   { name: t?.footer?.terms || 'Terms', href: "/legal/terms" },
+                   { name: t?.footer?.privacy || 'Privacy', href: "/legal/privacy" },
+                   { name: t?.footer?.cookies || 'Cookies', href: "/legal/cookies" },
+                   { name: "Sitemap", href: "/sitemap" }
+                 ].map((link, idx) => (
+                   <Link key={idx} href={link.href} style={{ 
+                     color: isObsidianPage ? '#888' : 'var(--text-secondary)', 
+                     textDecoration: 'none', 
+                     fontSize: '0.9rem',
+                     transition: 'all 0.3s ease'
+                   }} className="link-hover">
+                     {link.name}
+                   </Link>
+                 ))}
+              </nav>
            </div>
 
-           {/* Support Column */}
-           <div>
-              <h4 style={{ fontWeight: 700, marginBottom: '1.5rem', fontSize: '1.1rem', color: isObsidianPage ? 'white' : 'inherit' }}>{t.footer.support}</h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                 <Link href="/help" style={{ color: isObsidianPage ? '#666' : 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.95rem', fontWeight: 500 }}>{t.footer.help}</Link>
-                 <Link href="/contact" style={{ color: isObsidianPage ? '#666' : 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.95rem', fontWeight: 500 }}>{t.footer.contact}</Link>
+           {/* Contact & Support Column */}
+           <div style={{ gridColumn: 'span 1' }}>
+              <h4 style={{ fontWeight: 700, marginBottom: '1.5rem', fontSize: '1.1rem', color: isObsidianPage ? 'white' : 'inherit' }}>{t?.footer?.support || 'Support'}</h4>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                    <MapPin size={18} color={obsidianGold} style={{ marginTop: '2px' }} />
+                    <span style={{ fontSize: '0.9rem', color: isObsidianPage ? '#888' : 'var(--text-secondary)', lineHeight: 1.5 }}>
+                      {getVal('officeAddress', t?.footer?.address || 'London, UK')}
+                    </span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <Phone size={18} color={obsidianGold} />
+                    <a href={`tel:${getVal('contactPhone', t?.footer?.phone || '')}`} style={{ fontSize: '0.9rem', color: isObsidianPage ? '#888' : 'var(--text-secondary)', textDecoration: 'none' }} className="link-hover">
+                      {getVal('contactPhone', t?.footer?.phone || 'Contact Us')}
+                    </a>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                     <Mail size={18} color={obsidianGold} />
+                     <a href={`mailto:${getVal('contactEmail', t?.footer?.email || '')}`} style={{ fontSize: '0.9rem', color: isObsidianPage ? '#888' : 'var(--text-secondary)', textDecoration: 'none' }} className="link-hover">
+                       {getVal('contactEmail', t?.footer?.email || 'Email Support')}
+                     </a>
+                  </div>
               </div>
            </div>
         </div>
 
+        {/* Divider */}
         <div style={{ 
-          borderTop: isObsidianPage ? '1px solid rgba(255,255,255,0.05)' : '1px solid var(--border-color)', 
-          paddingTop: '2rem', 
+          height: '1px', 
+          width: '100%', 
+          background: isObsidianPage ? 'rgba(255,255,255,0.05)' : 'var(--border-color)',
+          marginBottom: '2rem'
+        }}></div>
+
+        {/* Bottom Bar: Copyright & Statutory Info */}
+        <div style={{ 
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '1.5rem'
+          gap: '1.5rem',
+          textAlign: 'center'
         }}>
-           {/* Subtle Trustpilot Signal */}
+           {/* Trust Signal */}
            <div style={{ 
               display: 'inline-flex', 
               alignItems: 'center', 
@@ -649,20 +748,25 @@ export function AppFooter() {
               borderRadius: '2rem', 
               background: isObsidianPage ? 'rgba(255,255,255,0.03)' : 'var(--surface-1)',
               border: `1px solid ${isObsidianPage ? 'rgba(212,175,55,0.15)' : 'var(--border-color)'}`,
-              boxShadow: 'var(--shadow-sm)',
-              transition: 'all 0.3s ease'
-           }} className="hover-scale">
+              boxShadow: 'var(--shadow-sm)'
+           }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                  <Star size={14} fill="#00b67a" color="#00b67a" />
                  <span style={{ fontSize: '0.85rem', fontWeight: 800, color: isObsidianPage ? 'white' : 'var(--text-primary)', marginLeft: '2px' }}>Trustpilot</span>
               </div>
-              <div style={{ width: '1px', height: '14px', background: 'var(--border-color)', opacity: 0.5 }}></div>
-              <span style={{ fontSize: '0.85rem', fontWeight: 600, color: obsidianGold }}>{t.footer.trustSignal}</span>
+              <div style={{ width: '1px', height: '14px', background: 'rgba(128,128,128,0.3)' }}></div>
+              <span style={{ fontSize: '0.85rem', fontWeight: 600, color: obsidianGold }}>{t?.footer?.trustSignal || 'Excellent on Trustpilot'}</span>
            </div>
 
-           <div style={{ color: isObsidianPage ? 'rgba(255,255,255,0.4)' : 'var(--text-muted)', fontSize: '0.9rem' }}>
-            © {new Date().getFullYear()} Concierge AI. {t.footer.rights} (Concierge V4.2 LIVE - Ref: V42_DEPLOY_CB_8822)
-          </div>
+           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+             <p style={{ color: isObsidianPage ? 'rgba(255,255,255,0.4)' : 'var(--text-muted)', fontSize: '0.85rem' }}>
+               © {new Date().getFullYear()} {getVal('companyName', 'Concierge AI')}. {t.footer?.rights || 'All rights reserved.'}
+             </p>
+             <p style={{ color: isObsidianPage ? 'rgba(255,255,255,0.3)' : 'var(--text-muted)', fontSize: '0.75rem', maxWidth: '600px', margin: '0 auto' }}>
+               Registered in England & Wales: {getVal('companyRegistration', t?.footer?.companyNo || '12345678')} | 
+               VAT: {getVal('vatRegistration', t?.footer?.vatNo || 'GB123456789')}
+             </p>
+           </div>
         </div>
       </div>
     </footer>

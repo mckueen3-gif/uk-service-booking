@@ -86,11 +86,59 @@ export const SERVICE_TEMPLATES: ServiceTemplate[] = [
     isMonthly: false
   },
   {
+    id: 'home_leak',
+    category: 'Plumbing',
+    name: 'Emergency Leak Repair',
+    description: 'Rapid response for domestic water leaks, burst pipes, and flooding issues.',
+    defaultPrice: 95,
+    isMonthly: false
+  },
+  {
+    id: 'home_plumb_install',
+    category: 'Plumbing',
+    name: 'Tap & Mixer Installation',
+    description: 'Replacement and installation of kitchen or bathroom taps and mixers.',
+    defaultPrice: 65,
+    isMonthly: false
+  },
+  {
     id: 'home_gas_cert',
     category: 'Plumbing',
     name: 'Landlord Gas Safety Certificate (CP12)',
     description: 'Legislative safety check for rental properties.',
     defaultPrice: 75,
+    isMonthly: false
+  },
+  {
+    id: 'home_eicr',
+    category: 'Electrical',
+    name: 'Electrical Safety Inspection (EICR)',
+    description: 'Complete inspection and testing of fixed wiring to ensure electrical safety.',
+    defaultPrice: 160,
+    isMonthly: false
+  },
+  {
+    id: 'home_fusebox',
+    category: 'Electrical',
+    name: 'Consumer Unit (Fuse Box) Upgrade',
+    description: 'Replacement of old fuse boxes with modern 18th Edition compliant consumer units.',
+    defaultPrice: 450,
+    isMonthly: false
+  },
+  {
+    id: 'home_wiring',
+    category: 'Electrical',
+    name: 'Light Fitting & Socket Replacement',
+    description: 'Installation of new light fixtures or replacement of faulty wall sockets.',
+    defaultPrice: 55,
+    isMonthly: false
+  },
+  {
+    id: 'home_ev_charger',
+    category: 'Electrical',
+    name: 'Home EV Charger Installation',
+    description: 'Installation of certified electric vehicle charging points at domestic properties.',
+    defaultPrice: 750,
     isMonthly: false
   },
 

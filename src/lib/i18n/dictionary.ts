@@ -42,7 +42,35 @@ export interface Dictionary {
       bookingQuery: string;
     };
   };
-  footer: { tagline: string; explore: string; legal: string; support: string; rights: string; terms: string; privacy: string; cookies: string; help: string; contact: string; aiDiagnosis: string; homeCleaning: string; plumbingServices: string; automotiveServices: string; trustSignal: string };
+  footer: { 
+    tagline: string; 
+    explore: string; 
+    legal: string; 
+    support: string; 
+    rights: string; 
+    terms: string; 
+    privacy: string; 
+    cookies: string; 
+    help: string; 
+    contact: string; 
+    aiDiagnosis: string; 
+    homeCleaning: string; 
+    plumbingServices: string; 
+    automotiveServices: string; 
+    trustSignal: string;
+    address: string;
+    phone: string;
+    email: string;
+    companyNo: string;
+    vatNo: string;
+    aboutUs: string;
+    social: {
+      facebook: string;
+      twitter: string;
+      instagram: string;
+      linkedin: string;
+    }
+  };
   search: { 
     filters: string; keyword: string; location: string; category: string; minRating: string; verifiedOnly: string; 
     apply: string; sortBy: string; sortRating: string; sortJobs: string; sortDistance: string; sortPrice: string; 
@@ -164,6 +192,18 @@ export interface Dictionary {
     popularTitle: string; popularIn: string; allUK: string;
     noProjects: { title: string; desc: string };
     reviews: { excellent: string; basedOn: string; verified: string; countLabel: string };
+    howItWorks: {
+      title: string;
+      subtitle: string;
+      step1Title: string;
+      step1Desc: string;
+      step2Title: string;
+      step2Desc: string;
+      step3Title: string;
+      step3Desc: string;
+      step4Title: string;
+      step4Desc: string;
+    };
   };
   location: { selectCity: string; detecting: string; switch: string; nearby: string };
   diagnosis: {
@@ -216,7 +256,7 @@ export interface Dictionary {
       dob: string;
     };
     disputes: { title: string; sub: string; reasoning: string; gallery: string; verdict: string; confidence: string };
-    payouts: { title: string; snapshot: string; pending: string; volume: string; security: string; adjudication: string; method: string };
+    payouts: { title: string; sub: string; snapshot: string; pending: string; volume: string; security: string; adjudication: string; method: string };
     users: { title: string; sub: string; stats: string; registeredAt: string; referrals: string };
     commissions: { 
       title: string; 
@@ -231,6 +271,37 @@ export interface Dictionary {
     };
     disputes_mgr: { empty: string; viewDetails: string; status: { open: string; processing: string; settled: string } };
     merchants_mgr: { empty: string; status: { active: string; suspended: string; pending: string } };
+    settings_mgr: {
+      title: string;
+      sub: string;
+      companyInfo: string;
+      socialLinks: string;
+      legalLinks: string;
+      tabs: {
+        branding: string;
+        contact: string;
+        legal: string;
+        social: string;
+      };
+      fields: {
+        companyName: string;
+        aboutUs: string;
+        logoUrl: string;
+        officeAddress: string;
+        contactPhone: string;
+        contactEmail: string;
+        companyRegistration: string;
+        vatRegistration: string;
+        facebook: string;
+        twitter: string;
+        instagram: string;
+        linkedin: string;
+      };
+      save: string;
+      saving: string;
+      success: string;
+      error: string;
+    };
   };
   auth: {
     login: {
