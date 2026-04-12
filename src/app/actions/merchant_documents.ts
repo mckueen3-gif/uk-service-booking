@@ -55,21 +55,27 @@ export async function processLicenseWithAI(documentId: string) {
 
     const prompt = `
       You are an expert UK Compliance Auditor for a Service Marketplace.
-      Task: Analyze the attached image for a technical license (${doc.type}).
+      Task: Analyze the technical license (${doc.type}) strictly.
+      CURRENT DATE: ${new Date().toISOString().split('T')[0]}
       
       Instructions:
-      1. Identify if this is a genuine Gas Safe, NICEIC, or Public Liability document.
-      2. Extract the Registration Number/Policy Number.
-      3. Extract the Expiry Date (Format: YYYY-MM-DD).
-      4. Compare the name on the certificate with "${doc.merchant.companyName}" or "${doc.merchant.user.name}".
+      1. Identify if this is a genuine UK Gas Safe, NICEIC, or Public Liability document.
+      2. Verify the issuing body to ensure it is a recognized UK authority. Reject documents from non-UK jurisdictions.
+      3. Extract the Registration Number/Policy Number.
+      4. Extract the Expiry Date (YYYY-MM-DD).
+      5. Explicitly determine if the document is EXPIRED based on the current date.
+      6. Compare the name on the certificate with "${doc.merchant.companyName}" or "${doc.merchant.user.name}".
       
       Respond in JSON format only:
       {
-        "isValid": boolean,
+        "isValid": boolean (true only if UK legal, genuine, and matched),
+        "isExpired": boolean,
+        "issuingAuthority": "string",
+        "country": "string",
         "registrationNumber": "string",
         "expiryDate": "YYYY-MM-DD",
         "confidence": float (0-1),
-        "analysis": "Brief reasoning in Traditional Chinese and English",
+        "analysis": "Brief reasoning in Traditional Chinese and English focusing on UK legality and expiration",
         "nameMatch": boolean
       }
     `;
@@ -85,15 +91,24 @@ export async function processLicenseWithAI(documentId: string) {
 
     const aiOutput = JSON.parse(aiOutputText.replace(/```json|```/g, "").trim());
 
-    // Update Document Status (Tri-State Logic)
-    let status: 'APPROVED' | 'UNDER_ADMIN_REVIEW' | 'PENDING' = 'PENDING';
+    // Update Document Status (Tri-State Logic + Expiry Check)
+    const isExpired = aiOutput.isExpired || (aiOutput.expiryDate && new Date(aiOutput.expiryDate) < new Date());
+    const isUKDocument = aiOutput.country?.toUpperCase().includes('UK') || 
+                         aiOutput.country?.toUpperCase().includes('UNITED KINGDOM') ||
+                         ['GAS_SAFE', 'NICEIC'].includes(doc.type);
+
+    let status: 'APPROVED' | 'UNDER_ADMIN_REVIEW' | 'PENDING' | 'REJECTED' | 'EXPIRED' = 'PENDING';
     
-    if (aiOutput.isValid && aiOutput.nameMatch) {
+    if (aiOutput.isValid && aiOutput.nameMatch && !isExpired && isUKDocument) {
       if (aiOutput.confidence > 0.9) {
         status = 'APPROVED';
       } else if (aiOutput.confidence > 0.6) {
         status = 'UNDER_ADMIN_REVIEW'; // Needs Human Eye
       }
+    } else if (isExpired) {
+      status = 'EXPIRED';
+    } else {
+      status = 'REJECTED';
     }
     
     await (prisma.merchantDocument as any).update({
@@ -120,9 +135,13 @@ export async function processLicenseWithAI(documentId: string) {
       notifTitle = "⚖️ 轉交人工專員覆核";
       notifMessage = `您的 ${doc.type} 證照已進入最終人工覆核階段，預計 24 小時內完成。`;
       notifType = "WARNING";
+    } else if (status === 'EXPIRED') {
+      notifTitle = "⚠️ 證照已過期";
+      notifMessage = `系統檢測到您的 ${doc.type} 已經過期，請上傳最新的有效文件。`;
+      notifType = "ALERT";
     } else {
-      notifTitle = "❌ 證照辨識不完全";
-      notifMessage = `AI 暫時無法辨識您的 ${doc.type}，請確保圖片清晰並重新上傳。`;
+      notifTitle = "❌ 證照審核失敗";
+      notifMessage = `您的 ${doc.type} 未通過英國合法性審核。原因：${aiOutput.analysis}`;
       notifType = "ALERT";
     }
 

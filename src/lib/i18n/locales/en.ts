@@ -9,7 +9,9 @@ export const en: Dictionary = {
     logout: "Log Out",
     dashboard: "Console",
     aiDiagnosis: "AI Diagnostics",
-    education: "Education"
+    education: "Education",
+    quickActions: "Quick Actions",
+    exploreServices: "Explore Services"
   },
   legal: { ui: { selectLanguage: "Global Connectivity", close: "Complete Protocol" } },
   landing_pages: {
@@ -472,6 +474,7 @@ export const en: Dictionary = {
       match: "AI Match Score",
       viewProfile: "Audit Profile"
     },
+    visitDashboard: "Visit Education Dashboard",
     categories: {
       title: "Explore Knowledge Hexagons",
       browseBtn: "Full Spectrum",
@@ -597,13 +600,15 @@ export const en: Dictionary = {
       title: "Earn 2% Ecosystem Voucher Rewards",
       subtitle: "Invite a node and receive 2% of every session they schedule for the next 5 years in retail vouchers (Non-cash withdrawal).",
       button: "Start Earning Yield",
-      referralLabel: "Your Unique Node Code:"
+      referralLabel: "Your Unique Node Code:",
+      voucherDisclaimer: "* Rewards redeemable for retail vouchers only. No cash withdrawal."
     },
     educationCTA: "Access Education Dashboard",
     eliteLocal: "Local Elite",
     eliteBadge: "Elite Pro",
     defaultCategory: "Service Specialist",
     noResults: "No specialist nodes detected in this sector.",
+    trustedBy: "Trusted by UK Residents & Verified by",
     categories: { plumbing: "Plumbing", repairs: "Repairs", renovation: "Renovation", education: "Education", accounting: "Accounting", legal: "Legal", commercial: "B2B", cleaning: "Cleaning", car: "Auto" },
     sections: {
       plumbing: { title: "Plumbing & Electrical", desc: "From emergency leaks to full rewiring, we connect you with certified nodes.", items: ["Pipe Repair", "System Rewiring", "Appliance Integration", "Boiler Audit", "Switchgear", "Smart Automation"] },

@@ -36,25 +36,33 @@ export async function submitDocumentForVerification(fileUrl: string, type: Docum
     const base64Image = Buffer.from(buffer).toString('base64');
     const mimeType = imageResp.headers.get("Content-Type") || "image/jpeg";
 
-    const prompt = `
-      You are an expert UK Compliance Auditor. Analyze this document:
-      TYPE: ${type}
-      
-      Task:
-      1. Confirm if this is a valid ${type} certificate.
-      2. Extract the Registration Number/License Number.
-      3. Extract the Expiry Date (YYYY-MM-DD). If no expiry, return null.
-      4. Check if the name on the document matches (or is related to) "${merchant.companyName}".
-      
-      Return JSON ONLY:
-      {
-        "isValid": boolean,
-        "registrationNumber": string,
-        "expiryDate": "YYYY-MM-DD" | null,
-        "reasoning": "Traditional Chinese and English explanation",
-        "confidence": 0.0-1.0
-      }
-    `;
+      const prompt = `
+        You are an expert UK Compliance Auditor. Analyze this document strictly:
+        TYPE: ${type}
+        CURRENT DATE: ${new Date().toISOString().split('T')[0]}
+        
+        Task:
+        1. Confirm if this is a genuine, valid ${type} certificate.
+        2. Verify if the issuing authority is a recognized UK body (e.g., Gas Safe Register, NICEIC, UK Insurance Provider). 
+        3. Documents from irrelevant or non-UK jurisdictions must be marked as invalid for this technical sector.
+        4. Extract the Registration Number/Policy Number.
+        5. Extract the Expiry Date (YYYY-MM-DD).
+        6. Determine if the document is EXPIRED based on the current date provided above.
+        7. Check if the name on the document matches or is significantly related to "${merchant.companyName}".
+        8. Identify any signs of placeholders, sample templates, or obvious manipulations.
+        
+        Return JSON ONLY:
+        {
+          "isValid": boolean (true only if UK legal, genuine, and matched),
+          "isExpired": boolean,
+          "issuingAuthority": "string",
+          "country": "string",
+          "registrationNumber": "string",
+          "expiryDate": "YYYY-MM-DD" | null,
+          "reasoning": "A concise explanation in Traditional Chinese & English focusing on UK legality and expiration",
+          "confidence": 0.0-1.0
+        }
+      `;
 
     const responseText = await generateAIContent({
       prompt,
@@ -64,14 +72,21 @@ export async function submitDocumentForVerification(fileUrl: string, type: Docum
 
     const analysis = JSON.parse(responseText.replace(/```json|```/g, "").trim());
 
-    // 3. Update Document with AI Results
+    // 3. Double-check Expiry Server-side (Override AI if needed)
+    const isExpired = analysis.isExpired || (analysis.expiryDate && new Date(analysis.expiryDate) < new Date());
+    const isUKDocument = analysis.country?.toUpperCase().includes('UK') || 
+                         analysis.country?.toUpperCase().includes('UNITED KINGDOM') ||
+                         ['GAS_SAFE', 'NICEIC'].includes(type); // These are UK specific by nature
+
     let status: DocumentStatus = DocumentStatus.REJECTED;
-    if (analysis.isValid) {
+    if (analysis.isValid && !isExpired && isUKDocument) {
       if (analysis.confidence >= 0.9) {
         status = DocumentStatus.APPROVED;
       } else if (analysis.confidence >= 0.6) {
         status = DocumentStatus.UNDER_ADMIN_REVIEW;
       }
+    } else if (isExpired) {
+      status = DocumentStatus.EXPIRED;
     }
     
     const isApproved = status === DocumentStatus.APPROVED;

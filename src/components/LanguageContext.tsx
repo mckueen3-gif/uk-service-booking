@@ -29,22 +29,31 @@ export const interpolate = (str: string, params: Record<string, string | number>
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>('en');
 
-  // Initialize from localStorage
   useEffect(() => {
     // Phase 1: High-priority localStorage check
     const saved = typeof window !== 'undefined' ? localStorage.getItem('user-locale') as Locale : null;
     
     if (saved && dictionaries[saved]) {
       setLocaleState(saved);
-    } else {
-      // Phase 2: Fallback to Cookie (Essential for persistence across path jumps)
-      const cookieValue = typeof document !== 'undefined' ? document.cookie
-        .split('; ')
-        .find(row => row.startsWith('user-locale='))
-        ?.split('=')[1] as Locale : undefined;
-      
-      if (cookieValue && dictionaries[cookieValue]) {
-        setLocaleState(cookieValue);
+      return;
+    } 
+
+    // Phase 2: Fallback to Cookie
+    const cookieValue = typeof document !== 'undefined' ? document.cookie
+      .split('; ')
+      .find(row => row.startsWith('user-locale='))
+      ?.split('=')[1] as Locale : undefined;
+    
+    if (cookieValue && dictionaries[cookieValue]) {
+      setLocaleState(cookieValue);
+      return;
+    }
+
+    // Phase 3: Browser Auto-Detection (Smart Fallback)
+    if (typeof navigator !== 'undefined') {
+      const browserLang = navigator.language.split('-')[0] as Locale;
+      if (dictionaries[browserLang]) {
+        setLocaleState(browserLang);
       }
     }
   }, []);

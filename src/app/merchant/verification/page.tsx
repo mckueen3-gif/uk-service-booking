@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { prisma } from '@/lib/prisma';
@@ -7,8 +7,13 @@ import { ShieldCheck, Info } from 'lucide-react';
 
 export default async function VerificationPage() {
   const session = await getServerSession(authOptions);
-  if (!session?.user || (session.user as any).role !== 'MERCHANT') {
-    notFound();
+  
+  if (!session?.user) {
+    redirect('/auth/login?callbackUrl=/merchant/verification');
+  }
+
+  if ((session.user as any).role !== 'MERCHANT') {
+    redirect('/auth/login'); // Or unauthorized page
   }
 
   const merchant = await prisma.merchant.findUnique({

@@ -1,7 +1,7 @@
 import { Dictionary } from '../dictionary';
 
 export const zhTW: Dictionary = {
-  nav: { browse: "瀏覽服務", join: "加入專家", login: "登入", register: "註冊", logout: "登出", dashboard: "管理後台", aiDiagnosis: "AI 診斷", education: "教育專區" },
+  nav: { browse: "瀏覽服務", join: "加入專家", login: "登入", register: "註冊", logout: "登出", dashboard: "管理後台", aiDiagnosis: "AI 診斷", education: "教育專區", quickActions: "快速操作", exploreServices: "瀏覽服務" },
   legal: { ui: { selectLanguage: "全球化協定", close: "完成協定" } },
   landing_pages: {
     plumbing: {
@@ -334,6 +334,7 @@ export const zhTW: Dictionary = {
   education_sec: {
     hero: { badge: "英國精英導師", title1: "掌握新技能", title2: "與頂尖專家同行", subtitle: "為學業、語言和專業技能連接精英導師。為您的成功量身定制的一對一私人教學。", searchPlaceholder: "您想學習什麼？", searchBtn: "尋找導師" },
     forYou: { title: "為您推薦", match: "AI 匹配分", viewProfile: "查看個人檔案" },
+    visitDashboard: "前往教育後台",
     categories: { title: "探索分類", browseBtn: "查看全部", items: { 
       academic: { title: "Academic Excellence", desc: "GCSE, A-Levels, IB, 11+ Entrance Prep" }, 
       language: { title: "Global Languages", desc: "IELTS, Duolingo, Business English & more" }, 
@@ -408,12 +409,20 @@ export const zhTW: Dictionary = {
       trending: "本地熱門"
     },
     aiCTA: { badge: "由 ChatGPT, Gemini & Grok 驅動", title1: "不知道出了什麼問題？", title2: "獲取即時 AI 診斷", subtitle: "上傳問題照片。我們的 AI 會識別故障、預估費用，並在幾秒鐘內為您找到合適的專家。", button: "開始免費 AI 診斷" },
-    referralCTA: { badge: "推薦獎勵", title: "賺取 2% 被動收入", subtitle: "推薦好友並從他們未來 5 年內的所有預訂中獲取 2% 禮券點數（可兌換超市及零售通路現金券，不支援提現）。", button: "開始獲取獎勵", referralLabel: "您的個人推薦代碼：" },
+    referralCTA: { 
+      badge: "推薦獎勵", 
+      title: "賺取 2% 被動收入", 
+      subtitle: "推薦好友並從他們未來 5 年內的所有預訂中獲取 2% 禮券點數（可兌換超市及零售通路現金券，不支援提現）。", 
+      button: "開始獲取獎勵", 
+      referralLabel: "您的個人推薦代碼：",
+      voucherDisclaimer: "* 點數可兌換超市及零售通路電子現金券，不支援提現。"
+    },
     educationCTA: "前往教育後台",
     eliteLocal: "區域精英",
     eliteBadge: "精英專家",
     defaultCategory: "服務專家",
     noResults: "此分類下暫未找到專家。",
+    trustedBy: "受英國居民信賴並由以下機構驗證",
     categories: { plumbing: "水電", repairs: "維修", renovation: "裝修", education: "教育", accounting: "會計", legal: "法律", commercial: "商業", cleaning: "清潔", car: "汽車" },
     sections: {
       plumbing: { title: "水電與工程", desc: "從緊急漏水到全屋佈線，我們為您聯絡認證專業技術人員。", items: ["水管維修", "電路佈線", "電器安裝", "鍋爐檢修", "開關更換", "智能家居"] },

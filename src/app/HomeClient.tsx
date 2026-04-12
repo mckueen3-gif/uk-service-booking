@@ -94,7 +94,7 @@ export default function HomeClient() {
       <section className="reveal stagger-2" style={{ padding: '3rem 0', background: 'var(--surface-2)', marginTop: '4rem', overflow: 'hidden' }}>
         <div className="container" style={{ textAlign: 'center' }}>
           <p style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.2rem', marginBottom: '2.5rem' }}>
-            Trusted by UK Residents & Verified by
+            {t.home.trustedBy}
           </p>
           <div style={{ 
             display: 'flex', 
@@ -260,10 +260,10 @@ export default function HomeClient() {
               )}
             </div>
             {/* ⚠️ Redemption Disclaimer */}
-            <p style={{ marginTop: '1.5rem', fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Sparkles size={16} style={{ color: 'var(--accent-color)' }} />
-              {locale === 'zh-TW' ? "* 獎勵限於兌換超市及零售通路現金券，不支援提現" : "* Rewards redeemable for retail vouchers only. No cash withdrawal."}
-            </p>
+              <p style={{ marginTop: '1.5rem', fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Sparkles size={16} style={{ color: 'var(--accent-color)' }} />
+                {t.home.referralCTA.voucherDisclaimer}
+              </p>
           </div>
 
           <div style={{ flex: '1 1 300px', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1 }}>
@@ -390,7 +390,7 @@ export default function HomeClient() {
                 {sec.id === 'education' && (
                   <Link href="/services/education" style={{ textDecoration: 'none', display: 'inline-block', marginTop: '2rem' }}>
                     <button className="btn btn-primary" style={{ padding: '0.875rem 2rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      Visit Education Dashboard <ChevronRight size={18} />
+                      {t.education_sec.visitDashboard} <ChevronRight size={18} />
                     </button>
                   </Link>
                 )}
@@ -420,7 +420,7 @@ export default function HomeClient() {
           <div className="reveal active" style={{ textAlign: 'center', marginBottom: '5rem' }}>
             <div style={{ color: 'var(--accent-color)', fontWeight: 800, fontSize: '0.9rem', marginBottom: '1.5rem', textTransform: 'uppercase', letterSpacing: '0.2rem' }}>{t.home.recommendation.title2}</div>
             <h2 style={{ fontSize: '3.5rem', fontWeight: 950, color: 'var(--text-primary)', marginBottom: '1.5rem', fontFamily: 'var(--font-heading)', letterSpacing: '-0.03em' }}>
-              Elite Local <span style={{ color: 'var(--accent-color)' }}>{t.search.filters}</span>
+              {t.home.eliteLocal} <span style={{ color: 'var(--accent-color)' }}>{t.search.filters}</span>
             </h2>
             <p style={{ maxWidth: '600px', margin: '0 auto', color: 'var(--text-muted)', fontSize: '1.25rem', fontWeight: 500 }}>
               {t.home.recommendation.subtitle}
@@ -439,7 +439,7 @@ export default function HomeClient() {
               ))
             ) : merchants.length === 0 ? (
               <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '5rem', color: 'var(--text-muted)' }}>
-                No specialists found in this category.
+                {t.home.noResults}
               </div>
             ) : (
               merchants.map((m: any, idx) => (
@@ -538,19 +538,19 @@ function SpecialistCard({ specialist, idx, city }: { specialist: any, idx: numbe
         </div>
         {idx < 2 && (
           <div className="shimmer-deluxe" style={{ position: 'absolute', top: '1rem', left: '1rem', background: 'var(--accent-color)', color: 'white', padding: '0.4rem 0.85rem', borderRadius: '1rem', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.05em', boxShadow: '0 4px 12px rgba(212, 175, 55, 0.3)', zIndex: 10 }}>
-            Elite Pro
+            {t.home.eliteBadge}
           </div>
         )}
       </div>
       <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-        <div style={{ color: 'var(--accent-color)', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>{specialist.category || 'Service Expert'}</div>
+        <div style={{ color: 'var(--accent-color)', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>{specialist.category || t.home.defaultCategory}</div>
         <h3 style={{ fontSize: '1.4rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '0.75rem', fontFamily: 'var(--font-heading)' }}>{specialist.companyName || specialist.user?.name}</h3>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem', fontWeight: 500 }}>
           <MapPin size={16} /> {specialist.city || city}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginTop: 'auto' }}>
            <Link href={`/merchant/${specialist.id}`} style={{ flex: 1, textDecoration: 'none' }}>
-             <button className="btn btn-primary" style={{ width: '100%', padding: '0.85rem', borderRadius: '12px', fontSize: '0.95rem' }}>View Profile</button>
+             <button className="btn btn-primary" style={{ width: '100%', padding: '0.85rem', borderRadius: '12px', fontSize: '0.95rem' }}>{t.common.viewProfile}</button>
            </Link>
            <button className="btn" style={{ padding: '0.85rem', borderRadius: '12px', background: 'var(--surface-2)', color: 'var(--text-primary)', border: '1px solid var(--border-color)' }}>
              <ShieldCheck size={20} />

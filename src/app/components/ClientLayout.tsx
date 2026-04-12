@@ -226,7 +226,7 @@ export function AppNavbar({ session }: { session: any }) {
                       ) : (
                         <Navigation size={12} fill="currentColor" />
                       )}
-                      {isLocating ? 'Locating...' : t.home.hero.badge}
+                      {isLocating ? t.location.detecting : t.home.hero.badge}
                     </button>
                  </div>
 
@@ -438,7 +438,7 @@ export function AppNavbar({ session }: { session: any }) {
         }}>
            {/* Section 1: Search & Diagnosis */}
            <div>
-              <h4 style={{ color: obsidianGold, fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '1rem', letterSpacing: '0.1em' }}>Quick Actions</h4>
+              <h4 style={{ color: obsidianGold, fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '1rem', letterSpacing: '0.1em' }}>{t.nav.quickActions}</h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                  <div style={{ width: '100%' }}><NavbarSearch /></div>
                  <Link href="/diagnosis" onClick={() => setMobileMenuOpen(false)} style={{ 
@@ -469,7 +469,7 @@ export function AppNavbar({ session }: { session: any }) {
                 display: 'flex', flexDirection: 'column', gap: '0.5rem'
               }}>
                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: obsidianGold, fontWeight: 800, fontSize: '0.8rem' }}>
-                    <Globe size={16} /> Language
+                    <Globe size={16} /> {t.legal.ui.selectLanguage}
                  </div>
                  <div style={{ fontSize: '1rem', fontWeight: 700, display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: obsidianGold }}>
                     {currentLanguage.label.split(' ')[0]} <ChevronDown size={14} />
@@ -503,7 +503,7 @@ export function AppNavbar({ session }: { session: any }) {
 
            {/* Section 3: Services */}
            <div>
-              <h4 style={{ color: obsidianGold, fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '1rem', letterSpacing: '0.1em' }}>Explore Services</h4>
+              <h4 style={{ color: obsidianGold, fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '1rem', letterSpacing: '0.1em' }}>{t.nav.exploreServices}</h4>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
                  {servicesList.map(s => (
                    <Link key={s.id} href={s.path} onClick={() => setMobileMenuOpen(false)} style={{ 
