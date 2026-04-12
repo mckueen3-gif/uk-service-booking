@@ -1,8 +1,9 @@
 {
   "metadata": {
-    "lastUpdated": "2026-04-06T01:50:08.736Z",
-    "totalBrands": 31,
-    "engineVersion": "3.0.0-AI"
+    "lastUpdated": "2026-04-11T15:33:22.664Z",
+    "totalBrands": 57,
+    "engineVersion": "4.0.0-JamDoughnut",
+    "source": "https://jamdoughnut.com/"
   },
   "vouchers": [
     {
@@ -10,217 +11,399 @@
       "category": "Supermarkets",
       "type": "Instore/Online",
       "isNew": false,
-      "isPumpedUp": false
+      "domain": "tesco.com"
     },
     {
       "name": "ASDA",
       "category": "Supermarkets",
       "type": "Instore/Online",
-      "isNew": false,
-      "isPumpedUp": false
+      "isPumpedUp": true,
+      "domain": "asda.com"
     },
     {
       "name": "Sainsbury's",
       "category": "Supermarkets",
       "type": "Instore/Online",
       "isNew": false,
-      "isPumpedUp": false
+      "domain": "sainsburys.co.uk"
     },
     {
       "name": "Morrisons",
       "category": "Supermarkets",
       "type": "Instore",
-      "isNew": false,
-      "isPumpedUp": false
+      "isPumpedUp": true,
+      "domain": "morrisons.com"
     },
     {
       "name": "Waitrose",
       "category": "Supermarkets",
       "type": "Instore/Online",
       "isNew": false,
-      "isPumpedUp": false
+      "domain": "waitrose.com"
+    },
+    {
+      "name": "Aldi",
+      "category": "Supermarkets",
+      "type": "Instore",
+      "isNew": true,
+      "domain": "aldi.co.uk"
     },
     {
       "name": "Iceland",
       "category": "Supermarkets",
       "type": "Instore",
       "isNew": false,
-      "isPumpedUp": false
+      "domain": "iceland.co.uk"
     },
     {
       "name": "M&S Food",
       "category": "Supermarkets",
       "type": "Instore",
       "isNew": false,
-      "isPumpedUp": false
+      "domain": "marksandspencer.com"
     },
     {
-      "name": "Aldi",
+      "name": "Farmfoods",
       "category": "Supermarkets",
       "type": "Instore",
-      "isNew": false,
-      "isPumpedUp": false
+      "isNew": true,
+      "domain": "farmfoods.co.uk"
     },
     {
-      "name": "Lidl",
+      "name": "Ocado",
       "category": "Supermarkets",
-      "type": "Instore",
+      "type": "Online",
       "isNew": false,
-      "isPumpedUp": false
+      "domain": "ocado.com"
     },
     {
-      "name": "Amazon.co.uk",
+      "name": "Amazon UK",
       "category": "Retail",
       "type": "Online",
       "isNew": false,
-      "isPumpedUp": false
+      "domain": "amazon.co.uk"
     },
     {
       "name": "Argos",
       "category": "Retail",
       "type": "Online/Instore",
       "isNew": false,
-      "isPumpedUp": false
+      "domain": "argos.co.uk"
     },
     {
       "name": "Currys",
       "category": "Retail",
       "type": "Online/Instore",
       "isNew": false,
-      "isPumpedUp": false
+      "domain": "currys.co.uk"
     },
     {
       "name": "Boots",
       "category": "Retail",
       "type": "Online/Instore",
       "isNew": false,
-      "isPumpedUp": false
+      "domain": "boots.com"
     },
     {
       "name": "IKEA",
-      "category": "Home",
+      "category": "Retail",
       "type": "Online/Instore",
       "isNew": false,
-      "isPumpedUp": false
+      "domain": "ikea.com"
+    },
+    {
+      "name": "Primark",
+      "category": "Retail",
+      "type": "Instore",
+      "isNew": true,
+      "domain": "primark.com"
+    },
+    {
+      "name": "Next",
+      "category": "Retail",
+      "type": "Online/Instore",
+      "isNew": false,
+      "domain": "next.co.uk"
+    },
+    {
+      "name": "H&M",
+      "category": "Retail",
+      "type": "Online/Instore",
+      "isNew": false,
+      "domain": "hm.com"
+    },
+    {
+      "name": "TK Maxx",
+      "category": "Retail",
+      "type": "Instore",
+      "isNew": false,
+      "domain": "tkmaxx.com"
+    },
+    {
+      "name": "JD Sports",
+      "category": "Retail",
+      "type": "Online/Instore",
+      "isNew": true,
+      "domain": "jdsports.co.uk"
+    },
+    {
+      "name": "Adidas",
+      "category": "Retail",
+      "type": "Online",
+      "isNew": false,
+      "domain": "adidas.co.uk"
+    },
+    {
+      "name": "Sports Direct",
+      "category": "Retail",
+      "type": "Online/Instore",
+      "isNew": false,
+      "domain": "sportsdirect.com"
+    },
+    {
+      "name": "B&M",
+      "category": "Retail",
+      "type": "Instore",
+      "isNew": false,
+      "domain": "bmstores.co.uk"
+    },
+    {
+      "name": "Dunelm",
+      "category": "Retail",
+      "type": "Online/Instore",
+      "isNew": false,
+      "domain": "dunelm.com"
     },
     {
       "name": "B&Q",
-      "category": "Home",
+      "category": "Retail",
       "type": "Online/Instore",
       "isNew": false,
-      "isPumpedUp": false
+      "domain": "diy.com"
+    },
+    {
+      "name": "Halfords",
+      "category": "Retail",
+      "type": "Online/Instore",
+      "isNew": false,
+      "domain": "halfords.com"
+    },
+    {
+      "name": "Lush",
+      "category": "Retail",
+      "type": "Online/Instore",
+      "isNew": true,
+      "domain": "lush.com"
+    },
+    {
+      "name": "Swarovski",
+      "category": "Retail",
+      "type": "Online/Instore",
+      "isNew": false,
+      "domain": "swarovski.com"
+    },
+    {
+      "name": "Bloom & Wild",
+      "category": "Retail",
+      "type": "Online",
+      "isNew": false,
+      "domain": "bloomandwild.com"
     },
     {
       "name": "Deliveroo",
       "category": "Food & Drink",
       "type": "Online",
-      "isNew": false,
-      "isPumpedUp": false
+      "isPumpedUp": true,
+      "domain": "deliveroo.co.uk"
     },
     {
       "name": "Just Eat",
       "category": "Food & Drink",
       "type": "Online",
       "isNew": false,
-      "isPumpedUp": false
+      "domain": "just-eat.co.uk"
     },
     {
       "name": "Uber Eats",
       "category": "Food & Drink",
       "type": "Online",
       "isNew": false,
-      "isPumpedUp": false
+      "domain": "ubereats.com"
     },
     {
-      "name": "Nando's",
+      "name": "Costa Coffee",
       "category": "Food & Drink",
       "type": "Instore",
-      "isNew": false,
-      "isPumpedUp": false
+      "isPumpedUp": true,
+      "domain": "costa.co.uk"
     },
     {
       "name": "Starbucks",
       "category": "Food & Drink",
       "type": "Instore",
       "isNew": false,
-      "isPumpedUp": false
+      "domain": "starbucks.co.uk"
     },
     {
-      "name": "Costa Coffee",
+      "name": "Caffè Nero",
       "category": "Food & Drink",
       "type": "Instore",
       "isNew": false,
-      "isPumpedUp": false
+      "domain": "caffenero.com"
+    },
+    {
+      "name": "Nando's",
+      "category": "Food & Drink",
+      "type": "Instore",
+      "isNew": false,
+      "domain": "nandos.co.uk"
+    },
+    {
+      "name": "Greggs",
+      "category": "Food & Drink",
+      "type": "Instore",
+      "isNew": true,
+      "domain": "greggs.co.uk"
+    },
+    {
+      "name": "Pizza Express",
+      "category": "Food & Drink",
+      "type": "Instore",
+      "isNew": false,
+      "domain": "pizzaexpress.com"
+    },
+    {
+      "name": "Zizzi",
+      "category": "Food & Drink",
+      "type": "Instore",
+      "isNew": false,
+      "domain": "zizzi.co.uk"
+    },
+    {
+      "name": "Wagamama",
+      "category": "Food & Drink",
+      "type": "Instore",
+      "isNew": true,
+      "domain": "wagamama.com"
+    },
+    {
+      "name": "Miller & Carter",
+      "category": "Food & Drink",
+      "type": "Instore",
+      "isNew": false,
+      "domain": "millerandcarter.co.uk"
+    },
+    {
+      "name": "Harvester",
+      "category": "Food & Drink",
+      "type": "Instore",
+      "isNew": false,
+      "domain": "harvester.co.uk"
+    },
+    {
+      "name": "Toby Carvery",
+      "category": "Food & Drink",
+      "type": "Instore",
+      "isNew": false,
+      "domain": "tobycarvery.co.uk"
+    },
+    {
+      "name": "All Bar One",
+      "category": "Food & Drink",
+      "type": "Instore",
+      "isNew": false,
+      "domain": "allbarone.co.uk"
     },
     {
       "name": "Uber",
       "category": "Travel",
       "type": "Online",
       "isNew": false,
-      "isPumpedUp": false
+      "domain": "uber.com"
     },
     {
       "name": "Airbnb",
       "category": "Travel",
       "type": "Online",
+      "isNew": true,
+      "domain": "airbnb.co.uk"
+    },
+    {
+      "name": "Hotels.com",
+      "category": "Travel",
+      "type": "Online",
       "isNew": false,
-      "isPumpedUp": false
+      "domain": "hotels.com"
+    },
+    {
+      "name": "Eurostar",
+      "category": "Travel",
+      "type": "Online",
+      "isNew": false,
+      "domain": "eurostar.com"
+    },
+    {
+      "name": "National Express",
+      "category": "Travel",
+      "type": "Online",
+      "isNew": false,
+      "domain": "nationalexpress.com"
+    },
+    {
+      "name": "Apple",
+      "category": "Entertainment",
+      "type": "Online",
+      "isNew": true,
+      "domain": "apple.com"
     },
     {
       "name": "Spotify",
       "category": "Entertainment",
       "type": "Online",
       "isNew": false,
-      "isPumpedUp": false
+      "domain": "spotify.com"
     },
     {
       "name": "Netflix",
       "category": "Entertainment",
       "type": "Online",
       "isNew": false,
-      "isPumpedUp": false
+      "domain": "netflix.com"
     },
     {
-      "name": "Tesco Marketplace",
-      "category": "Retail",
+      "name": "Google Play",
+      "category": "Entertainment",
       "type": "Online",
       "isNew": false,
-      "isPumpedUp": true
+      "domain": "play.google.com"
     },
     {
-      "name": "Sainsbury's",
-      "category": "Supermarkets",
+      "name": "Xbox",
+      "category": "Entertainment",
+      "type": "Online",
+      "isNew": false,
+      "domain": "xbox.com"
+    },
+    {
+      "name": "PlayStation Store",
+      "category": "Entertainment",
+      "type": "Online",
+      "isNew": false,
+      "domain": "playstation.com"
+    },
+    {
+      "name": "ODEON",
+      "category": "Entertainment",
       "type": "Instore",
       "isNew": false,
-      "isPumpedUp": true
+      "domain": "odeon.co.uk"
     },
     {
-      "name": "Deliveroo",
-      "category": "Food & Drink",
-      "type": "Online",
-      "isNew": true,
-      "isPumpedUp": false
-    },
-    {
-      "name": "Amazon UK",
-      "category": "Retail",
-      "type": "Online",
-      "isNew": true,
-      "isPumpedUp": false
-    },
-    {
-      "name": "ASDA Rewards",
-      "category": "Supermarkets",
-      "type": "Instore/Online",
-      "isNew": false,
-      "isPumpedUp": true
-    },
-    {
-      "name": "Morrisons",
-      "category": "Supermarkets",
+      "name": "Cineworld",
+      "category": "Entertainment",
       "type": "Instore",
-      "isNew": true,
-      "isPumpedUp": false
+      "isNew": false,
+      "domain": "cineworld.co.uk"
     }
   ]
 }

@@ -2,7 +2,154 @@ import { Dictionary } from '../dictionary';
 
 export const pl: Dictionary = {
   nav: { browse: "Przeglądaj usługi", join: "Zostań ekspertem", login: "Logowanie", register: "Rejestracja", logout: "Wyloguj", dashboard: "Panel zarządzania", aiDiagnosis: "Diagnoza AI", education: "Edukacja" },
-  common: { viewProfile: "Zobacz profil", reviews: "opinie", hr: "godz", copy: "Kopiuj", copied: "Skopiowano!" },
+  legal: { ui: { selectLanguage: "Globalna Łączność", close: "Zakończ Protokół" } },
+  landing_pages: {
+    plumbing: {
+      hero: {
+        badge: "Elitarna Precyzja",
+        title1: "Doskonała Inżynieria",
+        title2: "Hydraulika i Zasilanie",
+        subtitle: "Połącz się z certyfikowanymi specjalistami w Wielkiej Brytanii w celu precyzyjnej integracji hydraulicznej, elektrycznej i sprzętowej. Monitorowane przez AI dla zapewnienia jakości.",
+        searchPlaceholder: "Naprawa rur, serwis kotłów, okablowanie...",
+        searchBtn: "Skanuj węzły"
+      },
+      sub_categories: {
+        pipe: { title: "Naprawa rur", desc: "Awaryjne wykrywanie wycieków i precyzyjna wymiana osprzętu." },
+        wiring: { title: "Okablowanie systemu", desc: "Profesjonalna kalibracja elektryczna i integracja węzłów." },
+        appliance: { title: "Integracja urządzeń", desc: "Wdrażanie i testowanie osprzętu sanitarnego i kuchennego." },
+        boiler: { title: "Audyt kotłów", desc: "Regulacyjna konserwacja termiczna i diagnostyka wydajności." },
+        switch: { title: "Rozdzielnice", desc: "Wymiana komponentów elektrycznych o wysokiej spójności." },
+        smart: { title: "Inteligentna automatyka", desc: "Automatyka domowa w sieci mesh i wdrażanie czujników." }
+      }
+    },
+    repairs: {
+      hero: {
+        badge: "Integralność Strukturalna",
+        title1: "Przywróć",
+        title2: "Węzły",
+        subtitle: "Od montażu mebli po naprawy strukturalne. Z pomocą top 1% brytyjskich ekspertów od konserwacji.",
+        searchPlaceholder: "Montaż mebli, naprawa ścian...",
+        searchBtn: "Szukaj kontaktu"
+      },
+      sub_categories: {
+        furniture: { title: "Montaż mebli", desc: "Precyzyjny montaż złożonego osprzętu modułowego." },
+        structural: { title: "Elementy strukturalne", desc: "Montaż i kalibracja elementów wysokiego obciążenia." },
+        wall: { title: "Naprawa ścian", desc: "Naprawa powierzchni i przywracanie powłok strukturalnych." },
+        mounting: { title: "Montaż modułowy", desc: "Bezpieczne wdrażanie cyfrowych i fizycznych jednostek ściennych." },
+        coating: { title: "Powłoki", desc: "Estetyczne i ochronne wykończenie powierzchni." },
+        tactics: { title: "Ogólna taktyka", desc: "Uniwersalne protokoły konserwacji mieszkań." }
+      }
+    },
+    renovation: {
+      hero: {
+        badge: "Ewolucja Architektoniczna",
+        title1: "Redesign",
+        title2: "Przestrzeni Życiowej",
+        subtitle: "Przekształć swoją nieruchomość z elitarnymi brytyjskimi specjalistami od renowacji. Przejrzysta telemetria i gwarantowane wyniki jakościowe.",
+        searchPlaceholder: "Rozbudowa kuchni, adaptacja poddasza...",
+        searchBtn: "Rozpocznij projekt"
+      },
+      sub_categories: {
+        culinary: { title: "Kuchnia i Sanitariaty", desc: "Kompleksowy redesign kuchni i łazienek." },
+        expansion: { title: "Jednostki rozbudowy", desc: "Adaptacje poddaszy i modułów w celu zwiększenia pojemności nieruchomości." },
+        layout: { title: "Układ przestrzenny", desc: "Holograficzne projektowanie i rekonfiguracja strukturalna." },
+        floor: { title: "Podłogi", desc: "Wdrażanie i wykańczanie podłóg o wysokiej wytrzymałości." },
+        landscape: { title: "Projektowanie krajobrazu", desc: "Inżynieria środowiska zewnętrznego nieruchomości." },
+        design: { title: "Kontekst projektowy", desc: "Plany architektoniczne i logika estetyczna." }
+      }
+    },
+    accounting: {
+      hero: {
+        badge: "Zarządzanie Finansami",
+        title1: "Mistrzostwo",
+        title2: "Księgi Kapitałowej",
+        subtitle: "Elitarni brytyjscy księgowi i stratedzy finansowi dla MŚP i profesjonalistów. Zapewnienie zgodności operacyjnej i optymalizacji podatkowej.",
+        searchPlaceholder: "Zeznania podatkowe, roczne sprawozdania, kadry...",
+        searchBtn: "Ekspert audytu"
+      },
+      sub_categories: {
+        income: { title: "Audyt dochodów", desc: "Samoocena i kalibracja podatku dochodowego osób fizycznych." },
+        accounts: { title: "Sprawozdania roczne", desc: "Korporacyjna sprawozdawczość finansowa i zamykanie ksiąg." },
+        tax: { title: "Rozliczenia podatkowe", desc: "Przygotowanie i wysyłka deklaracji podatkowych zgodnych z HMRC." },
+        payroll: { title: "System kadrowo-płacowy", desc: "Wydajne systemy płatności kapitału ludzkiego." },
+        xero: { title: "Optymalizacja Xero", desc: "Integracja i szkolenia w zakresie księgowości w chmurze." },
+        fiscal: { title: "Analiza fiskalna", desc: "Dogłębna telemetria wydajności biznesowej." }
+      }
+    },
+    legal: {
+      hero: {
+        badge: "Zgodność Ekosystemu",
+        title1: "Porady Eksperckie i",
+        title2: "Ramy Prawne",
+        subtitle: "Połącz się z brytyjskimi certyfikowanymi ekspertami prawnymi w celu uzyskania wsparcia w zakresie protokołów wizowych, sporządzania umów i rozwiązywania sporów.",
+        searchPlaceholder: "Wsparcie wizowe, prawo nieruchomości, umowy...",
+        searchBtn: "Konsultacja"
+      },
+      sub_categories: {
+        drafting: { title: "Sporządzanie SLA", desc: "Synteza precyzyjnych umów i porozumień." },
+        visa: { title: "Kalibracja wizowa", desc: "Wsparcie w zakresie brytyjskich protokołów wizowych i imigracyjnych." },
+        property: { title: "Ramy nieruchomości", desc: "Przeniesienie własności i logika prawna nieruchomości." },
+        arbitration: { title: "Arbitraż", desc: "Neutralne rozwiązywanie sporów i protokoły mediacji." },
+        law: { title: "Prawo rynkowe", desc: "Wsparcie w zakresie ładu korporacyjnego i handlowego." },
+        notary: { title: "Notariusz", desc: "Weryfikacja i uwierzytelnianie dokumentów publicznych." }
+      }
+    },
+    cleaning: {
+      hero: {
+        badge: "Biosecurity i Higiena",
+        title1: "Oczyść",
+        title2: "Środowisko",
+        subtitle: "Elitarne protokoły sprzątania dla jednostek mieszkalnych i komercyjnych. Wysoka spójność sanitarna i dbałość o szczegóły.",
+        searchPlaceholder: "Głębokie sprzątanie, sprzątanie po najmie...",
+        searchBtn: "Wdróż ekspertów"
+      },
+      sub_categories: {
+        hygiene: { title: "Regularna higiena", desc: "Standaryzowane i spójne utrzymanie czystości nieruchomości." },
+        tenancy: { title: "Sprzątanie po najmie", desc: "Elitarne protokoły sprzątania przy zmianie lokatorów." },
+        textile: { title: "Czyszczenie tekstyliów", desc: "Profesjonalna renowacja dywanów i tapicerki." },
+        aperture: { title: "Czyszczenie przeszkleń", desc: "Protokoły sanitarne dla okien i szkła na wysokościach." },
+        office: { title: "Sanitacja biur", desc: "Zarządzanie higieną komercyjnych przestrzeni roboczych." },
+        bio: { title: "Biosecurity", desc: "Dekontaminacja i sprzątanie o standardzie klinicznym." }
+      }
+    },
+    car: {
+      hero: {
+        badge: "Konserwacja Sprzętu",
+        title1: "Precyzyjna Inżynieria",
+        title2: "Automobilowa",
+        subtitle: "Dbaj o swój sprzęt mobilny z brytyjskimi mistrzami mechaniki. Diagnostyka na miejscu i serwis o wysokiej wydajności.",
+        searchPlaceholder: "Diagnostyka silnika, przygotowanie do MOT, hamulce...",
+        searchBtn: "Skanuj mechanika"
+      },
+      sub_categories: {
+        engine: { title: "Diagnostyka silnika", desc: "Zaawansowane wykrywanie usterek i tuning wydajności." },
+        brakes: { title: "Hamulce i sprzęgło", desc: "Kalibracja systemów ciernych krytycznych dla bezpieczeństwa." },
+        mot: { title: "Przygotowanie do MOT", desc: "Regulacyjne kontrole i działania naprawcze." },
+        ac: { title: "Kalibracja AC", desc: "Napełnianie gazem i sanitacja systemów klimatyzacji." },
+        bodywork: { title: "Renowacja nadwozia", desc: "Strukturalna i estetyczna naprawa powłoki zewnętrznej." },
+        battery: { title: "Moc i opony", desc: "Zarządzanie stanem baterii i wydajnością opon." }
+      }
+    },
+    commercial: {
+      hero: {
+        badge: "Infrastruktura Przedsiębiorstwa",
+        title1: "Wzmocnij Węzły",
+        title2: "Biznesowe",
+        subtitle: "Kompleksowe wsparcie infrastrukturalne dla brytyjskich przestrzeni komercyjnych. Wyposażenie sklepów, relokacje biur i konserwacja przemysłowa.",
+        searchPlaceholder: "Wyposażenie sklepów, IT mesh, HVAC...",
+        searchBtn: "Audyt dostawców"
+      },
+      sub_categories: {
+        fitting: { title: "Wyposażenie jednostek", desc: "Inżynieria wnętrz handlowych i komercyjnych." },
+        relocation: { title: "Relokacja węzłów", desc: "Płynne protokoły przenoszenia biur i obiektów przemysłowych." },
+        industrial: { title: "Zasilanie przemysłowe", desc: "Wdrażanie sieci elektrycznych wysokiego napięcia." },
+        fire: { title: "Ochrona przeciwpożarowa", desc: "Regulacyjne systemy bezpieczeństwa i detekcji mesh." },
+        mesh: { title: "IT Mesh", desc: "Sieci korporacyjne i okablowanie strukturalne." },
+        hvac: { title: "Kontrola HVAC", desc: "Przemysłowe systemy zarządzania środowiskiem." }
+      }
+    }
+  },
+  common: { viewProfile: "Zobacz profil", reviews: "opinie", hr: "godz", copy: "Kopiuj", copied: "Skopiowano!", aiMatchingSub: "Eksperci kalibrowani przez AI dopasowani do Twoich potrzeb protokołu.", exploreSub: "Poznaj specjalistyczne protokoły w sektorze {category}.", escrow: { title: "Zabezpieczone przez ConciergeAI Escrow", subtitle: "Każda sesja w sektorze {category} jest monitorowana przez AI w celu zapewnienia jakości i integralności finansowej.", specialists: "ZWERYFIKOWANI SPECJALIŚCI", fees: "OPŁATY ZA USŁUGI PLATFORMY", support: "WSPARCIE ARBITRAŻU AI" } },
   hero: { title: "Znajdź najlepszych specjalistów", subtitle: "Połącz się z certyfikowanymi profesjonalistami w swojej okolicy.", searchPlaceholder: "Jakiej usługi potrzebujesz?", badge: "Platforma Rezerwacyjna Nr 1 w Wielkiej Brytanii" },
   faq: {
     title: "Często Zadawane Pytania",
@@ -12,7 +159,7 @@ export const pl: Dictionary = {
     questions: {
       payments: [
         { q: "Jak zapłacić za usługę?", a: "Płatności są bezpiecznie przetwarzane za pośrednictwem Stripe. Środki przechowujemy na koncie escrow do momentu potwierdzenia wykonania pracy." },
-        { q: "Czy są jakieś ukryte opłaty?", a: "Nie. Płacisz tyle, ile widnieje w kosztorysie. Pobieramy niewielką opłatę platformową wliczoną w cenę." }
+        { q: "Czy są jakieś ukryte opłaty?", a: "Nie. Platforma nie pobiera od klientów żadnych opłat serwisowych. Płacisz wyłącznie za robociznę technika i zatwierdzone materiały." }
       ],
       disputes: [
         { q: "Co jeśli praca nie jest satysfakcjonująca?", a: "Nasi mediatorzy AI przeglądają zdjęcia na podstawie pierwotnego zakresu prac, aby zapewnić uczciwe rozwiązanie." },
@@ -47,7 +194,7 @@ export const pl: Dictionary = {
     explore: "Eksploruj", 
     legal: "Prawne", 
     support: "Wsparcie", 
-    rights: "© 2024 UK Service Hub. Wszelkie prawa zastrzeżone.", 
+    rights: "Wszelkie prawa zastrzeżone.", 
     terms: "Regulamin", 
     privacy: "Polityka prywatności", 
     cookies: "Polityka cookies", 
@@ -82,7 +229,7 @@ export const pl: Dictionary = {
   booking: {
     steps: { details: "Szczegóły", schedule: "Harmonogram", confirmation: "Potwierdzenie" },
     titles: { details: "Opowiedz nam o swoich potrzebach", schedule: "Wybierz czas", confirm: "Potwierdź swoją rezerwację", success: "Rezerwacja potwierdzona!" },
-    labels: { date: "Data", time: "Godzina", make: "Marka", model: "Model", address: "Adres", notes: "Instrukcje specjalne", agree: "Zgadzam się na warunki i 2% opłaty platformowej", summary: "Podsumowanie płatności", paid: "Zapłacono", merchant: "Ekspert", service: "Usługa" },
+    labels: { date: "Data", time: "Godzina", make: "Marka", model: "Model", address: "Adres", notes: "Instrukcje specjalne", agree: "Zgadzam się na warunki (0% opłaty platformowej dla klientów)", summary: "Podsumowanie płatności", paid: "Zapłacono", merchant: "Ekspert", service: "Usługa" },
     buttons: { next: "Dalej", prev: "Wstecz", pay: "Bezpieczna płatność", home: "Strona główna", dashboard: "Panel" },
     messages: { finalizing: "Finalizowanie rezerwacji...", wait: "Proszę nie odświeżać strony", contact24h: "Twój ekspert skontaktuje się z Tobą w ciągu 24 godzin.", safety: "Dla Twojego bezpieczeństwa wszystkie płatności są przechowywane na koncie escrow.", noReviews: "Brak opinii", recommended: "Wysoce polecane", replyFromMaster: "Odpowiedź od eksperta" },
   },
@@ -100,8 +247,8 @@ export const pl: Dictionary = {
         syncing: "Synchronizacja portfela...",
         synced: "Portfel zsynchronizowany",
         generating: "Konfigurowanie konta...",
-        referralTitle: "Poleć znajomego, otrzymaj 2% cashbacku",
-        referralDesc: "Udostępnij swój unikalny kod. Gdy Twój znajomy zarezerwuje swoją pierwszą usługę, otrzymasz 2% cashbacku.",
+        referralTitle: "Poleć znajomego, otrzymaj 2% nagród voucherowych",
+        referralDesc: "Udostępnij swój unikalny kod. Gdy Twój znajomy zarezerwuje swoją pierwszą usługę, otrzymasz 2% w formie e-voucherów (do supermarketów i sklepów detalicznych).",
         historyTitle: "Historia transakcji",
         historyEmpty: "Brak transakcji",
         type: "Typ",
@@ -120,8 +267,8 @@ export const pl: Dictionary = {
         validUntil: "Ważne do",
         availableNow: "Dostępne teraz",
         rewards: {
-          title: "Odbierz nagrody",
-          subtitle: "* Wymaga ręcznej weryfikacji. Kody zostaną dostarczone w ciągu 24 godzin.",
+          title: "Wymień na e-vouchery",
+          subtitle: "* Brak możliwości wypłaty gotówki. Vouchery do czołowych brytyjskich sieci (Tesco, Amazon). Realizacja w 24h.",
           myVault: "Mój skarbiec",
           redeemBtn: "Odbierz",
           statusProcessing: "Przetwarzanie...",
@@ -135,10 +282,33 @@ export const pl: Dictionary = {
       status: { pending: "Oczekujące", confirmed: "Potwierdone", completed: "Zakończone", cancelled: "Anulowane" },
       variations: { label: "Zmiana ceny", status: "Status", pending: "Czeka na klienta", approved: "Zatwierdzone", rejected: "Odrzucone", arbiterActive: "Arbiter AI aktywny" },
       arbiterReasoning: "Analiza arbitra AI",
-      tips: { title: "Wskazówki wzrostu", growth: "Wykonaj jeszcze 5 zleceń, aby osiągnąć poziom Gold i obniżyć prowizję do 7%." },
+      tips: { title: "Wskazówki wzrostu", growth: "Utrzymuj wysoką jakość usług, aby zapewnić sobie status elitarnego eksperta i stały dopływ zleceń." },
       quickLinks: { title: "Szybkie linki", schedule: "Harmonogram", earnings: "Zarobki", support: "Wsparcie" },
       modal: { title: "Wniosek o dodatkową płatność", amount: "Dodatkowa kwota (£)", reason: "Powód", reasonPlaceholder: "np. znaleziono dodatkowy wyciek pod podłogą", photo: "Zdjęcie dowodowe", photoHint: "Wymagane do weryfikacji AI", submit: "Wyślij wniosek", submitting: "Przesyłanie..." },
       avatar: { upload: "Prześlij zdjęcie", hint: "Użyj profesjonalnego zdjęcia lub logo firmy.", success: "Zdjęcie zaktualizowane!", errorSize: "Zdjęcie musi mieć mniej niż 2MB" },
+      accounting: {
+        title: "Księgowość i Podatki",
+        subtitle: "Zautomatyzowane centrum finansowe UK: Monitorowanie VAT i prognozowanie podatków.",
+        statusActive: "Subskrypcja Aktywna",
+        statusInactive: "Subskrypcja Nieaktywna",
+        grossRevenue: "Przychody Brutto",
+        grossRevenueDesc: "Całkowity napływ z platform ConciergeAI",
+        taxPayable: "Szacowany Podatek do Zapłaty",
+        taxPayableDesc: "Obliczone na podstawie pasm podatku dochodowego UK 24/25.",
+        vatRadar: "Radar Rejestracji VAT",
+        vatRadarDesc: "Śledzenie bliskości progu £90,000.",
+        monthlyBreakdown: "Miesięczny Audyt Wydajności",
+        revenue: "Przychody",
+        fees: "Opłaty Platformy",
+        netProfit: "Zysk Netto",
+        exportCsv: "Eksportuj Log Audytu CSV",
+        upgradeTitle: "Odblokuj Specjalistyczną Księgowość",
+        upgradeDesc: "Zautomatyzowana księgowość, podsumowania roku podatkowego i eksport danych CSV.",
+        upgradeCost: "£4.99 / Miesiąc",
+        upgradeBtn: "Aktywuj Dostęp Premium",
+        taxYear: "Rok Podatkowy",
+        regNumber: "Nr Rej. (UTR/CRN)"
+      }
     },
     portfolio_mgr: {
       title: "Portfolio prac", subtitle: "Pokaż swoje najlepsze prace, aby zdobyć więcej rezerwacji.", addBtn: "Dodaj pracę", emptyTitle: "Brak prac", emptyDesc: "Dodaj zdjęcia swoich wykonanych projektów, aby zbudować zaufanie.",
@@ -186,7 +356,7 @@ export const pl: Dictionary = {
     }
   },
   home: {
-    hero: { badge: "Zweryfikowani lokalni profesjonaliści", title1: "Zarezerwuj najlepszych", title2: "lokalnych ekspertów", subtitle: "Natychmiastowy dostęp do top 1% ekspertów w Wielkiej Brytanii. Wszyscy zweryfikowani, ubezpieczeni i monitorowani przez AI.", searchPlaceholder: "Potrzebuję...", locationPlaceholder: "Londyn, Wielka Brytania", aiMatch: "Inteligentne dopasowanie", searchBtn: "Szukaj" },
+    hero: { badge: "Zweryfikowani lokalni profesjonaliści", title1: "Zarezerwuj najlepszych", title2: "lokalnych ekspertów", subtitle: "Natychmiastowy dostęp do top 1% ekspertów w Wielkiej Brytanii. Wszyscy zweryfikowani, ubezpieczeni i monitorowani przez AI.", searchPlaceholder: "Potrzebuję...", locationPlaceholder: "Londyn, Wielka Brytania", aiMatch: "Inteligentne dopasowanie", searchBtn: "Wyszukiwanie kontaktu", suggestions: ["Znajdź inżyniera Gas Safe w Chelsea…", "Zarezerwuj korepetytora z najwyższą oceną dla GCSE…", "Potrzebujesz głębokiego czyszczenia biura?", "Ekspertowa pomoc prawna w sporach o nieruchomości…", "Profesjonalny księgowy podatkowy w Londynie…"], popularLabel: "Popularne", popularTags: ["Remont domu", "Rozliczenie podatkowe", "Głębokie czyszczenie", "Pomoc prawna"] },
     recommendation: { title1: "Dla Ciebie", title2: "Polecane", subtitle: "Najlepsi profesjonaliści na podstawie Twoich potrzeb i lokalizacji.", browse: "Zobacz wszystkie" },
     recommendationResults: {
       trendingTitle: "Popularne w {{city}}: {{category}}",
@@ -204,8 +374,8 @@ export const pl: Dictionary = {
       assetMatch: "Dopasowanie aktywów",
       trending: "Popularne lokalnie"
     },
-    aiCTA: { badge: "Zasilane przez GEMINI AI", title1: "Nie wiesz co jest nie tak?", title2: "Uzyskaj natychmiastową diagnozę AI", subtitle: "Prześlij zdjęcie problemu. Nasze AI zidentyfikuje usterkę, oszacuje koszty i znajdzie eksperta w kilka sekund.", button: "Rozpocznij darmową diagnozę AI" },
-    referralCTA: { badge: "Nagrody za polecenia", title: "Zarabiaj 2% dochodu pasywnego", subtitle: "Polecaj znajomych i otrzymuj 2% od wszystkich ich rezerwacji przez następne 5 lat (do £200 na znajomego).", button: "Zacznij zarabiać teraz", referralLabel: "Twój kod polecający:" },
+    aiCTA: { badge: "Zasilane przez ChatGPT, Gemini & Grok", title1: "Nie wiesz co jest nie tak?", title2: "Uzyskaj natychmiastową diagnozę AI", subtitle: "Prześlij zdjęcie problemu. Nasze AI zidentyfikuje usterkę, oszacuje koszty i znajdzie eksperta w kilka sekund.", button: "Rozpocznij darmową diagnozę AI" },
+    referralCTA: { badge: "Nagrody za polecenia", title: "Zarabiaj 2% dochodu pasywnego", subtitle: "Polecaj znajomych i otrzymuj 2% od wszystkich ich rezerwacji przez następne 5 lat w formie voucherów zakupowych (brak możliwości wypłaty gotówki).", button: "Zacznij zarabiać teraz", referralLabel: "Twój kod polecający:" },
     educationCTA: "Przejdź do edukacji",
     eliteLocal: "Elita obszaru",
     eliteBadge: "Elitarny ekspert",
@@ -240,7 +410,7 @@ export const pl: Dictionary = {
   },
   location: { selectCity: "Wybierz miasto", detecting: "Wykrywanie lokalizacji...", switch: "Zmień", nearby: "Usługi w pobliżu" },
   diagnosis: {
-    badge: "Zasilane technologią GEMINI AI",
+    badge: "Zasilane technologią ChatGPT, Gemini & Grok",
     title1: "Eksperckie naprawy",
     title2: "z prędkością błyskawicy",
     subtitle: "Przestań zgadywać. Nasze AI analizuje Twoje zdjęcia, aby zapewnić natychmiastowy wgląd i uczciwe szacunki kosztów jeszcze przed rezerwacją.",

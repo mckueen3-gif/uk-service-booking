@@ -1,0 +1,38 @@
+[DEBUG] Event: checkout.session.completed, Metadata: {
+  "merchantId": "cmnqqvmi9000104ksf23q0riw",
+  "subscription_type": "accounting_premium",
+  "customerId": "cmnvu18y600005cuhgvk2uvzd",
+  "serviceId": "cmnvu19gq000b5cuhbdm6k22x",
+  "serviceName": "Tax Filing",
+  "isEducation": "false",
+  "totalAmount": "10000",
+  "depositAmount": "2000",
+  "balanceAmount": "0",
+  "scheduledDate": "2026-04-12T20:11:09.744Z"
+}
+[DEBUG] Event: checkout.session.completed, Metadata: {
+  "merchantId": "cmnqqvmi9000104ksf23q0riw",
+  "subscription_type": "accounting_premium",
+  "customerId": "cmnvu18y600005cuhgvk2uvzd",
+  "serviceId": "cmnvu19gq000b5cuhbdm6k22x",
+  "serviceName": "Tax Filing",
+  "isEducation": "false",
+  "totalAmount": "10000",
+  "depositAmount": "2000",
+  "balanceAmount": "0",
+  "scheduledDate": "2026-04-12T20:12:33.439Z"
+}
+[DEBUG] Event: checkout.session.completed, Metadata: {
+  "merchantId": "cmnqqvmi9000104ksf23q0riw",
+  "subscription_type": "accounting_premium",
+  "customerId": "cmnvu18y600005cuhgvk2uvzd",
+  "serviceId": "cmnvu19gq000b5cuhbdm6k22x",
+  "serviceName": "Tax Filing",
+  "isEducation": "false",
+  "totalAmount": "10000",
+  "depositAmount": "2000",
+  "balanceAmount": "0",
+  "scheduledDate": "2026-04-12T20:12:59.417Z"
+}
+[DEBUG] Attempting update for merchant cmnqqvmi9000104ksf23q0riw
+[DEBUG] Database Update Result: true

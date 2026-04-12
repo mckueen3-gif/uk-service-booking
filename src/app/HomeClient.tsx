@@ -18,7 +18,7 @@ import { Copy, Check } from 'lucide-react';
 
 export default function HomeClient() {
   const { data: session } = useSession();
-  const { t, isRTL } = useTranslation();
+  const { t, locale, isRTL } = useTranslation();
   const { city } = useLocation();
   const [activeTab, setActiveTab] = useState('all');
   const [merchants, setMerchants] = useState<any[]>([]);
@@ -57,14 +57,14 @@ export default function HomeClient() {
           sortBy: 'rating'
         });
         setMerchants(results.slice(0, 8)); // Show top 8
-      } catch (err) {
-        console.error("Failed to fetch merchants:", err);
+      } catch (error) {
+        console.error('Merchant Search Error:', error);
       } finally {
         setLoading(false);
       }
     }
     fetchLocalMerchants();
-  }, [city, activeTab]);
+  }, [city, activeTab, locale]);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -124,7 +124,7 @@ export default function HomeClient() {
           background: 'var(--soft-gradient)',
           overflow: 'hidden',
           position: 'relative',
-          border: '2px solid var(--amber-500)',
+          border: '2px solid var(--gold-600)',
           boxShadow: '0 20px 40px -10px rgba(212, 175, 55, 0.2)'
         }}>
           {/* Decorative Background Element */}
@@ -259,6 +259,11 @@ export default function HomeClient() {
                 </Link>
               )}
             </div>
+            {/* ⚠️ Redemption Disclaimer */}
+            <p style={{ marginTop: '1.5rem', fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Sparkles size={16} style={{ color: 'var(--accent-color)' }} />
+              {locale === 'zh-TW' ? "* 獎勵限於兌換超市及零售通路現金券，不支援提現" : "* Rewards redeemable for retail vouchers only. No cash withdrawal."}
+            </p>
           </div>
 
           <div style={{ flex: '1 1 300px', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1 }}>
@@ -299,15 +304,11 @@ export default function HomeClient() {
               key={item.id}
               type="button"
               onClick={() => {
-                if (item.id === 'car') {
-                    window.location.href = '/booking/car';
-                    return;
-                }
                 setActiveTab(item.id);
                 const element = document.getElementById(`section-${item.id}`);
                 if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }}
-              className="cat-item reveal"
+              className="cat-item reveal haptic-press"
               style={{ 
                 display: 'flex', 
                 flexDirection: 'column', 
@@ -376,7 +377,7 @@ export default function HomeClient() {
                 }}>
                   {sec.data.items.map(sub => (
                     <Link key={sub} 
-                          href={sec.id === 'education' ? `/education/search?q=${encodeURIComponent(sub)}` : `/services/results?q=${sub}`} 
+                          href={`/services/${sec.id}/search?q=${encodeURIComponent(sub)}`} 
                           style={{ textDecoration: 'none' }}>
                       <div className="glass-panel" style={{ padding: '1rem 1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-primary)', fontWeight: 700, fontSize: '0.95rem', background: 'var(--surface-1)' }}>
                         <div style={{ color: 'var(--accent-color)', display: 'flex' }}><CheckCircle2 size={18} strokeWidth={2.5} /></div>
@@ -387,7 +388,7 @@ export default function HomeClient() {
                 </div>
 
                 {sec.id === 'education' && (
-                  <Link href="/education" style={{ textDecoration: 'none', display: 'inline-block', marginTop: '2rem' }}>
+                  <Link href="/services/education" style={{ textDecoration: 'none', display: 'inline-block', marginTop: '2rem' }}>
                     <button className="btn btn-primary" style={{ padding: '0.875rem 2rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
                       Visit Education Dashboard <ChevronRight size={18} />
                     </button>
@@ -442,34 +443,7 @@ export default function HomeClient() {
               </div>
             ) : (
               merchants.map((m: any, idx) => (
-                <div key={m.id} className={`glass-panel reveal stagger-${(idx % 4) + 1}`} style={{ padding: 0, overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}>
-                  <div style={{ position: 'relative', height: '220px' }}>
-                    <img src={m.portfolio?.[0]?.imageUrl || `https://images.unsplash.com/photo-${1581578731548 + idx}?q=80&w=600&auto=format&fit=crop`} alt={m.companyName} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    <div style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'var(--glass-bg)', padding: '0.4rem 0.85rem', borderRadius: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 800, fontSize: '0.85rem', color: 'var(--text-primary)', boxShadow: 'var(--shadow-sm)' }}>
-                      <Star size={14} fill="#fbbf24" color="#fbbf24" /> {m.rating || (4.5 + Math.random() * 0.4).toFixed(1)}
-                    </div>
-                    {idx < 2 && (
-                      <div style={{ position: 'absolute', top: '1rem', left: '1rem', background: 'var(--accent-color)', color: 'white', padding: '0.4rem 0.85rem', borderRadius: '1rem', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.05em', boxShadow: '0 4px 12px rgba(212, 175, 55, 0.3)' }}>
-                        Elite Pro
-                      </div>
-                    )}
-                  </div>
-                  <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ color: 'var(--accent-color)', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>{m.category || 'Service Expert'}</div>
-                    <h3 style={{ fontSize: '1.4rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '0.75rem', fontFamily: 'var(--font-heading)' }}>{m.companyName || m.user?.name}</h3>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem', fontWeight: 500 }}>
-                      <MapPin size={16} /> {m.city || city}
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginTop: 'auto' }}>
-                       <Link href={`/merchant/${m.id}`} style={{ flex: 1, textDecoration: 'none' }}>
-                         <button className="btn btn-primary" style={{ width: '100%', padding: '0.85rem', borderRadius: '12px', fontSize: '0.95rem' }}>View Profile</button>
-                       </Link>
-                       <button className="btn" style={{ padding: '0.85rem', borderRadius: '12px', background: 'var(--surface-2)', color: 'var(--text-primary)', border: '1px solid var(--border-color)' }}>
-                         <ShieldCheck size={20} />
-                       </button>
-                    </div>
-                  </div>
-                </div>
+                <SpecialistCard key={m.id} specialist={m} idx={idx} city={city} />
               ))
             )}
           </div>
@@ -484,8 +458,8 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* Floating AI Diagnosis Button */}
-      <Link href="/diagnosis" style={{ position: 'fixed', bottom: '2rem', right: '2rem', zIndex: 100, textDecoration: 'none' }}>
+      {/* Floating AI Diagnosis Button - Stacked above the Concierge */}
+      <Link href="/diagnosis" style={{ position: 'fixed', bottom: '135px', right: '45px', zIndex: 100, textDecoration: 'none' }}>
         <button className="btn btn-primary float" style={{ 
           padding: '1.25rem', 
           borderRadius: '50%', 
@@ -494,13 +468,95 @@ export default function HomeClient() {
           display: 'flex', 
           alignItems: 'center', 
           justifyContent: 'center',
-          background: 'linear-gradient(135deg, var(--amber-500), var(--amber-700))',
-          boxShadow: '0 10px 30px rgba(212, 175, 55, 0.5)',
-          border: '2px solid white'
+          background: 'linear-gradient(135deg, var(--gold-600), var(--gold-800))',
+          boxShadow: '0 10px 30px rgba(184, 134, 11, 0.5)',
+          border: '2px solid white',
+          position: 'relative'
         }}>
-          <Sparkles size={32} />
+          <div style={{ position: 'relative' }}>
+            <Search size={28} style={{ opacity: 0.9 }} />
+            <Sparkles size={18} style={{ position: 'absolute', top: '-8px', right: '-8px', color: '#fff' }} />
+          </div>
         </button>
       </Link>
+    </div>
+  );
+}
+
+function SpecialistCard({ specialist, idx, city }: { specialist: any, idx: number, city: string }) {
+  const [imageIdx, setImageIdx] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const portfolio = specialist.portfolio || [];
+  const images = portfolio.length > 0 
+    ? portfolio.map((p: any) => p.imageUrl)
+    : [`https://images.unsplash.com/photo-${1581578731548 + idx}?q=80&w=600&auto=format&fit=crop`];
+
+  useEffect(() => {
+    if (isHovered && images.length > 1) {
+      const interval = setInterval(() => {
+        setImageIdx(prev => (prev + 1) % images.length);
+      }, 1500);
+      return () => clearInterval(interval);
+    } else {
+      setImageIdx(0);
+    }
+  }, [isHovered, images.length]);
+
+  return (
+    <div 
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className={`glass-panel reveal active stagger-${(idx % 4) + 1} haptic-press`} 
+      style={{ padding: 0, overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column', transition: 'transform 0.3s ease' }}
+    >
+      <div style={{ position: 'relative', height: '220px', overflow: 'hidden' }}>
+        <img 
+          src={images[imageIdx]} 
+          alt={specialist.companyName} 
+          style={{ 
+            width: '100%', 
+            height: '100%', 
+            objectFit: 'cover',
+            transition: 'opacity 0.5s ease',
+            opacity: 1
+          }} 
+        />
+        {/* Progress Bar for Image Cycle */}
+        {isHovered && images.length > 1 && (
+          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '3px', background: 'rgba(255,255,255,0.2)', zIndex: 5 }}>
+            <div style={{ 
+              height: '100%', 
+              background: 'var(--accent-color)', 
+              width: `${((imageIdx + 1) / images.length) * 100}%`,
+              transition: 'width 1.5s linear'
+            }} />
+          </div>
+        )}
+        
+        <div style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'var(--glass-bg)', padding: '0.4rem 0.85rem', borderRadius: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 800, fontSize: '0.85rem', color: 'var(--text-primary)', boxShadow: 'var(--shadow-sm)', zIndex: 10 }}>
+          <Star size={14} fill="#fbbf24" color="#fbbf24" /> {specialist.rating || (4.5 + Math.random() * 0.4).toFixed(1)}
+        </div>
+        {idx < 2 && (
+          <div className="shimmer-deluxe" style={{ position: 'absolute', top: '1rem', left: '1rem', background: 'var(--accent-color)', color: 'white', padding: '0.4rem 0.85rem', borderRadius: '1rem', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.05em', boxShadow: '0 4px 12px rgba(212, 175, 55, 0.3)', zIndex: 10 }}>
+            Elite Pro
+          </div>
+        )}
+      </div>
+      <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <div style={{ color: 'var(--accent-color)', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>{specialist.category || 'Service Expert'}</div>
+        <h3 style={{ fontSize: '1.4rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '0.75rem', fontFamily: 'var(--font-heading)' }}>{specialist.companyName || specialist.user?.name}</h3>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem', fontWeight: 500 }}>
+          <MapPin size={16} /> {specialist.city || city}
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginTop: 'auto' }}>
+           <Link href={`/merchant/${specialist.id}`} style={{ flex: 1, textDecoration: 'none' }}>
+             <button className="btn btn-primary" style={{ width: '100%', padding: '0.85rem', borderRadius: '12px', fontSize: '0.95rem' }}>View Profile</button>
+           </Link>
+           <button className="btn" style={{ padding: '0.85rem', borderRadius: '12px', background: 'var(--surface-2)', color: 'var(--text-primary)', border: '1px solid var(--border-color)' }}>
+             <ShieldCheck size={20} />
+           </button>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Search, MapPin, Sparkles, ArrowRight, Navigation as NavIcon, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { parseSearchIntent } from '@/app/actions/ai-discovery';
 import { useTranslation } from "@/components/LanguageContext";
 import { useLocation } from "@/components/LocationContext";
+import { motion, useMotionValue, useSpring } from 'framer-motion';
+// Removed individual useEffect import
 
 export default function SearchHero() {
   const { t, isRTL } = useTranslation();
@@ -13,6 +15,77 @@ export default function SearchHero() {
   const [query, setQuery] = useState("");
   const [isAiLoading, setIsAiLoading] = useState(false);
   const router = useRouter();
+
+  // Aura Glow Mouse Tracking
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { damping: 20, stiffness: 150 });
+  const springY = useSpring(mouseY, { damping: 20, stiffness: 150 });
+
+  function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
+    const { left, top } = currentTarget.getBoundingClientRect();
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
+
+  // Smart Placeholder Typing Effect
+  const [placeholder, setPlaceholder] = useState("");
+  const [suggestionIdx, setSuggestionIdx] = useState(0);
+  const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const suggestions = [
+    t.home.hero.searchPlaceholder,
+    ...t.home.hero.suggestions
+  ];
+
+  useEffect(() => {
+    // Reset state when suggestions change (language switch)
+    setSuggestionIdx(0);
+    setPlaceholder("");
+    
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+    }
+
+    let currentText = "";
+    let isDeleting = false;
+    let speed = 100;
+    let localIdx = 0;
+
+    const type = () => {
+      const fullText = suggestions[localIdx % suggestions.length];
+      
+      if (isDeleting) {
+        currentText = fullText.substring(0, currentText.length - 1);
+        speed = 50;
+      } else {
+        currentText = fullText.substring(0, currentText.length + 1);
+        speed = 100;
+      }
+
+      setPlaceholder(currentText);
+
+      if (!isDeleting && currentText === fullText) {
+        isDeleting = true;
+        speed = 2000; // Pause at end
+      } else if (isDeleting && currentText === "") {
+        isDeleting = false;
+        localIdx++;
+        setSuggestionIdx(localIdx);
+        speed = 500;
+      }
+
+      typingTimeoutRef.current = setTimeout(type, speed);
+    };
+
+    typingTimeoutRef.current = setTimeout(type, 1000);
+
+    return () => {
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
+      }
+    };
+  }, [t.home.hero.suggestions.join('|'), t.home.hero.searchPlaceholder]);
 
   const postcodeRegex = /^[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}$/i;
 
@@ -104,7 +177,8 @@ export default function SearchHero() {
 
         <form 
           onSubmit={handleSearch}
-          className="glass-panel mobile-stack" 
+          onMouseMove={handleMouseMove}
+          className="glass-panel mobile-stack aura-container" 
           style={{ 
             display: 'flex', 
             gap: '1rem', 
@@ -117,13 +191,23 @@ export default function SearchHero() {
             flexDirection: isRTL ? 'row-reverse' : 'row'
           }}
         >
-          <div style={{ flex: 2, minWidth: 'min(100%, 280px)', position: 'relative', display: 'flex', alignItems: 'center' }}>
+          {/* Aura Glow Element */}
+          <motion.div 
+            className="aura-glow"
+            style={{ 
+              left: springX, 
+              top: springY,
+              background: 'radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%)'
+            }} 
+          />
+
+          <div style={{ flex: 2, minWidth: 'min(100%, 280px)', position: 'relative', display: 'flex', alignItems: 'center', zIndex: 1 }}>
              <Search size={22} style={{ position: 'absolute', [isRTL ? 'right' : 'left']: '1.5rem', color: 'var(--text-muted)' }} />
              <input 
                 type="text" 
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder={t.home.hero.searchPlaceholder}
+                placeholder={placeholder}
                 style={{ 
                   width: '100%', 
                   padding: isRTL ? '1.5rem 4rem 1.5rem 9rem' : '1.5rem 9rem 1.5rem 4.5rem', 
@@ -218,11 +302,11 @@ export default function SearchHero() {
           </button>
         </form>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '3rem', flexDirection: isRTL ? 'row-reverse' : 'row', flexWrap: 'wrap' }}>
-           {['MOT Testing', 'Oil Change', 'Deep Cleaning', 'Legal Aid'].map(tag => (
+           {t.home.hero.popularTags.map(tag => (
              <span key={tag} style={{ fontSize: '0.85rem', cursor: 'pointer', color: 'var(--text-muted)', border: '1px solid var(--border-color)', padding: '0.5rem 1rem', borderRadius: '1rem', background: 'var(--surface-1)' }} onClick={() => setQuery(tag)}>
-               {isRTL ? '' : 'Popular: '} 
+               {!isRTL && `${t.home.hero.popularLabel}: `} 
                <strong style={{ textDecoration: 'underline', color: 'var(--accent-color)' }}>{tag}</strong>
-               {isRTL ? ' :شائع' : ''}
+               {isRTL && ` :${t.home.hero.popularLabel}`}
              </span>
            ))}
         </div>

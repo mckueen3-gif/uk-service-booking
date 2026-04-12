@@ -145,11 +145,21 @@ function JoinPageContent() {
 
         <main className="content-area">
           {step === 0 && (
-            <div className="step-0 flex-col">
+            <div className="step-0 flex-col" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '40px', paddingBottom: '60px' }}>
               <OnboardingHero />
+              
+              <div style={{ maxWidth: '800px', width: '100%', margin: '0 auto' }}>
+                <img 
+                  src="/images/merchant-comparison.png" 
+                  alt="Merchant Comparison" 
+                  style={{ width: '100%', height: 'auto', borderRadius: '16px', border: '1px solid rgba(212, 175, 55, 0.2)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }} 
+                />
+              </div>
+
               <button 
                 className="btn-premium"
                 onClick={() => setStep(1)}
+                style={{ marginTop: '20px' }}
               >
                 {t.onboarding.buttons.start} <ChevronRight size={20} />
               </button>

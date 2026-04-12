@@ -58,15 +58,14 @@ export function AppNavbar({ session }: { session: any }) {
   const currentLanguage = languages.find(l => l.code === locale) || languages[0];
 
   const servicesList = React.useMemo(() => [
-    { id: 'plumbing', label: t.home.categories.plumbing, icon: <Droplets size={16} strokeWidth={2} />, path: '/services/results?q=Plumbing' },
-    { id: 'repairs', label: t.home.categories.repairs, icon: <Wrench size={16} strokeWidth={2} />, path: '/services/results?q=Repairs' },
-    { id: 'renovation', label: t.home.categories.renovation, icon: <PenTool size={16} strokeWidth={2} />, path: '/services/results?q=Renovation' },
-    { id: 'education', label: t.home.categories.education, icon: <GraduationCap size={16} strokeWidth={2} />, path: '/education' },
-    { id: 'accounting', label: t.home.categories.accounting, icon: <Calculator size={16} strokeWidth={2} />, path: '/services/results?q=Accounting' },
-    { id: 'legal', label: t.home.categories.legal, icon: <Scale size={16} strokeWidth={2} />, path: '/services/results?q=Legal' },
-    { id: 'commercial', label: t.home.categories.commercial, icon: <Briefcase size={16} strokeWidth={2} />, path: '/services/results?q=Commercial' },
-    { id: 'cleaning', label: t.home.categories.cleaning, icon: <Sparkles size={16} strokeWidth={2} />, path: '/services/results?q=Cleaning' },
-    { id: 'car', label: t.home.categories.car, icon: <Car size={16} strokeWidth={2} />, path: '/booking/car' }
+    { id: 'plumbing', label: t.home.categories.plumbing, icon: <Droplets size={16} strokeWidth={2} />, path: '/services/plumbing' },
+    { id: 'repairs', label: t.home.categories.repairs, icon: <Wrench size={16} strokeWidth={2} />, path: '/services/repairs' },
+    { id: 'renovation', label: t.home.categories.renovation, icon: <PenTool size={16} strokeWidth={2} />, path: '/services/renovation' },
+    { id: 'education', label: t.home.categories.education, icon: <GraduationCap size={16} strokeWidth={2} />, path: '/services/education' },
+    { id: 'accounting', label: t.home.categories.accounting, icon: <Calculator size={16} strokeWidth={2} />, path: '/services/accounting' },
+    { id: 'legal', label: t.home.categories.legal, icon: <Scale size={16} strokeWidth={2} />, path: '/services/legal' },
+    { id: 'commercial', label: t.home.categories.commercial, icon: <Briefcase size={16} strokeWidth={2} />, path: '/services/commercial' },
+    { id: 'cleaning', label: t.home.categories.cleaning, icon: <Sparkles size={16} strokeWidth={2} />, path: '/services/cleaning' }
   ], [t]);
 
   const displayCity = city === ALL_UK ? t.home.allUK : city;
@@ -105,7 +104,7 @@ export function AppNavbar({ session }: { session: any }) {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             style={{ 
               background: 'none', border: 'none', cursor: 'pointer', color: obsidianGold,
-              padding: '0.5rem', display: 'flex', alignItems: 'center'
+              padding: '0.5rem', alignItems: 'center'
             }}
           >
             {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -123,10 +122,63 @@ export function AppNavbar({ session }: { session: any }) {
               }} 
             />
           </Link>
+
+          {/* Concise Language Switcher (Moved next to Logo) */}
+          <div className="hide-on-mobile" style={{ position: 'relative', marginLeft: '0.2rem' }}>
+            <div 
+              onClick={() => toggleDropdown('languages')}
+              className="hover-border active-scale fluid-nav-item"
+              style={{ 
+                display: 'flex', alignItems: 'center', gap: '4px', 
+                cursor: 'pointer', padding: '0.3rem 0.6rem', 
+                borderRadius: '0.6rem', 
+                border: `1px solid ${isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--border-color)'}`,
+                backgroundColor: activeDropdown === 'languages' ? (isObsidianPage ? 'rgba(212,175,55,0.1)' : 'rgba(212,175,55,0.05)') : 'transparent', 
+                color: obsidianGold,
+                fontWeight: 800, transition: 'all 0.2s',
+                fontSize: '0.75rem'
+              }}>
+               <Globe size={14} color={obsidianGold} />
+               <span>{(languages.find(l => l.code === locale)?.label || 'EN').split(' ')[0].substring(0, 2).toUpperCase()}</span>
+               <ChevronDown size={12} style={{ transform: activeDropdown === 'languages' ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s', opacity: 0.6 }} />
+            </div>
+
+            {activeDropdown === 'languages' && (
+              <div style={{
+                position: 'absolute', top: '100%', left: '0', marginTop: '0.5rem',
+                width: '160px', 
+                backgroundColor: isObsidianPage ? '#0f0f0f' : 'var(--surface-1)', 
+                borderRadius: '0.75rem',
+                boxShadow: isObsidianPage ? '0 20px 40px rgba(0,0,0,0.8)' : '0 10px 15px -3px rgba(0, 0, 0, 0.1)', 
+                border: `1px solid ${isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--border-color)'}`,
+                padding: '0.4rem', zIndex: 1000,
+                backdropFilter: 'blur(20px)',
+                display: 'flex', flexDirection: 'column', gap: '2px',
+                maxHeight: '400px', overflowY: 'auto'
+              }}>
+                {languages.map(lang => (
+                  <div
+                    key={lang.code}
+                    onClick={(e) => { e.stopPropagation(); setLocale(lang.code as any); setActiveDropdown(null); }}
+                    style={{
+                      padding: '0.5rem 0.75rem', borderRadius: '0.4rem', cursor: 'pointer',
+                      fontSize: '0.85rem', fontWeight: locale === lang.code ? 700 : 500,
+                      backgroundColor: locale === lang.code ? (isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--accent-soft)') : 'transparent',
+                      color: locale === lang.code ? obsidianGold : (isObsidianPage ? 'white' : 'var(--text-primary)'),
+                      transition: 'all 0.2s'
+                    }}
+                    className={locale !== lang.code ? "hover-bg" : ""}
+                  >
+                    {lang.label}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
         
         {/* Desktop Nav Items */}
-        <div className="hide-on-mobile fluid-nav-gap" style={{ display: 'flex', alignItems: 'center', flex: 1, justifyContent: 'flex-end' }}>
+        <div className="hide-on-mobile fluid-nav-gap" style={{ display: 'flex', alignItems: 'center', flex: 1, justifyContent: 'flex-end', marginLeft: '1.5rem' }}>
           {/* City Selector */}
           <div className="fluid-nav-item" style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '0.5rem', color: isObsidianPage ? (theme === 'dark' ? '#666' : 'var(--text-secondary)') : 'var(--text-secondary)' }}>
              <MapPin size={16} color={obsidianGold} />
@@ -214,58 +266,6 @@ export function AppNavbar({ session }: { session: any }) {
              )}
           </div>
 
-          {/* Language Switcher */}
-          <div style={{ position: 'relative' }}>
-            <div 
-              onClick={() => toggleDropdown('languages')}
-              className="hover-border active-scale fluid-nav-item"
-              style={{ 
-                display: 'flex', alignItems: 'center', gap: '6px', 
-                cursor: 'pointer', padding: '0.4rem 0.8rem', 
-                borderRadius: '2rem', 
-                border: `1px solid ${isObsidianPage ? 'rgba(212,175,55,0.2)' : 'var(--border-color)'}`,
-                backgroundColor: activeDropdown === 'languages' ? (isObsidianPage ? 'rgba(212,175,55,0.1)' : 'rgba(212,175,55,0.05)') : (isObsidianPage ? '#0f0f0f' : 'var(--surface-1)'), 
-                color: obsidianGold,
-                fontWeight: 600, transition: 'all 0.2s',
-                boxShadow: isObsidianPage ? 'none' : 'var(--shadow-sm)'
-              }}>
-               <Globe size={16} color={obsidianGold} />
-               <span>{currentLanguage.label.split(' ')[0]}</span>
-               <ChevronDown size={14} style={{ transform: activeDropdown === 'languages' ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s', opacity: 0.6 }} />
-            </div>
-
-            {activeDropdown === 'languages' && (
-              <div style={{
-                position: 'absolute', top: '100%', right: '0', marginTop: '0.5rem',
-                width: '180px', 
-                backgroundColor: isObsidianPage ? '#0f0f0f' : 'var(--surface-1)', 
-                borderRadius: '1rem',
-                boxShadow: isObsidianPage ? '0 20px 40px rgba(0,0,0,0.8)' : '0 20px 25px -5px rgba(0, 0, 0, 0.1)', 
-                border: `1px solid ${isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--border-color)'}`,
-                padding: '0.5rem', zIndex: 1000,
-                backdropFilter: 'blur(20px)',
-                display: 'flex', flexDirection: 'column', gap: '2px',
-                maxHeight: '400px', overflowY: 'auto'
-              }}>
-                {languages.map(lang => (
-                  <div
-                    key={lang.code}
-                    onClick={(e) => { e.stopPropagation(); setLocale(lang.code as any); setActiveDropdown(null); }}
-                    style={{
-                      padding: '0.6rem 0.8rem', borderRadius: '0.5rem', cursor: 'pointer',
-                      fontSize: '0.9rem', fontWeight: locale === lang.code ? 700 : 500,
-                      backgroundColor: locale === lang.code ? (isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--accent-soft)') : 'transparent',
-                      color: locale === lang.code ? obsidianGold : (isObsidianPage ? 'white' : 'var(--text-primary)'),
-                      transition: 'all 0.2s'
-                    }}
-                    className={locale !== lang.code ? "hover-bg" : ""}
-                  >
-                    {lang.label}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
 
           <div style={{ position: 'relative' }}>
             <div 
@@ -379,13 +379,14 @@ export function AppNavbar({ session }: { session: any }) {
               <Link href="/dashboard" style={{ color: obsidianGold, fontWeight: 600, textDecoration: 'none' }}>
                 <span style={{ 
                   backgroundColor: isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--accent-soft)', 
-                  padding: '0.4rem 0.8rem', borderRadius: '2rem', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' 
+                  padding: '0.4rem 0.8rem', borderRadius: '2rem', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem',
+                  whiteSpace: 'nowrap'
                 }}>
                   <User size={16} /> {session.user.name} 
                 </span>
               </Link>
               {isObsidianPage && pathname !== '/auth/login' && pathname !== '/auth/register' && (
-                <a href="/api/auth/signout" style={{ color: '#ef4444', fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none' }}>
+                <a href="/api/auth/signout" style={{ color: '#ef4444', fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none', whiteSpace: 'nowrap' }}>
                   {t.nav.logout}
                 </a>
               )}
@@ -407,7 +408,6 @@ export function AppNavbar({ session }: { session: any }) {
 
         {/* Mobile Header Icons (Always visible) */}
         <div className="show-only-mobile" style={{ 
-          display: 'none', // Overridden by CSS .show-only-mobile { display: block !important; }
           alignItems: 'center', gap: '1rem' 
         }}>
           <button 
@@ -657,9 +657,8 @@ export function AppFooter() {
               <h4 style={{ fontWeight: 700, marginBottom: '1.5rem', fontSize: '1.1rem', color: isObsidianPage ? 'white' : 'inherit' }}>{t?.footer?.explore || 'Explore'}</h4>
               <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                  {[
-                   { name: t?.footer?.homeCleaning || 'Home Cleaning', href: "/services?category=Cleaning" },
-                   { name: t?.footer?.plumbingServices || 'Plumbing', href: "/services?category=Plumbing" },
-                   { name: t?.footer?.automotiveServices || 'Automotive', href: "/services?category=Automotive" },
+                   { name: t?.footer?.homeCleaning || 'Home Cleaning', href: "/services/cleaning" },
+                   { name: t?.footer?.plumbingServices || 'Plumbing', href: "/services/plumbing" },
                    { name: (t?.footer?.aiDiagnosis || 'AI Diagnosis') + " ✨", href: "/diagnosis", highlight: true }
                  ].map((link, idx) => (
                    <Link key={idx} href={link.href} style={{ 

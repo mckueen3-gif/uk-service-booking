@@ -2,7 +2,165 @@ import { Dictionary } from '../dictionary';
 
 export const ko: Dictionary = {
   nav: { browse: "서비스 탐색", join: "전문가로 가입", login: "로그인", register: "회원가입", logout: "로그아웃", dashboard: "관리자 대시보드", aiDiagnosis: "AI 진단", education: "교육/학습" },
-  common: { viewProfile: "프로필 보기", reviews: "개의 리뷰", hr: "시간", copy: "복사", copied: "복사되었습니다!" },
+  legal: { ui: { selectLanguage: "글로벌 연결성", close: "프로토콜 완료" } },
+  landing_pages: {
+    plumbing: {
+      hero: {
+        badge: "엘리트 정밀도",
+        title1: "우수한 엔지니어링",
+        title2: "배관 및 전력",
+        subtitle: "정밀 배관, 전기 및 하드웨어 통합을 위해 영국의 인증된 전문가와 연결하세요. 품질 보증을 위해 AI가 모니터링합니다.",
+        searchPlaceholder: "파이프 수리, 보일러 서비스, 배선...",
+        searchBtn: "노드 스캔"
+      },
+      sub_categories: {
+        pipe: { title: "파이프 수리", desc: "긴급 누수 탐지 및 정밀 하드웨어 교체." },
+        wiring: { title: "시스템 배선", desc: "전문적인 전기 교정 및 노드 통합." },
+        appliance: { title: "기기 통합", desc: "위생 및 조리 하드웨어 배포 및 테스트." },
+        boiler: { title: "보일러 감사", desc: "규제에 따른 열 유지 관리 및 성능 진단." },
+        switch: { title: "개폐 장치", desc: "고신뢰성 전기 부품 교체." },
+        smart: { title: "스마트 자동화", desc: "메시 네트워크 홈 자동화 및 센서 배포." }
+      }
+    },
+    repairs: {
+      hero: {
+        badge: "구조적 무결성",
+        title1: "노드 복구",
+        title2: "엘리트 유지보수",
+        subtitle: "가구 조립부터 구조적 수리까지. 영국의 상위 1% 유지보수 전문가가 도와드립니다.",
+        searchPlaceholder: "가구 조립, 벽 수리...",
+        searchBtn: "연락처 검색"
+      },
+      sub_categories: {
+        furniture: { title: "가구 조립", desc: "복잡한 모듈형 하드웨어의 정밀 조립." },
+        structural: { title: "구조적 피드백", desc: "고하중 피스처의 장착 및 교정." },
+        wall: { title: "벽 수리", desc: "표면 수리 및 구조적 코팅 복원." },
+        mounting: { title: "모듈형 장착", desc: "디지털 및 물리적 벽면 유닛의 안전한 배포." },
+        coating: { title: "코팅", desc: "미적 및 보호용 표면 처리." },
+        tactics: { title: "일반 전술", desc: "범용 주택 유지보수 프로토콜." }
+      }
+    },
+    renovation: {
+      hero: {
+        badge: "건축적 진화",
+        title1: "생활 공간의",
+        title2: "재설계",
+        subtitle: "영국의 엘리트 리노베이션 전문가와 함께 자산을 변화시키세요. 투명한 분석과 품질 보증 결과를 제공합니다.",
+        searchPlaceholder: "주방 확장, 다락방 개조...",
+        searchBtn: "프로젝트 시작"
+      },
+      sub_categories: {
+        culinary: { title: "조리 및 위생", desc: "풀스택 주방 및 욕실 재설계." },
+        expansion: { title: "확장 유닛", desc: "자산 용량 증대를 위한 다락방 및 모듈 확장." },
+        layout: { title: "공간 레이아웃", desc: "홀로그래픽 설계 및 구조적 재구성." },
+        floor: { title: "바닥 메시", desc: "고내구성 바닥재 배포 및 마감." },
+        landscape: { title: "조경 설계", desc: "실외 자산 환경 엔지니어링." },
+        design: { title: "설계 컨텍스트", desc: "건축 청사진 및 미적 논리." }
+      }
+    },
+    accounting: {
+      hero: {
+        badge: "재무 거버넌스",
+        title1: "자본 장부",
+        title2: "마스터하기",
+        subtitle: "SME 및 전문가를 위한 영국의 엘리트 회계사 및 재무 전략가. 운영 규정 준수 및 세무 최적화 보장.",
+        searchPlaceholder: "세금 신고, 연차 결산, 급여 관리...",
+        searchBtn: "감사 전문가"
+      },
+      sub_categories: {
+        income: { title: "소득 감사", desc: "자기 평가 및 개인 소득세 교정." },
+        accounts: { title: "연차 결산", desc: "기업 재무 보고 및 장부 마감." },
+        tax: { title: "세무 신고", desc: "HMRC 대응 세무 준비 및 전송." },
+        payroll: { title: "급여 메시", desc: "효율적인 인적 자본 지불 시스템." },
+        xero: { title: "Xero 최적화", desc: "클라우드 회계 통합 및 교육." },
+        fiscal: { title: "재무 분석", desc: "심층적인 비즈니스 성과 분석." }
+      }
+    },
+    legal: {
+      hero: {
+        badge: "생태계 준수",
+        title1: "전문가 자문 및",
+        title2: "법적 프레임워크",
+        subtitle: "비자 프로토콜, 계약서 작성 및 분쟁 해결 지원을 위해 영국의 인증된 법률 전문가와 연결하세요.",
+        searchPlaceholder: "비자 지원, 부동산법, 계약...",
+        searchBtn: "연락 자문"
+      },
+      sub_categories: {
+        drafting: { title: "SLA 작성", desc: "고정밀 계약서 및 합의서 합성." },
+        visa: { title: "비자 교정", desc: "영국 비자 및 이민 프로토콜 지원." },
+        property: { title: "부동산 프레임워크", desc: "부동산 양도 및 부동산 법적 논리." },
+        arbitration: { title: "중재", desc: "중립적 분쟁 해결 및 조정 프로토콜." },
+        law: { title: "마켓플레이스 법", desc: "기업 및 상업 거버넌스 지원." },
+        notary: { title: "공증인", desc: "공문서 확인 및 인증." }
+      }
+    },
+    cleaning: {
+      hero: {
+        badge: "바이오 보안 및 위생",
+        title1: "환경을",
+        title2: "정화하세요",
+        subtitle: "주거 및 상업 노드를 위한 엘리트 청소 프로토콜. 고신뢰성 위생 및 세심한 주의.",
+        searchPlaceholder: "딥 클리닝, 퇴거 청소...",
+        searchBtn: "전문가 배포"
+      },
+      sub_categories: {
+        hygiene: { title: "정기 위생", desc: "표준화된 일관된 자산 위생 관리." },
+        tenancy: { title: "퇴거 청소", desc: "점유 변경을 위한 정밀 청소." },
+        textile: { title: "섬유 청소", desc: "전문적인 카페트 및 실내 장식 복원." },
+        aperture: { title: "유리 청소", desc: "고층 창문 및 유리 위생 프로토콜." },
+        office: { title: "사무실 위생", desc: "상업적 작업 공간 위생 관리." },
+        bio: { title: "바이오 보안", desc: "오염 제거 및 클리닉 등급 청소." }
+      }
+    },
+    car: {
+      hero: {
+        badge: "하드웨어 유지보수",
+        title1: "정밀 자동차",
+        title2: "엔지니어링",
+        subtitle: "영국의 마스터 메카닉과 함께 모바일 하드웨어를 유지 관리하세요. 현장 진단 및 고성능 서비스가 제공됩니다.",
+        searchPlaceholder: "엔진 진단, MOT 준비, 브레이크...",
+        searchBtn: "메카닉 스캔"
+      },
+      sub_categories: {
+        engine: { title: "엔진 진단", desc: "고급 결함 찾기 및 성능 튜닝." },
+        brakes: { title: "브레이크 및 클러치", desc: "안전 필수 마찰 시스템 교정." },
+        mot: { title: "MOT 준비", desc: "규제에 따른 검토 체크 및 조치." },
+        ac: { title: "에어컨 교정", desc: "기후 제어 시스템 가스 충전 및 위생." },
+        bodywork: { title: "바디 복원", desc: "구조적 및 미적 쉘 수리." },
+        battery: { title: "출력 및 타이어", desc: "배터리 건강 및 타이어 효율 관리." }
+      }
+    },
+    commercial: {
+      hero: {
+        badge: "기업 인프라",
+        title1: "비즈니스 노드",
+        title2: "강화",
+        subtitle: "영국 상업 공간을 위한 엔드 투 엔드 인프라 지원. 매장 비품, 사무실 이전 및 산업 유지보수.",
+        searchPlaceholder: "매장 비품, IT 메시, HVAC...",
+        searchBtn: "공급업체 감사"
+      },
+      sub_categories: {
+        fitting: { title: "유닛 피팅", desc: "소매 및 상업 공간 인테리어 엔지니어링." },
+        relocation: { title: "노드 이전", desc: "원활한 사무실 및 산업 이전 프로토콜." },
+        industrial: { title: "산업용 전력", desc: "고전압 전기 그리드 배포." },
+        fire: { title: "화재 보안", desc: "규제에 따른 안전 및 감지 메시 시스템." },
+        mesh: { title: "IT 메시", desc: "기업 네트워킹 및 데이터 케이블링." },
+        hvac: { title: "HVAC 제어", desc: "산업용 환경 관리 시스템." }
+      }
+    }
+  },
+  common: { viewProfile: "프로필 보기", reviews: "개의 리뷰", hr: "시간", copy: "복사",
+    copied: "복사됨!",
+    aiMatchingSub: "AI 캘리브레이션 전문가, 프로토콜 요구사항과 일치.",
+    exploreSub: "{category} 부문 내 전문 프로토콜 탐색.",
+    escrow: {
+      title: "ConciergeAI 에스크로로 보호됨",
+      subtitle: "{category} 부문의 모든 세션이 AI에 의해 품질 보증 및 재무 무결성을 위해 모니터링됩니다.",
+      specialists: "검증된 전문가",
+      fees: "플랫폼 서비스 수수료",
+      support: "AI 중재 지원"
+    }
+  },
   hero: { title: "최고의 서비스 전문가 찾기", subtitle: "거주 지역의 인증된 전문가와 연결해 드립니다.", searchPlaceholder: "어떤 서비스가 필요하신가요?", badge: "영국 No.1 서비스 예약 플랫폼" },
   faq: {
     title: "자주 묻는 질문",
@@ -12,7 +170,7 @@ export const ko: Dictionary = {
     questions: {
       payments: [
         { q: "서비스 비용은 어떻게 결제하나요?", a: "결제는 Stripe를 통해 안전하게 처리됩니다. 작업 완료를 확인할 때까지 대금은 에스크로 계정에 보관됩니다." },
-        { q: "숨겨진 수수료가 있나요?", a: "아니요. 견적에 표시된 금액만 지불하시면 됩니다. 소정의 플랫폼 이용료는 가격에 포함되어 있습니다." }
+        { q: "숨겨진 수수료가 있나요?", a: "아니요. 플랫폼은 고객에게 서비스 수수료를 부과하지 않습니다. 귀하는 오직 기술자의 인건비와 승인된 자재 비용만 지불하면 됩니다." }
       ],
       disputes: [
         { q: "작업 결과가 만족스럽지 않으면 어떻게 하나요?", a: "당사의 AI 중재자가 원래의 작업 범위와 제출된 사진을 검토하여 공정한 해결책을 보장합니다." },
@@ -47,7 +205,7 @@ export const ko: Dictionary = {
     explore: "탐색", 
     legal: "법적 정보", 
     support: "고객 지원", 
-    rights: "© 2024 UK Service Hub. All rights reserved.", 
+    rights: "All rights reserved.", 
     terms: "이용약관", 
     privacy: "개인정보 처리방침", 
     cookies: "쿠키 정책", 
@@ -82,7 +240,7 @@ export const ko: Dictionary = {
   booking: {
     steps: { details: "작업 상세", schedule: "일정 선택", confirmation: "확인 및 결제" },
     titles: { details: "필요하신 사항을 알려주세요", schedule: "시간을 선택해 주세요", confirm: "예약 내용을 확인하세요", success: "예약이 완료되었습니다!" },
-    labels: { date: "날짜", time: "시간", make: "브랜드", model: "모델명", address: "서비스 주소", notes: "추가 요청사항", agree: "약관 및 2% 플랫폼 이용료에 동의합니다", summary: "결제 요약", paid: "결제 금액", merchant: "전문가", service: "서비스 항목" },
+    labels: { date: "날짜", time: "시간", make: "브랜드", model: "모델명", address: "서비스 주소", notes: "추가 요청사항", agree: "약관에 동의합니다 (플랫폼 이용료 0%)", summary: "결제 요약", paid: "결제 금액", merchant: "전문가", service: "서비스 항목" },
     buttons: { next: "다음 단계", prev: "이전 단계", pay: "안전 결제", home: "홈으로", dashboard: "대시보드로 이동" },
     messages: { finalizing: "예약을 확정하고 있습니다...", wait: "페이지를 새로고침하지 마세요", contact24h: "전문가가 24시간 이내에 연락드릴 것입니다.", safety: "안전을 위해 모든 결제 대금은 에스크로에 보관됩니다.", noReviews: "아직 리뷰가 없습니다", recommended: "강력 추천", replyFromMaster: "전문가의 답변" },
   },
@@ -100,8 +258,8 @@ export const ko: Dictionary = {
         syncing: "지갑 동기화 중...",
         synced: "지갑 동기화 완료",
         generating: "계정을 설정하고 있습니다...",
-        referralTitle: "친구 추천하고 2% 캐시백 받기",
-        referralDesc: "고유 코드를 공유하세요. 친구가 첫 서비스를 예약하면 2% 캐시백을 드립니다.",
+        referralTitle: "친구 추천하고 2% 상품권 리워드 받기",
+        referralDesc: "고유 코드를 공유하세요. 친구가 첫 서비스를 예약하면 2% 상당의 전자 상품권이 지급됩니다 (마트 및 리테일 매장용).",
         historyTitle: "거래 내역",
         historyEmpty: "거래 내역이 없습니다",
         type: "유형",
@@ -120,8 +278,8 @@ export const ko: Dictionary = {
         validUntil: "유효 기간",
         availableNow: "현재 가용",
         rewards: {
-          title: "리워드 교환",
-          subtitle: "* 수동 승인이 필요합니다. 코드는 24시간 이내에 발급됩니다.",
+          title: "전자 상품권으로 교환",
+          subtitle: "* 현금 인출 불가. 주요 리테일 브랜드(Tesco, Amazon 등) 디지털 상품권. 24시간 이내 발급.",
           myVault: "내 쿠폰함",
           redeemBtn: "교환하기",
           statusProcessing: "처리 중...",
@@ -135,10 +293,33 @@ export const ko: Dictionary = {
       status: { pending: "대기 중", confirmed: "확정됨", completed: "완료됨", cancelled: "취소됨" },
       variations: { label: "금액 변경", status: "상태", pending: "고객 승인 대기", approved: "승인됨", rejected: "거절됨", arbiterActive: "AI 중재 진행 중" },
       arbiterReasoning: "AI 중재 분석",
-      tips: { title: "성장 팁", growth: "작업 5개를 더 완료하면 '골드' 레벨이 되어 수수료가 7%로 인하됩니다." },
+      tips: { title: "성장 팁", growth: "고품질 서비스를 유지하여 엘리트로서의 노출과 안정적인 미션 실행을 보장받으세요." },
       quickLinks: { title: "퀵 링크", schedule: "일정 관리", earnings: "수익 내역", support: "고객 지원" },
       modal: { title: "추가 작업 대금 요청", amount: "추가 금액 (£)", reason: "사유", reasonPlaceholder: "예: 바닥 아래 추가 누수 발견", photo: "사진 증빙", photoHint: "AI 검증에 필수입니다", submit: "요청 제출", submitting: "업로드 중..." },
       avatar: { upload: "이미지 업로드", hint: "추천: 전문적인 사진 또는 회사 로고.", success: "이미지가 업데이트되었습니다!", errorSize: "이미지 크기는 2MB 이내여야 합니다" },
+      accounting: {
+        title: "회계 및 세금",
+        subtitle: "자동화된 UK 재무 센터: VAT 모니터링 및 세금 예측.",
+        statusActive: "구독 활성",
+        statusInactive: "구독 비활성",
+        grossRevenue: "총 수익",
+        grossRevenueDesc: "ConciergeAI 플랫폼에서 총 유입",
+        taxPayable: "예상 납부 세금",
+        taxPayableDesc: "24/25 UK 소득세 구간에 기반하여 계산됨.",
+        vatRadar: "VAT 등록 레이더",
+        vatRadarDesc: "£90,000 임계값 근접도 추적.",
+        monthlyBreakdown: "월별 성과 감사",
+        revenue: "수익",
+        fees: "플랫폼 수수료",
+        netProfit: "순이익",
+        exportCsv: "CSV 감사 로그 내보내기",
+        upgradeTitle: "전문 회계 잠금 해제",
+        upgradeDesc: "자동 부기, 세금 연도 요약, CSV 데이터 내보내기.",
+        upgradeCost: "£4.99 / 월",
+        upgradeBtn: "프리미엄 액세스 활성화",
+        taxYear: "세금 연도",
+        regNumber: "등록 번호 (UTR/CRN)"
+      }
     },
     portfolio_mgr: {
       title: "포트폴리오 관리", subtitle: "최고의 작업물을 보여주고 더 많은 예약을 받으세요.", addBtn: "작업 추가", emptyTitle: "작업물 없음", emptyDesc: "과거 프로젝트 사진을 추가하여 고객의 신뢰를 쌓으세요.",
@@ -186,7 +367,19 @@ export const ko: Dictionary = {
     }
   },
   home: {
-    hero: { badge: "인증된 현지 전문가", title1: "최고 평점의", title2: "현지 전문가 예약", subtitle: "영국 상위 1% 전문가에게 즉시 액세스하세요. 모두 인증 및 보험에 가입되어 있으며 AI로 품질을 관리합니다.", searchPlaceholder: "필요한 서비스...", locationPlaceholder: "London, UK", aiMatch: "스마트 매칭", searchBtn: "검색" },
+    hero: { badge: "인증된 현지 전문가", title1: "최고 평점의", title2: "현지 전문가 예약", subtitle: "영국 상위 1% 전문가에게 즉시 액세스하세요. 모두 인증 및 보험에 가입되어 있으며 AI로 품질을 관리합니다.", searchPlaceholder: "필요한 서비스...", locationPlaceholder: "런던, 영국",
+      aiMatch: "스마트 매치",
+      searchBtn: "연락처 검색",
+      suggestions: [
+        "첼시 Gas Safe 엔지니어 검색…",
+        "GCSE 최고 평점 튜터 예약…",
+        "사무실 딥 클린 서비스가 필요하신가요?",
+        "부동산 분쟁 전문 법률 지원…",
+        "런던 전문 세무 회계사…"
+      ],
+      popularLabel: "인기",
+      popularTags: ["주택 리노베이션", "세금 신고", "딥 클리닝", "법률 지원"]
+    },
     recommendation: { title1: "회원님을 위한", title2: "추천", subtitle: "회원님의 필요와 위치에 기반한 최고의 전문가들.", browse: "전체 보기" },
     recommendationResults: {
       trendingTitle: "{{city}} 인기 서비스: {{category}}",
@@ -204,7 +397,7 @@ export const ko: Dictionary = {
       assetMatch: "자산 매칭",
       trending: "현지 트렌드"
     },
-    aiCTA: { badge: "GEMINI AI 기반", title1: "무엇이 문제인지 모르겠나요?", title2: "즉시 AI 진단 받기", subtitle: "문제 부위의 사진을 업로드하세요. AI가 고장을 식별하고 비용을 추정하며 최적의 전문가를 즉시 찾아드립니다.", button: "무료 AI 진단 시작" },
+    aiCTA: { badge: "ChatGPT, Gemini & Grok 기반", title1: "무엇이 문제인지 모르겠나요?", title2: "즉시 AI 진단 받기", subtitle: "문제 부위의 사진을 업로드하세요. AI가 고장을 식별하고 비용을 추정하며 최적의 전문가를 즉시 찾아드립니다.", button: "무료 AI 진단 시작" },
     referralCTA: { badge: "추천 보상", title: "2% 수동 수익 창출", subtitle: "친구를 추천하고 향후 5년 동안의 모든 예약액에서 2%를 받으세요 (친구당 최대 £200).", button: "지금 수익 창출 시작", referralLabel: "내 추천 코드:" },
     educationCTA: "교육 페이지로 이동",
     eliteLocal: "지역 엘리트",
@@ -240,7 +433,7 @@ export const ko: Dictionary = {
   },
   location: { selectCity: "도시 선택", detecting: "위치 확인 중...", switch: "변경", nearby: "주변 서비스" },
   diagnosis: {
-    badge: "GEMINI AI 기술 기반",
+    badge: "ChatGPT, Gemini & Grok 기술 기반",
     title1: "전문가급 수리",
     title2: "눈 깜짝할 사이에",
     subtitle: "추측은 그만하세요. AI가 사진을 분석하여 예약 전 즉각적인 통찰력, 수리 범위 및 공정한 비용 추정치를 제공합니다.",

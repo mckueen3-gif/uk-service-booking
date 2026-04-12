@@ -255,3 +255,131 @@ export async function rescheduleBooking(bookingId: string, newDate: string) {
     return { error: err.message };
   }
 }
+
+/**
+ * NEW: Accounting & Tax Support Actions
+ */
+export async function getMerchantAccountingSummary() {
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant not found" };
+
+  const merchant = await prisma.merchant.findUnique({
+    where: { id: merchantId },
+    select: { isAccountingActive: true, registrationNumber: true }
+  });
+
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  
+  // UK Tax Year Logic: April 6th to April 5th
+  let taxYearStart = new Date(currentYear, 3, 6); // April 6, current year
+  if (now < taxYearStart) {
+    taxYearStart = new Date(currentYear - 1, 3, 6);
+  }
+  const taxYearEnd = new Date(taxYearStart.getFullYear() + 1, 3, 5, 23, 59, 59);
+
+  // 1. Fetch Tax Year Bookings (Gross & Fees)
+  const taxYearBookings = await prisma.booking.findMany({
+    where: { 
+      merchantId, 
+      status: 'COMPLETED',
+      updatedAt: { gte: taxYearStart, lte: taxYearEnd }
+    },
+    select: { totalAmount: true, platformFee: true }
+  });
+
+  const grossRevenue = taxYearBookings.reduce((sum, b) => sum + b.totalAmount, 0);
+  const totalFees = taxYearBookings.reduce((sum, b) => sum + b.platformFee, 0);
+  const netProfit = grossRevenue - totalFees;
+
+  // UK Income Tax Calculation (24/25 Tiers)
+  let estimatedTax = 0;
+  const personalAllowance = 12570;
+  const basicLimit = 50270;
+  const higherLimit = 125140;
+
+  if (netProfit > personalAllowance) {
+    const taxableBasic = Math.min(netProfit, basicLimit) - personalAllowance;
+    if (taxableBasic > 0) estimatedTax += taxableBasic * 0.20;
+
+    const taxableHigher = Math.min(netProfit, higherLimit) - basicLimit;
+    if (taxableHigher > 0) estimatedTax += taxableHigher * 0.40;
+
+    const taxableAdditional = netProfit - higherLimit;
+    if (taxableAdditional > 0) estimatedTax += taxableAdditional * 0.45;
+  }
+
+  // 2. Fetch Monthly Aggregates (Current Calendar Year)
+  const calendarYearStart = new Date(currentYear, 0, 1);
+  const monthlyData = await prisma.booking.findMany({
+    where: {
+      merchantId,
+      status: 'COMPLETED',
+      updatedAt: { gte: calendarYearStart }
+    },
+    select: { totalAmount: true, platformFee: true, updatedAt: true }
+  });
+
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const monthlySummaries = months.map((m, i) => {
+    const filtered = monthlyData.filter(d => d.updatedAt.getMonth() === i);
+    return {
+      month: m,
+      revenue: filtered.reduce((sum, b) => sum + b.totalAmount, 0),
+      fees: filtered.reduce((sum, b) => sum + b.platformFee, 0)
+    };
+  });
+
+  return {
+    isAccountingActive: merchant?.isAccountingActive || false,
+    registrationNumber: merchant?.registrationNumber || "NOT_SET",
+    taxYear: `${taxYearStart.getFullYear()}-${taxYearEnd.getFullYear().toString().slice(-2)}`,
+    grossRevenue,
+    totalFees,
+    netProfit,
+    estimatedTax,
+    monthlySummaries,
+    vatProgress: (grossRevenue / 90000) * 100 // 90k UK Threshold
+  };
+}
+
+export async function activateAccountingSubscription() {
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant not found" };
+
+  try {
+    const { getStripeClient } = await import("@/lib/stripe");
+    const stripe = await getStripeClient();
+
+    // Create a real Stripe Checkout Session for the £4.99/mo subscription
+    const session = await stripe.checkout.sessions.create({
+      mode: 'subscription',
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price_data: {
+            currency: 'gbp',
+            product_data: {
+              name: 'ConciergeAI Accounting Premium',
+              description: 'Professional Tax Reporting & Monthly Audits',
+            },
+            unit_amount: 499, // £4.99
+            recurring: { interval: 'month' },
+          },
+          quantity: 1,
+        },
+      ],
+      success_url: `${process.env.NEXTAUTH_URL || 'http://localhost:3002'}/dashboard/merchant/accounting?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXTAUTH_URL || 'http://localhost:3002'}/dashboard/merchant/accounting?status=canceled`,
+      metadata: {
+        merchantId,
+        subscription_type: 'accounting_premium'
+      }
+    });
+
+    return { url: session.url };
+  } catch (err: any) {
+    console.error("[Stripe Session Error]", err);
+    return { error: err.message };
+  }
+}

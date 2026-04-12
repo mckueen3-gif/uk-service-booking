@@ -11,7 +11,26 @@ import { pa } from './locales/pa';
 
 export interface Dictionary {
   nav: { browse: string; join: string; login: string; register: string; logout: string; dashboard: string; aiDiagnosis: string; education: string };
-  common: { viewProfile: string; reviews: string; hr: string; copy: string; copied: string };
+  legal: { ui: { selectLanguage: string; close: string } };
+  landing_pages: {
+    [key: string]: {
+      hero: {
+        badge: string;
+        title1: string;
+        title2: string;
+        subtitle: string;
+        searchPlaceholder: string;
+        searchBtn: string;
+      };
+      sub_categories: {
+        [key: string]: {
+          title: string;
+          desc: string;
+        };
+      };
+    };
+  };
+  common: { viewProfile: string; reviews: string; hr: string; copy: string; copied: string; aiMatchingSub: string; exploreSub: string; escrow: { title: string; subtitle: string; specialists: string; fees: string; support: string } };
   hero: { title: string; subtitle: string; searchPlaceholder: string; badge: string };
   faq: {
     title: string;
@@ -138,6 +157,29 @@ export interface Dictionary {
       quickLinks: { title: string; schedule: string; earnings: string; support: string };
       modal: { title: string; amount: string; reason: string; reasonPlaceholder: string; photo: string; photoHint: string; submit: string; submitting: string };
       avatar: { upload: string; hint: string; success: string; errorSize: string };
+      accounting: {
+        title: string;
+        subtitle: string;
+        statusActive: string;
+        statusInactive: string;
+        grossRevenue: string;
+        grossRevenueDesc: string;
+        taxPayable: string;
+        taxPayableDesc: string;
+        vatRadar: string;
+        vatRadarDesc: string;
+        monthlyBreakdown: string;
+        revenue: string;
+        fees: string;
+        netProfit: string;
+        exportCsv: string;
+        upgradeTitle: string;
+        upgradeDesc: string;
+        upgradeCost: string;
+        upgradeBtn: string;
+        taxYear: string;
+        regNumber: string;
+      };
     };
     portfolio_mgr: {
       title: string; subtitle: string; addBtn: string; emptyTitle: string; emptyDesc: string;
@@ -162,7 +204,7 @@ export interface Dictionary {
     };
   };
   home: {
-    hero: { badge: string; title1: string; title2: string; subtitle: string; searchPlaceholder: string; locationPlaceholder: string; aiMatch: string; searchBtn: string };
+    hero: { badge: string; title1: string; title2: string; subtitle: string; searchPlaceholder: string; locationPlaceholder: string; aiMatch: string; searchBtn: string; suggestions: string[]; popularLabel: string; popularTags: string[] };
     recommendation: { title1: string; title2: string; subtitle: string; browse: string };
     recommendationResults: {
       trendingTitle: string;

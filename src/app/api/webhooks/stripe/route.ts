@@ -56,11 +56,22 @@ export async function POST(req: Request) {
           serviceId,
           serviceName,
           isEducation,
+          subscription_type,
           totalAmount: totalStr,
           depositAmount: depositStr,
           balanceAmount: balanceStr,
           scheduledDate
         } = metadata;
+
+        // --- NEW: Accounting Subscription Logic ---
+        if (subscription_type === 'accounting_premium') {
+          console.log(`[Stripe Webhook] 💎 Activating Premium Accounting for Merchant: ${merchantId}`);
+          await prisma.merchant.update({
+            where: { id: merchantId },
+            data: { isAccountingActive: true }
+          });
+          return NextResponse.json({ received: true });
+        }
 
         const totalAmount = parseFloat(totalStr || "0") / 100;
         const depositAmount = parseFloat(depositStr || "0") / 100;

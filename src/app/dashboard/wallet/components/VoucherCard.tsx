@@ -11,6 +11,7 @@ interface VoucherCardProps {
   isNew?: boolean;
   isPumpedUp?: boolean;
   isPremium?: boolean;
+  domain?: string;
   onRedeem: (name: string) => void;
 }
 
@@ -22,8 +23,10 @@ const VoucherCard: React.FC<VoucherCardProps> = ({
   isNew, 
   isPumpedUp,
   isPremium,
+  domain,
   onRedeem 
 }) => {
+  const [logoError, setLogoError] = React.useState(false);
   // Generate a consistent placeholder color based on name
   const getBrandColor = (str: string) => {
     const colors = ['#d4af37', '#e5c100', '#b8860b', '#ffd700'];
@@ -131,7 +134,7 @@ const VoucherCard: React.FC<VoucherCardProps> = ({
         height: '70px',
         margin: '20px auto 15px',
         borderRadius: '12px',
-        background: 'var(--surface-3)',
+        background: '#fff',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -140,9 +143,27 @@ const VoucherCard: React.FC<VoucherCardProps> = ({
         color: isLocked ? 'var(--text-muted)' : brandColor,
         border: `1px solid ${isPumpedUp ? 'rgba(212,175,55,0.4)' : isLocked ? 'transparent' : 'rgba(212,175,55,0.1)'}`,
         boxShadow: isLocked ? 'none' : 'var(--shadow-sm)',
-        position: 'relative'
+        position: 'relative',
+        overflow: 'hidden'
       }}>
-        {name.charAt(0)}
+        {(!logoError && domain) ? (
+          <img 
+            src={`https://www.google.com/s2/favicons?domain=${domain}&sz=128`}
+            alt={name}
+            onError={() => {
+              setLogoError(true);
+            }}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
+              padding: '6px',
+              filter: isLocked ? 'grayscale(100%) opacity(50%)' : 'none'
+            }}
+          />
+        ) : (
+          name.charAt(0)
+        )}
         {isPumpedUp && (
           <Sparkles 
             size={16} 

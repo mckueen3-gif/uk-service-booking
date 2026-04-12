@@ -57,6 +57,14 @@
 
   --premium-gradient: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
   --soft-gradient: linear-gradient(135deg, var(--bg-primary) 0%, var(--gold-50) 100%);
+
+  /* Fluid Typography Tokens */
+  --text-xs: clamp(0.7rem, 0.1vw + 0.65rem, 0.8rem);
+  --text-sm: clamp(0.8rem, 0.2vw + 0.75rem, 0.95rem);
+  --text-base: clamp(0.95rem, 0.3vw + 0.85rem, 1.1rem);
+  --text-lg: clamp(1.1rem, 0.5vw + 1rem, 1.4rem);
+  --text-xl: clamp(1.4rem, 0.8vw + 1.2rem, 2rem);
+  --text-2xl: clamp(1.8rem, 1.5vw + 1.5rem, 3rem);
 }
 
 
@@ -94,6 +102,7 @@
 
 html {
   scroll-behavior: smooth;
+  font-size: 16px; /* Base for rem */
 }
 
 body {
@@ -101,9 +110,15 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-secondary);
   line-height: 1.6;
+  font-size: var(--text-base);
   -webkit-font-smoothing: antialiased;
   transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+h1 { font-size: var(--text-2xl); font-weight: 900; }
+h2 { font-size: var(--text-xl); font-weight: 800; }
+h3 { font-size: var(--text-lg); font-weight: 700; }
+h4 { font-size: var(--text-base); font-weight: 700; }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
@@ -131,7 +146,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .show-only-mobile {
-  display: none;
+  display: none !important;
 }
 
 @media (max-width: 768px) {
@@ -380,3 +395,158 @@ h1, h2, h3, h4, h5, h6 {
   transition: width 0.3s ease;
 }
 
+
+/* --- Aura & Neural Matrix Design System --- */
+
+.aura-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.aura-glow {
+  position: absolute;
+  pointer-events: none;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  transition: opacity 0.6s ease;
+  opacity: 0;
+}
+
+.aura-container:hover .aura-glow {
+  opacity: 1;
+}
+
+/* Neural Matrix Animation */
+@keyframes matrix-pulse {
+  0% { opacity: 0.1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.1); }
+  100% { opacity: 0.1; transform: scale(1); }
+}
+
+@keyframes matrix-flow {
+  0% { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
+}
+
+.neural-matrix-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(212, 175, 55, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, 0.1) 1px, transparent 1px);
+  background-size: 30px 30px;
+  animation: matrix-flow 20s linear infinite;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.matrix-node {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--gold-600);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--gold-600);
+  animation: matrix-pulse 2s infinite ease-in-out;
+}
+
+/* Tech Terminal Styles */
+.tech-terminal {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--gold-700);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.75rem;
+  color: var(--gold-600);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  overflow: hidden;
+  position: relative;
+}
+
+.tech-line {
+  display: block;
+  white-space: nowrap;
+  animation: line-fade-in 0.3s ease-out forwards;
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+@keyframes line-fade-in {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.tech-cursor {
+  display: inline-block;
+  width: 6px;
+  height: 12px;
+  background: var(--gold-600);
+  margin-left: 4px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* Deluxe Shimmer Enhancement */
+.shimmer-deluxe {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-deluxe::after {
+  content: '';
+  position: absolute;
+  top: -150%;
+  left: -150%;
+  width: 300%;
+  height: 300%;
+  background: linear-gradient(
+    45deg,
+    transparent 45%,
+    rgba(212, 175, 55, 0.1) 48%,
+    rgba(212, 175, 55, 0.4) 50%,
+    rgba(212, 175, 55, 0.1) 52%,
+    transparent 55%
+  );
+  transform: rotate(25deg);
+  animation: shimmer-swipe 4s infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer-swipe {
+  0% { transform: translate(-30%, -30%) rotate(25deg); }
+  20% { transform: translate(30%, 30%) rotate(25deg); }
+  100% { transform: translate(30%, 30%) rotate(25deg); }
+}
+
+/* Haptic Improvements */
+.haptic-press:active {
+  transform: scale(0.97);
+  transition: transform 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.01);
+  backdrop-filter: blur(0px);
+  border-bottom: 1px solid transparent;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-nav.scrolled {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  padding: 0.5rem 0;
+}

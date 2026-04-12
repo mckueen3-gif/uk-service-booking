@@ -28,9 +28,9 @@ export default function AIChatbot() {
     });
   }, [t.aura.welcome]);
 
-  // Handle RTL layout adjustments
-  const rightPos = isRTL ? 'auto' : '24px';
-  const leftPos = isRTL ? '24px' : 'auto';
+  // Handle positioning for Elite UI - Bottom Right
+  const rightPos = '40px';
+  const leftPos = 'auto';
 
   const suggestions = [
     { label: t.aura.suggestions.refund, query: t.aura.suggestions.refundQuery },
@@ -64,40 +64,64 @@ export default function AIChatbot() {
         }),
       });
 
+      if (!response.ok) {
+        throw new Error(`Server responded with ${response.status}`);
+      }
+
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("Invalid response format from server");
+      }
+
       const data = await response.json();
       if (data.content) {
         setMessages(prev => [...prev, { role: 'assistant', content: data.content }]);
       }
     } catch (error) {
       console.error('Chat Error:', error);
-      setMessages(prev => [...prev, { role: 'assistant', content: t.aura.error }]);
+      setMessages(prev => [...prev, { role: 'assistant', content: t.aura.error || "I am having trouble connecting right now." }]);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div style={{ position: 'fixed', bottom: '24px', right: rightPos, left: leftPos, zIndex: 1000 }}>
+    <div style={{ position: 'fixed', bottom: '40px', right: rightPos, left: leftPos, zIndex: 1000 }}>
       {/* Floating Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         style={{
-          width: '64px',
-          height: '64px',
+          width: '80px',
+          height: '80px',
           borderRadius: '50%',
-          backgroundColor: '#0f766e',
+          backgroundColor: '#050505',
           color: 'white',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: '0 10px 15px -3px rgba(15, 118, 110, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-          border: 'none',
+          boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(212, 175, 55, 0.2)',
+          border: '2px solid #d4af37',
           cursor: 'pointer',
-          transition: 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+          transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+          overflow: 'hidden',
+          padding: '8px'
         }}
-        className={isOpen ? "rotate-90" : "hover-scale"}
+        className={isOpen ? "rotate-90" : "hover-scale active-scale"}
       >
-        {isOpen ? <X size={28} /> : <MessageCircle size={28} />}
+        {isOpen ? (
+          <X size={32} color="#d4af37" />
+        ) : (
+          <img 
+            src="/images/logo_concierge_ai.png" 
+            alt="AI" 
+            style={{ 
+              width: '100%', 
+              height: '100%', 
+              objectFit: 'contain',
+              filter: 'drop-shadow(0 0 5px rgba(212, 175, 55, 0.3))'
+            }} 
+          />
+        )}
       </button>
 
       {/* Chat Window */}

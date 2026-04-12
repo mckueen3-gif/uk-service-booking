@@ -3,7 +3,464 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
+  provider = "postgresql"
+}
+
+model User {
+  id                   String              @id @default(cuid())
+  name                 String?
+  email                String              @unique
+  emailVerified        DateTime?
+  image                String?
+  password             String?
+  role                 Role                @default(CUSTOMER)
+  phone                String?
+  city                 String?
+  addressLine1         String?
+  addressLine2         String?
+  postcode             String?
+  referralCode         String?             @unique
+  referralCredits      Float               @default(0)
+  stripeCustomerId     String?
+  createdAt            DateTime            @default(now())
+  updatedAt            DateTime            @updatedAt
+  mfaEnabled           Boolean             @default(false)
+  mfaSecret            String?
+  notificationSettings Json?               @default("{\"sms\": false, \"push\": true, \"email\": true}")
+  bookings             Booking[]
+  conversations        Conversation[]      @relation("CustomerConversations")
+  creditTransactions   CreditTransaction[]
+  merchantProfile      Merchant?
+  notifications        Notification[]
+  properties           Property[]
+  redemptionRequests   RedemptionRequest[]
+  referralReceived     Referral?           @relation("Referee")
+  referralsMade        Referral[]          @relation("Referrer")
+  reviews              Review[]
+  vehicles             Vehicle[]
+
+  @@index([city])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  message   String
+  type      String   @default("INFO")
+  isRead    Boolean  @default(false)
+  link      String?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([isRead])
+}
+
+model Vehicle {
+  id          String    @id @default(cuid())
+  userId      String
+  make        String
+  model       String
+  year        String
+  reg         String?
+  motDate     DateTime?
+  lastService DateTime?
+  notes       String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Property {
+  id        String   @id @default(cuid())
+  userId    String
+  address   String
+  type      String
+  boilerAge Int?
+  roofType  String?
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Merchant {
+  id                 String                 @id @default(cuid())
+  userId             String                 @unique
+  companyName        String
+  description        String?
+  registrationNumber String?
+  licenseUrl         String?
+  isVerified         Boolean                @default(false)
+  city               String
+  latitude           Float?
+  longitude          Float?
+  stripeAccountId    String?
+  averageRating      Float                  @default(0.0)
+  totalReviews       Int                    @default(0)
+  completedJobsCount Int                    @default(0)
+  commissionRate     Float                  @default(0.09)
+  freeOrdersLeft     Int                    @default(0)
+  avatarUrl          String?
+  bankSortCode       String?
+  bankAccountNumber  String?
+  slotDuration       Int                    @default(60)
+  maxDailyBookings   Int                    @default(8)
+  createdAt          DateTime               @default(now())
+  updatedAt          DateTime               @updatedAt
+  bookings           Booking[]
+  conversations      Conversation[]         @relation("MerchantConversations")
+  user               User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  isAccountingActive Boolean                @default(false)
+  availability       MerchantAvailability[]
+  documents          MerchantDocument[]
+  portfolio          MerchantPortfolio[]
+  wallet             MerchantWallet?
+  reviews            Review[]
+  services           Service[]
+  withdrawals        WithdrawalRequest[]
+
+  @@index([city])
+  @@index([isVerified])
+}
+
+model PlatformSettings {
+  id                    String   @id @default("global")
+  defaultCommissionRate Float    @default(0.09)
+  updatedAt             DateTime @updatedAt
+  companyName           String   @default("ConciergeAI UK")
+  companyRegistration   String   @default("12345678")
+  contactEmail          String   @default("support@conciergeai.uk")
+  contactPhone          String   @default("+44 20 1234 5678")
+  facebookUrl           String   @default("https://facebook.com/conciergeai")
+  instagramUrl          String   @default("https://instagram.com/conciergeai")
+  linkedinUrl           String   @default("https://linkedin.com/company/conciergeai")
+  officeAddress         String   @default("London, UK")
+  twitterUrl            String   @default("https://twitter.com/conciergeai")
+  vatRegistration       String   @default("GB123456789")
+}
+
+model PromoCode {
+  id          String    @id @default(cuid())
+  code        String    @unique
+  maxUses     Int?
+  currentUses Int       @default(0)
+  expiresAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([code])
+}
+
+model MerchantPortfolio {
+  id          String   @id @default(cuid())
+  merchantId  String
+  title       String
+  description String?
+  imageUrl    String
+  category    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  merchant    Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+
+  @@index([merchantId])
+}
+
+model MerchantDocument {
+  id                 String         @id @default(cuid())
+  merchantId         String
+  type               DocumentType
+  fileUrl            String
+  status             DocumentStatus @default(PENDING)
+  registrationNumber String?
+  expiryDate         DateTime?
+  aiAnalysis         String?
+  confidence         Float?
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+  merchant           Merchant       @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+
+  @@index([merchantId])
+}
+
+model MerchantWallet {
+  id                String   @id @default(cuid())
+  merchantId        String   @unique
+  totalEarned       Float    @default(0.0)
+  availableBalance  Float    @default(0.0)
+  pendingBalance    Float    @default(0.0)
+  authorizedBalance Float    @default(0.0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  merchant          Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+}
+
+model WithdrawalRequest {
+  id         String   @id @default(cuid())
+  merchantId String
+  amount     Float
+  status     String   @default("PENDING")
+  adminNotes String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  merchant   Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+}
+
+model MerchantAvailability {
+  id         String   @id @default(cuid())
+  merchantId String
+  dayOfWeek  Int
+  startTime  String   @default("09:00")
+  endTime    String   @default("17:00")
+  isOpen     Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  merchant   Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+
+  @@unique([merchantId, dayOfWeek])
+}
+
+model Service {
+  id           String        @id @default(cuid())
+  merchantId   String
+  category     String
+  name         String
+  description  String?
+  price        Float
+  teachingMode TeachingMode?
+  subjects     String?
+  aiMatchScore Float?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  bookings     Booking[]
+  merchant     Merchant      @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+
+  @@index([category])
+  @@index([merchantId])
+}
+
+model Booking {
+  id                    String        @id @default(cuid())
+  customerId            String
+  merchantId            String
+  serviceId             String
+  scheduledDate         DateTime
+  status                BookingStatus @default(PENDING)
+  totalAmount           Float
+  platformFee           Float         @default(0)
+  merchantAmount        Float         @default(0)
+  stripePaymentIntentId String?       @unique
+  isEducation           Boolean       @default(false)
+  depositPaid           Float         @default(0)
+  balanceAmount         Float         @default(0)
+  stripeBalanceIntentId String?       @unique
+  reauthDeadline        DateTime?
+  coolingOffUntil       DateTime?
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+  vehicleReg            String?
+  vehicleMake           String?
+  vehicleModel          String?
+  vehicleYear           String?
+  vehicleNotes          String?
+  customer              User          @relation(fields: [customerId], references: [id])
+  merchant              Merchant      @relation(fields: [merchantId], references: [id])
+  service               Service       @relation(fields: [serviceId], references: [id])
+  dispute               Dispute?
+  payment               Payment?
+  review                Review?
+  variations            Variation[]
+
+  @@index([customerId])
+  @@index([merchantId])
+  @@index([status])
+  @@index([scheduledDate])
+}
+
+model Variation {
+  id          String          @id @default(cuid())
+  bookingId   String
+  amount      Float
+  description String
+  photoUrl    String
+  status      VariationStatus @default(PENDING)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  booking     Booking         @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([bookingId])
+}
+
+model Payment {
+  id                    String        @id @default(cuid())
+  bookingId             String        @unique
+  stripePaymentIntentId String        @unique
+  amount                Float
+  platformFee           Float
+  merchantPayout        Float
+  status                PaymentStatus @default(PENDING)
+  stripeTransferId      String?
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+  booking               Booking       @relation(fields: [bookingId], references: [id])
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  bookingId  String   @unique
+  customerId String
+  merchantId String
+  rating     Int
+  comment    String?
+  sentiment  String?
+  keywords   String?
+  reply      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  booking    Booking  @relation(fields: [bookingId], references: [id])
+  customer   User     @relation(fields: [customerId], references: [id])
+  merchant   Merchant @relation(fields: [merchantId], references: [id])
+
+  @@index([merchantId])
+  @@index([customerId])
+}
+
+model Dispute {
+  id          String             @id @default(cuid())
+  bookingId   String             @unique
+  openedById  String
+  reason      String
+  status      DisputeStatus      @default(OPEN)
+  aiDecision  ResolutionDecision @default(PENDING)
+  aiReasoning String?
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  booking     Booking            @relation(fields: [bookingId], references: [id])
+  evidence    Evidence[]
+
+  @@index([bookingId])
+}
+
+model Evidence {
+  id           String   @id @default(cuid())
+  disputeId    String
+  uploadedById String
+  fileUrl      String
+  type         String
+  description  String?
+  createdAt    DateTime @default(now())
+  dispute      Dispute  @relation(fields: [disputeId], references: [id], onDelete: Cascade)
+}
+
+model Referral {
+  id                String   @id @default(cuid())
+  referrerId        String
+  refereeId         String   @unique
+  status            String   @default("PENDING")
+  earnedFromReferee Float    @default(0)
+  createdAt         DateTime @default(now())
+  referee           User     @relation("Referee", fields: [refereeId], references: [id])
+  referrer          User     @relation("Referrer", fields: [referrerId], references: [id])
+}
+
+model CreditTransaction {
+  id          String          @id @default(cuid())
+  userId      String
+  amount      Float
+  type        TransactionType
+  description String?
+  bookingId   String?
+  createdAt   DateTime        @default(now())
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expires   DateTime
+  createdAt DateTime @default(now())
+
+  @@index([email])
+}
+
+model Voucher {
+  id         String    @id @default(cuid())
+  code       String    @unique
+  value      Float
+  isRedeemed Boolean   @default(false)
+  redeemedBy String?
+  expiryDate DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@index([code])
+}
+
+model RedemptionRequest {
+  id          String    @id @default(cuid())
+  userId      String
+  amount      Float
+  brandName   String?
+  status      String    @default("PENDING")
+  voucherCode String?
+  adminNotes  String?
+  issuedAt    DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
+}
+
+model Conversation {
+  id            String    @id @default(cuid())
+  customerId    String
+  merchantId    String
+  lastMessageAt DateTime  @default(now())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  customer      User      @relation("CustomerConversations", fields: [customerId], references: [id])
+  merchant      Merchant  @relation("MerchantConversations", fields: [merchantId], references: [id])
+  messages      Message[]
+
+  @@unique([customerId, merchantId])
+  @@index([customerId])
+  @@index([merchantId])
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String
+  senderId       String
+  content        String
+  imageUrl       String?
+  isRead         Boolean      @default(false)
+  createdAt      DateTime     @default(now())
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId])
+  @@index([senderId])
+}
+
+model AiDiagnosis {
+  id                  String   @id @default(cuid())
+  userId              String?
+  imageUrl            String
+  category            String
+  issue               String
+  suggestedFix        String
+  estimatedPriceRange String
+  confidence          Float
+  rawAIResponse       String?
+  createdAt           DateTime @default(now())
+
+  @@index([userId])
+  @@index([category])
 }
 
 enum Role {
@@ -62,423 +519,10 @@ enum DocumentStatus {
   UNDER_ADMIN_REVIEW
 }
 
-model User {
-  id                 String    @id @default(cuid())
-  name               String?
-  email              String    @unique
-  emailVerified      DateTime?
-  image              String?
-  password           String?
-  role               Role      @default(CUSTOMER)
-  phone              String?
-  city               String?
-  addressLine1       String?
-  addressLine2       String?
-  postcode           String?
-  referralCode       String?   @unique
-  referralCredits    Float     @default(0)
-  stripeCustomerId   String?
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
-
-  merchantProfile    Merchant?
-  bookings           Booking[]
-  reviews            Review[]
-  vehicles           Vehicle[]
-  properties         Property[]
-  referralsMade      Referral[] @relation("Referrer")
-  referralReceived   Referral?  @relation("Referee")
-  creditTransactions CreditTransaction[]
-  redemptionRequests RedemptionRequest[]
-  notifications      Notification[]
-  conversations      Conversation[] @relation("CustomerConversations")
-
-  @@index([city])
-}
-
-
-model Notification {
-  id          String   @id @default(cuid())
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  title       String
-  message     String
-  type        String   @default("INFO") // INFO, SUCCESS, WARNING, ALERT
-  isRead      Boolean  @default(false)
-  link        String?  // Optional: Redirect URL
-  
-  createdAt   DateTime @default(now())
-
-  @@index([userId])
-  @@index([isRead])
-}
-
-model Vehicle {
-  id           String   @id @default(cuid())
-  userId       String
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  make         String
-  model        String
-  year         String
-  reg          String?
-  motDate      DateTime?
-  lastService  DateTime?
-  notes        String?
-  
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-}
-
-model Property {
-  id           String   @id @default(cuid())
-  userId       String
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  address      String
-  type         String   // e.g. "Flat", "Detached House"
-  boilerAge    Int?
-  roofType     String?
-  notes        String?
-  
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-}
-
-model Merchant {
-  id                 String    @id @default(cuid())
-  userId             String    @unique
-  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  companyName        String
-  description        String?
-  registrationNumber String?
-  licenseUrl         String?   // For AI validation
-  isVerified         Boolean   @default(false)
-  city               String    // Merchant covers this UK city
-  latitude           Float?
-  longitude          Float?
-  stripeAccountId    String?   // Stripe Connect ID
-  averageRating      Float     @default(0.0)
-  totalReviews       Int       @default(0)
-  completedJobsCount Int       @default(0)
-  
-  // New Commercial Fields
-  commissionRate     Float     @default(0.09) // Default 9%
-  freeOrdersLeft     Int       @default(0)
-  
-  // Customization
-  avatarUrl          String?
-   
-  // Bank Details (UK)
-  bankSortCode       String?
-  bankAccountNumber  String?
-  
-  slotDuration       Int       @default(60) // Default 60 minutes per slot
-  maxDailyBookings   Int       @default(8)   // Capacity limit
-  
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
-
-  services     Service[]
-  bookings     Booking[]
-  reviews      Review[]
-  availability MerchantAvailability[]
-  wallet       MerchantWallet?
-  withdrawals  WithdrawalRequest[]
-  documents    MerchantDocument[]
-  portfolio    MerchantPortfolio[]
-  conversations Conversation[] @relation("MerchantConversations")
-
-  @@index([city])
-  @@index([isVerified])
-}
-
-model PlatformSettings {
-  id                   String   @id @default("global")
-  defaultCommissionRate Float    @default(0.09)
-  
-  // Corporate Info
-  companyName         String   @default("ConciergeAI UK")
-  officeAddress       String   @default("London, UK")
-  contactPhone        String   @default("+44 20 1234 5678")
-  contactEmail        String   @default("support@conciergeai.uk")
-  companyRegistration String   @default("12345678")
-  vatRegistration     String   @default("GB123456789")
-  
-  // Social Links
-  facebookUrl         String   @default("https://facebook.com/conciergeai")
-  twitterUrl          String   @default("https://twitter.com/conciergeai")
-  instagramUrl        String   @default("https://instagram.com/conciergeai")
-  linkedinUrl         String   @default("https://linkedin.com/company/conciergeai")
-  
-  updatedAt            DateTime @updatedAt
-}
-
-
-model PromoCode {
-  id              String   @id @default(cuid())
-  code            String   @unique
-  maxUses         Int?     // Total platform-wide uses allowed
-  currentUses     Int      @default(0)
-  expiresAt       DateTime?
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  @@index([code])
-}
-
-model MerchantPortfolio {
-  id           String    @id @default(cuid())
-  merchantId   String
-  merchant     Merchant  @relation(fields: [merchantId], references: [id], onDelete: Cascade)
-  
-  title        String
-  description  String?
-  imageUrl     String
-  category     String?   // e.g. "Boiler Repair", "Bathroom Refit"
-  
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-
-  @@index([merchantId])
-}
-
-model MerchantDocument {
-  id           String         @id @default(cuid())
-  merchantId   String
-  merchant     Merchant       @relation(fields: [merchantId], references: [id], onDelete: Cascade)
-  
-  type         DocumentType
-  fileUrl      String
-  status       DocumentStatus @default(PENDING)
-  
-  // AI Extracted Details
-  registrationNumber String?
-  expiryDate         DateTime?
-  aiAnalysis         String?    @db.Text
-  confidence         Float?
-  
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-
-  @@index([merchantId])
-}
-
-model MerchantWallet {
-  id               String   @id @default(cuid())
-  merchantId       String   @unique
-  merchant         Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
-  
-  totalEarned      Float    @default(0.0)
-  availableBalance Float    @default(0.0)
-  pendingBalance   Float    @default(0.0) // Funds from non-completed or held bookings
-  authorizedBalance Float    @default(0.0) // Held funds (e.g. 80% Repair balance)
-  
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-}
-
-model WithdrawalRequest {
-  id               String   @id @default(cuid())
-  merchantId       String
-  merchant         Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
-  
-  amount           Float
-  status           String   @default("PENDING") // PENDING, APPROVED, REJECTED, COMPLETED
-  adminNotes       String?
-  
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-}
-
-model MerchantAvailability {
-  id           String   @id @default(cuid())
-  merchantId   String
-  merchant     Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
-  
-  dayOfWeek    Int      // 0 (Sun) to 6 (Sat)
-  startTime    String   @default("09:00")
-  endTime      String   @default("17:00")
-  isOpen       Boolean  @default(true)
-  
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  @@unique([merchantId, dayOfWeek])
-}
-
 enum TeachingMode {
   ONLINE
   OFFLINE
   HYBRID
-}
-
-model Service {
-  id          String    @id @default(cuid())
-  merchantId  String
-  merchant    Merchant  @relation(fields: [merchantId], references: [id], onDelete: Cascade)
-  category    String    // e.g. "Plumbing", "Renovation", "Education"
-  name        String
-  description String?
-  price       Float     // Base or flat price (used as hourlyRate for Education)
-  
-  // Education & Training specific fields
-  teachingMode TeachingMode?
-  subjects     String?   // JSON string or comma-separated list of subjects
-  aiMatchScore Float?    // Cached AI matching score
-  
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-
-  bookings Booking[]
-
-  @@index([category])
-  @@index([merchantId])
-}
-
-model Booking {
-  id            String   @id @default(cuid())
-  customerId    String
-  customer      User     @relation(fields: [customerId], references: [id])
-  merchantId    String
-  merchant      Merchant @relation(fields: [merchantId], references: [id])
-  serviceId     String
-  service       Service  @relation(fields: [serviceId], references: [id])
-  
-  scheduledDate DateTime
-  status        BookingStatus @default(PENDING)
-  totalAmount   Float
-  platformFee   Float    @default(0)
-  merchantAmount Float    @default(0)
-  stripePaymentIntentId String? @unique
-  
-  // Split Payment & Sector Logic
-  isEducation           Boolean  @default(false)
-  depositPaid          Float    @default(0)
-  balanceAmount        Float    @default(0)
-  stripeBalanceIntentId String?  @unique
-  reauthDeadline       DateTime?
-  coolingOffUntil      DateTime?
-  
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  payment Payment?
-  review  Review?
-  variations Variation[]
-  dispute Dispute?
-
-  // 汽車服務相關欄位
-  vehicleReg       String?
-  vehicleMake      String?
-  vehicleModel     String?
-  vehicleYear      String?
-  vehicleNotes     String?
-
-  @@index([customerId])
-  @@index([merchantId])
-  @@index([status])
-  @@index([scheduledDate])
-}
-
-model Variation {
-  id          String   @id @default(cuid())
-  bookingId   String
-  booking     Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
-  amount      Float
-  description String
-  photoUrl    String   // Mandatory photo proof requirement
-  status      VariationStatus @default(PENDING)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@index([bookingId])
-}
-
-model Payment {
-  id            String   @id @default(cuid())
-  bookingId     String   @unique
-  booking       Booking  @relation(fields: [bookingId], references: [id])
-  stripePaymentIntentId String @unique
-  amount        Float
-  platformFee   Float
-  merchantPayout Float
-  status        PaymentStatus @default(PENDING)
-  stripeTransferId String?   // Populated 2 days after service completion
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-}
-
-model Review {
-  id          String   @id @default(cuid())
-  bookingId   String   @unique
-  booking     Booking  @relation(fields: [bookingId], references: [id])
-  customerId  String
-  customer    User     @relation(fields: [customerId], references: [id])
-  merchantId  String
-  merchant    Merchant @relation(fields: [merchantId], references: [id])
-  rating      Int      // 1-5
-  comment     String?
-  
-  // AI Insights
-  sentiment   String?  // POSITIVE, NEUTRAL, NEGATIVE
-  keywords    String?  // Comma-separated or JSON
-  
-  // Merchant Interaction
-  reply       String?
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@index([merchantId])
-  @@index([customerId])
-}
-
-model Dispute {
-  id          String   @id @default(cuid())
-  bookingId   String   @unique
-  booking     Booking  @relation(fields: [bookingId], references: [id])
-  openedById  String   // userId of whoever triggered the dispute
-  
-  reason      String   // Original reason for rejecting variation or opening dispute
-  status      DisputeStatus @default(OPEN)
-  
-  // AI Arbiter fields
-  aiDecision  ResolutionDecision @default(PENDING)
-  aiReasoning String?  @db.Text
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  
-  evidence    Evidence[]
-
-  @@index([bookingId])
-}
-
-model Evidence {
-  id          String   @id @default(cuid())
-  disputeId   String
-  dispute     Dispute  @relation(fields: [disputeId], references: [id], onDelete: Cascade)
-  uploadedById String  // User or Merchant ID
-  
-  fileUrl     String
-  type        String   // e.g. "IMAGE", "DOCUMENT", "CHAT_LOG"
-  description String?
-  
-  createdAt   DateTime @default(now())
-}
-
-model Referral {
-  id                 String   @id @default(cuid())
-  referrerId         String
-  referrer           User     @relation("Referrer", fields: [referrerId], references: [id])
-  refereeId          String   @unique
-  referee            User     @relation("Referee", fields: [refereeId], references: [id])
-  status             String   @default("PENDING") // PENDING, COMPLETED (after first job)
-  earnedFromReferee  Float    @default(0)         // Capped at 200
-  createdAt          DateTime @default(now())
 }
 
 enum TransactionType {
@@ -487,113 +531,4 @@ enum TransactionType {
   VOUCHER_REDEEM
   ADMIN_ADJUSTMENT
   REDEMPTION_VOUCHER
-}
-
-model CreditTransaction {
-  id          String         @id @default(cuid())
-  userId      String
-  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  amount      Float
-  type        TransactionType
-  description String?
-  bookingId   String?        // Optional: Link to booking if spent
-  
-  createdAt   DateTime       @default(now())
-
-  @@index([userId])
-}
-
-model PasswordResetToken {
-  id          String   @id @default(cuid())
-  email       String
-  token       String   @unique
-  expires     DateTime
-  
-  createdAt   DateTime @default(now())
-
-  @@index([email])
-}
-
-model Voucher {
-  id          String   @id @default(cuid())
-  code        String   @unique
-  value       Float
-  isRedeemed  Boolean  @default(false)
-  redeemedBy  String?  // userId
-  expiryDate  DateTime?
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@index([code])
-}
-
-model RedemptionRequest {
-  id            String   @id @default(cuid())
-  userId        String
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  amount        Float
-  brandName     String?  // The brand selected in the marketplace (e.g. Adidas, ASDA)
-  status        String   @default("PENDING") // PENDING, COMPLETED, REJECTED
-  voucherCode   String?  // Fulfilled by admin (Digital code)
-  adminNotes    String?
-  
-  issuedAt      DateTime?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  @@index([userId])
-  @@index([status])
-}
-
-model Conversation {
-  id               String    @id @default(cuid())
-  customerId       String
-  customer         User      @relation("CustomerConversations", fields: [customerId], references: [id])
-  merchantId       String
-  merchant         Merchant  @relation("MerchantConversations", fields: [merchantId], references: [id])
-  
-  lastMessageAt    DateTime  @default(now())
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
-
-  messages         Message[]
-
-  @@unique([customerId, merchantId])
-  @@index([customerId])
-  @@index([merchantId])
-}
-
-model Message {
-  id               String    @id @default(cuid())
-  conversationId   String
-  conversation     Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
-  
-  senderId         String    
-  content          String    @db.Text
-  imageUrl         String?
-  isRead           Boolean   @default(false)
-  
-  createdAt        DateTime  @default(now())
-
-  @@index([conversationId])
-  @@index([senderId])
-}
-
-model AiDiagnosis {
-  id                  String   @id @default(cuid())
-  userId              String?
-  imageUrl            String
-  category            String   // e.g. "Plumbing", "Automotive"
-  issue               String   @db.Text
-  suggestedFix        String   @db.Text
-  estimatedPriceRange String   // e.g. "£150 - £250"
-  confidence          Float
-  rawAIResponse       String?  @db.Text
-  createdAt           DateTime @default(now())
-
-  @@index([userId])
-  @@index([category])
 }

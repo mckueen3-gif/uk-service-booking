@@ -4,21 +4,26 @@ import React, { useState, useMemo } from 'react';
 import { Search, Filter, AlertCircle, TrendingUp, Sparkles, Clock, Zap } from 'lucide-react';
 import VoucherCard from './VoucherCard';
 import vouchersData from '@/lib/data/vouchers.json';
-import { requestRedemption } from '@/app/actions/rewards';
+import { requestRedemption, runVoucherSync } from '@/app/actions/rewards';
+import { useTranslation } from "@/components/LanguageContext";
 
 interface VoucherMarketplaceProps {
   currentCredits: number;
   isAdmin?: boolean;
   onAdminTrigger?: () => void;
   onSuccess: () => void;
+  locale?: string;
 }
 
 const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({ 
   currentCredits = 0, 
   isAdmin = false, 
   onAdminTrigger = () => {}, 
-  onSuccess = () => {} 
+  onSuccess = () => {},
+  locale: propLocale
 }) => {
+  const { t, locale: contextLocale } = useTranslation();
+  const locale = propLocale || contextLocale || 'en';
   const [searchTerm, setSearchTerm] = useState('');
   const [category, setCategory] = useState('All');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -83,6 +88,37 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
       border: '1px solid var(--border-color)',
       boxShadow: 'var(--shadow-md)'
     }}>
+      {/* ⚠️ REDEMPTION POLICY NOTICE */}
+      <div style={{
+        marginBottom: '25px',
+        background: 'linear-gradient(90deg, #1e293b 0%, #334155 100%)',
+        padding: '12px 20px',
+        borderRadius: '12px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '15px',
+        border: '1px solid #d4af37',
+        boxShadow: '0 4px 15px rgba(0,0,0,0.2)'
+      }}>
+        <div style={{
+          background: '#d4af37',
+          padding: '4px',
+          borderRadius: '6px',
+          color: '#000'
+        }}>
+          <AlertCircle size={20} />
+        </div>
+        <div style={{ color: '#fff', fontSize: '13px', lineHeight: 1.5 }}>
+          <strong style={{ color: '#d4af37', display: 'block', textTransform: 'uppercase', fontSize: '11px', letterSpacing: '0.05em', marginBottom: '2px' }}>
+            Redemption Policy • 兌換政策
+          </strong>
+          {locale === 'zh-TW' ? 
+            "所有推薦獎勵僅限兌換超市、零售及品牌電子現金券。所有點數均不可兌換現金或直接提現。" : 
+            "All referral rewards are strictly for supermarket, retail, and brand e-vouchers. Credits cannot be exchanged for cash or withdrawn."
+          }
+        </div>
+      </div>
+
       {/* Header & Meta */}
       <div style={{
         display: 'flex',
@@ -107,8 +143,18 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
         <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
           {isAdmin && (
             <button 
-              onClick={() => {
-                alert("🚀 已啟動 AI 全面排程更新，請確認伺服器後台輸出。");
+              disabled={isSubmitting}
+              onClick={async () => {
+                setIsSubmitting(true);
+                setStatusMsg({ type: 'info', text: 'AI 串接同步中... (JamDoughnut Catalog Syncing)' });
+                const res = await runVoucherSync() as any;
+                if (res.success) {
+                  setStatusMsg({ type: 'success', text: '✅ 禮券庫同步完成！數據已更新。' });
+                  onSuccess(); // Trigger parent refresh if needed
+                } else {
+                  setStatusMsg({ type: 'error', text: res.error || '同步失敗' });
+                }
+                setIsSubmitting(false);
               }}
               style={{
                 background: '#000',
@@ -118,10 +164,11 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
                 borderRadius: '8px',
                 fontSize: '12px',
                 fontWeight: 'bold',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                opacity: isSubmitting ? 0.5 : 1
               }}
             >
-              強制快速同步
+              {isSubmitting ? '同步中...' : '強制快速同步'}
             </button>
           )}
           <div style={{
@@ -165,6 +212,7 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
                   isLocked={isLocked || isSubmitting} 
                   onRedeem={handleRedeem}
                   isPremium={true} // 特殊流光標籤
+                  domain={v.domain}
                 />
               </div>
             ))}
@@ -312,6 +360,7 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
             isPumpedUp={voucher.isPumpedUp}
             isLocked={isLocked || isSubmitting}
             onRedeem={handleRedeem}
+            domain={voucher.domain}
           />
         ))}
       </div>

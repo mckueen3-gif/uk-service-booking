@@ -34,7 +34,7 @@ export default function WalletContent() {
     async function fetchData() {
       try {
         const [res, redRes] = await Promise.all([
-          fetch(`/api/merchant/wallet-stats`).then(r => r.json()),
+          fetch(`/api/wallet`).then(r => r.json()),
           getMyRedemptions()
         ]);
         setStats(res);
@@ -137,9 +137,27 @@ export default function WalletContent() {
             <span style={{ fontWeight: 800, letterSpacing: '0.15em', fontSize: '0.85rem', color: '#475569' }}>AVAILABLE CREDITS</span>
           </div>
           
-          <div style={{ marginBottom: '2.5rem' }}>
+          <div style={{ marginBottom: '0.5rem' }}>
             <span style={{ fontSize: '1.75rem', fontWeight: 600, verticalAlign: 'top', color: '#b8860b', marginRight: '0.5rem' }}>£</span>
             <span style={{ fontSize: '5rem', fontWeight: 900, lineHeight: 1, color: '#0f172a' }}>{stats?.referralCredits?.toFixed(2) || "0.00"}</span>
+          </div>
+
+          <div style={{ 
+            marginBottom: '2rem', 
+            fontSize: '0.7rem', 
+            color: '#64748b', 
+            fontWeight: 800, 
+            letterSpacing: '0.05em',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            padding: '0.4rem 0.8rem',
+            background: 'rgba(71, 85, 105, 0.05)',
+            borderRadius: '8px',
+            width: 'fit-content'
+          }}>
+            <Sparkles size={12} className="animate-pulse" />
+            VOUCHER CREDIT ONLY • NO CASH WITHDRAWAL
           </div>
           
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -178,6 +196,7 @@ export default function WalletContent() {
             isAdmin={isAdmin}
             onAdminTrigger={handleAdminTrigger}
             onSuccess={() => window.location.reload()} 
+            locale={locale}
           />
         </div>
       </div>

@@ -1,0 +1,60 @@
+/* Isolated Apple-style design system for Legal Pages ONLY */
+.legal-body {
+  --apple-bg: #f5f5f7;
+  --apple-text: #1d1d1f;
+  --apple-blue: #0066cc;
+  --apple-gray-200: #e5e7eb;
+  
+  background-color: white !important;
+  color: var(--apple-text) !important;
+}
+
+.legal-body h1, 
+.legal-body h2, 
+.legal-body h3, 
+.legal-body h4 {
+  color: var(--apple-text) !important;
+  font-family: var(--font-heading), sans-serif !important;
+  letter-spacing: -0.022em !important;
+}
+
+.legal-body p, 
+.legal-body li {
+  color: #424245 !important;
+  line-height: 1.5 !important;
+  font-family: var(--font-body), sans-serif !important;
+}
+
+.legal-apple-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.legal-divider {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 2rem 0;
+}
+
+.legal-glass-nav {
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.legal-footer {
+  background: #f5f5f7 !important;
+  border-top: 1px solid #d2d2d7;
+  color: #6e6e73 !important;
+}
+
+/* Scoped classes to prevent global inheritance */
+.legal-body .btn-primary {
+  background: var(--apple-text) !important;
+  color: white !important;
+}
+
+.legal-body .btn-secondary {
+  background: var(--apple-bg) !important;
+  color: var(--apple-text) !important;
+}

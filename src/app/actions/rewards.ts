@@ -125,3 +125,28 @@ export async function fulfillRedemption(requestId: string, voucherCode: string) 
     return { error: err.message };
   }
 }
+
+/**
+ * 🎯 觸發 AI 禮券清單同步 (Admin Only)
+ */
+export async function runVoucherSync() {
+  const userId = await getUserId();
+  if (!userId) return { error: "Not authenticated" };
+
+  // TODO: Add strict Admin Role logic if this goes to production
+  
+  try {
+    const { exec } = require('child_process');
+    const { promisify } = require('util');
+    const execAsync = promisify(exec);
+
+    console.log("🚀 Starting manual AI Voucher Sync...");
+    await execAsync('npm run sync-vouchers');
+    
+    revalidatePath('/dashboard/wallet');
+    return { success: true, message: "Sync completed successfully" };
+  } catch (err: any) {
+    console.error("Voucher Sync Error:", err);
+    return { error: "Sync failed: " + err.message };
+  }
+}

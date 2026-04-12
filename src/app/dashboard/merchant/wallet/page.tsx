@@ -53,7 +53,7 @@ export default async function MerchantWalletPage() {
           </div>
           <div>
             <h3 style={{ fontSize: '1rem', fontWeight: 900, color: '#fff', margin: 0 }}>Expert Referral Rewards</h3>
-            <p style={{ fontSize: '0.8rem', color: '#666', margin: 0 }}>Invite experts and earn 2% lifetime commission on their service fees.</p>
+            <p style={{ fontSize: '0.8rem', color: '#666', margin: 0 }}>Invite experts and earn 2% referral credits redeemable for retail vouchers (Non-cashable).</p>
           </div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>

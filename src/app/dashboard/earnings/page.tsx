@@ -34,9 +34,7 @@ export default function EarningsPage() {
   const jobs = data?.merchant?.completedJobsCount || 0;
 
   const getTierInfo = () => {
-    if (jobs <= 3) return { label: "新手期 (Newcomer)", rate: "0%", next: "4 訂單起 5%" };
-    if (jobs <= 10) return { label: "成長期 (Growth)", rate: "5%", next: "11 訂單起 12%" };
-    return { label: "專業期 (Professional)", rate: "12%", next: "已達最高級別" };
+    return { label: "精英專家 (Elite Merchant)", rate: "9%", next: "已達標準費率" };
   };
 
   const tier = getTierInfo();

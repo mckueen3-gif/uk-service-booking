@@ -2,7 +2,129 @@ import { Dictionary } from '../dictionary';
 
 export const ro: Dictionary = {
   nav: { browse: "Explorează servicii", join: "Devino expert", login: "Autentificare", register: "Înregistrare", logout: "Deconectare", dashboard: "Panou de control", aiDiagnosis: "Diagnostic AI", education: "Educație" },
-  common: { viewProfile: "Vezi profil", reviews: "recenzii", hr: "oră", copy: "Copiază", copied: "Copiat!" },
+  legal: { ui: { selectLanguage: "Conectivitate Globală", close: "Finalizare Protocol" } },
+  landing_pages: {
+    plumbing: {
+      hero: {
+        badge: "Precizie de Elită",
+        title1: "Inginerie Superioară",
+        title2: "Instalații și Energie",
+        subtitle: "Conectează-te cu specialiști certificați din UK pentru instalații sanitare, electrice și integrare hardware. Monitorizat AI pentru asigurarea calității.",
+        searchPlaceholder: "Reparații țevi, service boiler, cablaj...",
+        searchBtn: "Scanează Noduri"
+      },
+      sub_categories: {
+        pipe: { title: "Reparații Țevi", desc: "Detectare scurgeri de urgență și înlocuire hardware de precizie." },
+        wiring: { title: "Recablare Sistem", desc: "Calibrare electrică profesională și integrare noduri." },
+        appliance: { title: "Integrare Electrocasnice", desc: "Implementare și testare hardware sanitar și culinar." },
+        boiler: { title: "Audit Boiler", desc: "Întreținere termică reglementată și diagnostic de performanță." },
+        switch: { title: "Aparataj Electric", desc: "Înlocuire componente electrice de înaltă integritate." },
+        smart: { title: "Automatizare Smart", desc: "Automatizare casă mesh network și implementare senzori." }
+      }
+    },
+    repairs: {
+      hero: {
+        badge: "Integritate Structurală",
+        title1: "Restaurează-ți Nodul",
+        title2: "Întreținere de Elită",
+        subtitle: "De la asamblare mobilă la remediere structurală. Top 1% specialiști în întreținere din UK la comanda ta.",
+        searchPlaceholder: "Asamblare mobilă, reparații pereți...",
+        searchBtn: "Căutare Liaison"
+      },
+      sub_categories: {
+        furniture: { title: "Asamblare Mobilă", desc: "Asamblare de precizie a componentelor hardware modulare complexe." },
+        structural: { title: "Fixări Structurale", desc: "Montare și calibrare a fixărilor cu sarcină mare." },
+        wall: { title: "Remediere Pereți", desc: "Reparații suprafețe și restaurare straturi de protecție structurală." },
+        mounting: { title: "Montare Modulară", desc: "Implementare securizată a unităților de perete digitale și fizice." },
+        coating: { title: "Acoperire", desc: "Tratamente de suprafață estetice și protectoare." },
+        tactics: { title: "Tactici Generale", desc: "Protocoale de întreținere casnică generală." }
+      }
+    },
+    renovation: {
+      hero: {
+        badge: "Evoluție Arhitecturală",
+        title1: "Reconciliere",
+        title2: "Spațiu Locativ",
+        subtitle: "Transformă-și proprietatea cu experții în renovare de elită din UK. Telemetrie transparentă și rezultate garantate calitativ.",
+        searchPlaceholder: "Extensie bucătărie, conversie mansardă...",
+        searchBtn: "Inițializează Proiect"
+      },
+      sub_categories: {
+        culinary: { title: "Culinar și Sanitar", desc: "Re-inginerie completă pentru bucătărie și baie." },
+        expansion: { title: "Unități de Extensie", desc: "Extensii de mansardă și module pentru volum crescut al nodului." },
+        layout: { title: "Configurație Spațială", desc: "Design holografic și reconfigurare structurală." },
+        floor: { title: "Meshing Podele", desc: "Implementare pardoseli de înaltă durabilitate și finisaj." },
+        landscape: { title: "Design Peisagistic", desc: "Ingineria mediului extern al proprietății." },
+        design: { title: "Context Design", desc: "Planuri arhitecturale și logică estetică." }
+      }
+    },
+    accounting: {
+      hero: {
+        badge: "Guvernanță Financiară",
+        title1: "Stăpânește-ți",
+        title2: "Registrul de Capital",
+        subtitle: "Contabili și strategi fiscali de elită din UK pentru IMM-uri și profesioniști. Asigurarea conformității operaționale și optimizarea fiscală.",
+        searchPlaceholder: "Declarații fiscale, conturi anuale, salarizare...",
+        searchBtn: "Audit Experți"
+      },
+      sub_categories: {
+        income: { title: "Audit Venituri", desc: "Evaluare personală și calibrare taxe pe venit personal." },
+        accounts: { title: "Conturi Anuale", desc: "Raportare financiară corporativă și finalizare registru." },
+        tax: { title: "Depunere Taxe", desc: "Pregătire și transmitere taxe conform HMRC." },
+        payroll: { title: "Meshing Salarizare", desc: "Sisteme eficiente de plată a capitalului uman." },
+        xero: { title: "Optimizare Xero", desc: "Integrare contabilitate în cloud și training." },
+        fiscal: { title: "Analiză Fiscală", desc: "Telemetrie aprofundată a performanței afacerii." }
+      }
+    },
+    legal: {
+      hero: {
+        badge: "Conformitate Ecosystem",
+        title1: "Consiliere Expert și",
+        title2: "Cadre Juridice",
+        subtitle: "Conectează-te cu experți juridici certificați din UK pentru protocoale de viză, redactare contracte și suport în soluționarea disputelor.",
+        searchPlaceholder: "Ajutor vize, drept imobiliar, contracte...",
+        searchBtn: "Liaison Counsel"
+      },
+      sub_categories: {
+        drafting: { title: "Redactare SLA", desc: "Sinteză contracte și acorduri de înaltă precizie." },
+        visa: { title: "Calibrare Viză", desc: "Suport protocol vize și imigrare UK." },
+        property: { title: "Cadre Imobiliare", desc: "Conveyancing și logică juridică imobiliară." },
+        arbitration: { title: "Arbitraj Dispute", desc: "Servicii neutre de soluționare și mediere dispute." },
+        law: { title: "Drept Comercial", desc: "Suport legal pentru afaceri și guvernanță corporativă." },
+        notary: { title: "Servicii Notariale", desc: "Verificare oficială documente și servicii de certificare." }
+      }
+    },
+    cleaning: {
+      hero: {
+        badge: "Biosecuritate și Igienă",
+        title1: "Purifică-ți",
+        title2: "Nodul Domestic",
+        subtitle: "Protocoale de curățenie elită pentru reședințe britanice. Decontaminare de înaltă frecvență și logistică de final de contract de închiriere.",
+        searchPlaceholder: "Curățenie generală, curățenie end-of-tenancy...",
+        searchBtn: "Inițializează Purificarea"
+      },
+      sub_categories: {
+        regular: { title: "Purificare Recurentă", desc: "Menținerea igienei recurente la protocol standard." },
+        tenancy: { title: "Terminal Tenancy", desc: "Decontaminare profundă pentru ieșirea din nodul locativ." },
+        carpet: { title: "Fibră și Textil", desc: "Curățare termică profundă pentru covoare și tapițerie." },
+        window: { title: "Transparență Nod", desc: "Purificare suprafețe vitrate și cadre externe." },
+        office: { title: "Sisteme Birou", desc: "Igienizare spații de lucru și hardware corporate." },
+        sanitization: { title: "Protocol Bio", desc: "Decontaminare virală și bacteriană de înaltă precizie." }
+      }
+    }
+  },
+  common: { viewProfile: "Vezi profil", reviews: "recenzii", hr: "oră", copy: "Copiați",
+    copied: "Copiat!",
+    aiMatchingSub: "Experți calibrați AI care se potrivesc nevoilor tale de protocol.",
+    exploreSub: "Explorează protocoale specializate în sectorul {category}.",
+    escrow: {
+      title: "Protejate de ConciergeAI Escrow",
+      subtitle: "Fiecare sesiune din sectorul {category} este monitorizată de AI pentru asigurarea calității și integrității financiare.",
+      specialists: "SPECIALIȘTI VERIFICAȚI",
+      fees: "TAXE DE SERVICIU ALE PLATFORMEI",
+      support: "SUPORT ARBITRAJ AI"
+    }
+  },
   hero: { title: "Găsește experți de top", subtitle: "Conectează-te cu profesioniști certificați din zona ta.", searchPlaceholder: "De ce serviciu ai nevoie?", badge: "Platforma de Rezervări Nr. 1 în UK" },
   faq: {
     title: "Întrebări Frecvente",
@@ -12,7 +134,7 @@ export const ro: Dictionary = {
     questions: {
       payments: [
         { q: "Cum plătesc pentru serviciu?", a: "Plățile sunt procesate în siguranță prin Stripe. Menținem fondurile într-un cont escrow până la confirmarea finalizării lucrării." },
-        { q: "Există taxe ascunse?", a: "Nu. Plătești exact cât scrie în deviz. Aplicăm o mică taxă de platformă inclusă în preț." }
+        { q: "Există taxe ascunse?", a: "Nu. Platforma nu percepe nicio taxă de serviciu de la clienți. Plătești doar pentru manopera tehnicianului și materialele aprobate." }
       ],
       disputes: [
         { q: "Ce se întâmplă dacă lucrarea nu este satisfăcătoare?", a: "Mediatorii noștri AI revizuiesc fotografiile pe baza scopului inițial al lucrării pentru a asigura o soluție echitabilă." },
@@ -47,7 +169,7 @@ export const ro: Dictionary = {
     explore: "Explorează", 
     legal: "Legal", 
     support: "Suport", 
-    rights: "© 2024 UK Service Hub. Toate drepturile rezervate.", 
+    rights: "Toate drepturile rezervate.", 
     terms: "Termeni și condiții", 
     privacy: "Politica de confidențialitate", 
     cookies: "Politica de cookies", 
@@ -82,7 +204,7 @@ export const ro: Dictionary = {
   booking: {
     steps: { details: "Detalii", schedule: "Programare", confirmation: "Confirmare" },
     titles: { details: "Spune-ne despre nevoile tale", schedule: "Alege o oră", confirm: "Confirmă rezervarea", success: "Rezervare confirmată!" },
-    labels: { date: "Data", time: "Ora", make: "Marcă", model: "Model", address: "Adresă", notes: "Instrucțiuni speciale", agree: "Sunt de acord cu termenii și taxa de 2% pentru platformă", summary: "Sumar plată", paid: "Plătit", merchant: "Expert", service: "Serviciu" },
+    labels: { date: "Data", time: "Ora", make: "Marcă", model: "Model", address: "Adresă", notes: "Instrucțiuni speciale", agree: "Sunt de acord cu termenii (0% taxă de platformă pentru clienți)", summary: "Sumar plată", paid: "Plătit", merchant: "Expert", service: "Serviciu" },
     buttons: { next: "Înainte", prev: "Înapoi", pay: "Plată securizată", home: "Acasă", dashboard: "Panou" },
     messages: { finalizing: "Finalizăm rezervarea...", wait: "Te rugăm să nu reîmprospătezi pagina", contact24h: "Expertul te va contacta în termen de 24 de ore.", safety: "Pentru siguranța ta, toate plățile sunt păstrate în escrow.", noReviews: "Nicio recenzie încă", recommended: "Recomandat cu încredere", replyFromMaster: "Răspuns de la expert" },
   },
@@ -100,8 +222,8 @@ export const ro: Dictionary = {
         syncing: "Sincronizare portofel...",
         synced: "Portofel sincronizat",
         generating: "Configurăm contul...",
-        referralTitle: "Recomandă un prieten, primești 2% cashback",
-        referralDesc: "Partajează codul tău unic. Când prietenul tău rezervă primul serviciu, vei primi 2% cashback.",
+        referralTitle: "Recomandă un prieten, primești 2% recompense voucher",
+        referralDesc: "Partajează codul tău unic. Când prietenul tău rezervă primul serviciu, vei primi 2% sub formă de e-vouchere (pentru supermarketuri și retail).",
         historyTitle: "Istoric tranzacții",
         historyEmpty: "Nicio tranzacție încă",
         type: "Tip",
@@ -120,8 +242,8 @@ export const ro: Dictionary = {
         validUntil: "Valid până la",
         availableNow: "Disponibil acum",
         rewards: {
-          title: "Revendică recompense",
-          subtitle: "* Necesită revizuire manuală. Codurile vor fi livrate în 24 de ore.",
+          title: "Schimbă în e-vouchere",
+          subtitle: "* Nu se poate retrage numerar. Vouchere pentru retaileri de top din UK (Tesco, Amazon). Procesare în 24h.",
           myVault: "Seiful meu",
           redeemBtn: "Revendică",
           statusProcessing: "Procesare...",
@@ -135,10 +257,33 @@ export const ro: Dictionary = {
       status: { pending: "În așteptare", confirmed: "Confirmat", completed: "Finalizat", cancelled: "Anulat" },
       variations: { label: "Variație preț", status: "Status", pending: "Așteptare client", approved: "Aprobat", rejected: "Respins", arbiterActive: "Arbitru AI activ" },
       arbiterReasoning: "Analiză Arbitru AI",
-      tips: { title: "Sfaturi de creștere", growth: "Finalizează încă 5 joburi pentru a ajunge la nivelul Gold și a reduce comisionul la 7%." },
+      tips: { title: "Sfaturi de creștere", growth: "Menține un nivel ridicat al calității serviciilor pentru a-ți asigura vizibilitate maximă și un flux constant de rezervări." },
       quickLinks: { title: "Linkuri rapide", schedule: "Programare", earnings: "Câștiguri", support: "Suport" },
       modal: { title: "Cerere plată suplimentară", amount: "Sumă extra (£)", reason: "Motiv", reasonPlaceholder: "ex: s-a găsit o scurgere suplimentară sub podea", photo: "Foto dovadă", photoHint: "Obligatoriu pentru verificare AI", submit: "Trimite cererea", submitting: "Se încarcă..." },
       avatar: { upload: "Încarcă foto", hint: "Folosește o fotografie profesională sau logo-ul companiei.", success: "Foto actualizată!", errorSize: "Fotografia trebuie să aibă sub 2MB" },
+      accounting: {
+        title: "Contabilitate și Taxe",
+        subtitle: "Centrul financiar automatizat UK: Monitorizare VAT și prognoză taxe.",
+        statusActive: "Abonament Activ",
+        statusInactive: "Abonament Inactiv",
+        grossRevenue: "Venit Brut",
+        grossRevenueDesc: "Flux total intrare din platformele ConciergeAI",
+        taxPayable: "Taxă de Plată Estimată",
+        taxPayableDesc: "Calculată pe baza benzilor de impozit pe venit UK 24/25.",
+        vatRadar: "Radar Înregistrare VAT",
+        vatRadarDesc: "Urmărirea apropierii de pragul de £90,000.",
+        monthlyBreakdown: "Audit Performanță Lunară",
+        revenue: "Venituri",
+        fees: "Taxe Platformă",
+        netProfit: "Profit Net",
+        exportCsv: "Export Log Audit CSV",
+        upgradeTitle: "Deblochează Contabilitate Specializată",
+        upgradeDesc: "Contabilitate automată, rezumate an fiscal și export date CSV.",
+        upgradeCost: "£4.99 / Lună",
+        upgradeBtn: "Activează Acces Premium",
+        taxYear: "An Fiscal",
+        regNumber: "Nr. Înreg. (UTR/CRN)"
+      }
     },
     portfolio_mgr: {
       title: "Portofoliu lucrări", subtitle: "Arată cele mai bune lucrări ale tale pentru a obține mai multe rezervări.", addBtn: "Adaugă lucrare", emptyTitle: "Nicio lucrare", emptyDesc: "Adaugă fotografii cu proiectele tale trecute pentru a construi încredere.",
@@ -186,7 +331,25 @@ export const ro: Dictionary = {
     }
   },
   home: {
-    hero: { badge: "Profesioniști locali verificați", title1: "Rezervă cei mai buni", title2: "experți locali", subtitle: "Acces instant la top 1% experți din UK. Toți verificați, asigurați și monitorizați calitativ prin AI.", searchPlaceholder: "Am nevoie de...", locationPlaceholder: "Londra, UK", aiMatch: "Potrivire inteligentă", searchBtn: "Caută" },
+    hero: {
+      badge: "Profesioniști locali certificați",
+      title1: "Rezervați cei mai buni",
+      title2: "experți locali",
+      subtitle: "Acces instantaneu la primii 1% experți din Marea Britanie. Toți certificați, asigurați și monitorizați de AI.",
+      searchPlaceholder: "Am nevoie de...",
+      locationPlaceholder: "Londra, Marea Britanie",
+      aiMatch: "Potrivire Inteligentă",
+      searchBtn: "Căutare Liaison",
+      suggestions: [
+        "Găsiți un inginer Gas Safe în Chelsea…",
+        "Rezervați un profesor de top pentru GCSE…",
+        "Aveți nevoie de o curățenie profundă pentru biroul dvs.?",
+        "Asistență juridică expertă pentru dispute imobiliare…",
+        "Contabil fiscal profesionist în Londra…"
+      ],
+      popularLabel: "Popular",
+      popularTags: ["Renovare locuință", "Depunere taxe", "Curățenie profundă", "Asistență juridică"]
+    },
     recommendation: { title1: "Pentru tine", title2: "Recomandat", subtitle: "Cei mai buni profesioniști bazat pe nevoile și locația ta.", browse: "Vezi toate" },
     recommendationResults: {
       trendingTitle: "Popular în {{city}}: {{category}}",
@@ -204,8 +367,8 @@ export const ro: Dictionary = {
       assetMatch: "Potrivire active",
       trending: "Trenduri locale"
     },
-    aiCTA: { badge: "Powered by GEMINI AI", title1: "Nu știi ce e în neregulă?", title2: "Obține diagnostic AI instant", subtitle: "Încarcă o poză cu problema. AI-ul nostru va identifica defecțiunea, va estima costurile și va găsi un expert în câteva secunde.", button: "Începe diagnostic AI gratuit" },
-    referralCTA: { badge: "Recompense recomandare", title: "Câștigă 2% venit pasiv", subtitle: "Recomandă prieteni și primești 2% din toate rezervările lor în următorii 5 ani (până la £200 per prieten).", button: "Începe să câștigi acum", referralLabel: "Codul tău de recomandare:" },
+    aiCTA: { badge: "Powered by ChatGPT, Gemini & Grok", title1: "Nu știi ce e în neregulă?", title2: "Obține diagnostic AI instant", subtitle: "Încarcă o poză cu problema. AI-ul nostru va identifica defecțiunea, va estima costurile și va găsi un expert în câteva secunde.", button: "Începe diagnostic AI gratuit" },
+    referralCTA: { badge: "Recompense recomandare", title: "Câștigă 2% venit pasiv", subtitle: "Recomandă prieteni și primești 2% din toate rezervările lor în următorii 5 ani sub formă de vouchere de cumpărături (nu se poate retrage numerar).", button: "Începe să câștigi acum", referralLabel: "Codul tău de recomandare:" },
     educationCTA: "Mergi la Educație",
     eliteLocal: "Elita zonei",
     eliteBadge: "Expert de elită",
@@ -240,7 +403,7 @@ export const ro: Dictionary = {
   },
   location: { selectCity: "Alege orașul", detecting: "Detectăm locația...", switch: "Schimbă", nearby: "Servicii în apropiere" },
   diagnosis: {
-    badge: "Powered by GEMINI AI Technology",
+    badge: "Powered by ChatGPT, Gemini & Grok Technology",
     title1: "Reparații de expert",
     title2: "la viteza luminii",
     subtitle: "Nu mai ghici. AI-ul nostru analizează pozele tale pentru a oferi informații tehnice instant și estimări de cost corecte înainte de rezervare.",

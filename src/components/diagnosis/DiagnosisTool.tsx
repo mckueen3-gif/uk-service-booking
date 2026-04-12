@@ -47,6 +47,18 @@ export default function DiagnosisTool() {
   const [quotaExceeded, setQuotaExceeded] = useState(false);
   const [remainingUses, setRemainingUses] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  
+  // Technical Thinking Log State
+  const [techLines, setTechLines] = useState<string[]>([]);
+  const techLogMessages = [
+    "Initializing Quantum Vision core...",
+    "Decompressing visual telemetry data...",
+    "Mapping pixel density to material topology...",
+    "Resolving vertex normals for structural integrity...",
+    "Cross-referencing UK engineering schemas (BS-7671)...",
+    "Executing heuristics for anomaly detection...",
+    "Finalizing diagnostic resolution..."
+  ];
 
   useEffect(() => {
     if (session) {
@@ -56,6 +68,23 @@ export default function DiagnosisTool() {
       });
     }
   }, [session]);
+
+  // Handle tech log simulation
+  useEffect(() => {
+    if (loading) {
+      setTechLines([]);
+      let i = 0;
+      const interval = setInterval(() => {
+        if (i < techLogMessages.length) {
+          setTechLines(prev => [...prev, techLogMessages[i]]);
+          i++;
+        } else {
+          clearInterval(interval);
+        }
+      }, 1200);
+      return () => clearInterval(interval);
+    }
+  }, [loading]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -201,7 +230,21 @@ export default function DiagnosisTool() {
         <div style={{ display: 'inline-flex', padding: '1.25rem', borderRadius: '1.25rem', background: 'var(--accent-soft)', color: 'var(--accent-color)', marginBottom: '1.25rem', position: 'relative' }}>
           <Sparkles size={36} strokeWidth={1.5} />
           {remainingUses !== null && (
-            <div style={{ position: 'absolute', top: '-10px', right: '-40px', background: 'var(--accent-color)', color: 'black', padding: '0.2rem 0.6rem', borderRadius: '1rem', fontSize: '0.75rem', fontWeight: 800, boxShadow: 'var(--shadow-sm)', whiteSpace: 'nowrap' }}>
+            <div style={{ 
+              position: 'absolute', 
+              top: '-15px', 
+              left: '50%', 
+              transform: 'translateX(-50%)',
+              background: 'var(--accent-color)', 
+              color: 'black', 
+              padding: '0.25rem 0.8rem', 
+              borderRadius: '1rem', 
+              fontSize: '0.75rem', 
+              fontWeight: 800, 
+              boxShadow: 'var(--shadow-md)', 
+              whiteSpace: 'nowrap',
+              zIndex: 10
+            }}>
               {t.diagnosis.tool.remaining}: {remainingUses} / 5
             </div>
           )}
@@ -238,7 +281,43 @@ export default function DiagnosisTool() {
             {preview ? (
               <>
                 <img src={preview} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-                <div style={{ position: 'absolute', bottom: '1.5rem', right: '1.5rem', background: 'rgba(0,0,0,0.8)', color: 'white', padding: '0.75rem 1.25rem', borderRadius: '2rem', fontSize: '0.85rem', fontWeight: 700, backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.2)', boxShadow: '0 8px 32px rgba(0,0,0,0.3)', pointerEvents: 'none' }}>
+                
+                {/* Neural Matrix Overlay during Loading */}
+                {loading && (
+                  <div className="neural-matrix-overlay">
+                    {/* Random flashing nodes */}
+                    {Array.from({ length: 15 }).map((_, i) => (
+                      <div 
+                        key={i} 
+                        className="matrix-node" 
+                        style={{ 
+                          top: `${Math.random() * 100}%`, 
+                          left: `${Math.random() * 100}%`,
+                          animationDelay: `${Math.random() * 2}s`
+                        }} 
+                      />
+                    ))}
+                    {/* Centered Thinking Log */}
+                    <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 20 }}>
+                       <div className="tech-terminal" style={{ width: '80%', maxWidth: '400px', height: '180px' }}>
+                          <div style={{ paddingBottom: '8px', borderBottom: '1px solid var(--gold-800)', marginBottom: '10px', display: 'flex', justifyContent: 'space-between' }}>
+                            <span style={{ fontWeight: 800 }}>AURA_VISUAL_REASONING_v4.2</span>
+                            <span style={{ color: '#ef4444' }}>● LIVE</span>
+                          </div>
+                          <div style={{ maxHeight: '120px', overflowY: 'hidden' }}>
+                            {techLines.map((line, idx) => (
+                              <span key={idx} className="tech-line" style={{ display: 'block', marginBottom: '4px' }}>
+                                <span style={{ color: 'var(--gold-800)' }}>[{idx + 1}] {`>>`}</span> {line}
+                              </span>
+                            ))}
+                            <span className="tech-cursor" />
+                          </div>
+                       </div>
+                    </div>
+                  </div>
+                )}
+
+                <div style={{ position: 'absolute', bottom: '1.5rem', right: '1.5rem', background: 'rgba(0,0,0,0.8)', color: 'white', padding: '0.75rem 1.25rem', borderRadius: '2rem', fontSize: '0.85rem', fontWeight: 700, backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.2)', boxShadow: '0 8px 32px rgba(0,0,0,0.3)', pointerEvents: 'none', zIndex: 5 }}>
                   {t.diagnosis.tool.replaceHint}
                 </div>
               </>

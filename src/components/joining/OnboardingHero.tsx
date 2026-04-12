@@ -42,7 +42,7 @@ export default function OnboardingHero() {
               <BadgePercent size={20} color="#d4af37" />
             </div>
             <div className="stat-info">
-              <span className="stat-val">8%</span>
+              <span className="stat-val">9%</span>
               <span className="stat-lbl">Platform Commission</span>
             </div>
           </div>

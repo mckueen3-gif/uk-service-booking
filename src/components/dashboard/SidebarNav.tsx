@@ -41,7 +41,6 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
 
   const accountItems = [
     { href: "/dashboard/profile", label: "個人資料 (Profile)", icon: User },
-    { href: "/dashboard/settings", label: "帳號設定 (Settings)", icon: Settings },
   ];
 
   const renderNavSection = (title: string, items: typeof mainItems) => (

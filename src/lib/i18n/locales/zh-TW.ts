@@ -2,7 +2,169 @@ import { Dictionary } from '../dictionary';
 
 export const zhTW: Dictionary = {
   nav: { browse: "瀏覽服務", join: "加入專家", login: "登入", register: "註冊", logout: "登出", dashboard: "管理後台", aiDiagnosis: "AI 診斷", education: "教育專區" },
-  common: { viewProfile: "查看個人檔案", reviews: "則評論", hr: "小時", copy: "複製", copied: "已複製！" },
+  legal: { ui: { selectLanguage: "全球化協定", close: "完成協定" } },
+  landing_pages: {
+    plumbing: {
+      hero: {
+        badge: "精英級精準",
+        title1: "卓越工程",
+        title2: "水電與能源",
+        subtitle: "聯絡英國認證專家，進行精準的水管維修、電路佈線與電器安裝。所有服務由 AI 監控，確保品質安全。",
+        searchPlaceholder: "水管維修、鍋爐檢修、重新佈線...",
+        searchBtn: "掃描專家節點"
+      },
+      sub_categories: {
+        pipe: { title: "水管維修", desc: "緊急漏水偵測與精準硬體更換。" },
+        wiring: { title: "系統佈線", desc: "專業電路校準與系統集成。" },
+        appliance: { title: "電器安裝", desc: "廚衛電器硬體部署與負載測試。" },
+        boiler: { title: "鍋爐檢修", desc: "合規熱能維護與性能診斷。" },
+        switch: { title: "開關組件", desc: "高可靠性電器組件更換。" },
+        smart: { title: "智能家居", desc: "家庭自動化網絡與傳感器部署。" }
+      }
+    },
+    repairs: {
+      hero: {
+        badge: "結構完整性",
+        title1: "修復您的空間",
+        title2: "精英級維修",
+        subtitle: "從家具組裝到牆面修補。英國 Top 1% 的維修專家聽候您的差遣。",
+        searchPlaceholder: "家具組裝、牆面修補...",
+        searchBtn: "搜索專家"
+      },
+      sub_categories: {
+        furniture: { title: "家具組裝", desc: "複雜模組化家具的精準組裝。" },
+        structural: { title: "結構加固", desc: "高負重固定裝置的安裝與校準。" },
+        wall: { title: "牆面補救", desc: "表面修復與結構塗層恢復。" },
+        mounting: { title: "模組化掛載", desc: "牆面單元與數位裝置的牢固掛載。" },
+        coating: { title: "表面塗層", desc: "美觀且具保護性的表面處理。" },
+        tactics: { title: "通用維修", desc: "全方位家庭維修與維護協定。" }
+      }
+    },
+    renovation: {
+      hero: {
+        badge: "空間進化",
+        title1: "重塑您的",
+        title2: "生活空間",
+        subtitle: "與英國精英裝修專家一起改變您的房產。進度透明，品質保障。",
+        searchPlaceholder: "廚房擴建、閣樓改造...",
+        searchBtn: "啟動項目"
+      },
+      sub_categories: {
+        culinary: { title: "廚衛翻新", desc: "全棧式廚房與衛浴系統重構。" },
+        expansion: { title: "擴建工程", desc: "閣樓與模組化擴建，提升空間價值。" },
+        layout: { title: "空間佈局", desc: "結構重組與室內動線優化。" },
+        floor: { title: "地板工程", desc: "高耐用度地板鋪設與精細收口。" },
+        landscape: { title: "景觀設計", desc: "物業外部環境工程與設計。" },
+        design: { title: "設計顧問", desc: "建築藍圖與美學邏輯諮詢。" }
+      }
+    },
+    accounting: {
+      hero: {
+        badge: "財務治理",
+        title1: "掌握您的",
+        title2: "資產帳目",
+        subtitle: "為中小企業及專業人士提供英精英級會計師。確保經營合規與稅務優化。",
+        searchPlaceholder: "報稅、年帳製作、薪資核算...",
+        searchBtn: "審計專家"
+      },
+      sub_categories: {
+        income: { title: "所得稅審計", desc: "個人自雇報稅與所得校準。" },
+        accounts: { title: "年帳製作", desc: "企業財務報告與帳目結算。" },
+        tax: { title: "稅務申報", desc: "HMRC 合規稅務準備與提交。" },
+        payroll: { title: "薪資核算", desc: "高效的人力資本支付系統。" },
+        xero: { title: "Xero 優化", desc: "雲端會計集成與使用指導。" },
+        fiscal: { title: "財務分析", desc: "深入的業務表現數據分析。" }
+      }
+    },
+    legal: {
+      hero: {
+        badge: "生態合規",
+        title1: "專家諮詢與",
+        title2: "法律框架",
+        subtitle: "聯絡英國認證法律專家，處理簽證、合約起草及糾紛解決。",
+        searchPlaceholder: "簽證諮詢、房產法律、合約...",
+        searchBtn: "聯絡法律顧問"
+      },
+      sub_categories: {
+        drafting: { title: "合約起草", desc: "高精度的合約與協議撰寫。" },
+        visa: { title: "簽證諮詢", desc: "英國簽證與移民身份支持。" },
+        property: { title: "房產法律", desc: "產權轉讓與房地產法律邏輯。" },
+        arbitration: { title: "糾紛仲裁", desc: "中立的爭議解決與調解服務。" },
+        law: { title: "商業法律", desc: "企業與商業治理法律支持。" },
+        notary: { title: "公證服務", desc: "官方文件驗證與認證服務。" }
+      }
+    },
+    cleaning: {
+      hero: {
+        badge: "生物安全與衛生",
+        title1: "淨化您的",
+        title2: "居住環境",
+        subtitle: "為住宅及商業空間提供精英清潔方案。高強度消毒與極致細節。",
+        searchPlaceholder: "深度清潔、退房清潔...",
+        searchBtn: "部署專家"
+      },
+      sub_categories: {
+        hygiene: { title: "定期保潔", desc: "標準化的物業頻繁清潔維護。" },
+        tenancy: { title: "退房深潔", desc: "針對租約更換的深度淨化服務。" },
+        textile: { title: "織物清洗", desc: "專業的地毯與沙發軟裝修復。" },
+        aperture: { title: "玻璃清洗", desc: "高窗與玻璃表面的專業清潔。" },
+        office: { title: "辦公室消毒", desc: "商業辦公區域的衛生管理。" },
+        bio: { title: "生物安全", desc: "臨床級別的去污與消毒處理。" }
+      }
+    },
+    car: {
+      hero: {
+        badge: "硬體維護",
+        title1: "精準汽車",
+        title2: "工程維修",
+        subtitle: "由英國專業技師維護您的愛車。提供現場診斷與高性能保養。",
+        searchPlaceholder: "引擎診斷、MOT 準備、剎車...",
+        searchBtn: "掃描技師"
+      },
+      sub_categories: {
+        engine: { title: "引擎診斷", desc: "進階故障排除與性能調教。" },
+        brakes: { title: "剎車與離合器", desc: "關鍵安全性系統校準。" },
+        mot: { title: "MOT 準備", desc: "合規性檢查與維修補救。" },
+        ac: { title: "空調校準", desc: "空調系統加氣與衛生清理。" },
+        bodywork: { title: "車身修復", desc: "結構與外觀漆面修復。" },
+        battery: { title: "電力與輪胎", desc: "電池健康與輪胎性能管理。" }
+      }
+    },
+    commercial: {
+      hero: {
+        badge: "企業基礎設施",
+        title1: "強化您的",
+        title2: "商業佈局",
+        subtitle: "英為國商業空間提供端到端支持。店面裝修、辦公室遷移及工業維護。",
+        searchPlaceholder: "店面裝修、IT 網絡、空調...",
+        searchBtn: "審核供應商"
+      },
+      sub_categories: {
+        fitting: { title: "空間裝修", desc: "零售與商業空間內部工程。" },
+        relocation: { title: "企業搬遷", desc: "無縫的辦公室與工廠遷移服務。" },
+        industrial: { title: "工業電力", desc: "高電壓電力系統部署與維護。" },
+        fire: { title: "消防安全", desc: "合規的安全偵測與防護系統。" },
+        mesh: { title: "IT 網絡", desc: "企業級布線與數據中心搭建。" },
+        hvac: { title: "通風空調", desc: "大型環境管理與溫控系統。" }
+      }
+    }
+  },
+  common: {
+    viewProfile: "查看個人檔案",
+    reviews: "則評論",
+    hr: "小時",
+    copy: "複製",
+    copied: "已複製！",
+    aiMatchingSub: "AI 精密校準專家，完美匹配您的協議需求。",
+    exploreSub: "探索 {category} 領域的專屬先進協議。",
+    escrow: {
+      title: "ConciergeAI 託管加密保障",
+      subtitle: "{category} 領域的每個會話均由 AI 精準監控，確保品質保證與財務完整性。",
+      specialists: "已驗證專才",
+      fees: "平台服務費用",
+      support: "AI 仲裁支援系統"
+    }
+  },
   hero: { title: "尋找頂尖服務專家", subtitle: "為您連接您所在地區的認證專業人士。", searchPlaceholder: "您需要什麼服務？", badge: "英國 No.1 服務預訂平台" },
   faq: {
     title: "常見問題",
@@ -12,7 +174,7 @@ export const zhTW: Dictionary = {
     questions: {
       payments: [
         { q: "我該如何支付服務費用？", a: "支付通過 Stripe 安全處理。我們會將資金存放在託管賬戶，直到您確認工作完成。" },
-        { q: "是否有隱藏費用？", a: "不。您支付的就是報價顯示的價格。我們會收取少量的平台費用，這已包含在估價中。" }
+        { q: "是否有隱藏費用？", a: "不。平台不向客戶收取任何服務費。您只需支付師傅的人工費用及經批准的材料費用。" }
       ],
       disputes: [
         { q: "如果工作不令人滿意怎麼辦？", a: "我們的 AI 仲裁員會根據最初的工作範圍審核照片，以確保公正的解決方案。" },
@@ -28,7 +190,7 @@ export const zhTW: Dictionary = {
     welcome: "您好！我是 Aura，您的英國服務協調員。今天我能如何幫助您？",
     offline: "離線",
     ready: "在線 - 隨時準備提供幫助",
-    placeholder: "向 Aura 詢問任何問題...",
+    placeholder: "向 Aura 詢問服務或英國物業/法律常識...",
     error: "抱歉，我目前遇到連線問題。請稍後再試。",
     footer: "安全 AI 支援 • 平台版本 1.2",
     suggestions: {
@@ -47,7 +209,7 @@ export const zhTW: Dictionary = {
     explore: "探索", 
     legal: "法律資訊", 
     support: "客戶支援", 
-    rights: "© 2024 UK Service Hub. 保留所有權利。", 
+    rights: "保留所有權利。", 
     terms: "服務條款", 
     privacy: "隱私權政策", 
     cookies: "Cookie 政策", 
@@ -82,7 +244,7 @@ export const zhTW: Dictionary = {
   booking: {
     steps: { details: "工作詳情", schedule: "選擇時間", confirmation: "確認並支付" },
     titles: { details: "請告訴我們您的需求", schedule: "請選擇合適的時間", confirm: "確認您的預訂", success: "預訂已確認！" },
-    labels: { date: "日期", time: "時間", make: "品牌", model: "型號", address: "服務地址", notes: "備註事項", agree: "我同意服務條款及 2% 平台服務費", summary: "支付總結", paid: "已支付", merchant: "服務專家", service: "服務項目" },
+    labels: { date: "日期", time: "時間", make: "品牌", model: "型號", address: "服務地址", notes: "備註事項", agree: "我同意服務條款 (平台不向客戶收取服務費)", summary: "支付總結", paid: "已支付", merchant: "服務專家", service: "服務項目" },
     buttons: { next: "下一步", prev: "上一步", pay: "安全支付", home: "返回首頁", dashboard: "前去管理後台" },
     messages: { finalizing: "正在完成您的預訂...", wait: "請不要重新整理頁面", contact24h: "您的專家將在 24 小時內與您聯絡。", safety: "為了您的安全，所有支付款項均由託管賬戶保管。", noReviews: "尚無評論", recommended: "強力推薦", replyFromMaster: "專家的回覆" },
   },
@@ -100,8 +262,8 @@ export const zhTW: Dictionary = {
         syncing: "錢包數據同步中...",
         synced: "錢包數據已同步",
         generating: "正在完成帳戶設置...",
-        referralTitle: "推薦好友，獲取 2% 返現",
-        referralDesc: "分享您的唯一代碼。當您的朋友預訂第一項服務時，您將獲得 2% 的返現。",
+        referralTitle: "推薦好友，賺取 2% 禮券獎勵",
+        referralDesc: "分享您的唯一代碼。當您的朋友預訂第一項服務時，您將獲得 2% 的禮券回饋（可用於超市及零售店）。",
         historyTitle: "交易記錄",
         historyEmpty: "尚無交易記錄",
         type: "類型",
@@ -120,8 +282,8 @@ export const zhTW: Dictionary = {
         validUntil: "有效至",
         availableNow: "目前可用",
         rewards: {
-          title: "兌換現金券",
-          subtitle: "* 需要人工審核。代碼將在 24 小時內發放。",
+          title: "兌換電子現金券",
+          subtitle: "* 非現金提現。點數可兌換超市、零售及餐飲通路之電子卡券。代碼將在 24 小時內發放。",
           myVault: "我的電子卡包",
           redeemBtn: "兌換",
           statusProcessing: "處理中...",
@@ -135,10 +297,33 @@ export const zhTW: Dictionary = {
       status: { pending: "待處理", confirmed: "已確認", completed: "已完成", cancelled: "已取消" },
       variations: { label: "額外工作支付", status: "狀態", pending: "等待用戶批准", approved: "已批准", rejected: "已拒絕", arbiterActive: "AI 仲裁員審核中" },
       arbiterReasoning: "AI 仲裁分析",
-      tips: { title: "成長建議", growth: "再完成 5 個任務即可達到「金牌」等級，佣金降至 7%。" },
+      tips: { title: "成長建議", growth: "持續提供優質服務以確保專家排名與穩定的任務量。" },
       quickLinks: { title: "快速連結", schedule: "我的行程", earnings: "收入記錄", support: "商戶支援" },
       modal: { title: "請求額外工作支付", amount: "額外金額 (£)", reason: "費用變動原因", reasonPlaceholder: "例如：牆後發現額外漏水點", photo: "照片證明", photoHint: "AI 驗證必須提供照片證據", submit: "提交請求", submitting: "正在上傳證據..." },
       avatar: { upload: "上傳頭像", hint: "建議：專業人像照片或公司 Logo。", success: "頭像已更新！", errorSize: "照片大小必須小於 2MB" },
+      accounting: {
+        title: "會計與稅務",
+        subtitle: "自動化英國財務中心：VAT 監測與稅務預測。",
+        statusActive: "訂閱已激活",
+        statusInactive: "訂閱未激活",
+        grossRevenue: "預計總營收",
+        grossRevenueDesc: "來自 ConciergeAI 平臺的總入帳金額",
+        taxPayable: "預計應繳稅額",
+        taxPayableDesc: "基於 24/25 英國個人所得稅率估算。",
+        vatRadar: "VAT 註冊雷達",
+        vatRadarDesc: "距離 £90,000 註冊閾值的進度。",
+        monthlyBreakdown: "每月財務審計",
+        revenue: "營收",
+        fees: "平台佣金",
+        netProfit: "淨利潤",
+        exportCsv: "匯出 CSV 審計日誌",
+        upgradeTitle: "解鎖專業會計助手",
+        upgradeDesc: "自動化記帳、稅務年度總結與財務數據導出。",
+        upgradeCost: "£4.99 / 每月",
+        upgradeBtn: "即刻激活專業版",
+        taxYear: "稅務年度",
+        regNumber: "註冊號碼 (UTR/CRN)"
+      }
     },
     portfolio_mgr: {
       title: "工作案例", subtitle: "展示您最優秀的作品以贏得更多預訂。", addBtn: "添加案例", emptyTitle: "尚無案例", emptyDesc: "添加過往項目的照片以建立新客人的信任。",
@@ -186,7 +371,25 @@ export const zhTW: Dictionary = {
     }
   },
   home: {
-    hero: { badge: "已認證本地專家", title1: "預訂頂級評價", title2: "本地專家", subtitle: "即時聯絡英國 Top 1% 的服務商。所有專家均經過認證、投保並由 AI 監控質量。", searchPlaceholder: "我需要...", locationPlaceholder: "London, UK", aiMatch: "智能匹配", searchBtn: "尋找專家" },
+    hero: {
+      badge: "已認證本地專家",
+      title1: "預訂頂級評價",
+      title2: "本地專家",
+      subtitle: "即時聯絡英國 Top 1% 的服務商。所有專家均經過認證、投保並由 AI 監控質量。",
+      searchPlaceholder: "我需要...",
+      locationPlaceholder: "London, UK",
+      aiMatch: "智能匹配",
+      searchBtn: "尋找專家",
+      suggestions: [
+        "在切爾西尋找Gas Safe精英工程師…",
+        "預訂GCSE頂級評價導師…",
+        "辦公室需要深度淨化服務嗎？",
+        "物業糾紛專家法律支援…",
+        "倫敦專業稅務會計師…"
+      ],
+      popularLabel: "熱門精選",
+      popularTags: ["家居升級翻新", "稅務申報優化", "深度淨化清潔", "專業法律支援"]
+    },
     recommendation: { title1: "為您", title2: "推薦", subtitle: "根據您的需求和近期位置匹配的頂尖專業人士。", browse: "查看所有專家" },
     recommendationResults: {
       trendingTitle: "{{city}} 熱門服務：{{category}}",
@@ -204,8 +407,8 @@ export const zhTW: Dictionary = {
       assetMatch: "資產匹配",
       trending: "本地熱門"
     },
-    aiCTA: { badge: "由 GEMINI AI 驅動", title1: "不知道出了什麼問題？", title2: "獲取即時 AI 診斷", subtitle: "上傳問題照片。我們的 AI 會識別故障、預估費用，並在幾秒鐘內為您找到合適的專家。", button: "開始免費 AI 診斷" },
-    referralCTA: { badge: "推薦獎勵", title: "賺取 2% 被動收入", subtitle: "推薦好友並從他們未來 5 年內的所有預訂中獲取 2% 返佣（每位好友最高 £200）。", button: "開始獲取佣金", referralLabel: "您的個人推薦代碼：" },
+    aiCTA: { badge: "由 ChatGPT, Gemini & Grok 驅動", title1: "不知道出了什麼問題？", title2: "獲取即時 AI 診斷", subtitle: "上傳問題照片。我們的 AI 會識別故障、預估費用，並在幾秒鐘內為您找到合適的專家。", button: "開始免費 AI 診斷" },
+    referralCTA: { badge: "推薦獎勵", title: "賺取 2% 被動收入", subtitle: "推薦好友並從他們未來 5 年內的所有預訂中獲取 2% 禮券點數（可兌換超市及零售通路現金券，不支援提現）。", button: "開始獲取獎勵", referralLabel: "您的個人推薦代碼：" },
     educationCTA: "前往教育後台",
     eliteLocal: "區域精英",
     eliteBadge: "精英專家",
@@ -240,7 +443,7 @@ export const zhTW: Dictionary = {
   },
   location: { selectCity: "選擇城市", detecting: "定位中...", switch: "切換", nearby: "附近服務" },
   diagnosis: {
-    badge: "由 GEMINI AI 技術提供",
+    badge: "由 ChatGPT, Gemini & Grok 技術提供",
     title1: "專家級維修",
     title2: "秒速完成",
     subtitle: "停止猜測。我們的 AI 會分析您的照片，在預訂前提供即時洞察、維修範圍和合理的費用估算。",

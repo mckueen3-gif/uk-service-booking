@@ -11,12 +11,168 @@ export const en: Dictionary = {
     aiDiagnosis: "AI Diagnostics",
     education: "Education"
   },
+  legal: { ui: { selectLanguage: "Global Connectivity", close: "Complete Protocol" } },
+  landing_pages: {
+    plumbing: {
+      hero: {
+        badge: "Elite Precision",
+        title1: "Superior Engineering",
+        title2: "Plumbing & Power",
+        subtitle: "Connect with certified UK specialists for precision plumbing, electrical, and hardware integration. AI-monitored for quality assurance.",
+        searchPlaceholder: "Pipe repair, boiler service, rewiring...",
+        searchBtn: "Scan Nodes"
+      },
+      sub_categories: {
+        pipe: { title: "Pipe Repair", desc: "Emergency leak detection and precision hardware replacement." },
+        wiring: { title: "System Rewiring", desc: "Professional electrical calibration and node integration." },
+        appliance: { title: "Appliance Integration", desc: "Deployment and testing of sanitary and culinary hardware." },
+        boiler: { title: "Boiler Audit", desc: "Regulatory thermal maintenance and performance diagnostics." },
+        switch: { title: "Switchgear", desc: "High-integrity electrical component replacement." },
+        smart: { title: "Smart Automation", desc: "Mesh network home automation and sensor deployment." }
+      }
+    },
+    repairs: {
+      hero: {
+        badge: "Structural Integrity",
+        title1: "Restore Your Node",
+        title2: "Elite Maintenance",
+        subtitle: "From furniture assembly to structural remediation. The top 1% of UK maintenance specialists at your command.",
+        searchPlaceholder: "Furniture assembly, wall repair...",
+        searchBtn: "Liaison Search"
+      },
+      sub_categories: {
+        furniture: { title: "Furniture Assembly", desc: "Precision assembly of complex modular hardware." },
+        structural: { title: "Structural Fixtures", desc: "Mounting and calibration of high-load fixtures." },
+        wall: { title: "Wall Remediation", desc: "Surface repair and structural coating restoration." },
+        mounting: { title: "Modular Mounting", desc: "Secure deployment of digital and physical wall units." },
+        coating: { title: "Coating", desc: "Aesthetic and protective surface treatments." },
+        tactics: { title: "General Tactics", desc: "All-purpose household maintenance protocols." }
+      }
+    },
+    renovation: {
+      hero: {
+        badge: "Architectural Evolution",
+        title1: "Re-engineer Your",
+        title2: "Living Space",
+        subtitle: "Transform your property with the UK's elite renovation experts. Transparent telemetry and quality-guaranteed results.",
+        searchPlaceholder: "Kitchen extension, loft conversion...",
+        searchBtn: "Initialize Project"
+      },
+      sub_categories: {
+        culinary: { title: "Culinary & Sanitary", desc: "Full-stack kitchen and bathroom re-engineering." },
+        expansion: { title: "Expansion Units", desc: "Loft and module extensions for increased node volume." },
+        layout: { title: "Spatial Layout", desc: "Holographic design and structural reconfiguration." },
+        floor: { title: "Floor Meshing", desc: "High-durability flooring deployment and finishing." },
+        landscape: { title: "Landscape Design", desc: "External property environment engineering." },
+        design: { title: "Design Context", desc: "Architectural blueprints and aesthetic logic." }
+      }
+    },
+    accounting: {
+      hero: {
+        badge: "Financial Governance",
+        title1: "Master Your",
+        title2: "Capital Ledger",
+        subtitle: "Elite UK accountants and fiscal strategists for SMEs and professionals. Ensuring operational compliance and tax optimization.",
+        searchPlaceholder: "Tax returns, annual accounts, payroll...",
+        searchBtn: "Audit Experts"
+      },
+      sub_categories: {
+        income: { title: "Income Audit", desc: "Self-assessment and personal income tax calibration." },
+        accounts: { title: "Annual Accounts", desc: "Corporate financial reporting and ledger finalization." },
+        tax: { title: "Tax Filing", desc: "HMRC-ready tax preparation and transmission." },
+        payroll: { title: "Payroll Meshing", desc: "Efficient human capital payment systems." },
+        xero: { title: "Xero Optimization", desc: "Cloud accounting integration and training." },
+        fiscal: { title: "Fiscal Analysis", desc: "Deep-dive business performance telemetry." }
+      }
+    },
+    legal: {
+      hero: {
+        badge: "Ecosystem Compliance",
+        title1: "Expert Counsel &",
+        title2: "Legal Frameworks",
+        subtitle: "Connect with UK-certified legal experts for visa protocols, contract drafting, and dispute resolution support.",
+        searchPlaceholder: "Visa help, property law, contracts...",
+        searchBtn: "Liaison Counsel"
+      },
+      sub_categories: {
+        drafting: { title: "SLA Drafting", desc: "High-precision contract and agreement synthesis." },
+        visa: { title: "Visa Calibration", desc: "UK visa and immigration protocol support." },
+        property: { title: "Property Frameworks", desc: "Conveyancing and real estate legal logic." },
+        arbitration: { title: "Arbitration", desc: "Neutral dispute resolution and mediation protocols." },
+        law: { title: "Marketplace Law", desc: "Corporate and commercial governance support." },
+        notary: { title: "Public Notary", desc: "Official document verification and authentication." }
+      }
+    },
+    cleaning: {
+      hero: {
+        badge: "Biosecurity & Hygiene",
+        title1: "Sanitize Your",
+        title2: "Environment",
+        subtitle: "Elite cleaning protocols for residential and commercial nodes. High-integrity sanitization and meticulous attention to detail.",
+        searchPlaceholder: "Deep clean, end of tenancy...",
+        searchBtn: "Deploy Specialists"
+      },
+      sub_categories: {
+        hygiene: { title: "Recurring Hygiene", desc: "Standardized frequent property sanitization." },
+        tenancy: { title: "End of Tenancy", desc: "Deep-dive cleaning for occupancy transitions." },
+        textile: { title: "Textile Cleaning", desc: "Professional carpet and upholstery restoration." },
+        aperture: { title: "Aperture Cleaning", desc: "High-window and glass sanitization protocols." },
+        office: { title: "Office Sanitization", desc: "Hygiene management for commercial work zones." },
+        bio: { title: "Biosecurity", desc: "Decontamination and clinical grade sanitization." }
+      }
+    },
+    car: {
+      hero: {
+        badge: "Hardware Maintenance",
+        title1: "Precision Auto",
+        title2: "Engineering",
+        subtitle: "Maintain your mobile hardware with master UK mechanics. On-site diagnostics and high-performance servicing at your command.",
+        searchPlaceholder: "Engine diagnostics, MOT prep, brakes...",
+        searchBtn: "Scan Mechanics"
+      },
+      sub_categories: {
+        engine: { title: "Engine Diagnostics", desc: "Advanced fault-finding and performance tuning." },
+        brakes: { title: "Brake & Clutch", desc: "Safety-critical friction system calibration." },
+        mot: { title: "MOT Preparation", desc: "Regulatory inspection checks and remediation." },
+        ac: { title: "AC Calibration", desc: "Climate control system re-gassing and hygiene." },
+        bodywork: { title: "Body Restoration", desc: "Structural and aesthetic shell remediation." },
+        battery: { title: "Power & Tyres", desc: "Battery health and tread density management." }
+      }
+    },
+    commercial: {
+      hero: {
+        badge: "Enterprise Infrastructure",
+        title1: "Power Your",
+        title2: "Business Node",
+        subtitle: "End-to-end infrastructure support for UK commercial spaces. Shop fitting, office migration, and industrial maintenance.",
+        searchPlaceholder: "Shop fitting, IT mesh, HVAC...",
+        searchBtn: "Audit Providers"
+      },
+      sub_categories: {
+        fitting: { title: "Unit Fitting", desc: "Retail and commercial space interior engineering." },
+        relocation: { title: "Node Relocation", desc: "Seamless office and industrial migration protocols." },
+        industrial: { title: "Industrial Power", desc: "High-voltage electrical grid deployment." },
+        fire: { title: "Fire Security", desc: "Regulatory safety and detection mesh systems." },
+        mesh: { title: "IT Mesh", desc: "Enterprise networking and data cabling." },
+        hvac: { title: "HVAC Controls", desc: "Industrial environmental management systems." }
+      }
+    }
+  },
   common: {
     viewProfile: "View Protocol",
     reviews: "reviews",
     hr: "hr",
     copy: "Copy",
-    copied: "Copied!"
+    copied: "Copied!",
+    aiMatchingSub: "AI-calibrated experts matching your protocol needs.",
+    exploreSub: "Explore specialized protocols within the {category} sector.",
+    escrow: {
+      title: "Secured by ConciergeAI Escrow",
+      subtitle: "Every session in the {category} sector is monitored by AI for quality assurance and financial integrity.",
+      specialists: "VERIFIED SPECIALISTS",
+      fees: "PLATFORM SERVICE FEES",
+      support: "AI ARBITRATION SUPPORT"
+    }
   },
   hero: {
     title: "Accelerate Your Service Solutions",
@@ -40,7 +196,7 @@ export const en: Dictionary = {
     questions: {
       payments: [
         { q: "How are financial settlements processed?", a: "Payments are processed via secure Stripe relays. Funds are held in escrow until milestone confirmation." },
-        { q: "Are there hidden overheads?", a: "No. The quoted rate is the net cost. A nominal platform fee is pre-integrated into the audit." }
+        { q: "Are there hidden overheads?", a: "No. Platform charges £0 service fees to customers. You only pay for technician labor and approved materials." }
       ],
       disputes: [
         { q: "What is the arbitration process for unsatisfactory results?", a: "Our AI Arbiter cross-references initial scope telemetry with photographic evidence for a neutral verdict." },
@@ -56,7 +212,7 @@ export const en: Dictionary = {
     welcome: "Greetings. I am Aura, your UK Service Coordinator. How may I assist your operations today?",
     offline: "Node Offline",
     ready: "Operational - Systems Ready",
-    placeholder: "Transmit query to Aura...",
+    placeholder: "Ask Aura about services or UK property/legal knowledge...",
     error: "Signal interference detected. Unable to process query. Please retry.",
     footer: "Secure AI Diagnostics • Platform v1.2",
     suggestions: {
@@ -75,7 +231,7 @@ export const en: Dictionary = {
     explore: "Discovery",
     legal: "Governance",
     support: "Operations",
-    rights: "© 2024 ConciergeAI Ecosystem. All Rights Reserved.",
+    rights: "All Rights Reserved.",
     terms: "User Agreement",
     privacy: "Data Protocol",
     cookies: "Tracker Policy",
@@ -146,7 +302,7 @@ export const en: Dictionary = {
       model: "Hardware Model",
       address: "Property Node",
       notes: "Tactical Instructions",
-      agree: "Accept SLA and 2% Ecosystem Fee",
+      agree: "Accept SLA (Zero Platform Service Fee)",
       summary: "Settlement Summary",
       paid: "Processed",
       merchant: "Specialist",
@@ -208,8 +364,8 @@ export const en: Dictionary = {
         syncing: "Updating Capital Ledger...",
         synced: "Ledger Synchronized",
         generating: "Finalizing account encryption...",
-        referralTitle: "Expand Network, Earn 2% Overlay",
-        referralDesc: "Distribute your unique node code. Earn 2% yield on all friend bookings.",
+        referralTitle: "Expand Network, Earn 2% Voucher Rewards",
+        referralDesc: "Distribute your unique node code. Earn 2% in electronic retail vouchers on all friend bookings.",
         historyTitle: "Transaction Archive",
         historyEmpty: "No financial logs",
         type: "Vector",
@@ -228,8 +384,8 @@ export const en: Dictionary = {
         validUntil: "Valid Until",
         availableNow: "Liquid Now",
         rewards: {
-          title: "Convert to Liquid Voucher",
-          subtitle: "* Manual audit required. Codes issued <24h.",
+          title: "Redeem E-Vouchers",
+          subtitle: "* Digital vouchers for top UK retailers (Tesco, ASDA, Amazon, etc). Non-cash withdrawal. Processed in 24h.",
           myVault: "Encrypted Card Vault",
           redeemBtn: "Extract Value",
           statusProcessing: "Processing...",
@@ -249,10 +405,33 @@ export const en: Dictionary = {
       status: { pending: "Pending Audit", confirmed: "Validated", completed: "Finalized", cancelled: "Revoked" },
       variations: { label: "Additional Settlement", status: "SLA Status", pending: "Awaiting Client Payload", approved: "Authorized", rejected: "Denied", arbiterActive: "AI Arbiter Reviewing" },
       arbiterReasoning: "AI Rationalization",
-      tips: { title: "Strategic Growth", growth: "Complete 5 more missions to achieve 'Gold' status and reduce overhead to 7%." },
+      tips: { title: "Strategic Growth", growth: "Maintain high-quality service to ensure elite visibility and consistent mission throughput." },
       quickLinks: { title: "Command Links", schedule: "Duty Roster", earnings: "Capital History", support: "Specialist Support" },
       modal: { title: "Initialize Scope Drift Settlement", amount: "Additional Capital (£)", reason: "Neutral Logic for Drift", reasonPlaceholder: "E.g., Subsurface leak detected behind firewall", photo: "Evidence Payload", photoHint: "Evidence is mandatory for AI verification", submit: "Transmit Request", submitting: "Uploading Payload..." },
-      avatar: { upload: "Update Node Identity", hint: "Req: Professional headshot or Corporate Branding.", success: "Identity updated", errorSize: "Payload must be <2MB" }
+      avatar: { upload: "Update Node Identity", hint: "Req: Professional headshot or Corporate Branding.", success: "Identity updated", errorSize: "Payload must be <2MB" },
+      accounting: {
+        title: "Accounting & Tax",
+        subtitle: "Automated UK financial center: VAT monitoring and Tax forecasting.",
+        statusActive: "Subscription Active",
+        statusInactive: "Subscription Inactive",
+        grossRevenue: "Gross Revenue",
+        grossRevenueDesc: "Total inflow from ConciergeAI platforms",
+        taxPayable: "Estimated Tax Payable",
+        taxPayableDesc: "Calculated based on 24/25 UK Income Tax bands.",
+        vatRadar: "VAT Registration Radar",
+        vatRadarDesc: "Tracking proximity to the £90,000 threshold.",
+        monthlyBreakdown: "Monthly Performance Audit",
+        revenue: "Revenue",
+        fees: "Platform Fees",
+        netProfit: "Net Profit",
+        exportCsv: "Export CSV Audit Log",
+        upgradeTitle: "Unlock Specialist Accounting",
+        upgradeDesc: "Automated bookkeeping, tax year summaries, and CSV data exports.",
+        upgradeCost: "£4.99 / Month",
+        upgradeBtn: "Activate Premium Access",
+        taxYear: "Tax Year",
+        regNumber: "Reg Number (UTR/CRN)"
+      }
     },
     portfolio_mgr: {
       title: "Operational Archive",
@@ -373,7 +552,16 @@ export const en: Dictionary = {
       searchPlaceholder: "I require...",
       locationPlaceholder: "London, UK",
       aiMatch: "Smart Match",
-      searchBtn: "Liaison Search"
+      searchBtn: "Liaison Search",
+      suggestions: [
+        "Find a Gas Safe Engineer in Chelsea...",
+        "Book a Top-Rated Tutor for GCSE...",
+        "Need a Deep Clean for your Office?",
+        "Expert Legal Aid for Property Disputes...",
+        "Professional Tax Accountant in London..."
+      ],
+      popularLabel: "Popular",
+      popularTags: ["Home Renovation", "Tax Filing", "Deep Cleaning", "Legal Aid"]
     },
     recommendation: {
       title1: "Optimized",
@@ -398,7 +586,7 @@ export const en: Dictionary = {
       trending: "Network Trending"
     },
     aiCTA: {
-      badge: "Powered by GEMINI AI",
+      badge: "Powered by ChatGPT, Gemini & Grok",
       title1: "Unsure of the issue?",
       title2: "Execute AI Diagnostics",
       subtitle: "Upload evidence of your issue. Our AI identifies the fault, estimates the payload cost, and identifies the correct specialist in seconds.",
@@ -406,8 +594,8 @@ export const en: Dictionary = {
     },
     referralCTA: {
       badge: "Network Rewards",
-      title: "Earn 2% Ecosystem Passive Yield",
-      subtitle: "Invite a node and receive 2% of every session they schedule for the next 5 years (up to £200 per node).",
+      title: "Earn 2% Ecosystem Voucher Rewards",
+      subtitle: "Invite a node and receive 2% of every session they schedule for the next 5 years in retail vouchers (Non-cash withdrawal).",
       button: "Start Earning Yield",
       referralLabel: "Your Unique Node Code:"
     },
@@ -445,7 +633,7 @@ export const en: Dictionary = {
   },
   location: { selectCity: "Select Node", detecting: "Detecting...", switch: "Modify", nearby: "Proximal Services" },
   diagnosis: {
-    badge: "By GEMINI AI",
+    badge: "By ChatGPT, Gemini & Grok",
     title1: "Specialist Audit",
     title2: "In Seconds",
     subtitle: "Stop speculating. Our AI analyzes your telemetry to provide instant insights, repair variables, and fair cost models before scheduling.",

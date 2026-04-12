@@ -29,6 +29,17 @@ export const RECOMMENDATION_GUIDELINES = `
   - If no verified pro is found, suggest the user wait for our admin team to finalize current document reviews.
 `;
 
+export const SAFETY_AND_DOMAIN_PROTOCOL = `
+  STRICT SAFETY & DOMAIN PROTOCOL:
+  1. AUTHORIZED SCOPE: You may only discuss services provided by ConciergeAI (Plumbing, Repairs, Renovation, Education, Accounting, Legal, Commercial, Cleaning).
+  2. KNOWLEDGE BASE: You are permitted to share general "UK Property Knowledge" or "Basic UK Legal Common Sense" if it helps the user understand their service needs.
+  3. PROHIBITED TOPICS:
+     - ILLEGAL ACTS: Strictly refuse to discuss or assist with any illegal activity.
+     - CASUAL CHAT: Refuse generic small talk or social chatting that is not related to platform services or property/legal knowledge.
+     - HARMFUL CONTENT: Strictly Prohibit providing guidance on self-harm, suicide, or violence. 
+  4. REFUSAL PROTOCOL: If a user asks for anything outside these boundaries, you must apologize politely and use the mandated refusal message.
+`;
+
 /**
  * Builds the complete system prompt by combining modular pieces.
  */
@@ -48,6 +59,21 @@ export function buildConciergeSystemPrompt(dynamicContext: string = "", locale: 
 
   const targetLanguage = languageMap[locale] || 'English';
 
+  const refusalMessages: Record<string, string> = {
+    'en': "I'm sorry, I can only provide information related to the services offered on this platform.",
+    'zh-TW': "抱歉，我只可以提供與本平台服務相關的資訊。",
+    'hi': "क्षमा करें, मैं केवल इस प्लेटफ़ॉर्म पर दी जाने वाली सेवाओं से संबंधित जानकारी प्रदान कर सकता हूँ।",
+    'ar': "عذرًا، يمكنني تقديم معلومات تتعلق فقط بالخدمات المقدمة على هذه المنصة.",
+    'ja': "申し訳ありませんが、当プラットフォームで提供されているサービスに関する情報のみを提供できます。",
+    'ko': "죄송합니다. 이 플랫폼에서 제공하는 서비스와 관련된 정보만 제공할 수 있습니다.",
+    'pl': "Przepraszam, mogę udzielać informacji wyłącznie na temat usług oferowanych na tej platformie.",
+    'ro': "Îmi pare rău, pot furniza informații doar despre serviciile oferite pe această platformă.",
+    'ur': "معذرت، میں صرف اس پلیٹ فارم پر پیش کی جانے والی خدمات سے متعلق معلومات فراہم کر سکتا ہوں۔",
+    'pa': "ਮਾਫ਼ ਕਰਨਾ, ਮੈਂ ਸਿਰਫ਼ ਇਸ ਪਲੇਟਫਾਰਮ 'ਤੇ ਪੇਸ਼ ਕੀਤੀਆਂ ਸੇਵਾਵਾਂ ਨਾਲ ਸਬੰਧਤ ਜਾਣਕਾਰੀ ਪ੍ਰਦਾਨ ਕਰ ਸਕਦਾ ਹਾਂ।"
+  };
+
+  const domainRefusal = refusalMessages[locale] || refusalMessages['en'];
+
   return `
     ${CONCIERGE_PERSONA}
     
@@ -59,6 +85,11 @@ export function buildConciergeSystemPrompt(dynamicContext: string = "", locale: 
     ${dynamicContext}
     
     ${RECOMMENDATION_GUIDELINES}
+    
+    ${SAFETY_AND_DOMAIN_PROTOCOL}
+    
+    MANDATED REFUSAL MESSAGE (Use this exact message for out-of-scope/forbidden topics):
+    "${domainRefusal}"
     
     ${UK_LEGAL_COMPLIANCE}
   `;

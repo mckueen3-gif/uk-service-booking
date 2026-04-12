@@ -470,6 +470,16 @@ export default function BookingPage() {
                   </div>
                 )}
 
+                  <div style={{ padding: '1rem', backgroundColor: 'rgba(34, 197, 94, 0.05)', borderRadius: '12px', border: '1px dashed #22c55e', marginBottom: '1rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+                      <span style={{ fontSize: '0.8rem', color: '#166534', fontWeight: 700 }}>{isRTL ? 'رسوم المنصة' : 'Platform Fee'}</span>
+                      <span style={{ fontSize: '0.85rem', fontWeight: 900, color: '#16a34a' }}>£0.00</span>
+                    </div>
+                    <div style={{ fontSize: '0.7rem', color: '#15803d', marginTop: '0.2rem', textAlign: isRTL ? 'right' : 'left' }}>
+                      {isRTL ? 'أنت تدفع مقابل العمالة والمواد المعتمدة فقط' : 'You only pay for labor & approved materials'}
+                    </div>
+                  </div>
+
                  <div>
                     <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', fontWeight: 800 }}>{t.booking.labels.paid}</div>
                     <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--accent-color)', letterSpacing: '-0.03em' }}>{basePrice}</div>
