@@ -328,8 +328,7 @@ export const pa: Dictionary = {
       deleteConfirm: "ਕੀ ਤੁਸੀਂ ਸੱਚਮੁੱਚ ਇਸ ਕੰਮ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?", addError: "ਜੋੜਨ ਵਿੱਚ ਅਸਫਲ।", aiError: "AI ਅਸਫਲ ਰਿਹਾ, ਕਿਰਪਾ ਕਰਕੇ ਹੱਥੀਂ ਦਰਜ ਕਰੋ।"
     },
   },
-  education_sec: {
-    hero: { badge: "ਯੂਕੇ ਦੇ ਵਿਸ਼ੇਸ਼ ਅਧਿਆਪਕ", title1: "ਨਵਾਂ ਹੁਨਰ ਸਿੱਖੋ", title2: "ਮਾਹਰਾਂ ਦੇ ਨਾਲ", subtitle: "ਅਕਾਦਮਿਕ, ਭਾਸ਼ਾਵਾਂ ਅਤੇ ਪੇਸ਼ੇਵਰ ਹੁਨਰਾਂ ਲਈ ਵਿਸ਼ੇਸ਼ ਅਧਿਆਪਕਾਂ ਨਾਲ ਜੁੜੋ। ਤੁਹਾਡੀ ਸਫਲਤਾ ਲਈ ਵਿਅਕਤੀਗਤ ਸਿੱਖਿਆ।", searchPlaceholder: "ਤੁਸੀਂ ਕੀ ਸਿੱਖਣਾ ਚਾਹੁੰਦੇ ਹੋ?", searchBtn: "ਅਧਿਆਪਕ ਲੱਭੋ" },
+  education_sec: { hero: { badge: "ਯੂਕੇ ਦੇ ਵਿਸ਼ੇਸ਼ ਅਧਿਆਪਕ", title1: "ਨਵਾਂ ਹੁਨਰ ਸਿੱਖੋ", title2: "ਮਾਹਰਾਂ ਦੇ ਨਾਲ", subtitle: "ਅਕਾਦਮਿਕ, ਭਾਸ਼ਾਵਾਂ ਅਤੇ ਪੇਸ਼ੇਵਰ ਹੁਨਰਾਂ ਲਈ ਵਿਸ਼ੇਸ਼ ਅਧਿਆਪਕਾਂ ਨਾਲ ਜੁੜੋ। ਤੁਹਾਡੀ ਸਫਲਤਾ ਲਈ ਵਿਅਕਤੀਗਤ ਸਿੱਖਿਆ।", searchPlaceholder: "ਤੁਸੀਂ ਕੀ ਸਿੱਖਣਾ ਚਾਹੁੰਦੇ ਹੋ?", searchBtn: "ਅਧਿਆਪਕ ਲੱਭੋ" },
     forYou: { title: "ਤੁਹਾਡੇ ਲਈ ਸਿਫਾਰਸ਼ਾਂ", match: "AI ਮੈਚ", viewProfile: "ਪ੍ਰੋਫਾਈਲ ਦੇਖੋ" },
     categories: { title: "ਸ਼੍ਰੇਣੀਆਂ ਖੋਜੋ", browseBtn: "ਸਭ ਦੇਖੋ", items: { 
       academic: { title: "Academic Excellence", desc: "GCSE, A-Levels, IB, 11+ Entrance Prep" }, 
@@ -365,8 +364,9 @@ export const pa: Dictionary = {
       assessmentDesc: "ਅਧਿਆਪਕ ਨੂੰ ਤੁਹਾਡੀ ਸਥਿਤੀ ਦੀ ਜਾਣਕਾਰੀ ਦੇ ਦਿੱਤੀ ਗਈ ਹੈ!",
       bookFirstLesson: "ਆਪਣੀ ਪਹਿਲੀ ਕਲਾਸ ਬੁੱਕ ਕਰੋ",
       tryAgain: "ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ"
-    }
-  },
+    },
+    visitDashboard: "ਸਿੱਖਿਆ ਕੇਂਦਰ ਦੀ ਪੜਚੋਲ ਕਰੋ"
+  }, 
   home: {
     hero: { badge: "ਪ੍ਰਮਾਣਿਤ ਸਥਾਨਕ ਪੇਸ਼ੇਵਰ", title1: "ਸਭ ਤੋਂ ਵਧੀਆ ਬੁੱਕ ਕਰੋ", title2: "ਸਥਾਨਕ ਮਾਹਰ", subtitle: "ਯੂਕੇ ਦੇ ਚੋਟੀ ਦੇ 1% ਮਾਹਰਾਂ ਤੱਕ ਤੁਰੰਤ ਪਹੁੰਚ। ਸਾਰੇ ਪ੍ਰਮਾਣਿਤ, ਬੀਮਾਯੁਕਤ ਅਤੇ AI ਦੁਆਰਾ ਗੁਣਵੱਤਾ ਦੀ ਨਿਗਰਾਨੀ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।", searchPlaceholder: "ਮੈਨੂੰ ਲੋੜ ਹੈ...", locationPlaceholder: "ਲੰਡਨ, ਯੂਕੇ",
       aiMatch: "ਸਮਾਰਟ ਮੈਚ",

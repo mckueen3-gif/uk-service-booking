@@ -328,8 +328,7 @@ export const ko: Dictionary = {
       deleteConfirm: "이 포트폴리올를 삭제하시겠습니까?", addError: "추가 실패.", aiError: "AI 생성 실패, 직접 입력해 주세요."
     },
   },
-  education_sec: {
-    hero: { badge: "영국 엘리트 튜터", title1: "새로운 기술 습득", title2: "전문가와 함께", subtitle: "학업, 언어 및 전문 기술을 위한 엘리트 튜터와 연결하세요. 성공을 위한 맞춤형 1:1 교육.", searchPlaceholder: "무엇을 배우고 싶으신가요?", searchBtn: "튜터 찾기" },
+  education_sec: { hero: { badge: "영국 엘리트 튜터", title1: "새로운 기술 습득", title2: "전문가와 함께", subtitle: "학업, 언어 및 전문 기술을 위한 엘리트 튜터와 연결하세요. 성공을 위한 맞춤형 1:1 교육.", searchPlaceholder: "무엇을 배우고 싶으신가요?", searchBtn: "튜터 찾기" },
     forYou: { title: "추천 튜터", match: "AI 매칭 점수", viewProfile: "프로필 보기" },
     categories: { title: "카테고리 탐색", browseBtn: "전체 보기", items: { 
       academic: { title: "Academic Excellence", desc: "GCSE, A-Levels, IB, 11+ Entrance Prep" }, 
@@ -365,8 +364,9 @@ export const ko: Dictionary = {
       assessmentDesc: "튜터에게 진단 데이터가 공유되었습니다. 이를 바탕으로 맞춤 수업을 진행합니다!",
       bookFirstLesson: "첫 수업 예약하기",
       tryAgain: "다시 도전"
-    }
-  },
+    },
+    visitDashboard: "교육 허브 탐색"
+  }, 
   home: {
     hero: { badge: "인증된 현지 전문가", title1: "최고 평점의", title2: "현지 전문가 예약", subtitle: "영국 상위 1% 전문가에게 즉시 액세스하세요. 모두 인증 및 보험에 가입되어 있으며 AI로 품질을 관리합니다.", searchPlaceholder: "필요한 서비스...", locationPlaceholder: "런던, 영국",
       aiMatch: "스마트 매치",

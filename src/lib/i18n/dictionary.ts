@@ -202,6 +202,7 @@ export interface Dictionary {
       assessmentLevels: { excellent: string; progress: string; starting: string };
       assessmentDesc: string; bookFirstLesson: string; tryAgain: string;
     };
+    visitDashboard: string;
   };
   home: {
     hero: { badge: string; title1: string; title2: string; subtitle: string; searchPlaceholder: string; locationPlaceholder: string; aiMatch: string; searchBtn: string; suggestions: string[]; popularLabel: string; popularTags: string[] };

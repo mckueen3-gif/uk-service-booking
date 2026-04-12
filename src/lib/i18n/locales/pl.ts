@@ -317,8 +317,7 @@ export const pl: Dictionary = {
       deleteConfirm: "Czy na pewno chcesz usunąć tę pracę?", addError: "Nie udało się dodać.", aiError: "AI zawiodło, wprowadź ręcznie."
     },
   },
-  education_sec: {
-    hero: { badge: "Elitarni korepetytorzy w Wielkiej Brytanii", title1: "Naucz się nowej umiejętności", title2: "z ekspertami", subtitle: "Połącz się z elitarnymi korepetytorami akademickimi, językowymi i zawodowymi. Spersonalizowana edukacja dla Twojego sukcesu.", searchPlaceholder: "Czego chcesz się nauczyć?", searchBtn: "Znajdź korepetytora" },
+  education_sec: { hero: { badge: "Elitarni korepetytorzy w Wielkiej Brytanii", title1: "Naucz się nowej umiejętności", title2: "z ekspertami", subtitle: "Połącz się z elitarnymi korepetytorami akademickimi, językowymi i zawodowymi. Spersonalizowana edukacja dla Twojego sukcesu.", searchPlaceholder: "Czego chcesz się nauczyć?", searchBtn: "Znajdź korepetytora" },
     forYou: { title: "Rekomendacje dla Ciebie", match: "Dopasowanie AI", viewProfile: "Zobacz profil" },
     categories: { title: "Przeglądaj kategorie", browseBtn: "Zobacz wszystkie", items: { 
       academic: { title: "Academic Excellence", desc: "GCSE, A-Levels, IB, 11+ Entrance Prep" }, 
@@ -354,8 +353,9 @@ export const pl: Dictionary = {
       assessmentDesc: "Korepetytor został poinformowany o Twoim poziomie!",
       bookFirstLesson: "Zarezerwuj pierwszą lekcję",
       tryAgain: "Spróbuj ponownie"
-    }
-  },
+    },
+    visitDashboard: "Odkryj centrum edukacji"
+  }, 
   home: {
     hero: { badge: "Zweryfikowani lokalni profesjonaliści", title1: "Zarezerwuj najlepszych", title2: "lokalnych ekspertów", subtitle: "Natychmiastowy dostęp do top 1% ekspertów w Wielkiej Brytanii. Wszyscy zweryfikowani, ubezpieczeni i monitorowani przez AI.", searchPlaceholder: "Potrzebuję...", locationPlaceholder: "Londyn, Wielka Brytania", aiMatch: "Inteligentne dopasowanie", searchBtn: "Wyszukiwanie kontaktu", suggestions: ["Znajdź inżyniera Gas Safe w Chelsea…", "Zarezerwuj korepetytora z najwyższą oceną dla GCSE…", "Potrzebujesz głębokiego czyszczenia biura?", "Ekspertowa pomoc prawna w sporach o nieruchomości…", "Profesjonalny księgowy podatkowy w Londynie…"], popularLabel: "Popularne", popularTags: ["Remont domu", "Rozliczenie podatkowe", "Głębokie czyszczenie", "Pomoc prawna"] },
     recommendation: { title1: "Dla Ciebie", title2: "Polecane", subtitle: "Najlepsi profesjonaliści na podstawie Twoich potrzeb i lokalizacji.", browse: "Zobacz wszystkie" },

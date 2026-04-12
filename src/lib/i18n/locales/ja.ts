@@ -328,8 +328,7 @@ export const ja: Dictionary = {
       deleteConfirm: "この実績を削除してもよろしいですか？", addError: "追加に失敗しました。", aiError: "AI生成に失敗しました。手動で入力してください。"
     },
   },
-  education_sec: {
-    hero: { badge: "英国のエリート講師", title1: "新しいスキルを", title2: "プロから学ぶ", subtitle: "学業、語学、専門スキルのエリート講師と繋がる。あなたの成功のためのパーソナライズされた学習。", searchPlaceholder: "何を学びたいですか？", searchBtn: "講師を探す" },
+  education_sec: { hero: { badge: "英国のエリート講師", title1: "新しいスキルを", title2: "プロから学ぶ", subtitle: "学業、語学、専門スキルのエリート講師と繋がる。あなたの成功のためのパーソナライズされた学習。", searchPlaceholder: "何を学びたいですか？", searchBtn: "講師を探す" },
     forYou: { title: "あなたへのおすすめ", match: "AIマッチ度", viewProfile: "プロフィールを見る" },
     categories: { title: "カテゴリーから探す", browseBtn: "すべて見る", items: { 
       academic: { title: "Academic Excellence", desc: "GCSE, A-Levels, IB, 11+ Entrance Prep" }, 
@@ -365,8 +364,9 @@ export const ja: Dictionary = {
       assessmentDesc: "講師に診断データが共有されました。これに基づいてカリキュラムを作成します！",
       bookFirstLesson: "初回レッスンを予約",
       tryAgain: "もう一度挑戦"
-    }
-  },
+    },
+    visitDashboard: "教育ハブを探索する"
+  }, 
   home: {
     hero: { badge: "認定済みの地元プロ", title1: "最高評価の", title2: "地元専門家を予約", subtitle: "英国トップ1%の専門家に即時アクセス。全員が認定・保険加入済みで、AIによる品質管理が行われています。", searchPlaceholder: "必要なサービス...", locationPlaceholder: "ロンドン, 英国",
       aiMatch: "スマートマッチ",

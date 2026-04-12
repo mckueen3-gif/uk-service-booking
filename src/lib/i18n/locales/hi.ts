@@ -317,8 +317,7 @@ export const hi: Dictionary = {
       deleteConfirm: "क्या आप वाकई इस कार्य को हटाना चाहते हैं?", addError: "जोड़ने में विफल।", aiError: "AI विफल रहा, कृपया मैन्युअल रूप से दर्ज करें।"
     },
   },
-  education_sec: {
-    hero: { badge: "यूके के विशिष्ट शिक्षक", title1: "नया कौशल सीखें", title2: "विशेषज्ञों के साथ", subtitle: "अकादमिक, भाषाओं और व्यावसायिक कौशल के लिए विशिष्ट शिक्षकों से जुड़ें। आपकी सफलता के लिए व्यक्तिगत शिक्षा।", searchPlaceholder: "आप क्या सीखना चाहते हैं?", searchBtn: "शिक्षक खोजें" },
+  education_sec: { hero: { badge: "यूके के विशिष्ट शिक्षक", title1: "नया कौशल सीखें", title2: "विशेषज्ञों के साथ", subtitle: "अकादमिक, भाषाओं और व्यावसायिक कौशल के लिए विशिष्ट शिक्षकों से जुड़ें। आपकी सफलता के लिए व्यक्तिगत शिक्षा।", searchPlaceholder: "आप क्या सीखना चाहते हैं?", searchBtn: "शिक्षक खोजें" },
     forYou: { title: "आपके लिए सिफारिशें", match: "AI मैच", viewProfile: "प्रोफ़ाइल देखें" },
     categories: { title: "श्रेणियां खोजें", browseBtn: "सभी देखें", items: { 
       academic: { title: "Academic Excellence", desc: "GCSE, A-Levels, IB, 11+ Entrance Prep" }, 
@@ -354,8 +353,9 @@ export const hi: Dictionary = {
       assessmentDesc: "शिक्षक को आपकी स्थिति की जानकारी दे दी गई है!",
       bookFirstLesson: "अपनी पहली कक्षा बुक करें",
       tryAgain: "पुनः प्रयास करें"
-    }
-  },
+    },
+    visitDashboard: "शिक्षा केंद्र का अन्वेषण करें"
+  }, 
   home: {
     hero: { badge: "प्रमाणित स्थानीय पेशेवर", title1: "सर्वश्रेष्ठ बुक करें", title2: "स्थानीय विशेषज्ञ", subtitle: "यूके के शीर्ष 1% विशेषज्ञों तक तत्काल पहुंच। सभी प्रमाणित, बीमित और AI द्वारा गुणवत्ता की निगरानी की जाती है।", searchPlaceholder: "मुझे चाहिए...", locationPlaceholder: "लंदन, यूके", aiMatch: "स्मार्ट मैच", searchBtn: "संपर्क खोजें", suggestions: [
         "चेल्सी में गैस सेफ इंजीनियर खोजें…",

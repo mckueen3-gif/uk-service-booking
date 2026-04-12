@@ -328,8 +328,7 @@ export const ur: Dictionary = {
       deleteConfirm: "کیا آپ واقعی اس کام کو ہٹانا چاہتے ہیں؟", addError: "شامل کرنے میں ناکامی۔", aiError: "AI ناکام رہا، براہ کرم دستی طور پر درج کریں۔"
     },
   },
-  education_sec: {
-    hero: { badge: "برطانیہ کے اعلیٰ اساتذہ", title1: "نئی مہارت سیکھیں", title2: "ماہرین کے ساتھ", subtitle: "اکیڈمک، زبانوں اور پیشہ ورانہ مہارتوں کے لیے اعلیٰ اساتذہ سے جڑیں۔ آپ کی کامیابی کے لیے انفرادی تعلیم۔", searchPlaceholder: "آپ کیا سیکھنا چاہتے ہیں؟", searchBtn: "استاد تلاش کریں" },
+  education_sec: { hero: { badge: "برطانیہ کے اعلیٰ اساتذہ", title1: "نئی مہارت سیکھیں", title2: "ماہرین کے ساتھ", subtitle: "اکیڈمک، زبانوں اور پیشہ ورانہ مہارتوں کے لیے اعلیٰ اساتذہ سے جڑیں۔ آپ کی کامیابی کے لیے انفرادی تعلیم۔", searchPlaceholder: "آپ کیا سیکھنا چاہتے ہیں؟", searchBtn: "استاد تلاش کریں" },
     forYou: { title: "آپ کے لیے سفارشات", match: "AI میچ", viewProfile: "پروفائل دیکھیں" },
     categories: { title: "زمرہ جات تلاش کریں", browseBtn: "تمام دیکھیں", items: { 
       academic: { title: "Academic Excellence", desc: "GCSE, A-Levels, IB, 11+ Entrance Prep" }, 
@@ -365,8 +364,9 @@ export const ur: Dictionary = {
       assessmentDesc: "استاد کو آپ کی صورتحال سے آگاہ کر دیا گیا ہے!",
       bookFirstLesson: "اپنی پہلی کلاس بک کریں",
       tryAgain: "دوبارہ کوشش کریں"
-    }
-  },
+    },
+    visitDashboard: "تعلیمی مرکز کو دریافت کریں"
+  }, 
   home: {
     hero: { badge: "تصدیق شدہ مقامی ماہرین", title1: "بہترین بک کریں", title2: "مقامی ماہرین", subtitle: "برطانیہ کے اعلیٰ 1% ماہرین تک فوری رسائی۔ تمام تصدیق شدہ، انشورنس شدہ اور AI کے ذریعے معیار کی نگرانی کی جاتی ہے۔", searchPlaceholder: "مجھے ضرورت ہے...", locationPlaceholder: "لندن، برطانیہ", aiMatch: "اسمارٹ میچ", searchBtn: "رابطہ تلاش",
       suggestions: [

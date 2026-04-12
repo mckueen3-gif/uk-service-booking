@@ -328,8 +328,7 @@ export const ar: Dictionary = {
       deleteConfirm: "هل أنت متأكد من حذف هذا العمل؟", addError: "فشل الإضافة.", aiError: "فشل AI، يرجى الإدخال يدوياً."
     },
   },
-  education_sec: {
-    hero: { badge: "نخبة مدرسي المملكة المتحدة", title1: "أتقن مهارات جديدة", title2: "مع كبار الخبراء", subtitle: "تواصل مع مدرسي النخبة للأكاديميين واللغات والمهارات المهنية. تعلم خاص مصمم لنجاحك.", searchPlaceholder: "ماذا تريد أن تتعلم؟", searchBtn: "ابحث عن مدرس" },
+  education_sec: { hero: { badge: "نخبة مدرسي المملكة المتحدة", title1: "أتقن مهارات جديدة", title2: "مع كبار الخبراء", subtitle: "تواصل مع مدرسي النخبة للأكاديميين واللغات والمهارات المهنية. تعلم خاص مصمم لنجاحك.", searchPlaceholder: "ماذا تريد أن تتعلم؟", searchBtn: "ابحث عن مدرس" },
     forYou: { title: "توصيات لك", match: "مطابقة AI", viewProfile: "عرض الملف" },
     categories: { title: "تصفح الفئات", browseBtn: "عرض الكل", items: { 
       academic: { title: "Academic Excellence", desc: "GCSE, A-Levels, IB, 11+ Entrance Prep" }, 
@@ -365,8 +364,9 @@ export const ar: Dictionary = {
       assessmentDesc: "تم إرسال بيانات التشخيص للمدرس لتخصيص خطتك الدراسية!",
       bookFirstLesson: "احجز حصتك الأولى",
       tryAgain: "إعادة التحدي"
-    }
-  },
+    },
+    visitDashboard: "استكشف مركز التعليم"
+  }, 
   home: {
     hero: { badge: "محترفون محليون معتمدون", title1: "احجز أفضل", title2: "الخبراء المحليين", subtitle: "وصول فوري إلى أفضل 1% من المتخصصين في المملكة المتحدة. جميعهم معتمدون ومؤمن عليهم ومراقبون بواسطة AI.", searchPlaceholder: "أنا أحتاج...", locationPlaceholder: "لندن، المملكة المتحدة", aiMatch: "مطابقة ذكية", searchBtn: "بحث الاتصال",
       suggestions: [

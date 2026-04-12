@@ -292,8 +292,7 @@ export const ro: Dictionary = {
       deleteConfirm: "Ești sigur că vrei să ștergi această lucrare?", addError: "Nu s-a putut adăuga.", aiError: "AI a eșuat, te rugăm să introduci manual."
     },
   },
-  education_sec: {
-    hero: { badge: "Tutori de elită în UK", title1: "Învață o abilitate nouă", title2: "cu experți", subtitle: "Conectează-te cu tutori de elită pentru studii academice, limbi străine și abilități profesionale. Educație personalizată pentru succesul tău.", searchPlaceholder: "Ce vrei să înveți?", searchBtn: "Găsește tutor" },
+  education_sec: { hero: { badge: "Tutori de elită în UK", title1: "Învață o abilitate nouă", title2: "cu experți", subtitle: "Conectează-te cu tutori de elită pentru studii academice, limbi străine și abilități profesionale. Educație personalizată pentru succesul tău.", searchPlaceholder: "Ce vrei să înveți?", searchBtn: "Găsește tutor" },
     forYou: { title: "Recomandări pentru tine", match: "Potrivire AI", viewProfile: "Vezi profil" },
     categories: { title: "Explorează categorii", browseBtn: "Vezi toate", items: { 
       academic: { title: "Academic Excellence", desc: "GCSE, A-Levels, IB, 11+ Entrance Prep" }, 
@@ -329,8 +328,9 @@ export const ro: Dictionary = {
       assessmentDesc: "Tutorul a fost informat despre nivelul tău!",
       bookFirstLesson: "Rezervă prima lecție",
       tryAgain: "Încearcă din nou"
-    }
-  },
+    },
+    visitDashboard: "Explorează Centrul de Educație"
+  }, 
   home: {
     hero: {
       badge: "Profesioniști locali certificați",
