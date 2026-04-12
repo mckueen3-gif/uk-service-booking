@@ -31,6 +31,7 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
     { href: "/dashboard/services", label: "服務管理 (Services)", icon: ScrollText },
     { href: "/dashboard/merchant/availability", label: "可用時段 (Availability)", icon: Clock },
     { href: "/dashboard/analytics", label: "績效分析 (Analytics)", icon: BarChart3 },
+    { href: "/merchant/verification", label: "專家認證 (Verification)", icon: ShieldCheck },
     { href: "/dashboard/merchant/accounting", label: "會計與稅務 (Tax & Accounting)", icon: Calculator },
     { href: "/dashboard/earnings", label: "收入錢包 (Wallet)", icon: Wallet },
   ] : [

@@ -174,6 +174,36 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
 
   return (
     <div className="animate-fade-up">
+      {/* 🛡️ Verification Status Alert for Unverified Merchants */}
+      {isMerchant && !merchantData?.isVerified && (
+        <div className="glass-panel" style={{
+          padding: '1.5rem 2rem',
+          borderRadius: '24px',
+          background: 'rgba(239, 68, 68, 0.05)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          gap: '2rem',
+          marginBottom: '2.5rem',
+          boxShadow: '0 4px 20px rgba(239, 68, 68, 0.08)'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+            <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', padding: '0.75rem', borderRadius: '14px', color: '#ef4444' }}>
+              <ShieldCheck size={28} />
+            </div>
+            <div>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 900, marginBottom: '0.2rem', color: '#ef4444' }}>未認證專家身份 (Unverified Expert)</h3>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
+                您的帳號目前尚未通過平台合規認證。請儘速上傳專業執照照片以獲得標章並開放在搜尋結果中。
+              </p>
+            </div>
+          </div>
+          <Link href="/merchant/verification" className="btn btn-primary" style={{ flexShrink: 0, padding: '0.75rem 1.5rem', fontWeight: 800 }}>
+            立即進行認證 →
+          </Link>
+        </div>
+      )}
 
       {/* Live Sync Status Bar */}
       <div style={{
