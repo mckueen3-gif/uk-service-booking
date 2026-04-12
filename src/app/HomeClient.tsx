@@ -484,6 +484,7 @@ export default function HomeClient() {
 }
 
 function SpecialistCard({ specialist, idx, city }: { specialist: any, idx: number, city: string }) {
+  const { t } = useTranslation();
   const [imageIdx, setImageIdx] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const portfolio = specialist.portfolio || [];

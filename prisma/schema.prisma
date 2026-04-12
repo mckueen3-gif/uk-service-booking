@@ -509,6 +509,11 @@ enum DocumentType {
   NICEIC
   PUBLIC_LIABILITY
   BUSINESS_LICENSE
+  SIA_LICENSE
+  FOOD_HYGIENE
+  CQC_REG
+  DVLA_CPC
+  DBS_CHECK
 }
 
 enum DocumentStatus {

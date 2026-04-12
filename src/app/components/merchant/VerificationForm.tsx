@@ -9,6 +9,11 @@ const DocumentType = {
   BUSINESS_LICENSE: 'BUSINESS_LICENSE',
   GAS_SAFE: 'GAS_SAFE',
   NICEIC: 'NICEIC',
+  SIA_LICENSE: 'SIA_LICENSE',
+  FOOD_HYGIENE: 'FOOD_HYGIENE',
+  CQC_REG: 'CQC_REG',
+  DVLA_CPC: 'DVLA_CPC',
+  DBS_CHECK: 'DBS_CHECK',
   PUBLIC_LIABILITY: 'PUBLIC_LIABILITY'
 };
 
@@ -89,6 +94,11 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
                 <option value={DocumentType.BUSINESS_LICENSE}>營業執照 (Business License)</option>
                 <option value={DocumentType.GAS_SAFE}>Gas Safe 註冊證</option>
                 <option value={DocumentType.NICEIC}>NICEIC 電工認證</option>
+                <option value={DocumentType.SIA_LICENSE}>SIA 安全人員執照</option>
+                <option value={DocumentType.FOOD_HYGIENE}>食品衛生評級 (Food Hygiene)</option>
+                <option value={DocumentType.CQC_REG}>CQC 醫療護理註冊</option>
+                <option value={DocumentType.DVLA_CPC}>專業駕駛 CPC/DVLA</option>
+                <option value={DocumentType.DBS_CHECK}>DBS 無犯罪紀錄證明</option>
                 <option value={DocumentType.PUBLIC_LIABILITY}>公眾責任保險 (Insurance)</option>
              </select>
            </div>
