@@ -196,7 +196,8 @@ export const ro: Dictionary = {
   search: { 
     filters: "Filtre", keyword: "Cuvânt cheie", location: "Locație", category: "Categorie", minRating: "Rating minim", verifiedOnly: "Doar verificați", 
     apply: "Aplică", sortBy: "Sortează după", sortRating: "Top rating", sortJobs: "Cele mai multe joburi", sortDistance: "Cea mai mică distanță", sortPrice: "Preț: crescător", 
-    foundCount: "Am găsit {{count}} experți", searching: "Căutăm experți...", noResults: "Nu am găsit experți care să corespundă căutării tale", 
+    foundCount: "Am găsit {{count}} experți", searching: "Căutăm experți...", noResults: "Nu am găsit experți care să corespundă căutării tale",
+    trustedBy: "De încredere pentru rezidenții din Regatul Unit și verificat de", 
     noResultsHint: "Încearcă să ajustezi filtrele sau să cauți în altă zonă.", clearFilters: "Șterge tot", 
     basePrice: "Preț estimat de pornire", viewDetails: "Vezi detalii", listView: "Listă", mapView: "Hartă", searchThisArea: "Caută în această zonă",
     verified: "Verificat", insured: "Asigurat", priceAudit: "Audit preț AI: Corect", defaultDesc: "Furnizor de servicii profesionale"

@@ -221,7 +221,8 @@ export const hi: Dictionary = {
   search: { 
     filters: "फिल्टर", keyword: "कीवर्ड", location: "स्थान", category: "श्रेणी", minRating: "न्यूनतम रेटिंग", verifiedOnly: "केवल प्रमाणित", 
     apply: "लागू करें", sortBy: "क्रमबद्ध करें", sortRating: "शीर्ष रेटिंग", sortJobs: "सर्वाधिक कार्य", sortDistance: "निकटतम", sortPrice: "कीमत: कम से उच्च", 
-    foundCount: "{{count}} विशेषज्ञ मिले", searching: "विशेषज्ञों की खोज की जा रही है...", noResults: "आपकी खोज से मेल खाने वाले कोई विशेषज्ञ नहीं मिले", 
+    foundCount: "{{count}} विशेषज्ञ मिले", searching: "विशेषज्ञों की खोज की जा रही है...", noResults: "आपकी खोज से मेल खाने वाले कोई विशेषज्ञ नहीं मिले",
+    trustedBy: "यूके निवासियों द्वारा विश्वसनीय और निम्न द्वारा सत्यापित", 
     noResultsHint: "फिल्टर समायोजित करने या किसी भिन्न क्षेत्र में खोजने का प्रयास करें।", clearFilters: "सभी साफ करें", 
     basePrice: "अनुमानित शुरुआती कीमत", viewDetails: "विवरण देखें", listView: "सूची दृश्य", mapView: "मानचित्र दृश्य", searchThisArea: "इस क्षेत्र में खोजें",
     verified: "प्रमाणित", insured: "बीमाकृत", priceAudit: "AI मूल्य ऑडिट: उचित", defaultDesc: "पेशेवर सेवा प्रदाता"

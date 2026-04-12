@@ -232,7 +232,8 @@ export const pa: Dictionary = {
   search: { 
     filters: "ਫਿਲਟਰ", keyword: "ਕੀਵਰਡ", location: "ਸਥਾਨ", category: "ਸ਼੍ਰੇਣੀ", minRating: "ਘੱਟੋ ਘੱਟ ਰੇਟਿੰਗ", verifiedOnly: "ਸਿਰਫ ਪ੍ਰਮਾਣਿਤ", 
     apply: "ਲਾਗੂ ਕਰੋ", sortBy: "ਕ੍ਰਮਬੱਧ ਕਰੋ", sortRating: "ਚੋਟੀ ਦੀ ਰੇਟਿੰਗ", sortJobs: "ਸਭ ਤੋਂ ਵੱਧ ਕੰਮ", sortDistance: "ਸਭ ਤੋਂ ਨੇੜੇ", sortPrice: "ਕੀਮਤ: ਘੱਟ ਤੋਂ ਵੱਧ", 
-    foundCount: "{{count}} ਮਾਹਰ ਮਿਲੇ", searching: "ਮਾਹਰਾਂ ਦੀ ਖੋਜ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ...", noResults: "ਤੁਹਾਡੀ ਖੋਜ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਕੋਈ ਮਾਹਰ ਨਹੀਂ ਮਿਲਿਆ", 
+    foundCount: "{{count}} ਮਾਹਰ ਮਿਲੇ", searching: "ਮਾਹਰਾਂ ਦੀ ਖੋਜ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ...", noResults: "ਤੁਹਾਡੀ ਖੋਜ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਕੋਈ ਮਾਹਰ ਨਹੀਂ ਮਿਲਿਆ",
+    trustedBy: "ਯੂਕੇ ਨਿਵਾਸੀਆਂ ਦੁਆਰਾ ਭਰੋਸੇਮੰਦ ਅਤੇ ਦੁਆਰਾ ਪ੍ਰਮਾਣਿਤ", 
     noResultsHint: "ਫਿਲਟਰ ਵਿਵਸਥਿਤ ਕਰਨ ਜਾਂ ਕਿਸੇ ਵੱਖਰੇ ਖੇਤਰ ਵਿੱਚ ਖੋਜਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ।", clearFilters: "ਸਭ ਸਾਫ ਕਰੋ", 
     basePrice: "ਅਨੁਮਾਨਿਤ ਸ਼ੁਰੂਆਤੀ ਕੀਮਤ", viewDetails: "ਵੇਰਵੇ ਦੇਖੋ", listView: "ਸੂਚੀ ਦ੍ਰਿਸ਼", mapView: "ਨਕਸ਼ਾ ਦ੍ਰਿਸ਼", searchThisArea: "ਇਸ ਖੇਤਰ ਵਿੱਚ ਖੋਜੋ",
     verified: "ਪ੍ਰਮਾਣਿਤ", insured: "ਬੀਮਾਯੁਕਤ", priceAudit: "AI ਮੁੱਲ ਆਡਿਟ: ਉਚਿਤ", defaultDesc: "ਪੇਸ਼ੇਵਰ ਸੇਵਾ ਪ੍ਰਦਾਤਾ"

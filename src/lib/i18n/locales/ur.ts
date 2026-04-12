@@ -232,7 +232,8 @@ export const ur: Dictionary = {
   search: { 
     filters: "فلٹرز", keyword: "کلیدی لفظ", location: "مقام", category: "زمرہ", minRating: "کم از کم ریٹنگ", verifiedOnly: "صرف تصدیق شدہ", 
     apply: "نافذ کریں", sortBy: "ترتیب دیں", sortRating: "اعلیٰ ریٹنگ", sortJobs: "زیادہ کام", sortDistance: "قریب ترین", sortPrice: "قیمت: کم سے زیادہ", 
-    foundCount: "{{count}} ماہرین ملے", searching: "ماہرین کی تلاش جاری ہے...", noResults: "آپ کی تلاش کے مطابق کوئی ماہر نہیں ملا", 
+    foundCount: "{{count}} ماہرین ملے", searching: "ماہرین کی تلاش جاری ہے...", noResults: "آپ کی تلاش کے مطابق کوئی ماہر نہیں ملا",
+    trustedBy: "یوکے کے رہائشیوں کا قابل اعتماد اور تصدیق شدہ از", 
     noResultsHint: "فلٹرز تبدیل کریں یا کسی دوسرے علاقے میں تلاش کریں۔", clearFilters: "سب صاف کریں", 
     basePrice: "تخمینی ابتدائی قیمت", viewDetails: "تفصیلات دیکھیں", listView: "لسٹ ویو", mapView: "میپ ویو", searchThisArea: "اس علاقے میں تلاش کریں",
     verified: "تصدیق شدہ", insured: "انشورنس شدہ", priceAudit: "AI قیمت آڈٹ: مناسب", defaultDesc: "پیشہ ور سروس فراہم کنندہ"

@@ -232,7 +232,8 @@ export const ar: Dictionary = {
   search: { 
     filters: "الفلاتر", keyword: "الكلمة المفتاحية", location: "الموقع", category: "الفئة", minRating: "أقل تقييم", verifiedOnly: "المعتمدون فقط", 
     apply: "تطبيق", sortBy: "ترتيب حسب", sortRating: "الأعلى تقييماً", sortJobs: "الأكثر عملاً", sortDistance: "الأقرب", sortPrice: "السعر: من الأقل للأعلى", 
-    foundCount: "تم العثور على {{count}} محترف", searching: "جاري البحث عن خبراء...", noResults: "لم يتم العثور على خبراء يطابقون بحثك", 
+    foundCount: "تم العثور على {{count}} محترف", searching: "جاري البحث عن خبراء...", noResults: "لم يتم العثور على خبراء يطابقون بحثك",
+    trustedBy: "موثوق به من قبل سكان المملكة المتحدة وموثق من قبل", 
     noResultsHint: "حاول تعديل الفلاتر أو البحث في منطقة مختلفة.", clearFilters: "مسح الكل", 
     basePrice: "يبدأ من", viewDetails: "عرض التفاصيل", listView: "عرض القائمة", mapView: "عرض الخريطة", searchThisArea: "ابحث في هذه المنطقة",
     verified: "معتمد", insured: "مؤمن عليه", priceAudit: "تدقيق السعر AI: عادل", defaultDesc: "خبير خدمات محترف"

@@ -232,7 +232,8 @@ export const ko: Dictionary = {
   search: { 
     filters: "필터", keyword: "키워드", location: "위치", category: "카테고리", minRating: "최소 평점", verifiedOnly: "인증된 전문가만", 
     apply: "필터 적용", sortBy: "정렬 기준", sortRating: "평점 높은순", sortJobs: "작업 많은순", sortDistance: "거리 가까운순", sortPrice: "가격 낮은순", 
-    foundCount: "{{count}}명의 전문가를 찾았습니다", searching: "전문가를 찾는 중입니다...", noResults: "검색 조건에 맞는 전문가를 찾을 수 없습니다", 
+    foundCount: "{{count}}명의 전문가를 찾았습니다", searching: "전문가를 찾는 중입니다...", noResults: "검색 조건에 맞는 전문가를 찾을 수 없습니다",
+    trustedBy: "영국 거주자가 신뢰하고 다음에서 인증함", 
     noResultsHint: "필터를 조정하거나 다른 지역으로 검색해 보세요.", clearFilters: "필터 초기화", 
     basePrice: "예상 시작 가격", viewDetails: "상세 보기", listView: "리스트 보기", mapView: "지도 보기", searchThisArea: "이 지역 검색",
     verified: "인증됨", insured: "보험 가입됨", priceAudit: "AI 가격 감사: 적정", defaultDesc: "전문 서비스 제공자"

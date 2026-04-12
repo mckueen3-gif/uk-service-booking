@@ -229,6 +229,7 @@ export interface Dictionary {
     eliteBadge: string;
     defaultCategory: string;
     noResults: string;
+    trustedBy: string;
     categories: Record<string, string>;
     sections: Record<string, { title: string; desc: string; items: string[] }>;
     popularTitle: string; popularIn: string; allUK: string;

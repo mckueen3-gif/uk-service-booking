@@ -221,7 +221,8 @@ export const pl: Dictionary = {
   search: { 
     filters: "Filtry", keyword: "Słowo kluczowe", location: "Lokalizacja", category: "Kategoria", minRating: "Min. ocena", verifiedOnly: "Tylko zweryfikowani", 
     apply: "Zastosuj", sortBy: "Sortuj według", sortRating: "Najwyższa ocena", sortJobs: "Najwięcej zleceń", sortDistance: "Najbliżej", sortPrice: "Cena: rosnąco", 
-    foundCount: "Znaleziono {{count}} ekspertów", searching: "Szukanie ekspertów...", noResults: "Nie znaleziono ekspertów pasujących do Twojego wyszukiwania", 
+    foundCount: "Znaleziono {{count}} ekspertów", searching: "Szukanie ekspertów...", noResults: "Nie znaleziono ekspertów pasujących do Twojego wyszukiwania",
+    trustedBy: "Zaufany przez mieszkańców Wielkiej Brytanii i zweryfikowany przez", 
     noResultsHint: "Spróbuj dostosować filtry lub szukać w innym obszarze.", clearFilters: "Wyczyść wszystko", 
     basePrice: "Szacunkowa cena początkowa", viewDetails: "Zobacz szczegóły", listView: "Widok listy", mapView: "Widok mapy", searchThisArea: "Szukaj w tym obszarze",
     verified: "Zweryfikowany", insured: "Ubezpieczony", priceAudit: "Audyt cen AI: Uczciwy", defaultDesc: "Profesjonalny usługodawca"

@@ -232,7 +232,8 @@ export const ja: Dictionary = {
   search: { 
     filters: "フィルター", keyword: "キーワード", location: "場所", category: "カテゴリー", minRating: "最低評価", verifiedOnly: "認定済みのみ", 
     apply: "適用する", sortBy: "並べ替え", sortRating: "評価順", sortJobs: "実績順", sortDistance: "距離順", sortPrice: "価格：安い順", 
-    foundCount: "{{count}}件の専門家が見つかりました", searching: "専門家を探しています...", noResults: "条件に一致する専門家は見つかりませんでした", 
+    foundCount: "{{count}}件の専門家が見つかりました", searching: "専門家を探しています...", noResults: "条件に一致する専門家は見つかりませんでした",
+    trustedBy: "英国居住者に信頼され、以下によって検証されています", 
     noResultsHint: "フィルターを調整するか、別のエリアで検索してみてください。", clearFilters: "クリア", 
     basePrice: "予想開始価格", viewDetails: "詳細を見る", listView: "リスト表示", mapView: "マップ表示", searchThisArea: "このエリアで検索",
     verified: "認定済み", insured: "保険加入済み", priceAudit: "AI価格監査：適正", defaultDesc: "プロフェッショナル・サービスプロバイダー"
