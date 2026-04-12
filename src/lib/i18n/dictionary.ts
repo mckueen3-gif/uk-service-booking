@@ -223,7 +223,7 @@ export interface Dictionary {
       trending: string;
     };
     aiCTA: { badge: string; title1: string; title2: string; subtitle: string; button: string };
-    referralCTA: { badge: string; title: string; subtitle: string; button: string; referralLabel: string };
+    referralCTA: { badge: string; title: string; subtitle: string; button: string; referralLabel: string; voucherDisclaimer: string };
     educationCTA: string;
     eliteLocal: string;
     eliteBadge: string;
