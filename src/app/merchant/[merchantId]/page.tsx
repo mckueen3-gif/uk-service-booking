@@ -9,11 +9,27 @@ export async function generateMetadata({ params }: { params: Promise<{ merchantI
     where: { id: resolvedParams.merchantId }
   });
   
-  if (!merchant) return { title: "Merchant Not Found | ConciergeAI" };
+  if (!merchant) return { title: "Expert Node Not Detected | ConciergeAI" };
   
+  const title = `${merchant.companyName} | Top 1% Verified Expert in ${merchant.city}`;
+  const description = `Directly book ${merchant.companyName} for professional services in ${merchant.city}. Fully insured, background-checked, and rated ${merchant.averageRating} stars.`;
+  const ogImage = merchant.avatarUrl || `https://api.dicebear.com/7.x/avataaars/svg?seed=${merchant.id}`;
+
   return {
-    title: `${merchant.companyName} | Certified Services | ConciergeAI`,
-    description: `Hire ${merchant.companyName} for professional services. ${merchant.averageRating} star rating with verified reviews.`,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [{ url: ogImage, width: 800, height: 800 }],
+      type: 'profile',
+    },
+    twitter: {
+      card: 'summary',
+      title,
+      description,
+      images: [ogImage],
+    }
   };
 }
 

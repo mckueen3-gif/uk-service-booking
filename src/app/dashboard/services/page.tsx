@@ -1,17 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { 
-  Plus, Search, Edit2, Trash2, 
-  Sparkles, TrendingUp, Info, 
-  Loader2, CheckCircle2, AlertCircle,
-  Wrench, ScrollText, DollarSign,
-  Briefcase, X, ChevronRight, MapPin
+  Briefcase, X, ChevronRight, MapPin, 
+  Zap, Clock, ShieldAlert, Plus, Edit2, Trash2, TrendingUp, Info, Sparkles, Loader2
 } from 'lucide-react';
+import { useTranslation } from "@/components/LanguageContext";
 import { getMerchantServices, upsertService, deleteService } from "@/app/actions/services";
 import { getPricingBenchmark } from "@/app/actions/pricing-ai";
 
 export default function ServicesPage() {
+  const { t, format, isRTL } = useTranslation();
   const [services, setServices] = useState<any[]>([]);
   const [merchantCity, setMerchantCity] = useState("London"); // Default
   const [loading, setLoading] = useState(true);
@@ -24,7 +21,10 @@ export default function ServicesPage() {
     category: "Plumbing",
     description: "",
     price: 0,
-    compareCity: "" // City to compare against
+    compareCity: "", // City to compare against
+    isEmergencyAble: false,
+    emergencySurchargePercentage: 0,
+    emergencyResponseTime: ""
   });
 
   // AI Pricing State
@@ -53,7 +53,10 @@ export default function ServicesPage() {
       category: service.category,
       description: service.description || "",
       price: service.price,
-      compareCity: merchantCity
+      compareCity: merchantCity,
+      isEmergencyAble: service.isEmergencyAble || false,
+      emergencySurchargePercentage: service.emergencySurchargePercentage || 0,
+      emergencyResponseTime: service.emergencyResponseTime || ""
     });
     setAiBenchmark(null);
     setModalOpen(true);
@@ -61,7 +64,16 @@ export default function ServicesPage() {
 
   function openNew() {
     setCurrentService(null);
-    setFormData({ name: "", category: "Plumbing", description: "", price: 0, compareCity: merchantCity });
+    setFormData({ 
+      name: "", 
+      category: "Plumbing", 
+      description: "", 
+      price: 0, 
+      compareCity: merchantCity,
+      isEmergencyAble: false,
+      emergencySurchargePercentage: 0,
+      emergencyResponseTime: ""
+    });
     setAiBenchmark(null);
     setModalOpen(true);
   }
@@ -164,7 +176,17 @@ export default function ServicesPage() {
                  </div>
               </div>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 900, marginBottom: '0.4rem', color: '#fff' }}>{s.name}</h3>
-              <p style={{ fontSize: '0.75rem', color: '#d4af37', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem', opacity: 0.8 }}>{s.category}</p>
+              <p style={{ fontSize: '0.75rem', color: '#d4af37', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.6rem', opacity: 0.8 }}>{s.category}</p>
+              
+              {s.isEmergencyAble && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '1rem' }}>
+                  <div style={{ padding: '0.3rem 0.6rem', borderRadius: '8px', backgroundColor: 'rgba(212, 175, 55, 0.15)', color: '#d4af37', fontSize: '0.65rem', fontWeight: 900, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <Zap size={10} fill="#d4af37" /> {t.search.emergencyReady}
+                  </div>
+                  <span style={{ fontSize: '0.7rem', color: '#666', fontWeight: 600 }}>+{s.emergencySurchargePercentage}% {t.booking.labels.expressSurcharge}</span>
+                </div>
+              )}
+
               <p style={{ fontSize: '0.9rem', color: '#999', flex: 1, marginBottom: '2rem', lineHeight: 1.6 }}>{s.description || "尚未添加詳細描述..."}</p>
               
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '1.5rem', borderTop: '1px solid rgba(212, 175, 55, 0.1)' }}>
@@ -350,11 +372,82 @@ export default function ServicesPage() {
                     )}
                  </div>
 
-                 <div>
+                 {/* Emergency Support Configuration */}
+                 <div style={{ 
+                   padding: '1.75rem', 
+                   borderRadius: '24px', 
+                   backgroundColor: formData.isEmergencyAble ? 'rgba(212, 175, 55, 0.08)' : 'rgba(255, 255, 255, 0.02)', 
+                   border: formData.isEmergencyAble ? '1px solid rgba(212, 175, 55, 0.4)' : '1px solid #222',
+                   transition: 'all 0.3s ease'
+                 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+                           <div style={{ 
+                             width: '36px', height: '36px', borderRadius: '10px', 
+                             backgroundColor: formData.isEmergencyAble ? '#d4af37' : '#1a1a1a', 
+                             color: formData.isEmergencyAble ? '#000' : '#d4af37',
+                             display: 'flex', alignItems: 'center', justifyContent: 'center',
+                             transition: 'all 0.3s'
+                           }}>
+                              <Zap size={18} fill={formData.isEmergencyAble ? '#000' : 'none'} />
+                           </div>
+                           <div style={{ textAlign: isRTL ? 'right' : 'left' }}>
+                              <h4 style={{ fontSize: '0.95rem', fontWeight: 800, color: '#fff' }}>{t.booking.labels.expressSupport}</h4>
+                              <p style={{ fontSize: '0.75rem', color: '#666' }}>{isRTL ? 'تمكين خيارات الطوارئ' : 'Enable urgent service options'}</p>
+                           </div>
+                        </div>
+                        <button 
+                         type="button"
+                         onClick={() => setFormData({...formData, isEmergencyAble: !formData.isEmergencyAble})}
+                         style={{ 
+                           width: '48px', height: '24px', borderRadius: '12px', 
+                           backgroundColor: formData.isEmergencyAble ? '#d4af37' : '#333',
+                           position: 'relative', cursor: 'pointer', border: 'none',
+                           transition: 'all 0.3s'
+                         }}
+                        >
+                           <div style={{ 
+                              width: '18px', height: '18px', borderRadius: '50%', backgroundColor: '#fff',
+                              position: 'absolute', top: '3px', 
+                              left: formData.isEmergencyAble ? '27px' : '3px',
+                              transition: 'all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28)'
+                           }} />
+                        </button>
+                     </div>
+
+                    {formData.isEmergencyAble && (
+                      <div className="animate-fade-up" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem', marginTop: '1.5rem', paddingTop: '1.5rem', borderTop: '1px solid rgba(212, 175, 55, 0.2)', direction: isRTL ? 'rtl' : 'ltr' }}>
+                         <div>
+                            <label style={premiumLabelStyle}>{t.booking.labels.expressSurcharge} (%)</label>
+                            <div style={{ position: 'relative' }}>
+                               <input 
+                                 type="number"
+                                 value={formData.emergencySurchargePercentage}
+                                 onChange={e => setFormData({...formData, emergencySurchargePercentage: parseFloat(e.target.value)})}
+                                 style={{ ...premiumInputStyle, [isRTL ? 'paddingLeft' : 'paddingRight']: '2.5rem' }}
+                                />
+                                <span style={{ position: 'absolute', [isRTL ? 'left' : 'right']: '1rem', top: '50%', transform: 'translateY(-50%)', fontWeight: 900, color: '#d4af37' }}>%</span>
+                            </div>
+                         </div>
+                         <div>
+                            <label style={premiumLabelStyle}>{t.booking.labels.responseTime}</label>
+                            <div style={{ position: 'relative' }}>
+                               <input 
+                                 placeholder="..." 
+                                 value={formData.emergencyResponseTime}
+                                 onChange={e => setFormData({...formData, emergencyResponseTime: e.target.value})}
+                                 style={{ ...premiumInputStyle, [isRTL ? 'paddingRight' : 'paddingLeft']: '2.5rem' }}
+                                />
+                                <Clock size={16} style={{ position: 'absolute', [isRTL ? 'right' : 'left']: '0.85rem', top: '50%', transform: 'translateY(-50%)', color: '#d4af37' }} />
+                            </div>
+                         </div>
+                      </div>
+                    )}
+                  <div>
                     <label style={premiumLabelStyle}>詳細描述 (Description)</label>
                     <textarea 
                       rows={5}
-                      placeholder="簡要說明您的服務優勢、包含的工具與特殊資歷..." 
+                      placeholder="..." 
                       style={{ ...premiumInputStyle, resize: 'none' }}
                       value={formData.description}
                       onChange={e => setFormData({...formData, description: e.target.value})}
@@ -373,7 +466,7 @@ export default function ServicesPage() {
                     boxShadow: '0 10px 30px rgba(212, 175, 55, 0.2)'
                   }}
                  >
-                    {currentService ? <><CheckCircle2 size={20} /> 保存變更 (Update)</> : <><Plus size={20} /> 立即發布 (Publish Now)</>}
+                    {currentService ? <><CheckCircle2 size={20} /> {t.common.copy}</> : <><Plus size={20} /> {t.onboarding.buttons.submit}</>}
                  </button>
               </form>
            </div>

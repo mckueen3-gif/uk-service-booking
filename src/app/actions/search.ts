@@ -13,6 +13,7 @@ export type SearchFilters = {
   userLat?: number;
   userLon?: number;
   sortBy?: 'rating' | 'jobs' | 'distance' | 'price';
+  isEmergency?: boolean;
   bounds?: {
     sw: { lat: number; lng: number };
     ne: { lat: number; lng: number };
@@ -20,22 +21,20 @@ export type SearchFilters = {
 };
 
 export async function searchMerchants(filters: SearchFilters) {
-  const { query, category, location, minRating, isVerified, userLat, userLon, sortBy, bounds } = filters;
-  // ... rest of the function ...
-
+  const { query, category, location, minRating, isVerified, userLat, userLon, sortBy, bounds, isEmergency } = filters;
+  
+  try {
     // 1. Build the where clause for Prisma
     const where: any = {
       isVerified: isVerified ? true : undefined,
       averageRating: minRating ? { gte: minRating } : undefined,
     };
 
-    if (category && category !== 'All') {
+    if ((category && category !== 'All') || isEmergency) {
       where.services = {
         some: {
-          category: {
-            equals: category,
-            mode: 'insensitive'
-          }
+          ...(category && category !== 'All' ? { category: { equals: category, mode: 'insensitive' } } : {}),
+          ...(isEmergency ? { isEmergencyAble: true } : {})
         }
       };
     }
@@ -133,4 +132,77 @@ export async function searchMerchants(filters: SearchFilters) {
     }
 
     return results;
+}
+
+// 🚀 NEW: getSmartRecommendations
+export async function getSmartRecommendations(filters: SearchFilters) {
+  const { category, userLat, userLon } = filters;
+  
+  // 1. Fetch top candidates in the category
+  const merchants = await prisma.merchant.findMany({
+    where: {
+      isVerified: true,
+      services: {
+        some: {
+          category: category !== 'All' ? category : undefined
+        }
+      }
+    },
+    include: {
+      services: true,
+      availability: true,
+      bookings: {
+        where: {
+          status: { in: ['PENDING', 'CONFIRMED'] },
+          scheduledDate: {
+            gte: new Date(),
+            lte: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // Next 7 days
+          }
+        }
+      }
+    },
+    take: 15,
+    orderBy: { averageRating: 'desc' }
+  });
+
+  if (merchants.length === 0) return { best: null, closest: null, earliest: null };
+
+  const processed = merchants.map(m => {
+    const distance = (userLat && userLon && m.latitude && m.longitude) 
+      ? getDistance(userLat, userLon, m.latitude, m.longitude)
+      : Infinity;
+
+    // AI Score calculation
+    const aiScore = (m.averageRating * 10) + (m.completedJobsCount * 0.5) - (distance === Infinity ? 0 : distance);
+
+    return { ...m, distance, aiScore };
+  });
+
+  // 2. Identify Best Match (Highest AI Score)
+  const best = [...processed].sort((a, b) => b.aiScore - a.aiScore)[0];
+
+  // 3. Identify Closest
+  const closest = userLat && userLon 
+    ? [...processed].sort((a, b) => a.distance - b.distance)[0]
+    : null;
+
+  // 4. Identify Earliest (Heuristic: check slot availability for tomorrow)
+  // For simplicity in this demo, we'll choose the one with the fewest bookings tomorrow
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  tomorrow.setHours(0,0,0,0);
+  const endOfTomorrow = new Date(tomorrow);
+  endOfTomorrow.setHours(23,59,59,999);
+
+  const earliest = [...processed].sort((a, b) => {
+    const aBookings = a.bookings.filter(bk => bk.scheduledDate >= tomorrow && bk.scheduledDate <= endOfTomorrow).length;
+    const bBookings = b.bookings.filter(bk => bk.scheduledDate >= tomorrow && bk.scheduledDate <= endOfTomorrow).length;
+    return aBookings - bBookings;
+  })[0];
+
+  return {
+    best: best ? { ...best, reason: 'topMatch' } : null,
+    closest: closest && closest.id !== best.id ? { ...closest, reason: 'closest' } : null,
+    earliest: earliest && earliest.id !== best.id && (!closest || earliest.id !== closest.id) ? { ...earliest, reason: 'earliest' } : null
+  };
 }

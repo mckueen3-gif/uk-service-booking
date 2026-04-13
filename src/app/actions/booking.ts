@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { sendBookingConfirmationEmail, sendMerchantJobAlert } from '@/lib/mail';
 import { prisma } from '@/lib/prisma';
 import { getStripeClient } from '@/lib/stripe';
+import { sendEmergencyAlert } from '@/lib/sms';
 
 export async function finalizeBooking(sessionId: string) {
   try {
@@ -13,7 +14,8 @@ export async function finalizeBooking(sessionId: string) {
       return { error: "Payment not completed" };
     }
 
-    const { merchantId, customerId, scheduledDate, serviceId, serviceName, vehicleInfo } = session.metadata || {};
+    const { merchantId, customerId, scheduledDate, serviceId, serviceName, vehicleInfo, isUrgent } = session.metadata || {};
+    const urgentFlag = isUrgent === 'true';
 
     if (!merchantId || !customerId) {
         return { error: "Missing metadata in session" };
@@ -68,6 +70,7 @@ export async function finalizeBooking(sessionId: string) {
         merchantAmount: merchantPayout,
         platformFee: platformFee,
         stripePaymentIntentId: session.payment_intent as string,
+        isUrgent: urgentFlag,
         vehicleReg: vehicle.reg || null,
         vehicleMake: vehicle.make || null,
         vehicleModel: vehicle.model || null,
@@ -96,6 +99,15 @@ export async function finalizeBooking(sessionId: string) {
          customerName: fullCustomer.name || "Customer",
          date: new Date(scheduledDate || Date.now()).toLocaleDateString()
        }).catch(console.error);
+
+       // ⚡ EMERGENCY SMS ALERT
+       if (urgentFlag && fullMerchant?.user?.phone) {
+         sendEmergencyAlert(
+           fullMerchant.user.phone, 
+           fullMerchant.companyName, 
+           service.name
+         ).catch(console.error);
+       }
     }
 
     revalidatePath('/dashboard');

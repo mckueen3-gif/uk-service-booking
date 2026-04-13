@@ -32,31 +32,42 @@ export async function getMerchantServices() {
   };
 }
 
-export async function upsertService(data: { id?: string, name: string, category: string, description?: string, price: number }) {
+export async function upsertService(data: { 
+  id?: string, 
+  name: string, 
+  category: string, 
+  description?: string, 
+  price: number,
+  isEmergencyAble?: boolean,
+  emergencySurchargePercentage?: number,
+  emergencyResponseTime?: string
+}) {
   const merchantId = await getMerchantId();
   if (!merchantId) return { error: "Not authorized" };
 
   try {
+    const serviceData: any = {
+      name: data.name,
+      category: data.category,
+      description: data.description,
+      price: data.price,
+      isEmergencyAble: data.isEmergencyAble,
+      emergencySurchargePercentage: data.emergencySurchargePercentage,
+      emergencyResponseTime: data.emergencyResponseTime
+    };
+
     if (data.id) {
       const service = await prisma.service.update({
         where: { id: data.id, merchantId },
-        data: {
-          name: data.name,
-          category: data.category,
-          description: data.description,
-          price: data.price
-        }
+        data: serviceData
       });
       revalidatePath('/', 'layout');
       return { success: true, service };
     } else {
       const service = await prisma.service.create({
         data: {
-          merchantId,
-          name: data.name,
-          category: data.category,
-          description: data.description,
-          price: data.price
+          ...serviceData,
+          merchantId
         }
       });
       revalidatePath('/', 'layout');

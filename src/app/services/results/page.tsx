@@ -2,8 +2,9 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { searchMerchants } from '@/app/actions/search';
+import { searchMerchants, getSmartRecommendations } from '@/app/actions/search';
 import { Search, Filter, MapPin, Star, ShieldCheck, ArrowUpDown, Loader2, Navigation as NavIcon, LayoutGrid, Map as MapIcon, Sparkles } from 'lucide-react';
+import SmartRecommendations from '@/components/search/SmartRecommendations';
 import Link from 'next/link';
 import VerifiedBadge from '@/app/components/VerifiedBadge';
 import { useTranslation } from "@/components/LanguageContext";
@@ -17,6 +18,7 @@ function SearchResults() {
   const { city, setCity } = useLocation();
   
   const [results, setResults] = useState<any[]>([]);
+  const [recommendations, setRecommendations] = useState<{best:any, closest:any, earliest:any} | null>(null);
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<'list' | 'map'>('list');
   const [bounds, setBounds] = useState<{ sw: { lat: number, lng: number }, ne: { lat: number, lng: number } } | undefined>(undefined);
@@ -28,6 +30,7 @@ function SearchResults() {
   const [minRating, setMinRating] = useState(0);
   const [verifiedOnly, setVerifiedOnly] = useState(false);
   const [sortBy, setSortBy] = useState<'rating' | 'jobs' | 'distance' | 'price'>('rating');
+  const [isEmergency, setIsEmergency] = useState(false);
 
   const performSearch = async (overrideLocation?: string, overrideBounds?: any) => {
     setLoading(true);
@@ -48,9 +51,23 @@ function SearchResults() {
         minRating,
         isVerified: verifiedOnly,
         sortBy,
-        bounds: overrideBounds !== undefined ? overrideBounds : bounds
+        bounds: overrideBounds !== undefined ? overrideBounds : bounds,
+        isEmergency
       });
       setResults(data);
+
+      // 🚀 Fetch Smart Recommendations
+      if (category && category !== 'All') {
+        const recs = await getSmartRecommendations({
+          category,
+          location: activeLocation === ALL_UK || !activeLocation ? undefined : activeLocation,
+          userLat: undefined, // Could get from context if available
+          userLon: undefined
+        });
+        setRecommendations(recs);
+      } else {
+        setRecommendations(null);
+      }
     } catch (err) {
       console.error(err);
     } finally {
@@ -186,6 +203,17 @@ function SearchResults() {
                </div>
             </div>
 
+            {/* Emergency Toggle */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', backgroundColor: 'rgba(239, 68, 68, 0.05)', borderRadius: '0.75rem', cursor: 'pointer', border: '1px solid ' + (isEmergency ? 'var(--accent-color)' : 'transparent'), flexDirection: isRTL ? 'row-reverse' : 'row' }} onClick={() => setIsEmergency(!isEmergency)}>
+               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+                  <Sparkles size={18} color="var(--accent-color)" />
+                  <span style={{ fontSize: '0.9rem', fontWeight: 900, color: 'var(--accent-color)' }}>{t.search.urgentOnly}</span>
+               </div>
+               <div style={{ width: '40px', height: '20px', borderRadius: '10px', backgroundColor: isEmergency ? 'var(--accent-color)' : 'var(--border-color)', position: 'relative' }}>
+                  <div style={{ width: '16px', height: '16px', borderRadius: '50%', backgroundColor: 'var(--surface-1)', position: 'absolute', top: '2px', [isRTL ? 'right' : 'left']: isEmergency ? '22px' : '2px', transition: '0.3s' }} />
+               </div>
+            </div>
+
             <button onClick={() => performSearch()} className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
               {t.search.apply}
             </button>
@@ -303,6 +331,9 @@ function SearchResults() {
             <MapView merchants={results} onSearchInBounds={handleSearchInBounds} />
           ) : (
             <div style={{ display: 'grid', gap: '1.5rem' }}>
+              {!loading && recommendations && viewMode === 'list' && (
+                <SmartRecommendations merchants={recommendations} />
+              )}
               {results.map((merchant: any) => (
                 <Link key={merchant.id} href={`/merchant/${merchant.id}`} className="mobile-stack" style={{ 
                   display: 'flex', 
@@ -348,10 +379,15 @@ function SearchResults() {
                         </div>
                       </div>
                     </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-end', gap: '0.25rem', minWidth: '120px' }}>
+                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-end', gap: '0.25rem', minWidth: '120px' }}>
                       <div style={{ fontSize: '0.75rem', opacity: 0.6 }}>{t.search.basePrice}</div>
                       <div style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--accent-color)' }}>£{merchant.basePrice}</div>
-                      <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)' }}>{t.search.viewDetails}</div>
+                      {merchant.services?.some((s: any) => s.isEmergencyAble) && (
+                        <div style={{ fontSize: '0.65rem', fontWeight: 800, color: '#f59e0b', backgroundColor: 'rgba(245, 158, 11, 0.1)', padding: '2px 6px', borderRadius: '4px', marginTop: '4px' }}>
+                          {t.search.emergencyReady}
+                        </div>
+                      )}
+                      <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)', marginTop: '4px' }}>{t.search.viewDetails}</div>
                     </div>
                 </Link>
               ))}

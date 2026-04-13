@@ -96,18 +96,53 @@ export interface Dictionary {
     foundCount: string; searching: string; noResults: string; noResultsHint: string; clearFilters: string; 
     basePrice: string; viewDetails: string; listView: string; mapView: string; searchThisArea: string;
     verified: string; insured: string; priceAudit: string; defaultDesc: string;
+    emergencyReady: string; urgentOnly: string;
+    recommendations: {
+      title: string;
+      subtitle: string;
+      earliest: string;
+      closest: string;
+      topMatch: string;
+      viewProfile: string;
+    };
   };
   booking: {
     steps: { details: string; schedule: string; confirmation: string };
     titles: { details: string; schedule: string; confirm: string; success: string };
-    labels: { date: string; time: string; make: string; model: string; address: string; notes: string; agree: string; summary: string; paid: string; merchant: string; service: string };
+    labels: { date: string; time: string; make: string; model: string; address: string; notes: string; agree: string; summary: string; paid: string; merchant: string; service: string; expressSupport: string; expressSurcharge: string; responseTime: string };
     buttons: { next: string; prev: string; pay: string; home: string; dashboard: string };
     messages: { finalizing: string; wait: string; contact24h: string; safety: string; noReviews: string; recommended: string; replyFromMaster: string };
   };
   merchant: {
     verified: string; background: string; portfolio: string; reviewTitle: string; realReviews: string; verifiedBooking: string; pricingAnalysis: string; bookingChannel: string; viewServices: string; guarantee: string; fastResponse: string; contactExpert: string; noReviews: string; reply: string;
     dashboard: {
-      title: string; welcome: string; previewProfile: string; manageServices: string;
+      manageServices: string;
+      manageServicesDesc: string;
+      manageAvailability: string;
+      manageAvailabilityDesc: string;
+      verification: {
+        title: string;
+        pending: string;
+        verified: string;
+        unverified: string;
+        uploadTitle: string;
+        docType: string;
+        uploadBtn: string;
+        verifying: string;
+        history: string;
+        types: {
+          license: string;
+          gas: string;
+          electric: string;
+          sia: string;
+          food: string;
+          cqc: string;
+          dvla: string;
+          dbs: string;
+          insurance: string;
+        }
+      };
+      title: string; welcome: string; previewProfile: string;
       stats: { totalBookings: string; rating: string; pendingBalance: string; availableBalance: string; totalJobs: string; escrowHeld: string; availableNow: string; reviews: string };
       syncStatus: string;
       lastSynced: string;

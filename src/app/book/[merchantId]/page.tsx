@@ -57,6 +57,7 @@ export default function BookingPage() {
     turnover: "£85k-500k", 
     software: "Xero" 
   });
+  const [isUrgent, setIsUrgent] = useState(false);
 
   const serviceId = searchParams?.get("serviceId");
   const fallbackServiceName = searchParams?.get("service") || t.booking.labels.service;
@@ -87,7 +88,11 @@ export default function BookingPage() {
 
   const serviceName = service?.name || fallbackServiceName;
   const currentCategory = service?.category || fallbackCategory;
-  const basePrice = service ? `£${service.price}` : fallbackPrice;
+  
+  const surcharge = (isUrgent && service?.emergencySurchargePercentage) ? (service.price * service.emergencySurchargePercentage / 100) : 0;
+  const currentTotalPrice = service ? (service.price + surcharge) : parseFloat(fallbackPrice.replace('£', ''));
+  const basePrice = `£${currentTotalPrice.toFixed(2)}`;
+  
   const companyName = merchant?.companyName || "ConciergeAI Pro";
 
   const isAutoMode = currentCategory.toLowerCase().includes("auto") || currentCategory.toLowerCase().includes("car") || currentCategory.toLowerCase().includes("tires") || currentCategory.toLowerCase().includes("mot");
@@ -158,6 +163,7 @@ export default function BookingPage() {
           serviceName,
           basePriceStr: basePrice,
           scheduledDate: appointmentDate.toISOString(),
+          isUrgent,
           vehicleInfo: isAutoMode ? vehicle : null,
           propertyInfo: isHomeMode ? property : null,
           accountingInfo: isAccountingMode ? accountingData : null
@@ -395,6 +401,50 @@ export default function BookingPage() {
                     ></textarea>
                   </div>
                 )}
+
+                {service?.isEmergencyAble && (
+                  <div className="animate-fade-up" style={{ 
+                    marginTop: '0.5rem', 
+                    padding: '1.25rem', 
+                    borderRadius: '16px', 
+                    border: '1.5px solid ' + (isUrgent ? 'var(--accent-color)' : 'var(--border-color)'),
+                    backgroundColor: isUrgent ? 'rgba(212, 175, 55, 0.05)' : 'var(--surface-2)',
+                    transition: 'all 0.3s ease'
+                  }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+                        <div style={{ 
+                          width: '32px', height: '32px', borderRadius: '8px', 
+                          backgroundColor: isUrgent ? 'var(--accent-color)' : 'var(--surface-3)',
+                          color: isUrgent ? '#000' : 'var(--text-muted)',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center'
+                        }}>
+                          <Zap size={16} fill={isUrgent ? '#000' : 'none'} />
+                        </div>
+                        <div>
+                          <div style={{ fontWeight: 900, color: 'var(--text-primary)', fontSize: '0.95rem' }}>{t.booking.labels.expressSupport}</div>
+                          <div style={{ fontSize: '0.75rem', color: isUrgent ? 'var(--accent-color)' : 'var(--text-secondary)', fontWeight: 600 }}>
+                            {service.emergencyResponseTime || t.merchant.fastResponse} • {t.booking.labels.expressSurcharge} {service.emergencySurchargePercentage}%
+                          </div>
+                        </div>
+                      </div>
+                      <button 
+                        type="button"
+                        onClick={() => setIsUrgent(!isUrgent)}
+                        style={{ 
+                          width: '44px', height: '22px', borderRadius: '11px', 
+                          backgroundColor: isUrgent ? 'var(--accent-color)' : 'var(--border-color)',
+                          position: 'relative', cursor: 'pointer', border: 'none', transition: '0.3s'
+                        }}
+                      >
+                         <div style={{ 
+                            width: '16px', height: '16px', borderRadius: '50%', backgroundColor: '#fff',
+                            position: 'absolute', top: '3px', left: isUrgent ? '25px' : '3px', transition: '0.3s'
+                         }} />
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 
@@ -472,11 +522,11 @@ export default function BookingPage() {
 
                   <div style={{ padding: '1rem', backgroundColor: 'rgba(34, 197, 94, 0.05)', borderRadius: '12px', border: '1px dashed #22c55e', marginBottom: '1rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
-                      <span style={{ fontSize: '0.8rem', color: '#166534', fontWeight: 700 }}>{isRTL ? 'رسوم المنصة' : 'Platform Fee'}</span>
+                      <span style={{ fontSize: '0.8rem', color: '#166534', fontWeight: 700 }}>{t.common.escrow.fees}</span>
                       <span style={{ fontSize: '0.85rem', fontWeight: 900, color: '#16a34a' }}>£0.00</span>
                     </div>
                     <div style={{ fontSize: '0.7rem', color: '#15803d', marginTop: '0.2rem', textAlign: isRTL ? 'right' : 'left' }}>
-                      {isRTL ? 'أنت تدفع مقابل العمالة والمواد المعتمدة فقط' : 'You only pay for labor & approved materials'}
+                      {t.common.escrow.title}
                     </div>
                   </div>
 

@@ -11,7 +11,7 @@ export async function POST(req: Request) {
   try {
     const stripe = await getStripeClient();
     const body = await req.json();
-    const { merchantId, serviceId, serviceName, basePriceStr, scheduledDate, vehicleInfo } = body;
+    const { merchantId, serviceId, serviceName, basePriceStr, scheduledDate, vehicleInfo, isUrgent } = body;
     
     const session = (await getServerSession(authOptions)) as any;
     if (!session?.user?.id) {
@@ -101,6 +101,7 @@ export async function POST(req: Request) {
             serviceId,
             serviceName,
             isEducation: isEducation ? 'true' : 'false',
+            isUrgent: isUrgent ? 'true' : 'false',
             totalAmount: totalAmountInPence.toString(),
             depositAmount: checkoutAmountInPence.toString(),
             balanceAmount: balanceAmountInPence.toString(),

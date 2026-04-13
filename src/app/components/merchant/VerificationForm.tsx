@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react';
 import { Upload, FileCheck, ShieldAlert, Sparkles, Loader2, X, ImageIcon } from 'lucide-react';
 import { submitDocumentForVerification } from '@/app/actions/merchant_verification';
+import { useTranslation } from '@/components/LanguageContext';
 
 // Local enum-like objects to avoid Prisma Client generation sync issues in the UI
 const DocumentType = {
@@ -18,6 +19,7 @@ const DocumentType = {
 };
 
 export default function VerificationForm({ initialStatus }: { initialStatus: any }) {
+  const { t, isRTL } = useTranslation();
   const [docType, setDocType] = useState(DocumentType.BUSINESS_LICENSE);
   const [loading, setLoading] = useState(false);
   const [documents, setDocuments] = useState<any[]>(initialStatus?.documents || []);
@@ -129,33 +131,34 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
         padding: '2.5rem', 
         marginBottom: '2rem', 
         textAlign: 'center',
-        borderBottom: `6px solid ${status === 'VERIFIED' ? '#facc15' : 'var(--border-color)'}`
+        borderBottom: `6px solid ${status === 'VERIFIED' ? '#facc15' : 'var(--border-color)'}`,
+        direction: isRTL ? 'rtl' : 'ltr'
       }}>
         {status === 'VERIFIED' ? (
           <>
             <div style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: '#facc15', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
               <FileCheck size={40} />
             </div>
-            <h2 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#facc15' }}>已成功通過專家驗證！</h2>
-            <p style={{ color: 'var(--text-secondary)' }}>您的專業標章已激活。請保持證書有效期以維持認證狀態。</p>
+            <h2 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#facc15' }}>{t.merchant.dashboard.verification.verified}</h2>
+            <p style={{ color: 'var(--text-secondary)' }}>{isRTL ? 'تم تفعيل شاراتك المهنية.' : 'Your professional badge is active. Please maintain validity.'}</p>
           </>
         ) : (
           <>
             <div style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: 'rgba(255,255,255,0.05)', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
               <ShieldAlert size={40} />
             </div>
-            <h2 style={{ fontSize: '1.8rem', fontWeight: 900 }}>完善您的專家合規性</h2>
-            <p style={{ color: 'var(--text-secondary)' }}>上傳必要的執照與保險證明，解鎖更多平台權限。</p>
+            <h2 style={{ fontSize: '1.8rem', fontWeight: 900 }}>{t.merchant.dashboard.verification.title}</h2>
+            <p style={{ color: 'var(--text-secondary)' }}>{isRTL ? 'قم بتحميل التراخيص اللازمة.' : 'Upload necessary licenses and insurance proofs.'}</p>
           </>
         )}
       </div>
 
       {/* Upload Form */}
-      <form onSubmit={handleVerify} className="glass-panel" style={{ padding: '2rem', display: 'grid', gap: '1.5rem', marginBottom: '2rem' }}>
-        <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '0.5rem' }}>上傳新憑證</h3>
+      <form onSubmit={handleVerify} className="glass-panel" style={{ padding: '2rem', display: 'grid', gap: '1.5rem', marginBottom: '2rem', direction: isRTL ? 'rtl' : 'ltr' }}>
+        <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '0.5rem', textAlign: 'inherit' }}>{t.merchant.dashboard.verification.uploadTitle}</h3>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.5rem' }}>
            <div>
-             <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.5rem' }}>證書類型</label>
+             <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.5rem', textAlign: 'inherit' }}>{t.merchant.dashboard.verification.docType}</label>
              <select 
                 value={docType}
                 onChange={(e) => setDocType(e.target.value)}
@@ -171,15 +174,15 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
                   textAlign: 'center'
                 }}
              >
-                <option value={DocumentType.BUSINESS_LICENSE}>營業執照 (Business License)</option>
-                <option value={DocumentType.GAS_SAFE}>Gas Safe 註冊證</option>
-                <option value={DocumentType.NICEIC}>NICEIC 電工認證</option>
-                <option value={DocumentType.SIA_LICENSE}>SIA 安全人員執照</option>
-                <option value={DocumentType.FOOD_HYGIENE}>食品衛生評級 (Food Hygiene)</option>
-                <option value={DocumentType.CQC_REG}>CQC 醫療護理註冊</option>
-                <option value={DocumentType.DVLA_CPC}>專業駕駛 CPC/DVLA</option>
-                <option value={DocumentType.DBS_CHECK}>DBS 無犯罪紀錄證明</option>
-                <option value={DocumentType.PUBLIC_LIABILITY}>公眾責任保險 (Insurance)</option>
+                <option value={DocumentType.BUSINESS_LICENSE}>{t.merchant.dashboard.verification.types.license}</option>
+                <option value={DocumentType.GAS_SAFE}>{t.merchant.dashboard.verification.types.gas}</option>
+                <option value={DocumentType.NICEIC}>{t.merchant.dashboard.verification.types.electric}</option>
+                <option value={DocumentType.SIA_LICENSE}>{t.merchant.dashboard.verification.types.sia}</option>
+                <option value={DocumentType.FOOD_HYGIENE}>{t.merchant.dashboard.verification.types.food}</option>
+                <option value={DocumentType.CQC_REG}>{t.merchant.dashboard.verification.types.cqc}</option>
+                <option value={DocumentType.DVLA_CPC}>{t.merchant.dashboard.verification.types.dvla}</option>
+                <option value={DocumentType.DBS_CHECK}>{t.merchant.dashboard.verification.types.dbs}</option>
+                <option value={DocumentType.PUBLIC_LIABILITY}>{t.merchant.dashboard.verification.types.insurance}</option>
              </select>
            </div>
 
@@ -306,7 +309,7 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
                        fontSize: '0.7rem',
                        fontWeight: 700
                      }}>
-                       <FileCheck size={12} /> 文件已就緒
+                       <FileCheck size={12} /> {t.merchant.dashboard.verification.fileReady}
                      </div>
                    </div>
                  </div>
@@ -334,7 +337,7 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
                 }}
               >
                 {loading ? <Loader2 size={20} className="animate-spin" /> : <Sparkles size={20} />}
-                {loading ? "AI 審核中..." : selectedFile ? "開始 AI 智能驗證" : "請先上傳證書文件"}
+                {loading ? t.merchant.dashboard.verification.verifying : selectedFile ? t.merchant.dashboard.verification.uploadBtn : t.merchant.dashboard.verification.uploadPlaceholder}
               </button>
            </div>
         </div>
@@ -342,8 +345,8 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
 
       {/* Document History */}
       {documents.length > 0 && (
-        <div className="glass-panel" style={{ padding: '2rem' }}>
-          <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '1.5rem' }}>我的證書檔案</h3>
+        <div className="glass-panel" style={{ padding: '2rem', direction: isRTL ? 'rtl' : 'ltr' }}>
+          <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '1.5rem', textAlign: 'inherit' }}>{t.merchant.dashboard.verification.history}</h3>
           <div style={{ display: 'grid', gap: '1rem' }}>
             {documents.map((doc, idx) => (
               <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', padding: '1rem', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: '12px', border: '1px solid var(--border-color)' }}>

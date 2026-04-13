@@ -22,31 +22,30 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-body" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-heading" });
 
 export const metadata: Metadata = {
-  title: "ConciergeAI | Instantly Book Top 1% Verified UK Experts",
-  description: "Experience the UK's most elite service platform. Instantly book verified electricians, plumbers, legal experts, and home cleaners. AI-powered diagnostics, insured professionals, and guaranteed results.",
-  keywords: ["UK property maintenance", "emergency plumber London", "verified electricians UK", "AI service diagnosis", "professional home cleaning", "legal advice UK", "verified service providers"],
-  authors: [{ name: "ConciergeAI UK Team" }],
+  title: {
+    default: "ConciergeAI | Elite UK & HK Service Experts",
+    template: "%s | ConciergeAI Elite"
+  },
+  description: "Access the top 1% of verified professionals in the UK & HK. AI-driven diagnostics, insured specialists, and guaranteed results for home, legal, and business needs.",
+  keywords: ["verified experts", "emergency repairs", "elite professionals", "UK service booking", "Hong Kong experts", "AI diagnostics", "professional cleaning", "legal advice"],
+  authors: [{ name: "ConciergeAI Elite Team" }],
   openGraph: {
-    title: "ConciergeAI | Elite UK Service Professionals",
-    description: "Book the top 1% of verified local experts in the UK. AI-driven, insured & guaranteed.",
+    title: "ConciergeAI | Instantly Book Top 1% Verified Experts",
+    description: "Experience the most elite service marketplace. Fully verified, insured, and AI-optimized professionals.",
     url: "https://conciergeai.uk",
-    siteName: "ConciergeAI",
-    images: [{ url: "/images/og-image.png", width: 1200, height: 630 }],
+    siteName: "ConciergeAI Elite",
+    images: [{ url: "/images/og-premium.png", width: 1200, height: 630, alt: "ConciergeAI Elite Services" }],
     locale: "en_GB",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ConciergeAI | Top 1% UK Experts",
-    description: "Instantly book verified, insured, and AI-monitored professionals in the UK.",
-    images: ["/images/og-image.png"],
-  },
-  alternates: {
-    canonical: 'https://conciergeai.uk',
+    title: "ConciergeAI | Top 1% Verified Experts",
+    description: "Book insured and AI-monitored professionals instantly. The UK & HK standard for excellence.",
+    images: ["/images/og-premium.png"],
   },
   icons: {
     icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
     apple: '/apple-icon.png',
   },
 };

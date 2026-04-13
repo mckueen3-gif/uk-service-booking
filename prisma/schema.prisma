@@ -230,11 +230,14 @@ model Service {
   price        Float
   teachingMode TeachingMode?
   subjects     String?
-  aiMatchScore Float?
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  bookings     Booking[]
-  merchant     Merchant      @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  aiMatchScore                 Float?
+  isEmergencyAble              Boolean       @default(false)
+  emergencySurchargePercentage Float         @default(0)
+  emergencyResponseTime        String?
+  createdAt                    DateTime      @default(now())
+  updatedAt                    DateTime      @updatedAt
+  bookings                     Booking[]
+  merchant                     Merchant      @relation(fields: [merchantId], references: [id], onDelete: Cascade)
 
   @@index([category])
   @@index([merchantId])
@@ -257,6 +260,7 @@ model Booking {
   stripeBalanceIntentId String?       @unique
   reauthDeadline        DateTime?
   coolingOffUntil       DateTime?
+  isUrgent              Boolean       @default(false)
   createdAt             DateTime      @default(now())
   updatedAt             DateTime      @updatedAt
   vehicleReg            String?

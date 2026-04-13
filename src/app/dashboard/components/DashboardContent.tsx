@@ -19,6 +19,7 @@ import Link from 'next/link';
 import { useTranslation } from "@/components/LanguageContext";
 import { claimReferralCode } from "@/app/actions/referral";
 import { useSession, signOut } from "next-auth/react";
+import ShareProfile from '@/components/merchant/ShareProfile';
 
 const STATUS_COLOR: Record<string, { bg: string; text: string }> = {
   CONFIRMED: { bg: 'rgba(212, 175, 55, 0.12)', text: '#d4af37' },
@@ -175,6 +176,13 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
 
   return (
     <div className="animate-fade-up">
+      {/* 🚀 NEW: Merchant Sharing Tool */}
+      {isMerchant && merchantData && (
+        <div style={{ marginBottom: '2.5rem' }}>
+           <ShareProfile merchantId={merchantData.id} companyName={merchantData.companyName} />
+        </div>
+      )}
+
       {/* 🛡️ Verification Status Alert for Unverified Merchants */}
       {isMerchant && !merchantData?.isVerified && (
         <div className="glass-panel" style={{

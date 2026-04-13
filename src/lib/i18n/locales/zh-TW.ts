@@ -177,7 +177,7 @@ export const zhTW: Dictionary = {
         { q: "是否有隱藏費用？", a: "不。平台不向客戶收取任何服務費。您只需支付師傅的人工費用及經批准的材料費用。" }
       ],
       disputes: [
-        { q: "如果工作不令人滿意怎麼辦？", a: "我們的 AI 仲裁員會根據最初的工作範圍審核照片，以確保公正的解決方案。" },
+        { q: "如果工作不令人滿意怎麼辦？", a: "我們的 AI 仲裁員會根據最初的工作範圍審核照片，以確保公正 की解決方案。" },
         { q: "我該如何申請退款？", a: "如果專家未履行約定條款，您可以通過管理後台發起糾紛。" }
       ],
       bookings: [
@@ -239,18 +239,58 @@ export const zhTW: Dictionary = {
     foundCount: "找到 {{count}} 位專家", searching: "正在尋找專家...", noResults: "找不到符合條件的專家", 
     noResultsHint: "請嘗試調整篩選條件或搜索不同地區。", clearFilters: "清除全部", 
     basePrice: "預估起步價", viewDetails: "查看詳情", listView: "列表視圖", mapView: "地圖視圖", searchThisArea: "搜尋此區域",
-    verified: "已認證", insured: "已投保", priceAudit: "AI 價格審核：合理", defaultDesc: "專業服務商"
+    verified: "已認證", insured: "已投保", priceAudit: "AI 價格審核：合理", defaultDesc: "專業服務商",
+    emergencyReady: "⚡ 緊急服務已就緒",
+    urgentOnly: "僅限緊急服務 ⚡",
+    recommendations: {
+      title: "智能推薦專才",
+      subtitle: "根據您的需求為您定位頂尖專家",
+      earliest: "最快有期",
+      closest: "離您最近",
+      topMatch: "最佳匹配",
+      viewProfile: "查看專家檔案"
+    }
   },
   booking: {
     steps: { details: "工作詳情", schedule: "選擇時間", confirmation: "確認並支付" },
     titles: { details: "請告訴我們您的需求", schedule: "請選擇合適的時間", confirm: "確認您的預訂", success: "預訂已確認！" },
-    labels: { date: "日期", time: "時間", make: "品牌", model: "型號", address: "服務地址", notes: "備註事項", agree: "我同意服務條款 (平台不向客戶收取服務費)", summary: "支付總結", paid: "已支付", merchant: "服務專家", service: "服務項目" },
+    labels: { date: "日期", time: "時間", make: "品牌", model: "型號", address: "服務地址", notes: "備註事項", agree: "我同意服務條款 (平台不向客戶收取服務費)", summary: "支付總結", paid: "已支付", merchant: "服務專家", service: "服務項目", expressSupport: "加急/緊急維修", expressSurcharge: "緊急服務加收", responseTime: "保證回覆時間" },
     buttons: { next: "下一步", prev: "上一步", pay: "安全支付", home: "返回首頁", dashboard: "前去管理後台" },
     messages: { finalizing: "正在完成您的預訂...", wait: "請不要重新整理頁面", contact24h: "您的專家將在 24 小時內與您聯絡。", safety: "為了您的安全，所有支付款項均由託管賬戶保管。", noReviews: "尚無評論", recommended: "強力推薦", replyFromMaster: "專家的回覆" } },
   merchant: {
     verified: "認證專家", background: "已通過背景審核", portfolio: "工作案例", reviewTitle: "客戶評論", realReviews: "來自認證預訂的真實評論", verifiedBooking: "認證預訂", pricingAnalysis: "AI 價格分析", bookingChannel: "專業預訂頻道", viewServices: "查看所有服務", guarantee: "服務保證", fastResponse: "快速響應", contactExpert: "聯絡專家", noReviews: "尚無評論", reply: "回覆",
     dashboard: {
-      title: "商戶後台", welcome: "歡迎回來，", previewProfile: "預覽公開檔案", manageServices: "管理服務項目",
+      title: "營運節點 (Operation Node)",
+      welcome: "歡迎回來",
+      previewProfile: "預覽客戶界面",
+      manageServices: "專業協議管理",
+      manageServicesDesc: "在此定義您提供的服務、定價與 AI 行情對比。",
+      manageAvailability: "服務時段管理",
+      manageAvailabilityDesc: "設定您的工作時間與每日預訂上限。",
+      verification: {
+        title: "專家合規驗證",
+        pending: "等候審核",
+        verified: "已通過身份驗證",
+        unverified: "需要執行操作",
+        uploadTitle: "提交新憑證",
+        docType: "文件證明標準",
+        uploadBtn: "啟動 AI 智能驗證",
+        uploadPlaceholder: "請先上傳證書文件",
+        fileReady: "文件已就緒",
+        verifying: "AI 節點審計中...",
+        history: "合規紀錄庫",
+        types: {
+          license: "營業執照 (Business License)",
+          gas: "Gas Safe 註冊證書",
+          electric: "NICEIC 電工認證",
+          sia: "SIA 安全執照",
+          food: "食品衛生評級",
+          cqc: "CQC 醫療護理註冊",
+          dvla: "專業駕駛 CPC/DVLA",
+          dbs: "DBS 無犯罪紀錄證明",
+          insurance: "公眾責任保險"
+        }
+      },
       stats: { totalBookings: "總預訂數", rating: "平均評分", pendingBalance: "待結算金額", availableBalance: "可提現金額", totalJobs: "總完成任務", escrowHeld: "託管中金額", availableNow: "目前可用", reviews: "評論數" },
       syncStatus: "同步狀態",
       lastSynced: "上次同步",
@@ -362,6 +402,11 @@ export const zhTW: Dictionary = {
         progress: "極具潛力",
         starting: "學習起步"
       },
+      assessmentLevels: {
+        excellent: "基礎紮實",
+        progress: "極具潛力",
+        starting: "學習起步"
+      },
       assessmentDesc: "導師已收到您的診斷數據，將據此為您量身定制課程！",
       bookFirstLesson: "預訂首節課程",
       tryAgain: "重新挑戰"
@@ -371,7 +416,7 @@ export const zhTW: Dictionary = {
       badge: "已認證本地專家",
       title1: "預訂頂級評價",
       title2: "本地專家",
-      subtitle: "即時聯絡英國 Top 1% 的服務商。所有專家均經過認證、投保並由 AI 監控質量。",
+      subtitle: "即時聯絡英國 Top 1% 的服務商。所有專家均經過認證、投保並由 AI 監攻質量。",
       searchPlaceholder: "我需要...",
       locationPlaceholder: "London, UK",
       aiMatch: "智能匹配",

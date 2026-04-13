@@ -283,7 +283,17 @@ export const en: Dictionary = {
     verified: "Certified",
     insured: "Indemnified",
     priceAudit: "AI Value Audit: Optimized",
-    defaultDesc: "Specialist Provider"
+    defaultDesc: "Specialist Provider",
+    emergencyReady: "⚡ EMERGENCY READY",
+    urgentOnly: "Urgent Only ⚡",
+    recommendations: {
+      title: "Smart Recommendations",
+      subtitle: "Top experts verified for your current requirements",
+      earliest: "Earliest Slot",
+      closest: "Closest to You",
+      topMatch: "Best Match",
+      viewProfile: "Expert Profile"
+    }
   },
   booking: {
     steps: {
@@ -308,7 +318,10 @@ export const en: Dictionary = {
       summary: "Settlement Summary",
       paid: "Processed",
       merchant: "Specialist",
-      service: "Protocol"
+      service: "Protocol",
+      expressSupport: "Express / Emergency Support",
+      expressSurcharge: "Urgent Surcharge",
+      responseTime: "Response Time"
     },
     buttons: {
       next: "Proceed",
@@ -348,16 +361,40 @@ export const en: Dictionary = {
       previewProfile: "Audit Public Node",
       manageServices: "Sector Management",
       stats: {
-        totalBookings: "Aggregate Sessions",
-        rating: "Reputation Avg",
-        pendingBalance: "Unsettled Liquidity",
-        availableBalance: "Liquid Capital",
-        totalJobs: "Total Missions",
-        escrowHeld: "Capital In Escrow",
-        availableNow: "Liquid Now",
-        reviews: "Feedback Count"
+        totalBookings: "Confirmed Sessions",
+        rating: "Feedback Loop",
+        pendingBalance: "In-Transit Revenue",
+        availableBalance: "Settled Capital",
+        totalJobs: "Completed Cycles",
+        escrowHeld: "Escrow Reserve",
+        availableNow: "Active Liquidity",
+        reviews: "Client Testimonials"
       },
-      syncStatus: "Comms Sync",
+      verification: {
+        title: "Expert Compliance",
+        pending: "Awaiting Review",
+        verified: "Identity Verified",
+        unverified: "Action Required",
+        uploadTitle: "Submit New Credential",
+        docType: "Standard of Documentation",
+        uploadBtn: "Initiate AI Verification",
+        uploadPlaceholder: "Please upload document first",
+        fileReady: "Document Ready",
+        verifying: "AI Node Auditing...",
+        history: "Compliance Repository",
+        types: {
+          license: "Business License",
+          gas: "Gas Safe Registration",
+          electric: "NICEIC Electrical Cert",
+          sia: "SIA Security License",
+          food: "Food Hygiene Rating",
+          cqc: "CQC Healthcare Reg",
+          dvla: "Professional CPC/DVLA",
+          dbs: "DBS Background Check",
+          insurance: "Public Liability Insurance"
+        }
+      },
+      syncStatus: "System Pulse",
       lastSynced: "Last Uplink",
       refresh: "Recalibrate",
       syncing: "Synchronizing...",
