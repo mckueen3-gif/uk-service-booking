@@ -258,7 +258,7 @@ export interface Dictionary {
       title: string; subtitle: string; step1: string; step2: string; step3: string; uploadHint: string; replaceHint: string;
       submit: string; loading: string; disclaimer: string; newDiagnosis: string; categories: Record<string, string>;
       resultTitle: string; detectedIssue: string; recommendedSolution: string; estimatedCostLabel: string;
-      ukStandard: string; includesLabor: string; bookSpecialist: string; confidence: string; analyzedPhoto: string;
+      ukStandard: string; clinicalStandard: string; includesLabor: string; bookSpecialist: string; confidence: string; analyzedPhoto: string;
       guaranteedRepairs: string; disputeResolution: string; fastTurnaround: string; responseHours: string;
       errorPhotoCategory: string; errorUnexpected: string; uploadFormatHint: string; descriptionPlaceholder: string;
       strictMode: string; strictModeHint: string;

@@ -663,7 +663,7 @@ export const en: Dictionary = {
       detectedIssue: "Identified Fault",
       recommendedSolution: "Calibrated Resolution",
       estimatedCostLabel: "Est. Settlement Range",
-      ukStandard: "UK Standard Baseline",
+      ukStandard: "UK Standard Baseline", clinicalStandard: "Clinical Standard",
       includesLabor: "Includes modules & logic",
       bookSpecialist: "Schedule this Specialist",
       confidence: "Confidence Index",

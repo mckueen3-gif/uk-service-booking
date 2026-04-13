@@ -429,7 +429,7 @@ export const ro: Dictionary = {
       detectedIssue: "Problemă identificată",
       recommendedSolution: "Soluție recomandată",
       estimatedCostLabel: "Interval cost estimat",
-      ukStandard: "UK Standard Baseline",
+      ukStandard: "UK Standard Baseline", clinicalStandard: "Standard clinic",
       includesLabor: "Include manoperă și materiale",
       bookSpecialist: "Rezervă acest expert",
       confidence: "Nivel de încredere",

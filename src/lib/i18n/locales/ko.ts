@@ -459,7 +459,7 @@ export const ko: Dictionary = {
       detectedIssue: "감지된 문제",
       recommendedSolution: "권장 해결책",
       estimatedCostLabel: "예상 비용 범위",
-      ukStandard: "영국 표준 기준",
+      ukStandard: "영국 표준 기준", clinicalStandard: "임상 표준",
       includesLabor: "인건비 및 자재 포함",
       bookSpecialist: "이 전문가 예약하기",
       confidence: "신뢰 수준",

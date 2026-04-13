@@ -459,7 +459,7 @@ export const ja: Dictionary = {
       detectedIssue: "検出された問題",
       recommendedSolution: "推奨される解決策",
       estimatedCostLabel: "予想費用範囲",
-      ukStandard: "英国標準ベースライン",
+      ukStandard: "英国標準ベースライン", clinicalStandard: "臨床標準",
       includesLabor: "工賃・部品代を含む",
       bookSpecialist: "このスペシャリストを予約",
       confidence: "信頼度ステータス",

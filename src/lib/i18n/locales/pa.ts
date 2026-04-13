@@ -459,7 +459,7 @@ export const pa: Dictionary = {
       detectedIssue: "ਪਛਾਣੀ ਗਈ ਸਮੱਸਿਆ",
       recommendedSolution: "ਸਿਫਾਰਸ਼ੀ ਹੱਲ",
       estimatedCostLabel: "ਅਨੁਮਾਨਿਤ ਲਾਗਤ ਸੀਮਾ",
-      ukStandard: "ਯੂਕੇ ਮਿਆਰੀ ਆਧਾਰ",
+      ukStandard: "ਯੂਕੇ ਮਿਆਰੀ ਆਧਾਰ", clinicalStandard: "ਕਲੀਨਿਕਲ ਮਿਆਰ",
       includesLabor: "ਲੇਬਰ ਅਤੇ ਸਮੱਗਰੀ ਸ਼ਾਮਲ",
       bookSpecialist: "ਇਸ ਮਾਹਰ ਨੂੰ ਬੁੱਕ ਕਰੋ",
       confidence: "ਭਰੋਸੇ ਦਾ ਪੱਧਰ",

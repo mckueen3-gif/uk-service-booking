@@ -457,7 +457,7 @@ export const ur: Dictionary = {
       detectedIssue: "نشاندہی کردہ مسئلہ",
       recommendedSolution: "تجویز کردہ حل",
       estimatedCostLabel: "تخمینی لاگت کی حد",
-      ukStandard: "برطانیہ کا معیاری بیس لائن",
+      ukStandard: "برطانیہ کا معیاری بیس لائن", clinicalStandard: "کلینیکل معیار",
       includesLabor: "مزدوری اور سامان شامل ہے",
       bookSpecialist: "اس ماہر کو بک کریں",
       confidence: "اعتماد کی سطح",

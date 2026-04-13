@@ -477,7 +477,7 @@ export const zhTW: Dictionary = {
       detectedIssue: "偵測到的問題",
       recommendedSolution: "建議解決方案",
       estimatedCostLabel: "預估費用範圍",
-      ukStandard: "英國標準價格",
+      ukStandard: "英國標準價格", clinicalStandard: "臨床標準",
       includesLabor: "包含零件與工資",
       bookSpecialist: "預訂此專家",
       confidence: "置信度",

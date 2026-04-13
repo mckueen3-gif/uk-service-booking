@@ -437,7 +437,7 @@ export const pl: Dictionary = {
       detectedIssue: "Zidentyfikowany problem",
       recommendedSolution: "Zalecane rozwiązanie",
       estimatedCostLabel: "Szacunkowy zakres kosztów",
-      ukStandard: "Brytyjski standard bazowy",
+      ukStandard: "Brytyjski standard bazowy", clinicalStandard: "Standard kliniczny",
       includesLabor: "Zawiera robociznę i materiały",
       bookSpecialist: "Zarezerwuj tego eksperta",
       confidence: "Poziom ufności",

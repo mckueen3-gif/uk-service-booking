@@ -443,7 +443,7 @@ export const hi: Dictionary = {
       detectedIssue: "पहचानी गई समस्या",
       recommendedSolution: "अनुशंसित समाधान",
       estimatedCostLabel: "अनुमानित लागत सीमा",
-      ukStandard: "यूके मानक आधार",
+      ukStandard: "यूके मानक आधार", clinicalStandard: "नैदानिक मानक",
       includesLabor: "श्रम और सामग्री शामिल",
       bookSpecialist: "इस विशेषज्ञ को बुक करें",
       confidence: "आत्मविश्वास स्तर",
