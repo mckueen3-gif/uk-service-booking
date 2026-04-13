@@ -246,8 +246,7 @@ export const zhTW: Dictionary = {
     titles: { details: "請告訴我們您的需求", schedule: "請選擇合適的時間", confirm: "確認您的預訂", success: "預訂已確認！" },
     labels: { date: "日期", time: "時間", make: "品牌", model: "型號", address: "服務地址", notes: "備註事項", agree: "我同意服務條款 (平台不向客戶收取服務費)", summary: "支付總結", paid: "已支付", merchant: "服務專家", service: "服務項目" },
     buttons: { next: "下一步", prev: "上一步", pay: "安全支付", home: "返回首頁", dashboard: "前去管理後台" },
-    messages: { finalizing: "正在完成您的預訂...", wait: "請不要重新整理頁面", contact24h: "您的專家將在 24 小時內與您聯絡。", safety: "為了您的安全，所有支付款項均由託管賬戶保管。", noReviews: "尚無評論", recommended: "強力推薦", replyFromMaster: "專家的回覆" },
-  },
+    messages: { finalizing: "正在完成您的預訂...", wait: "請不要重新整理頁面", contact24h: "您的專家將在 24 小時內與您聯絡。", safety: "為了您的安全，所有支付款項均由託管賬戶保管。", noReviews: "尚無評論", recommended: "強力推薦", replyFromMaster: "專家的回覆" } },
   merchant: {
     verified: "認證專家", background: "已通過背景審核", portfolio: "工作案例", reviewTitle: "客戶評論", realReviews: "來自認證預訂的真實評論", verifiedBooking: "認證預訂", pricingAnalysis: "AI 價格分析", bookingChannel: "專業預訂頻道", viewServices: "查看所有服務", guarantee: "服務保證", fastResponse: "快速響應", contactExpert: "聯絡專家", noReviews: "尚無評論", reply: "回覆",
     dashboard: {
@@ -290,9 +289,7 @@ export const zhTW: Dictionary = {
           statusReady: "可使用",
           voucherDisclaimer: "適用於各大超市及支付系統。",
           confirmRedeem: "您確定要兌換現金券嗎？將在 24 小時內發放。",
-          requestSuccess: "申請成功！正在分配您的代碼。請稍後查看卡包。",
-        },
-      },
+          requestSuccess: "申請成功！正在分配您的代碼。請稍後查看卡包。" } },
       bookings: { title: "最近預訂", viewAll: "查看所有預訂", empty: "尚無最近預訂", completed: "已完成", actions: { confirm: "確認預訂", complete: "標記為已完成", variation: "請求額外工作支付" } },
       status: { pending: "待處理", confirmed: "已確認", completed: "已完成", cancelled: "已取消" },
       variations: { label: "額外工作支付", status: "狀態", pending: "等待用戶批准", approved: "已批准", rejected: "已拒絕", arbiterActive: "AI 仲裁員審核中" },
@@ -329,8 +326,7 @@ export const zhTW: Dictionary = {
       title: "工作案例", subtitle: "展示您最優秀的作品以贏得更多預訂。", addBtn: "添加案例", emptyTitle: "尚無案例", emptyDesc: "添加過往項目的照片以建立新客人的信任。",
       modal: { title: "添加案例", itemTitle: "項目標題", itemTitlePlaceholder: "例如：倫敦鍋爐安裝工程", category: "類別", uploadPhoto: "上傳項目照片", errorSize: "照片大小必須小於 5MB", details: "項目詳情", aiBtn: "AI 生成內容", aiGenerating: "撰寫中...", detailsPlaceholder: "描述所做的工作、挑戰和結果。", cancel: "取消", publish: "發布案例" },
       deleteConfirm: "您確定要刪除此案例嗎？", addError: "添加案例失敗。", aiError: "AI 生成失敗，請手動輸入。"
-    },
-  },
+    } },
   education_sec: {
     hero: { badge: "英國精英導師", title1: "掌握新技能", title2: "與頂尖專家同行", subtitle: "為學業、語言和專業技能連接精英導師。為您的成功量身定制的一對一私人教學。", searchPlaceholder: "您想學習什麼？", searchBtn: "尋找導師" },
     forYou: { title: "為您推薦", match: "AI 匹配分", viewProfile: "查看個人檔案" },
@@ -388,7 +384,7 @@ export const zhTW: Dictionary = {
         "倫敦專業稅務會計師…"
       ],
       popularLabel: "熱門精選",
-      popularTags: ["家居升級翻新", "稅務申報優化", "深度淨化清潔", "專業法律支援"], trustedBy: "受到英國居民信任並經過驗證" },
+      popularTags: ["家居升級翻新", "稅務申報優化", "深度淨化清潔", "專業法律支援"] },
     recommendation: { title1: "為您", title2: "推薦", subtitle: "根據您的需求和近期位置匹配的頂尖專業人士。", browse: "查看所有專家" },
     recommendationResults: {
       trendingTitle: "{{city}} 熱門服務：{{category}}",
@@ -420,7 +416,7 @@ export const zhTW: Dictionary = {
     eliteBadge: "精英專家",
     defaultCategory: "服務專家",
     noResults: "此分類下暫未找到專家。",
-    trustedBy: "受英國居民信賴並由以下機構驗證",
+    trustedBy: "受到英國居民信任並經過驗證",
     categories: { plumbing: "水電", repairs: "維修", renovation: "裝修", education: "教育", accounting: "會計", legal: "法律", commercial: "商業", cleaning: "清潔", car: "汽車" },
     sections: {
       plumbing: { title: "水電與工程", desc: "從緊急漏水到全屋佈線，我們為您聯絡認證專業技術人員。", items: ["水管維修", "電路佈線", "電器安裝", "鍋爐檢修", "開關更換", "智能家居"] },

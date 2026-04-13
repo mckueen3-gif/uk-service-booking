@@ -196,8 +196,7 @@ export const ro: Dictionary = {
   search: { 
     filters: "Filtre", keyword: "Cuvânt cheie", location: "Locație", category: "Categorie", minRating: "Rating minim", verifiedOnly: "Doar verificați", 
     apply: "Aplică", sortBy: "Sortează după", sortRating: "Top rating", sortJobs: "Cele mai multe joburi", sortDistance: "Cea mai mică distanță", sortPrice: "Preț: crescător", 
-    foundCount: "Am găsit {{count}} experți", searching: "Căutăm experți...", noResults: "Nu am găsit experți care să corespundă căutării tale",
-    trustedBy: "De încredere pentru rezidenții din Regatul Unit și verificat de", 
+    foundCount: "Am găsit {{count}} experți", searching: "Căutăm experți...", noResults: "Nu am găsit experți care să corespundă căutării tale", 
     noResultsHint: "Încearcă să ajustezi filtrele sau să cauți în altă zonă.", clearFilters: "Șterge tot", 
     basePrice: "Preț estimat de pornire", viewDetails: "Vezi detalii", listView: "Listă", mapView: "Hartă", searchThisArea: "Caută în această zonă",
     verified: "Verificat", insured: "Asigurat", priceAudit: "Audit preț AI: Corect", defaultDesc: "Furnizor de servicii profesionale"
@@ -207,8 +206,7 @@ export const ro: Dictionary = {
     titles: { details: "Spune-ne despre nevoile tale", schedule: "Alege o oră", confirm: "Confirmă rezervarea", success: "Rezervare confirmată!" },
     labels: { date: "Data", time: "Ora", make: "Marcă", model: "Model", address: "Adresă", notes: "Instrucțiuni speciale", agree: "Sunt de acord cu termenii (0% taxă de platformă pentru clienți)", summary: "Sumar plată", paid: "Plătit", merchant: "Expert", service: "Serviciu" },
     buttons: { next: "Înainte", prev: "Înapoi", pay: "Plată securizată", home: "Acasă", dashboard: "Panou" },
-    messages: { finalizing: "Finalizăm rezervarea...", wait: "Te rugăm să nu reîmprospătezi pagina", contact24h: "Expertul te va contacta în termen de 24 de ore.", safety: "Pentru siguranța ta, toate plățile sunt păstrate în escrow.", noReviews: "Nicio recenzie încă", recommended: "Recomandat cu încredere", replyFromMaster: "Răspuns de la expert" },
-  },
+    messages: { finalizing: "Finalizăm rezervarea...", wait: "Te rugăm să nu reîmprospătezi pagina", contact24h: "Expertul te va contacta în termen de 24 de ore.", safety: "Pentru siguranța ta, toate plățile sunt păstrate în escrow.", noReviews: "Nicio recenzie încă", recommended: "Recomandat cu încredere", replyFromMaster: "Răspuns de la expert" } },
   merchant: {
     verified: "Expert verificat", background: "Cazier verificat", portfolio: "Portofoliu lucrări", reviewTitle: "Recenzii clienți", realReviews: "Recenzii reale din rezervări verificate", verifiedBooking: "Rezervare verificată", pricingAnalysis: "Analiză preț AI", bookingChannel: "Canal rezervare profesional", viewServices: "Vezi toate serviciile", guarantee: "Garanție serviciu", fastResponse: "Răspuns rapid", contactExpert: "Contactează expertul", noReviews: "Nicio recenzie", reply: "Răspunde",
     dashboard: {
@@ -251,9 +249,7 @@ export const ro: Dictionary = {
           statusReady: "Gata",
           voucherDisclaimer: "Valabil în principalele supermarketuri și sisteme de plată.",
           confirmRedeem: "Ești sigur că vrei să revendici recompensa? Va fi emisă în 24 de ore.",
-          requestSuccess: "Cerere reușită! Codul tău este alocat. Te rugăm să verifici seiful mai târziu.",
-        },
-      },
+          requestSuccess: "Cerere reușită! Codul tău este alocat. Te rugăm să verifici seiful mai târziu." } },
       bookings: { title: "Rezervări recente", viewAll: "Vezi toate", empty: "Nicio rezervare recentă", completed: "Finalizat", actions: { confirm: "Confirmă", complete: "Finalizat", variation: "Cerere plată suplimentară" } },
       status: { pending: "În așteptare", confirmed: "Confirmat", completed: "Finalizat", cancelled: "Anulat" },
       variations: { label: "Variație preț", status: "Status", pending: "Așteptare client", approved: "Aprobat", rejected: "Respins", arbiterActive: "Arbitru AI activ" },
@@ -290,8 +286,7 @@ export const ro: Dictionary = {
       title: "Portofoliu lucrări", subtitle: "Arată cele mai bune lucrări ale tale pentru a obține mai multe rezervări.", addBtn: "Adaugă lucrare", emptyTitle: "Nicio lucrare", emptyDesc: "Adaugă fotografii cu proiectele tale trecute pentru a construi încredere.",
       modal: { title: "Adaugă lucrare", itemTitle: "Titlu", itemTitlePlaceholder: "ex: Instalare boiler în Londra", category: "Categorie", uploadPhoto: "Încarcă foto proiect", errorSize: "Fotografia trebuie să aibă sub 5MB", details: "Detalii", aiBtn: "Generează AI", aiGenerating: "Se scrie...", detailsPlaceholder: "Descrie lucrarea efectuată, provocările și rezultatele.", cancel: "Anulează", publish: "Publică" },
       deleteConfirm: "Ești sigur că vrei să ștergi această lucrare?", addError: "Nu s-a putut adăuga.", aiError: "AI a eșuat, te rugăm să introduci manual."
-    },
-  },
+    } },
   education_sec: { hero: { badge: "Tutori de elită în UK", title1: "Învață o abilitate nouă", title2: "cu experți", subtitle: "Conectează-te cu tutori de elită pentru studii academice, limbi străine și abilități profesionale. Educație personalizată pentru succesul tău.", searchPlaceholder: "Ce vrei să înveți?", searchBtn: "Găsește tutor" },
     forYou: { title: "Recomandări pentru tine", match: "Potrivire AI", viewProfile: "Vezi profil" },
     categories: { title: "Explorează categorii", browseBtn: "Vezi toate", items: { 
@@ -348,7 +343,7 @@ export const ro: Dictionary = {
         "Contabil fiscal profesionist în Londra…"
       ],
       popularLabel: "Popular",
-      popularTags: ["Renovare locuință", "Depunere taxe", "Curățenie profundă", "Asistență juridică"], trustedBy: "De încredere pentru rezidenții din Marea Britanie și verificat de" },
+      popularTags: ["Renovare locuință", "Depunere taxe", "Curățenie profundă", "Asistență juridică"] },
     recommendation: { title1: "Pentru tine", title2: "Recomandat", subtitle: "Cei mai buni profesioniști bazat pe nevoile și locația ta.", browse: "Vezi toate" },
     recommendationResults: {
       trendingTitle: "Popular în {{city}}: {{category}}",
@@ -373,6 +368,7 @@ export const ro: Dictionary = {
     eliteBadge: "Expert de elită",
     defaultCategory: "Expert servicii",
     noResults: "Momentan nu sunt experți în această categorie.",
+    trustedBy: "De încredere pentru rezidenții din Marea Britanie și verificat de",
     categories: { plumbing: "Instalații", repairs: "Reparații", renovation: "Renovări", education: "Educație", accounting: "Contabilitate", legal: "Juridic", commercial: "Comercial", cleaning: "Curățenie", car: "Auto" },
     sections: {
       plumbing: { title: "Instalații și Tehnic", desc: "De la scurgeri de urgență la cablaje complexe, te conectăm cu tehnicieni certificați.", items: ["Reparații scurgeri", "Electrică", "Instalare electrocasnice", "Service boiler", "Prize", "Smart Home"] },

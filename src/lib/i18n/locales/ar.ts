@@ -242,8 +242,7 @@ export const ar: Dictionary = {
     titles: { details: "أخبرنا عن احتياجاتك", schedule: "اختر موعداً", confirm: "أكد حجزك", success: "تم تأكيد الحجز!" },
     labels: { date: "التاريخ", time: "الوقت", make: "الماركة", model: "الموديل", address: "العنوان", notes: "ملاحظات", agree: "أوافق على الشروط (رسوم منصة مجانية للعملاء)", summary: "ملخص الدفع", paid: "مدفوع", merchant: "الخبير", service: "الخدمة" },
     buttons: { next: "التالي", prev: "السابق", pay: "دفع آمن", home: "الرئيسية", dashboard: "لوحة التحكم" },
-    messages: { finalizing: "جاري إنهاء حجزك...", wait: "يرجى عدم تحديث الصفحة", contact24h: "سيتصل بك الخبير خلال 24 ساعة.", safety: "لأمانك، يتم الاحتفاظ بجميع المدفوعات في حساب ضمان.", noReviews: "لا توجد تقييمات بعد", recommended: "موصى به بشدة", replyFromMaster: "رد من الخبير" },
-  },
+    messages: { finalizing: "جاري إنهاء حجزك...", wait: "يرجى عدم تحديث الصفحة", contact24h: "سيتصل بك الخبير خلال 24 ساعة.", safety: "لأمانك، يتم الاحتفاظ بجميع المدفوعات في حساب ضمان.", noReviews: "لا توجد تقييمات بعد", recommended: "موصى به بشدة", replyFromMaster: "رد من الخبير" } },
   merchant: {
     verified: "متخصص معتمد", background: "تم التحقق من الخلفية", portfolio: "معرض الأعمال", reviewTitle: "تقييمات العملاء", realReviews: "تقييمات حقيقية من حجوزات معتمدة", verifiedBooking: "حجز معتمد", pricingAnalysis: "تحليل الأسعار AI", bookingChannel: "قناة حجز احترافية", viewServices: "عرض كافة الخدمات", guarantee: "ضمان الخدمة", fastResponse: "استجابة سريعة", contactExpert: "اتصل بالخبير", noReviews: "لا توجد تقييمات", reply: "رد",
     dashboard: {
@@ -286,9 +285,7 @@ export const ar: Dictionary = {
           statusReady: "جاهز",
           voucherDisclaimer: "صالح في المتاجر الكبرى وأنظمة الدفع الرئيسية.",
           confirmRedeem: "هل أنت متأكد من رغبتك في تبديل المكافأة؟ سيتم الإصدار خلال 24 ساعة.",
-          requestSuccess: "تم الطلب بنجاح! جاري تخصيص كودك. يرجى التحقق من محفظتك لاحقاً.",
-        },
-      },
+          requestSuccess: "تم الطلب بنجاح! جاري تخصيص كودك. يرجى التحقق من محفظتك لاحقاً." } },
       bookings: { title: "الحجوزات الأخيرة", viewAll: "عرض الكل", empty: "لا توجد حجوزات أخيرة", completed: "مكتمل", actions: { confirm: "تأكيد", complete: "تحديد كمكتمل", variation: "طلب دفع إضافي" } },
       status: { pending: "قيد الانتظار", confirmed: "مؤكد", completed: "مكتمل", cancelled: "ملغي" },
       variations: { label: "تغيير السعر", status: "الحالة", pending: "في انتظار العميل", approved: "تمت الموافقة", rejected: "مرفوض", arbiterActive: "تحكيم AI نشط" },
@@ -325,8 +322,7 @@ export const ar: Dictionary = {
       title: "إدارة الأعمال", subtitle: "اعرض أفضل أعمالك لجذب المزيد من العملاء.", addBtn: "إضافة عمل", emptyTitle: "لا توجد أعمال", emptyDesc: "أضف صوراً لمشاريعك السابقة لبناء الثقة.",
       modal: { title: "إضافة عمل", itemTitle: "العنوان", itemTitlePlaceholder: "مثلاً: تركيب غلاية في لندن", category: "الفئة", uploadPhoto: "رفع صور المشروع", errorSize: "يجب أن يكون الحجم أقل من 5 ميجابايت", details: "التفاصيل", aiBtn: "توليد بالذكاء الاصطناعي", aiGenerating: "جاري الكتابة...", detailsPlaceholder: "صف العمل الذي قمت به والنتائج.", cancel: "إلغاء", publish: "نشر" },
       deleteConfirm: "هل أنت متأكد من حذف هذا العمل؟", addError: "فشل الإضافة.", aiError: "فشل AI، يرجى الإدخال يدوياً."
-    },
-  },
+    } },
   education_sec: { hero: { badge: "نخبة مدرسي المملكة المتحدة", title1: "أتقن مهارات جديدة", title2: "مع كبار الخبراء", subtitle: "تواصل مع مدرسي النخبة للأكاديميين واللغات والمهارات المهنية. تعلم خاص مصمم لنجاحك.", searchPlaceholder: "ماذا تريد أن تتعلم؟", searchBtn: "ابحث عن مدرس" },
     forYou: { title: "توصيات لك", match: "مطابقة AI", viewProfile: "عرض الملف" },
     categories: { title: "تصفح الفئات", browseBtn: "عرض الكل", items: { 

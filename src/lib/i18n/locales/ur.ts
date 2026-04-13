@@ -232,8 +232,7 @@ export const ur: Dictionary = {
   search: { 
     filters: "فلٹرز", keyword: "کلیدی لفظ", location: "مقام", category: "زمرہ", minRating: "کم از کم ریٹنگ", verifiedOnly: "صرف تصدیق شدہ", 
     apply: "نافذ کریں", sortBy: "ترتیب دیں", sortRating: "اعلیٰ ریٹنگ", sortJobs: "زیادہ کام", sortDistance: "قریب ترین", sortPrice: "قیمت: کم سے زیادہ", 
-    foundCount: "{{count}} ماہرین ملے", searching: "ماہرین کی تلاش جاری ہے...", noResults: "آپ کی تلاش کے مطابق کوئی ماہر نہیں ملا",
-    trustedBy: "یوکے کے رہائشیوں کا قابل اعتماد اور تصدیق شدہ از", 
+    foundCount: "{{count}} ماہرین ملے", searching: "ماہرین کی تلاش جاری ہے...", noResults: "آپ کی تلاش کے مطابق کوئی ماہر نہیں ملا", 
     noResultsHint: "فلٹرز تبدیل کریں یا کسی دوسرے علاقے میں تلاش کریں۔", clearFilters: "سب صاف کریں", 
     basePrice: "تخمینی ابتدائی قیمت", viewDetails: "تفصیلات دیکھیں", listView: "لسٹ ویو", mapView: "میپ ویو", searchThisArea: "اس علاقے میں تلاش کریں",
     verified: "تصدیق شدہ", insured: "انشورنس شدہ", priceAudit: "AI قیمت آڈٹ: مناسب", defaultDesc: "پیشہ ور سروس فراہم کنندہ"
@@ -243,8 +242,7 @@ export const ur: Dictionary = {
     titles: { details: "ہمیں اپنی ضروریات کے بارے میں بتائیں", schedule: "وقت کا انتخاب کریں", confirm: "اپنی بکنگ کی تصدیق کریں", success: "بکنگ کی تصدیق ہو گئی!" },
     labels: { date: "تاریخ", time: "وقت", make: "برانڈ", model: "ماڈل", address: "پتہ", notes: "خصوصی ہدایات", agree: "میں شرائط سے متفق ہوں (صارفین کے لیے زیرو پلیٹ فارم فیس)", summary: "ادائیگی کا خلاصہ", paid: "ادا شدہ", merchant: "ماہر", service: "سروس" },
     buttons: { next: "اگلا", prev: "پچھلا", pay: "محفوظ ادائیگی", home: "ہوم", dashboard: "ڈیش بورڈ" },
-    messages: { finalizing: "آپ کی بکنگ کو حتمی شکل دی جا رہی ہے...", wait: "براہ کرم پیج ریفریش نہ کریں", contact24h: "آپ کا ماہر 24 گھنٹے کے اندر آپ سے رابطہ کرے گا۔", safety: "آپ کی حفاظت کے لیے، تمام ادائیگیاں ایسکرو اکاؤنٹ میں رکھی جاتی ہیں۔", noReviews: "ابھی تک کوئی تبصرہ نہیں", recommended: "انتہائی تجویز کردہ", replyFromMaster: "ماہر کا جواب" },
-  },
+    messages: { finalizing: "آپ کی بکنگ کو حتمی شکل دی جا رہی ہے...", wait: "براہ کرم پیج ریفریش نہ کریں", contact24h: "آپ کا ماہر 24 گھنٹے کے اندر آپ سے رابطہ کرے گا۔", safety: "آپ کی حفاظت کے لیے، تمام ادائیگیاں ایسکرو اکاؤنٹ میں رکھی جاتی ہیں۔", noReviews: "ابھی تک کوئی تبصرہ نہیں", recommended: "انتہائی تجویز کردہ", replyFromMaster: "ماہر کا جواب" } },
   merchant: {
     verified: "تصدیق شدہ ماہر", background: "بیک گراؤنڈ چیک مکمل", portfolio: "کام کا پورٹ فولیو", reviewTitle: "صارفین کے تبصرے", realReviews: "تصدیق شدہ بکنگ سے حقیقی تبصرے", verifiedBooking: "تصدیق شدہ بکنگ", pricingAnalysis: "AI قیمت کا تجزیہ", bookingChannel: "پیشہ ورانہ بکنگ چینل", viewServices: "تمام سروسز دیکھیں", guarantee: "سروس گارنٹی", fastResponse: "فوری جواب", contactExpert: "ماہر سے رابطہ کریں", noReviews: "کوئی تبصرہ نہیں", reply: "جواب دیں",
     dashboard: {
@@ -287,9 +285,7 @@ export const ur: Dictionary = {
           statusReady: "تیار",
           voucherDisclaimer: "بڑے سپر مارکیٹوں اور ادائیگی کے نظاموں پر قابل قبول۔",
           confirmRedeem: "کیا آپ واقعی انعام حاصل کرنا چاہتے ہیں؟ 24 گھنٹے کے اندر جاری کیا جائے گا۔",
-          requestSuccess: "درخواست کامیاب! آپ کا کوڈ مختص کیا جا رہا ہے۔ براہ کرم بعد میں اپنا والٹ چیک کریں۔",
-        },
-      },
+          requestSuccess: "درخواست کامیاب! آپ کا کوڈ مختص کیا جا رہا ہے۔ براہ کرم بعد میں اپنا والٹ چیک کریں۔" } },
       bookings: { title: "حالیہ بکنگ", viewAll: "تمام دیکھیں", empty: "کوئی حالیہ بکنگ نہیں", completed: "مکمل", actions: { confirm: "تصدیق کریں", complete: "مکمل ہو گیا", variation: "اضافی ادائیگی کی درخواست" } },
       status: { pending: "زیر التوا", confirmed: "تصدیق شدہ", completed: "مکمل", cancelled: "منسوخ" },
       variations: { label: "قیمت میں تبدیلی", status: "صورتحال", pending: "صارف کا انتظار", approved: "منظور شدہ", rejected: "مسترد شدہ", arbiterActive: "AI ثالث فعال" },
@@ -326,8 +322,7 @@ export const ur: Dictionary = {
       title: "کام کا پورٹ فولیو", subtitle: "مزید بکنگ جیتنے کے لیے اپنا بہترین کام دکھائیں۔", addBtn: "کام شامل کریں", emptyTitle: "کوئی کام نہیں", emptyDesc: "اعتماد پیدا کرنے کے لیے اپنے پچھلے پروجیکٹس کی تصاویر شامل کریں۔",
       modal: { title: "کام شامل کریں", itemTitle: "عنوان", itemTitlePlaceholder: "مثلاً: لندن میں بوائلر کی تنصیب", category: "زمرہ", uploadPhoto: "پروجیکٹ کی فوٹو اپ لوڈ کریں", errorSize: "فوٹو 5MB سے کم ہونی چاہیے", details: "تفصیلات", aiBtn: "AI سے لکھوائیں", aiGenerating: "لکھا جا رہا ہے...", detailsPlaceholder: "کیے گئے کام، چیلنجز اور نتائج بیان کریں۔", cancel: "منسوخ کریں", publish: "شائع کریں" },
       deleteConfirm: "کیا آپ واقعی اس کام کو ہٹانا چاہتے ہیں؟", addError: "شامل کرنے میں ناکامی۔", aiError: "AI ناکام رہا، براہ کرم دستی طور پر درج کریں۔"
-    },
-  },
+    } },
   education_sec: { hero: { badge: "برطانیہ کے اعلیٰ اساتذہ", title1: "نئی مہارت سیکھیں", title2: "ماہرین کے ساتھ", subtitle: "اکیڈمک، زبانوں اور پیشہ ورانہ مہارتوں کے لیے اعلیٰ اساتذہ سے جڑیں۔ آپ کی کامیابی کے لیے انفرادی تعلیم۔", searchPlaceholder: "آپ کیا سیکھنا چاہتے ہیں؟", searchBtn: "استاد تلاش کریں" },
     forYou: { title: "آپ کے لیے سفارشات", match: "AI میچ", viewProfile: "پروفائل دیکھیں" },
     categories: { title: "زمرہ جات تلاش کریں", browseBtn: "تمام دیکھیں", items: { 
@@ -376,7 +371,7 @@ export const ur: Dictionary = {
         "لندن میں پیشہ ورانہ ٹیکس اکاؤنٹنٹ…"
       ],
       popularLabel: "مشہور",
-      popularTags: ["گھر کی تجدید", "ٹیکس فائلنگ", "گہری صفائی", "قانونی امداد"], trustedBy: "یوکے کے رہائشیوں کا قابل اعتماد اور تصدیق شدہ" },
+      popularTags: ["گھر کی تجدید", "ٹیکس فائلنگ", "گہری صفائی", "قانونی امداد"] },
     recommendation: { title1: "آپ کے لیے", title2: "تجویز کردہ", subtitle: "آپ کی ضروریات اور مقام کی بنیاد پر اعلیٰ پیشہ ور افراد۔", browse: "تمام دیکھیں" },
     recommendationResults: {
       trendingTitle: "{{city}} میں مقبول: {{category}}",
@@ -401,6 +396,7 @@ export const ur: Dictionary = {
     eliteBadge: "اعلیٰ ماہر",
     defaultCategory: "سروس ماہر",
     noResults: "ابھی اس زمرے میں کوئی ماہر نہیں ملا۔",
+    trustedBy: "یوکے کے رہائشیوں का قابل اعتماد اور تصدیق شدہ",
     categories: { plumbing: "پلمبنگ", repairs: "مرمت", renovation: "تجدید", education: "تعلیم", accounting: "اکاؤنٹنگ", legal: "قانونی", commercial: "تجارتی", cleaning: "صفائی", car: "گاڑی" },
     sections: {
       plumbing: { title: "پلمبنگ اور تکنیکی", desc: "ہنگامی لیکیج سے لے کر وائرنگ تک، ہم آپ کو تصدیق شدہ ٹیکنیشنز سے جوڑتے ہیں۔", items: ["لیکیج مرمت", "الیکٹریکل", "آلات کی تنصیب", "بوائلر سروس", "ساکٹ", "اسمارٹ ہوم"] },

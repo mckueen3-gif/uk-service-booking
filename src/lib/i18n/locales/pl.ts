@@ -221,8 +221,7 @@ export const pl: Dictionary = {
   search: { 
     filters: "Filtry", keyword: "Słowo kluczowe", location: "Lokalizacja", category: "Kategoria", minRating: "Min. ocena", verifiedOnly: "Tylko zweryfikowani", 
     apply: "Zastosuj", sortBy: "Sortuj według", sortRating: "Najwyższa ocena", sortJobs: "Najwięcej zleceń", sortDistance: "Najbliżej", sortPrice: "Cena: rosnąco", 
-    foundCount: "Znaleziono {{count}} ekspertów", searching: "Szukanie ekspertów...", noResults: "Nie znaleziono ekspertów pasujących do Twojego wyszukiwania",
-    trustedBy: "Zaufany przez mieszkańców Wielkiej Brytanii i zweryfikowany przez", 
+    foundCount: "Znaleziono {{count}} ekspertów", searching: "Szukanie ekspertów...", noResults: "Nie znaleziono ekspertów pasujących do Twojego wyszukiwania", 
     noResultsHint: "Spróbuj dostosować filtry lub szukać w innym obszarze.", clearFilters: "Wyczyść wszystko", 
     basePrice: "Szacunkowa cena początkowa", viewDetails: "Zobacz szczegóły", listView: "Widok listy", mapView: "Widok mapy", searchThisArea: "Szukaj w tym obszarze",
     verified: "Zweryfikowany", insured: "Ubezpieczony", priceAudit: "Audyt cen AI: Uczciwy", defaultDesc: "Profesjonalny usługodawca"
@@ -232,8 +231,7 @@ export const pl: Dictionary = {
     titles: { details: "Opowiedz nam o swoich potrzebach", schedule: "Wybierz czas", confirm: "Potwierdź swoją rezerwację", success: "Rezerwacja potwierdzona!" },
     labels: { date: "Data", time: "Godzina", make: "Marka", model: "Model", address: "Adres", notes: "Instrukcje specjalne", agree: "Zgadzam się na warunki (0% opłaty platformowej dla klientów)", summary: "Podsumowanie płatności", paid: "Zapłacono", merchant: "Ekspert", service: "Usługa" },
     buttons: { next: "Dalej", prev: "Wstecz", pay: "Bezpieczna płatność", home: "Strona główna", dashboard: "Panel" },
-    messages: { finalizing: "Finalizowanie rezerwacji...", wait: "Proszę nie odświeżać strony", contact24h: "Twój ekspert skontaktuje się z Tobą w ciągu 24 godzin.", safety: "Dla Twojego bezpieczeństwa wszystkie płatności są przechowywane na koncie escrow.", noReviews: "Brak opinii", recommended: "Wysoce polecane", replyFromMaster: "Odpowiedź od eksperta" },
-  },
+    messages: { finalizing: "Finalizowanie rezerwacji...", wait: "Proszę nie odświeżać strony", contact24h: "Twój ekspert skontaktuje się z Tobą w ciągu 24 godzin.", safety: "Dla Twojego bezpieczeństwa wszystkie płatności są przechowywane na koncie escrow.", noReviews: "Brak opinii", recommended: "Wysoce polecane", replyFromMaster: "Odpowiedź od eksperta" } },
   merchant: {
     verified: "Zweryfikowany ekspert", background: "Sprawdzone niekaralność", portfolio: "Portfolio prac", reviewTitle: "Opinie klientów", realReviews: "Prawdziwe opinie ze zweryfikowanych rezerwacji", verifiedBooking: "Zweryfikowana rezerwacja", pricingAnalysis: "Analiza cen AI", bookingChannel: "Profesjonalny kanał rezerwacji", viewServices: "Zobacz wszystkie usługi", guarantee: "Gwarancja usługi", fastResponse: "Szybka odpowiedź", contactExpert: "Skontaktuj się z ekspertem", noReviews: "Brak opinii", reply: "Odpowiedz",
     dashboard: {
@@ -276,9 +274,7 @@ export const pl: Dictionary = {
           statusReady: "Gotowe",
           voucherDisclaimer: "Ważne w głównych supermarketach i systemach płatniczych.",
           confirmRedeem: "Czy na pewno chcesz odebrać nagrodę? Zostanie wydana w ciągu 24 godzin.",
-          requestSuccess: "Zlecenie udane! Twój kod jest przypisywany. Sprawdź swój skarbiec później.",
-        },
-      },
+          requestSuccess: "Zlecenie udane! Twój kod jest przypisywany. Sprawdź swój skarbiec później." } },
       bookings: { title: "Ostatnie rezerwacje", viewAll: "Zobacz wszystkie", empty: "Brak ostatnich rezerwacji", completed: "Zakończone", actions: { confirm: "Potwierdź", complete: "Zakończone", variation: "Wniosek o dodatkową płatność" } },
       status: { pending: "Oczekujące", confirmed: "Potwierdone", completed: "Zakończone", cancelled: "Anulowane" },
       variations: { label: "Zmiana ceny", status: "Status", pending: "Czeka na klienta", approved: "Zatwierdzone", rejected: "Odrzucone", arbiterActive: "Arbiter AI aktywny" },
@@ -315,8 +311,7 @@ export const pl: Dictionary = {
       title: "Portfolio prac", subtitle: "Pokaż swoje najlepsze prace, aby zdobyć więcej rezerwacji.", addBtn: "Dodaj pracę", emptyTitle: "Brak prac", emptyDesc: "Dodaj zdjęcia swoich wykonanych projektów, aby zbudować zaufanie.",
       modal: { title: "Dodaj pracę", itemTitle: "Tytuł", itemTitlePlaceholder: "np. Instalacja kotła w Londynie", category: "Kategoria", uploadPhoto: "Prześlij zdjęcie projektu", errorSize: "Zdjęcie musi mieć mniej niż 5MB", details: "Szczegóły", aiBtn: "Generuj AI", aiGenerating: "Pisanie...", detailsPlaceholder: "Opisz wykonaną pracę, wyzwania i rezultaty.", cancel: "Anuluj", publish: "Opublikuj" },
       deleteConfirm: "Czy na pewno chcesz usunąć tę pracę?", addError: "Nie udało się dodać.", aiError: "AI zawiodło, wprowadź ręcznie."
-    },
-  },
+    } },
   education_sec: { hero: { badge: "Elitarni korepetytorzy w Wielkiej Brytanii", title1: "Naucz się nowej umiejętności", title2: "z ekspertami", subtitle: "Połącz się z elitarnymi korepetytorami akademickimi, językowymi i zawodowymi. Spersonalizowana edukacja dla Twojego sukcesu.", searchPlaceholder: "Czego chcesz się nauczyć?", searchBtn: "Znajdź korepetytora" },
     forYou: { title: "Rekomendacje dla Ciebie", match: "Dopasowanie AI", viewProfile: "Zobacz profil" },
     categories: { title: "Przeglądaj kategorie", browseBtn: "Zobacz wszystkie", items: { 
@@ -356,7 +351,7 @@ export const pl: Dictionary = {
     },
     visitDashboard: "Odkryj centrum edukacji"
   }, 
-  home: { hero: { badge: "Zweryfikowani lokalni profesjonaliści", title1: "Zarezerwuj najlepszych", title2: "lokalnych ekspertów", subtitle: "Natychmiastowy dostęp do top 1% ekspertów w Wielkiej Brytanii. Wszyscy zweryfikowani, ubezpieczeni i monitorowani przez AI.", searchPlaceholder: "Potrzebuję...", locationPlaceholder: "Londyn, Wielka Brytania", aiMatch: "Inteligentne dopasowanie", searchBtn: "Wyszukiwanie kontaktu", suggestions: ["Znajdź inżyniera Gas Safe w Chelsea…", "Zarezerwuj korepetytora z najwyższą oceną dla GCSE…", "Potrzebujesz głębokiego czyszczenia biura?", "Ekspertowa pomoc prawna w sporach o nieruchomości…", "Profesjonalny księgowy podatkowy w Londynie…"], popularLabel: "Popularne", popularTags: ["Remont domu", "Rozliczenie podatkowe", "Głębokie czyszczenie", "Pomoc prawna"], trustedBy: "Zaufany przez mieszkańców Wielkiej Brytanii i zweryfikowany przez" },
+  home: { hero: { badge: "Zweryfikowani lokalni profesjonaliści", title1: "Zarezerwuj najlepszych", title2: "lokalnych ekspertów", subtitle: "Natychmiastowy dostęp do top 1% ekspertów w Wielkiej Brytanii. Wszyscy zweryfikowani, ubezpieczeni i monitorowani przez AI.", searchPlaceholder: "Potrzebuję...", locationPlaceholder: "Londyn, Wielka Brytania", aiMatch: "Inteligentne dopasowanie", searchBtn: "Wyszukiwanie kontaktu", suggestions: ["Znajdź inżyniera Gas Safe w Chelsea…", "Zarezerwuj korepetytora z najwyższą oceną dla GCSE…", "Potrzebujesz głębokiego czyszczenia biura?", "Ekspertowa pomoc prawna w sporach o nieruchomości…", "Profesjonalny księgowy podatkowy w Londynie…"], popularLabel: "Popularne", popularTags: ["Remont domu", "Rozliczenie podatkowe", "Głębokie czyszczenie", "Pomoc prawna"] },
     recommendation: { title1: "Dla Ciebie", title2: "Polecane", subtitle: "Najlepsi profesjonaliści na podstawie Twoich potrzeb i lokalizacji.", browse: "Zobacz wszystkie" },
     recommendationResults: {
       trendingTitle: "Popularne w {{city}}: {{category}}",
@@ -381,6 +376,7 @@ export const pl: Dictionary = {
     eliteBadge: "Elitarny ekspert",
     defaultCategory: "Ekspert serwisowy",
     noResults: "Obecnie brak ekspertów w tej kategorii.",
+    trustedBy: "Zaufany przez mieszkańców Wielkiej Brytanii i zweryfikowany przez",
     categories: { plumbing: "Hydraulika", repairs: "Naprawy", renovation: "Renowacje", education: "Edukacja", accounting: "Księgowość", legal: "Prawo", commercial: "Komercyjne", cleaning: "Sprzątanie", car: "Auto" },
     sections: {
       plumbing: { title: "Hydraulika i techniczne", desc: "Od awaryjnych wycieków po okablowanie, łączymy Cię z certyfikowanymi technikami.", items: ["Naprawa wycieków", "Elektryka", "Instalacja urządzeń", "Serwis bojlerów", "Gniazdka", "Smart Home"] },

@@ -221,8 +221,7 @@ export const hi: Dictionary = {
   search: { 
     filters: "फिल्टर", keyword: "कीवर्ड", location: "स्थान", category: "श्रेणी", minRating: "न्यूनतम रेटिंग", verifiedOnly: "केवल प्रमाणित", 
     apply: "लागू करें", sortBy: "क्रमबद्ध करें", sortRating: "शीर्ष रेटिंग", sortJobs: "सर्वाधिक कार्य", sortDistance: "निकटतम", sortPrice: "कीमत: कम से उच्च", 
-    foundCount: "{{count}} विशेषज्ञ मिले", searching: "विशेषज्ञों की खोज की जा रही है...", noResults: "आपकी खोज से मेल खाने वाले कोई विशेषज्ञ नहीं मिले",
-    trustedBy: "यूके निवासियों द्वारा विश्वसनीय और निम्न द्वारा सत्यापित", 
+    foundCount: "{{count}} विशेषज्ञ मिले", searching: "विशेषज्ञों की खोज की जा रही है...", noResults: "आपकी खोज से मेल खाने वाले कोई विशेषज्ञ नहीं मिले", 
     noResultsHint: "फिल्टर समायोजित करने या किसी भिन्न क्षेत्र में खोजने का प्रयास करें।", clearFilters: "सभी साफ करें", 
     basePrice: "अनुमानित शुरुआती कीमत", viewDetails: "विवरण देखें", listView: "सूची दृश्य", mapView: "मानचित्र दृश्य", searchThisArea: "इस क्षेत्र में खोजें",
     verified: "प्रमाणित", insured: "बीमाकृत", priceAudit: "AI मूल्य ऑडिट: उचित", defaultDesc: "पेशेवर सेवा प्रदाता"
@@ -232,8 +231,7 @@ export const hi: Dictionary = {
     titles: { details: "हमें अपनी आवश्यकताओं के बारे में बताएं", schedule: "एक समय चुनें", confirm: "अपनी बुकिंग की पुष्टि करें", success: "बुकिंग की पुष्टि हो गई!" },
     labels: { date: "तारीख", time: "समय", make: "ब्रांड", model: "मॉडल", address: "पता", notes: "विशेष निर्देश", agree: "मैं शर्तों से सहमत हूँ (ग्राहकों के लिए शून्य प्लेटफॉर्म शुल्क)", summary: "भुगतान सारांश", paid: "भुगतान किया गया", merchant: "विशेषज्ञ", service: "सेवा" },
     buttons: { next: "अगला", prev: "पिछला", pay: "सुरक्षित भुगतान", home: "होम", dashboard: "डैशबोर्ड" },
-    messages: { finalizing: "आपकी बुकिंग को अंतिम रूप दिया जा रहा है...", wait: "कृपया पेज को रिफ्रेश न करें", contact24h: "आपका विशेषज्ञ 24 घंटे के भीतर आपसे संपर्क करेगा।", safety: "आपकी सुरक्षा के लिए, सभी भुगतान एस्क्रो खाते में रखे जाते हैं।", noReviews: "अभी तक कोई समीक्षा नहीं", recommended: "अत्यधिक अनुशंसित", replyFromMaster: "विशेषज्ञ का जवाब" },
-  },
+    messages: { finalizing: "आपकी बुकिंग को अंतिम रूप दिया जा रहा है...", wait: "कृपया पेज को रिफ्रेश न करें", contact24h: "आपका विशेषज्ञ 24 घंटे के भीतर आपसे संपर्क करेगा।", safety: "आपकी सुरक्षा के लिए, सभी भुगतान एस्क्रो खाते में रखे जाते हैं।", noReviews: "अभी तक कोई समीक्षा नहीं", recommended: "अत्यधिक अनुशंसित", replyFromMaster: "विशेषज्ञ का जवाब" } },
   merchant: {
     verified: "प्रमाणित विशेषज्ञ", background: "पृष्ठभूमि की जाँच की गई", portfolio: "कार्य पोर्टफोलियो", reviewTitle: "ग्राहक समीक्षाएं", realReviews: "प्रमाणित बुकिंग से वास्तविक समीक्षाएं", verifiedBooking: "प्रमाणित बुकिंग", pricingAnalysis: "AI मूल्य विश्लेषण", bookingChannel: "पेशेवर बुकिंग चैनल", viewServices: "सभी सेवाएं देखें", guarantee: "सेवा गारंटी", fastResponse: "त्वरित प्रतिक्रिया", contactExpert: "विशेषज्ञ से संपर्क करें", noReviews: "कोई समीक्षा नहीं", reply: "जवाब दें",
     dashboard: {
@@ -276,9 +274,7 @@ export const hi: Dictionary = {
           statusReady: "तैयार",
           voucherDisclaimer: "प्रमुख सुपरमार्केट और भुगतान प्रणालियों पर मान्य।",
           confirmRedeem: "क्या आप वाकई पुरस्कार भुनाना चाहते हैं? 24 घंटे के भीतर जारी किया जाएगा।",
-          requestSuccess: "अनुरोध सफल! आपका कोड आवंटित किया जा रहा है। कृपया बाद में अपना वॉल्ट देखें।",
-        },
-      },
+          requestSuccess: "अनुरोध सफल! आपका कोड आवंटित किया जा रहा है। कृपया बाद में अपना वॉल्ट देखें।" } },
       bookings: { title: "हालिया बुकिंग", viewAll: "सभी देखें", empty: "कोई हालिया बुकिंग नहीं", completed: "पूरा हुआ", actions: { confirm: "पुष्टि करें", complete: "पूरा हुआ", variation: "अतिरिक्त भुगतान अनुरोध" } },
       status: { pending: "लंबित", confirmed: "पुष्टि की गई", completed: "पूरा हुआ", cancelled: "रद्द" },
       variations: { label: "मूल्य परिवर्तन", status: "स्थिति", pending: "ग्राहक की प्रतीक्षा", approved: "अनुमोदित", rejected: "अस्वीकृत", arbiterActive: "AI मध्यस्थ सक्रिय" },
@@ -315,8 +311,7 @@ export const hi: Dictionary = {
       title: "कार्य पोर्टफोलियो", subtitle: "अधिक बुकिंग जीतने के लिए अपना सर्वश्रेष्ठ कार्य दिखाएं।", addBtn: "कार्य जोड़ें", emptyTitle: "कोई कार्य नहीं", emptyDesc: "विश्वास बनाने के लिए अपनी पिछली परियोजनाओं की तस्वीरें जोड़ें।",
       modal: { title: "कार्य जोड़ें", itemTitle: "शीर्षक", itemTitlePlaceholder: "उदा: लंदन में बॉयलर स्थापना", category: "श्रेणी", uploadPhoto: "प्रोजेक्ट फोटो अपलोड करें", errorSize: "फ़ोटो 5MB से कम होनी चाहिए", details: "विवरण", aiBtn: "AI जनरेट करें", aiGenerating: "लिखा जा रहा है...", detailsPlaceholder: "किए गए कार्य, चुनौतियों और परिणामों का वर्णन करें।", cancel: "रद्द करें", publish: "प्रकाशित करें" },
       deleteConfirm: "क्या आप वाकई इस कार्य को हटाना चाहते हैं?", addError: "जोड़ने में विफल।", aiError: "AI विफल रहा, कृपया मैन्युअल रूप से दर्ज करें।"
-    },
-  },
+    } },
   education_sec: { hero: { badge: "यूके के विशिष्ट शिक्षक", title1: "नया कौशल सीखें", title2: "विशेषज्ञों के साथ", subtitle: "अकादमिक, भाषाओं और व्यावसायिक कौशल के लिए विशिष्ट शिक्षकों से जुड़ें। आपकी सफलता के लिए व्यक्तिगत शिक्षा।", searchPlaceholder: "आप क्या सीखना चाहते हैं?", searchBtn: "शिक्षक खोजें" },
     forYou: { title: "आपके लिए सिफारिशें", match: "AI मैच", viewProfile: "प्रोफ़ाइल देखें" },
     categories: { title: "श्रेणियां खोजें", browseBtn: "सभी देखें", items: { 
@@ -362,7 +357,7 @@ export const hi: Dictionary = {
         "आपके कार्यालय के लिए गहन सफाई की आवश्यकता है?",
         "संपत्ति विवादों हेतु विशेषज्ञ विधिक सहायता…",
         "लंदन में व्यावसायिक कर लेखाकार…"
-      ], popularLabel: "लोकप्रिय", popularTags: ["घर नवीनीकरण", "कर दाखिल", "गहन सफाई", "विधिक सहायता"], trustedBy: "ब्रिटेन के निवासियों द्वारा भरोसेमंद और सत्यापित" },
+      ], popularLabel: "लोकप्रिय", popularTags: ["घर नवीनीकरण", "कर दाखिल", "गहन सफाई", "विधिक सहायता"] },
     recommendation: { title1: "आपके लिए", title2: "अनुशंसित", subtitle: "आपकी आवश्यकताओं और स्थान के आधार पर शीर्ष पेशेवर।", browse: "सभी देखें" },
     recommendationResults: {
       trendingTitle: "{{city}} में प्रचलित: {{category}}",
@@ -387,6 +382,7 @@ export const hi: Dictionary = {
     eliteBadge: "विशिष्ट विशेषज्ञ",
     defaultCategory: "सेवा विशेषज्ञ",
     noResults: "अभी इस श्रेणी में कोई विशेषज्ञ नहीं मिले।",
+    trustedBy: "ब्रिटेन के निवासियों द्वारा भरोसेमंद और सत्यापित",
     categories: { plumbing: "प्लंबिंग", repairs: "मरम्मत", renovation: "नवीनीकरण", education: "शिक्षा", accounting: "एकाउंटिंग", legal: "कानूनी", commercial: "वाणिज्यिक", cleaning: "सफाई", car: "कार" },
     sections: {
       plumbing: { title: "प्लंबिंग और तकनीकी", desc: "आपातकालीन रिसाव से लेकर वायरिंग तक, हम आपको प्रमाणित तकनीशियनों से जोड़ते हैं।", items: ["रिसाव मरम्मत", "इलेक्ट्रिकल", "उपकरण स्थापना", "बॉयलर सेवा", "सॉकेट", "स्मार्ट होम"] },

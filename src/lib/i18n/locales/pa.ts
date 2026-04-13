@@ -232,8 +232,7 @@ export const pa: Dictionary = {
   search: { 
     filters: "ਫਿਲਟਰ", keyword: "ਕੀਵਰਡ", location: "ਸਥਾਨ", category: "ਸ਼੍ਰੇਣੀ", minRating: "ਘੱਟੋ ਘੱਟ ਰੇਟਿੰਗ", verifiedOnly: "ਸਿਰਫ ਪ੍ਰਮਾਣਿਤ", 
     apply: "ਲਾਗੂ ਕਰੋ", sortBy: "ਕ੍ਰਮਬੱਧ ਕਰੋ", sortRating: "ਚੋਟੀ ਦੀ ਰੇਟਿੰਗ", sortJobs: "ਸਭ ਤੋਂ ਵੱਧ ਕੰਮ", sortDistance: "ਸਭ ਤੋਂ ਨੇੜੇ", sortPrice: "ਕੀਮਤ: ਘੱਟ ਤੋਂ ਵੱਧ", 
-    foundCount: "{{count}} ਮਾਹਰ ਮਿਲੇ", searching: "ਮਾਹਰਾਂ ਦੀ ਖੋਜ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ...", noResults: "ਤੁਹਾਡੀ ਖੋਜ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਕੋਈ ਮਾਹਰ ਨਹੀਂ ਮਿਲਿਆ",
-    trustedBy: "ਯੂਕੇ ਨਿਵਾਸੀਆਂ ਦੁਆਰਾ ਭਰੋਸੇਮੰਦ ਅਤੇ ਦੁਆਰਾ ਪ੍ਰਮਾਣਿਤ", 
+    foundCount: "{{count}} ਮਾਹਰ ਮਿਲੇ", searching: "ਮਾਹਰਾਂ ਦੀ ਖੋਜ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ...", noResults: "ਤੁਹਾਡੀ ਖੋਜ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਕੋਈ ਮਾਹਰ ਨਹੀਂ ਮਿਲਿਆ", 
     noResultsHint: "ਫਿਲਟਰ ਵਿਵਸਥਿਤ ਕਰਨ ਜਾਂ ਕਿਸੇ ਵੱਖਰੇ ਖੇਤਰ ਵਿੱਚ ਖੋਜਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ।", clearFilters: "ਸਭ ਸਾਫ ਕਰੋ", 
     basePrice: "ਅਨੁਮਾਨਿਤ ਸ਼ੁਰੂਆਤੀ ਕੀਮਤ", viewDetails: "ਵੇਰਵੇ ਦੇਖੋ", listView: "ਸੂਚੀ ਦ੍ਰਿਸ਼", mapView: "ਨਕਸ਼ਾ ਦ੍ਰਿਸ਼", searchThisArea: "ਇਸ ਖੇਤਰ ਵਿੱਚ ਖੋਜੋ",
     verified: "ਪ੍ਰਮਾਣਿਤ", insured: "ਬੀਮਾਯੁਕਤ", priceAudit: "AI ਮੁੱਲ ਆਡਿਟ: ਉਚਿਤ", defaultDesc: "ਪੇਸ਼ੇਵਰ ਸੇਵਾ ਪ੍ਰਦਾਤਾ"
@@ -243,8 +242,7 @@ export const pa: Dictionary = {
     titles: { details: "ਸਾਨੂੰ ਆਪਣੀਆਂ ਲੋੜਾਂ ਬਾਰੇ ਦੱਸੋ", schedule: "ਇੱਕ ਸਮਾਂ ਚੁਣੋ", confirm: "ਆਪਣੀ ਬੁਕਿੰਗ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ", success: "ਬੁਕਿੰਗ ਦੀ ਪੁਸ਼ਟੀ ਹੋ ਗਈ!" },
     labels: { date: "ਤਾਰੀਖ", time: "ਸਮਾਂ", make: "ਬ੍ਰਾਂਡ", model: "ਮਾਡਲ", address: "ਪਤਾ", notes: "ਵਿਸ਼ੇਸ਼ ਨਿਰਦੇਸ਼", agree: "ਮੈਂ ਸ਼ਰਤਾਂ ਨਾਲ ਸਹਿਮਤ ਹਾਂ (ਗਾਹਕਾਂ ਲਈ ਜ਼ੀਰੋ ਪਲੇਟਫਾਰਮ ਫੀਸ)", summary: "ਭੁਗਤਾਨ ਸਾਰਾਂਸ਼", paid: "ਭੁਗਤਾਨ ਕੀਤਾ ਗਿਆ", merchant: "ਮਾਹਰ", service: "ਸੇਵਾ" },
     buttons: { next: "ਅਗਲਾ", prev: "ਪਿਛਲਾ", pay: "ਸੁਰੱਖਿਅਤ ਭੁਗਤਾਨ", home: "ਹੋਮ", dashboard: "ਡੈਸ਼ਬੋਰਡ" },
-    messages: { finalizing: "ਤੁਹਾਡੀ ਬੁਕਿੰਗ ਨੂੰ ਅੰਤਿਮ ਰੂਪ ਦਿੱਤਾ ਜਾ ਰਿਹਾ ਹੈ...", wait: "ਕਿਰਪਾ ਕਰਕੇ ਪੇਜ ਨੂੰ ਰਿਫ੍ਰੈਸ਼ ਨਾ ਕਰੋ", contact24h: "ਤੁਹਾਡਾ ਮਾਹਰ 24 ਘੰਟਿਆਂ ਦੇ ਅੰਦਰ ਤੁਹਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੇਗਾ।", safety: "ਤੁਹਾਡੀ ਸੁਰੱਖਿਆ ਲਈ, ਸਾਰੇ ਭੁਗਤਾਨ ਐਸਕਰੋ ਖਾਤੇ ਵਿੱਚ ਰੱਖੇ ਜਾਂਦੇ ਹਨ।", noReviews: "ਅਜੇ ਤੱਕ ਕੋਈ ਸਮੀਖਿਆ ਨਹੀਂ", recommended: "ਬਹੁਤ ਜ਼ਿਆਦਾ ਸਿਫਾਰਸ਼ ਕੀਤੀ ਗਈ", replyFromMaster: "ਮਾਹਰ ਦਾ ਜਵਾਬ" },
-  },
+    messages: { finalizing: "ਤੁਹਾਡੀ ਬੁਕਿੰਗ ਨੂੰ ਅੰਤਿਮ ਰੂਪ ਦਿੱਤਾ ਜਾ ਰਿਹਾ ਹੈ...", wait: "ਕਿਰਪਾ ਕਰਕੇ ਪੇਜ ਨੂੰ ਰਿਫ੍ਰੈਸ਼ ਨਾ ਕਰੋ", contact24h: "ਤੁਹਾਡਾ ਮਾਹਰ 24 ਘੰਟਿਆਂ ਦੇ ਅੰਦਰ ਤੁਹਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੇਗਾ।", safety: "ਤੁਹਾਡੀ ਸੁਰੱਖਿਆ ਲਈ, ਸਾਰੇ ਭੁਗਤਾਨ ਐਸਕਰੋ ਖਾਤੇ ਵਿੱਚ ਰੱਖੇ ਜਾਂਦੇ ਹਨ।", noReviews: "ਅਜੇ ਤੱਕ ਕੋਈ ਸਮੀਖਿਆ ਨਹੀਂ", recommended: "ਬਹੁਤ ਜ਼ਿਆਦਾ ਸਿਫਾਰਸ਼ ਕੀਤੀ ਗਈ", replyFromMaster: "ਮਾਹਰ ਦਾ ਜਵਾਬ" } },
   merchant: {
     verified: "ਪ੍ਰਮਾਣਿਤ ਮਾਹਰ", background: "ਪਿਛੋਕੜ ਦੀ ਪੜਤਾਲ ਕੀਤੀ ਗਈ", portfolio: "ਕੰਮ ਦਾ ਪੋਰਟਫੋਲੀਓ", reviewTitle: "ਗਾਹਕ ਸਮੀਖਿਆਵਾਂ", realReviews: "ਪ੍ਰਮਾਣਿਤ ਬੁਕਿੰਗ ਤੋਂ ਅਸਲ ਸਮੀਖਿਆਵਾਂ", verifiedBooking: "ਪ੍ਰਮਾਣਿਤ ਬੁਕਿੰਗ", pricingAnalysis: "AI ਮੁੱਲ ਵਿਸ਼ਲੇਸ਼ਣ", bookingChannel: "ਪੇਸ਼ੇਵਰ ਬੁਕਿੰਗ ਚੈਨਲ", viewServices: "ਸਾਰੀਆਂ ਸੇਵਾਵਾਂ ਦੇਖੋ", guarantee: "ਸੇਵਾ ਗਾਰੰਟੀ", fastResponse: "ਤੁਰੰਤ ਜਵਾਬ", contactExpert: "ਮਾਹਰ ਨਾਲ ਸੰਪਰਕ ਕਰੋ", noReviews: "ਕੋਈ ਸਮੀਖਿਆ ਨਹੀਂ", reply: "ਜਵਾਬ ਦਿਓ",
     dashboard: {
@@ -287,9 +285,7 @@ export const pa: Dictionary = {
           statusReady: "ਤਿਆਰ",
           voucherDisclaimer: "ਮੁੱਖ ਸੁਪਰਮਾਰਕੀਟਾਂ ਅਤੇ ਭੁਗਤਾਨ ਪ੍ਰਣਾਲੀਆਂ 'ਤੇ ਮਾਨਤਾ ਪ੍ਰਾਪਤ।",
           confirmRedeem: "ਕੀ ਤੁਸੀਂ ਸੱਚਮੁੱਚ ਇਨਾਮ ਭੁਨਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ? 24 ਘੰਟਿਆਂ ਦੇ ਅੰਦਰ ਜਾਰੀ ਕੀਤਾ ਜਾਵੇਗਾ।",
-          requestSuccess: "ਬੇਨਤੀ ਸਫਲ! ਤੁਹਾਡਾ ਕੋਡ ਦਿੱਤਾ ਜਾ ਰਿਹਾ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਬਾਅਦ ਵਿੱਚ ਆਪਣਾ ਵਾਲਟ ਦੇਖੋ।",
-        },
-      },
+          requestSuccess: "ਬੇਨਤੀ ਸਫਲ! ਤੁਹਾਡਾ ਕੋਡ ਦਿੱਤਾ ਜਾ ਰਿਹਾ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਬਾਅਦ ਵਿੱਚ ਆਪਣਾ ਵਾਲਟ ਦੇਖੋ।" } },
       bookings: { title: "ਹਾਲੀਆ ਬੁਕਿੰਗ", viewAll: "ਸਭ ਦੇਖੋ", empty: "ਕੋਈ ਹਾਲੀਆ ਬੁਕਿੰਗ ਨਹੀਂ", completed: "ਪੂਰਾ ਹੋਇਆ", actions: { confirm: "ਪੁਸ਼ਟੀ ਕਰੋ", complete: "ਪੂਰਾ ਹੋਇਆ", variation: "ਵਾਧੂ ਭੁਗਤਾਨ ਦੀ ਬੇਨਤੀ" } },
       status: { pending: "ਲੰਬਿਤ", confirmed: "ਪੁਸ਼ਟੀ ਕੀਤੀ ਗਈ", completed: "ਪੂਰਾ ਹੋਇਆ", cancelled: "ਰੱਦ" },
       variations: { label: "ਕੀਮਤ ਵਿੱਚ ਤਬਦੀਲੀ", status: "ਸਥਿਤੀ", pending: "ਗਾਹਕ ਦੀ ਉਡੀਕ", approved: "ਪ੍ਰਵਾਨਿਤ", rejected: "ਅਸਵੀਕਾਰਿਤ", arbiterActive: "AI ਮੱਧਸਥ ਸਰਗਰਮ" },
@@ -326,8 +322,7 @@ export const pa: Dictionary = {
       title: "ਕੰਮ ਦਾ ਪੋਰਟਫੋਲੀਓ", subtitle: "ਵਧੇਰੇ ਬੁਕਿੰਗ ਜਿੱਤਣ ਲਈ ਆਪਣਾ ਸਭ ਤੋਂ ਵਧੀਆ ਕੰਮ ਦਿਖਾਓ।", addBtn: "ਕੰਮ ਜੋੜੋ", emptyTitle: "ਕੋਈ ਕੰਮ ਨਹੀਂ", emptyDesc: "ਭਰੋਸਾ ਬਣਾਉਣ ਲਈ ਆਪਣੇ ਪਿਛਲੇ ਪ੍ਰੋਜੈਕਟਾਂ ਦੀਆਂ ਤਸਵੀਰਾਂ ਜੋੜੋ।",
       modal: { title: "ਕੰਮ ਜੋੜੋ", itemTitle: "ਸਿਰਲੇਖ", itemTitlePlaceholder: "ਉਦਾ: ਲੰਡਨ ਵਿੱਚ ਬਾਇਲਰ ਇੰਸਟਾਲੇਸ਼ਨ", category: "ਸ਼੍ਰੇਣੀ", uploadPhoto: "ਪ੍ਰੋਜੈਕਟ ਫੋਟੋ ਅਪਲੋਡ ਕਰੋ", errorSize: "ਫੋਟੋ 5MB ਤੋਂ ਘੱਟ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ", details: "ਵੇਰਵਾ", aiBtn: "AI ਜਨਰੇਟ ਕਰੋ", aiGenerating: "ਲਿਖਿਆ ਜਾ ਰਿਹਾ ਹੈ...", detailsPlaceholder: "ਕੀਤੇ ਗਏ ਕੰਮ, ਚੁਣੌਤੀਆਂ ਅਤੇ ਨਤੀਜਿਆਂ ਦਾ ਵਰਣਨ ਕਰੋ।", cancel: "ਰੱਦ ਕਰੋ", publish: "ਪ੍ਰਕਾਸ਼ਿਤ ਕਰੋ" },
       deleteConfirm: "ਕੀ ਤੁਸੀਂ ਸੱਚਮੁੱਚ ਇਸ ਕੰਮ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?", addError: "ਜੋੜਨ ਵਿੱਚ ਅਸਫਲ।", aiError: "AI ਅਸਫਲ ਰਿਹਾ, ਕਿਰਪਾ ਕਰਕੇ ਹੱਥੀਂ ਦਰਜ ਕਰੋ।"
-    },
-  },
+    } },
   education_sec: { hero: { badge: "ਯੂਕੇ ਦੇ ਵਿਸ਼ੇਸ਼ ਅਧਿਆਪਕ", title1: "ਨਵਾਂ ਹੁਨਰ ਸਿੱਖੋ", title2: "ਮਾਹਰਾਂ ਦੇ ਨਾਲ", subtitle: "ਅਕਾਦਮਿਕ, ਭਾਸ਼ਾਵਾਂ ਅਤੇ ਪੇਸ਼ੇਵਰ ਹੁਨਰਾਂ ਲਈ ਵਿਸ਼ੇਸ਼ ਅਧਿਆਪਕਾਂ ਨਾਲ ਜੁੜੋ। ਤੁਹਾਡੀ ਸਫਲਤਾ ਲਈ ਵਿਅਕਤੀਗਤ ਸਿੱਖਿਆ।", searchPlaceholder: "ਤੁਸੀਂ ਕੀ ਸਿੱਖਣਾ ਚਾਹੁੰਦੇ ਹੋ?", searchBtn: "ਅਧਿਆਪਕ ਲੱਭੋ" },
     forYou: { title: "ਤੁਹਾਡੇ ਲਈ ਸਿਫਾਰਸ਼ਾਂ", match: "AI ਮੈਚ", viewProfile: "ਪ੍ਰੋਫਾਈਲ ਦੇਖੋ" },
     categories: { title: "ਸ਼੍ਰੇਣੀਆਂ ਖੋਜੋ", browseBtn: "ਸਭ ਦੇਖੋ", items: { 
@@ -378,7 +373,7 @@ export const pa: Dictionary = {
         "ਲੰਡਨ ਵਿੱਚ ਪੇਸ਼ੇਵਰ ਟੈਕਸ ਅਕਾਊਂਟੈਂਟ…"
       ],
       popularLabel: "ਲੋਕਪ੍ਰਿਯ",
-      popularTags: ["ਘਰ ਨਵੀਨੀਕਰਨ", "ਟੈਕਸ ਫਾਈਲਿੰਗ", "ਡੀਪ ਕਲੀਨਿੰਗ", "ਕਾਨੂੰਨੀ ਸਹਾਇਤਾ"], trustedBy: "ਯੂਕੇ ਦੇ ਨਿਵਾਸੀਆਂ ਦੁਆਰਾ ਭਰੋਸੇਯੋਗ ਅਤੇ ਪ੍ਰਮਾਣਿਤ" },
+      popularTags: ["ਘਰ ਨਵੀਨੀਕਰਨ", "ਟੈਕਸ ਫਾਈਲਿੰਗ", "ਡੀਪ ਕਲੀਨਿੰਗ", "ਕਾਨੂੰਨੀ ਸਹਾਇਤਾ"] },
     recommendation: { title1: "ਤੁਹਾਡੇ ਲਈ", title2: "ਸਿਫਾਰਸ਼ੀ", subtitle: "ਤੁਹਾਡੀਆਂ ਲੋੜਾਂ ਅਤੇ ਸਥਾਨ ਦੇ ਆਧਾਰ 'ਤੇ ਚੋਟੀ ਦੇ ਪੇਸ਼ੇਵਰ।", browse: "ਸਭ ਦੇਖੋ" },
     recommendationResults: {
       trendingTitle: "{{city}} ਵਿੱਚ ਪ੍ਰਚਲਿਤ: {{category}}",
@@ -403,6 +398,7 @@ export const pa: Dictionary = {
     eliteBadge: "ਵਿਸ਼ੇਸ਼ ਮਾਹਰ",
     defaultCategory: "ਸੇਵਾ ਮਾਹਰ",
     noResults: "ਅਜੇ ਇਸ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਕੋਈ ਮਾਹਰ ਨਹੀਂ ਮਿਲੇ।",
+    trustedBy: "ਯੂਕੇ ਦੇ ਨਿਵਾਸੀਆਂ ਦੁਆਰਾ ਭਰੋਸੇਯੋਗ ਅਤੇ ਪ੍ਰਮਾਣਿਤ",
     categories: { plumbing: "ਪਲੰਬਿੰਗ", repairs: "ਮੁਰੰਮਤ", renovation: "ਨਵੀਨੀਕਰਨ", education: "ਸਿੱਖਿਆ", accounting: "ਅਕਾਊਂਟਿੰਗ", legal: "ਕਾਨੂੰਨੀ", commercial: "ਵਪਾਰਕ", cleaning: "ਸਫਾਈ", car: "ਕਾਰ" },
     sections: {
       plumbing: { title: "ਪਲੰਬਿੰਗ ਅਤੇ ਤਕਨੀਕੀ", desc: "ਐਮਰਜੈਂਸੀ ਲੀਕੇਜ ਤੋਂ ਲੈ ਕੇ ਵਾਇਰਿੰਗ ਤੱਕ, ਅਸੀਂ ਤੁਹਾਨੂੰ ਪ੍ਰਮਾਣਿਤ ਤਕਨੀਸ਼ੀਅਨਾਂ ਨਾਲ ਜੋੜਦੇ ਹਾਂ।", items: ["ਲੀਕੇਜ ਮੁਰੰਮਤ", "ਇਲੈਕਟ੍ਰੀਕਲ", "ਉਪਕਰਨ ਇੰਸਟਾਲੇਸ਼ਨ", "ਬਾਇਲਰ ਸੇਵਾ", "ਸਾਕਟ", "ਸਮਾਰਟ ਹੋਮ"] },

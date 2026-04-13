@@ -394,8 +394,7 @@ export const en: Dictionary = {
           statusReady: "Ready for Deployment",
           voucherDisclaimer: "Valid across major retail and payment meshes.",
           confirmRedeem: "Execute conversion to cash voucher? Verification <24h.",
-          requestSuccess: "Request successful. Allocating code to your vault.",
-        }
+          requestSuccess: "Request successful. Allocating code to your vault." }
       },
       bookings: {
         title: "Active Sessions",
@@ -563,7 +562,7 @@ export const en: Dictionary = {
         "Professional Tax Accountant in London..."
       ],
       popularLabel: "Popular",
-      popularTags: ["Home Renovation", "Tax Filing", "Deep Cleaning", "Legal Aid"], trustedBy: "Trusted by UK Residents & Verified by" },
+      popularTags: ["Home Renovation", "Tax Filing", "Deep Cleaning", "Legal Aid"] },
     recommendation: {
       title1: "Optimized",
       title2: "For You",

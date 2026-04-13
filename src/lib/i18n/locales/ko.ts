@@ -232,8 +232,7 @@ export const ko: Dictionary = {
   search: { 
     filters: "필터", keyword: "키워드", location: "위치", category: "카테고리", minRating: "최소 평점", verifiedOnly: "인증된 전문가만", 
     apply: "필터 적용", sortBy: "정렬 기준", sortRating: "평점 높은순", sortJobs: "작업 많은순", sortDistance: "거리 가까운순", sortPrice: "가격 낮은순", 
-    foundCount: "{{count}}명의 전문가를 찾았습니다", searching: "전문가를 찾는 중입니다...", noResults: "검색 조건에 맞는 전문가를 찾을 수 없습니다",
-    trustedBy: "영국 거주자가 신뢰하고 다음에서 인증함", 
+    foundCount: "{{count}}명의 전문가를 찾았습니다", searching: "전문가를 찾는 중입니다...", noResults: "검색 조건에 맞는 전문가를 찾을 수 없습니다", 
     noResultsHint: "필터를 조정하거나 다른 지역으로 검색해 보세요.", clearFilters: "필터 초기화", 
     basePrice: "예상 시작 가격", viewDetails: "상세 보기", listView: "리스트 보기", mapView: "지도 보기", searchThisArea: "이 지역 검색",
     verified: "인증됨", insured: "보험 가입됨", priceAudit: "AI 가격 감사: 적정", defaultDesc: "전문 서비스 제공자"
@@ -243,8 +242,7 @@ export const ko: Dictionary = {
     titles: { details: "필요하신 사항을 알려주세요", schedule: "시간을 선택해 주세요", confirm: "예약 내용을 확인하세요", success: "예약이 완료되었습니다!" },
     labels: { date: "날짜", time: "시간", make: "브랜드", model: "모델명", address: "서비스 주소", notes: "추가 요청사항", agree: "약관에 동의합니다 (플랫폼 이용료 0%)", summary: "결제 요약", paid: "결제 금액", merchant: "전문가", service: "서비스 항목" },
     buttons: { next: "다음 단계", prev: "이전 단계", pay: "안전 결제", home: "홈으로", dashboard: "대시보드로 이동" },
-    messages: { finalizing: "예약을 확정하고 있습니다...", wait: "페이지를 새로고침하지 마세요", contact24h: "전문가가 24시간 이내에 연락드릴 것입니다.", safety: "안전을 위해 모든 결제 대금은 에스크로에 보관됩니다.", noReviews: "아직 리뷰가 없습니다", recommended: "강력 추천", replyFromMaster: "전문가의 답변" },
-  },
+    messages: { finalizing: "예약을 확정하고 있습니다...", wait: "페이지를 새로고침하지 마세요", contact24h: "전문가가 24시간 이내에 연락드릴 것입니다.", safety: "안전을 위해 모든 결제 대금은 에스크로에 보관됩니다.", noReviews: "아직 리뷰가 없습니다", recommended: "강력 추천", replyFromMaster: "전문가의 답변" } },
   merchant: {
     verified: "인증된 전문가", background: "신원 확인 완료", portfolio: "포트폴리오", reviewTitle: "고객 리뷰", realReviews: "인증된 예약의 실제 후기", verifiedBooking: "인증된 예약", pricingAnalysis: "AI 가격 분석", bookingChannel: "프로 예약 채널", viewServices: "모든 서비스 보기", guarantee: "서비스 보증", fastResponse: "빠른 응답", contactExpert: "전문가에게 문의", noReviews: "리뷰 없음", reply: "답변",
     dashboard: {
@@ -287,9 +285,7 @@ export const ko: Dictionary = {
           statusReady: "사용 가능",
           voucherDisclaimer: "주요 마트 및 결제 시스템에서 사용 가능합니다.",
           confirmRedeem: "리워드를 교환하시겠습니까? 24시간 이내에 발급됩니다.",
-          requestSuccess: "신청 완료! 코드를 할당 중입니다. 잠시 후 쿠폰함을 확인하세요.",
-        },
-      },
+          requestSuccess: "신청 완료! 코드를 할당 중입니다. 잠시 후 쿠폰함을 확인하세요." } },
       bookings: { title: "최근 예약", viewAll: "전체 보기", empty: "최근 예약이 없습니다", completed: "완료됨", actions: { confirm: "예약 확정", complete: "완료로 표시", variation: "추가 작업 대금 요청" } },
       status: { pending: "대기 중", confirmed: "확정됨", completed: "완료됨", cancelled: "취소됨" },
       variations: { label: "금액 변경", status: "상태", pending: "고객 승인 대기", approved: "승인됨", rejected: "거절됨", arbiterActive: "AI 중재 진행 중" },
@@ -326,8 +322,7 @@ export const ko: Dictionary = {
       title: "포트폴리오 관리", subtitle: "최고의 작업물을 보여주고 더 많은 예약을 받으세요.", addBtn: "작업 추가", emptyTitle: "작업물 없음", emptyDesc: "과거 프로젝트 사진을 추가하여 고객의 신뢰를 쌓으세요.",
       modal: { title: "작업 추가", itemTitle: "프로젝트 제목", itemTitlePlaceholder: "예: 런던 보일러 설치 공사", category: "카테고리", uploadPhoto: "프로젝트 사진 업로드", errorSize: "사진 크기는 5MB 이내여야 합니다", details: "상세 설명", aiBtn: "AI로 생성", aiGenerating: "작성 중...", detailsPlaceholder: "수행한 작업, 해결한 문제, 결과를 설명해 주세요.", cancel: "취소", publish: "포트폴리오 게시" },
       deleteConfirm: "이 포트폴리올를 삭제하시겠습니까?", addError: "추가 실패.", aiError: "AI 생성 실패, 직접 입력해 주세요."
-    },
-  },
+    } },
   education_sec: { hero: { badge: "영국 엘리트 튜터", title1: "새로운 기술 습득", title2: "전문가와 함께", subtitle: "학업, 언어 및 전문 기술을 위한 엘리트 튜터와 연결하세요. 성공을 위한 맞춤형 1:1 교육.", searchPlaceholder: "무엇을 배우고 싶으신가요?", searchBtn: "튜터 찾기" },
     forYou: { title: "추천 튜터", match: "AI 매칭 점수", viewProfile: "프로필 보기" },
     categories: { title: "카테고리 탐색", browseBtn: "전체 보기", items: { 
@@ -378,7 +373,7 @@ export const ko: Dictionary = {
         "런던 전문 세무 회계사…"
       ],
       popularLabel: "인기",
-      popularTags: ["주택 리노베이션", "세금 신고", "딥 클리닝", "법률 지원"], trustedBy: "영국 거주자가 신뢰하고 검증함" },
+      popularTags: ["주택 리노베이션", "세금 신고", "딥 클리닝", "법률 지원"] },
     recommendation: { title1: "회원님을 위한", title2: "추천", subtitle: "회원님의 필요와 위치에 기반한 최고의 전문가들.", browse: "전체 보기" },
     recommendationResults: {
       trendingTitle: "{{city}} 인기 서비스: {{category}}",
@@ -403,6 +398,7 @@ export const ko: Dictionary = {
     eliteBadge: "엘리트 전문가",
     defaultCategory: "서비스 전문가",
     noResults: "이 카테고리에는 현재 전문가가 없습니다.",
+    trustedBy: "영국 거주자가 신뢰하고 검증함",
     categories: { plumbing: "배관/전기", repairs: "수리/수선", renovation: "리모델링", education: "교육", accounting: "회계", legal: "법률", commercial: "상업용", cleaning: "청소", car: "차량" },
     sections: {
       plumbing: { title: "배관 및 기술 서비스", desc: "긴급 누수부터 복잡한 배선까지, 인증된 기술자를 연결해 드립니다.", items: ["누수 수리", "전기 작업", "가전 설치", "보일러 서비스", "스위치 교체", "스마트 홈"] },

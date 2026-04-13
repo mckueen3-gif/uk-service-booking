@@ -232,8 +232,7 @@ export const ja: Dictionary = {
   search: { 
     filters: "フィルター", keyword: "キーワード", location: "場所", category: "カテゴリー", minRating: "最低評価", verifiedOnly: "認定済みのみ", 
     apply: "適用する", sortBy: "並べ替え", sortRating: "評価順", sortJobs: "実績順", sortDistance: "距離順", sortPrice: "価格：安い順", 
-    foundCount: "{{count}}件の専門家が見つかりました", searching: "専門家を探しています...", noResults: "条件に一致する専門家は見つかりませんでした",
-    trustedBy: "英国居住者に信頼され、以下によって検証されています", 
+    foundCount: "{{count}}件の専門家が見つかりました", searching: "専門家を探しています...", noResults: "条件に一致する専門家は見つかりませんでした", 
     noResultsHint: "フィルターを調整するか、別のエリアで検索してみてください。", clearFilters: "クリア", 
     basePrice: "予想開始価格", viewDetails: "詳細を見る", listView: "リスト表示", mapView: "マップ表示", searchThisArea: "このエリアで検索",
     verified: "認定済み", insured: "保険加入済み", priceAudit: "AI価格監査：適正", defaultDesc: "プロフェッショナル・サービスプロバイダー"
@@ -243,8 +242,7 @@ export const ja: Dictionary = {
     titles: { details: "ご希望内容をお聞かせください", schedule: "日時を選択してください", confirm: "予約内容の確認", success: "予約が確定しました！" },
     labels: { date: "日付", time: "時間", make: "メーカー", model: "モデル名", address: "住所", notes: "特記事項", agree: "規約に同意する（プラットフォーム利用料 0%）", summary: "お支払い合計", paid: "支払い済み", merchant: "担当者", service: "サービス内容" },
     buttons: { next: "次へ", prev: "前へ", pay: "安全に支払う", home: "ホーム", dashboard: "管理パネルへ" },
-    messages: { finalizing: "予約を確定しています...", wait: "ページを更新しないでください", contact24h: "24時間以内に専門家から連絡が入ります。", safety: "安全のため、支払いは作業完了までエスクローで保管されます。", noReviews: "レビューはまだありません", recommended: "強くおすすめ", replyFromMaster: "専門家からの返信" },
-  },
+    messages: { finalizing: "予約を確定しています...", wait: "ページを更新しないでください", contact24h: "24時間以内に専門家から連絡が入ります。", safety: "安全のため、支払いは作業完了までエスクローで保管されます。", noReviews: "レビューはまだありません", recommended: "強くおすすめ", replyFromMaster: "専門家からの返信" } },
   merchant: {
     verified: "認定エクスパート", background: "犯罪歴調査済み", portfolio: "実績ポートフォリオ", reviewTitle: "カスタマーレビュー", realReviews: "認定予約からの本物の口コミ", verifiedBooking: "認定済み予約", pricingAnalysis: "AI価格分析", bookingChannel: "プロ予約チャンネル", viewServices: "全サービスを見る", guarantee: "サービス保証", fastResponse: "スピード対応", contactExpert: "専門家へ連絡", noReviews: "レビューなし", reply: "返信",
     dashboard: {
@@ -287,9 +285,7 @@ export const ja: Dictionary = {
           statusReady: "準備完了",
           voucherDisclaimer: "主要スーパー、決済システムで利用可能。",
           confirmRedeem: "特典を申請しますか？24時間以内に発行されます。",
-          requestSuccess: "申請完了！コードを生成しています。後でマイクーポンを確認してください。",
-        },
-      },
+          requestSuccess: "申請完了！コードを生成しています。後でマイクーポンを確認してください。" } },
       bookings: { title: "最近の予約", viewAll: "すべて見る", empty: "最近の予約はありません", completed: "完了", actions: { confirm: "予約確定", complete: "完了としてマーク", variation: "追加作業の請求" } },
       status: { pending: "保留中", confirmed: "確定済み", completed: "完了", cancelled: "キャンセル" },
       variations: { label: "金額変更", status: "ステータス", pending: "ユーザー承認待ち", approved: "承認済み", rejected: "拒否", arbiterActive: "AI仲裁中" },
@@ -326,8 +322,7 @@ export const ja: Dictionary = {
       title: "実績ポートフォリオ", subtitle: "最高の仕事を見せて、より多くの予約を獲得しましょう。", addBtn: "実績を追加", emptyTitle: "実績なし", emptyDesc: "過去のプロジェクトの写真を追加して、新しい信頼を築きましょう。",
       modal: { title: "実績追加", itemTitle: "プロジェクト名", itemTitlePlaceholder: "例：ロンドンでのボイラー設置", category: "カテゴリー", uploadPhoto: "プロジェクト写真をアップロード", errorSize: "写真は5MB以下にしてください", details: "詳細内容", aiBtn: "AIで生成", aiGenerating: "作成中...", detailsPlaceholder: "行った作業、課題、結果を説明してください。", cancel: "キャンセル", publish: "実績を公開" },
       deleteConfirm: "この実績を削除してもよろしいですか？", addError: "追加に失敗しました。", aiError: "AI生成に失敗しました。手動で入力してください。"
-    },
-  },
+    } },
   education_sec: { hero: { badge: "英国のエリート講師", title1: "新しいスキルを", title2: "プロから学ぶ", subtitle: "学業、語学、専門スキルのエリート講師と繋がる。あなたの成功のためのパーソナライズされた学習。", searchPlaceholder: "何を学びたいですか？", searchBtn: "講師を探す" },
     forYou: { title: "あなたへのおすすめ", match: "AIマッチ度", viewProfile: "プロフィールを見る" },
     categories: { title: "カテゴリーから探す", browseBtn: "すべて見る", items: { 
@@ -378,7 +373,7 @@ export const ja: Dictionary = {
         "ロンドンのプロフェッショナル税務会計士…"
       ],
       popularLabel: "人気",
-      popularTags: ["住宅リノベーション", "税務申告", "ディープクリーン", "法律支援"], trustedBy: "英国居住者に信頼され、検証済み" },
+      popularTags: ["住宅リノベーション", "税務申告", "ディープクリーン", "法律支援"] },
     recommendation: { title1: "あなたへ", title2: "おすすめ", subtitle: "ニーズと現在地に基づいたトッププロフェッショナル。", browse: "すべて見る" },
     recommendationResults: {
       trendingTitle: "{{city}} で人気: {{category}}",
@@ -403,6 +398,7 @@ export const ja: Dictionary = {
     eliteBadge: "エリート専門家",
     defaultCategory: "サービス専門家",
     noResults: "このカテゴリーには現在専門家がいません。",
+    trustedBy: "英国居住者に信頼され、検証済み",
     categories: { plumbing: "水道・電気", repairs: "修理・修繕", renovation: "リフォーム", education: "教育", accounting: "会計", legal: "法律", commercial: "商用", cleaning: "清掃", car: "車" },
     sections: {
       plumbing: { title: "配管・テクニカル", desc: "緊急の漏水から複雑な配線まで、認定技術者を繋ぎます。", items: ["漏水修理", "電気工事", "家電設置", "ボイラー整備", "スイッチ交換", "スマートホーム"] },
