@@ -370,7 +370,7 @@ export const pl: Dictionary = {
       trending: "Popularne lokalnie"
     },
     aiCTA: { badge: "Zasilane przez ChatGPT, Gemini & Grok", title1: "Nie wiesz co jest nie tak?", title2: "Uzyskaj natychmiastową diagnozę AI", subtitle: "Prześlij zdjęcie problemu. Nasze AI zidentyfikuje usterkę, oszacuje koszty i znajdzie eksperta w kilka sekund.", button: "Rozpocznij darmową diagnozę AI" },
-    referralCTA: { badge: "Nagrody za polecenia", title: "Zarabiaj 2% dochodu pasywnego", subtitle: "Polecaj znajomych i otrzymuj 2% od wszystkich ich rezerwacji przez następne 5 lat w formie voucherów zakupowych (brak możliwości wypłaty gotówki).", button: "Zacznij zarabiać teraz", referralLabel: "Twój kod polecający:" },
+    referralCTA: { badge: "Nagrody za polecenia", title: "Zarabiaj 2% dochodu pasywnego", subtitle: "Polecaj znajomych i otrzymuj 2% od wszystkich ich rezerwacji przez następne 5 lat w formie voucherów zakupowych (brak możliwości wypłaty gotówki).", button: "Zacznij zarabiać teraz", referralLabel: "Twój kod polecający:" , voucherDisclaimer: "* Rewards redeemable for retail vouchers only. No cash withdrawal." },
     educationCTA: "Przejdź do edukacji",
     eliteLocal: "Elita obszaru",
     eliteBadge: "Elitarny ekspert",

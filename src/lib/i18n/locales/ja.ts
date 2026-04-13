@@ -392,7 +392,7 @@ export const ja: Dictionary = {
       trending: "地元のトレンド"
     },
     aiCTA: { badge: "ChatGPT, Gemini & Grok 搭載", title1: "不具合の原因がわからない？", title2: "即時AI診断を受ける", subtitle: "問題箇所の写真をアップロード。AIが故障を特定し、費用を見積もり、最適な専門家を数秒で提案します。", button: "無料AI診断を開始" },
-    referralCTA: { badge: "紹介報酬", title: "2%の受動的報酬を獲得", subtitle: "友達を紹介して、今後5年間の全予約額からショッピングギフト券として2%の報酬を得ましょう（現金引き出し不可）。", button: "報酬プログラムを開始", referralLabel: "あなたの紹介コード：" },
+    referralCTA: { badge: "紹介報酬", title: "2%の受動的報酬を獲得", subtitle: "友達を紹介して、今後5年間の全予約額からショッピングギフト券として2%の報酬を得ましょう（現金引き出し不可）。", button: "報酬プログラムを開始", referralLabel: "あなたの紹介コード：" , voucherDisclaimer: "* Rewards redeemable for retail vouchers only. No cash withdrawal." },
     educationCTA: "教育・学習へ",
     eliteLocal: "エリアエリート",
     eliteBadge: "エリート専門家",

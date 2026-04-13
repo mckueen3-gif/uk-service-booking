@@ -376,7 +376,7 @@ export const hi: Dictionary = {
       trending: "स्थानीय स्तर पर प्रचलित"
     },
     aiCTA: { badge: "ChatGPT, Gemini & Grok द्वारा संचालित", title1: "पता नहीं क्या गलत है?", title2: "तत्काल AI निदान प्राप्त करें", subtitle: "समस्या की फोटो अपलोड करें। हमारा AI खराबी की पहचान करेगा, लागत का अनुमान लगाएगा और सेकंडों में विशेषज्ञ ढूंढ लेगा।", button: "मुफ्त AI निदान शुरू करें" },
-    referralCTA: { badge: "रेफ़रल पुरस्कार", title: "2% निष्क्रिय आय कमाएं", subtitle: "मित्रों को रेफर करें और अगले 5 वर्षों के लिए उनकी सभी बुकिंग से शॉपिंग वाउचर के रूप में 2% प्राप्त करें (कैश निकासी नहीं)।", button: "अभी कमाना शुरू करें", referralLabel: "आपका रेफ़रल कोड:" },
+    referralCTA: { badge: "रेफ़रल पुरस्कार", title: "2% निष्क्रिय आय कमाएं", subtitle: "मित्रों को रेफर करें और अगले 5 वर्षों के लिए उनकी सभी बुकिंग से शॉपिंग वाउचर के रूप में 2% प्राप्त करें (कैश निकासी नहीं)।", button: "अभी कमाना शुरू करें", referralLabel: "आपका रेफ़रल कोड:" , voucherDisclaimer: "* Rewards redeemable for retail vouchers only. No cash withdrawal." },
     educationCTA: "शिक्षा पर जाएं",
     eliteLocal: "क्षेत्र विशिष्ट",
     eliteBadge: "विशिष्ट विशेषज्ञ",

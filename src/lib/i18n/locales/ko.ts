@@ -392,7 +392,7 @@ export const ko: Dictionary = {
       trending: "현지 트렌드"
     },
     aiCTA: { badge: "ChatGPT, Gemini & Grok 기반", title1: "무엇이 문제인지 모르겠나요?", title2: "즉시 AI 진단 받기", subtitle: "문제 부위의 사진을 업로드하세요. AI가 고장을 식별하고 비용을 추정하며 최적의 전문가를 즉시 찾아드립니다.", button: "무료 AI 진단 시작" },
-    referralCTA: { badge: "추천 보상", title: "2% 수동 수익 창출", subtitle: "친구를 추천하고 향후 5년 동안의 모든 예약액에서 2%를 받으세요 (친구당 최대 £200).", button: "지금 수익 창출 시작", referralLabel: "내 추천 코드:" },
+    referralCTA: { badge: "추천 보상", title: "2% 수동 수익 창출", subtitle: "친구를 추천하고 향후 5년 동안의 모든 예약액에서 2%를 받으세요 (친구당 최대 £200).", button: "지금 수익 창출 시작", referralLabel: "내 추천 코드:" , voucherDisclaimer: "* Rewards redeemable for retail vouchers only. No cash withdrawal." },
     educationCTA: "교육 페이지로 이동",
     eliteLocal: "지역 엘리트",
     eliteBadge: "엘리트 전문가",

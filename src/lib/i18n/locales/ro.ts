@@ -362,7 +362,7 @@ export const ro: Dictionary = {
       trending: "Trenduri locale"
     },
     aiCTA: { badge: "Powered by ChatGPT, Gemini & Grok", title1: "Nu știi ce e în neregulă?", title2: "Obține diagnostic AI instant", subtitle: "Încarcă o poză cu problema. AI-ul nostru va identifica defecțiunea, va estima costurile și va găsi un expert în câteva secunde.", button: "Începe diagnostic AI gratuit" },
-    referralCTA: { badge: "Recompense recomandare", title: "Câștigă 2% venit pasiv", subtitle: "Recomandă prieteni și primești 2% din toate rezervările lor în următorii 5 ani sub formă de vouchere de cumpărături (nu se poate retrage numerar).", button: "Începe să câștigi acum", referralLabel: "Codul tău de recomandare:" },
+    referralCTA: { badge: "Recompense recomandare", title: "Câștigă 2% venit pasiv", subtitle: "Recomandă prieteni și primești 2% din toate rezervările lor în următorii 5 ani sub formă de vouchere de cumpărături (nu se poate retrage numerar).", button: "Începe să câștigi acum", referralLabel: "Codul tău de recomandare:" , voucherDisclaimer: "* Rewards redeemable for retail vouchers only. No cash withdrawal." },
     educationCTA: "Mergi la Educație",
     eliteLocal: "Elita zonei",
     eliteBadge: "Expert de elită",

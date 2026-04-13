@@ -390,7 +390,7 @@ export const ur: Dictionary = {
       trending: "مقامی طور پر مقبول"
     },
     aiCTA: { badge: "ChatGPT, Gemini & Grok کے ذریعے تقویت یافتہ", title1: "پتہ نہیں کیا غلط ہے؟", title2: "فوری AI تشخیص حاصل کریں", subtitle: "مسئلے کی فوٹو اپ لوڈ کریں۔ ہمارا AI خرابی کی نشاندہی کرے گا، لاگت کا تخمینہ لگائے گا اور سیکنڈوں میں ماہر تلاش کر لے گا۔", button: "مفت AI تشخیص شروع کریں" },
-    referralCTA: { badge: "انعامی پروگرام", title: "2% غیر فعال آمدنی کمائیں", subtitle: "دوستوں کو ریفر کریں اور اگلے 5 سالوں تک ان کی تمام بکنگ سے شاپنگ واؤچر کے طور پر 2% حاصل کریں (نقد نکاسی نہیں)۔", button: "ابھی کمانا شروع کریں", referralLabel: "آپ کا ریفرل کوڈ:" },
+    referralCTA: { badge: "انعامی پروگرام", title: "2% غیر فعال آمدنی کمائیں", subtitle: "دوستوں کو ریفر کریں اور اگلے 5 سالوں تک ان کی تمام بکنگ سے شاپنگ واؤچر کے طور پر 2% حاصل کریں (نقد نکاسی نہیں)۔", button: "ابھی کمانا شروع کریں", referralLabel: "آپ کا ریفرل کوڈ:" , voucherDisclaimer: "* Rewards redeemable for retail vouchers only. No cash withdrawal." },
     educationCTA: "تعلیم پر جائیں",
     eliteLocal: "علاقائی اشرافیہ",
     eliteBadge: "اعلیٰ ماہر",

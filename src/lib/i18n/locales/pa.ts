@@ -392,7 +392,7 @@ export const pa: Dictionary = {
       trending: "ਸਥਾਨਕ ਤੌਰ 'ਤੇ ਪ੍ਰਚਲਿਤ"
     },
     aiCTA: { badge: "ChatGPT, Gemini & Grok ਦੁਆਰਾ ਸੰਚਾਲਿਤ", title1: "ਪਤਾ ਨਹੀਂ ਕੀ ਗਲਤ ਹੈ?", title2: "ਤੁਰੰਤ AI ਨਿਦਾਨ ਪ੍ਰਾਪਤ ਕਰੋ", subtitle: "ਸਮੱਸਿਆ ਦੀ ਫੋਟੋ ਅਪਲੋਡ ਕਰੋ। ਸਾਡਾ AI ਨੁਕਸ ਦੀ ਪਛਾਣ ਕਰੇਗਾ, ਲਾਗਤ ਦਾ ਅੰਦਾਜ਼ਾ ਲਗਾਏਗਾ ਅਤੇ ਸਕਿੰਟਾਂ ਵਿੱਚ ਮਾਹਰ ਲੱਭ ਲਵੇਗਾ।", button: "ਮੁਫਤ AI ਨਿਦਾਨ ਸ਼ੁਰੂ ਕਰੋ" },
-    referralCTA: { badge: "ਰੈਫਰਲ ਇਨਾਮ", title: "2% ਪੈਸਿਵ ਆਮਦਨ ਕਮਾਓ", subtitle: "ਦੋਸਤਾਂ ਨੂੰ ਰੈਫਰ ਕਰੋ ਅਤੇ ਅਗਲੇ 5 ਸਾਲਾਂ ਲਈ ਉਨ੍ਹਾਂ ਦੀਆਂ ਸਾਰੀਆਂ ਬੁਕਿੰਗਾਂ ਤੋਂ 2% ਪ੍ਰਾਪਤ ਕਰੋ (ਪ੍ਰਤੀ ਦੋਸਤ £200 ਤੱਕ)।", button: "ਹੁਣੇ ਕਮਾਉਣਾ ਸ਼ੁਰੂ ਕਰੋ", referralLabel: "ਤੁਹਾਡਾ ਰੈਫਰਲ ਕੋਡ:" },
+    referralCTA: { badge: "ਰੈਫਰਲ ਇਨਾਮ", title: "2% ਪੈਸਿਵ ਆਮਦਨ ਕਮਾਓ", subtitle: "ਦੋਸਤਾਂ ਨੂੰ ਰੈਫਰ ਕਰੋ ਅਤੇ ਅਗਲੇ 5 ਸਾਲਾਂ ਲਈ ਉਨ੍ਹਾਂ ਦੀਆਂ ਸਾਰੀਆਂ ਬੁਕਿੰਗਾਂ ਤੋਂ 2% ਪ੍ਰਾਪਤ ਕਰੋ (ਪ੍ਰਤੀ ਦੋਸਤ £200 ਤੱਕ)।", button: "ਹੁਣੇ ਕਮਾਉਣਾ ਸ਼ੁਰੂ ਕਰੋ", referralLabel: "ਤੁਹਾਡਾ ਰੈਫਰਲ ਕੋਡ:" , voucherDisclaimer: "* Rewards redeemable for retail vouchers only. No cash withdrawal." },
     educationCTA: "ਸਿੱਖਿਆ 'ਤੇ ਜਾਓ",
     eliteLocal: "ਖੇਤਰ ਵਿਸ਼ੇਸ਼",
     eliteBadge: "ਵਿਸ਼ੇਸ਼ ਮਾਹਰ",
