@@ -6,47 +6,205 @@ export default function CookiePolicy() {
   return (
     <LegalLayout 
       title="Cookie Policy" 
-      lastUpdated="March 28, 2026"
+      lastUpdated="9 April 2026"
     >
+      <div className="mb-6 p-6 rounded-2xl bg-blue-50 border border-blue-100">
+        <p className="text-sm text-slate-500 mb-1 font-semibold">Effective Date: 15 April 2026</p>
+        <p className="text-slate-600 leading-relaxed">
+          Phoenix Sovereign Intelligence LTD (&ldquo;Phoenix Sovereign Intelligence&rdquo;, &ldquo;ConciergeAI&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo; or &ldquo;our&rdquo;) uses cookies and similar tracking technologies (such as pixels, web beacons, local storage, and scripts) on our website{' '}
+          <a href="https://www.conciergeai.uk/" className="text-blue-600 hover:underline">https://www.conciergeai.uk/</a>{' '}
+          (the &ldquo;Website&rdquo;) and when providing our Services, including the AI-powered diagnosis tool, booking system, expert matching, payment processing, and referral programme.
+        </p>
+        <p className="text-slate-600 leading-relaxed mt-3">
+          This Cookie Policy explains what cookies and technologies we use, why we use them, and how you can manage them. It forms part of our{' '}
+          <Link href="/legal/privacy" className="text-blue-600 hover:underline">Privacy Policy</Link>.
+        </p>
+        <p className="text-slate-600 leading-relaxed mt-3">
+          Our registered office is at 61a Bridge Street, Kington, United Kingdom, HR5 3DJ.
+        </p>
+      </div>
+
+      {/* Section 1 */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">1. What are Cookies?</h2>
+        <h2 className="text-2xl font-bold mb-6">1. What Are Cookies and Similar Technologies?</h2>
         <p>
-          Cookies are small text files that are placed on your computer or mobile device when you visit a website. They are widely used to make websites work more efficiently and to provide information to the owners of the site.
+          Cookies are small text files placed on your device when you visit a website. We also use similar technologies, including scripts and APIs from third-party providers, to enable core functions, analyse usage, process payments, and power our AI features.
         </p>
       </section>
 
+      {/* Section 2 */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">2. Types of Cookies We Use</h2>
+        <h2 className="text-2xl font-bold mb-6">2. Types of Cookies and Technologies We Use</h2>
         <div className="space-y-8">
-          <div>
-            <h3 className="text-xl font-bold mb-4 text-slate-800">Necessary Cookies</h3>
+          <div className="p-5 rounded-xl bg-slate-50 border border-slate-100">
+            <h3 className="text-lg font-bold mb-3 text-slate-800">Strictly Necessary Cookies</h3>
             <p>
-              These cookies are essential for the operation of our Platform. They include, for example, cookies that enable you to log into secure areas of our Platform or use our booking and payment services.
+              These are essential for the Website to function, including secure login, session management, fraud prevention, and handling AI image uploads or payment processes.
+            </p>
+            <p className="mt-2 text-sm font-medium text-amber-700 bg-amber-50 px-3 py-1.5 rounded-lg inline-block">
+              These do not require your consent.
             </p>
           </div>
-          <div>
-            <h3 className="text-xl font-bold mb-4 text-slate-800">Analytical/Performance Cookies</h3>
+
+          <div className="p-5 rounded-xl bg-slate-50 border border-slate-100">
+            <h3 className="text-lg font-bold mb-3 text-slate-800">Performance and Analytics Cookies</h3>
             <p>
-              They allow us to recognize and count the number of visitors and to see how visitors move around our Platform when they are using it. This helps us to improve the way our Platform works.
+              These help us understand how visitors use the Website, measure performance, and improve our Services and AI diagnosis tool (e.g. page views, user journeys, error reports).
+            </p>
+          </div>
+
+          <div className="p-5 rounded-xl bg-slate-50 border border-slate-100">
+            <h3 className="text-lg font-bold mb-3 text-slate-800">Functional and Preference Cookies</h3>
+            <p>
+              These remember your choices (such as language or account preferences) to provide a better experience.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-xl bg-slate-50 border border-slate-100">
+            <h3 className="text-lg font-bold mb-3 text-slate-800">Targeting / Marketing Cookies</h3>
+            <p>
+              These may be used to deliver relevant content or measure marketing effectiveness. We only use them with your explicit consent.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-xl bg-slate-50 border border-slate-100">
+            <h3 className="text-lg font-bold mb-3 text-slate-800">AI Diagnosis and Service-Related Technologies</h3>
+            <p>
+              When you use our AI diagnosis feature (uploading property images for plumbing, electrical or home repair issues), temporary cookies, local storage, or scripts may be used to handle secure uploads and processing sessions.
             </p>
           </div>
         </div>
       </section>
 
+      {/* Section 3 */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">3. Managing Your Cookies</h2>
-        <p>
-          You can choose to accept or refuse cookies. Most web browsers automatically accept cookies, but you can usually modify your browser setting to decline cookies if you prefer. 
+        <h2 className="text-2xl font-bold mb-6">3. Third-Party Cookies and Technologies</h2>
+        <p className="mb-6">
+          We work with multiple third-party service providers. Because our tools may change over time, we categorise them below. For the most current detailed list (including specific cookie names and durations), please refer to our cookie consent banner settings or the declaration generated by our Cookie Consent Management Platform.
         </p>
+
+        <div className="space-y-6">
+          {/* Payment Processing */}
+          <div className="p-5 rounded-xl border border-slate-200">
+            <h3 className="text-lg font-bold mb-3 text-slate-800">💳 Payment Processing</h3>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>
+                <strong>Stripe:</strong> Used for secure payment processing and payouts. Stripe may set cookies or use similar technologies for session management, fraud detection, and payment Link functionality.
+              </li>
+            </ul>
+          </div>
+
+          {/* AI and Machine Learning */}
+          <div className="p-5 rounded-xl border border-slate-200">
+            <h3 className="text-lg font-bold mb-3 text-slate-800">🤖 AI and Machine Learning Providers</h3>
+            <ul className="list-disc pl-6 space-y-2">
+              <li><strong>Grok (xAI):</strong> Used to power certain AI features and responses.</li>
+              <li><strong>ChatGPT (OpenAI):</strong> Used for AI diagnosis assistance, text processing, or related intelligent features.</li>
+              <li><strong>Gemini (Google):</strong> Used for AI capabilities, including potential image analysis support or generative features.</li>
+              <li>Other AI technology partners.</li>
+            </ul>
+            <p className="mt-4 text-sm text-slate-500">
+              These AI services are primarily accessed via secure API calls (backend processing). However, their scripts or embedded components may set performance, functional, or analytics cookies/similar technologies when loaded on the Website.
+            </p>
+          </div>
+
+          {/* Other Categories */}
+          <div className="p-5 rounded-xl border border-slate-200">
+            <h3 className="text-lg font-bold mb-3 text-slate-800">🔧 Other Common Categories</h3>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>Analytics and performance providers (e.g. Google Analytics or similar)</li>
+              <li>Web hosting, security, and infrastructure providers</li>
+              <li>Communication and marketing tools</li>
+              <li>Identity verification and background check services</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-6 p-4 rounded-xl bg-green-50 border border-green-100">
+          <p className="text-sm text-green-800 font-medium">
+            ✅ We do not sell your data. AI providers process data only as necessary to deliver the requested service, in line with our agreements and applicable data processing terms.
+          </p>
+        </div>
+      </section>
+
+      {/* Section 4 */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mb-6">4. How Long Do Cookies Last?</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="p-5 rounded-xl bg-slate-50 border border-slate-100 text-center">
+            <p className="text-3xl mb-2">⏱️</p>
+            <h4 className="font-bold text-slate-800 mb-1">Session Cookies</h4>
+            <p className="text-sm text-slate-600">Deleted when you close your browser.</p>
+          </div>
+          <div className="p-5 rounded-xl bg-slate-50 border border-slate-100 text-center">
+            <p className="text-3xl mb-2">📅</p>
+            <h4 className="font-bold text-slate-800 mb-1">Persistent Cookies</h4>
+            <p className="text-sm text-slate-600">Remain on your device for a set period (days to 2 years) or until deleted.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 5 */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mb-6">5. Managing Your Cookie Preferences</h2>
+        <p className="mb-4">
+          When you first visit our Website, a cookie consent banner will appear. You can choose:
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+          <div className="p-4 rounded-xl bg-blue-50 border border-blue-100 text-center">
+            <p className="font-bold text-blue-800">Accept All</p>
+          </div>
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center">
+            <p className="font-bold text-slate-700">Reject All</p>
+            <p className="text-xs text-slate-500 mt-1">(non-essential cookies)</p>
+          </div>
+          <div className="p-4 rounded-xl bg-amber-50 border border-amber-100 text-center">
+            <p className="font-bold text-amber-800">Customise</p>
+            <p className="text-xs text-slate-500 mt-1">your preferences</p>
+          </div>
+        </div>
+        <p className="mb-3">You can change your choices anytime by:</p>
+        <ul className="list-disc pl-6 space-y-2">
+          <li>Clicking &ldquo;Cookie Settings&rdquo; in the footer or banner</li>
+          <li>Adjusting your browser settings (note: blocking strictly necessary cookies may limit functionality)</li>
+        </ul>
         <p className="mt-4">
-          Please note that disabling necessary cookies may prevent you from using certain features of the ConciergeAI platform, such as persistent login and booking management.
+          Non-essential cookies and third-party scripts (including analytics or marketing from AI/payment providers) will only load after you give consent.
         </p>
       </section>
 
+      {/* Section 6 */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">4. Consent</h2>
+        <h2 className="text-2xl font-bold mb-6">6. Updates to This Cookie Policy</h2>
         <p>
-          Upon your first visit to ConciergeAI, we display a cookie consent banner. By clicking "Accept All", you consent to our use of all cookies mentioned in this policy.
+          We may update this Cookie Policy as we add or change third-party tools (e.g. new AI providers or payment features). We will update the &ldquo;Last Updated&rdquo; date and, for significant changes, display a notice on the Website.
+        </p>
+        <p className="mt-4">
+          We recommend reviewing this page periodically. For the latest cookie details, always check the consent banner settings.
+        </p>
+      </section>
+
+      {/* Section 7 */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mb-6">7. Contact Us</h2>
+        <p className="mb-4">
+          If you have any questions about our use of cookies or this Cookie Policy, please contact us at:
+        </p>
+        <div className="p-6 rounded-xl bg-slate-50 border border-slate-100">
+          <p className="font-bold text-slate-800 mb-1">Phoenix Sovereign Intelligence LTD</p>
+          <p className="text-slate-600">61a Bridge Street, Kington, United Kingdom, HR5 3DJ</p>
+          <p className="text-slate-600 mt-2">
+            Email:{' '}
+            <a href="mailto:privacy@conciergeai.uk" className="text-blue-600 hover:underline">
+              privacy@conciergeai.uk
+            </a>
+          </p>
+        </div>
+        <p className="mt-6">
+          You have the right to lodge a complaint with the Information Commissioner&apos;s Office (ICO):{' '}
+          <a href="https://ico.org.uk/make-a-complaint/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+            https://ico.org.uk/make-a-complaint/
+          </a>
         </p>
       </section>
 
@@ -54,8 +212,8 @@ export default function CookiePolicy() {
         <Link href="/legal/privacy" className="text-blue-600 hover:text-blue-700 transition-colors">
           &larr; View Privacy Policy
         </Link>
-        <Link href="/" className="text-slate-500 hover:text-slate-700 transition-colors">
-          Return Home
+        <Link href="/legal/terms" className="text-blue-600 hover:text-blue-700 transition-colors">
+          View Terms &rarr;
         </Link>
       </div>
     </LegalLayout>
