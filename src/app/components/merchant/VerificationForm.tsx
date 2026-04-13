@@ -80,37 +80,90 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
         )}
       </div>
 
-      {/* Upload Form */}
+       {/* Upload Form */}
       <form onSubmit={handleVerify} className="glass-panel" style={{ padding: '2rem', display: 'grid', gap: '1.5rem', marginBottom: '2rem' }}>
         <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '0.5rem' }}>上傳新憑證</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.5rem' }}>
            <div>
              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.5rem' }}>證書類型</label>
              <select 
                 value={docType}
                 onChange={(e) => setDocType(e.target.value)}
-                style={{ width: '100%', padding: '0.75rem', backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: '0.5rem', color: 'white' }}
+                style={{ 
+                  width: '100%', 
+                  padding: '1rem', 
+                  backgroundColor: 'rgba(255,255,255,0.05)', 
+                  border: '1px solid var(--border-color)', 
+                  borderRadius: '0.75rem', 
+                  color: 'white',
+                  fontSize: '0.95rem',
+                  appearance: 'none',
+                  cursor: 'pointer'
+                }}
              >
-                <option value={DocumentType.BUSINESS_LICENSE}>營業執照 (Business License)</option>
-                <option value={DocumentType.GAS_SAFE}>Gas Safe 註冊證</option>
-                <option value={DocumentType.NICEIC}>NICEIC 電工認證</option>
-                <option value={DocumentType.SIA_LICENSE}>SIA 安全人員執照</option>
-                <option value={DocumentType.FOOD_HYGIENE}>食品衛生評級 (Food Hygiene)</option>
-                <option value={DocumentType.CQC_REG}>CQC 醫療護理註冊</option>
-                <option value={DocumentType.DVLA_CPC}>專業駕駛 CPC/DVLA</option>
-                <option value={DocumentType.DBS_CHECK}>DBS 無犯罪紀錄證明</option>
-                <option value={DocumentType.PUBLIC_LIABILITY}>公眾責任保險 (Insurance)</option>
+                <option value={DocumentType.BUSINESS_LICENSE} style={{ backgroundColor: '#1a1a1a' }}>營業執照 (Business License)</option>
+                <option value={DocumentType.GAS_SAFE} style={{ backgroundColor: '#1a1a1a' }}>Gas Safe 註冊證</option>
+                <option value={DocumentType.NICEIC} style={{ backgroundColor: '#1a1a1a' }}>NICEIC 電工認證</option>
+                <option value={DocumentType.SIA_LICENSE} style={{ backgroundColor: '#1a1a1a' }}>SIA 安全人員執照</option>
+                <option value={DocumentType.FOOD_HYGIENE} style={{ backgroundColor: '#1a1a1a' }}>食品衛生評級 (Food Hygiene)</option>
+                <option value={DocumentType.CQC_REG} style={{ backgroundColor: '#1a1a1a' }}>CQC 醫療護理註冊</option>
+                <option value={DocumentType.DVLA_CPC} style={{ backgroundColor: '#1a1a1a' }}>專業駕駛 CPC/DVLA</option>
+                <option value={DocumentType.DBS_CHECK} style={{ backgroundColor: '#1a1a1a' }}>DBS 無犯罪紀錄證明</option>
+                <option value={DocumentType.PUBLIC_LIABILITY} style={{ backgroundColor: '#1a1a1a' }}>公眾責任保險 (Insurance)</option>
              </select>
            </div>
-           <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+
+           {/* New Upload Area */}
+           <div>
+             <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.5rem' }}>證書正本照片</label>
+             <div 
+               onClick={() => document.getElementById('file-upload')?.click()}
+               style={{ 
+                border: '2px dashed var(--border-color)', 
+                borderRadius: '1rem', 
+                padding: '2rem', 
+                textAlign: 'center',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                backgroundColor: 'rgba(255,255,255,0.02)'
+               }}
+               onMouseOver={(e) => e.currentTarget.style.borderColor = 'var(--accent-color)'}
+               onMouseOut={(e) => e.currentTarget.style.borderColor = 'var(--border-color)'}
+             >
+               <input 
+                 id="file-upload"
+                 type="file" 
+                 accept="image/*,.pdf"
+                 style={{ display: 'none' }}
+                 onChange={(e) => {
+                   const file = e.target.files?.[0];
+                   if (file) {
+                     // In a real app, we would upload to S3/Supabase here
+                     console.log('Selected file:', file.name);
+                   }
+                 }}
+               />
+               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', color: 'var(--text-secondary)' }}>
+                 <div style={{ padding: '1rem', borderRadius: '50%', backgroundColor: 'rgba(255,255,255,0.05)', color: 'var(--accent-color)' }}>
+                   <Upload size={32} />
+                 </div>
+                 <div>
+                   <p style={{ fontWeight: 800, color: 'white', marginBottom: '0.2rem' }}>點擊或拖拽上傳</p>
+                   <p style={{ fontSize: '0.8rem' }}>支援 JPG, PNG, PDF (最大 10MB)</p>
+                 </div>
+               </div>
+             </div>
+           </div>
+
+           <div style={{ marginTop: '0.5rem' }}>
              <button 
                 type="submit" 
-               disabled={loading}
+                disabled={loading}
                 className="btn btn-primary" 
-                style={{ width: '100%', padding: '0.75rem', fontWeight: 800, borderRadius: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
+                style={{ width: '100%', padding: '1rem', fontWeight: 800, borderRadius: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', fontSize: '1rem' }}
               >
-                {loading ? <Loader2 size={18} className="animate-spin" /> : <Upload size={18} />}
-                {loading ? "AI 審核中" : "上傳並驗證"}
+                {loading ? <Loader2 size={20} className="animate-spin" /> : <Sparkles size={20} />}
+                {loading ? "AI 審核中..." : "開始 AI 智能驗證"}
               </button>
            </div>
         </div>
