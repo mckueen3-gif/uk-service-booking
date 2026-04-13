@@ -23,13 +23,13 @@ export default async function VerificationPage() {
 
   return (
     <div className="container" style={{ paddingTop: '8rem', paddingBottom: '10rem' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '3rem' }}>
-        <div style={{ width: '50px', height: '50px', borderRadius: '1rem', backgroundColor: 'var(--accent-color)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <ShieldCheck size={28} />
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '4rem' }}>
+        <div style={{ width: '60px', height: '60px', borderRadius: '1.25rem', backgroundColor: 'var(--accent-color)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem', boxShadow: '0 8px 16px rgba(184, 134, 11, 0.2)' }}>
+          <ShieldCheck size={32} />
         </div>
         <div>
-          <h1 style={{ fontSize: '2rem', fontWeight: 900 }}>專家認證中心</h1>
-          <p style={{ color: 'var(--text-secondary)' }}>完成認證，獲得平台專屬信任標誌</p>
+          <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem' }}>專家認證中心</h1>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>完成認證，獲得平台專屬信任標誌</p>
         </div>
       </div>
 
