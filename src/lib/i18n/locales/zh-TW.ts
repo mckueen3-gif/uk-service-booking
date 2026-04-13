@@ -1,33 +1,44 @@
-import { Dictionary } from '../types';
+import { Dictionary } from "../types";
 
 export const zhTW: any = {
-  nav: { browse: "瀏覽服務", join: "加入專家", login: "登入", register: "註冊", logout: "登出", dashboard: "管理後台", aiDiagnosis: "AI 診斷", education: "教育專區", quickActions: "快速操作", exploreServices: "瀏覽服務" },
+  nav: {
+    browse: "瀏覽服務",
+    join: "加入專家",
+    login: "登入",
+    register: "註冊",
+    logout: "登出",
+    dashboard: "管理後台",
+    aiDiagnosis: "AI 診斷",
+    education: "教育專區",
+    quickActions: "快速操作",
+    exploreServices: "瀏覽服務",
+  },
   sidebar: {
     sections: {
-      main: '主控制台',
-      business: '精英業務',
-      account: '專家帳戶',
-      assets: '資產與獎勵',
+      main: "主控制台",
+      business: "精英業務",
+      account: "專家帳戶",
+      assets: "資產與獎勵",
     },
     labels: {
-      overview: '總覽',
-      bookings: '我的預約',
-      messages: '在線訊息',
-      schedule: '服務排程',
-      services: '服務管理',
-      availability: '可用時段',
-      analytics: '績效分析',
-      verification: '專家認證',
-      accounting: '會計稅務',
-      wallet: '收入錢包',
-      garage: '私人車庫',
-      properties: '房產組合',
-      rewards: '精英積分',
-      profile: '個人資料',
-      logout: '登出系統',
-      boost: '提升觸及',
-      verified: '認證專家',
-      expert: 'ConciergeAI 專家',
+      overview: "總覽",
+      bookings: "我的預約",
+      messages: "在線訊息",
+      schedule: "服務排程",
+      services: "服務管理",
+      availability: "可用時段",
+      analytics: "績效分析",
+      verification: "專家認證",
+      accounting: "會計稅務",
+      wallet: "收入錢包",
+      garage: "私人車庫",
+      properties: "房產組合",
+      rewards: "精英積分",
+      profile: "個人資料",
+      logout: "登出系統",
+      boost: "提升觸及",
+      verified: "認證專家",
+      expert: "ConciergeAI 專家",
     },
   },
   legal: { ui: { selectLanguage: "全球化協定", close: "完成協定" } },
@@ -37,9 +48,10 @@ export const zhTW: any = {
         badge: "精英級精準",
         title1: "卓越工程",
         title2: "水電與能源",
-        subtitle: "聯絡英國認證專家，進行精準的水管維修、電路佈線與電器安裝。所有服務由 AI 監控，確保品質安全。",
+        subtitle:
+          "聯絡英國認證專家，進行精準的水管維修、電路佈線與電器安裝。所有服務由 AI 監控，確保品質安全。",
         searchPlaceholder: "水管維修、鍋爐檢修、重新佈線...",
-        searchBtn: "掃描專家節點"
+        searchBtn: "掃描專家節點",
       },
       sub_categories: {
         pipe: { title: "水管維修", desc: "緊急漏水偵測與精準硬體更換。" },
@@ -47,8 +59,8 @@ export const zhTW: any = {
         appliance: { title: "電器安裝", desc: "廚衛電器硬體部署與負載測試。" },
         boiler: { title: "鍋爐檢修", desc: "合規熱能維護與性能診斷。" },
         switch: { title: "開關組件", desc: "高可靠性電器組件更換。" },
-        smart: { title: "智能家居", desc: "家庭自動化網絡與傳感器部署。" }
-      }
+        smart: { title: "智能家居", desc: "家庭自動化網絡與傳感器部署。" },
+      },
     },
     repairs: {
       hero: {
@@ -57,16 +69,19 @@ export const zhTW: any = {
         title2: "精英級維修",
         subtitle: "從家具組裝到牆面修補。英國 Top 1% 的維修專家聽候您的差遣。",
         searchPlaceholder: "家具組裝、牆面修補...",
-        searchBtn: "搜索專家"
+        searchBtn: "搜索專家",
       },
       sub_categories: {
         furniture: { title: "家具組裝", desc: "複雜模組化家具的精準組裝。" },
         structural: { title: "結構加固", desc: "高負重固定裝置的安裝與校準。" },
         wall: { title: "牆面補救", desc: "表面修復與結構塗層恢復。" },
-        mounting: { title: "模組化掛載", desc: "牆面單元與數位裝置的牢固掛載。" },
+        mounting: {
+          title: "模組化掛載",
+          desc: "牆面單元與數位裝置的牢固掛載。",
+        },
         coating: { title: "表面塗層", desc: "美觀且具保護性的表面處理。" },
-        tactics: { title: "通用維修", desc: "全方位家庭維修與維護協定。" }
-      }
+        tactics: { title: "通用維修", desc: "全方位家庭維修與維護協定。" },
+      },
     },
     renovation: {
       hero: {
@@ -75,25 +90,29 @@ export const zhTW: any = {
         title2: "生活空間",
         subtitle: "與英國精英裝修專家一起改變您的房產。進度透明，品質保障。",
         searchPlaceholder: "廚房擴建、閣樓改造...",
-        searchBtn: "啟動項目"
+        searchBtn: "啟動項目",
       },
       sub_categories: {
         culinary: { title: "廚衛翻新", desc: "全棧式廚房與衛浴系統重構。" },
-        expansion: { title: "擴建工程", desc: "閣樓與模組化擴建，提升空間價值。" },
+        expansion: {
+          title: "擴建工程",
+          desc: "閣樓與模組化擴建，提升空間價值。",
+        },
         layout: { title: "空間佈局", desc: "結構重組與室內動線優化。" },
         floor: { title: "地板工程", desc: "高耐用度地板鋪設與精細收口。" },
         landscape: { title: "景觀設計", desc: "物業外部環境工程與設計。" },
-        design: { title: "設計顧問", desc: "建築藍圖與美學邏輯諮詢。" }
-      }
+        design: { title: "設計顧問", desc: "建築藍圖與美學邏輯諮詢。" },
+      },
     },
     accounting: {
       hero: {
         badge: "財務治理",
         title1: "掌握您的",
         title2: "資產帳目",
-        subtitle: "為中小企業及專業人士提供英精英級會計師。確保經營合規與稅務優化。",
+        subtitle:
+          "為中小企業及專業人士提供英精英級會計師。確保經營合規與稅務優化。",
         searchPlaceholder: "報稅、年帳製作、薪資核算...",
-        searchBtn: "審計專家"
+        searchBtn: "審計專家",
       },
       sub_categories: {
         income: { title: "所得稅審計", desc: "個人自雇報稅與所得校準。" },
@@ -101,8 +120,8 @@ export const zhTW: any = {
         tax: { title: "稅務申報", desc: "HMRC 合規稅務準備與提交。" },
         payroll: { title: "薪資核算", desc: "高效的人力資本支付系統。" },
         xero: { title: "Xero 優化", desc: "雲端會計集成與使用指導。" },
-        fiscal: { title: "財務分析", desc: "深入的業務表現數據分析。" }
-      }
+        fiscal: { title: "財務分析", desc: "深入的業務表現數據分析。" },
+      },
     },
     legal: {
       hero: {
@@ -111,7 +130,7 @@ export const zhTW: any = {
         title2: "法律框架",
         subtitle: "聯絡英國認證法律專家，處理簽證、合約起草及糾紛解決。",
         searchPlaceholder: "簽證諮詢、房產法律、合約...",
-        searchBtn: "聯絡法律顧問"
+        searchBtn: "聯絡法律顧問",
       },
       sub_categories: {
         drafting: { title: "合約起草", desc: "高精度的合約與協議撰寫。" },
@@ -119,8 +138,8 @@ export const zhTW: any = {
         property: { title: "房產法律", desc: "產權轉讓與房地產法律邏輯。" },
         arbitration: { title: "糾紛仲裁", desc: "中立的爭議解決與調解服務。" },
         law: { title: "商業法律", desc: "企業與商業治理法律支持。" },
-        notary: { title: "公證服務", desc: "官方文件驗證與認證服務。" }
-      }
+        notary: { title: "公證服務", desc: "官方文件驗證與認證服務。" },
+      },
     },
     cleaning: {
       hero: {
@@ -129,7 +148,7 @@ export const zhTW: any = {
         title2: "居住環境",
         subtitle: "為住宅及商業空間提供精英清潔方案。高強度消毒與極致細節。",
         searchPlaceholder: "深度清潔、退房清潔...",
-        searchBtn: "部署專家"
+        searchBtn: "部署專家",
       },
       sub_categories: {
         hygiene: { title: "定期保潔", desc: "標準化的物業頻繁清潔維護。" },
@@ -137,8 +156,8 @@ export const zhTW: any = {
         textile: { title: "織物清洗", desc: "專業的地毯與沙發軟裝修復。" },
         aperture: { title: "玻璃清洗", desc: "高窗與玻璃表面的專業清潔。" },
         office: { title: "辦公室消毒", desc: "商業辦公區域的衛生管理。" },
-        bio: { title: "生物安全", desc: "臨床級別的去污與消毒處理。" }
-      }
+        bio: { title: "生物安全", desc: "臨床級別的去污與消毒處理。" },
+      },
     },
     car: {
       hero: {
@@ -147,7 +166,7 @@ export const zhTW: any = {
         title2: "工程維修",
         subtitle: "由英國專業技師維護您的愛車。提供現場診斷與高性能保養。",
         searchPlaceholder: "引擎診斷、MOT 準備、剎車...",
-        searchBtn: "掃描技師"
+        searchBtn: "掃描技師",
       },
       sub_categories: {
         engine: { title: "引擎診斷", desc: "進階故障排除與性能調教。" },
@@ -155,17 +174,18 @@ export const zhTW: any = {
         mot: { title: "MOT 準備", desc: "合規性檢查與維修補救。" },
         ac: { title: "空調校準", desc: "空調系統加氣與衛生清理。" },
         bodywork: { title: "車身修復", desc: "結構與外觀漆面修復。" },
-        battery: { title: "電力與輪胎", desc: "電池健康與輪胎性能管理。" }
-      }
+        battery: { title: "電力與輪胎", desc: "電池健康與輪胎性能管理。" },
+      },
     },
     commercial: {
       hero: {
         badge: "企業基礎設施",
         title1: "強化您的",
         title2: "商業佈局",
-        subtitle: "英為國商業空間提供端到端支持。店面裝修、辦公室遷移及工業維護。",
+        subtitle:
+          "英為國商業空間提供端到端支持。店面裝修、辦公室遷移及工業維護。",
         searchPlaceholder: "店面裝修、IT 網絡、空調...",
-        searchBtn: "審核供應商"
+        searchBtn: "審核供應商",
       },
       sub_categories: {
         fitting: { title: "空間裝修", desc: "零售與商業空間內部工程。" },
@@ -173,9 +193,9 @@ export const zhTW: any = {
         industrial: { title: "工業電力", desc: "高電壓電力系統部署與維護。" },
         fire: { title: "消防安全", desc: "合規的安全偵測與防護系統。" },
         mesh: { title: "IT 網絡", desc: "企業級布線與數據中心搭建。" },
-        hvac: { title: "通風空調", desc: "大型環境管理與溫控系統。" }
-      }
-    }
+        hvac: { title: "通風空調", desc: "大型環境管理與溫控系統。" },
+      },
+    },
   },
   common: {
     viewProfile: "查看個人檔案",
@@ -188,40 +208,72 @@ export const zhTW: any = {
     exploreSub: "探索 {category} 領域的專屬先進協議。",
     escrow: {
       title: "ConciergeAI 託管加密保障",
-      subtitle: "{category} 領域的每個會話均由 AI 精準監控，確保品質保證與財務完整性。",
+      subtitle:
+        "{category} 領域的每個會話均由 AI 精準監控，確保品質保證與財務完整性。",
       specialists: "已驗證專才",
       fees: "平台服務費用",
-      support: "AI 仲裁支援系統"
+      support: "AI 仲裁支援系統",
     },
     greetings: {
       morning: "早安",
       afternoon: "午安",
-      evening: "晚安"
+      evening: "晚安",
     },
     user: "用戶",
     serviceFallback: "專業服務專才",
-    licensePlate: "車牌號碼"
+    licensePlate: "車牌號碼",
   },
-  hero: { title: "尋找頂尖服務專家", subtitle: "為您連接您所在地區的認證專業人士。", searchPlaceholder: "您需要什麼服務？", badge: "英國 No.1 服務預訂平台" },
+  hero: {
+    title: "尋找頂尖服務專家",
+    subtitle: "為您連接您所在地區的認證專業人士。",
+    searchPlaceholder: "您需要什麼服務？",
+    badge: "英國 No.1 服務預訂平台",
+  },
   faq: {
     title: "常見問題",
     subtitle: "關於英國服務預訂平台您需要了解的一切。",
-    categories: { payments: "支付相關", disputes: "糾紛處理", bookings: "預訂管理" },
-    aura: { title: "Aura AI 助手", subtitle: "需要即時幫助嗎？與 Aura 交談獲取個人化建議。", cta: "與 Aura 交談" },
+    categories: {
+      payments: "支付相關",
+      disputes: "糾紛處理",
+      bookings: "預訂管理",
+    },
+    aura: {
+      title: "Aura AI 助手",
+      subtitle: "需要即時幫助嗎？與 Aura 交談獲取個人化建議。",
+      cta: "與 Aura 交談",
+    },
     questions: {
       payments: [
-        { q: "我該如何支付服務費用？", a: "支付通過 Stripe 安全處理。我們會將資金存放在託管賬戶，直到您確認工作完成。" },
-        { q: "是否有隱藏費用？", a: "不。平台不向客戶收取任何服務費。您只需支付師傅的人工費用及經批准的材料費用。" }
+        {
+          q: "我該如何支付服務費用？",
+          a: "支付通過 Stripe 安全處理。我們會將資金存放在託管賬戶，直到您確認工作完成。",
+        },
+        {
+          q: "是否有隱藏費用？",
+          a: "不。平台不向客戶收取任何服務費。您只需支付師傅的人工費用及經批准的材料費用。",
+        },
       ],
       disputes: [
-        { q: "如果工作不令人滿意怎麼辦？", a: "我們的 AI 仲裁員會根據最初的工作範圍審核照片，以確保公正 की解決方案。" },
-        { q: "我該如何申請退款？", a: "如果專家未履行約定條款，您可以通過管理後台發起糾紛。" }
+        {
+          q: "如果工作不令人滿意怎麼辦？",
+          a: "我們的 AI 仲裁員會根據最初的工作範圍審核照片，以確保公正 की解決方案。",
+        },
+        {
+          q: "我該如何申請退款？",
+          a: "如果專家未履行約定條款，您可以通過管理後台發起糾紛。",
+        },
       ],
       bookings: [
-        { q: "我可以取消預訂嗎？", a: "可以，您可以在預定時間 24 小時前取消以獲得全額退款。" },
-        { q: "如何聯絡我的專家？", a: "預訂確認後，您將獲得安全聊天頻道的訪問權限。" }
-      ]
-    }
+        {
+          q: "我可以取消預訂嗎？",
+          a: "可以，您可以在預定時間 24 小時前取消以獲得全額退款。",
+        },
+        {
+          q: "如何聯絡我的專家？",
+          a: "預訂確認後，您將獲得安全聊天頻道的訪問權限。",
+        },
+      ],
+    },
   },
   aura: {
     welcome: "您好！我是 Aura，您的英國服務協調員。今天我能如何幫助您？",
@@ -238,24 +290,24 @@ export const zhTW: any = {
       refundQuery: "我該如何申請退款？程序是什麼？",
       disputeQuery: "如果對維修質量或價格有異議，我該怎麼辦？",
       warrantyQuery: "平台提供的服務有保固嗎？",
-      bookingQuery: "我該如何在附近預訂技術人員？"
-    }
+      bookingQuery: "我該如何在附近預訂技術人員？",
+    },
   },
-  footer: { 
-    tagline: "連接英國頂尖認證專家。", 
-    explore: "探索", 
-    legal: "法律資訊", 
-    support: "客戶支援", 
-    rights: "保留所有權利。", 
-    terms: "服務條款", 
-    privacy: "隱私權政策", 
-    cookies: "Cookie 政策", 
-    help: "幫助中心", 
-    contact: "聯絡我們", 
-    aiDiagnosis: "AI 診斷", 
-    homeCleaning: "家居清潔", 
-    plumbingServices: "水管服務", 
-    automotiveServices: "汽車維修", 
+  footer: {
+    tagline: "連接英國頂尖認證專家。",
+    explore: "探索",
+    legal: "法律資訊",
+    support: "客戶支援",
+    rights: "保留所有權利。",
+    terms: "服務條款",
+    privacy: "隱私權政策",
+    cookies: "Cookie 政策",
+    help: "幫助中心",
+    contact: "聯絡我們",
+    aiDiagnosis: "AI 診斷",
+    homeCleaning: "家居清潔",
+    plumbingServices: "水管服務",
+    automotiveServices: "汽車維修",
     trustSignal: "Trustpilot 評分優秀",
     address: "London, UK",
     phone: "+44 20 1234 5678",
@@ -267,16 +319,36 @@ export const zhTW: any = {
       facebook: "https://facebook.com/conciergeai",
       twitter: "https://twitter.com/conciergeai",
       instagram: "https://instagram.com/conciergeai",
-      linkedin: "https://linkedin.com/company/conciergeai"
-    }
+      linkedin: "https://linkedin.com/company/conciergeai",
+    },
   },
-  search: { 
-    filters: "篩選條件", keyword: "關鍵字", location: "地點", category: "類別", minRating: "最低評分", verifiedOnly: "僅認證專家", 
-    apply: "套用篩選", sortBy: "排序方式", sortRating: "評分最高", sortJobs: "服務次數", sortDistance: "距離最近", sortPrice: "價格從低到高", 
-    foundCount: "找到 {{count}} 位專家", searching: "正在尋找專家...", noResults: "找不到符合條件的專家", 
-    noResultsHint: "請嘗試調整篩選條件或搜索不同地區。", clearFilters: "清除全部", 
-    basePrice: "預估起步價", viewDetails: "查看詳情", listView: "列表視圖", mapView: "地圖視圖", searchThisArea: "搜尋此區域",
-    verified: "已認證", insured: "已投保", priceAudit: "AI 價格審核：合理", defaultDesc: "專業服務商",
+  search: {
+    filters: "篩選條件",
+    keyword: "關鍵字",
+    location: "地點",
+    category: "類別",
+    minRating: "最低評分",
+    verifiedOnly: "僅認證專家",
+    apply: "套用篩選",
+    sortBy: "排序方式",
+    sortRating: "評分最高",
+    sortJobs: "服務次數",
+    sortDistance: "距離最近",
+    sortPrice: "價格從低到高",
+    foundCount: "找到 {{count}} 位專家",
+    searching: "正在尋找專家...",
+    noResults: "找不到符合條件的專家",
+    noResultsHint: "請嘗試調整篩選條件或搜索不同地區。",
+    clearFilters: "清除全部",
+    basePrice: "預估起步價",
+    viewDetails: "查看詳情",
+    listView: "列表視圖",
+    mapView: "地圖視圖",
+    searchThisArea: "搜尋此區域",
+    verified: "已認證",
+    insured: "已投保",
+    priceAudit: "AI 價格審核：合理",
+    defaultDesc: "專業服務商",
     emergencyReady: "⚡ 緊急服務已就緒",
     urgentOnly: "僅限緊急服務 ⚡",
     recommendations: {
@@ -285,15 +357,53 @@ export const zhTW: any = {
       earliest: "最快有期",
       closest: "離您最近",
       topMatch: "最佳匹配",
-      viewProfile: "查看專家檔案"
-    }
+      viewProfile: "查看專家檔案",
+    },
   },
   booking: {
-    steps: { details: "工作詳情", schedule: "選擇時間", confirmation: "確認並支付" },
-    titles: { details: "請告訴我們您的需求", schedule: "請選擇合適的時間", confirm: "確認您的預訂", success: "預訂已確認！" },
-    labels: { date: "日期", time: "時間", make: "品牌", model: "型號", address: "服務地址", notes: "備註事項", agree: "我同意服務條款 (平台不向客戶收取服務費)", summary: "支付總結", paid: "已支付", merchant: "服務專家", service: "服務項目", expressSupport: "加急/緊急維修", expressSurcharge: "緊急服務加收", responseTime: "保證回覆時間" },
-    buttons: { next: "下一步", prev: "上一步", pay: "安全支付", home: "返回首頁", dashboard: "前去管理後台" },
-    messages: { finalizing: "正在完成您的預訂...", wait: "請不要重新整理頁面", contact24h: "您的專家將在 24 小時內與您聯絡。", safety: "為了您的安全，所有支付款項均由託管賬戶保管。", noReviews: "尚無評論", recommended: "強力推薦", replyFromMaster: "專家的回覆" } 
+    steps: {
+      details: "工作詳情",
+      schedule: "選擇時間",
+      confirmation: "確認並支付",
+    },
+    titles: {
+      details: "請告訴我們您的需求",
+      schedule: "請選擇合適的時間",
+      confirm: "確認您的預訂",
+      success: "預訂已確認！",
+    },
+    labels: {
+      date: "日期",
+      time: "時間",
+      make: "品牌",
+      model: "型號",
+      address: "服務地址",
+      notes: "備註事項",
+      agree: "我同意服務條款 (平台不向客戶收取服務費)",
+      summary: "支付總結",
+      paid: "已支付",
+      merchant: "服務專家",
+      service: "服務項目",
+      expressSupport: "加急/緊急維修",
+      expressSurcharge: "緊急服務加收",
+      responseTime: "保證回覆時間",
+    },
+    buttons: {
+      next: "下一步",
+      prev: "上一步",
+      pay: "安全支付",
+      home: "返回首頁",
+      dashboard: "前去管理後台",
+    },
+    messages: {
+      finalizing: "正在完成您的預訂...",
+      wait: "請不要重新整理頁面",
+      contact24h: "您的專家將在 24 小時內與您聯絡。",
+      safety: "為了您的安全，所有支付款項均由託管賬戶保管。",
+      noReviews: "尚無評論",
+      recommended: "強力推薦",
+      replyFromMaster: "專家的回覆",
+    },
   },
   booking_actions: {
     confirmTitle: "接受 (Confirm)",
@@ -316,7 +426,20 @@ export const zhTW: any = {
     failed: "發布評價失敗",
   },
   merchant: {
-    verified: "認證專家", background: "已通過背景審核", portfolio: "工作案例", reviewTitle: "客戶評論", realReviews: "來自認證預訂的真實評論", verifiedBooking: "認證預訂", pricingAnalysis: "AI 價格分析", bookingChannel: "專業預訂頻道", viewServices: "查看所有服務", guarantee: "服務保證", fastResponse: "快速響應", contactExpert: "聯絡專家", noReviews: "尚無評論", reply: "回覆",
+    verified: "認證專家",
+    background: "已通過背景審核",
+    portfolio: "工作案例",
+    reviewTitle: "客戶評論",
+    realReviews: "來自認證預訂的真實評論",
+    verifiedBooking: "認證預訂",
+    pricingAnalysis: "AI 價格分析",
+    bookingChannel: "專業預訂頻道",
+    viewServices: "查看所有服務",
+    guarantee: "服務保證",
+    fastResponse: "快速響應",
+    contactExpert: "聯絡專家",
+    noReviews: "尚無評論",
+    reply: "回覆",
     dashboard: {
       title: "營運節點 (Operation Node)",
       welcome: "歡迎回來",
@@ -360,10 +483,19 @@ export const zhTW: any = {
           cqc: "CQC 醫療護理註冊",
           dvla: "專業駕駛 CPC/DVLA",
           dbs: "DBS 無犯罪紀錄證明",
-          insurance: "公眾責任保險"
-        }
+          insurance: "公眾責任保險",
+        },
       },
-      stats: { totalBookings: "總預訂數", rating: "平均評分", pendingBalance: "待結算金額", availableBalance: "可提現金額", totalJobs: "總完成任務", escrowHeld: "託管中金額", availableNow: "目前可用", reviews: "評論數" },
+      stats: {
+        totalBookings: "總預訂數",
+        rating: "平均評分",
+        pendingBalance: "待結算金額",
+        availableBalance: "可提現金額",
+        totalJobs: "總完成任務",
+        escrowHeld: "託管中金額",
+        availableNow: "目前可用",
+        reviews: "評論數",
+      },
       syncStatus: "同步狀態",
       lastSynced: "上次同步",
       refresh: "重新整理",
@@ -374,7 +506,8 @@ export const zhTW: any = {
         synced: "錢包數據已同步",
         generating: "正在完成帳戶設置...",
         referralTitle: "推薦好友，賺取 2% 禮券獎勵",
-        referralDesc: "分享您的唯一代碼。當您的朋友預訂第一項服務時，您將獲得 2% 的禮券回饋（可用於超市及零售店）。",
+        referralDesc:
+          "分享您的唯一代碼。當您的朋友預訂第一項服務時，您將獲得 2% 的禮券回饋（可用於超市及零售店）。",
         historyTitle: "交易記錄",
         historyEmpty: "尚無交易記錄",
         type: "類型",
@@ -394,19 +527,32 @@ export const zhTW: any = {
         availableNow: "目前可用",
         rewards: {
           title: "兌換電子現金券",
-          subtitle: "* 非現金提現。點數可兌換超市、零售及餐飲通路之電子卡券。代碼將在 24 小時內發放。",
+          subtitle:
+            "* 非現金提現。點數可兌換超市、零售及餐飲通路之電子卡券。代碼將在 24 小時內發放。",
           myVault: "我的電子卡包",
           redeemBtn: "兌換",
           statusProcessing: "處理中...",
           statusReady: "可使用",
           voucherDisclaimer: "適用於各大超市及支付系統。",
           confirmRedeem: "您確定要兌換現金券嗎？將在 24 小時內發放。",
-          requestSuccess: "申請成功！正在分配您的代碼。請稍後查看卡包。" } },
-      bookings: { title: "最近預訂", viewAll: "查看所有預訂", empty: "尚無最近預訂", completed: "已完成", actions: { confirm: "確認預訂", complete: "標記為已完成", variation: "請求額外工作支付" } },
-      status: { 
-        pending: "待處理", 
-        confirmed: "已確認", 
-        completed: "已完成", 
+          requestSuccess: "申請成功！正在分配您的代碼。請稍後查看卡包。",
+        },
+      },
+      bookings: {
+        title: "最近預訂",
+        viewAll: "查看所有預訂",
+        empty: "尚無最近預訂",
+        completed: "已完成",
+        actions: {
+          confirm: "確認預訂",
+          complete: "標記為已完成",
+          variation: "請求額外工作支付",
+        },
+      },
+      status: {
+        pending: "待處理",
+        confirmed: "已確認",
+        completed: "已完成",
         cancelled: "已取消",
         waiting: "等待接車 (Waiting)",
         repairing: "維修檢查中 (Repairing)",
@@ -416,12 +562,12 @@ export const zhTW: any = {
         clickToUpdate: "點擊更新為",
         cancelBtn: "取消預約",
       },
-      variations: { 
-        label: "額外工作支付", 
-        status: "狀態", 
-        pending: "等待用戶批准", 
-        approved: "已批准", 
-        rejected: "已拒絕", 
+      variations: {
+        label: "額外工作支付",
+        status: "狀態",
+        pending: "等待用戶批准",
+        approved: "已批准",
+        rejected: "已拒絕",
         arbiterActive: "AI 仲裁員審核中",
         addBtn: "新增項目",
         title: "新增額外項目",
@@ -436,11 +582,14 @@ export const zhTW: any = {
         submitting: "新增中...",
         submitBtn: "新增至發票",
         // Customer View
-        rejectConfirm: "拒絕後，師傅僅會履行原始報價範圍，或是取消並收取基礎車馬費 (Call-out Fee)。確定要拒絕嗎？",
+        rejectConfirm:
+          "拒絕後，師傅僅會履行原始報價範圍，或是取消並收取基礎車馬費 (Call-out Fee)。確定要拒絕嗎？",
         approveSuccessTitle: "已成功授權追加費用 £{amount}",
-        approveSuccessDesc: "資金已安全鎖入 Stripe 原廠 Escrow 資金池中，直到 {merchantName} 完成任務才會撥款。",
+        approveSuccessDesc:
+          "資金已安全鎖入 Stripe 原廠 Escrow 資金池中，直到 {merchantName} 完成任務才會撥款。",
         rejectSuccessTitle: "已拒絕該筆費用變更",
-        rejectSuccessDesc: "系統已自動記錄此拒絕歷程。若雙方無法達成施工共識，系統將自動啟動爭議調解 (Dispute) 程序。",
+        rejectSuccessDesc:
+          "系統已自動記錄此拒絕歷程。若雙方無法達成施工共識，系統將自動啟動爭議調解 (Dispute) 程序。",
         pendingAlert: "⚠️ 待處理的額外費用審查 (Variation Request)",
         proposalTitle: "現場追加提案",
         initiatedChange: "發起了變更",
@@ -452,22 +601,47 @@ export const zhTW: any = {
         rejectBtn: "拒絕並進入客服調解 (Reject)",
         // Merchant Button/Modal
         successTitle: "申請已發送！",
-        successDesc: "客戶已經收到 Email 通知與 App 彈窗。請等待對方同意後再進行額外施工與採購物料。",
+        successDesc:
+          "客戶已經收到 Email 通知與 App 彈窗。請等待對方同意後再進行額外施工與採購物料。",
         modalTitle: "發起額外費用申請",
-        modalDesc: "請詳細說明追加原因，並強制提供照片佐證。所有申請皆受 200% 上限保護機制監管。",
+        modalDesc:
+          "請詳細說明追加原因，並強制提供照片佐證。所有申請皆受 200% 上限保護機制監管。",
         photoLabel: "強制現場相片舉證 (Mandatory)",
         photoPlaceholder: "點擊上傳現場損壞照片",
         amountLabelAdditional: "追加總金額 (Amount)",
         reasonLabel: "追加原因說明 (Reason)",
         reasonPlaceholder: "請詳述為何需要追加物料或工時...",
-        warningNote: "請注意：在客戶點擊同意並透過 Stripe 成功圈存 (Escrow) 資金前，請勿代墊任何超過千鎊的材料費。",
+        warningNote:
+          "請注意：在客戶點擊同意並透過 Stripe 成功圈存 (Escrow) 資金前，請勿代墊任何超過千鎊的材料費。",
         sendBtn: "送出申請",
       },
       arbiterReasoning: "AI 仲裁分析",
-      tips: { title: "成長建議", growth: "持續提供優質服務以確保專家排名與穩定的任務量。" },
-      quickLinks: { title: "快速連結", schedule: "我的行程", earnings: "收入記錄", support: "商戶支援" },
-      modal: { title: "請求額外工作支付", amount: "額外金額 (£)", reason: "費用變動原因", reasonPlaceholder: "例如：牆後發現額外漏水點", photo: "照片證明", photoHint: "AI 驗證必須提供照片證據", submit: "提交請求", submitting: "正在上傳證據..." },
-      avatar: { upload: "上傳頭像", hint: "建議：專業人像照片或公司 Logo。", success: "頭像已更新！", errorSize: "照片大小必須小於 2MB" },
+      tips: {
+        title: "成長建議",
+        growth: "持續提供優質服務以確保專家排名與穩定的任務量。",
+      },
+      quickLinks: {
+        title: "快速連結",
+        schedule: "我的行程",
+        earnings: "收入記錄",
+        support: "商戶支援",
+      },
+      modal: {
+        title: "請求額外工作支付",
+        amount: "額外金額 (£)",
+        reason: "費用變動原因",
+        reasonPlaceholder: "例如：牆後發現額外漏水點",
+        photo: "照片證明",
+        photoHint: "AI 驗證必須提供照片證據",
+        submit: "提交請求",
+        submitting: "正在上傳證據...",
+      },
+      avatar: {
+        upload: "上傳頭像",
+        hint: "建議：專業人像照片或公司 Logo。",
+        success: "頭像已更新！",
+        errorSize: "照片大小必須小於 2MB",
+      },
       accounting: {
         title: "會計與稅務",
         subtitle: "自動化英國財務中心：VAT 監測與稅務預測。",
@@ -489,7 +663,7 @@ export const zhTW: any = {
         upgradeCost: "£4.99 / 每月",
         upgradeBtn: "即刻激活專業版",
         taxYear: "稅務年度",
-        regNumber: "註冊號碼 (UTR/CRN)"
+        regNumber: "註冊號碼 (UTR/CRN)",
       },
       merchant_services: {
         title: "服務管理",
@@ -513,8 +687,8 @@ export const zhTW: any = {
           eduTrack: "專家教育賽道",
           eduPlaceholder: "專攻學科 (例如: GCSE Maths, AI Prep)",
           publish: "立即發布服務項目",
-          save: "保存並更新"
-        }
+          save: "保存並更新",
+        },
       },
       merchant_wallet: {
         title: "資產與收益",
@@ -522,9 +696,10 @@ export const zhTW: any = {
         subtitle: "管理您的商務收入、結算資產與精英提領紀錄。",
         referral: {
           title: "專家推薦獎勵",
-          subtitle: "邀請其他專家加入，賺取 2% 推薦積分（可用於兌換零售禮券）。",
+          subtitle:
+            "邀請其他專家加入，賺取 2% 推薦積分（可用於兌換零售禮券）。",
           copy: "複製推薦碼",
-          copied: "推薦碼已複製！"
+          copied: "推薦碼已複製！",
         },
         available: "可提領餘額",
         postFee: "已扣除 9% 平台管理費",
@@ -538,7 +713,7 @@ export const zhTW: any = {
           accountNumber: "帳號 (8 位數)",
           tip: "您的資訊經過加密儲存，僅供撥款使用。",
           update: "更新銀行資訊",
-          saved: "更新成功"
+          saved: "更新成功",
         },
         payout: {
           title: "申請專家提領",
@@ -548,14 +723,14 @@ export const zhTW: any = {
           insufficient: "餘額不足",
           confirm: "確認提領",
           success: "提現申請已成功提交，預計 3-5 個工作日入帳。",
-          failed: "提現失敗"
+          failed: "提現失敗",
         },
         history: {
           title: "專家撥款紀錄",
           empty: "尚無任何撥款紀錄。",
           date: "撥款日期",
           amount: "實得金額",
-          status: "狀態"
+          status: "狀態",
         },
         terms: {
           title: "收益與進階條款",
@@ -565,9 +740,9 @@ export const zhTW: any = {
             "9% 管理費適用於勞務與零件總額。",
             "包含 2% 的推薦獎勵基金提撥。",
             "責任保障：所有訂單均有 7 天預結算鎖定期。",
-            "推薦積分：從您的個人網絡獲得的獎金將 1:1 兌現。"
-          ]
-        }
+            "推薦積分：從您的個人網絡獲得的獎金將 1:1 兌現。",
+          ],
+        },
       },
       merchant_availability: {
         title: "可用時間與排班管理",
@@ -585,10 +760,11 @@ export const zhTW: any = {
           title: "全局設定",
           interval: "服務進隔 (分鐘)",
           maxDaily: "每日接單上限",
-          tip: "設定較長的時間有助於應對倫敦交通繁忙等突發狀況。"
+          tip: "設定較長的時間有助於應對倫敦交通繁忙等突發狀況。",
         },
         tipTitle: "專家小撇步",
-        tipContent: "良好的排班控管可以讓預約選單看起來更專業，並有效降低頻繁更改時間的機率。"
+        tipContent:
+          "良好的排班控管可以讓預約選單看起來更專業，並有效降低頻繁更改時間的機率。",
       },
       merchant_schedule: {
         title: "預約日程",
@@ -601,14 +777,14 @@ export const zhTW: any = {
           label: "Reschedule",
           success: "預約時間已成功更新並通知客戶！",
           failed: "更新失敗，請檢查網路連線。",
-          tip: "更改時間後系統將自動發送推送通知給客戶。"
+          tip: "更改時間後系統將自動發送推送通知給客戶。",
         },
         details: {
           current: "目前時間",
           phone: "聯繫電話",
           chat: "即時對話",
-          invoice: "查看訂單單據"
-        }
+          invoice: "查看訂單單據",
+        },
       },
       merchant_reviews: {
         title: "客戶評價管理",
@@ -616,157 +792,157 @@ export const zhTW: any = {
         total: "總評價數",
         positive: "核心情感",
         negative: "需要改進",
-        empty: "目前暫無任何評價資料。"
+        empty: "目前暫無任何評價資料。",
       },
-    merchant_analytics: {
-      title: "評論與數據分析",
-      subtitle: "深入了解客人的回饋、情感傾向與市場競爭力。",
-      ratingDistribution: "評分分佈",
-      totalReviews: "則評論",
-      marketPosition: {
-        title: "市場競爭力",
-        ranking: "您的市場排名：",
-        topPercent: "在倫敦 {category} 領域排名前 {percent}%",
-        categoryAvg: "同行平均評分：",
-        cityRank: "地區排名：",
-      },
-      sentiment: {
-        title: "情感分析摘要",
-        positive: "正面評價",
-        negative: "負面評價",
-      },
-      traits: "專家性格特質",
-      waitForData: "數據收集中心...",
-      insights: {
-        title: "AI 商業洞察",
-        desc: "您目前在 {trait} 方面的表現優於 {category} 領域的同行。建議更新您的作品集以保持前 5% 的領先地位。",
-      },
-      management: {
-        title: "評論管理中心",
-        filterAll: "全部",
-        filterPositive: "正面",
-        filterNegative: "負面",
-        filterUnreplied: "待回覆",
-        empty: "找不到符合條件的評論。",
-        yourReplyLabel: "您的正式回覆：",
-        placeholder: "輸入您的專業回覆內容...",
-        replyBtn: "提交回覆",
-        aiDrafts: "AI 助手草案",
-      },
-    },
-    merchant_dashboard: {
-      expertTitle: "專才管理後台",
-      previewProfile: "預覽公開檔案",
-      manageServices: "管理服務項目",
-      balanceHeld: "80% 資金託管中",
-      arbiterActive: "仲裁系統已啟動",
-      aiReason: "AI 裁決理由",
-      tipsTitle: "ConciergeAI 專家錦囊",
-      tipsExtra: "高畫質的作品照片能提升 30% 的轉化率。",
-      submitting: "正在提交...",
-      stats: {
-        totalBookings: "總預訂數",
-        totalJobs: "項任務",
-        rating: "綜合評分",
-        reviews: "則評價",
-        pendingBalance: "待結算金額",
-        escrowHeld: "託管資金",
-        availableBalance: "可提現餘額",
-        availableNow: "隨時提現",
-      },
-      bookings: {
-        title: "進行中的預訂",
-        viewAll: "查看所有預訂",
-        empty: "目前尚無活躍預訂。",
-        completed: "任務已完成",
-        actions: {
-          variation: "追加費用",
-          confirm: "確認接單",
-          complete: "完成任務",
-          completeAndPay: "完成並結算",
+      merchant_analytics: {
+        title: "評論與數據分析",
+        subtitle: "深入了解客人的回饋、情感傾向與市場競爭力。",
+        ratingDistribution: "評分分佈",
+        totalReviews: "則評論",
+        marketPosition: {
+          title: "市場競爭力",
+          ranking: "您的市場排名：",
+          topPercent: "在倫敦 {category} 領域排名前 {percent}%",
+          categoryAvg: "同行平均評分：",
+          cityRank: "地區排名：",
+        },
+        sentiment: {
+          title: "情感分析摘要",
+          positive: "正面評價",
+          negative: "負面評價",
+        },
+        traits: "專家性格特質",
+        waitForData: "數據收集中心...",
+        insights: {
+          title: "AI 商業洞察",
+          desc: "您目前在 {trait} 方面的表現優於 {category} 領域的同行。建議更新您的作品集以保持前 5% 的領先地位。",
+        },
+        management: {
+          title: "評論管理中心",
+          filterAll: "全部",
+          filterPositive: "正面",
+          filterNegative: "負面",
+          filterUnreplied: "待回覆",
+          empty: "找不到符合條件的評論。",
+          yourReplyLabel: "您的正式回覆：",
+          placeholder: "輸入您的專業回覆內容...",
+          replyBtn: "提交回覆",
+          aiDrafts: "AI 助手草案",
         },
       },
-      status: {
-        pending: "待處理",
-        confirmed: "已確認",
-        completed: "已完成",
-        cancelled: "已取消",
+      merchant_dashboard: {
+        expertTitle: "專才管理後台",
+        previewProfile: "預覽公開檔案",
+        manageServices: "管理服務項目",
+        balanceHeld: "80% 資金託管中",
+        arbiterActive: "仲裁系統已啟動",
+        aiReason: "AI 裁決理由",
+        tipsTitle: "ConciergeAI 專家錦囊",
+        tipsExtra: "高畫質的作品照片能提升 30% 的轉化率。",
+        submitting: "正在提交...",
+        stats: {
+          totalBookings: "總預訂數",
+          totalJobs: "項任務",
+          rating: "綜合評分",
+          reviews: "則評價",
+          pendingBalance: "待結算金額",
+          escrowHeld: "託管資金",
+          availableBalance: "可提現餘額",
+          availableNow: "隨時提現",
+        },
+        bookings: {
+          title: "進行中的預訂",
+          viewAll: "查看所有預訂",
+          empty: "目前尚無活躍預訂。",
+          completed: "任務已完成",
+          actions: {
+            variation: "追加費用",
+            confirm: "確認接單",
+            complete: "完成任務",
+            completeAndPay: "完成並結算",
+          },
+        },
+        status: {
+          pending: "待處理",
+          confirmed: "已確認",
+          completed: "已完成",
+          cancelled: "已取消",
+        },
+        variations: {
+          label: "追加請求",
+          status: "狀態",
+          pending: "等候中",
+          approved: "已批准",
+          rejected: "已拒絕",
+        },
+        quickLinks: {
+          title: "快捷操作",
+          schedule: "查看完整課表",
+          earnings: "檢查電子錢包與結算",
+          support: "聯絡專業禮賓支援",
+        },
+        modal: {
+          title: "申請任務費用追加",
+          amount: "追加金額",
+          reason: "追加原因",
+          reasonPlaceholder: "請向客戶解釋費用變動的原因...",
+          photo: "證明照片 (URL)",
+          submit: "提交追加申請",
+        },
+        welcome: "歡迎回來，{name}",
+        avatar: {
+          hint: "點擊上傳頭像",
+          errorSize: "圖片大小必須小於 2MB",
+          success: "頭像更新成功！",
+          upload: "上傳",
+        },
+        tips: {
+          growth: "專注於您的本地 SEO",
+        },
       },
-      variations: {
-        label: "追加請求",
-        status: "狀態",
-        pending: "等候中",
-        approved: "已批准",
-        rejected: "已拒絕",
+      merchant_profile: {
+        title: "檔案與設定",
+        subtitle: "管理您的專業形象與公開聯繫資料",
+        save: "儲存所有變更",
+        sections: {
+          basic: "基本身份驗證",
+          address: "服務地址",
+          business: "商務公開資訊",
+          categories: "專業領域類別",
+          branding: "品牌視覺設計",
+        },
+        labels: {
+          name: "法定真實姓名",
+          bio: "專家個人簡介",
+          bioPlaceholder: "向潛在客戶介紹您的修繕經驗與專長...",
+          city: "服務城市",
+          addressLine1: "地址行 1",
+          addressLine2: "地址行 2",
+          postcode: "郵遞區號",
+          phone: "聯絡電話",
+          email: "電子郵件",
+          emailReadOnly: "電子郵件 (唯讀)",
+          businessName: "商業名稱 / 團隊名稱",
+          businessNamePlaceholder: "例如：MCQueen Motors LTD",
+          mainCategory: "核心領域",
+          experience: "從業年資",
+          placeholderName: "輸入您的全名",
+          placeholderPhone: "+44 7xxx xxx xxx",
+        },
+        status: {
+          saving: "儲存中...",
+          success: "更新成功！",
+        },
       },
-      quickLinks: {
-        title: "快捷操作",
-        schedule: "查看完整課表",
-        earnings: "檢查電子錢包與結算",
-        support: "聯絡專業禮賓支援",
+      merchant_messages: {
+        title: "對話中心",
+        subtitle: "與專業師傅或您的客戶進行即時溝通",
+        hub: "通訊中心",
+        hubDesc: "與客戶及服務專家的即時中心",
+        empty: "請選擇一個對話開始溝通",
+        placeholder: "輸入訊息...",
+        send: "發送",
       },
-      modal: {
-        title: "申請任務費用追加",
-        amount: "追加金額",
-        reason: "追加原因",
-        reasonPlaceholder: "請向客戶解釋費用變動的原因...",
-        photo: "證明照片 (URL)",
-        submit: "提交追加申請",
-      },
-      welcome: "歡迎回來，{name}",
-      avatar: {
-        hint: "點擊上傳頭像",
-        errorSize: "圖片大小必須小於 2MB",
-        success: "頭像更新成功！",
-        upload: "上傳",
-      },
-      tips: {
-        growth: "專注於您的本地 SEO",
-      },
-    },
-    merchant_profile: {
-      title: "檔案與設定",
-      subtitle: "管理您的專業形象與公開聯繫資料",
-      save: "儲存所有變更",
-      sections: {
-        basic: "基本身份驗證",
-        address: "服務地址",
-        business: "商務公開資訊",
-        categories: "專業領域類別",
-        branding: "品牌視覺設計",
-      },
-      labels: {
-        name: "法定真實姓名",
-        bio: "專家個人簡介",
-        bioPlaceholder: "向潛在客戶介紹您的修繕經驗與專長...",
-        city: "服務城市",
-        addressLine1: "地址行 1",
-        addressLine2: "地址行 2",
-        postcode: "郵遞區號",
-        phone: "聯絡電話",
-        email: "電子郵件",
-        emailReadOnly: "電子郵件 (唯讀)",
-        businessName: "商業名稱 / 團隊名稱",
-        businessNamePlaceholder: "例如：MCQueen Motors LTD",
-        mainCategory: "核心領域",
-        experience: "從業年資",
-        placeholderName: "輸入您的全名",
-        placeholderPhone: "+44 7xxx xxx xxx",
-      },
-      status: {
-        saving: "儲存中...",
-        success: "更新成功！",
-      }
-    },
-    merchant_messages: {
-      title: "對話中心",
-      subtitle: "與專業師傅或您的客戶進行即時溝通",
-      hub: "通訊中心",
-      hubDesc: "與客戶及服務專家的即時中心",
-      empty: "請選擇一個對話開始溝通",
-      placeholder: "輸入訊息...",
-      send: "發送",
-    },
     },
     rewards_hub: {
       balance: "可用額度",
@@ -811,11 +987,13 @@ export const zhTW: any = {
         liveUpdate: "實時更新已啟用",
         hotDeals: "今日超級優惠 (HOT DEALS)",
         searchPlaceholder: "搜尋熱門品牌 (Adidas, IKEA, Costa...)",
-        threshold: "最低兌換金額為 £10。您目前的餘額為 £{current}，還差 £{remaining} 即可兌換。",
+        threshold:
+          "最低兌換金額為 £10。您目前的餘額為 £{current}，還差 £{remaining} 即可兌換。",
         found: "發現 {count} 個實時優惠",
         empty: "沒有找到匹配的品牌，請嘗試其他關鍵字。",
         policyTitle: "兌換政策",
-        policyText: "所有推薦獎勵僅限兌換超市、零售及品牌電子現金券。所有點數均不可兌換現金或直接提現。",
+        policyText:
+          "所有推薦獎勵僅限兌換超市、零售及品牌電子現金券。所有點數均不可兌換現金或直接提現。",
         marketplaceText: "禮券兌換中心",
         categories: {
           all: "全部",
@@ -844,7 +1022,8 @@ export const zhTW: any = {
       },
       verification: {
         unverifiedTitle: "未認證專家身份 (Unverified Expert)",
-        unverifiedDesc: "您的帳號目前尚未通過平台合規認證。請儘速上傳專業執照照片以獲得標章並開放在搜尋結果中。",
+        unverifiedDesc:
+          "您的帳號目前尚未通過平台合規認證。請儘速上傳專業執照照片以獲得標章並開放在搜尋結果中。",
         cta: "立即進行認證 →",
       },
       stats: {
@@ -852,9 +1031,28 @@ export const zhTW: any = {
       },
     },
     portfolio_mgr: {
-      title: "工作案例", subtitle: "展示您最優秀的作品以贏得更多預訂。", addBtn: "添加案例", emptyTitle: "尚無案例", emptyDesc: "添加過往項目的照片以建立新客人的信任。",
-      modal: { title: "添加案例", itemTitle: "項目標題", itemTitlePlaceholder: "例如：倫敦鍋爐安裝工程", category: "類別", uploadPhoto: "上傳項目照片", errorSize: "照片大小必須小於 5MB", details: "項目詳情", aiBtn: "AI 生成內容", aiGenerating: "撰寫中...", detailsPlaceholder: "描述所做的工作、挑戰和結果。", cancel: "取消", publish: "發布案例" },
-      deleteConfirm: "您確定要刪除此案例嗎？", addError: "添加案例失敗。", aiError: "AI 生成失敗，請手動輸入。"
+      title: "工作案例",
+      subtitle: "展示您最優秀的作品以贏得更多預訂。",
+      addBtn: "添加案例",
+      emptyTitle: "尚無案例",
+      emptyDesc: "添加過往項目的照片以建立新客人的信任。",
+      modal: {
+        title: "添加案例",
+        itemTitle: "項目標題",
+        itemTitlePlaceholder: "例如：倫敦鍋爐安裝工程",
+        category: "類別",
+        uploadPhoto: "上傳項目照片",
+        errorSize: "照片大小必須小於 5MB",
+        details: "項目詳情",
+        aiBtn: "AI 生成內容",
+        aiGenerating: "撰寫中...",
+        detailsPlaceholder: "描述所做的工作、挑戰和結果。",
+        cancel: "取消",
+        publish: "發布案例",
+      },
+      deleteConfirm: "您確定要刪除此案例嗎？",
+      addError: "添加案例失敗。",
+      aiError: "AI 生成失敗，請手動輸入。",
     },
     common: {
       greetings: {
@@ -871,26 +1069,97 @@ export const zhTW: any = {
     },
   },
   education_sec: {
-    hero: { badge: "英國精英導師", title1: "掌握新技能", title2: "與頂尖專家同行", subtitle: "為學業、語言和專業技能連接精英導師。為您的成功量身定制的一對一私人教學。", searchPlaceholder: "您想學習什麼？", searchBtn: "尋找導師" },
-    forYou: { title: "為您推薦", match: "AI 匹配分", viewProfile: "查看個人檔案" },
+    hero: {
+      badge: "英國精英導師",
+      title1: "掌握新技能",
+      title2: "與頂尖專家同行",
+      subtitle:
+        "為學業、語言和專業技能連接精英導師。為您的成功量身定制的一對一私人教學。",
+      searchPlaceholder: "您想學習什麼？",
+      searchBtn: "尋找導師",
+    },
+    forYou: {
+      title: "為您推薦",
+      match: "AI 匹配分",
+      viewProfile: "查看個人檔案",
+    },
     visitDashboard: "前往教育後台",
-    categories: { title: "探索分類", browseBtn: "查看全部", items: { 
-      academic: { title: "Academic Excellence", desc: "GCSE, A-Levels, IB, 11+ Entrance Prep" }, 
-      language: { title: "Global Languages", desc: "IELTS, Duolingo, Business English & more" }, 
-      stem: { title: "STEM & AI", desc: "Python, Generative AI, Coding, Data Science" }, 
-      arts: { title: "Creative Arts", desc: "Portfolio, Piano, Design, Fine Arts" }, 
-      finance: { title: "Elite Certifications", desc: "CFA, ACCA, PMP, Professional Certs" }, 
-      career: { title: "Career Strategy", desc: "Interview Prep, Leadership, MBA Strategy" }, 
-      junior: { title: "Junior Scholars", desc: "Phonics, Logic, Talent Development" }, 
-      masterclass: { title: "Knowledge Workshops", desc: "Investment, Lifestyle, Masterclasses" },
-      sen: { title: "Special Education (SEN)", desc: "ADHD, Dyslexia, Autism, Mental Health" }
-    } },
-    search: { filters: "搜索篩選", mode: "授課模式", online: "在線", offline: "面授", hybrid: "混合模式", priceRange: "時薪範圍", level: "導師資歷", student: "在校大學生", pro: "專業導師", expert: "碩博專家", apply: "套用篩選", resultsTitle: "可預訂導師", foundCount: "找到 {{count}} 位導師", placeholder: "搜索學科或姓名" },
+    categories: {
+      title: "探索分類",
+      browseBtn: "查看全部",
+      items: {
+        academic: {
+          title: "Academic Excellence",
+          desc: "GCSE, A-Levels, IB, 11+ Entrance Prep",
+        },
+        language: {
+          title: "Global Languages",
+          desc: "IELTS, Duolingo, Business English & more",
+        },
+        stem: {
+          title: "STEM & AI",
+          desc: "Python, Generative AI, Coding, Data Science",
+        },
+        arts: {
+          title: "Creative Arts",
+          desc: "Portfolio, Piano, Design, Fine Arts",
+        },
+        finance: {
+          title: "Elite Certifications",
+          desc: "CFA, ACCA, PMP, Professional Certs",
+        },
+        career: {
+          title: "Career Strategy",
+          desc: "Interview Prep, Leadership, MBA Strategy",
+        },
+        junior: {
+          title: "Junior Scholars",
+          desc: "Phonics, Logic, Talent Development",
+        },
+        masterclass: {
+          title: "Knowledge Workshops",
+          desc: "Investment, Lifestyle, Masterclasses",
+        },
+        sen: {
+          title: "Special Education (SEN)",
+          desc: "ADHD, Dyslexia, Autism, Mental Health",
+        },
+      },
+    },
+    search: {
+      filters: "搜索篩選",
+      mode: "授課模式",
+      online: "在線",
+      offline: "面授",
+      hybrid: "混合模式",
+      priceRange: "時薪範圍",
+      level: "導師資歷",
+      student: "在校大學生",
+      pro: "專業導師",
+      expert: "碩博專家",
+      apply: "套用篩選",
+      resultsTitle: "可預訂導師",
+      foundCount: "找到 {{count}} 位導師",
+      placeholder: "搜索學科或姓名",
+    },
     common: { reviews: "則評論", hr: "小時", bookTrial: "預訂試聽課" },
-    tutorCard: { demoDesc: "擁有 10 年以上經驗的熱情博士級導師，已幫助 100 多名學生實現目標。" },
-    tutorProfile: { 
-      verified: "已認證導師", about: "導師簡介", education: "教育背景", experience: "教學經驗", portfolio: "學生成功案例", reviews: "學生評價", availability: "每週課表", bookNow: "立即預訂", 
-      aiTrial: "AI 評估測試", trialChallenge: "學術診斷挑戰", startChallenge: "開始挑戰", cancel: "暫時不要",
+    tutorCard: {
+      demoDesc:
+        "擁有 10 年以上經驗的熱情博士級導師，已幫助 100 多名學生實現目標。",
+    },
+    tutorProfile: {
+      verified: "已認證導師",
+      about: "導師簡介",
+      education: "教育背景",
+      experience: "教學經驗",
+      portfolio: "學生成功案例",
+      reviews: "學生評價",
+      availability: "每週課表",
+      bookNow: "立即預訂",
+      aiTrial: "AI 評估測試",
+      trialChallenge: "學術診斷挑戰",
+      startChallenge: "開始挑戰",
+      cancel: "暫時不要",
       loadingChallenge: "AI 正在為您準備挑戰內容...",
       analyzing: "正在分析 {subject} 的課程大綱",
       questionLabel: "問題",
@@ -903,18 +1172,20 @@ export const zhTW: any = {
       assessmentLevels: {
         excellent: "基礎紮實",
         progress: "極具潛力",
-        starting: "學習起步"
+        starting: "學習起步",
       },
       assessmentDesc: "診斷數據已傳送給老師，將為您量身打造學習計畫！",
       bookFirstLesson: "預訂首節課程",
-      tryAgain: "重新挑戰"
-    }
+      tryAgain: "重新挑戰",
+    },
   },
-  home: { hero: {
+  home: {
+    hero: {
       badge: "已認證本地專家",
       title1: "預訂頂級評價",
       title2: "本地專家",
-      subtitle: "即時聯絡英國 Top 1% 的服務商。所有專家均經過認證、投保並由 AI 監攻質量。",
+      subtitle:
+        "即時聯絡英國 Top 1% 的服務商。所有專家均經過認證、投保並由 AI 監攻質量。",
       searchPlaceholder: "我需要...",
       locationPlaceholder: "London, UK",
       aiMatch: "智能匹配",
@@ -924,11 +1195,22 @@ export const zhTW: any = {
         "預訂GCSE頂級評價導師…",
         "辦公室需要深度淨化服務嗎？",
         "物業糾紛專家法律支援…",
-        "倫敦專業稅務會計師…"
+        "倫敦專業稅務會計師…",
       ],
       popularLabel: "熱門精選",
-      popularTags: ["家居升級翻新", "稅務申報優化", "深度淨化清潔", "專業法律支援"] },
-    recommendation: { title1: "為您", title2: "推薦", subtitle: "根據您的需求和近期位置匹配的頂尖專業人士。", browse: "查看所有專家" },
+      popularTags: [
+        "家居升級翻新",
+        "稅務申報優化",
+        "深度淨化清潔",
+        "專業法律支援",
+      ],
+    },
+    recommendation: {
+      title1: "為您",
+      title2: "推薦",
+      subtitle: "根據您的需求和近期位置匹配的頂尖專業人士。",
+      browse: "查看所有專家",
+    },
     recommendationResults: {
       trendingTitle: "{{city}} 熱門服務：{{category}}",
       topRatedTitle: "{{city}} 最高評分：{{category}}",
@@ -943,16 +1225,24 @@ export const zhTW: any = {
       accountSub: "頂級評價的會計師與法律助理",
       autoSub: "為您的愛車提供專業技師",
       assetMatch: "資產匹配",
-      trending: "本地熱門"
+      trending: "本地熱門",
     },
-    aiCTA: { badge: "由 ChatGPT, Gemini & Grok 驅動", title1: "不知道出了什麼問題？", title2: "獲取即時 AI 診斷", subtitle: "上傳問題照片。我們的 AI 會識別故障、預估費用，並在幾秒鐘內為您找到合適的專家。", button: "開始免費 AI 診斷" },
-    referralCTA: { 
-      badge: "推薦獎勵", 
-      title: "賺取 2% 被動收入", 
-      subtitle: "推薦好友並從他們未來 5 年內的所有預訂中獲取 2% 禮券點數（可兌換超市及零售通路現金券，不支援提現）。", 
-      button: "開始獲取獎勵", 
+    aiCTA: {
+      badge: "由 ChatGPT, Gemini & Grok 驅動",
+      title1: "不知道出了什麼問題？",
+      title2: "獲取即時 AI 診斷",
+      subtitle:
+        "上傳問題照片。我們的 AI 會識別故障、預估費用，並在幾秒鐘內為您找到合適的專家。",
+      button: "開始免費 AI 診斷",
+    },
+    referralCTA: {
+      badge: "推薦獎勵",
+      title: "賺取 2% 被動收入",
+      subtitle:
+        "推薦好友並從他們未來 5 年內的所有預訂中獲取 2% 禮券點數（可兌換超市及零售通路現金券，不支援提現）。",
+      button: "開始獲取獎勵",
       referralLabel: "您的個人推薦代碼：",
-      voucherDisclaimer: "* 點數可兌換超市及零售通路電子現金券，不支援提現。"
+      voucherDisclaimer: "* 點數可兌換超市及零售通路電子現金券，不支援提現。",
     },
     educationCTA: "前往教育後台",
     eliteLocal: "區域精英",
@@ -960,43 +1250,167 @@ export const zhTW: any = {
     defaultCategory: "服務專家",
     noResults: "此分類下暫未找到專家。",
     trustedBy: "受到英國居民信任並經過驗證",
-    categories: { plumbing: "水電", repairs: "維修", renovation: "裝修", education: "教育", accounting: "會計", legal: "法律", commercial: "商業", cleaning: "清潔", car: "汽車" },
-    sections: {
-      plumbing: { title: "水電與工程", desc: "從緊急漏水到全屋佈線，我們為您聯絡認證專業技術人員。", items: ["水管維修", "電路佈線", "電器安裝", "鍋爐檢修", "開關更換", "智能家居"] },
-      repairs: { title: "家居雜案", desc: "家具組裝、牆面修補、更換門鎖 —— 解決所有煩人的家居瑣事。", items: ["家具組裝", "門窗調整", "牆面修補", "層板安裝", "油漆粉刷", "雜項維修"] },
-      accounting: { title: "會計與稅務", desc: "專為留學生及中小企業設計。為您的生意提供合規申報。", items: ["所得稅申報", "年帳製作", "VAT 申報", "薪資核算", "Xero 諮詢", "稅務分析"] },
-      renovation: { title: "房屋裝修", desc: "從廚房擴建到全能改造。進度透明，品質有保證。", items: ["廚房/衛浴", "擴建工程", "室內設計", "油漆粉刷", "地板更換", "景觀設計"] },
-      education: { title: "教育與學習", desc: "一對一導師與專業教練。量身定制的學習進度。", items: ["語言導師", "IELTS/TOEFL", "程式寫作", "音樂與藝術", "商務技能", "學科輔導"] },
-      cleaning: { title: "專業清潔", desc: "退房深層清潔或細緻的家庭定期清潔。", items: ["定期清潔", "退房清潔", "地毯清洗", "玻璃清潔", "辦公室清潔", "消毒服務"] },
-      legal: { title: "法律諮詢", desc: "簽證申請、合約起草等法律支援。聯絡專家保護您的權利。", items: ["合約起草", "簽證諮詢", "房產法律", "糾紛解決", "商業法", "公證服務"] },
-      commercial: { title: "商業服務", desc: "商業空間專用。店面裝修、辦公室搬遷及電力維護。", items: ["店面裝修", "辦公室搬遷", "工業電力", "消防安全", "IT 網絡", "中央空調"] }
+    categories: {
+      plumbing: "水電",
+      repairs: "維修",
+      renovation: "裝修",
+      education: "教育",
+      accounting: "會計",
+      legal: "法律",
+      commercial: "商業",
+      cleaning: "清潔",
+      car: "汽車",
     },
-    popularTitle: "熱門", popularIn: "於", allUK: "全英國",
-    noProjects: { title: "此類別下暫無項目", desc: "我們正在積極召集您所在地區的頂級專家。" },
-    reviews: { excellent: "傑出", basedOn: "基於", verified: "已驗證", countLabel: "則評論" },
+    sections: {
+      plumbing: {
+        title: "水電與工程",
+        desc: "從緊急漏水到全屋佈線，我們為您聯絡認證專業技術人員。",
+        items: [
+          "水管維修",
+          "電路佈線",
+          "電器安裝",
+          "鍋爐檢修",
+          "開關更換",
+          "智能家居",
+        ],
+      },
+      repairs: {
+        title: "家居雜案",
+        desc: "家具組裝、牆面修補、更換門鎖 —— 解決所有煩人的家居瑣事。",
+        items: [
+          "家具組裝",
+          "門窗調整",
+          "牆面修補",
+          "層板安裝",
+          "油漆粉刷",
+          "雜項維修",
+        ],
+      },
+      accounting: {
+        title: "會計與稅務",
+        desc: "專為留學生及中小企業設計。為您的生意提供合規申報。",
+        items: [
+          "所得稅申報",
+          "年帳製作",
+          "VAT 申報",
+          "薪資核算",
+          "Xero 諮詢",
+          "稅務分析",
+        ],
+      },
+      renovation: {
+        title: "房屋裝修",
+        desc: "從廚房擴建到全能改造。進度透明，品質有保證。",
+        items: [
+          "廚房/衛浴",
+          "擴建工程",
+          "室內設計",
+          "油漆粉刷",
+          "地板更換",
+          "景觀設計",
+        ],
+      },
+      education: {
+        title: "教育與學習",
+        desc: "一對一導師與專業教練。量身定制的學習進度。",
+        items: [
+          "語言導師",
+          "IELTS/TOEFL",
+          "程式寫作",
+          "音樂與藝術",
+          "商務技能",
+          "學科輔導",
+        ],
+      },
+      cleaning: {
+        title: "專業清潔",
+        desc: "退房深層清潔或細緻的家庭定期清潔。",
+        items: [
+          "定期清潔",
+          "退房清潔",
+          "地毯清洗",
+          "玻璃清潔",
+          "辦公室清潔",
+          "消毒服務",
+        ],
+      },
+      legal: {
+        title: "法律諮詢",
+        desc: "簽證申請、合約起草等法律支援。聯絡專家保護您的權利。",
+        items: [
+          "合約起草",
+          "簽證諮詢",
+          "房產法律",
+          "糾紛解決",
+          "商業法",
+          "公證服務",
+        ],
+      },
+      commercial: {
+        title: "商業服務",
+        desc: "商業空間專用。店面裝修、辦公室搬遷及電力維護。",
+        items: [
+          "店面裝修",
+          "辦公室搬遷",
+          "工業電力",
+          "消防安全",
+          "IT 網絡",
+          "中央空調",
+        ],
+      },
+    },
+    popularTitle: "熱門",
+    popularIn: "於",
+    allUK: "全英國",
+    noProjects: {
+      title: "此類別下暫無項目",
+      desc: "我們正在積極召集您所在地區的頂級專家。",
+    },
+    reviews: {
+      excellent: "傑出",
+      basedOn: "基於",
+      verified: "已驗證",
+      countLabel: "則評論",
+    },
     howItWorks: {
       title: "運作方式",
       subtitle: "全英國最先進的一站式服務預約協定，由 AI 強力驅動。",
       step1Title: "AI 診斷",
       step1Desc: "上傳問題照片以獲得即時故障識別與精準成本估算。",
       step2Title: "智能匹配",
-      step2Desc: "我們的網絡會自動識別並匹配專門為您的問題預先校準的 Top 1% 專家。",
+      step2Desc:
+        "我們的網絡會自動識別並匹配專門為您的問題預先校準的 Top 1% 專家。",
       step3Title: "託管安全",
       step3Desc: "支付款項將存放在安全的託管帳戶中，直到您確認任務完成。",
       step4Title: "服務保障",
-      step4Desc: "每一次服務都由 AI 監督質量，並提供糾紛解決支援。"
-    }
+      step4Desc: "每一次服務都由 AI 監督質量，並提供糾紛解決支援。",
+    },
   },
-  location: { selectCity: "選擇城市", detecting: "定位中...", switch: "切換", nearby: "附近服務" },
+  location: {
+    selectCity: "選擇城市",
+    detecting: "定位中...",
+    switch: "切換",
+    nearby: "附近服務",
+  },
   diagnosis: {
     badge: "由 ChatGPT, Gemini & Grok 技術提供",
     title1: "專家級維修",
     title2: "秒速完成",
-    subtitle: "停止猜測。我們的 AI 會分析您的照片，在預訂前提供即時洞察、維修範圍和合理的費用估算。",
+    subtitle:
+      "停止猜測。我們的 AI 會分析您的照片，在預訂前提供即時洞察、維修範圍和合理的費用估算。",
     features: {
-      instant: { title: "即時洞察", desc: "無需等待回電。上傳照片後立即獲得技術分析。" },
-      pricing: { title: "市場公平價", desc: "我們利用實際服務數據為您所在的區域提供準確的費用範圍。" },
-      verified: { title: "認證預約", desc: "診斷後，直接與針對您的問題進行了優化的 Top 1% 專家聯絡。" }
+      instant: {
+        title: "即時洞察",
+        desc: "無需等待回電。上傳照片後立即獲得技術分析。",
+      },
+      pricing: {
+        title: "市場公平價",
+        desc: "我們利用實際服務數據為您所在的區域提供準確的費用範圍。",
+      },
+      verified: {
+        title: "認證預約",
+        desc: "診斷後，直接與針對您的問題進行了優化的 Top 1% 專家聯絡。",
+      },
     },
     cta: "瀏覽所有服務",
     tool: {
@@ -1011,12 +1425,19 @@ export const zhTW: any = {
       loading: "AI 正在生成分析結果...",
       disclaimer: "AI 估計僅供參考。正式報價由專家提供。",
       newDiagnosis: "新診斷",
-      categories: { plumbing: "水電服務", auto: "汽車維修", renovation: "房屋裝修", electrical: "電路工程", cleaning: "專業清潔" },
+      categories: {
+        plumbing: "水電服務",
+        auto: "汽車維修",
+        renovation: "房屋裝修",
+        electrical: "電路工程",
+        cleaning: "專業清潔",
+      },
       resultTitle: "AI 診斷結果",
       detectedIssue: "偵測到的問題",
       recommendedSolution: "建議解決方案",
       estimatedCostLabel: "預估費用範圍",
-      ukStandard: "英國標準價格", clinicalStandard: "臨床標準",
+      ukStandard: "英國標準價格",
+      clinicalStandard: "臨床標準",
       includesLabor: "包含零件與工資",
       bookSpecialist: "預訂此專家",
       confidence: "置信度",
@@ -1031,46 +1452,196 @@ export const zhTW: any = {
       descriptionPlaceholder: "更多關於問題的描述...",
       strictMode: "精準視覺模式",
       strictModeHint: "高精度視覺推理 (深度分析)",
-      authRequired: "僅限會員：請登錄以使用 AI 診斷", 
-      limitReached: "您的每日限額 (5/5) 已達上限", 
-      limitReachedHint: "您可以直接聯繫我們推薦的專家，或明天再試。", 
-      remaining: "今日剩餘次數", 
-      findSpecialist: "立即聯絡專家"
-    }
+      authRequired: "僅限會員：請登錄以使用 AI 診斷",
+      limitReached: "您的每日限額 (5/5) 已達上限",
+      limitReachedHint: "您可以直接聯繫我們推薦的專家，或明天再試。",
+      remaining: "今日剩餘次數",
+      findSpecialist: "立即聯絡專家",
+    },
   },
   onboarding: {
-    hero: { title: "與 ConciergeAI 一起發展業務", subtitle: "加入英國頂尖認證服務專家網絡。" },
-    steps: { profile: "商務檔案", credentials: "資質證明", contract: "服務協議" },
-    sectors: { title: "選擇您的行業", professional: { title: "專業服務", desc: "會計、法律、諮詢", industries: ["會計師", "稅務規畫", "法律服務", "商務戰略"] }, education: { title: "教育專案", desc: "導師、教練", industries: ["學術導師", "語言培訓", "技能教練", "音樂導師"] }, technical: { title: "技術服務", desc: "工匠、維修、工程", industries: ["水管工", "電工", "汽車維修", "房屋裝修"] } },
-    contract: { title: "標準服務協議", scrollingNotice: "請滾動到底部以接受條款。", agree: "我已閱讀並同意 ConciergeAI 主協議。", clauses: { platform_fee: { title: "1. 平台服務費", body: "平台對成功完成的預訂收取 9% 的佣金。" }, payments: { title: "2. 託管與支付", body: "客戶付款存放在安全託管賬戶中。在用戶確認工作完成後 48 小時內發放資金。" }, conduct: { title: "3. 專業行為標準", body: "專家必須維持至少 4.0 星評分。未達安全標準可能導致帳戶立即停用。" } } },
-    buttons: { start: "立即開始", next: "下一步", back: "上一步", submit: "完成入駐" }
+    hero: {
+      title: "與 ConciergeAI 一起發展業務",
+      subtitle: "加入英國頂尖認證服務專家網絡。",
+    },
+    steps: {
+      profile: "商務檔案",
+      credentials: "資質證明",
+      contract: "服務協議",
+    },
+    sectors: {
+      title: "選擇您的行業",
+      professional: {
+        title: "專業服務",
+        desc: "會計、法律、諮詢",
+        industries: ["會計師", "稅務規畫", "法律服務", "商務戰略"],
+      },
+      education: {
+        title: "教育專案",
+        desc: "導師、教練",
+        industries: ["學術導師", "語言培訓", "技能教練", "音樂導師"],
+      },
+      technical: {
+        title: "技術服務",
+        desc: "工匠、維修、工程",
+        industries: ["水管工", "電工", "汽車維修", "房屋裝修"],
+      },
+    },
+    contract: {
+      title: "標準服務協議",
+      scrollingNotice: "請滾動到底部以接受條款。",
+      agree: "我已閱讀並同意 ConciergeAI 主協議。",
+      clauses: {
+        platform_fee: {
+          title: "1. 平台服務費",
+          body: "平台對成功完成的預訂收取 9% 的佣金。",
+        },
+        payments: {
+          title: "2. 託管與支付",
+          body: "客戶付款存放在安全託管賬戶中。在用戶確認工作完成後 48 小時內發放資金。",
+        },
+        conduct: {
+          title: "3. 專業行為標準",
+          body: "專家必須維持至少 4.0 星評分。未達安全標準可能導致帳戶立即停用。",
+        },
+      },
+    },
+    buttons: {
+      start: "立即開始",
+      next: "下一步",
+      back: "上一步",
+      submit: "完成入駐",
+    },
   },
   admin: {
-    sidebar: { overview: "概覽", analytics: "分析", bookings: "預訂", verifications: "認證", disputes: "糾紛", merchants: "商戶", payouts: "結算", users: "用戶", settings: "設置", terminal: "終端" },
+    sidebar: {
+      overview: "概覽",
+      analytics: "分析",
+      bookings: "預訂",
+      verifications: "認證",
+      disputes: "糾紛",
+      merchants: "商戶",
+      payouts: "結算",
+      users: "用戶",
+      settings: "設置",
+      terminal: "終端",
+    },
     header: { internal: "內部運營", operations: "運作面板", node: "活動節點" },
-    stats: { gmv: "GMV", netRevenue: "淨營收", bookings: "預訂數", dailyAvg: "日均", processed: "已處理", volume24h: "24h 成交額", syncing: "同步中..." },
-    analytics: { gmvTitle: "GMV", gmvSub: "營收分析", sectorDist: "行業分佈", volTitle: "市場規模", live: "實時" },
-    bookings: { title: "預訂", sub: "實時交易", search: "搜尋...", id: "ID", customer: "客戶", amount: "金額", status: "狀態", service: "服務" },
-    verifications: { title: "認證", sub: "背景調查", evidence: "證據", extraction: "提取", passport: "護照", faceMatch: "人臉匹配", confidence: "置信度", fullName: "全名", idNumber: "證件號碼", expiryDate: "有效期", dob: "生日" },
-    disputes: { title: "糾紛", sub: "裁決中心", reasoning: "裁決理由", gallery: "證據庫", verdict: "裁定", confidence: "置信度" },
-    payouts: { title: "結算", sub: "專家結算", snapshot: "快照", pending: "待處理", volume: "規模", security: "安全", adjudication: "判決", method: "方式" },
-    users: { title: "用戶", sub: "用戶數據庫", stats: "統計", registeredAt: "註冊日期", referrals: "推薦人" },
-    commissions: { title: "佣金", sub: "營收控制", plateformFee: "平台費", marketplaceFee: "市場費", adminControl: "管理控制", weightedAvg: "加權平均", totalJobs: "總任務數", deliveryVolume: "成交量", merchantDetails: "專家詳情" },
-    disputes_mgr: { empty: "無待處理糾紛。", viewDetails: "查看詳情", status: { open: "開啟", processing: "處理中", settled: "已解決" } },
-    merchants_mgr: { empty: "未找到專家。", status: { active: "有效", suspended: "已停用", pending: "待審核" } },
+    stats: {
+      gmv: "GMV",
+      netRevenue: "淨營收",
+      bookings: "預訂數",
+      dailyAvg: "日均",
+      processed: "已處理",
+      volume24h: "24h 成交額",
+      syncing: "同步中...",
+    },
+    analytics: {
+      gmvTitle: "GMV",
+      gmvSub: "營收分析",
+      sectorDist: "行業分佈",
+      volTitle: "市場規模",
+      live: "實時",
+    },
+    bookings: {
+      title: "預訂",
+      sub: "實時交易",
+      search: "搜尋...",
+      id: "ID",
+      customer: "客戶",
+      amount: "金額",
+      status: "狀態",
+      service: "服務",
+    },
+    verifications: {
+      title: "認證",
+      sub: "背景調查",
+      evidence: "證據",
+      extraction: "提取",
+      passport: "護照",
+      faceMatch: "人臉匹配",
+      confidence: "置信度",
+      fullName: "全名",
+      idNumber: "證件號碼",
+      expiryDate: "有效期",
+      dob: "生日",
+    },
+    disputes: {
+      title: "糾紛",
+      sub: "裁決中心",
+      reasoning: "裁決理由",
+      gallery: "證據庫",
+      verdict: "裁定",
+      confidence: "置信度",
+    },
+    payouts: {
+      title: "結算",
+      sub: "專家結算",
+      snapshot: "快照",
+      pending: "待處理",
+      volume: "規模",
+      security: "安全",
+      adjudication: "判決",
+      method: "方式",
+    },
+    users: {
+      title: "用戶",
+      sub: "用戶數據庫",
+      stats: "統計",
+      registeredAt: "註冊日期",
+      referrals: "推薦人",
+    },
+    commissions: {
+      title: "佣金",
+      sub: "營收控制",
+      plateformFee: "平台費",
+      marketplaceFee: "市場費",
+      adminControl: "管理控制",
+      weightedAvg: "加權平均",
+      totalJobs: "總任務數",
+      deliveryVolume: "成交量",
+      merchantDetails: "專家詳情",
+    },
+    disputes_mgr: {
+      empty: "無待處理糾紛。",
+      viewDetails: "查看詳情",
+      status: { open: "開啟", processing: "處理中", settled: "已解決" },
+    },
+    merchants_mgr: {
+      empty: "未找到專家。",
+      status: { active: "有效", suspended: "已停用", pending: "待審核" },
+    },
     settings_mgr: {
       title: "平台配置",
       sub: "管理全域品牌設置、法律資訊及聯繫方式",
       companyInfo: "公司資訊",
       socialLinks: "社群連結",
       legalLinks: "法律條款",
-      tabs: { branding: "品牌視覺", contact: "聯繫方式", legal: "法律政策", social: "社群鏈結" },
-      fields: { companyName: "公司名稱", aboutUs: "關於我們", logoUrl: "Logo URL", officeAddress: "辦公地址", contactPhone: "聯絡電話", contactEmail: "聯絡電郵", companyRegistration: "註冊號碼", vatRegistration: "VAT 號碼", facebook: "FB", twitter: "X", instagram: "IG", linkedin: "LI" },
+      tabs: {
+        branding: "品牌視覺",
+        contact: "聯繫方式",
+        legal: "法律政策",
+        social: "社群鏈結",
+      },
+      fields: {
+        companyName: "公司名稱",
+        aboutUs: "關於我們",
+        logoUrl: "Logo URL",
+        officeAddress: "辦公地址",
+        contactPhone: "聯絡電話",
+        contactEmail: "聯絡電郵",
+        companyRegistration: "註冊號碼",
+        vatRegistration: "VAT 號碼",
+        facebook: "FB",
+        twitter: "X",
+        instagram: "IG",
+        linkedin: "LI",
+      },
       save: "儲存設置",
       saving: "正在同步到平台...",
       success: "更新成功",
-      error: "更新失敗"
-    }
+      error: "更新失敗",
+    },
   },
   auth: {
     login: {
@@ -1088,7 +1659,7 @@ export const zhTW: any = {
       navToRegister: "第一次使用平台？",
       createAccount: "立即加入會員",
       error: "登入失敗，請檢查電子郵件或密碼。",
-      success: "登入成功，正在跳轉至後台。"
+      success: "登入成功，正在跳轉至後台。",
     },
     register: {
       title: "建立新帳戶",
@@ -1108,7 +1679,7 @@ export const zhTW: any = {
       google: "使用 Google 註冊",
       navToLogin: "已經有帳戶了？",
       signIn: "在此登入",
-      roles: { customer: "客戶 (尋找服務)", merchant: "專家 (提供服務)" }
+      roles: { customer: "客戶 (尋找服務)", merchant: "專家 (提供服務)" },
     },
     forgotPassword: {
       title: "忘記密碼？",
@@ -1120,7 +1691,7 @@ export const zhTW: any = {
       back: "返回登入",
       success: "已將密碼重置連結發送至您的信箱。",
       error: "發送失敗，請檢查郵箱地址是否正確。",
-      successDetail: "一個安全的重置連結已發送到 {email}，請檢查您的收件箱。"
+      successDetail: "一個安全的重置連結已發送到 {email}，請檢查您的收件箱。",
     },
     resetPassword: {
       title: "重設密碼",
@@ -1136,7 +1707,7 @@ export const zhTW: any = {
       error: "系統錯誤，請聯繫技術支援。",
       successDetail: "您的密碼已更新，正在跳轉至登入頁面...",
       invalidTokenDetail: "所選的重置連結已過期或失效。",
-      requestNewLink: "請求新連結"
+      requestNewLink: "請求新連結",
     },
     errors: {
       missingFields: "請填寫所有必填項。",
@@ -1145,11 +1716,11 @@ export const zhTW: any = {
       invalidCredentials: "登入失敗，請提供正確的信息。",
       serverError: "內部系統錯誤，請稍後再試。",
       resetFailed: "無法處理您的請求。",
-      invalidReset: "無效或過期的重置連結。"
+      invalidReset: "無效或過期的重置連結。",
     },
     loading: {
       preparing: "正在準備會話...",
-      initializing: "正在初始化系統..."
-    }
-  }
+      initializing: "正在初始化系統...",
+    },
+  },
 };

@@ -90,21 +90,21 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
     try {
       const result = await claimReferralCode(claimCode.trim());
       if (result.success) {
-        setClaimStatus({ type: 'success', message: '推薦碼兌換成功！' });
+        setClaimStatus({ type: 'success', message: t.customer_dashboard.referral.success });
         // 🚀 Optimistic Update
         setData((prev: any) => ({
           ...prev,
           user: {
             ...prev.user,
-            referredBy: '專家 (Processing...)'
+            referredBy: t.merchant.dashboard.syncing
           }
         }));
         refreshData(true);
       } else {
-        setClaimStatus({ type: 'error', message: result.error || '兌換失敗' });
+        setClaimStatus({ type: 'error', message: result.error || t.customer_dashboard.referral.failed });
       }
     } catch (e) {
-      setClaimStatus({ type: 'error', message: '發生錯誤，請稍後再試' });
+      setClaimStatus({ type: 'error', message: t.customer_dashboard.referral.error });
     } finally {
       setClaiming(false);
     }
@@ -202,14 +202,14 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
               <ShieldCheck size={28} />
             </div>
             <div>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 900, marginBottom: '0.2rem', color: '#ef4444' }}>未認證專家身份 (Unverified Expert)</h3>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 900, marginBottom: '0.2rem', color: '#ef4444' }}>{t.customer_dashboard.verification.unverifiedTitle}</h3>
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
-                您的帳號目前尚未通過平台合規認證。請儘速上傳專業執照照片以獲得標章並開放在搜尋結果中。
+                {t.customer_dashboard.verification.unverifiedDesc}
               </p>
             </div>
           </div>
           <Link href="/merchant/verification" className="btn btn-primary" style={{ flexShrink: 0, padding: '0.75rem 1.5rem', fontWeight: 800 }}>
-            立即進行認證 →
+            {t.customer_dashboard.verification.cta}
           </Link>
         </div>
       )}
@@ -227,7 +227,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
           {error
             ? <>
                 ⚠ {t.merchant.dashboard.syncFailed}
-                <button onClick={() => { localStorage.clear(); window.location.href='/api/auth/signout'; }} style={{ marginLeft: '0.5rem', background: '#ef4444', color: 'white', border: 'none', padding: '0.2rem 0.5rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.7rem' }}>修復錯誤 (登出)</button>
+                <button onClick={() => { localStorage.clear(); window.location.href='/api/auth/signout'; }} style={{ marginLeft: '0.5rem', background: '#ef4444', color: 'white', border: 'none', padding: '0.2rem 0.5rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.7rem' }}>{t.common.exit}</button>
               </>
             : lastSync
               ? <>
@@ -282,7 +282,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
               loading={loading && !data}
             />
             <StatCard
-              title="推廣獎勵"
+              title={t.customer_dashboard.stats.referralCredits}
               value={`£${(user?.referralCredits || 0).toFixed(2)}`}
               icon={<Gift size={24} />}
               loading={loading && !data}
@@ -303,7 +303,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
               loading={loading && !data}
             />
             <StatCard
-              title="推廣獎勵"
+              title={t.customer_dashboard.stats.referralCredits}
               value={`£${(user?.referralCredits || 0).toFixed(2)}`}
               icon={<Gift size={24} />}
               loading={loading && !data}
@@ -360,7 +360,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
             <div style={{ padding: '0.75rem 1.25rem', borderRadius: '16px', backgroundColor: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.2)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
               <div style={{ color: '#facc15' }}><CheckCircle size={18} /></div>
               <div>
-                <div style={{ fontSize: '0.65rem', fontWeight: 800, color: '#d4af37', opacity: 0.8 }}>已被推薦 Referred by</div>
+                <div style={{ fontSize: '0.65rem', fontWeight: 800, color: '#d4af37', opacity: 0.8 }}>{t.onboarding.questions?.referral || 'Referred by'}</div>
                 <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#064e3b' }}>{user.referredBy}</div>
               </div>
             </div>
@@ -397,7 +397,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
                     fontWeight: 700
                   }}
                 >
-                  {claiming ? <Loader2 size={14} className="spin" /> : '領取獎勵 Claim'}
+                  {claiming ? <Loader2 size={14} className="spin" /> : t.customer_dashboard.referral.claim}
                 </button>
               </div>
               {claimStatus && (
@@ -418,7 +418,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
       {/* 🚀 QUICK LINKS: For Customers Only */}
       {!isMerchant && (
         <section className="animate-fade-up" style={{ marginTop: '3rem' }}>
-          <h2 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '1.5rem' }}>快速存取我的資產</h2>
+          <h2 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '1.5rem' }}>{t.customer_dashboard.quickLinks.title}</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem' }}>
             <Link href="/dashboard/garage" style={{ textDecoration: 'none' }}>
               <div className="glass-panel hover-lift" style={{ 
@@ -437,8 +437,8 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
                   <Car size={24} />
                 </div>
                 <div>
-                  <h4 style={{ color: 'var(--accent-color)', fontWeight: 800 }}>我的車庫</h4>
-                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>管理車輛資訊及保養記錄</p>
+                  <h4 style={{ color: 'var(--accent-color)', fontWeight: 800 }}>{t.customer_dashboard.quickLinks.garage}</h4>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>{t.customer_dashboard.quickLinks.garageDesc}</p>
                 </div>
               </div>
             </Link>
@@ -460,8 +460,8 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
                   <Home size={24} />
                 </div>
                 <div>
-                  <h4 style={{ color: 'var(--accent-color)', fontWeight: 800 }}>我的物業</h4>
-                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>查看物業細節及相關預約</p>
+                  <h4 style={{ color: 'var(--accent-color)', fontWeight: 800 }}>{t.customer_dashboard.quickLinks.properties}</h4>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>{t.customer_dashboard.quickLinks.propertiesDesc}</p>
                 </div>
               </div>
             </Link>
@@ -479,7 +479,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
             </p>
           </div>
           <Link href="/dashboard/bookings" style={{ color: 'var(--accent-color)', fontWeight: 600, fontSize: '0.9rem', textDecoration: 'none' }}>
-            查看全部 →
+            {t.merchant.dashboard.bookings.viewAll} →
           </Link>
         </div>
 
@@ -510,14 +510,14 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
                 }}>
                   <div>
                     <h4 style={{ fontWeight: 700, marginBottom: '0.25rem' }}>
-                      {booking.service?.name || '服務'}
+                      {booking.service?.name || t.common.serviceFallback}
                     </h4>
                     <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-                      {t.booking.labels.date}：{new Date(booking.scheduledDate).toLocaleString()}
+                      {t.booking?.labels?.date || 'Date'}: {new Date(booking.scheduledDate).toLocaleString()}
                     </p>
                     {booking.vehicleReg && (
                       <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.1rem' }}>
-                        車牌：{booking.vehicleMake} {booking.vehicleModel} · {booking.vehicleReg}
+                        {t.common.licensePlate}: {booking.vehicleMake} {booking.vehicleModel} · {booking.vehicleReg}
                       </p>
                     )}
                   </div>

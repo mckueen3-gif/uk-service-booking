@@ -53,17 +53,17 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
   const handleRedeem = async (brandName: string) => {
     if (isLocked) return;
     
-    if (confirm(`確定要兌換 £10 ${brandName} 禮券嗎？`)) {
+    if (confirm(t.rewards_hub.marketplace.confirmRedeem.replace("{brand}", brandName))) {
       setIsSubmitting(true);
-      setStatusMsg({ type: 'info', text: '處理中...' });
+      setStatusMsg({ type: 'info', text: t.rewards_hub.marketplace.processing });
       
       const result = await requestRedemption(10, brandName) as any;
       
       if (result.success) {
-        setStatusMsg({ type: 'success', text: `成功兌換 ${brandName} 禮券！平台將在 24 小時內發出。` });
+        setStatusMsg({ type: 'success', text: t.rewards_hub.marketplace.success.replace("{brand}", brandName) });
         onSuccess();
       } else {
-        setStatusMsg({ type: 'error', text: result.error || '兌換失敗' });
+        setStatusMsg({ type: 'error', text: result.error || t.rewards_hub.marketplace.failed });
       }
       setIsSubmitting(false);
       
@@ -110,12 +110,9 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
         </div>
         <div style={{ color: '#fff', fontSize: '13px', lineHeight: 1.5 }}>
           <strong style={{ color: '#d4af37', display: 'block', textTransform: 'uppercase', fontSize: '11px', letterSpacing: '0.05em', marginBottom: '2px' }}>
-            Redemption Policy • 兌換政策
+            {t.rewards_hub.marketplace.policyTitle}
           </strong>
-          {locale === 'zh-TW' ? 
-            "所有推薦獎勵僅限兌換超市、零售及品牌電子現金券。所有點數均不可兌換現金或直接提現。" : 
-            "All referral rewards are strictly for supermarket, retail, and brand e-vouchers. Credits cannot be exchanged for cash or withdrawn."
-          }
+          {t.rewards_hub.marketplace.policyText}
         </div>
       </div>
 
@@ -132,11 +129,11 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
           title="管理員模式隱藏開關"
         >
           <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: 'var(--text-primary)', marginBottom: '5px' }}>
-            禮券兌換中心
+            {t.rewards_hub.marketplaceText}
           </h2>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#475569', fontSize: '13px', fontWeight: '500' }}>
             <Clock size={14} style={{ color: '#1e293b' }} />
-            最後同步時間：<span style={{ color: '#1e293b', fontWeight: '600' }}>{lastSyncedDate}</span> (AI 智能監控中)
+            {t.rewards_hub.marketplace.lastSynced} <span style={{ color: '#1e293b', fontWeight: '600' }}>{lastSyncedDate}</span> {t.rewards_hub.marketplace.aiMonitoring}
           </div>
         </div>
         
@@ -146,13 +143,13 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
               disabled={isSubmitting}
               onClick={async () => {
                 setIsSubmitting(true);
-                setStatusMsg({ type: 'info', text: 'AI 串接同步中... (JamDoughnut Catalog Syncing)' });
+                setStatusMsg({ type: 'info', text: t.rewards_hub.marketplace.syncing });
                 const res = await runVoucherSync() as any;
                 if (res.success) {
-                  setStatusMsg({ type: 'success', text: '✅ 禮券庫同步完成！數據已更新。' });
+                  setStatusMsg({ type: 'success', text: t.rewards_hub.marketplace.syncSuccess });
                   onSuccess(); // Trigger parent refresh if needed
                 } else {
-                  setStatusMsg({ type: 'error', text: res.error || '同步失敗' });
+                  setStatusMsg({ type: 'error', text: res.error || t.rewards_hub.marketplace.syncFailed });
                 }
                 setIsSubmitting(false);
               }}
@@ -168,7 +165,7 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
                 opacity: isSubmitting ? 0.5 : 1
               }}
             >
-              {isSubmitting ? '同步中...' : '強制快速同步'}
+              {isSubmitting ? t.rewards_hub.marketplace.syncingBtn : t.rewards_hub.marketplace.forceSync}
             </button>
           )}
           <div style={{
@@ -184,7 +181,7 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
             fontWeight: '600'
           }}>
             <Zap size={14} fill="#d4af37" />
-            實時更新已啟用
+            {t.rewards_hub.marketplace.liveUpdate}
           </div>
         </div>
       </div>
@@ -194,7 +191,7 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
         <div style={{ marginBottom: '35px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '15px', color: '#b8860b' }}>
             <Sparkles size={18} fill="#d4af37" />
-            <span style={{ fontWeight: '900', letterSpacing: '0.1em', fontSize: '14px' }}>今日超級優惠 (HOT DEALS)</span>
+            <span style={{ fontWeight: '900', letterSpacing: '0.1em', fontSize: '14px' }}>{t.rewards_hub.marketplace.hotDeals}</span>
           </div>
           
           <div style={{ 
@@ -244,7 +241,7 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
           }} />
           <input 
             type="text"
-            placeholder="搜尋熱門品牌 (Adidas, IKEA, Costa...)"
+            placeholder={t.rewards_hub.marketplace.searchPlaceholder}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{
@@ -280,12 +277,12 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
                   boxShadow: isSelected ? '0 4px 12px rgba(184, 134, 11, 0.2)' : 'none'
                 }}
               >
-                {cat === 'All' ? '全部' : 
-                 cat === 'Supermarkets' ? '超市' : 
-                 cat === 'Food & Drink' ? '美食餐飲' :
-                 cat === 'Retail' ? '零售購物' :
-                 cat === 'Travel' ? '旅遊出行' : 
-                 cat === 'Entertainment' ? '休閒娛樂' : cat}
+                {cat === 'All' ? t.rewards_hub.marketplace.categories.all : 
+                 cat === 'Supermarkets' ? t.rewards_hub.marketplace.categories.supermarkets : 
+                 cat === 'Food & Drink' ? t.rewards_hub.marketplace.categories.food :
+                 cat === 'Retail' ? t.rewards_hub.marketplace.categories.retail :
+                 cat === 'Travel' ? t.rewards_hub.marketplace.categories.travel : 
+                 cat === 'Entertainment' ? t.rewards_hub.marketplace.categories.entertainment : cat}
               </button>
             );
           })}
@@ -307,7 +304,7 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
         }}>
           <AlertCircle size={20} />
           <div style={{ fontSize: '14px', fontWeight: '500' }}>
-            最低兌換金額為 <strong>£10</strong>。您目前的儲蓄為 <strong>£{currentCredits.toFixed(2)}</strong>，還差 <strong>£{(10 - currentCredits).toFixed(2)}</strong> 即可開通兌換。
+            {t.rewards_hub.marketplace.threshold.replace("{current}", currentCredits.toFixed(2)).replace("{remaining}", (10 - currentCredits).toFixed(2))}
           </div>
         </div>
       )}
@@ -340,7 +337,7 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
         fontWeight: '500'
       }}>
         <TrendingUp size={16} style={{ color: '#d4af37' }} />
-        <span>發現 <strong style={{ color: '#1e293b' }}>{filteredVouchers.length}</strong> 個實時優惠</span>
+        <span>{t.rewards_hub.marketplace.found.replace("{count}", filteredVouchers.length.toString())}</span>
         <Sparkles size={14} style={{ color: '#d4af37', marginLeft: '5px' }} />
       </div>
 
@@ -372,7 +369,7 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
           padding: '60px',
           color: 'var(--text-muted)'
         }}>
-          沒有找到匹配的品牌，請嘗試其他關鍵字。
+          {t.rewards_hub.marketplace.empty}
         </div>
       )}
     </div>

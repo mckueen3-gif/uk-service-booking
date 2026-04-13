@@ -12,7 +12,7 @@ import {
   FileEdit, Plane, Building, Gavel, Scale, ShieldAlert,
   SprayCan, Key, Wind, Sun, Briefcase, Activity,
   Settings, Disc, ClipboardCheck, Snowflake, Truck, Factory, Network, Fan,
-  CircleHelp, GraduationCap, Languages, Microscope, Award, Heart, Calculator
+  HelpCircle, GraduationCap, Languages, Microscope, Award, Heart, Calculator
 } from 'lucide-react';
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -133,7 +133,7 @@ export default function DynamicCategoryPage() {
   if (!landingData) {
     return (
       <div style={{ padding: '10rem 2rem', textAlign: 'center' }}>
-        <CircleHelp size={64} color="var(--text-muted)" style={{ marginBottom: '2rem' }} />
+        <HelpCircle size={64} color="var(--text-muted)" style={{ marginBottom: '2rem' }} />
         <h1>Category Node Not Found</h1>
         <p>The requested service protocol is not persistent in our registry.</p>
         <button onClick={() => window.history.back()} className="btn btn-primary" style={{ marginTop: '2rem' }}>Return to Safety</button>

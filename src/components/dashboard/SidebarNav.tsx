@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { useTheme } from "@/components/ThemeContext";
+import { useTranslation } from "@/components/LanguageContext";
 
 interface SidebarNavProps {
   isMerchant: boolean;
@@ -19,29 +20,30 @@ interface SidebarNavProps {
 export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
   const pathname = usePathname();
   const { theme } = useTheme();
+  const { t } = useTranslation();
 
   const mainItems = [
-    { href: "/dashboard", label: "總覽 (Overview)", icon: isMerchant ? LayoutDashboard : Home },
-    { href: "/dashboard/bookings", label: "我的預約 (Bookings)", icon: Calendar },
-    { href: "/dashboard/chat", label: "在線訊息 (Messages)", icon: MessageSquare },
+    { href: "/dashboard", label: t.sidebar.labels.overview, icon: isMerchant ? LayoutDashboard : Home },
+    { href: "/dashboard/bookings", label: t.sidebar.labels.bookings, icon: Calendar },
+    { href: "/dashboard/chat", label: t.sidebar.labels.messages, icon: MessageSquare },
   ];
 
   const businessItems = isMerchant ? [
-    { href: "/dashboard/merchant/schedule", label: "預約日程 (Schedule)", icon: Calendar },
-    { href: "/dashboard/services", label: "服務管理 (Services)", icon: ScrollText },
-    { href: "/dashboard/merchant/availability", label: "可用時段 (Availability)", icon: Clock },
-    { href: "/dashboard/analytics", label: "績效分析 (Analytics)", icon: BarChart3 },
-    { href: "/merchant/verification", label: "專家認證 (Verification)", icon: ShieldCheck },
-    { href: "/dashboard/merchant/accounting", label: "會計與稅務 (Tax & Accounting)", icon: Calculator },
-    { href: "/dashboard/earnings", label: "收入錢包 (Wallet)", icon: Wallet },
+    { href: "/dashboard/merchant/schedule", label: t.sidebar.labels.schedule, icon: Calendar },
+    { href: "/dashboard/services", label: t.sidebar.labels.services, icon: ScrollText },
+    { href: "/dashboard/merchant/availability", label: t.sidebar.labels.availability, icon: Clock },
+    { href: "/dashboard/analytics", label: t.sidebar.labels.analytics, icon: BarChart3 },
+    { href: "/merchant/verification", label: t.sidebar.labels.verification, icon: ShieldCheck },
+    { href: "/dashboard/merchant/accounting", label: t.sidebar.labels.accounting, icon: Calculator },
+    { href: "/dashboard/earnings", label: t.sidebar.labels.wallet, icon: Wallet },
   ] : [
-    { href: "/dashboard/garage", label: "我的車庫 (Garage)", icon: Car },
-    { href: "/dashboard/properties", label: "我的房產 (Properties)", icon: HomeIcon },
-    { href: "/dashboard/wallet", label: "獎勵積分 (Rewards)", icon: Star },
+    { href: "/dashboard/garage", label: t.sidebar.labels.garage, icon: Car },
+    { href: "/dashboard/properties", label: t.sidebar.labels.properties, icon: HomeIcon },
+    { href: "/dashboard/wallet", label: t.sidebar.labels.rewards, icon: Star },
   ];
 
   const accountItems = [
-    { href: "/dashboard/profile", label: "個人資料 (Profile)", icon: User },
+    { href: "/dashboard/profile", label: t.sidebar.labels.profile, icon: User },
   ];
 
   const renderNavSection = (title: string, items: typeof mainItems) => (
@@ -98,13 +100,13 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
       paddingTop: '0.5rem' 
     }}>
       {/* Main Actions */}
-      {renderNavSection("Main Terminal", mainItems)}
+      {renderNavSection(t.sidebar.sections.main, mainItems)}
       
       {/* Role-specific Actions */}
-      {renderNavSection(isMerchant ? "Elite Business" : "Assets & Rewards", businessItems)}
+      {renderNavSection(isMerchant ? t.sidebar.sections.business : t.sidebar.sections.assets, businessItems)}
       
       {/* Account Actions */}
-      {renderNavSection("Expert Account", accountItems)}
+      {renderNavSection(t.sidebar.sections.account, accountItems)}
 
       {/* Pro Membership / Verification status footer card */}
       <div style={{ 
@@ -121,8 +123,8 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
             <ShieldCheck size={18} color="#000" />
           </div>
           <div>
-            <p style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--text-primary)' }}>Trust Verified</p>
-            <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>ConciergeAI Expert</p>
+            <p style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--text-primary)' }}>{t.sidebar.labels.verified}</p>
+            <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>{t.sidebar.labels.expert}</p>
           </div>
         </div>
         <div style={{ 
@@ -136,7 +138,7 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
           cursor: 'pointer',
           border: '1px solid rgba(212, 175, 55, 0.3)'
         }} className="hover-lift">
-          <Zap size={14} style={{ marginRight: '4px', verticalAlign: 'middle' }} /> Boost Reach
+          <Zap size={14} style={{ marginRight: '4px', verticalAlign: 'middle' }} /> {t.sidebar.labels.boost}
         </div>
       </div>
 
@@ -161,7 +163,7 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
         }}
         className="hover-sidebar-item-red"
       >
-        <LogOut size={18} /> 登出系統 Logout
+        <LogOut size={18} /> {t.sidebar.labels.logout}
       </button>
 
       <style jsx>{`

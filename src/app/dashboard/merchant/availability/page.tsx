@@ -9,15 +9,15 @@ import {
 } from 'lucide-react';
 import { getMerchantAvailability, updateMerchantAvailability, AvailabilityInput } from "@/app/actions/availability";
 
+import { useTranslation } from "@/components/LanguageContext";
+
 const DAYS = [
   "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
 ];
 
-const DAYS_ZH = [
-  "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"
-];
 
 export default function AvailabilityPage() {
+  const { t, locale } = useTranslation();
   const [availability, setAvailability] = useState<AvailabilityInput[]>([]);
   const [slotDuration, setSlotDuration] = useState(60);
   const [maxDaily, setMaxDaily] = useState(8);
@@ -73,9 +73,9 @@ export default function AvailabilityPage() {
     setMessage(null);
     const res = await updateMerchantAvailability(availability, slotDuration, maxDaily);
     if (res.success) {
-      setMessage({ type: 'success', text: '排班設定已成功儲存！' });
+      setMessage({ type: 'success', text: t.merchant.dashboard.merchant_availability.saved });
     } else {
-      setMessage({ type: 'error', text: '儲存失敗，請重試。' });
+      setMessage({ type: 'error', text: t.merchant.dashboard.merchant_availability.failed });
     }
     setSaving(false);
     setTimeout(() => setMessage(null), 3000);
@@ -91,8 +91,8 @@ export default function AvailabilityPage() {
     <div className="animate-fade-in" style={{ maxWidth: '1000px', margin: '0 auto' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
         <div>
-           <h1 style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--text-primary)' }}>可用時間與排班管理</h1>
-           <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>設定您的服務時段與每日接單上限</p>
+           <h1 style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--text-primary)' }}>{t.merchant.dashboard.merchant_availability.title}</h1>
+           <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>{t.merchant.dashboard.merchant_availability.subtitle}</p>
         </div>
         <button 
           onClick={onSave} 
@@ -101,7 +101,7 @@ export default function AvailabilityPage() {
           style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '12px' }}
         >
            {saving ? <Loader2 className="animate-spin" size={18} /> : <Save size={18} />}
-           {saving ? "正在儲存..." : "儲存變更 Save"}
+           {saving ? t.merchant.dashboard.merchant_availability.saving : t.merchant.dashboard.merchant_availability.save}
         </button>
       </div>
 
@@ -118,14 +118,16 @@ export default function AvailabilityPage() {
             <div key={i} className="glass-panel" style={{ padding: '1.5rem', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', opacity: day.isOpen ? 1 : 0.6, transition: 'all 0.3s', backgroundColor: day.isOpen ? 'var(--surface-1)' : 'var(--bg-secondary)', border: '1.5px solid var(--border-color)' }}>
                <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
                   <div style={{ width: '80px' }}>
-                    <div style={{ fontWeight: 900, color: 'var(--text-primary)' }}>{DAYS_ZH[i]}</div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>{DAYS[i]}</div>
+                    <div style={{ fontWeight: 900, color: 'var(--text-primary)' }}>
+                      {locale === 'zh-TW' ? ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'][day.dayOfWeek] : DAYS[day.dayOfWeek]}
+                    </div>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>{DAYS[day.dayOfWeek]}</div>
                   </div>
                   
                   {day.isOpen ? (
                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                       <div className="flex items-center gap-2">
-                         <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 800 }}>START</div>
+                         <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 800 }}>{t.merchant.dashboard.merchant_availability.start}</div>
                          <input 
                            type="time" 
                            value={day.startTime} 
@@ -136,7 +138,7 @@ export default function AvailabilityPage() {
                       </div>
                       <div style={{ color: 'var(--text-secondary)' }}>—</div>
                       <div className="flex items-center gap-2">
-                         <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 800 }}>END</div>
+                         <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 800 }}>{t.merchant.dashboard.merchant_availability.end}</div>
                          <input 
                            type="time" 
                            value={day.endTime} 
@@ -167,7 +169,7 @@ export default function AvailabilityPage() {
                       cursor: 'pointer'
                     }}
                   >
-                    {day.isOpen ? "暫停服務" : "開啟服務"}
+                    {day.isOpen ? t.merchant.dashboard.merchant_availability.closeBtn : t.merchant.dashboard.merchant_availability.openBtn}
                   </button>
                </div>
             </div>
@@ -182,7 +184,7 @@ export default function AvailabilityPage() {
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                  <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>服務間隔 (分鐘)</label>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>{t.merchant.dashboard.merchant_availability.settings.interval}</label>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                        <Clock size={16} color="var(--text-secondary)" />
                        <input 
@@ -196,7 +198,7 @@ export default function AvailabilityPage() {
                  </div>
 
                  <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>每日接單上限</label>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>{t.merchant.dashboard.merchant_availability.settings.maxDaily}</label>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                        <Users size={16} color="var(--text-secondary)" />
                        <input 
@@ -219,9 +221,9 @@ export default function AvailabilityPage() {
               <div style={{ display: 'flex', gap: '0.75rem' }}>
                 <Sun size={24} />
                 <div>
-                   <p style={{ fontWeight: 800, marginBottom: '0.25rem' }}>專家小撇步</p>
+                   <p style={{ fontWeight: 800, marginBottom: '0.25rem' }}>{t.merchant.dashboard.merchant_availability.tipTitle}</p>
                    <p style={{ fontSize: '0.8rem', lineHeight: 1.5 }}>
-                      良好的排班控管可以讓「預約選單」看起來更專業，並有效降低頻繁更改時間的機率。
+                      {t.merchant.dashboard.merchant_availability.tipContent}
                    </p>
                 </div>
               </div>

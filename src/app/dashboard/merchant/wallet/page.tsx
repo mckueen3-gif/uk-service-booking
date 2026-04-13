@@ -1,24 +1,45 @@
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lib/auth";
-import { redirect } from "next/navigation";
-import { Wallet, TrendingUp, History, Landmark, Info, CheckCircle2, Clock, Sparkles } from "lucide-react";
+"use client";
+
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { Wallet, TrendingUp, History, Landmark, Info, CheckCircle2, Clock, Sparkles, Loader2 } from "lucide-react";
 import { getEarningsStats } from "@/app/actions/finance";
 import BankForm from "./BankForm";
 import WithdrawForm from "./WithdrawForm";
+import { useTranslation } from "@/components/LanguageContext";
 
-export default async function MerchantWalletPage() {
-  const session = await getServerSession(authOptions);
-  if (!session) redirect("/auth/login");
+export default function MerchantWalletPage() {
+  const { data: session } = useSession();
+  const { t } = useTranslation();
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-  const { wallet, recentWithdrawals, merchant, error } = await getEarningsStats() as any;
+  useEffect(() => {
+    async function loadData() {
+      const stats = await getEarningsStats() as any;
+      setData(stats);
+      setLoading(false);
+    }
+    loadData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', padding: '10rem' }}>
+        <Loader2 className="animate-spin" size={48} color="#d4af37" />
+      </div>
+    );
+  }
+
+  const { wallet, recentWithdrawals, merchant, error } = data || {};
 
   if (error || !merchant) {
     return (
       <div style={{ padding: '4rem', textAlign: 'center', backgroundColor: '#fef2f2', borderRadius: '24px', border: '1px solid #fee2e2' }}>
         <h1 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '1rem', color: '#991b1b' }}>
-          營收頁面加載失敗 <span style={{ color: 'var(--accent-color)' }}>Earnings</span>
+          ERROR
         </h1>
-        <p style={{ color: '#b91c1c' }}>{error || "商家資料初始化中或無法獲取。請確定您已完成專家註冊。"}</p>
+        <p style={{ color: '#b91c1c' }}>{error || "Initialization failed."}</p>
       </div>
     );
   }
@@ -31,9 +52,9 @@ export default async function MerchantWalletPage() {
       {/* Header */}
       <div className="animate-fade-up">
         <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem', color: '#fff' }}>
-          Assets & <span style={{ color: '#d4af37' }}>Premium Revenue</span>
+          {t.merchant.merchant_wallet.title.split('&')[0]} & <span style={{ color: '#d4af37' }}>{t.merchant.merchant_wallet.title.split('&')[1] || "Earnings"}</span>
         </h1>
-        <p style={{ color: '#999', fontSize: '1.1rem' }}>Manage your high-tier earnings, pending settlements, and elite payout history.</p>
+        <p style={{ color: '#999', fontSize: '1.1rem' }}>{t.merchant.merchant_wallet.subtitle}</p>
       </div>
 
       {/* Expert Referral Hub - New Feature Injection */}
@@ -52,8 +73,8 @@ export default async function MerchantWalletPage() {
             <Sparkles size={20} color="#d4af37" />
           </div>
           <div>
-            <h3 style={{ fontSize: '1rem', fontWeight: 900, color: '#fff', margin: 0 }}>Expert Referral Rewards</h3>
-            <p style={{ fontSize: '0.8rem', color: '#666', margin: 0 }}>Invite experts and earn 2% referral credits redeemable for retail vouchers (Non-cashable).</p>
+            <h3 style={{ fontSize: '1rem', fontWeight: 900, color: '#fff', margin: 0 }}>{t.merchant.merchant_wallet.referral.title}</h3>
+            <p style={{ fontSize: '0.8rem', color: '#666', margin: 0 }}>{t.merchant.merchant_wallet.referral.subtitle}</p>
           </div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -74,7 +95,7 @@ export default async function MerchantWalletPage() {
             onClick={() => {
               const code = (session?.user as any)?.referralCode;
               if (code) navigator.clipboard.writeText(code);
-              alert("Elite Referral Code Copied!");
+              alert(t.merchant.merchant_wallet.referral.copied);
             }}
             style={{ 
               backgroundColor: '#d4af37', 
@@ -90,7 +111,7 @@ export default async function MerchantWalletPage() {
             onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
             onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
           >
-            COPY LINK
+            {t.merchant.merchant_wallet.referral.copy}
           </button>
         </div>
       </div>
@@ -111,13 +132,13 @@ export default async function MerchantWalletPage() {
           <div style={{ position: 'absolute', top: '-10%', right: '-10%', opacity: 0.1, color: '#d4af37' }}>
             <Wallet size={180} />
           </div>
-          <div style={{ marginBottom: '1.5rem', opacity: 0.6, fontSize: '0.85rem', fontWeight: 800, letterSpacing: '0.1em', color: '#d4af37' }}>AVAILABLE FOR WITHDRAWAL</div>
+          <div style={{ marginBottom: '1.5rem', opacity: 0.6, fontSize: '0.85rem', fontWeight: 800, letterSpacing: '0.1em', color: '#d4af37' }}>{t.merchant.merchant_wallet.available.toUpperCase()}</div>
           <div style={{ marginBottom: '2rem' }}>
             <span style={{ fontSize: '1.5rem', fontWeight: 600, marginRight: '0.4rem', color: '#d4af37' }}>£</span>
             <span style={{ fontSize: '4.5rem', fontWeight: 900 }}>{wallet?.availableBalance?.toFixed(2) || "0.00"}</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', fontWeight: 700, color: '#d4af37' }}>
-            <CheckCircle2 size={16} /> Verified Net Earnings (Post 9% Premium Fee)
+            <CheckCircle2 size={16} /> {t.merchant.merchant_wallet.postFee}
           </div>
         </div>
     
@@ -155,7 +176,7 @@ export default async function MerchantWalletPage() {
           <div style={{ padding: '2rem', borderRadius: '28px', backgroundColor: '#0c0c0c', border: '1px solid #222' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
               <Landmark size={24} color="#d4af37" />
-              <h2 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#fff' }}>Banking & Settlements</h2>
+              <h2 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#fff' }}>{t.merchant.merchant_wallet.banking.title}</h2>
             </div>
             
             <div style={{ marginBottom: '2.5rem' }}>
@@ -165,7 +186,7 @@ export default async function MerchantWalletPage() {
             <hr style={{ border: 'none', borderTop: '1px solid #222', margin: '2rem 0' }} />
 
             <div>
-              <h3 style={{ fontSize: '1rem', fontWeight: 900, color: '#fff', marginBottom: '1.25rem' }}>Request Expert Payout</h3>
+              <h3 style={{ fontSize: '1rem', fontWeight: 900, color: '#fff', marginBottom: '1.25rem' }}>{t.merchant.merchant_wallet.payout.title}</h3>
               <WithdrawForm availableBalance={wallet?.availableBalance || 0} />
             </div>
           </div>
@@ -186,13 +207,18 @@ export default async function MerchantWalletPage() {
                 <div style={{ backgroundColor: '#050505', padding: '1.5rem', borderRadius: '20px', border: '1px solid #222' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.75rem', color: '#d4af37' }}>
                     <Info size={16} />
-                    <span style={{ fontWeight: 900, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Expert Rights & Premium Fee</span>
+                    <span style={{ fontWeight: 900, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{t.merchant.merchant_wallet.terms.rights}</span>
                   </div>
                   <ul style={{ fontSize: '0.85rem', color: '#999', paddingLeft: '1.2rem', margin: 0, lineHeight: 1.6 }}>
-                    <li><b style={{ color: '#fff' }}>9% Premium Fee</b> applies to total labor and parts.</li>
-                    <li>This includes a <b style={{ color: '#d4af37' }}>2% Referral Reward Fund</b> contribution.</li>
-                    <li><b style={{ color: '#fff' }}>Liability Coverage</b>: Automated 7-day pre-settlement lock for all jobs.</li>
-                    <li><b style={{ color: '#fff' }}>Referral Credits</b>: Earned bonuses from your personal network are paid out 1:1.</li>
+                    {t.merchant.merchant_wallet.terms.rules.map((rule: string, idx: number) => (
+                      <li key={idx}>
+                        {rule.includes(':') ? (
+                          <>
+                            <b style={{ color: '#fff' }}>{rule.split(':')[0]}</b>: {rule.split(':')[1]}
+                          </>
+                        ) : rule}
+                      </li>
+                    ))}
                   </ul>
                 </div>
 
@@ -214,22 +240,22 @@ export default async function MerchantWalletPage() {
         <div style={{ padding: '2.5rem', borderRadius: '32px', backgroundColor: '#0c0c0c', border: '1px solid #222' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
             <History size={24} color="#d4af37" />
-            <h2 style={{ fontSize: '1.35rem', fontWeight: 900, color: '#fff' }}>Expert Payout History</h2>
+            <h2 style={{ fontSize: '1.35rem', fontWeight: 900, color: '#fff' }}>{t.merchant.merchant_wallet.history.title}</h2>
           </div>
           
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid #222', color: '#555', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                  <th style={{ paddingBottom: '1rem', fontWeight: 800 }}>Transfer Date</th>
-                  <th style={{ paddingBottom: '1rem', fontWeight: 800 }}>Net Amount</th>
-                  <th style={{ paddingBottom: '1rem', fontWeight: 800 }}>Status</th>
+                  <th style={{ paddingBottom: '1rem', fontWeight: 800 }}>{t.merchant.merchant_wallet.history.date}</th>
+                  <th style={{ paddingBottom: '1rem', fontWeight: 800 }}>{t.merchant.merchant_wallet.history.amount}</th>
+                  <th style={{ paddingBottom: '1rem', fontWeight: 800 }}>{t.merchant.merchant_wallet.history.status}</th>
                 </tr>
               </thead>
               <tbody>
                 {recentWithdrawals.length === 0 ? (
                   <tr>
-                    <td colSpan={3} style={{ padding: '4rem', textAlign: 'center', color: '#444', fontSize: '1rem', fontWeight: 600 }}>No payout history detected yet.</td>
+                    <td colSpan={3} style={{ padding: '4rem', textAlign: 'center', color: '#444', fontSize: '1rem', fontWeight: 600 }}>{t.merchant.merchant_wallet.history.empty}</td>
                   </tr>
                 ) : (
                   recentWithdrawals.map((req: any) => (

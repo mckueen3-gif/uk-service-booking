@@ -78,3 +78,35 @@ export async function submitReply(reviewId: string, reply: string) {
   
   return { success: true, review: updated };
 }
+
+export async function getMerchantReviews() {
+  const session = (await getServerSession(authOptions)) as any;
+  if (!session?.user || session.user.role !== 'MERCHANT') return { error: "Unauthorized" };
+
+  try {
+    const merchant = await prisma.merchant.findUnique({
+      where: { userId: session.user.id },
+      include: {
+        reviews: {
+          include: {
+            customer: { select: { name: true, image: true } }
+          },
+          orderBy: { createdAt: 'desc' }
+        }
+      }
+    });
+
+    if (!merchant) return { error: "Merchant profile not found." };
+
+    const stats = {
+      total: merchant.totalReviews || 0,
+      avg: merchant.averageRating?.toFixed(1) || "0.0",
+      positive: merchant.reviews.filter((r: any) => (r as any).sentiment === 'POSITIVE').length,
+      negative: merchant.reviews.filter((r: any) => (r as any).sentiment === 'NEGATIVE').length
+    };
+
+    return { merchant, stats };
+  } catch (err: any) {
+    return { error: err.message };
+  }
+}

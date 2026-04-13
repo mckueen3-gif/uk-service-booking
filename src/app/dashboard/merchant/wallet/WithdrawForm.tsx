@@ -8,7 +8,10 @@ interface WithdrawFormProps {
   availableBalance: number;
 }
 
+import { useTranslation } from '@/components/LanguageContext';
+
 export default function WithdrawForm({ availableBalance }: WithdrawFormProps) {
+  const { t } = useTranslation();
   const [amount, setAmount] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ text: string, type: 'success' | 'error' } | null>(null);
@@ -18,12 +21,12 @@ export default function WithdrawForm({ availableBalance }: WithdrawFormProps) {
     const numAmount = parseFloat(amount);
 
     if (isNaN(numAmount) || numAmount < 10) {
-      setMessage({ text: "最低提領金額為 £10.00 (Minimum £10.00)", type: 'error' });
+      setMessage({ text: t.merchant.merchant_wallet.payout.minAlert, type: 'error' });
       return;
     }
 
     if (numAmount > availableBalance) {
-      setMessage({ text: "餘額不足 (Insufficient balance)", type: 'error' });
+      setMessage({ text: t.merchant.merchant_wallet.payout.insufficient, type: 'error' });
       return;
     }
 
@@ -34,10 +37,10 @@ export default function WithdrawForm({ availableBalance }: WithdrawFormProps) {
     setLoading(false);
 
     if (result.success) {
-      setMessage({ text: "提現申請已成功提交，預計 3-5 個工作日入帳。", type: 'success' });
+      setMessage({ text: t.merchant.merchant_wallet.payout.success, type: 'success' });
       setAmount("");
     } else {
-      setMessage({ text: result.error || "提現失敗", type: 'error' });
+      setMessage({ text: result.error || t.merchant.merchant_wallet.payout.failed, type: 'error' });
     }
   };
 
@@ -45,8 +48,8 @@ export default function WithdrawForm({ availableBalance }: WithdrawFormProps) {
     <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1.5rem' }}>
       <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <label style={{ fontSize: '0.75rem', fontWeight: 800, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>提領金額 (Withdrawal Amount)</label>
-          <span style={{ fontSize: '0.7rem', color: '#d4af37', fontWeight: 700 }}>MAX: £{availableBalance.toFixed(2)}</span>
+          <label style={{ fontSize: '0.75rem', fontWeight: 800, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{t.merchant.merchant_wallet.payout.amount}</label>
+          <span style={{ fontSize: '0.7rem', color: '#d4af37', fontWeight: 700 }}>{t.merchant.merchant_wallet.payout.max}: £{availableBalance.toFixed(2)}</span>
         </div>
         
         <div style={{ position: 'relative' }}>
@@ -125,7 +128,7 @@ export default function WithdrawForm({ availableBalance }: WithdrawFormProps) {
           e.currentTarget.style.filter = 'brightness(1)';
         }}
       >
-        {loading ? <Loader2 size={22} className="animate-spin" /> : <><ArrowRight size={22} /> 確認提領 (Confirm Withdrawal)</>}
+        {loading ? <Loader2 size={22} className="animate-spin" /> : <><ArrowRight size={22} /> {t.merchant.merchant_wallet.payout.confirm}</>}
       </button>
 
       {message && (

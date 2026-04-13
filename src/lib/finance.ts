@@ -38,15 +38,15 @@ export async function updateMerchantWallet(merchantId: string, amount: number, i
   return await prisma.merchantWallet.upsert({
     where: { merchantId },
     update: {
-      totalEarned: isPending ? undefined : { increment: merchantPayout },
-      availableBalance: isPending ? undefined : { increment: merchantPayout },
-      pendingBalance: isPending ? { increment: amount } : undefined
+      totalEarned: isPending ? undefined : { increment: merchantPayout } as any,
+      availableBalance: isPending ? undefined : { increment: merchantPayout } as any,
+      pendingBalance: isPending ? { increment: amount } as any : undefined
     },
     create: {
       merchantId,
-      totalEarned: isPending ? 0 : merchantPayout,
-      availableBalance: isPending ? 0 : merchantPayout,
-      pendingBalance: isPending ? amount : 0
+      totalEarned: (isPending ? 0 : merchantPayout) as any,
+      availableBalance: (isPending ? 0 : merchantPayout) as any,
+      pendingBalance: (isPending ? amount : 0) as any
     }
   });
 }
@@ -59,8 +59,8 @@ export async function movePendingToAvailable(merchantId: string, netAmount: numb
   return await prisma.merchantWallet.update({
     where: { merchantId },
     data: {
-      pendingBalance: { decrement: netAmount },
-      availableBalance: { increment: netAmount }
+      pendingBalance: { decrement: netAmount } as any,
+      availableBalance: { increment: netAmount } as any
     }
   });
 }
@@ -98,10 +98,10 @@ export async function completeBookingFunds(booking: Booking & { isEducation?: bo
   return await prisma.merchantWallet.update({
     where: { merchantId: booking.merchantId },
     data: {
-      pendingBalance: { decrement: netDeposit },
-      authorizedBalance: { decrement: netBalance },
-      availableBalance: { increment: netDeposit + netBalance },
-      totalEarned: { increment: netBalance } 
+      pendingBalance: { decrement: netDeposit } as any,
+      authorizedBalance: { decrement: netBalance } as any,
+      availableBalance: { increment: netDeposit + netBalance } as any,
+      totalEarned: { increment: netBalance } as any
     }
   });
 }

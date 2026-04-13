@@ -34,14 +34,14 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
   const handleFileSelect = (file: File) => {
     // Validate file size (10MB max)
     if (file.size > 10 * 1024 * 1024) {
-      alert('文件大小超過 10MB 限制。請選擇較小的文件。');
+      alert(t.merchant.dashboard.verification.errorSize);
       return;
     }
     
     // Validate file type
     const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'application/pdf'];
     if (!validTypes.includes(file.type)) {
-      alert('不支援的文件格式。請上傳 JPG、PNG 或 PDF。');
+      alert(t.merchant.dashboard.verification.errorType);
       return;
     }
 
@@ -86,7 +86,7 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
     e.preventDefault();
     
     if (!selectedFile) {
-      alert('請先上傳證書文件。');
+      alert(t.merchant.dashboard.verification.uploadPlaceholder);
       return;
     }
 
@@ -118,7 +118,7 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
       }
     } catch (err) {
       console.error(err);
-      alert("提交失敗，請稍後再試。");
+      alert(t.merchant.dashboard.verification.errorSubmit);
     } finally {
       setLoading(false);
     }
@@ -140,7 +140,7 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
               <FileCheck size={40} />
             </div>
             <h2 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#facc15' }}>{t.merchant.dashboard.verification.verified}</h2>
-            <p style={{ color: 'var(--text-secondary)' }}>{isRTL ? 'تم تفعيل شاراتك المهنية.' : 'Your professional badge is active. Please maintain validity.'}</p>
+            <p style={{ color: 'var(--text-secondary)' }}>{t.merchant.dashboard.verification.verifiedDesc}</p>
           </>
         ) : (
           <>
@@ -148,7 +148,7 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
               <ShieldAlert size={40} />
             </div>
             <h2 style={{ fontSize: '1.8rem', fontWeight: 900 }}>{t.merchant.dashboard.verification.title}</h2>
-            <p style={{ color: 'var(--text-secondary)' }}>{isRTL ? 'قم بتحميل التراخيص اللازمة.' : 'Upload necessary licenses and insurance proofs.'}</p>
+            <p style={{ color: 'var(--text-secondary)' }}>{t.merchant.dashboard.verification.unverifiedDesc}</p>
           </>
         )}
       </div>
@@ -188,7 +188,7 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
 
            {/* Upload Area with Preview */}
            <div>
-             <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.5rem' }}>證書正本照片</label>
+             <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.5rem' }}>{t.merchant.dashboard.verification.uploadDesc}</label>
              
              {!selectedFile ? (
                /* Empty Upload Zone */
@@ -222,8 +222,8 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
                      <Upload size={32} />
                    </div>
                    <div>
-                     <p style={{ fontWeight: 800, marginBottom: '0.2rem' }}>點擊或拖拽上傳</p>
-                     <p style={{ fontSize: '0.8rem' }}>支援 JPG, PNG, PDF（最大 10MB）</p>
+                     <p style={{ fontWeight: 800, marginBottom: '0.2rem' }}>{t.merchant.dashboard.verification.dropzoneTitle}</p>
+                     <p style={{ fontSize: '0.8rem' }}>{t.merchant.dashboard.verification.dropzoneDesc}</p>
                    </div>
                  </div>
                </div>
@@ -355,7 +355,7 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
                   <div>
                     <div style={{ fontWeight: 800, fontSize: '0.9rem' }}>{doc.type.replace('_', ' ')}</div>
                     <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                      {doc.registrationNumber ? `編號: ${doc.registrationNumber}` : '正在提取資料...'}
+                      {doc.registrationNumber ? `${t.merchant.dashboard.verification.registrationNumber}: ${doc.registrationNumber}` : t.merchant.dashboard.verification.extracting}
                     </div>
                   </div>
                 </div>
@@ -375,7 +375,7 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
                      {doc.status}
                    </div>
                    <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
-                     {doc.expiryDate ? `有效期至: ${new Date(doc.expiryDate).toLocaleDateString()}` : '無過期資訊'}
+                      {doc.expiryDate ? `${t.merchant.dashboard.verification.expiryDate}: ${new Date(doc.expiryDate).toLocaleDateString()}` : t.merchant.dashboard.verification.noExpiry}
                    </div>
                 </div>
               </div>

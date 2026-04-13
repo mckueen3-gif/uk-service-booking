@@ -129,10 +129,10 @@ export default function MerchantDashboard() {
           </div>
           <div>
             <h1 style={{ fontSize: '2.2rem', fontWeight: 900, marginBottom: '0.25rem', color: 'var(--text-primary)' }}>
-              ConciergeAI <span style={{ color: 'var(--accent-color)' }}>Expert Dashboard</span>
+              ConciergeAI <span style={{ color: 'var(--accent-color)' }}>{t.merchant.dashboard.expertTitle}</span>
             </h1>
             <p style={{ color: 'var(--text-secondary)' }}>
-              {t.merchant.dashboard.welcome.replace('{name}', stats?.companyName || 'Partner')}
+              {t.merchant.dashboard.welcome.replace('{name}', stats?.companyName || t.common.user)}
             </p>
           </div>
         </div>
@@ -202,7 +202,7 @@ export default function MerchantDashboard() {
                         {booking.status === 'CONFIRMED' && !booking.isEducation && booking.stripeBalanceIntentId && (
                           <div style={{ fontSize: '0.65rem', color: '#d4af37', fontWeight: 800, marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                             <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#d4af37', animation: 'pulse 2s infinite' }} />
-                            80% BALANCE HELD
+                            {t.merchant.dashboard.balanceHeld}
                           </div>
                         )}
                         <button 
@@ -211,12 +211,12 @@ export default function MerchantDashboard() {
                           style={{ padding: '0.5rem 1rem', fontSize: '0.8rem', minWidth: '120px', backgroundColor: '#d4af37', color: '#000', borderRadius: '10px', border: 'none', fontWeight: 700 }}
                         >
                           {updatingId === booking.id 
-                            ? (booking.status === 'CONFIRMED' ? '...' : '...') 
+                            ? '...' 
                             : booking.status === 'PENDING' 
                               ? t.merchant.dashboard.bookings.actions.confirm 
                               : booking.isEducation 
-                                ? "Complete" 
-                                : "Complete & Pay"
+                                ? t.merchant.dashboard.bookings.actions.complete 
+                                : t.merchant.dashboard.bookings.actions.completeAndPay
                           }
                         </button>
                       </div>
@@ -239,7 +239,7 @@ export default function MerchantDashboard() {
                                 {t.merchant.dashboard.variations.status}: {v.status === 'PENDING' ? t.merchant.dashboard.variations.pending : v.status === 'APPROVED' ? t.merchant.dashboard.variations.approved : t.merchant.dashboard.variations.rejected}
                               </span>
                               {v.status === 'DISPUTED' && (!booking.dispute || booking.dispute.status !== 'RESOLVED') && (
-                                <span style={{ color: '#ef4444', fontWeight: 800, fontSize: '0.75rem' }}>Arbiter Active</span>
+                                <span style={{ color: '#ef4444', fontWeight: 800, fontSize: '0.75rem' }}>{t.merchant.dashboard.arbiterActive}</span>
                               )}
                             </div>
 
@@ -247,7 +247,7 @@ export default function MerchantDashboard() {
                             {booking.dispute && booking.dispute.status === 'RESOLVED' && (
                               <div style={{ marginTop: '0.5rem', padding: '0.75rem', borderRadius: '8px', backgroundColor: 'rgba(212, 175, 55, 0.05)', border: '1px solid rgba(212, 175, 55, 0.2)' }}>
                                 <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#d4af37', marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                                  <Cpu size={14} /> AI Reason
+                                  <Cpu size={14} /> {t.merchant.dashboard.aiReason}
                                 </div>
                                 <p style={{ fontSize: '0.75rem', color: '#ccc', lineHeight: 1.4 }}>
                                   {booking.dispute.aiReasoning}
@@ -270,10 +270,10 @@ export default function MerchantDashboard() {
            <div style={{ padding: '1.5rem', borderRadius: '24px', backgroundColor: '#1a1a1a', border: '1px solid #d4af37' }}>
               <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1rem' }}>
                 <TrendingUp color="#d4af37" />
-                <h3 style={{ fontSize: '1rem', fontWeight: 800, color: '#d4af37' }}>ConciergeAI Expert Tips</h3>
+                <h3 style={{ fontSize: '1rem', fontWeight: 800, color: '#d4af37' }}>{t.merchant.dashboard.tipsTitle}</h3>
               </div>
               <p style={{ fontSize: '0.85rem', color: '#ccc', lineHeight: 1.5 }}>
-                {t.merchant.dashboard.tips.growth}. High quality photos increase conversion by 30%.
+                {t.merchant.dashboard.tips.growth}. {t.merchant.dashboard.tipsExtra}
               </p>
            </div>
 
@@ -400,7 +400,7 @@ function VariationModal({ isOpen, onClose, onSubmit, booking, amount, setAmount,
                 {loading ? (
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
                     <div className="animate-spin" style={{ width: '1.2rem', height: '1.2rem', border: '2px solid #000', borderTopColor: 'transparent', borderRadius: '50%' }}></div>
-                    SUBMITTING...
+                    {t.merchant.dashboard.submitting}
                   </div>
                 ) : t.merchant.dashboard.modal.submit}
               </button>

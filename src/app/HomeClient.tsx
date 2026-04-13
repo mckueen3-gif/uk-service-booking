@@ -375,7 +375,7 @@ export default function HomeClient() {
                   gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
                   gap: '1.25rem' 
                 }}>
-                  {sec.data.items.map(sub => (
+                  {(sec.data.items as string[]).map((sub: string) => (
                     <Link key={sub} 
                           href={`/services/${sec.id}/search?q=${encodeURIComponent(sub)}`} 
                           style={{ textDecoration: 'none' }}>

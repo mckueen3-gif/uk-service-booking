@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { Share2, Link as LinkIcon, Facebook, MessageCircle, Check, Copy } from 'lucide-react';
+import { Share2, Link as LinkIcon, Check, Copy, MessageSquare, Globe } from 'lucide-react';
 import { useTranslation } from '@/components/LanguageContext';
 
 export default function ShareProfile({ merchantId, companyName }: { merchantId: string, companyName: string }) {
@@ -20,27 +20,27 @@ export default function ShareProfile({ merchantId, companyName }: { merchantId: 
   const shareActions = [
     { 
       name: 'WhatsApp', 
-      icon: <MessageCircle size={18} fill="#25D366" color="#25D366" />, 
+      icon: <MessageSquare size={18} fill="none" color="#25D366" />, 
       url: `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}` 
     },
     { 
       name: 'Facebook', 
-      icon: <Facebook size={18} fill="#1877F2" color="#1877F2" />, 
+      icon: <Globe size={18} fill="none" color="#1877F2" />, 
       url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}` 
     }
   ];
 
   return (
-    <div className="glass-panel" style={{ padding: '1.5rem', borderRadius: '1rem', border: '1px solid var(--accent-color)33' }}>
+    <div className="glass-panel" style={{ padding: '1.5rem', borderRadius: '1rem', border: '1px solid var(--accent-color)33', textAlign: isRTL ? 'right' : 'left' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
          <div style={{ padding: '0.5rem', borderRadius: '8px', background: 'var(--accent-soft)', color: 'var(--accent-color)' }}>
             <Share2 size={18} />
          </div>
-         <h3 style={{ fontSize: '1rem', fontWeight: 800 }}>{isRTL ? 'مشاركة ملفك الشخصي' : 'Propagate Your Node'}</h3>
+         <h3 style={{ fontSize: '1rem', fontWeight: 800 }}>{t.merchant.merchant_profile.share.title}</h3>
       </div>
       
-      <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '1.25rem', textAlign: 'inherit' }}>
-        {isRTL ? 'شارك رابطك لجذب المزيد من العملاء.' : 'Broadcast your elite status to your network. Bringing existing clients to the platform increases your AI visibility score.'}
+      <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '1.25rem' }}>
+        {t.merchant.merchant_profile.share.subtitle}
       </p>
 
       <div style={{ display: 'flex', gap: '0.75rem', flexDirection: isRTL ? 'row-reverse' : 'row', marginBottom: '1rem' }}>

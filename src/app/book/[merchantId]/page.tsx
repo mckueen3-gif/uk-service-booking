@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { 
   ChevronRight, ArrowRight, CheckCircle2, Loader2, 
   MapPin, Clock, Star, ShieldCheck, Car, Settings, 
-  MessageSquare, Briefcase, Camera, ThumbsUp, Info, Home
+  MessageSquare, Briefcase, Camera, ThumbsUp, Info, Home, Zap
 } from 'lucide-react';
 import Link from "next/link";
 import { useParams, useSearchParams, useRouter } from "next/navigation";

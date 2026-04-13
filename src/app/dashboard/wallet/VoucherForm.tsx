@@ -3,8 +3,10 @@
 import { useState } from 'react';
 import { redeemVoucher } from '@/app/actions/wallet';
 import { Loader2, Ticket, CheckCircle2, AlertCircle } from 'lucide-react';
+import { useTranslation } from "@/components/LanguageContext";
 
 export default function VoucherForm() {
+  const { t } = useTranslation();
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ text: string, type: 'success' | 'error' } | null>(null);
@@ -20,10 +22,10 @@ export default function VoucherForm() {
     setLoading(false);
 
     if (result.success) {
-      setMessage({ text: `成功兌換 £${result.value.toFixed(2)} 點數！`, type: 'success' });
+      setMessage({ text: t.rewards_hub.redeemSuccess.replace("{value}", result.value.toFixed(2)), type: 'success' });
       setCode("");
     } else {
-      setMessage({ text: result.error || "兌換失敗", type: 'error' });
+      setMessage({ text: result.error || t.rewards_hub.redeemFailed, type: 'error' });
     }
   };
 
@@ -34,7 +36,7 @@ export default function VoucherForm() {
           type="text" 
           value={code}
           onChange={(e) => setCode(e.target.value.toUpperCase())}
-          placeholder="例如: SAVE20, UKPROMO..." 
+          placeholder={t.rewards_hub.placeholderCode} 
           disabled={loading}
           style={{ 
             width: '100%', 
@@ -78,7 +80,7 @@ export default function VoucherForm() {
         }}
         className="hover-brighten"
       >
-        {loading ? <Loader2 size={20} className="animate-spin" /> : "立即兌換服務券"}
+        {loading ? <Loader2 size={20} className="animate-spin" /> : t.rewards_hub.redeemBtn}
       </button>
 
       {message && (

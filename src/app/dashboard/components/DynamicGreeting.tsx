@@ -1,22 +1,24 @@
 "use client";
 
 import { useEffect, useState } from 'react';
+import { useTranslation } from '@/components/LanguageContext';
 
 export default function DynamicGreeting({ userName }: { userName: string }) {
-  const [greeting, setGreeting] = useState("早安");
+  const { t } = useTranslation();
+  const [greeting, setGreeting] = useState(t.common.greetings.morning);
   const [icon, setIcon] = useState("👋");
 
   useEffect(() => {
     const updateGreeting = () => {
       const hour = new Date().getHours();
       if (hour >= 5 && hour < 12) {
-        setGreeting("早安");
+        setGreeting(t.common.greetings.morning);
         setIcon("🌅");
       } else if (hour >= 12 && hour < 18) {
-        setGreeting("午安");
+        setGreeting(t.common.greetings.afternoon);
         setIcon("☀️");
       } else {
-        setGreeting("晚安");
+        setGreeting(t.common.greetings.evening);
         setIcon("🌙");
       }
     };
@@ -34,7 +36,7 @@ export default function DynamicGreeting({ userName }: { userName: string }) {
       marginBottom: '0.5rem', 
       color: 'var(--text-primary)'
     }}>
-      {greeting}，<span style={{ color: '#b8860b' }}>{userName}</span> {icon}
+      {greeting}, <span style={{ color: '#b8860b' }}>{userName}</span> {icon}
     </h1>
   );
 }

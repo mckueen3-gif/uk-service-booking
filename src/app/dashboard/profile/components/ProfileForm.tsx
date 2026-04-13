@@ -3,8 +3,10 @@
 import { useState, useEffect } from 'react';
 import { saveFullProfile } from '@/app/actions/user';
 import { Save, User, Mail, Phone, Building2, FileText, CheckCircle2 } from 'lucide-react';
+import { useTranslation } from '@/components/LanguageContext';
 
 export default function ProfileForm({ user, isMerchant }: { user: any, isMerchant: boolean }) {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
@@ -66,40 +68,40 @@ export default function ProfileForm({ user, isMerchant }: { user: any, isMerchan
   return (
     <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '2.5rem' }}>
       <div style={{ display: 'grid', gap: '1.25rem' }}>
-        <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>主體資訊</h3>
+        <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>{t.merchant.profile.sections.basic}</h3>
         
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
           <div style={{ display: 'grid', gap: '0.6rem' }}>
             <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-              <User size={14} /> 真實姓名
+              <User size={14} /> {t.merchant.profile.labels.name}
             </label>
             <input 
               type="text" 
               value={formData.name}
               onChange={(e) => setFormData({...formData, name: e.target.value})}
               style={{ padding: '0.85rem 1rem', borderRadius: '12px', border: '1px solid var(--border-color)', backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', fontSize: '0.95rem', outline: 'none' }}
-              placeholder="輸入您的全名"
+              placeholder={t.merchant.profile.labels.placeholderName}
               required
             />
           </div>
 
           <div style={{ display: 'grid', gap: '0.6rem' }}>
             <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-              <Phone size={14} /> 聯絡電話
+              <Phone size={14} /> {t.merchant.profile.labels.phone}
             </label>
             <input 
               type="tel" 
               value={formData.phone}
               onChange={(e) => setFormData({...formData, phone: e.target.value})}
               style={{ padding: '0.85rem 1rem', borderRadius: '12px', border: '1px solid var(--border-color)', backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', fontSize: '0.95rem', outline: 'none' }}
-              placeholder="+44 7xxx xxx xxx"
+              placeholder={t.merchant.profile.labels.placeholderPhone}
             />
           </div>
         </div>
 
         <div style={{ display: 'grid', gap: '0.6rem' }}>
           <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-            <Mail size={14} /> 電子郵件 (唯讀)
+            <Mail size={14} /> {t.merchant.profile.labels.emailReadOnly}
           </label>
           <input 
             type="email" 
@@ -111,11 +113,11 @@ export default function ProfileForm({ user, isMerchant }: { user: any, isMerchan
       </div>
 
       <div style={{ display: 'grid', gap: '1.25rem', paddingTop: '1.5rem', borderTop: '1px solid var(--border-color)' }}>
-         <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>服務地址 (Service Address)</h3>
+         <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>{t.merchant.profile.sections.address}</h3>
          
          <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '1rem' }}>
             <div style={{ display: 'grid', gap: '0.6rem' }}>
-              <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>城市 (City)</label>
+              <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>{t.merchant.profile.labels.city}</label>
               <input 
                 type="text" 
                 value={formData.city}
@@ -125,7 +127,7 @@ export default function ProfileForm({ user, isMerchant }: { user: any, isMerchan
               />
             </div>
             <div style={{ display: 'grid', gap: '0.6rem' }}>
-              <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>郵編 (Postcode)</label>
+              <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>{t.merchant.profile.labels.postcode}</label>
               <input 
                 type="text" 
                 value={formData.postcode}
@@ -138,7 +140,7 @@ export default function ProfileForm({ user, isMerchant }: { user: any, isMerchan
 
          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
             <div style={{ display: 'grid', gap: '0.6rem' }}>
-              <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>地址行 1</label>
+              <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>{t.merchant.profile.labels.addressLine1}</label>
               <input 
                 type="text" 
                 value={formData.addressLine1}
@@ -148,7 +150,7 @@ export default function ProfileForm({ user, isMerchant }: { user: any, isMerchan
               />
             </div>
             <div style={{ display: 'grid', gap: '0.6rem' }}>
-              <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>地址行 2</label>
+              <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>{t.merchant.profile.labels.addressLine2}</label>
               <input 
                 type="text" 
                 value={formData.addressLine2}
@@ -162,31 +164,31 @@ export default function ProfileForm({ user, isMerchant }: { user: any, isMerchan
 
       {isMerchant && (
         <div style={{ display: 'grid', gap: '1.5rem', paddingTop: '1.5rem', borderTop: '1px solid var(--border-color)' }}>
-          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.5rem', color: 'var(--text-primary)' }}>商戶公開資訊 (Pro Info)</h3>
+          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.5rem', color: 'var(--text-primary)' }}>{t.merchant.profile.sections.business}</h3>
           
           <div style={{ display: 'grid', gap: '0.75rem' }}>
             <label style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Building2 size={16} /> 商業名稱 / 團隊名稱
+              <Building2 size={16} /> {t.merchant.profile.labels.businessName}
             </label>
             <input 
               type="text" 
               value={formData.businessName}
               onChange={(e) => setFormData({...formData, businessName: e.target.value})}
               style={{ padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-color)', backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', fontSize: '1rem', outline: 'none' }}
-              placeholder="例如：MCQueen Motors LTD"
+              placeholder={t.merchant.profile.labels.businessNamePlaceholder}
             />
           </div>
 
           <div style={{ display: 'grid', gap: '0.75rem' }}>
             <label style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <FileText size={16} /> 專家簡介 (Bio)
+              <FileText size={16} /> {t.merchant.profile.labels.bio}
             </label>
             <textarea 
               rows={4}
               value={formData.description}
               onChange={(e) => setFormData({...formData, description: e.target.value})}
               style={{ padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-color)', backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', fontSize: '1rem', outline: 'none', resize: 'vertical' }}
-              placeholder="向客戶介紹您的修繕經驗與專長..."
+              placeholder={t.merchant.profile.labels.bioPlaceholder}
             />
           </div>
         </div>
@@ -199,16 +201,16 @@ export default function ProfileForm({ user, isMerchant }: { user: any, isMerchan
           className="btn btn-primary"
           style={{ padding: '1rem 2rem', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '0.75rem', fontWeight: 700 }}
         >
-          {loading ? "儲存中..." : (
+          {loading ? t.merchant.profile.status.saving : (
             <>
-              <Save size={18} /> 儲存所有變更
+              <Save size={18} /> {t.merchant.profile.save}
             </>
           )}
         </button>
 
         {success && (
           <div style={{ color: '#facc15', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, animation: 'fade-in 0.3s' }}>
-            <CheckCircle2 size={20} /> 更新成功！
+            <CheckCircle2 size={20} /> {t.merchant.profile.status.success}
           </div>
         )}
       </div>

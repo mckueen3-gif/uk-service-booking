@@ -15,7 +15,7 @@ export default function OnboardingHero() {
           <span>ConciergeAI Elite Expert</span>
         </div>
         <h1 className="hero-title">
-          {t.onboarding.hero.title.split('ConciergeAI').map((part, i, arr) => (
+          {t.onboarding.hero.title.split('ConciergeAI').map((part: string, i: number, arr: string[]) => (
             <React.Fragment key={i}>
               {part}
               {i < arr.length - 1 && <span className="brand-gold">ConciergeAI</span>}

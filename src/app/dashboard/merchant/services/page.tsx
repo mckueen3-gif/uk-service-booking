@@ -110,19 +110,19 @@ export default function MerchantServicesPage() {
       <header style={{ marginBottom: '3rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
           <Link href="/dashboard/merchant" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#666', textDecoration: 'none', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
-            <ArrowLeft size={16} /> 返回控制台 Back
+            <ArrowLeft size={16} /> {t.merchant.merchant_services.back}
           </Link>
-          <h1 style={{ fontSize: '2.5rem', fontWeight: 900, color: '#fff' }}>
-            服務管理 <span style={{ color: '#d4af37' }}>Catalog</span>
+          <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem', color: '#fff' }}>
+            {t.merchant.merchant_services.title.split('&')[0]} & <span style={{ color: '#d4af37' }}>{t.merchant.merchant_services.title.split('&')[1] || "Portfolio"}</span>
           </h1>
-          <p style={{ color: '#666' }}>在此定義您提供的服務、定價與服務細節。</p>
+          <p style={{ color: '#999', fontSize: '1.1rem' }}>{t.merchant.merchant_services.subtitle}</p>
         </div>
         <button 
           onClick={() => { setEditingService(null); setShowAddModal(true); }}
-          className="btn btn-primary" 
-          style={{ padding: '1rem 2rem' }}
+          className="btn-primary" 
+          style={{ padding: '0.8rem 1.5rem', borderRadius: '12px', fontSize: '0.9rem', fontWeight: 900, background: '#d4af37', color: '#000', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
         >
-          <Plus size={18} /> 新增服務 Add Service
+          <Plus size={18} /> {t.merchant.merchant_services.addNew}
         </button>
       </header>
 
@@ -131,7 +131,7 @@ export default function MerchantServicesPage() {
         {services.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '5rem', opacity: 0.3 }}>
             <Tag size={64} style={{ margin: '0 auto 1.5rem' }} />
-            <p style={{ fontSize: '1.1rem' }}>目前尚未建立任何服務內容。</p>
+            <p style={{ fontSize: '1.1rem' }}>{t.merchant.merchant_services.empty}</p>
           </div>
         ) : (
           services.map(s => (
@@ -211,10 +211,10 @@ export default function MerchantServicesPage() {
 
             <form onSubmit={handleUpsert} style={{ display: 'grid', gap: '2rem', overflowY: 'auto', paddingRight: '0.5rem' }} className="custom-scrollbar">
               <div>
-                <label style={premiumLabelStyle}>服務名稱 (Service Name)</label>
+                <label style={premiumLabelStyle}>{t.merchant.merchant_services.modal.name}</label>
                 <input 
                   required 
-                  placeholder="例如：緊急水管維修"
+                  placeholder={t.merchant.merchant_services.modal.namePlaceholder}
                   value={formData.name} 
                   onChange={e => setFormData({...formData, name: e.target.value})} 
                   style={premiumInputStyle} 
@@ -225,7 +225,7 @@ export default function MerchantServicesPage() {
               
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
                 <div>
-                  <label style={premiumLabelStyle}>服務類別 (Category)</label>
+                  <label style={premiumLabelStyle}>{t.merchant.dashboard.merchant_services.modal.category}</label>
                   <select 
                     value={formData.category} 
                     onChange={e => setFormData({...formData, category: e.target.value})} 
@@ -243,7 +243,7 @@ export default function MerchantServicesPage() {
                   </select>
                 </div>
                 <div>
-                  <label style={premiumLabelStyle}>基本定價 (£/hr)</label>
+                  <label style={premiumLabelStyle}>{t.merchant.merchant_services.modal.pricing}</label>
                   <div style={{ position: 'relative' }}>
                     <span style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', fontWeight: 900, color: '#d4af37' }}>£</span>
                     <input 
@@ -264,24 +264,24 @@ export default function MerchantServicesPage() {
                 <div className="animate-fade-in" style={{ padding: '1.5rem', backgroundColor: 'rgba(212,175,55,0.03)', borderRadius: '20px', border: '1px solid rgba(212,175,55,0.1)' }}>
                   <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center', marginBottom: '1rem', color: '#d4af37' }}>
                     <GraduationCap size={20} />
-                    <span style={{ fontSize: '0.9rem', fontWeight: 900 }}>專家教育賽道 Specialized Tracks</span>
+                    <span style={{ fontSize: '0.9rem', fontWeight: 900 }}>{t.merchant.merchant_services.modal.eduTrack}</span>
                   </div>
                   <input 
                     required={formData.category === 'Education'}
                     value={formData.subjects} 
                     onChange={e => setFormData({...formData, subjects: e.target.value})} 
-                    placeholder="專攻學科 (例如: GCSE Maths, AI Prep)"
+                    placeholder={t.merchant.merchant_services.modal.eduPlaceholder}
                     style={premiumInputStyle} 
                   />
                 </div>
               )}
 
               <div>
-                <label style={premiumLabelStyle}>詳細描述 (Description)</label>
+                <label style={premiumLabelStyle}>{t.merchant.merchant_services.modal.description}</label>
                 <textarea 
                   value={formData.description} 
                   onChange={e => setFormData({...formData, description: e.target.value})} 
-                  placeholder="請簡單說明服務包含的內容..."
+                  placeholder={t.merchant.merchant_services.modal.descPlaceholder}
                   style={{ ...premiumInputStyle, height: '140px', resize: 'none' }} 
                   onFocus={(e) => { e.currentTarget.style.borderColor = '#d4af37'; e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.05)'; }}
                   onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.15)'; e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)'; }}
@@ -293,7 +293,7 @@ export default function MerchantServicesPage() {
                 className="btn btn-primary" 
                 style={{ padding: '1.25rem', marginTop: '1rem', fontSize: '1.1rem', boxShadow: '0 10px 40px rgba(212,175,55,0.2)' }}
               >
-                 {editingService ? '保存並更新 Save Changes' : '立即發布服務項目 Publish'}
+                 {editingService ? t.merchant.merchant_services.modal.save : t.merchant.merchant_services.modal.publish}
               </button>
             </form>
           </div>

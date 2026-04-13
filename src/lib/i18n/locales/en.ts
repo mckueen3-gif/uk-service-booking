@@ -1,4 +1,4 @@
-import { Dictionary } from '../types';
+import { Dictionary } from "../types";
 
 export const en: any = {
   nav: {
@@ -11,182 +11,336 @@ export const en: any = {
     aiDiagnosis: "AI Diagnostics",
     education: "Education",
     quickActions: "Quick Actions",
-    exploreServices: "Explore Services"
+    exploreServices: "Explore Services",
   },
   sidebar: {
     sections: {
-      main: 'Main Terminal',
-      business: 'Elite Business',
-      account: 'Expert Account',
-      assets: 'Assets & Rewards',
+      main: "Main Terminal",
+      business: "Elite Business",
+      account: "Expert Account",
+      assets: "Assets & Rewards",
     },
     labels: {
-      overview: 'Overview',
-      bookings: 'My Bookings',
-      messages: 'Live Messages',
-      schedule: 'Service Schedule',
-      services: 'Specialist Services',
-      availability: 'Availability',
-      analytics: 'Performance',
-      verification: 'Trust Verification',
-      accounting: 'Tax & Accounting',
-      wallet: 'Business Wallet',
-      garage: 'Private Garage',
-      properties: 'Property Portfolio',
-      rewards: 'Elite Rewards',
-      profile: 'Expert Profile',
-      logout: 'Logout System',
-      boost: 'Boost Reach',
-      verified: 'Trust Verified',
-      expert: 'ConciergeAI Expert',
+      overview: "Overview",
+      bookings: "My Bookings",
+      messages: "Live Messages",
+      schedule: "Service Schedule",
+      services: "Specialist Services",
+      availability: "Availability",
+      analytics: "Performance",
+      verification: "Trust Verification",
+      accounting: "Tax & Accounting",
+      wallet: "Business Wallet",
+      garage: "Private Garage",
+      properties: "Property Portfolio",
+      rewards: "Elite Rewards",
+      profile: "Expert Profile",
+      logout: "Logout System",
+      boost: "Boost Reach",
+      verified: "Trust Verified",
+      expert: "ConciergeAI Expert",
     },
   },
-  legal: { ui: { selectLanguage: "Global Connectivity", close: "Complete Protocol" } },
+  legal: {
+    ui: { selectLanguage: "Global Connectivity", close: "Complete Protocol" },
+  },
   landing_pages: {
     plumbing: {
       hero: {
         badge: "Elite Precision",
         title1: "Superior Engineering",
         title2: "Plumbing & Power",
-        subtitle: "Connect with certified UK specialists for precision plumbing, electrical, and hardware integration. AI-monitored for quality assurance.",
+        subtitle:
+          "Connect with certified UK specialists for precision plumbing, electrical, and hardware integration. AI-monitored for quality assurance.",
         searchPlaceholder: "Pipe repair, boiler service, rewiring...",
-        searchBtn: "Scan Nodes"
+        searchBtn: "Scan Nodes",
       },
       sub_categories: {
-        pipe: { title: "Pipe Repair", desc: "Emergency leak detection and precision hardware replacement." },
-        wiring: { title: "System Rewiring", desc: "Professional electrical calibration and node integration." },
-        appliance: { title: "Appliance Integration", desc: "Deployment and testing of sanitary and culinary hardware." },
-        boiler: { title: "Boiler Audit", desc: "Regulatory thermal maintenance and performance diagnostics." },
-        switch: { title: "Switchgear", desc: "High-integrity electrical component replacement." },
-        smart: { title: "Smart Automation", desc: "Mesh network home automation and sensor deployment." }
-      }
+        pipe: {
+          title: "Pipe Repair",
+          desc: "Emergency leak detection and precision hardware replacement.",
+        },
+        wiring: {
+          title: "System Rewiring",
+          desc: "Professional electrical calibration and node integration.",
+        },
+        appliance: {
+          title: "Appliance Integration",
+          desc: "Deployment and testing of sanitary and culinary hardware.",
+        },
+        boiler: {
+          title: "Boiler Audit",
+          desc: "Regulatory thermal maintenance and performance diagnostics.",
+        },
+        switch: {
+          title: "Switchgear",
+          desc: "High-integrity electrical component replacement.",
+        },
+        smart: {
+          title: "Smart Automation",
+          desc: "Mesh network home automation and sensor deployment.",
+        },
+      },
     },
     repairs: {
       hero: {
         badge: "Structural Integrity",
         title1: "Restore Your Node",
         title2: "Elite Maintenance",
-        subtitle: "From furniture assembly to structural remediation. The top 1% of UK maintenance specialists at your command.",
+        subtitle:
+          "From furniture assembly to structural remediation. The top 1% of UK maintenance specialists at your command.",
         searchPlaceholder: "Furniture assembly, wall repair...",
-        searchBtn: "Liaison Search"
+        searchBtn: "Liaison Search",
       },
       sub_categories: {
-        furniture: { title: "Furniture Assembly", desc: "Precision assembly of complex modular hardware." },
-        structural: { title: "Structural Fixtures", desc: "Mounting and calibration of high-load fixtures." },
-        wall: { title: "Wall Remediation", desc: "Surface repair and structural coating restoration." },
-        mounting: { title: "Modular Mounting", desc: "Secure deployment of digital and physical wall units." },
-        coating: { title: "Coating", desc: "Aesthetic and protective surface treatments." },
-        tactics: { title: "General Tactics", desc: "All-purpose household maintenance protocols." }
-      }
+        furniture: {
+          title: "Furniture Assembly",
+          desc: "Precision assembly of complex modular hardware.",
+        },
+        structural: {
+          title: "Structural Fixtures",
+          desc: "Mounting and calibration of high-load fixtures.",
+        },
+        wall: {
+          title: "Wall Remediation",
+          desc: "Surface repair and structural coating restoration.",
+        },
+        mounting: {
+          title: "Modular Mounting",
+          desc: "Secure deployment of digital and physical wall units.",
+        },
+        coating: {
+          title: "Coating",
+          desc: "Aesthetic and protective surface treatments.",
+        },
+        tactics: {
+          title: "General Tactics",
+          desc: "All-purpose household maintenance protocols.",
+        },
+      },
     },
     renovation: {
       hero: {
         badge: "Architectural Evolution",
         title1: "Re-engineer Your",
         title2: "Living Space",
-        subtitle: "Transform your property with the UK's elite renovation experts. Transparent telemetry and quality-guaranteed results.",
+        subtitle:
+          "Transform your property with the UK's elite renovation experts. Transparent telemetry and quality-guaranteed results.",
         searchPlaceholder: "Kitchen extension, loft conversion...",
-        searchBtn: "Initialize Project"
+        searchBtn: "Initialize Project",
       },
       sub_categories: {
-        culinary: { title: "Culinary & Sanitary", desc: "Full-stack kitchen and bathroom re-engineering." },
-        expansion: { title: "Expansion Units", desc: "Loft and module extensions for increased node volume." },
-        layout: { title: "Spatial Layout", desc: "Holographic design and structural reconfiguration." },
-        floor: { title: "Floor Meshing", desc: "High-durability flooring deployment and finishing." },
-        landscape: { title: "Landscape Design", desc: "External property environment engineering." },
-        design: { title: "Design Context", desc: "Architectural blueprints and aesthetic logic." }
-      }
+        culinary: {
+          title: "Culinary & Sanitary",
+          desc: "Full-stack kitchen and bathroom re-engineering.",
+        },
+        expansion: {
+          title: "Expansion Units",
+          desc: "Loft and module extensions for increased node volume.",
+        },
+        layout: {
+          title: "Spatial Layout",
+          desc: "Holographic design and structural reconfiguration.",
+        },
+        floor: {
+          title: "Floor Meshing",
+          desc: "High-durability flooring deployment and finishing.",
+        },
+        landscape: {
+          title: "Landscape Design",
+          desc: "External property environment engineering.",
+        },
+        design: {
+          title: "Design Context",
+          desc: "Architectural blueprints and aesthetic logic.",
+        },
+      },
     },
     accounting: {
       hero: {
         badge: "Financial Governance",
         title1: "Master Your",
         title2: "Capital Ledger",
-        subtitle: "Elite UK accountants and fiscal strategists for SMEs and professionals. Ensuring operational compliance and tax optimization.",
+        subtitle:
+          "Elite UK accountants and fiscal strategists for SMEs and professionals. Ensuring operational compliance and tax optimization.",
         searchPlaceholder: "Tax returns, annual accounts, payroll...",
-        searchBtn: "Audit Experts"
+        searchBtn: "Audit Experts",
       },
       sub_categories: {
-        income: { title: "Income Audit", desc: "Self-assessment and personal income tax calibration." },
-        accounts: { title: "Annual Accounts", desc: "Corporate financial reporting and ledger finalization." },
-        tax: { title: "Tax Filing", desc: "HMRC-ready tax preparation and transmission." },
-        payroll: { title: "Payroll Meshing", desc: "Efficient human capital payment systems." },
-        xero: { title: "Xero Optimization", desc: "Cloud accounting integration and training." },
-        fiscal: { title: "Fiscal Analysis", desc: "Deep-dive business performance telemetry." }
-      }
+        income: {
+          title: "Income Audit",
+          desc: "Self-assessment and personal income tax calibration.",
+        },
+        accounts: {
+          title: "Annual Accounts",
+          desc: "Corporate financial reporting and ledger finalization.",
+        },
+        tax: {
+          title: "Tax Filing",
+          desc: "HMRC-ready tax preparation and transmission.",
+        },
+        payroll: {
+          title: "Payroll Meshing",
+          desc: "Efficient human capital payment systems.",
+        },
+        xero: {
+          title: "Xero Optimization",
+          desc: "Cloud accounting integration and training.",
+        },
+        fiscal: {
+          title: "Fiscal Analysis",
+          desc: "Deep-dive business performance telemetry.",
+        },
+      },
     },
     legal: {
       hero: {
         badge: "Ecosystem Compliance",
         title1: "Expert Counsel &",
         title2: "Legal Frameworks",
-        subtitle: "Connect with UK-certified legal experts for visa protocols, contract drafting, and dispute resolution support.",
+        subtitle:
+          "Connect with UK-certified legal experts for visa protocols, contract drafting, and dispute resolution support.",
         searchPlaceholder: "Visa help, property law, contracts...",
-        searchBtn: "Liaison Counsel"
+        searchBtn: "Liaison Counsel",
       },
       sub_categories: {
-        drafting: { title: "SLA Drafting", desc: "High-precision contract and agreement synthesis." },
-        visa: { title: "Visa Calibration", desc: "UK visa and immigration protocol support." },
-        property: { title: "Property Frameworks", desc: "Conveyancing and real estate legal logic." },
-        arbitration: { title: "Arbitration", desc: "Neutral dispute resolution and mediation protocols." },
-        law: { title: "Marketplace Law", desc: "Corporate and commercial governance support." },
-        notary: { title: "Public Notary", desc: "Official document verification and authentication." }
-      }
+        drafting: {
+          title: "SLA Drafting",
+          desc: "High-precision contract and agreement synthesis.",
+        },
+        visa: {
+          title: "Visa Calibration",
+          desc: "UK visa and immigration protocol support.",
+        },
+        property: {
+          title: "Property Frameworks",
+          desc: "Conveyancing and real estate legal logic.",
+        },
+        arbitration: {
+          title: "Arbitration",
+          desc: "Neutral dispute resolution and mediation protocols.",
+        },
+        law: {
+          title: "Marketplace Law",
+          desc: "Corporate and commercial governance support.",
+        },
+        notary: {
+          title: "Public Notary",
+          desc: "Official document verification and authentication.",
+        },
+      },
     },
     cleaning: {
       hero: {
         badge: "Biosecurity & Hygiene",
         title1: "Sanitize Your",
         title2: "Environment",
-        subtitle: "Elite cleaning protocols for residential and commercial nodes. High-integrity sanitization and meticulous attention to detail.",
+        subtitle:
+          "Elite cleaning protocols for residential and commercial nodes. High-integrity sanitization and meticulous attention to detail.",
         searchPlaceholder: "Deep clean, end of tenancy...",
-        searchBtn: "Deploy Specialists"
+        searchBtn: "Deploy Specialists",
       },
       sub_categories: {
-        hygiene: { title: "Recurring Hygiene", desc: "Standardized frequent property sanitization." },
-        tenancy: { title: "End of Tenancy", desc: "Deep-dive cleaning for occupancy transitions." },
-        textile: { title: "Textile Cleaning", desc: "Professional carpet and upholstery restoration." },
-        aperture: { title: "Aperture Cleaning", desc: "High-window and glass sanitization protocols." },
-        office: { title: "Office Sanitization", desc: "Hygiene management for commercial work zones." },
-        bio: { title: "Biosecurity", desc: "Decontamination and clinical grade sanitization." }
-      }
+        hygiene: {
+          title: "Recurring Hygiene",
+          desc: "Standardized frequent property sanitization.",
+        },
+        tenancy: {
+          title: "End of Tenancy",
+          desc: "Deep-dive cleaning for occupancy transitions.",
+        },
+        textile: {
+          title: "Textile Cleaning",
+          desc: "Professional carpet and upholstery restoration.",
+        },
+        aperture: {
+          title: "Aperture Cleaning",
+          desc: "High-window and glass sanitization protocols.",
+        },
+        office: {
+          title: "Office Sanitization",
+          desc: "Hygiene management for commercial work zones.",
+        },
+        bio: {
+          title: "Biosecurity",
+          desc: "Decontamination and clinical grade sanitization.",
+        },
+      },
     },
     car: {
       hero: {
         badge: "Hardware Maintenance",
         title1: "Precision Auto",
         title2: "Engineering",
-        subtitle: "Maintain your mobile hardware with master UK mechanics. On-site diagnostics and high-performance servicing at your command.",
+        subtitle:
+          "Maintain your mobile hardware with master UK mechanics. On-site diagnostics and high-performance servicing at your command.",
         searchPlaceholder: "Engine diagnostics, MOT prep, brakes...",
-        searchBtn: "Scan Mechanics"
+        searchBtn: "Scan Mechanics",
       },
       sub_categories: {
-        engine: { title: "Engine Diagnostics", desc: "Advanced fault-finding and performance tuning." },
-        brakes: { title: "Brake & Clutch", desc: "Safety-critical friction system calibration." },
-        mot: { title: "MOT Preparation", desc: "Regulatory inspection checks and remediation." },
-        ac: { title: "AC Calibration", desc: "Climate control system re-gassing and hygiene." },
-        bodywork: { title: "Body Restoration", desc: "Structural and aesthetic shell remediation." },
-        battery: { title: "Power & Tyres", desc: "Battery health and tread density management." }
-      }
+        engine: {
+          title: "Engine Diagnostics",
+          desc: "Advanced fault-finding and performance tuning.",
+        },
+        brakes: {
+          title: "Brake & Clutch",
+          desc: "Safety-critical friction system calibration.",
+        },
+        mot: {
+          title: "MOT Preparation",
+          desc: "Regulatory inspection checks and remediation.",
+        },
+        ac: {
+          title: "AC Calibration",
+          desc: "Climate control system re-gassing and hygiene.",
+        },
+        bodywork: {
+          title: "Body Restoration",
+          desc: "Structural and aesthetic shell remediation.",
+        },
+        battery: {
+          title: "Power & Tyres",
+          desc: "Battery health and tread density management.",
+        },
+      },
     },
     commercial: {
       hero: {
         badge: "Enterprise Infrastructure",
         title1: "Power Your",
         title2: "Business Node",
-        subtitle: "End-to-end infrastructure support for UK commercial spaces. Shop fitting, office migration, and industrial maintenance.",
+        subtitle:
+          "End-to-end infrastructure support for UK commercial spaces. Shop fitting, office migration, and industrial maintenance.",
         searchPlaceholder: "Shop fitting, IT mesh, HVAC...",
-        searchBtn: "Audit Providers"
+        searchBtn: "Audit Providers",
       },
       sub_categories: {
-        fitting: { title: "Unit Fitting", desc: "Retail and commercial space interior engineering." },
-        relocation: { title: "Node Relocation", desc: "Seamless office and industrial migration protocols." },
-        industrial: { title: "Industrial Power", desc: "High-voltage electrical grid deployment." },
-        fire: { title: "Fire Security", desc: "Regulatory safety and detection mesh systems." },
-        mesh: { title: "IT Mesh", desc: "Enterprise networking and data cabling." },
-        hvac: { title: "HVAC Controls", desc: "Industrial environmental management systems." }
-      }
-    }
+        fitting: {
+          title: "Unit Fitting",
+          desc: "Retail and commercial space interior engineering.",
+        },
+        relocation: {
+          title: "Node Relocation",
+          desc: "Seamless office and industrial migration protocols.",
+        },
+        industrial: {
+          title: "Industrial Power",
+          desc: "High-voltage electrical grid deployment.",
+        },
+        fire: {
+          title: "Fire Security",
+          desc: "Regulatory safety and detection mesh systems.",
+        },
+        mesh: {
+          title: "IT Mesh",
+          desc: "Enterprise networking and data cabling.",
+        },
+        hvac: {
+          title: "HVAC Controls",
+          desc: "Industrial environmental management systems.",
+        },
+      },
+    },
   },
   common: {
     viewProfile: "View Profile",
@@ -195,64 +349,89 @@ export const en: any = {
     copy: "Copy",
     copied: "Copied!",
     exit: "Exit",
-    aiMatchingSub: "AI precisely calibrates specialists to match your protocol requirements.",
+    aiMatchingSub:
+      "AI precisely calibrates specialists to match your protocol requirements.",
     exploreSub: "Explore advanced exclusive protocols in {category}.",
     escrow: {
       title: "ConciergeAI Escrow Encrypted Protection",
-      subtitle: "Each session in {category} is precision-monitored by AI for quality assurance and financial integrity.",
+      subtitle:
+        "Each session in {category} is precision-monitored by AI for quality assurance and financial integrity.",
       specialists: "Verified Specialists",
       fees: "Platform Service Fees",
-      support: "AI Arbitration Support System"
+      support: "AI Arbitration Support System",
     },
     greetings: {
       morning: "Good morning",
       afternoon: "Good afternoon",
-      evening: "Good evening"
+      evening: "Good evening",
     },
     user: "User",
     serviceFallback: "Premium Service Specialist",
-    licensePlate: "License Plate"
+    licensePlate: "License Plate",
   },
   hero: {
     title: "Accelerate Your Service Solutions",
-    subtitle: "Connect with the UK's elite certified specialists for precision maintenance and professional services.",
+    subtitle:
+      "Connect with the UK's elite certified specialists for precision maintenance and professional services.",
     searchPlaceholder: "What service protocol do you require?",
-    badge: "UK's Elite Service Ecosystem"
+    badge: "UK's Elite Service Ecosystem",
   },
   faq: {
     title: "Operational Protocols (FAQ)",
-    subtitle: "Everything you need to know about the marketplace infrastructure.",
+    subtitle:
+      "Everything you need to know about the marketplace infrastructure.",
     categories: {
       payments: "Financial Settlement",
       disputes: "Arbitration",
-      bookings: "Scheduling"
+      bookings: "Scheduling",
     },
     aura: {
       title: "Aura AI Coordinator",
-      subtitle: "Require immediate arbitration or scheduling support? Connect with Aura.",
-      cta: "Initialize Aura Session"
+      subtitle:
+        "Require immediate arbitration or scheduling support? Connect with Aura.",
+      cta: "Initialize Aura Session",
     },
     questions: {
       payments: [
-        { q: "How are financial settlements processed?", a: "Payments are processed via secure Stripe relays. Funds are held in escrow until milestone confirmation." },
-        { q: "Are there hidden overheads?", a: "No. Platform charges £0 service fees to customers. You only pay for technician labor and approved materials." }
+        {
+          q: "How are financial settlements processed?",
+          a: "Payments are processed via secure Stripe relays. Funds are held in escrow until milestone confirmation.",
+        },
+        {
+          q: "Are there hidden overheads?",
+          a: "No. Platform charges £0 service fees to customers. You only pay for technician labor and approved materials.",
+        },
       ],
       disputes: [
-        { q: "What is the arbitration process for unsatisfactory results?", a: "Our AI Arbiter cross-references initial scope telemetry with photographic evidence for a neutral verdict." },
-        { q: "Protocol for initiating a refund?", a: "You can trigger a dispute via your console if the specialist fails to meet the agreed Service Level Agreement (SLA)." }
+        {
+          q: "What is the arbitration process for unsatisfactory results?",
+          a: "Our AI Arbiter cross-references initial scope telemetry with photographic evidence for a neutral verdict.",
+        },
+        {
+          q: "Protocol for initiating a refund?",
+          a: "You can trigger a dispute via your console if the specialist fails to meet the agreed Service Level Agreement (SLA).",
+        },
       ],
       bookings: [
-        { q: "Can I revoke a scheduled session?", a: "Yes. Revocations initiated >24 hours before the window qualify for full liquidity return." },
-        { q: "How do I communicate with my assigned specialist?", a: "A secure, encrypted comms channel is provisioned upon scheduling confirmation." }
-      ]
-    }
+        {
+          q: "Can I revoke a scheduled session?",
+          a: "Yes. Revocations initiated >24 hours before the window qualify for full liquidity return.",
+        },
+        {
+          q: "How do I communicate with my assigned specialist?",
+          a: "A secure, encrypted comms channel is provisioned upon scheduling confirmation.",
+        },
+      ],
+    },
   },
   aura: {
-    welcome: "Greetings. I am Aura, your UK Service Coordinator. How may I assist your operations today?",
+    welcome:
+      "Greetings. I am Aura, your UK Service Coordinator. How may I assist your operations today?",
     offline: "Node Offline",
     ready: "Operational - Systems Ready",
     placeholder: "Ask Aura about services or UK property/legal knowledge...",
-    error: "Signal interference detected. Unable to process query. Please retry.",
+    error:
+      "Signal interference detected. Unable to process query. Please retry.",
     footer: "Secure AI Diagnostics • Platform v1.2",
     suggestions: {
       refund: "Refund Protocol",
@@ -260,10 +439,12 @@ export const en: any = {
       warranty: "SLA Terms",
       booking: "System Scheduling",
       refundQuery: "How do I apply for a refund? What is the process?",
-      disputeQuery: "What should I do if there is a dispute over the quality of repair or price?",
-      warrantyQuery: "Do services provided through the platform have a warranty?",
-      bookingQuery: "How can I book a technician in my area?"
-    }
+      disputeQuery:
+        "What should I do if there is a dispute over the quality of repair or price?",
+      warrantyQuery:
+        "Do services provided through the platform have a warranty?",
+      bookingQuery: "How can I book a technician in my area?",
+    },
   },
   footer: {
     tagline: "Connecting the UK's top 1% certified specialists.",
@@ -284,15 +465,16 @@ export const en: any = {
     address: "London, UK",
     phone: "+44 20 1234 5678",
     email: "support@conciergeai.uk",
-    aboutUs: "ConciergeAI connects the top 1% of UK certified specialists with discerning property owners.",
+    aboutUs:
+      "ConciergeAI connects the top 1% of UK certified specialists with discerning property owners.",
     companyNo: "12345678",
     vatNo: "GB123456789",
     social: {
       facebook: "https://facebook.com/conciergeai",
       twitter: "https://twitter.com/conciergeai",
       instagram: "https://instagram.com/conciergeai",
-      linkedin: "https://linkedin.com/company/conciergeai"
-    }
+      linkedin: "https://linkedin.com/company/conciergeai",
+    },
   },
   search: {
     filters: "Parameters",
@@ -329,20 +511,20 @@ export const en: any = {
       earliest: "Earliest Slot",
       closest: "Closest to You",
       topMatch: "Best Match",
-      viewProfile: "Expert Profile"
-    }
+      viewProfile: "Expert Profile",
+    },
   },
   booking: {
     steps: {
       details: "Scope",
       schedule: "Window",
-      confirmation: "Settlement"
+      confirmation: "Settlement",
     },
     titles: {
       details: "Define Operational Scope",
       schedule: "Allocate Time Window",
       confirm: "Finalize Scheduling",
-      success: "Confirmation Received"
+      success: "Confirmation Received",
     },
     labels: {
       date: "Timeline",
@@ -358,14 +540,14 @@ export const en: any = {
       service: "Protocol",
       expressSupport: "Express / Emergency Support",
       expressSurcharge: "Urgent Surcharge",
-      responseTime: "Response Time"
+      responseTime: "Response Time",
     },
     buttons: {
       next: "Proceed",
       prev: "Revert",
       pay: "Initialize Secure Settlement",
       home: "Exit to Home",
-      dashboard: "Access Console"
+      dashboard: "Access Console",
     },
     messages: {
       finalizing: "Encrypting booking data...",
@@ -374,8 +556,8 @@ export const en: any = {
       safety: "For security, all settlements are managed via encrypted escrow.",
       noReviews: "No reputation data available",
       recommended: "Tier 1 Selection",
-      replyFromMaster: "Lead Specialist Response"
-    }
+      replyFromMaster: "Lead Specialist Response",
+    },
   },
   booking_actions: {
     confirmTitle: "Confirm",
@@ -390,7 +572,8 @@ export const en: any = {
     modalDesc: "Providing feedback for '{serviceName}'",
     question: "Are you satisfied with this service?",
     commentLabel: "Detailed Comments (Optional)",
-    placeholder: "Share what the specialist did well or where they can improve...",
+    placeholder:
+      "Share what the specialist did well or where they can improve...",
     submitting: "Submitting...",
     submitBtn: "Post Review",
     errorRating: "Please select a star rating",
@@ -425,7 +608,7 @@ export const en: any = {
         totalJobs: "Completed Cycles",
         escrowHeld: "Escrow Reserve",
         availableNow: "Active Liquidity",
-        reviews: "Client Testimonials"
+        reviews: "Client Testimonials",
       },
       verification: {
         title: "Expert Compliance",
@@ -441,7 +624,8 @@ export const en: any = {
         history: "Compliance Repository",
         stripeBtn: "Verify Bank Account with Stripe",
         stripeError: "Failed to connect to Stripe.",
-        verifiedDesc: "Your professional badge is active. Please maintain validity.",
+        verifiedDesc:
+          "Your professional badge is active. Please maintain validity.",
         unverifiedDesc: "Upload necessary licenses and insurance proofs.",
         uploadDesc: "Original document photo",
         dropzoneTitle: "Click or drag to upload",
@@ -450,7 +634,8 @@ export const en: any = {
         extracting: "Extracting data...",
         expiryDate: "Valid until",
         noExpiry: "No expiry info",
-        errorSize: "File size exceeds 10MB limit. Please choose a smaller file.",
+        errorSize:
+          "File size exceeds 10MB limit. Please choose a smaller file.",
         errorType: "Unsupported file format. Please upload JPG, PNG or PDF.",
         errorSubmit: "Submission failed, please try again later.",
         types: {
@@ -462,8 +647,8 @@ export const en: any = {
           cqc: "CQC Healthcare Reg",
           dvla: "Professional CPC/DVLA",
           dbs: "DBS Background Check",
-          insurance: "Public Liability Insurance"
-        }
+          insurance: "Public Liability Insurance",
+        },
       },
       syncStatus: "System Pulse",
       lastSynced: "Last Uplink",
@@ -475,7 +660,8 @@ export const en: any = {
         synced: "Ledger Synchronized",
         generating: "Finalizing account encryption...",
         referralTitle: "Expand Network, Earn 2% Voucher Rewards",
-        referralDesc: "Distribute your unique node code. Earn 2% in electronic retail vouchers on all friend bookings.",
+        referralDesc:
+          "Distribute your unique node code. Earn 2% in electronic retail vouchers on all friend bookings.",
         historyTitle: "Transaction Archive",
         historyEmpty: "No financial logs",
         type: "Vector",
@@ -495,26 +681,33 @@ export const en: any = {
         availableNow: "Liquid Now",
         rewards: {
           title: "Redeem E-Vouchers",
-          subtitle: "* Digital vouchers for top UK retailers (Tesco, ASDA, Amazon, etc). Non-cash withdrawal. Processed in 24h.",
+          subtitle:
+            "* Digital vouchers for top UK retailers (Tesco, ASDA, Amazon, etc). Non-cash withdrawal. Processed in 24h.",
           myVault: "Encrypted Card Vault",
           redeemBtn: "Extract Value",
           statusProcessing: "Processing...",
           statusReady: "Ready for Deployment",
           voucherDisclaimer: "Valid across major retail and payment meshes.",
-          confirmRedeem: "Execute conversion to cash voucher? Verification <24h.",
-          requestSuccess: "Request successful. Allocating code to your vault." }
+          confirmRedeem:
+            "Execute conversion to cash voucher? Verification <24h.",
+          requestSuccess: "Request successful. Allocating code to your vault.",
+        },
       },
       bookings: {
         title: "Active Sessions",
         viewAll: "All Transactions",
         empty: "No active missions",
         completed: "Finalized",
-        actions: { confirm: "Validate", complete: "Mark Finalized", variation: "Req Scope Drift" }
+        actions: {
+          confirm: "Validate",
+          complete: "Mark Finalized",
+          variation: "Req Scope Drift",
+        },
       },
-      status: { 
-        pending: "Pending Audit", 
-        confirmed: "Validated", 
-        completed: "Finalized", 
+      status: {
+        pending: "Pending Audit",
+        confirmed: "Validated",
+        completed: "Finalized",
         cancelled: "Revoked",
         waiting: "Waiting for Vehicle",
         repairing: "Inspection & Repair",
@@ -524,12 +717,12 @@ export const en: any = {
         clickToUpdate: "Update to",
         cancelBtn: "Cancel Booking",
       },
-      variations: { 
-        label: "Additional Settlement", 
-        status: "SLA Status", 
-        pending: "Awaiting Client Payload", 
-        approved: "Authorized", 
-        rejected: "Denied", 
+      variations: {
+        label: "Additional Settlement",
+        status: "SLA Status",
+        pending: "Awaiting Client Payload",
+        approved: "Authorized",
+        rejected: "Denied",
         arbiterActive: "AI Arbiter Reviewing",
         addBtn: "Add Item",
         title: "Add Extra Item",
@@ -544,11 +737,14 @@ export const en: any = {
         submitting: "Adding...",
         submitBtn: "Add to Invoice",
         // Customer View
-        rejectConfirm: "After rejection, the expert will only perform the original quoted scope, or cancel and charge a base call-out fee. Are you sure you want to reject?",
+        rejectConfirm:
+          "After rejection, the expert will only perform the original quoted scope, or cancel and charge a base call-out fee. Are you sure you want to reject?",
         approveSuccessTitle: "Successfully authorized additional fee £{amount}",
-        approveSuccessDesc: "Funds have been securely locked into Stripe's original Escrow pool and will only be released after {merchantName} completes the task.",
+        approveSuccessDesc:
+          "Funds have been securely locked into Stripe's original Escrow pool and will only be released after {merchantName} completes the task.",
         rejectSuccessTitle: "Declined fee variation",
-        rejectSuccessDesc: "The system has automatically logged this rejection event. If mutual consensus cannot be reached, the system will initiate a Dispute arbitration procedure.",
+        rejectSuccessDesc:
+          "The system has automatically logged this rejection event. If mutual consensus cannot be reached, the system will initiate a Dispute arbitration procedure.",
         pendingAlert: "⚠️ Pending Variation Request Review",
         proposalTitle: "On-site scope proposal",
         initiatedChange: "initiated a change",
@@ -560,25 +756,53 @@ export const en: any = {
         rejectBtn: "Reject & Enter mediation",
         // Merchant Button/Modal
         successTitle: "Request Sent!",
-        successDesc: "The customer has received an email notification and app popup. Please wait for their approval before proceeding with additional labor or material procurement.",
+        successDesc:
+          "The customer has received an email notification and app popup. Please wait for their approval before proceeding with additional labor or material procurement.",
         modalTitle: "Initiate Variation Request",
-        modalDesc: "Please describe the reason for scope drift. Mandatory photo evidence required. All requests monitored by a 200% protection bracket.",
+        modalDesc:
+          "Please describe the reason for scope drift. Mandatory photo evidence required. All requests monitored by a 200% protection bracket.",
         photoLabel: "Mandatory on-site photo evidence",
         photoPlaceholder: "Click to upload on-site evidence",
         amountLabelAdditional: "Additional Amount (£)",
         reasonLabel: "Reason for Variation",
-        reasonPlaceholder: "Detail why extra materials or labor hours are required...",
-        warningNote: "Caution: Do not advance material costs exceeding £1,000 until the customer has explicitly approved and successfully escrowed funds via Stripe.",
+        reasonPlaceholder:
+          "Detail why extra materials or labor hours are required...",
+        warningNote:
+          "Caution: Do not advance material costs exceeding £1,000 until the customer has explicitly approved and successfully escrowed funds via Stripe.",
         sendBtn: "Send Variation Request",
       },
       arbiterReasoning: "AI Rationalization",
-      tips: { title: "Strategic Growth", growth: "Maintain high-quality service to ensure elite visibility and consistent mission throughput." },
-      quickLinks: { title: "Command Links", schedule: "Duty Roster", earnings: "Capital History", support: "Specialist Support" },
-      modal: { title: "Initialize Scope Drift Settlement", amount: "Additional Capital (£)", reason: "Neutral Logic for Drift", reasonPlaceholder: "E.g., Subsurface leak detected behind firewall", photo: "Evidence Payload", photoHint: "Evidence is mandatory for AI verification", submit: "Transmit Request", submitting: "Uploading Payload..." },
-      avatar: { upload: "Update Node Identity", hint: "Req: Professional headshot or Corporate Branding.", success: "Identity updated", errorSize: "Payload must be <2MB" },
+      tips: {
+        title: "Strategic Growth",
+        growth:
+          "Maintain high-quality service to ensure elite visibility and consistent mission throughput.",
+      },
+      quickLinks: {
+        title: "Command Links",
+        schedule: "Duty Roster",
+        earnings: "Capital History",
+        support: "Specialist Support",
+      },
+      modal: {
+        title: "Initialize Scope Drift Settlement",
+        amount: "Additional Capital (£)",
+        reason: "Neutral Logic for Drift",
+        reasonPlaceholder: "E.g., Subsurface leak detected behind firewall",
+        photo: "Evidence Payload",
+        photoHint: "Evidence is mandatory for AI verification",
+        submit: "Transmit Request",
+        submitting: "Uploading Payload...",
+      },
+      avatar: {
+        upload: "Update Node Identity",
+        hint: "Req: Professional headshot or Corporate Branding.",
+        success: "Identity updated",
+        errorSize: "Payload must be <2MB",
+      },
       accounting: {
         title: "Accounting & Tax",
-        subtitle: "Automated UK financial center: VAT monitoring and Tax forecasting.",
+        subtitle:
+          "Automated UK financial center: VAT monitoring and Tax forecasting.",
         statusActive: "Subscription Active",
         statusInactive: "Subscription Inactive",
         grossRevenue: "Gross Revenue",
@@ -593,16 +817,18 @@ export const en: any = {
         netProfit: "Net Profit",
         exportCsv: "Export CSV Audit Log",
         upgradeTitle: "Unlock Specialist Accounting",
-        upgradeDesc: "Automated bookkeeping, tax year summaries, and CSV data exports.",
+        upgradeDesc:
+          "Automated bookkeeping, tax year summaries, and CSV data exports.",
         upgradeCost: "£4.99 / Month",
         upgradeBtn: "Activate Premium Access",
         taxYear: "Tax Year",
-        regNumber: "Reg Number (UTR/CRN)"
+        regNumber: "Reg Number (UTR/CRN)",
       },
       merchant_services: {
         title: "Service Management",
         catalog: "Catalog",
-        subtitle: "Define your professional services, pricing, and specific project details here.",
+        subtitle:
+          "Define your professional services, pricing, and specific project details here.",
         back: "Back to Dashboard",
         add: "Add New Service",
         empty: "No services have been created yet.",
@@ -611,28 +837,32 @@ export const en: any = {
         modal: {
           addTitle: "Add Professional Service",
           editTitle: "Edit Service",
-          subtitle: "Set up your service details to help customers understand your expertise.",
+          subtitle:
+            "Set up your service details to help customers understand your expertise.",
           name: "Service Name",
           namePlaceholder: "e.g., Emergency Plumbing Repair",
           category: "Service Category",
           pricing: "Base Pricing (£/hr)",
           description: "Detailed Description",
-          descPlaceholder: "Briefly explain what is included in this service...",
+          descPlaceholder:
+            "Briefly explain what is included in this service...",
           eduTrack: "Expert Education Track",
           eduPlaceholder: "Specialized Subject (e.g., GCSE Maths, AI Prep)",
           publish: "Publish Service Now",
-          save: "Save & Update"
-        }
+          save: "Save & Update",
+        },
       },
       merchant_wallet: {
         title: "Assets & Earnings",
         revenue: "Premium Revenue",
-        subtitle: "Manage your business income, settlement assets, and elite withdrawal history.",
+        subtitle:
+          "Manage your business income, settlement assets, and elite withdrawal history.",
         referral: {
           title: "Expert Referral Rewards",
-          subtitle: "Invite other experts to join and earn 2% referral points (redeemable for retail vouchers).",
+          subtitle:
+            "Invite other experts to join and earn 2% referral points (redeemable for retail vouchers).",
           copy: "Copy Referral Code",
-          copied: "Referral code copied!"
+          copied: "Referral code copied!",
         },
         available: "Available Balance",
         postFee: "After 9% platform management fee",
@@ -646,7 +876,7 @@ export const en: any = {
           accountNumber: "Account Number (8 digits)",
           tip: "Your information is stored encrypted and used only for payouts.",
           update: "Update Bank Info",
-          saved: "Update Successful"
+          saved: "Update Successful",
         },
         payout: {
           title: "Request Expert Withdrawal",
@@ -655,15 +885,16 @@ export const en: any = {
           minAlert: "Minimum withdrawal amount is £10.00",
           insufficient: "Insufficient balance",
           confirm: "Confirm Withdrawal",
-          success: "Withdrawal request submitted successfully. Expected in 3-5 business days.",
-          failed: "Withdrawal failed"
+          success:
+            "Withdrawal request submitted successfully. Expected in 3-5 business days.",
+          failed: "Withdrawal failed",
         },
         history: {
           title: "Expert Payout History",
           empty: "No payout history yet.",
           date: "Payout Date",
           amount: "Net Amount",
-          status: "Status"
+          status: "Status",
         },
         terms: {
           title: "Earnings & Advanced Terms",
@@ -673,9 +904,9 @@ export const en: any = {
             "A 9% management fee applies to the total of labor and parts.",
             "Includes a 2% contribution to the referral reward fund.",
             "Liability Protection: All orders have a 7-day pre-settlement lock period.",
-            "Referral Points: Bonuses from your personal network are cashed out 1:1."
-          ]
-        }
+            "Referral Points: Bonuses from your personal network are cashed out 1:1.",
+          ],
+        },
       },
       merchant_availability: {
         title: "Availability & Schedule Management",
@@ -693,191 +924,197 @@ export const en: any = {
           title: "Global Settings",
           interval: "Service Interval (mins)",
           maxDaily: "Max Daily Bookings",
-          tip: "Setting longer intervals helps handle unexpected situations like busy London traffic."
+          tip: "Setting longer intervals helps handle unexpected situations like busy London traffic.",
         },
         tipTitle: "Expert Tip",
-        tipContent: "Good scheduling control makes your booking menu look more professional and reduces frequent time changes."
+        tipContent:
+          "Good scheduling control makes your booking menu look more professional and reduces frequent time changes.",
       },
       merchant_schedule: {
         title: "Booking Schedule",
-        subtitle: "View and manage customer bookings to optimize your staffing.",
+        subtitle:
+          "View and manage customer bookings to optimize your staffing.",
         today: "Today",
         pending: "Pending",
         confirmed: "Confirmed",
         reschedule: {
           title: "Modify Booking Time",
           label: "Reschedule",
-          success: "Booking time updated successfully and the customer has been notified!",
+          success:
+            "Booking time updated successfully and the customer has been notified!",
           failed: "Update failed, please check your network connection.",
-          tip: "The system will automatically send a push notification to the customer after the time change."
+          tip: "The system will automatically send a push notification to the customer after the time change.",
         },
         details: {
           current: "Current Time",
           phone: "Contact Phone",
           chat: "Instant Chat",
-          invoice: "View Order Receipt"
-        }
+          invoice: "View Order Receipt",
+        },
       },
       merchant_reviews: {
         title: "Customer Review Management",
-        subtitle: "Master your business reputation and use AI insights to optimize service quality.",
+        subtitle:
+          "Master your business reputation and use AI insights to optimize service quality.",
         total: "Total Reviews",
         positive: "Core Sentiment",
         negative: "Needs Improvement",
-        empty: "No review data available yet."
+        empty: "No review data available yet.",
       },
-    merchant_analytics: {
-      title: "Performance Analytics",
-      subtitle: "Track your review sentiment, market position, and AI insights",
-      ratingDistribution: "Rating Distribution",
-      totalReviews: "Total Reviews",
-      marketPosition: {
-        title: "Market Position",
-        ranking: "Market Ranking",
-        topPercent: "Top {percent}% in {category} in London",
-        categoryAvg: "Category Avg",
-        cityRank: "City Rank",
-      },
-      sentiment: {
-        title: "Review Sentiment",
-        positive: "Positive Reviews",
-        negative: "Negative Reviews",
-      },
-      traits: "Expert Personality Traits",
-      waitForData: "Collecting data...",
-      insights: {
-        title: "AI Business Insight",
-        desc: "You are currently outperforming {category} peers in {trait}. We recommend updating your portfolio with fresh job photos to maintain your Top 5% status.",
-      },
-      management: {
-        title: "Review Management",
-        filterAll: "All",
-        filterPositive: "Positive",
-        filterNegative: "Negative",
-        filterUnreplied: "Unreplied",
-        empty: "No reviews found for this filter.",
-        yourReplyLabel: "Your Official Reply:",
-        placeholder: "Write your professional response...",
-        replyBtn: "Submit Reply",
-        aiDrafts: "AI Assistant Drafts",
-      },
-    },
-    merchant_dashboard: {
-      expertTitle: "Expert Dashboard",
-      previewProfile: "Preview Profile",
-      manageServices: "Manage Services",
-      balanceHeld: "80% BALANCE HELD",
-      arbiterActive: "Arbiter Active",
-      aiReason: "AI Reason",
-      tipsTitle: "ConciergeAI Expert Tips",
-      tipsExtra: "High quality photos increase conversion by 30%.",
-      submitting: "SUBMITTING...",
-      stats: {
-        totalBookings: "Total Bookings",
-        totalJobs: "Jobs",
-        rating: "Rating",
-        reviews: "Reviews",
-        pendingBalance: "Pending Balance",
-        escrowHeld: "Escrow Held",
-        availableBalance: "Available Balance",
-        availableNow: "Available Now",
-      },
-      bookings: {
-        title: "Active Bookings",
-        viewAll: "View All Bookings",
-        empty: "No active bookings yet.",
-        completed: "Job Completed",
-        actions: {
-          variation: "Variation",
-          confirm: "Confirm Job",
-          complete: "Complete",
-          completeAndPay: "Complete & Pay",
+      merchant_analytics: {
+        title: "Performance Analytics",
+        subtitle:
+          "Track your review sentiment, market position, and AI insights",
+        ratingDistribution: "Rating Distribution",
+        totalReviews: "Total Reviews",
+        marketPosition: {
+          title: "Market Position",
+          ranking: "Market Ranking",
+          topPercent: "Top {percent}% in {category} in London",
+          categoryAvg: "Category Avg",
+          cityRank: "City Rank",
+        },
+        sentiment: {
+          title: "Review Sentiment",
+          positive: "Positive Reviews",
+          negative: "Negative Reviews",
+        },
+        traits: "Expert Personality Traits",
+        waitForData: "Collecting data...",
+        insights: {
+          title: "AI Business Insight",
+          desc: "You are currently outperforming {category} peers in {trait}. We recommend updating your portfolio with fresh job photos to maintain your Top 5% status.",
+        },
+        management: {
+          title: "Review Management",
+          filterAll: "All",
+          filterPositive: "Positive",
+          filterNegative: "Negative",
+          filterUnreplied: "Unreplied",
+          empty: "No reviews found for this filter.",
+          yourReplyLabel: "Your Official Reply:",
+          placeholder: "Write your professional response...",
+          replyBtn: "Submit Reply",
+          aiDrafts: "AI Assistant Drafts",
         },
       },
-      status: {
-        pending: "PENDING",
-        confirmed: "CONFIRMED",
-        completed: "COMPLETED",
-        cancelled: "CANCELLED",
+      merchant_dashboard: {
+        expertTitle: "Expert Dashboard",
+        previewProfile: "Preview Profile",
+        manageServices: "Manage Services",
+        balanceHeld: "80% BALANCE HELD",
+        arbiterActive: "Arbiter Active",
+        aiReason: "AI Reason",
+        tipsTitle: "ConciergeAI Expert Tips",
+        tipsExtra: "High quality photos increase conversion by 30%.",
+        submitting: "SUBMITTING...",
+        stats: {
+          totalBookings: "Total Bookings",
+          totalJobs: "Jobs",
+          rating: "Rating",
+          reviews: "Reviews",
+          pendingBalance: "Pending Balance",
+          escrowHeld: "Escrow Held",
+          availableBalance: "Available Balance",
+          availableNow: "Available Now",
+        },
+        bookings: {
+          title: "Active Bookings",
+          viewAll: "View All Bookings",
+          empty: "No active bookings yet.",
+          completed: "Job Completed",
+          actions: {
+            variation: "Variation",
+            confirm: "Confirm Job",
+            complete: "Complete",
+            completeAndPay: "Complete & Pay",
+          },
+        },
+        status: {
+          pending: "PENDING",
+          confirmed: "CONFIRMED",
+          completed: "COMPLETED",
+          cancelled: "CANCELLED",
+        },
+        variations: {
+          label: "Request",
+          status: "Status",
+          pending: "Pending",
+          approved: "Approved",
+          rejected: "Rejected",
+        },
+        quickLinks: {
+          title: "Quick Actions",
+          schedule: "View Full Schedule",
+          earnings: "Check Wallet & Payouts",
+          support: "Contact Concierge Support",
+        },
+        modal: {
+          title: "Propose Job Variation",
+          amount: "Variation Amount",
+          reason: "Reason for Variation",
+          reasonPlaceholder: "Explain why the cost has changed...",
+          photo: "Evidence Photo (URL)",
+          submit: "SUBMIT VARIATION",
+        },
+        welcome: "Welcome back, {name}",
+        avatar: {
+          hint: "Click to upload avatar",
+          errorSize: "Image must be less than 2MB",
+          success: "Avatar updated successfully!",
+          upload: "UPLOAD",
+        },
+        tips: {
+          growth: "Focus on your local SEO",
+        },
       },
-      variations: {
-        label: "Request",
-        status: "Status",
-        pending: "Pending",
-        approved: "Approved",
-        rejected: "Rejected",
+      merchant_profile: {
+        title: "Profile Preferences",
+        subtitle: "Manage your professional presence and public details",
+        save: "Save All Changes",
+        sections: {
+          basic: "Primary Identification",
+          address: "Service Address",
+          business: "Public Business Info",
+          categories: "Expert Categories",
+          branding: "Visual Branding",
+        },
+        labels: {
+          name: "Full Legal Name",
+          bio: "Expert Biography",
+          bioPlaceholder: "Introduce yourself to potential clients...",
+          city: "City",
+          addressLine1: "Address Line 1",
+          addressLine2: "Address Line 2",
+          postcode: "Postcode",
+          phone: "Contact Phone",
+          email: "Email Address",
+          emailReadOnly: "Email (Read Only)",
+          businessName: "Business / Team Name",
+          businessNamePlaceholder: "e.g. McQueen Motors LTD",
+          mainCategory: "Main Sector",
+          experience: "Years of Experience",
+          placeholderName: "Enter your full name",
+          placeholderPhone: "+44 7xxx xxx xxx",
+        },
+        status: {
+          saving: "Saving...",
+          success: "Updated Successfully!",
+        },
       },
-      quickLinks: {
-        title: "Quick Actions",
-        schedule: "View Full Schedule",
-        earnings: "Check Wallet & Payouts",
-        support: "Contact Concierge Support",
+      merchant_messages: {
+        title: "Chat Center",
+        subtitle: "Instant communication with specialists or clients",
+        hub: "Communication Hub",
+        hubDesc: "Real-time communication with clients and service specialists",
+        empty: "Select a conversation to start chatting",
+        placeholder: "Type your message...",
+        send: "Send",
       },
-      modal: {
-        title: "Propose Job Variation",
-        amount: "Variation Amount",
-        reason: "Reason for Variation",
-        reasonPlaceholder: "Explain why the cost has changed...",
-        photo: "Evidence Photo (URL)",
-        submit: "SUBMIT VARIATION",
-      },
-      welcome: "Welcome back, {name}",
-      avatar: {
-        hint: "Click to upload avatar",
-        errorSize: "Image must be less than 2MB",
-        success: "Avatar updated successfully!",
-        upload: "UPLOAD",
-      },
-      tips: {
-        growth: "Focus on your local SEO",
-      },
-    },
-    merchant_profile: {
-      title: "Profile Preferences",
-      subtitle: "Manage your professional presence and public details",
-      save: "Save All Changes",
-      sections: {
-        basic: "Primary Identification",
-        address: "Service Address",
-        business: "Public Business Info",
-        categories: "Expert Categories",
-        branding: "Visual Branding",
-      },
-      labels: {
-        name: "Full Legal Name",
-        bio: "Expert Biography",
-        bioPlaceholder: "Introduce yourself to potential clients...",
-        city: "City",
-        addressLine1: "Address Line 1",
-        addressLine2: "Address Line 2",
-        postcode: "Postcode",
-        phone: "Contact Phone",
-        email: "Email Address",
-        emailReadOnly: "Email (Read Only)",
-        businessName: "Business / Team Name",
-        businessNamePlaceholder: "e.g. McQueen Motors LTD",
-        mainCategory: "Main Sector",
-        experience: "Years of Experience",
-        placeholderName: "Enter your full name",
-        placeholderPhone: "+44 7xxx xxx xxx",
-      },
-      status: {
-        saving: "Saving...",
-        success: "Updated Successfully!",
-      }
-    },
-    merchant_messages: {
-      title: "Chat Center",
-      subtitle: "Instant communication with specialists or clients",
-      hub: "Communication Hub",
-      hubDesc: "Real-time communication with clients and service specialists",
-      empty: "Select a conversation to start chatting",
-      placeholder: "Type your message...",
-      send: "Send",
-    },
     },
     customer_dashboard: {
-      welcomeBack: "Welcome back to your elite dashboard. Your private concierge is active and synced.",
+      welcomeBack:
+        "Welcome back to your elite dashboard. Your private concierge is active and synced.",
       quickLinks: {
         title: "Quick Access Your Assets",
         garage: "My Garage",
@@ -893,7 +1130,8 @@ export const en: any = {
       },
       verification: {
         unverifiedTitle: "Unverified Expert Identity",
-        unverifiedDesc: "Your account is currently not verified for compliance. Please upload professional license photos quickly to get the badge and be open in search results.",
+        unverifiedDesc:
+          "Your account is currently not verified for compliance. Please upload professional license photos quickly to get the badge and be open in search results.",
         cta: "Verify Now →",
       },
       stats: {
@@ -908,7 +1146,8 @@ export const en: any = {
       lifetimeSavings: "LIFETIME SAVINGS:",
       marketplaceTitle: "Rewards Marketplace",
       voucherRedeemTitle: "Redeem Service Voucher",
-      voucherRedeemDesc: "Enter the service code issued by Concierge AI or partners below.",
+      voucherRedeemDesc:
+        "Enter the service code issued by Concierge AI or partners below.",
       syncReady: "NODE SYNCED: SECURE QUANTUM LINK ACTIVE",
       syncing: "SYNCING SECURE DATA...",
       adminEnabled: "🛡️ Admin mode activated: Force sync unlocked",
@@ -943,11 +1182,13 @@ export const en: any = {
         liveUpdate: "Live Updates Enabled",
         hotDeals: "TODAY'S HOT DEALS",
         searchPlaceholder: "Search top brands (Adidas, IKEA, Costa...)",
-        threshold: "Minimum redemption is £10. Your balance is £{current}, you need £{remaining} more.",
+        threshold:
+          "Minimum redemption is £10. Your balance is £{current}, you need £{remaining} more.",
         found: "Found {count} live offers",
         empty: "No matching brands found. Try different keywords.",
         policyTitle: "Redemption Policy",
-        policyText: "All referral rewards are strictly for supermarket, retail, and brand e-vouchers. Credits cannot be exchanged for cash or withdrawn.",
+        policyText:
+          "All referral rewards are strictly for supermarket, retail, and brand e-vouchers. Credits cannot be exchanged for cash or withdrawn.",
         marketplaceText: "Rewards Marketplace",
         categories: {
           all: "All",
@@ -975,44 +1216,73 @@ export const en: any = {
         details: "Mission Telemetry",
         aiBtn: "AI Synthesize",
         aiGenerating: "Synthesizing...",
-        detailsPlaceholder: "Describe the operational scope, obstacles, and resolution.",
+        detailsPlaceholder:
+          "Describe the operational scope, obstacles, and resolution.",
         cancel: "Abort",
-        publish: "Transmit to Public Node"
+        publish: "Transmit to Public Node",
       },
       deleteConfirm: "Confirm permanent deletion of this archive entry?",
       addError: "Failed to append entry.",
-      aiError: "AI Synthesis failure. Manual input required."
-    }
+      aiError: "AI Synthesis failure. Manual input required.",
+    },
   },
   education_sec: {
     hero: {
       badge: "UK Elite Tutors",
       title1: "Master New Skillsets",
       title2: "With Leading Experts",
-      subtitle: "Connect with elite tutors for academics, languages, and professional crafts. Personalized 1-on-1 knowledge transfer designed for your objectives.",
+      subtitle:
+        "Connect with elite tutors for academics, languages, and professional crafts. Personalized 1-on-1 knowledge transfer designed for your objectives.",
       searchPlaceholder: "What skillset do you wish to acquire?",
-      searchBtn: "Scan Tutors"
+      searchBtn: "Scan Tutors",
     },
     forYou: {
       title: "Optimized for You",
       match: "AI Match Score",
-      viewProfile: "Audit Profile"
+      viewProfile: "Audit Profile",
     },
     visitDashboard: "Visit Education Dashboard",
     categories: {
       title: "Explore Knowledge Hexagons",
       browseBtn: "Full Spectrum",
       items: {
-        academic: { title: "Academic Excellence", desc: "GCSE, A-Levels, IB, 11+ Entrance Prep" },
-        language: { title: "Global Languages", desc: "IELTS, Duolingo, Business English & more" },
-        stem: { title: "STEM & AI", desc: "Python, Generative AI, Coding, Data Science" },
-        arts: { title: "Creative Arts", desc: "Portfolio, Piano, Design, Fine Arts" },
-        finance: { title: "Elite Certifications", desc: "CFA, ACCA, PMP, Professional Certs" },
-        career: { title: "Career Strategy", desc: "Interview Prep, Leadership, MBA Strategy" },
-        junior: { title: "Junior Scholars", desc: "Phonics, Logic, Talent Development" },
-        masterclass: { title: "Knowledge Workshops", desc: "Investment, Lifestyle, Masterclasses" },
-        sen: { title: "Special Education (SEN)", desc: "ADHD, Dyslexia, Autism, Mental Health" }
-      }
+        academic: {
+          title: "Academic Excellence",
+          desc: "GCSE, A-Levels, IB, 11+ Entrance Prep",
+        },
+        language: {
+          title: "Global Languages",
+          desc: "IELTS, Duolingo, Business English & more",
+        },
+        stem: {
+          title: "STEM & AI",
+          desc: "Python, Generative AI, Coding, Data Science",
+        },
+        arts: {
+          title: "Creative Arts",
+          desc: "Portfolio, Piano, Design, Fine Arts",
+        },
+        finance: {
+          title: "Elite Certifications",
+          desc: "CFA, ACCA, PMP, Professional Certs",
+        },
+        career: {
+          title: "Career Strategy",
+          desc: "Interview Prep, Leadership, MBA Strategy",
+        },
+        junior: {
+          title: "Junior Scholars",
+          desc: "Phonics, Logic, Talent Development",
+        },
+        masterclass: {
+          title: "Knowledge Workshops",
+          desc: "Investment, Lifestyle, Masterclasses",
+        },
+        sen: {
+          title: "Special Education (SEN)",
+          desc: "ADHD, Dyslexia, Autism, Mental Health",
+        },
+      },
     },
     search: {
       filters: "Search Parameters",
@@ -1028,15 +1298,16 @@ export const en: any = {
       apply: "Execute Filter",
       resultsTitle: "Available Tutors",
       foundCount: "{{count}} Tutors Identified",
-      placeholder: "Scan by Subject or ID"
+      placeholder: "Scan by Subject or ID",
     },
     common: {
       reviews: "reviews",
       hr: "hr",
-      bookTrial: "Schedule Diagnostics"
+      bookTrial: "Schedule Diagnostics",
     },
     tutorCard: {
-      demoDesc: "Passionate PhD level tutor with 10+ years experience, helping 100+ students achieve their objectives."
+      demoDesc:
+        "Passionate PhD level tutor with 10+ years experience, helping 100+ students achieve their objectives.",
     },
     tutorProfile: {
       verified: "Certified Tutor",
@@ -1063,18 +1334,21 @@ export const en: any = {
       assessmentLevels: {
         excellent: "Elite Basis",
         progress: "Growth Potential",
-        starting: "Foundational"
+        starting: "Foundational",
       },
-      assessmentDesc: "Your specialist has received the telemetry and will calibrate your session accordingly.",
+      assessmentDesc:
+        "Your specialist has received the telemetry and will calibrate your session accordingly.",
       bookFirstLesson: "Schedule Initial Session",
-      tryAgain: "Recalibrate"
-    }
+      tryAgain: "Recalibrate",
+    },
   },
-  home: { hero: {
+  home: {
+    hero: {
       badge: "Verified Local Professionals",
       title1: "Schedule Top-Rated",
       title2: "Local Experts",
-      subtitle: "Instant access to the top 1% of UK service specialists. Verified, indemnified, and AI-monitored for precision quality.",
+      subtitle:
+        "Instant access to the top 1% of UK service specialists. Verified, indemnified, and AI-monitored for precision quality.",
       searchPlaceholder: "I require...",
       locationPlaceholder: "London, UK",
       aiMatch: "Smart Match",
@@ -1084,15 +1358,22 @@ export const en: any = {
         "Book a Top-Rated Tutor for GCSE...",
         "Need a Deep Clean for your Office?",
         "Expert Legal Aid for Property Disputes...",
-        "Professional Tax Accountant in London..."
+        "Professional Tax Accountant in London...",
       ],
       popularLabel: "Popular",
-      popularTags: ["Home Renovation", "Tax Filing", "Deep Cleaning", "Legal Aid"] },
+      popularTags: [
+        "Home Renovation",
+        "Tax Filing",
+        "Deep Cleaning",
+        "Legal Aid",
+      ],
+    },
     recommendation: {
       title1: "Optimized",
       title2: "For You",
-      subtitle: "Top specialists matched to your telemetry and recent location.",
-      browse: "Full Spectrum"
+      subtitle:
+        "Top specialists matched to your telemetry and recent location.",
+      browse: "Full Spectrum",
     },
     recommendationResults: {
       trendingTitle: "Trending in {{city}}: {{category}}",
@@ -1108,22 +1389,25 @@ export const en: any = {
       accountSub: "Elite accountants and legal assistants",
       autoSub: "Master mechanics for your hardware",
       assetMatch: "Asset Match",
-      trending: "Network Trending"
+      trending: "Network Trending",
     },
     aiCTA: {
       badge: "Powered by ChatGPT, Gemini & Grok",
       title1: "Unsure of the issue?",
       title2: "Execute AI Diagnostics",
-      subtitle: "Upload evidence of your issue. Our AI identifies the fault, estimates the payload cost, and identifies the correct specialist in seconds.",
-      button: "Start Free AI Audit"
+      subtitle:
+        "Upload evidence of your issue. Our AI identifies the fault, estimates the payload cost, and identifies the correct specialist in seconds.",
+      button: "Start Free AI Audit",
     },
     referralCTA: {
       badge: "Network Rewards",
       title: "Earn 2% Ecosystem Voucher Rewards",
-      subtitle: "Invite a node and receive 2% of every session they schedule for the next 5 years in retail vouchers (Non-cash withdrawal).",
+      subtitle:
+        "Invite a node and receive 2% of every session they schedule for the next 5 years in retail vouchers (Non-cash withdrawal).",
       button: "Start Earning Yield",
       referralLabel: "Your Unique Node Code:",
-      voucherDisclaimer: "* Rewards redeemable for retail vouchers only. No cash withdrawal."
+      voucherDisclaimer:
+        "* Rewards redeemable for retail vouchers only. No cash withdrawal.",
     },
     educationCTA: "Access Education Dashboard",
     eliteLocal: "Local Elite",
@@ -1131,48 +1415,177 @@ export const en: any = {
     defaultCategory: "Service Specialist",
     noResults: "No specialist nodes detected in this sector.",
     trustedBy: "Trusted by UK Residents & Verified by",
-    categories: { plumbing: "Plumbing", repairs: "Repairs", renovation: "Renovation", education: "Education", accounting: "Accounting", legal: "Legal", commercial: "B2B", cleaning: "Cleaning", car: "Auto" },
-    sections: {
-      plumbing: { title: "Plumbing & Electrical", desc: "From emergency leaks to full rewiring, we connect you with certified nodes.", items: ["Pipe Repair", "System Rewiring", "Appliance Integration", "Boiler Audit", "Switchgear", "Smart Automation"] },
-      repairs: { title: "Maintenance", desc: "Hardware assembly, structural repair, fixture replacement - all household inefficiencies resolved.", items: ["Furniture Assembly", "Structural Fixtures", "Wall Remediation", "Modular Mounting", "Coating", "General Tactics"] },
-      accounting: { title: "Ledger & Governance", desc: "Tailored for expats and SMEs. Providing compliant reporting for your operations.", items: ["Income Audit", "Annual Accounts", "Tax Filing", "Payroll Meshing", "Xero Optimization", "Fiscal Analysis"] },
-      renovation: { title: "Structural Renovation", desc: "From module expansion to full re-engineering. Transparent telemetry and quality assurance.", items: ["Culinary/Sanitary", "Expansion Units", "Holographic Layout", "Coating", "Floor Meshing", "Landscape Design"] },
-      education: { title: "Knowledge Transfer", desc: "1-on-1 tutoring and professional coaching. Personalized growth at your fingertips.", items: ["Language Tutors", "IELTS/TOEFL", "Code Synthesis", "Music & Arts", "Business Tactics", "Academic Support"] },
-      cleaning: { title: "Professional Sanitization", desc: "End-of-occupancy decontamination or regular node maintenance with attention to detail.", items: ["Recurring Hygiene", "End of Tenancy", "Textile Cleaning", "Aperture Cleaning", "Office Sanitization", "Biosecurity"] },
-      legal: { title: "Governance Counsel", desc: "Compliance, visa protocols, and legal frameworks. Connect with experts to protect your rights.", items: ["SLA Drafting", "Visa Calibration", "Property Frameworks", "Arbitration", "Marketplace Law", "Public Notary"] },
-      commercial: { title: "B2B Infrastructure", desc: "Tailored for business zones. Shop fitting, office migration, and industrial maintenance.", items: ["Unit Fitting", "Node Relocation", "Industrial Power", "Fire Security", "IT Mesh", "HVAC"] }
+    categories: {
+      plumbing: "Plumbing",
+      repairs: "Repairs",
+      renovation: "Renovation",
+      education: "Education",
+      accounting: "Accounting",
+      legal: "Legal",
+      commercial: "B2B",
+      cleaning: "Cleaning",
+      car: "Auto",
     },
-    popularTitle: "Popular", popularIn: "in", allUK: "Full UK",
-    noProjects: { title: "No projects detected in this sector", desc: "We are actively recruiting Tier 1 specialists in your zone." },
-    reviews: { excellent: "Elite", basedOn: "indexed on", verified: "Verified", countLabel: "logs" },
+    sections: {
+      plumbing: {
+        title: "Plumbing & Electrical",
+        desc: "From emergency leaks to full rewiring, we connect you with certified nodes.",
+        items: [
+          "Pipe Repair",
+          "System Rewiring",
+          "Appliance Integration",
+          "Boiler Audit",
+          "Switchgear",
+          "Smart Automation",
+        ],
+      },
+      repairs: {
+        title: "Maintenance",
+        desc: "Hardware assembly, structural repair, fixture replacement - all household inefficiencies resolved.",
+        items: [
+          "Furniture Assembly",
+          "Structural Fixtures",
+          "Wall Remediation",
+          "Modular Mounting",
+          "Coating",
+          "General Tactics",
+        ],
+      },
+      accounting: {
+        title: "Ledger & Governance",
+        desc: "Tailored for expats and SMEs. Providing compliant reporting for your operations.",
+        items: [
+          "Income Audit",
+          "Annual Accounts",
+          "Tax Filing",
+          "Payroll Meshing",
+          "Xero Optimization",
+          "Fiscal Analysis",
+        ],
+      },
+      renovation: {
+        title: "Structural Renovation",
+        desc: "From module expansion to full re-engineering. Transparent telemetry and quality assurance.",
+        items: [
+          "Culinary/Sanitary",
+          "Expansion Units",
+          "Holographic Layout",
+          "Coating",
+          "Floor Meshing",
+          "Landscape Design",
+        ],
+      },
+      education: {
+        title: "Knowledge Transfer",
+        desc: "1-on-1 tutoring and professional coaching. Personalized growth at your fingertips.",
+        items: [
+          "Language Tutors",
+          "IELTS/TOEFL",
+          "Code Synthesis",
+          "Music & Arts",
+          "Business Tactics",
+          "Academic Support",
+        ],
+      },
+      cleaning: {
+        title: "Professional Sanitization",
+        desc: "End-of-occupancy decontamination or regular node maintenance with attention to detail.",
+        items: [
+          "Recurring Hygiene",
+          "End of Tenancy",
+          "Textile Cleaning",
+          "Aperture Cleaning",
+          "Office Sanitization",
+          "Biosecurity",
+        ],
+      },
+      legal: {
+        title: "Governance Counsel",
+        desc: "Compliance, visa protocols, and legal frameworks. Connect with experts to protect your rights.",
+        items: [
+          "SLA Drafting",
+          "Visa Calibration",
+          "Property Frameworks",
+          "Arbitration",
+          "Marketplace Law",
+          "Public Notary",
+        ],
+      },
+      commercial: {
+        title: "B2B Infrastructure",
+        desc: "Tailored for business zones. Shop fitting, office migration, and industrial maintenance.",
+        items: [
+          "Unit Fitting",
+          "Node Relocation",
+          "Industrial Power",
+          "Fire Security",
+          "IT Mesh",
+          "HVAC",
+        ],
+      },
+    },
+    popularTitle: "Popular",
+    popularIn: "in",
+    allUK: "Full UK",
+    noProjects: {
+      title: "No projects detected in this sector",
+      desc: "We are actively recruiting Tier 1 specialists in your zone.",
+    },
+    reviews: {
+      excellent: "Elite",
+      basedOn: "indexed on",
+      verified: "Verified",
+      countLabel: "logs",
+    },
     howItWorks: {
       title: "How It Works",
-      subtitle: "The UK's most advanced service booking protocol, powered by AI.",
+      subtitle:
+        "The UK's most advanced service booking protocol, powered by AI.",
       step1Title: "AI Diagnosis",
-      step1Desc: "Upload issues for instant fault identification and precise cost estimation.",
+      step1Desc:
+        "Upload issues for instant fault identification and precise cost estimation.",
       step2Title: "Smart Matching",
-      step2Desc: "Our mesh network identifies the top 1% specialists calibrated for your specific node.",
+      step2Desc:
+        "Our mesh network identifies the top 1% specialists calibrated for your specific node.",
       step3Title: "Escrow Security",
-      step3Desc: "Payments are held in secure escrow until you confirm the operation is successful.",
+      step3Desc:
+        "Payments are held in secure escrow until you confirm the operation is successful.",
       step4Title: "Service Guarantee",
-      step4Desc: "Every session is monitored by AI for quality assurance and dispute resolution support."
-    }
+      step4Desc:
+        "Every session is monitored by AI for quality assurance and dispute resolution support.",
+    },
   },
-  location: { selectCity: "Select Node", detecting: "Detecting...", switch: "Modify", nearby: "Proximal Services" },
+  location: {
+    selectCity: "Select Node",
+    detecting: "Detecting...",
+    switch: "Modify",
+    nearby: "Proximal Services",
+  },
   diagnosis: {
     badge: "By ChatGPT, Gemini & Grok",
     title1: "Specialist Audit",
     title2: "In Seconds",
-    subtitle: "Stop speculating. Our AI analyzes your telemetry to provide instant insights, repair variables, and fair cost models before scheduling.",
+    subtitle:
+      "Stop speculating. Our AI analyzes your telemetry to provide instant insights, repair variables, and fair cost models before scheduling.",
     features: {
-      instant: { title: "Instant Telemetry", desc: "End latency. Get technical analysis the moment you upload evidence." },
-      pricing: { title: "Fair Market Model", desc: "We use live service data to provide precise cost ranges for your geofence." },
-      verified: { title: "Verified Pre-Scheduling", desc: "Post-diagnosis, connect directly with the top 1% specialists calibrated for your issue." }
+      instant: {
+        title: "Instant Telemetry",
+        desc: "End latency. Get technical analysis the moment you upload evidence.",
+      },
+      pricing: {
+        title: "Fair Market Model",
+        desc: "We use live service data to provide precise cost ranges for your geofence.",
+      },
+      verified: {
+        title: "Verified Pre-Scheduling",
+        desc: "Post-diagnosis, connect directly with the top 1% specialists calibrated for your issue.",
+      },
     },
     cta: "Scan All Protocols",
     tool: {
       title: "Instant AI Diagnostics",
-      subtitle: "Upload evidence and let our AI estimate the cost and operational scope.",
+      subtitle:
+        "Upload evidence and let our AI estimate the cost and operational scope.",
       step1: "1. Upload Evidence Payload",
       step2: "2. Select Sector",
       step3: "3. Issue Parameters (Optional)",
@@ -1180,14 +1593,22 @@ export const en: any = {
       replaceHint: "Click to modify evidence",
       submit: "Execute Free AI Diagnostics",
       loading: "Synthesizing AI Audit...",
-      disclaimer: "AI estimations are for guidance only. Official quotes are provided by specialists.",
+      disclaimer:
+        "AI estimations are for guidance only. Official quotes are provided by specialists.",
       newDiagnosis: "New Audit Session",
-      categories: { plumbing: "Plumbing", auto: "Engineering", renovation: "Renovation", electrical: "Electrical", cleaning: "Sanitization" },
+      categories: {
+        plumbing: "Plumbing",
+        auto: "Engineering",
+        renovation: "Renovation",
+        electrical: "Electrical",
+        cleaning: "Sanitization",
+      },
       resultTitle: "AI Audit Result",
       detectedIssue: "Identified Fault",
       recommendedSolution: "Calibrated Resolution",
       estimatedCostLabel: "Est. Settlement Range",
-      ukStandard: "UK Standard Baseline", clinicalStandard: "Clinical Standard",
+      ukStandard: "UK Standard Baseline",
+      clinicalStandard: "Clinical Standard",
       includesLabor: "Includes modules & logic",
       bookSpecialist: "Schedule this Specialist",
       confidence: "Confidence Index",
@@ -1195,53 +1616,220 @@ export const en: any = {
       guaranteedRepairs: "Guaranteed Resolution",
       disputeResolution: "Arbitration Support",
       fastTurnaround: "Low Latency",
-      responseHours: "{category} specialists typically initialize within 2 hours.",
+      responseHours:
+        "{category} specialists typically initialize within 2 hours.",
       errorPhotoCategory: "Please upload evidence and define sector.",
       errorUnexpected: "Unexpected system fault. Please retry uplink.",
       uploadFormatHint: "Supports JPG, PNG",
       descriptionPlaceholder: "Provide additional fault telemetry...",
       strictMode: "High-Precision Vision Node",
       strictModeHint: "Deep-learning visual reasoning (Analytic)",
-      authRequired: "Members Only: Please log in to use AI Diagnosis", 
-      limitReached: "Your daily limit (5/5) has been reached", 
-      limitReachedHint: "You can contact our recommended specialists directly or try again tomorrow.", 
-      remaining: "Remaining daily uses", 
-      findSpecialist: "Contact a Specialist Now"
-    }
+      authRequired: "Members Only: Please log in to use AI Diagnosis",
+      limitReached: "Your daily limit (5/5) has been reached",
+      limitReachedHint:
+        "You can contact our recommended specialists directly or try again tomorrow.",
+      remaining: "Remaining daily uses",
+      findSpecialist: "Contact a Specialist Now",
+    },
   },
   onboarding: {
-    hero: { title: "Scale your Operations with ConciergeAI", subtitle: "Join the elite network of UK certified service specialists." },
-    steps: { profile: "Operational Profile", credentials: "Acreditations", contract: "SLA Framework" },
-    sectors: { title: "Select Operational Sector", professional: { title: "Professional", desc: "Governance, Audit, Strategy", industries: ["Audit", "Fiscal Strategy", "Legal Frameworks", "Business Ops"] }, education: { title: "Education", desc: "Tutors, Mentors", industries: ["Academic Transfer", "Language Calibration", "Craft Coaching", "Music Master"] }, technical: { title: "Technical", desc: "Craft, Maintenance, Engineering", industries: ["Plumbing", "Power", "Engineering", "Structural"] } },
-    contract: { title: "Standard Platform SLA", scrollingNotice: "Scroll to termination point to authorize terms.", agree: "I have reviewed and authorized the ConciergeAI Master Governance Agreement.", clauses: { platform_fee: { title: "1. Ecosystem Service Overhead", body: "The platform retains a 9% yield on successfully settled missions." }, payments: { title: "2. Escrow & Settlement", body: "Client payloads are held in secure escrow. Liquidity is released 48 hours after mission finalization confirmation." }, conduct: { title: "3. Specialist Standards", body: "Specialists must maintain a >4.0 reputation score. Failure to meet safety protocols results in immediate node termination." } } },
-    buttons: { start: "Initialize Boarding", next: "Next Vector", back: "Revert", submit: "Complete Uplink" }
+    hero: {
+      title: "Scale your Operations with ConciergeAI",
+      subtitle: "Join the elite network of UK certified service specialists.",
+    },
+    steps: {
+      profile: "Operational Profile",
+      credentials: "Acreditations",
+      contract: "SLA Framework",
+    },
+    sectors: {
+      title: "Select Operational Sector",
+      professional: {
+        title: "Professional",
+        desc: "Governance, Audit, Strategy",
+        industries: [
+          "Audit",
+          "Fiscal Strategy",
+          "Legal Frameworks",
+          "Business Ops",
+        ],
+      },
+      education: {
+        title: "Education",
+        desc: "Tutors, Mentors",
+        industries: [
+          "Academic Transfer",
+          "Language Calibration",
+          "Craft Coaching",
+          "Music Master",
+        ],
+      },
+      technical: {
+        title: "Technical",
+        desc: "Craft, Maintenance, Engineering",
+        industries: ["Plumbing", "Power", "Engineering", "Structural"],
+      },
+    },
+    contract: {
+      title: "Standard Platform SLA",
+      scrollingNotice: "Scroll to termination point to authorize terms.",
+      agree:
+        "I have reviewed and authorized the ConciergeAI Master Governance Agreement.",
+      clauses: {
+        platform_fee: {
+          title: "1. Ecosystem Service Overhead",
+          body: "The platform retains a 9% yield on successfully settled missions.",
+        },
+        payments: {
+          title: "2. Escrow & Settlement",
+          body: "Client payloads are held in secure escrow. Liquidity is released 48 hours after mission finalization confirmation.",
+        },
+        conduct: {
+          title: "3. Specialist Standards",
+          body: "Specialists must maintain a >4.0 reputation score. Failure to meet safety protocols results in immediate node termination.",
+        },
+      },
+    },
+    buttons: {
+      start: "Initialize Boarding",
+      next: "Next Vector",
+      back: "Revert",
+      submit: "Complete Uplink",
+    },
   },
   admin: {
-    sidebar: { overview: "Overview", analytics: "Analytics", bookings: "Bookings", verifications: "Verifications", disputes: "Disputes", merchants: "Merchants", payouts: "Payouts", users: "Users", settings: "Settings", terminal: "Terminal" },
-    header: { internal: "Internal Ops", operations: "Operations Dashboard", node: "Active Node" },
-    stats: { gmv: "GMV", netRevenue: "Net Revenue", bookings: "Bookings", dailyAvg: "Daily Avg", processed: "Processed", volume24h: "24h Volume", syncing: "Syncing..." },
-    analytics: { gmvTitle: "GMV", gmvSub: "Revenue Analytics", sectorDist: "Sector Dist", volTitle: "Market Volume", live: "Live" },
-    bookings: { title: "Bookings", sub: "Live Transactions", search: "Search...", id: "ID", customer: "Customer", amount: "Amount", status: "Status", service: "Service" },
-    verifications: { title: "Verifications", sub: "Background Checks", evidence: "Evidence", extraction: "Extraction", passport: "Passport", faceMatch: "Face Match", confidence: "Confidence", fullName: "Full Name", idNumber: "ID Number", expiryDate: "Expiry", dob: "DOB" },
-    disputes: { title: "Disputes", sub: "Arbitration", reasoning: "Reasoning", gallery: "Gallery", verdict: "Verdict", confidence: "Confidence" },
-    payouts: { title: "Payouts", sub: "Merchant Settlement", snapshot: "Snapshot", pending: "Pending", volume: "Volume", security: "Security", adjudication: "Adjudication", method: "Method" },
-    users: { title: "Users", sub: "User Database", stats: "Stats", registeredAt: "Joined", referrals: "Referrals" },
-    commissions: { title: "Commissions", sub: "Revenue Control", plateformFee: "Platform Fee", marketplaceFee: "Marketplace Fee", adminControl: "Admin Control", weightedAvg: "Weighted Avg", totalJobs: "Total Jobs", deliveryVolume: "Volume", merchantDetails: "Merchant Details" },
-    disputes_mgr: { empty: "No pending disputes.", viewDetails: "Review", status: { open: "Open", processing: "Progress", settled: "Settled" } },
-    merchants_mgr: { empty: "No experts found.", status: { active: "Active", suspended: "Suspended", pending: "Pending" } },
+    sidebar: {
+      overview: "Overview",
+      analytics: "Analytics",
+      bookings: "Bookings",
+      verifications: "Verifications",
+      disputes: "Disputes",
+      merchants: "Merchants",
+      payouts: "Payouts",
+      users: "Users",
+      settings: "Settings",
+      terminal: "Terminal",
+    },
+    header: {
+      internal: "Internal Ops",
+      operations: "Operations Dashboard",
+      node: "Active Node",
+    },
+    stats: {
+      gmv: "GMV",
+      netRevenue: "Net Revenue",
+      bookings: "Bookings",
+      dailyAvg: "Daily Avg",
+      processed: "Processed",
+      volume24h: "24h Volume",
+      syncing: "Syncing...",
+    },
+    analytics: {
+      gmvTitle: "GMV",
+      gmvSub: "Revenue Analytics",
+      sectorDist: "Sector Dist",
+      volTitle: "Market Volume",
+      live: "Live",
+    },
+    bookings: {
+      title: "Bookings",
+      sub: "Live Transactions",
+      search: "Search...",
+      id: "ID",
+      customer: "Customer",
+      amount: "Amount",
+      status: "Status",
+      service: "Service",
+    },
+    verifications: {
+      title: "Verifications",
+      sub: "Background Checks",
+      evidence: "Evidence",
+      extraction: "Extraction",
+      passport: "Passport",
+      faceMatch: "Face Match",
+      confidence: "Confidence",
+      fullName: "Full Name",
+      idNumber: "ID Number",
+      expiryDate: "Expiry",
+      dob: "DOB",
+    },
+    disputes: {
+      title: "Disputes",
+      sub: "Arbitration",
+      reasoning: "Reasoning",
+      gallery: "Gallery",
+      verdict: "Verdict",
+      confidence: "Confidence",
+    },
+    payouts: {
+      title: "Payouts",
+      sub: "Merchant Settlement",
+      snapshot: "Snapshot",
+      pending: "Pending",
+      volume: "Volume",
+      security: "Security",
+      adjudication: "Adjudication",
+      method: "Method",
+    },
+    users: {
+      title: "Users",
+      sub: "User Database",
+      stats: "Stats",
+      registeredAt: "Joined",
+      referrals: "Referrals",
+    },
+    commissions: {
+      title: "Commissions",
+      sub: "Revenue Control",
+      plateformFee: "Platform Fee",
+      marketplaceFee: "Marketplace Fee",
+      adminControl: "Admin Control",
+      weightedAvg: "Weighted Avg",
+      totalJobs: "Total Jobs",
+      deliveryVolume: "Volume",
+      merchantDetails: "Merchant Details",
+    },
+    disputes_mgr: {
+      empty: "No pending disputes.",
+      viewDetails: "Review",
+      status: { open: "Open", processing: "Progress", settled: "Settled" },
+    },
+    merchants_mgr: {
+      empty: "No experts found.",
+      status: { active: "Active", suspended: "Suspended", pending: "Pending" },
+    },
     settings_mgr: {
       title: "Global Mesh Configuration",
       sub: "Manage global branding, legal protocols, and contact vectors",
       companyInfo: "Company Information",
       socialLinks: "Social Profiles",
       legalLinks: "Legal Documents",
-      tabs: { branding: "Branding", contact: "Liaison", legal: "Governance", social: "Social" },
-      fields: { companyName: "Business Name", aboutUs: "Mission", logoUrl: "Logo URL", officeAddress: "Address", contactPhone: "Phone", contactEmail: "Email", companyRegistration: "Reg No", vatRegistration: "VAT ID", facebook: "FB", twitter: "X", instagram: "IG", linkedin: "LI" },
+      tabs: {
+        branding: "Branding",
+        contact: "Liaison",
+        legal: "Governance",
+        social: "Social",
+      },
+      fields: {
+        companyName: "Business Name",
+        aboutUs: "Mission",
+        logoUrl: "Logo URL",
+        officeAddress: "Address",
+        contactPhone: "Phone",
+        contactEmail: "Email",
+        companyRegistration: "Reg No",
+        vatRegistration: "VAT ID",
+        facebook: "FB",
+        twitter: "X",
+        instagram: "IG",
+        linkedin: "LI",
+      },
       save: "Update Active Settings",
       saving: "Syncing Platform...",
       success: "Configuration Persistent",
-      error: "Protocol Error"
-    }
+      error: "Protocol Error",
+    },
   },
   auth: {
     login: {
@@ -1259,7 +1847,7 @@ export const en: any = {
       navToRegister: "New to the platform?",
       createAccount: "Register Now",
       error: "Login failed. Please check your credentials.",
-      success: "Login successful. Redirecting to console."
+      success: "Login successful. Redirecting to console.",
     },
     register: {
       title: "Initialize Account",
@@ -1279,7 +1867,10 @@ export const en: any = {
       google: "Register with Google",
       navToLogin: "Already have a node?",
       signIn: "Log in here",
-      roles: { customer: "Client (Scan Services)", merchant: "Specialist (Provide Protocols)" }
+      roles: {
+        customer: "Client (Scan Services)",
+        merchant: "Specialist (Provide Protocols)",
+      },
     },
     forgotPassword: {
       title: "Cipher Recovery",
@@ -1291,7 +1882,8 @@ export const en: any = {
       back: "Return to Login",
       success: "Recovery telemetry transmitted to your email.",
       error: "Transmission failure. Verify identifier.",
-      successDetail: "Secure recovery telemetry transmitted to {email}. Check your comms."
+      successDetail:
+        "Secure recovery telemetry transmitted to {email}. Check your comms.",
     },
     resetPassword: {
       title: "Cipher Calibration",
@@ -1307,7 +1899,7 @@ export const en: any = {
       error: "Protocol error. Contact support.",
       successDetail: "Cipher persistent. Redirecting to login...",
       invalidTokenDetail: "Provided calibration token is expired or invalid.",
-      requestNewLink: "Request New Token"
+      requestNewLink: "Request New Token",
     },
     errors: {
       missingFields: "Incomplete dataset. All fields required.",
@@ -1316,11 +1908,11 @@ export const en: any = {
       invalidCredentials: "Login failed. Verify data.",
       serverError: "Internal system fault. Retry later.",
       resetFailed: "Failed to process request.",
-      invalidReset: "Invalid or expired reset protocol."
+      invalidReset: "Invalid or expired reset protocol.",
     },
     loading: {
       preparing: "Calibrating session...",
-      initializing: "Initializing mesh..."
-    }
-  }
+      initializing: "Initializing mesh...",
+    },
+  },
 };

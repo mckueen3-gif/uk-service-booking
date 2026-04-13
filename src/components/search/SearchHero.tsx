@@ -302,7 +302,7 @@ export default function SearchHero() {
           </button>
         </form>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '3rem', flexDirection: isRTL ? 'row-reverse' : 'row', flexWrap: 'wrap' }}>
-           {t.home.hero.popularTags.map(tag => (
+           {(t.home.hero.popularTags as string[]).map((tag: string) => (
              <span key={tag} style={{ fontSize: '0.85rem', cursor: 'pointer', color: 'var(--text-muted)', border: '1px solid var(--border-color)', padding: '0.5rem 1rem', borderRadius: '1rem', background: 'var(--surface-1)' }} onClick={() => setQuery(tag)}>
                {!isRTL && `${t.home.hero.popularLabel}: `} 
                <strong style={{ textDecoration: 'underline', color: 'var(--accent-color)' }}>{tag}</strong>

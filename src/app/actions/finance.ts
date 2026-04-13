@@ -50,7 +50,7 @@ export async function requestWithdrawal(amount: number) {
 
   if (!merchant || !merchant.wallet) return { error: "Wallet not found" };
 
-  const decimalAvailable = Number(merchant.wallet.availableBalance.toFixed(2));
+  const decimalAvailable = Number(((merchant.wallet as any).availableBalance || 0).toFixed(2));
   
   if (amount < 10) {
     return { error: "最低提領金額為 £10.00 (Minimum withdrawal £10.00)" };
@@ -73,7 +73,7 @@ export async function requestWithdrawal(amount: number) {
   await (prisma as any).merchantWallet.update({
     where: { merchantId: merchant.id },
     data: {
-      availableBalance: { decrement: amount }
+      availableBalance: { decrement: amount } as any
     }
   });
 

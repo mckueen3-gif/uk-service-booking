@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { Loader2, ArrowRight } from "lucide-react";
+import { useTranslation } from "@/components/LanguageContext";
 
 export default function StripeConnectButton() {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -17,7 +19,7 @@ export default function StripeConnectButton() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Failed to connect to Stripe.");
+        throw new Error(data.error || t.merchant.dashboard.verification.stripeError);
       }
 
       // Redirect the user to Stripe's hosted secure onboarding page
@@ -39,7 +41,7 @@ export default function StripeConnectButton() {
         className="btn btn-primary"
         style={{ backgroundColor: '#6366f1', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700 }}
       >
-        {isLoading ? <Loader2 size={18} className="animate-spin" /> : "Verify Bank Account with Stripe"}
+        {isLoading ? <Loader2 size={18} className="animate-spin" /> : t.merchant.dashboard.verification.stripeBtn}
         {!isLoading && <ArrowRight size={18} />}
       </button>
       {error && <div style={{ fontSize: '0.8rem', color: '#ef4444', fontWeight: 600 }}>{error}</div>}

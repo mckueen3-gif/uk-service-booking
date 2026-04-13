@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Star, X } from 'lucide-react';
+import { useTranslation } from "@/components/LanguageContext";
 
 export default function ReviewButton({ 
   bookingId, 
@@ -12,6 +13,7 @@ export default function ReviewButton({
   merchantId: string, 
   serviceName: string 
 }) {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const [hoveredRating, setHoveredRating] = useState(0);
@@ -23,7 +25,7 @@ export default function ReviewButton({
 
   const handleSubmit = async () => {
     if (rating === 0) {
-      setError('請選擇星級評分');
+      setError(t.review_system.errorRating);
       return;
     }
     
@@ -38,7 +40,7 @@ export default function ReviewButton({
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Failed to submit review');
+      if (!res.ok) throw new Error(data.error || t.review_system.failed);
       
       onClose(); // Close and succeed
       window.location.reload(); // Quick refresh to update UI state
@@ -57,7 +59,7 @@ export default function ReviewButton({
         onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
         onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
       >
-        <Star size={14} fill="#b45309" /> 撰寫評價
+        <Star size={14} fill="#b45309" /> {t.review_system.writeReview}
       </button>
 
       {isOpen && (
@@ -67,8 +69,8 @@ export default function ReviewButton({
             <X size={24} />
           </button>
           
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>撰寫服務評價</h2>
-          <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', fontSize: '0.9rem' }}>正在為「{serviceName}」提供意見回饋。</p>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>{t.review_system.modalTitle}</h2>
+          <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', fontSize: '0.9rem' }}>{t.review_system.modalDesc.replace("{serviceName}", serviceName)}</p>
 
           {error && (
             <div style={{ padding: '0.75rem', backgroundColor: '#fef2f2', color: '#991b1b', borderRadius: '8px', fontSize: '0.85rem', marginBottom: '1rem', border: '1px solid #fecaca' }}>
@@ -77,7 +79,7 @@ export default function ReviewButton({
           )}
 
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
-             <p style={{ fontWeight: 600, color: 'var(--text-primary)' }}>您對這次服務滿意嗎？</p>
+             <p style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{t.review_system.question}</p>
              <div style={{ display: 'flex', gap: '0.5rem' }}>
                {[1, 2, 3, 4, 5].map(star => (
                  <Star 
@@ -95,11 +97,11 @@ export default function ReviewButton({
           </div>
 
           <div style={{ marginBottom: '1.5rem' }}>
-            <label style={{ display: 'block', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.5rem', fontSize: '0.9rem' }}>詳細評論 (選填)</label>
+            <label style={{ display: 'block', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.5rem', fontSize: '0.9rem' }}>{t.review_system.commentLabel}</label>
             <textarea 
               className="input-field" 
               rows={4} 
-              placeholder="分享您覺得這位專家表現優異或需要改進的地方..."
+              placeholder={t.review_system.placeholder}
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)' }}
@@ -107,7 +109,7 @@ export default function ReviewButton({
           </div>
 
           <button onClick={handleSubmit} disabled={isSubmitting} className="btn btn-primary" style={{ width: '100%', padding: '0.8rem', borderRadius: '8px', fontWeight: 700, fontSize: '1rem' }}>
-            {isSubmitting ? '送出中...' : '發布評價'}
+            {isSubmitting ? t.review_system.submitting : t.review_system.submitBtn}
           </button>
        </div>
     </div>

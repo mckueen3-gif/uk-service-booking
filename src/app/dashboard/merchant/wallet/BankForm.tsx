@@ -2,14 +2,17 @@
 
 import { useState } from 'react';
 import { updateBankDetails } from '@/app/actions/finance';
-import { Loader2, Landmark, CheckCircle2, ShieldCheck, CreditCard } from 'lucide-react';
+import { Loader2, Landmark, CheckCircle2, ShieldCheck, CreditCard, Info } from 'lucide-react';
 
 interface BankFormProps {
   initialSortCode?: string;
   initialAccountNumber?: string;
 }
 
+import { useTranslation } from '@/components/LanguageContext';
+
 export default function BankForm({ initialSortCode = "", initialAccountNumber = "" }: BankFormProps) {
+  const { t } = useTranslation();
   const [sortCode, setSortCode] = useState(initialSortCode);
   const [accountNumber, setAccountNumber] = useState(initialAccountNumber);
   const [loading, setLoading] = useState(false);
@@ -58,16 +61,16 @@ export default function BankForm({ initialSortCode = "", initialAccountNumber = 
     <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1.5rem' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
         <h3 style={{ fontSize: '1.1rem', fontWeight: 900, display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#fff' }}>
-          <Landmark size={20} color="#d4af37" /> 銀行詳細資訊 <span style={{ color: '#d4af37', opacity: 0.5, fontSize: '0.8rem' }}>Banking</span>
+          <Landmark size={20} color="#d4af37" /> {t.merchant.merchant_wallet.banking.title}
         </h3>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.7rem', color: '#666', fontWeight: 700, textTransform: 'uppercase' }}>
-          <ShieldCheck size={14} color="#059669" /> Encrypted
+          <ShieldCheck size={14} color="#059669" /> {t.merchant.merchant_wallet.banking.encrypted}
         </div>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
         <div style={{ gridColumn: 'span 1' }}>
-          <label style={labelStyle}>Sort Code (6 位數)</label>
+          <label style={labelStyle}>{t.merchant.merchant_wallet.banking.sortCode}</label>
           <div style={{ position: 'relative' }}>
             <input 
               type="text" 
@@ -89,7 +92,7 @@ export default function BankForm({ initialSortCode = "", initialAccountNumber = 
           </div>
         </div>
         <div style={{ gridColumn: 'span 1' }}>
-          <label style={labelStyle}>Account Number (8 位數)</label>
+          <label style={labelStyle}>{t.merchant.merchant_wallet.banking.accountNumber}</label>
           <input 
             type="text" 
             placeholder="XXXXXXXX" 
@@ -111,7 +114,7 @@ export default function BankForm({ initialSortCode = "", initialAccountNumber = 
       </div>
       
       <p style={{ fontSize: '0.75rem', color: '#555', marginTop: '-0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-        <Info size={14} /> 您的資訊經過加密儲存，僅供撥款使用。
+        <Info size={14} /> {t.merchant.merchant_wallet.banking.tip}
       </p>
 
       <button 
@@ -151,10 +154,18 @@ export default function BankForm({ initialSortCode = "", initialAccountNumber = 
           }
         }}
       >
-        {loading ? <Loader2 size={20} className="animate-spin" /> : saved ? <><CheckCircle2 size={20} /> 更新成功 SAVED</> : "更新銀行資訊"}
+        {loading ? (
+          <Loader2 className="animate-spin" size={20} />
+        ) : saved ? (
+          <>
+            <CheckCircle2 size={20} /> {t.merchant.merchant_wallet.banking.saved}
+          </>
+        ) : (
+          <>
+            <CreditCard size={20} /> {t.merchant.merchant_wallet.banking.update}
+          </>
+        )}
       </button>
     </form>
   );
 }
-
-import { Info } from 'lucide-react';

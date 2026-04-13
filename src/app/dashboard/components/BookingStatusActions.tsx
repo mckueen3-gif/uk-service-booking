@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Check, X, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "@/components/LanguageContext";
 
 interface BookingStatusActionsProps {
   bookingId: string;
@@ -10,11 +11,13 @@ interface BookingStatusActionsProps {
 }
 
 export default function BookingStatusActions({ bookingId, currentStatus }: BookingStatusActionsProps) {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleStatusUpdate = async (newStatus: string) => {
-    if (!confirm(`確定要 ${newStatus === 'CONFIRMED' ? '接受' : '取消'} 此預約嗎？`)) return;
+    const alertMsg = newStatus === 'CONFIRMED' ? t.booking_actions.confirmAlert : t.booking_actions.rejectAlert;
+    if (!confirm(alertMsg)) return;
 
     setIsLoading(true);
     try {
@@ -25,7 +28,7 @@ export default function BookingStatusActions({ bookingId, currentStatus }: Booki
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "更新失敗");
+      if (!res.ok) throw new Error(data.error || t.booking_actions.errorUpdate);
 
       router.refresh();
     } catch (err: any) {
@@ -58,7 +61,7 @@ export default function BookingStatusActions({ bookingId, currentStatus }: Booki
         }}
       >
         {isLoading ? <Loader2 className="animate-spin" size={14} /> : <Check size={14} />}
-        接受 (Confirm)
+        {t.booking_actions.confirmTitle}
       </button>
 
       <button
@@ -80,7 +83,7 @@ export default function BookingStatusActions({ bookingId, currentStatus }: Booki
         }}
       >
         {isLoading ? <Loader2 className="animate-spin" size={14} /> : <X size={14} />}
-        拒絕 (Reject)
+        {t.booking_actions.rejectTitle}
       </button>
     </div>
   );

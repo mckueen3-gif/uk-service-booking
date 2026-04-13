@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 import { updateBookingStatus } from '@/app/actions/merchant_dashboard';
+import { useTranslation } from '@/components/LanguageContext';
 
 export default function StatusButtons({ bookingId, currentStatus }: { bookingId: string, currentStatus: string }) {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState<string | null>(null);
 
   const handleUpdate = async (status: string) => {
@@ -19,27 +21,27 @@ export default function StatusButtons({ bookingId, currentStatus }: { bookingId:
 
   const statusMap: Record<string, { label: string, next: string | null, color: string }> = {
     'PENDING': { 
-      label: '等待接車 (Waiting)', 
+      label: t.merchant.dashboard.status.waiting, 
       next: 'IN_PROGRESS', 
       color: 'var(--accent-color)' 
     },
     'IN_PROGRESS': { 
-      label: '維修檢查中 (Repairing)', 
+      label: t.merchant.dashboard.status.repairing, 
       next: 'FIXED', 
       color: '#f59e0b' 
     },
     'FIXED': { 
-      label: '維修完成 (Ready for Pickup)', 
+      label: t.merchant.dashboard.status.ready, 
       next: 'COMPLETED', 
       color: '#facc15' 
     },
     'COMPLETED': { 
-      label: '結清完工 (Completed)', 
+      label: t.merchant.dashboard.status.completed, 
       next: null, 
       color: '#64748b' 
     },
     'CANCELLED': { 
-      label: '已取消', 
+      label: t.merchant.dashboard.status.cancelled, 
       next: null, 
       color: '#ef4444' 
     }
@@ -52,7 +54,7 @@ export default function StatusButtons({ bookingId, currentStatus }: { bookingId:
        {/* Current Status Display */}
        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '1rem', backgroundColor: 'var(--bg-secondary)', borderRadius: '0.75rem', border: `1px solid ${current.color}` }}>
           <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: current.color }} className={current.next ? "animate-pulse" : ""} />
-          <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>當前狀態：{current.label}</span>
+          <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{t.merchant.dashboard.status.currentStatus}：{current.label}</span>
        </div>
 
        {/* Next Action Button */}
@@ -74,7 +76,7 @@ export default function StatusButtons({ bookingId, currentStatus }: { bookingId:
                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
             }}
           >
-             {loading ? "更新中..." : `點擊更新為：${statusMap[current.next].label}`}
+             {loading ? t.merchant.dashboard.status.updating : `${t.merchant.dashboard.status.clickToUpdate}：${statusMap[current.next].label}`}
           </button>
        )}
 
@@ -85,7 +87,7 @@ export default function StatusButtons({ bookingId, currentStatus }: { bookingId:
              className="btn btn-secondary"
              style={{ opacity: 0.6, fontSize: '0.85rem' }}
           >
-             取消預約
+             {t.merchant.dashboard.status.cancelBtn}
           </button>
        )}
     </div>
