@@ -167,7 +167,8 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
                   borderRadius: '0.75rem', 
                   color: 'inherit',
                   fontSize: '0.95rem',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  textAlign: 'center'
                 }}
              >
                 <option value={DocumentType.BUSINESS_LICENSE}>營業執照 (Business License)</option>
