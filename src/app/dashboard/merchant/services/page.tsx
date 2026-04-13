@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslation } from '@/components/LanguageContext';
+
 export default function MerchantServicesPage() {
   const { t } = useTranslation();
   const [services, setServices] = useState<any[]>([]);
@@ -74,103 +75,81 @@ export default function MerchantServicesPage() {
     }
   };
 
+  const premiumInputStyle = {
+    width: '100%',
+    padding: '0.875rem 1.25rem',
+    borderRadius: '16px',
+    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    border: '1px solid rgba(212, 175, 55, 0.15)',
+    color: '#fff',
+    fontSize: '0.95rem',
+    fontWeight: 500,
+    outline: 'none',
+    transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+  };
+
+  const premiumLabelStyle = {
+    display: 'block',
+    fontSize: '0.75rem',
+    fontWeight: 800,
+    color: '#666',
+    textTransform: 'uppercase' as const,
+    letterSpacing: '0.05em',
+    marginBottom: '0.6rem',
+    marginLeft: '0.4rem'
+  };
+
   if (loading && services.length === 0) {
-    return <div style={{ display: 'flex', justifyContent: 'center', padding: '10rem' }}>Loading services...</div>;
+    return <div style={{ display: 'flex', justifyContent: 'center', padding: '10rem' }}>
+       <Loader2 className="animate-spin" size={48} color="#d4af37" />
+    </div>;
   }
 
   return (
     <div className="container" style={{ padding: '2rem 1.5rem', maxWidth: '1000px' }}>
-      <header style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <header style={{ marginBottom: '3rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
-          <Link href="/dashboard/merchant" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
+          <Link href="/dashboard/merchant" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#666', textDecoration: 'none', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
             <ArrowLeft size={16} /> 返回控制台 Back
           </Link>
-          <h1 style={{ fontSize: '2rem', fontWeight: 900 }}>
-            服務管理 <span style={{ color: 'var(--accent-color)' }}>Catalog</span>
+          <h1 style={{ fontSize: '2.5rem', fontWeight: 900, color: '#fff' }}>
+            服務管理 <span style={{ color: '#d4af37' }}>Catalog</span>
           </h1>
-          <p style={{ color: 'var(--text-secondary)' }}>在此定義您提供的服務、定價與服務細節。</p>
+          <p style={{ color: '#666' }}>在此定義您提供的服務、定價與服務細節。</p>
         </div>
         <button 
           onClick={() => { setEditingService(null); setShowAddModal(true); }}
           className="btn btn-primary" 
-          style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+          style={{ padding: '1rem 2rem' }}
         >
           <Plus size={18} /> 新增服務 Add Service
         </button>
       </header>
 
-      {/* Templates Quick Start */}
-      {!showTemplates ? (
-        <div 
-          onClick={() => setShowTemplates(true)}
-          style={{ 
-            backgroundColor: '#f0f9ff', border: '1px dashed #7dd3fc', borderRadius: '16px', 
-            padding: '1.5rem', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', 
-            alignItems: 'center', marginBottom: '2rem', transition: 'all 0.2s' 
-          }}
-        >
-          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-            <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#e0f2fe', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Briefcase color="#0369a1" />
-            </div>
-            <div>
-              <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#0369a1' }}>從標準模板快速新增 Quick Templates</h3>
-              <p style={{ fontSize: '0.85rem', color: '#0369a1', opacity: 0.8 }}>一鍵添加專業會計、修理等標準服務內容與預設價格。</p>
-            </div>
-          </div>
-          <ChevronRight color="#0369a1" />
-        </div>
-      ) : (
-        <div className="glass-panel animate-scale-in" style={{ padding: '1.5rem', borderRadius: '24px', marginBottom: '2rem' }}>
-           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 800 }}>選擇服務模板 Select Template</h3>
-              <button onClick={() => setShowTemplates(false)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><X size={20} /></button>
-           </div>
-           
-           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1rem' }}>
-              {SERVICE_TEMPLATES.map(t => (
-                <div key={t.id} style={{ padding: '1rem', border: '1px solid var(--border-color)', borderRadius: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div>
-                    <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--accent-color)', textTransform: 'uppercase' }}>{t.category}</div>
-                    <div style={{ fontWeight: 800, fontSize: '0.95rem' }}>{t.name}</div>
-                    <div style={{ fontSize: '0.8rem', opacity: 0.7 }}>建議價: £{t.defaultPrice}</div>
-                  </div>
-                  <button 
-                    onClick={() => handleAddFromTemplate(t)}
-                    style={{ background: 'none', border: 'none', color: 'var(--accent-color)', cursor: 'pointer' }}
-                  >
-                    <PlusCircle size={24} />
-                  </button>
-                </div>
-              ))}
-           </div>
-        </div>
-      )}
-
       {/* Active Services List */}
-      <section style={{ display: 'grid', gap: '1.25rem' }}>
+      <section style={{ display: 'grid', gap: '1.5rem' }}>
         {services.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '4rem', opacity: 0.5 }}>
-            <Tag size={48} style={{ margin: '0 auto 1rem' }} />
-            <p>目前尚未建立任何服務內容。</p>
+          <div style={{ textAlign: 'center', padding: '5rem', opacity: 0.3 }}>
+            <Tag size={64} style={{ margin: '0 auto 1.5rem' }} />
+            <p style={{ fontSize: '1.1rem' }}>目前尚未建立任何服務內容。</p>
           </div>
         ) : (
           services.map(s => (
-            <div key={s.id} className="glass-panel" style={{ padding: '1.25rem', borderRadius: '20px', display: 'grid', gridTemplateColumns: '1fr 150px 100px', alignItems: 'center', gap: '1.5rem' }}>
+            <div key={s.id} className="glass-panel" style={{ padding: '1.5rem 2rem', borderRadius: '28px', backgroundColor: 'rgba(12, 12, 12, 0.5)', border: '1px solid rgba(212, 175, 55, 0.1)', display: 'grid', gridTemplateColumns: '1fr 150px 100px', alignItems: 'center', gap: '2rem' }}>
               <div>
-                <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginBottom: '0.25rem' }}>
-                   <span style={{ fontSize: '0.7rem', fontWeight: 800, backgroundColor: 'var(--bg-secondary)', padding: '2px 8px', borderRadius: '4px', textTransform: 'uppercase' }}>{s.category}</span>
-                   <h3 style={{ fontWeight: 800, fontSize: '1.1rem' }}>{s.name}</h3>
+                <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', marginBottom: '0.5rem' }}>
+                   <span style={{ fontSize: '0.7rem', fontWeight: 900, backgroundColor: 'rgba(212, 175, 55, 0.1)', color: '#d4af37', padding: '3px 10px', borderRadius: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{s.category}</span>
+                   <h3 style={{ fontWeight: 800, fontSize: '1.25rem', color: '#fff' }}>{s.name}</h3>
                 </div>
-                <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>{s.description}</p>
+                <p style={{ fontSize: '0.9rem', color: '#888', lineHeight: 1.5 }}>{s.description}</p>
               </div>
               
               <div style={{ textAlign: 'right' }}>
-                 <div style={{ fontSize: '1.4rem', fontWeight: 900, color: 'var(--accent-color)' }}>£{s.price}</div>
-                 <div style={{ fontSize: '0.75rem', opacity: 0.5 }}>Base Price</div>
+                 <div style={{ fontSize: '2rem', fontWeight: 900, color: '#fff' }}>£{s.price}</div>
+                 <div style={{ fontSize: '0.75rem', color: '#d4af37', fontWeight: 700, opacity: 0.6 }}>Base Payout</div>
               </div>
 
-              <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+              <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
                  <button 
                    onClick={() => { 
                      setEditingService(s); 
@@ -183,13 +162,13 @@ export default function MerchantServicesPage() {
                      }); 
                      setShowAddModal(true); 
                    }}
-                   style={{ padding: '0.5rem', borderRadius: '10px', border: '1px solid var(--border-color)', backgroundColor: 'white', cursor: 'pointer' }}
+                   style={{ padding: '0.6rem', borderRadius: '12px', border: '1px solid #222', backgroundColor: '#111', color: '#fff', cursor: 'pointer' }}
                  >
                    <Edit3 size={18} />
                  </button>
                  <button 
                    onClick={() => handleDelete(s.id)}
-                   style={{ padding: '0.5rem', borderRadius: '10px', border: '1px solid var(--border-color)', backgroundColor: '#fef2f2', color: '#ef4444', cursor: 'pointer' }}
+                   style={{ padding: '0.6rem', borderRadius: '12px', border: '1px solid rgba(239, 68, 68, 0.2)', backgroundColor: 'rgba(239, 68, 68, 0.05)', color: '#ef4444', cursor: 'pointer' }}
                  >
                    <Trash2 size={18} />
                  </button>
@@ -199,66 +178,122 @@ export default function MerchantServicesPage() {
         )}
       </section>
 
-      {/* Upsert Modal */}
+      {/* Upsert Modal - Improved Full-Height Side Panel */}
       {showAddModal && (
-        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, backdropFilter: 'blur(4px)' }}>
-          <div className="glass-panel" style={{ width: '100%', maxWidth: '450px', padding: '2rem', borderRadius: '24px', backgroundColor: 'white' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 800 }}>{editingService ? '編輯服務 Edit' : '手動新增服務 Manual Add'}</h3>
-              <button onClick={() => setShowAddModal(false)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><X /></button>
+        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(15px)', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', zIndex: 1000 }}>
+          <div className="animate-slide-in" style={{ width: '100%', maxWidth: '550px', height: '100%', padding: '3.5rem', borderRadius: '0', backgroundColor: '#050505', borderLeft: '1px solid rgba(212, 175, 55, 0.2)', display: 'flex', flexDirection: 'column', boxShadow: '-20px 0 60px rgba(0,0,0,0.8)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3.5rem' }}>
+              <div>
+                <h3 style={{ fontSize: '2rem', fontWeight: 900, color: '#fff' }}>{editingService ? '編輯服務 Edit' : '新增專業服務'}</h3>
+                <p style={{ color: '#666', marginTop: '0.5rem' }}>設定您的服務細節，讓客戶更了解您的專業。</p>
+              </div>
+              <button 
+                onClick={() => setShowAddModal(false)} 
+                style={{ 
+                  background: 'rgba(255,255,255,0.05)', 
+                  border: '1px solid rgba(255,255,255,0.1)', 
+                  borderRadius: '50%',
+                  width: '44px',
+                  height: '44px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  color: '#fff',
+                  transition: 'all 0.2s'
+                }}
+                onMouseOver={(e) => e.currentTarget.style.borderColor = '#d4af37'}
+                onMouseOut={(e) => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}
+              >
+                <X size={24} />
+              </button>
             </div>
 
-            <form onSubmit={handleUpsert} style={{ display: 'grid', gap: '1.25rem' }}>
+            <form onSubmit={handleUpsert} style={{ display: 'grid', gap: '2rem', overflowY: 'auto', paddingRight: '0.5rem' }} className="custom-scrollbar">
               <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>服務名稱 Service Name</label>
-                <input required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', border: '1px solid var(--border-color)' }} />
+                <label style={premiumLabelStyle}>服務名稱 (Service Name)</label>
+                <input 
+                  required 
+                  placeholder="例如：緊急水管維修"
+                  value={formData.name} 
+                  onChange={e => setFormData({...formData, name: e.target.value})} 
+                  style={premiumInputStyle} 
+                  onFocus={(e) => { e.currentTarget.style.borderColor = '#d4af37'; e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.05)'; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.15)'; e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)'; }}
+                />
               </div>
-              <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>類別 Category</label>
-                <select value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})} style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
-                  <option value="Accounting">Accounting & Tax</option>
-                  <option value="Plumbing">Plumbing</option>
-                  <option value="Cleaning">Cleaning</option>
-                  <option value="Education">Education & Tutoring</option>
-                  <option value="Technology">Technology & AI</option>
-                  <option value="Legal">Legal Services</option>
-                </select>
+              
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+                <div>
+                  <label style={premiumLabelStyle}>服務類別 (Category)</label>
+                  <select 
+                    value={formData.category} 
+                    onChange={e => setFormData({...formData, category: e.target.value})} 
+                    style={{ ...premiumInputStyle, appearance: 'none' }}
+                    onFocus={(e) => { e.currentTarget.style.borderColor = '#d4af37'; e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.05)'; }}
+                    onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.15)'; e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)'; }}
+                  >
+                    <option value="Accounting">Accounting & Tax</option>
+                    <option value="Plumbing">Plumbing</option>
+                    <option value="Cleaning">Cleaning</option>
+                    <option value="Education">Education & Tutoring</option>
+                    <option value="Technology">Technology & AI</option>
+                    <option value="Legal">Legal Services</option>
+                    <option value="Electrical">Electrical</option>
+                  </select>
+                </div>
+                <div>
+                  <label style={premiumLabelStyle}>基本定價 (£/hr)</label>
+                  <div style={{ position: 'relative' }}>
+                    <span style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', fontWeight: 900, color: '#d4af37' }}>£</span>
+                    <input 
+                      required 
+                      type="number" 
+                      step="0.01"
+                      value={formData.price} 
+                      onChange={e => setFormData({...formData, price: parseFloat(e.target.value)})} 
+                      style={{ ...premiumInputStyle, paddingLeft: '2.2rem' }} 
+                      onFocus={(e) => { e.currentTarget.style.borderColor = '#d4af37'; e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.05)'; }}
+                      onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.15)'; e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)'; }}
+                    />
+                  </div>
+                </div>
               </div>
 
               {formData.category === 'Education' && (
-                <div className="animate-fade-in" style={{ padding: '1rem', backgroundColor: 'var(--bg-secondary)', borderRadius: '16px', border: '1px solid var(--border-color)' }}>
-                  <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginBottom: '0.75rem', color: 'var(--accent-color)' }}>
-                    <GraduationCap size={18} />
-                    <span style={{ fontSize: '0.85rem', fontWeight: 800 }}>專業教育賽道標籤 Specialized Tracks</span>
+                <div className="animate-fade-in" style={{ padding: '1.5rem', backgroundColor: 'rgba(212,175,55,0.03)', borderRadius: '20px', border: '1px solid rgba(212,175,55,0.1)' }}>
+                  <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center', marginBottom: '1rem', color: '#d4af37' }}>
+                    <GraduationCap size={20} />
+                    <span style={{ fontSize: '0.9rem', fontWeight: 900 }}>專家教育賽道 Specialized Tracks</span>
                   </div>
-                  
-                  <div style={{ marginBottom: '1rem' }}>
-                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, marginBottom: '0.4rem', color: 'var(--text-secondary)' }}>專攻學科/技能 (e.g. Maths, AI, ADHD Support)</label>
-                    <input 
-                      required={formData.category === 'Education'}
-                      value={formData.subjects} 
-                      onChange={e => setFormData({...formData, subjects: e.target.value})} 
-                      placeholder="關鍵字會影響搜尋排名..."
-                      style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid var(--border-color)', fontSize: '0.9rem' }} 
-                    />
-                  </div>
-
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                    提示：建議在名稱或學科中包含 <strong>STEM</strong>, <strong>SEN</strong>, 或 <strong>Academic</strong> 等關鍵字。
-                  </div>
+                  <input 
+                    required={formData.category === 'Education'}
+                    value={formData.subjects} 
+                    onChange={e => setFormData({...formData, subjects: e.target.value})} 
+                    placeholder="專攻學科 (例如: GCSE Maths, AI Prep)"
+                    style={premiumInputStyle} 
+                  />
                 </div>
               )}
+
               <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>服務價格 Price (£)</label>
-                <input required type="number" value={formData.price} onChange={e => setFormData({...formData, price: parseFloat(e.target.value)})} style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', border: '1px solid var(--border-color)' }} />
-              </div>
-              <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>描述 Description</label>
-                <textarea value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', border: '1px solid var(--border-color)', height: '100px', resize: 'none' }} />
+                <label style={premiumLabelStyle}>詳細描述 (Description)</label>
+                <textarea 
+                  value={formData.description} 
+                  onChange={e => setFormData({...formData, description: e.target.value})} 
+                  placeholder="請簡單說明服務包含的內容..."
+                  style={{ ...premiumInputStyle, height: '140px', resize: 'none' }} 
+                  onFocus={(e) => { e.currentTarget.style.borderColor = '#d4af37'; e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.05)'; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.15)'; e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)'; }}
+                />
               </div>
               
-              <button type="submit" className="btn btn-primary" style={{ padding: '1rem', marginTop: '0.5rem' }}>
-                 儲存變更 Save Changes
+              <button 
+                type="submit" 
+                className="btn btn-primary" 
+                style={{ padding: '1.25rem', marginTop: '1rem', fontSize: '1.1rem', boxShadow: '0 10px 40px rgba(212,175,55,0.2)' }}
+              >
+                 {editingService ? '保存並更新 Save Changes' : '立即發布服務項目 Publish'}
               </button>
             </form>
           </div>
@@ -267,3 +302,5 @@ export default function MerchantServicesPage() {
     </div>
   );
 }
+
+import { Loader2 } from 'lucide-react';

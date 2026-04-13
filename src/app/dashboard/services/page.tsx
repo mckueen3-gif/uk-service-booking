@@ -6,7 +6,7 @@ import {
   Sparkles, TrendingUp, Info, 
   Loader2, CheckCircle2, AlertCircle,
   Wrench, ScrollText, DollarSign,
-  Briefcase
+  Briefcase, X, ChevronRight, MapPin
 } from 'lucide-react';
 import { getMerchantServices, upsertService, deleteService } from "@/app/actions/services";
 import { getPricingBenchmark } from "@/app/actions/pricing-ai";
@@ -94,160 +94,286 @@ export default function ServicesPage() {
     setFetchingAi(false);
   }
 
+  const premiumInputStyle = {
+    width: '100%',
+    padding: '0.875rem 1.25rem',
+    borderRadius: '16px',
+    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    border: '1px solid rgba(212, 175, 55, 0.15)',
+    color: '#fff',
+    fontSize: '0.95rem',
+    fontWeight: 500,
+    outline: 'none',
+    transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+  };
+
+  const premiumLabelStyle = {
+    display: 'block',
+    fontSize: '0.75rem',
+    fontWeight: 800,
+    color: '#666',
+    textTransform: 'uppercase' as const,
+    letterSpacing: '0.05em',
+    marginBottom: '0.6rem',
+    marginLeft: '0.4rem'
+  };
+
   if (loading) return (
-    <div style={{ display: 'flex', justifyContent: 'center', padding: '4rem' }}>
-      <Loader2 className="animate-spin" size={48} color="var(--accent-color)" />
+    <div style={{ display: 'flex', justifyContent: 'center', padding: '10rem' }}>
+      <Loader2 className="animate-spin" size={48} color="#d4af37" />
     </div>
   );
 
   return (
-    <div className="animate-fade-in">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
+    <div className="animate-fade-in" style={{ paddingBottom: '5rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
         <div>
-           <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-primary)' }}>服務項目管理 (Services)</h1>
-           <p style={{ color: 'var(--text-secondary)' }}>設定您提供的服務內容、計費標準與 AI 定價參考</p>
+           <h1 style={{ fontSize: '2.5rem', fontWeight: 900, color: '#fff', letterSpacing: '-0.02em' }}>
+             服務管理 <span style={{ color: '#d4af37' }}>Catalog</span>
+           </h1>
+           <p style={{ color: '#666', fontSize: '1.1rem' }}>在此定義您提供的服務、定價與 AI 行情對比。</p>
         </div>
-        <button className="btn btn-primary" onClick={openNew} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-           <Plus size={18} /> 新增服務項目
+        <button className="btn btn-primary" onClick={openNew} style={{ padding: '1rem 2.5rem', fontSize: '1rem' }}>
+           <Plus size={20} /> 新增服務項目
         </button>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.5rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '2rem' }}>
          {services.map(s => (
-           <div key={s.id} className="glass-panel" style={{ padding: '1.5rem', borderRadius: '24px', display: 'flex', flexDirection: 'column' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                 <div style={{ padding: '0.5rem', borderRadius: '12px', backgroundColor: 'rgba(99, 102, 241, 0.1)', color: 'var(--accent-color)' }}>
-                    <Briefcase size={20} />
+           <div key={s.id} className="glass-panel hover-lift" style={{ 
+             padding: '2rem', 
+             borderRadius: '32px', 
+             display: 'flex', 
+             flexDirection: 'column',
+             backgroundColor: 'rgba(12, 12, 12, 0.6)',
+             border: '1px solid rgba(212, 175, 55, 0.1)'
+           }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
+                 <div style={{ 
+                   padding: '0.75rem', 
+                   borderRadius: '16px', 
+                   backgroundColor: 'rgba(212, 175, 55, 0.05)', 
+                   color: '#d4af37',
+                   border: '1px solid rgba(212, 175, 55, 0.2)'
+                 }}>
+                    <Briefcase size={22} />
                  </div>
-                 <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    <button onClick={() => openEdit(s)} className="hover-bright" style={{ color: 'var(--text-secondary)', padding: '0.25rem' }}><Edit2 size={16} /></button>
-                    <button onClick={() => handleDelete(s.id)} className="hover-bright" style={{ color: '#ef4444', padding: '0.25rem' }}><Trash2 size={16} /></button>
+                 <div style={{ display: 'flex', gap: '0.6rem' }}>
+                    <button onClick={() => openEdit(s)} className="haptic-press" style={{ color: '#666', backgroundColor: '#111', padding: '0.5rem', borderRadius: '10px', border: '1px solid #222' }}><Edit2 size={16} /></button>
+                    <button onClick={() => handleDelete(s.id)} className="haptic-press" style={{ color: '#ef4444', backgroundColor: 'rgba(239, 68, 68, 0.05)', padding: '0.5rem', borderRadius: '10px', border: '1px solid rgba(239, 68, 68, 0.2)' }}><Trash2 size={16} /></button>
                  </div>
               </div>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '0.25rem' }}>{s.name}</h3>
-              <p style={{ fontSize: '0.75rem', color: 'var(--accent-color)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.75rem' }}>{s.category}</p>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', flex: 1, marginBottom: '1.5rem', lineHeight: 1.5 }}>{s.description || "暫無描述"}</p>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-                 <div style={{ fontSize: '1.25rem', fontWeight: 800 }}>£{s.price.toFixed(2)}</div>
-                 <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>/ 小時起</div>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 900, marginBottom: '0.4rem', color: '#fff' }}>{s.name}</h3>
+              <p style={{ fontSize: '0.75rem', color: '#d4af37', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem', opacity: 0.8 }}>{s.category}</p>
+              <p style={{ fontSize: '0.9rem', color: '#999', flex: 1, marginBottom: '2rem', lineHeight: 1.6 }}>{s.description || "尚未添加詳細描述..."}</p>
+              
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '1.5rem', borderTop: '1px solid rgba(212, 175, 55, 0.1)' }}>
+                 <div>
+                    <span style={{ fontSize: '0.75rem', color: '#555', fontWeight: 700, display: 'block' }}>BASE PRICE</span>
+                    <div style={{ fontSize: '1.75rem', fontWeight: 900, color: '#fff' }}>£{s.price.toFixed(2)}</div>
+                 </div>
+                 <div style={{ fontSize: '0.85rem', color: '#d4af37', fontWeight: 700, backgroundColor: 'rgba(212, 175, 55, 0.05)', padding: '0.4rem 0.8rem', borderRadius: '8px' }}>
+                    Per Hour
+                 </div>
               </div>
            </div>
          ))}
       </div>
 
       {modalOpen && (
-        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(8px)', zIndex: 1000, display: 'flex', justifyContent: 'flex-end' }}>
-           <div className="glass-panel animate-slide-in" style={{ width: '100%', maxWidth: '500px', height: '100%', borderRadius: 0, padding: '2.5rem', display: 'flex', flexDirection: 'column' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2rem' }}>
-                 <h2 style={{ fontSize: '1.5rem', fontWeight: 800 }}>{currentService ? "編輯服務" : "新增服務"}</h2>
-                 <button onClick={() => setModalOpen(false)} style={{ color: 'var(--text-secondary)' }}>Close</button>
+        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(20px)', zIndex: 1000, display: 'flex', justifyContent: 'flex-end' }}>
+           <div className="animate-slide-in" style={{ 
+             width: '100%', 
+             maxWidth: '550px', 
+             height: '100%', 
+             backgroundColor: '#0a0a0a',
+             borderLeft: '1px solid rgba(212, 175, 55, 0.2)',
+             padding: '3rem', 
+             display: 'flex', 
+             flexDirection: 'column',
+             boxShadow: '-20px 0 50px rgba(0,0,0,0.5)'
+           }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
+                 <div>
+                   <h2 style={{ fontSize: '1.75rem', fontWeight: 900, color: '#fff' }}>{currentService ? "編輯服務項目" : "新增服務項目"}</h2>
+                   <p style={{ color: '#666', fontSize: '0.9rem' }}>{currentService ? "更新您的專業服務細節" : "開始在平台上提供您的專業技能"}</p>
+                 </div>
+                 <button 
+                   onClick={() => setModalOpen(false)} 
+                   style={{ 
+                     color: '#fff', 
+                     backgroundColor: '#1a1a1a', 
+                     border: '1px solid #333', 
+                     width: '40px', 
+                     height: '40px', 
+                     borderRadius: '50%', 
+                     display: 'flex', 
+                     alignItems: 'center', 
+                     justifyContent: 'center',
+                     cursor: 'pointer',
+                     transition: 'all 0.2s'
+                   }}
+                   onMouseOver={(e) => e.currentTarget.style.borderColor = '#d4af37'}
+                   onMouseOut={(e) => e.currentTarget.style.borderColor = '#333'}
+                 >
+                   <X size={20} />
+                 </button>
               </div>
 
-              <form onSubmit={handleSubmit} style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              <form onSubmit={handleSubmit} style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1.75rem', overflowY: 'auto', paddingRight: '0.5rem' }} className="custom-scrollbar">
                  <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.5rem' }}>服務名稱</label>
+                    <label style={premiumLabelStyle}>服務名稱 (Service Name)</label>
                     <input 
                       required
-                      className="input-field" 
-                      placeholder="例如：緊急鍋爐維修" 
+                      placeholder="例如：緊急鍋爐維修 / 進階稅務審計" 
                       value={formData.name}
                       onChange={e => setFormData({...formData, name: e.target.value})}
+                      style={premiumInputStyle}
+                      onFocus={(e) => { e.currentTarget.style.borderColor = '#d4af37'; e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.05)'; }}
+                      onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.15)'; e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)'; }}
                     />
                  </div>
 
-                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
                     <div>
-                       <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.5rem' }}>類別</label>
+                       <label style={premiumLabelStyle}>服務類別 (Category)</label>
                        <select 
-                         className="input-field"
                          value={formData.category}
                          onChange={e => setFormData({...formData, category: e.target.value})}
+                         style={{ ...premiumInputStyle, appearance: 'none' }}
+                         onFocus={(e) => { e.currentTarget.style.borderColor = '#d4af37'; e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.05)'; }}
+                         onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.15)'; e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)'; }}
                        >
-                          <option>Plumbing</option>
-                          <option>Renovation</option>
-                          <option>Electrical</option>
-                          <option>Gardening</option>
-                          <option>Cleaning</option>
+                          <option value="Plumbing">Plumbing</option>
+                          <option value="Renovation">Renovation</option>
+                          <option value="Electrical">Electrical</option>
+                          <option value="Gardening">Gardening</option>
+                          <option value="Cleaning">Cleaning</option>
+                          <option value="Accounting">Accounting & Tax</option>
+                          <option value="Education">Education</option>
                        </select>
                     </div>
                     <div>
-                       <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.5rem' }}>基本定價 (GBP)</label>
-                       <input 
-                         required
-                         type="number"
-                         className="input-field" 
-                         value={formData.price}
-                         onChange={e => setFormData({...formData, price: parseFloat(e.target.value)})}
-                       />
+                       <label style={premiumLabelStyle}>基本定價 (£ / Hour)</label>
+                       <div style={{ position: 'relative' }}>
+                         <input 
+                           required
+                           type="number"
+                           step="0.01"
+                           value={formData.price}
+                           onChange={e => setFormData({...formData, price: parseFloat(e.target.value)})}
+                           style={{ ...premiumInputStyle, paddingLeft: '2rem' }}
+                           onFocus={(e) => { e.currentTarget.style.borderColor = '#d4af37'; e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.05)'; }}
+                           onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.15)'; e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)'; }}
+                         />
+                         <span style={{ position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)', fontWeight: 900, color: '#d4af37' }}>£</span>
+                       </div>
                     </div>
                  </div>
 
-                 {/* AI Pricing Assistant Section */}
-                 <div style={{ padding: '1.25rem', borderRadius: '16px', backgroundColor: 'rgba(99, 102, 241, 0.05)', border: '1px solid rgba(99, 102, 241, 0.2)' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--accent-color)', fontWeight: 800, fontSize: '0.85rem' }}>
-                          <Sparkles size={16} /> AI 價格行情參考
-                       </div>
+                 {/* AI Pricing Assistant Section - Premium "Neural" Design */}
+                 <div style={{ 
+                   padding: '2rem', 
+                   borderRadius: '24px', 
+                   backgroundColor: 'rgba(212, 175, 55, 0.03)', 
+                   border: '1px solid rgba(212, 175, 55, 0.2)',
+                   position: 'relative',
+                   overflow: 'hidden'
+                 }}>
+                    <div style={{ position: 'absolute', top: '-20px', right: '-20px', opacity: 0.05 }}>
+                       <Sparkles size={100} color="#d4af37" />
                     </div>
 
-                    <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
-                       <input 
-                         className="input-field"
-                         placeholder="輸入地區 (如: London, Manchester)" 
-                         style={{ fontSize: '0.75rem', padding: '0.4rem 0.75rem' }}
-                         value={formData.compareCity}
-                         onChange={e => setFormData({...formData, compareCity: e.target.value})}
-                       />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#d4af37', fontWeight: 900, fontSize: '0.9rem', marginBottom: '1.25rem' }}>
+                       <Sparkles size={18} /> Concierge AI <span style={{ color: '#fff', opacity: 0.5 }}>Market Insights</span>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1.5rem' }}>
+                       <div style={{ position: 'relative', flex: 1 }}>
+                         <MapPin size={14} style={{ position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)', color: '#d4af37' }} />
+                         <input 
+                           placeholder="輸入地區 (如: London, Manchester)" 
+                           style={{ ...premiumInputStyle, fontSize: '0.85rem', padding: '0.6rem 1rem 0.6rem 2.2rem', borderRadius: '12px' }}
+                           value={formData.compareCity}
+                           onChange={e => setFormData({...formData, compareCity: e.target.value})}
+                         />
+                       </div>
                        <button 
                          type="button"
                          onClick={handleAiPricing}
                          disabled={fetchingAi}
-                         className="btn btn-primary"
-                         style={{ fontSize: '0.75rem', padding: '0.4rem 1rem', whiteSpace: 'nowrap' }}
+                         style={{ 
+                           backgroundColor: '#d4af37', 
+                           color: '#000', 
+                           border: 'none', 
+                           padding: '0 1.5rem', 
+                           borderRadius: '12px', 
+                           fontWeight: 900, 
+                           fontSize: '0.85rem',
+                           cursor: 'pointer',
+                           display: 'flex',
+                           alignItems: 'center',
+                           gap: '0.5rem'
+                         }}
                        >
-                          {fetchingAi ? <Loader2 className="animate-spin" size={14} /> : "即時比價"}
+                          {fetchingAi ? <Loader2 className="animate-spin" size={16} /> : <><TrendingUp size={16} /> 即時分析</>}
                        </button>
                     </div>
 
                     {aiBenchmark ? (
-                      <div className="animate-fade-in">
-                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.5rem', marginBottom: '1rem' }}>
-                            <div style={{ textAlign: 'center', padding: '0.5rem', borderRadius: '8px', backgroundColor: 'rgba(16, 185, 129, 0.1)' }}>
-                               <p style={{ fontSize: '0.65rem', color: '#facc15' }}>Entry</p>
-                               <p style={{ fontWeight: 800 }}>£{aiBenchmark.low}</p>
+                      <div className="animate-fade-up">
+                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.75rem', marginBottom: '1.25rem' }}>
+                            <div style={{ textAlign: 'center', padding: '0.75rem', borderRadius: '12px', backgroundColor: 'rgba(255,255,255,0.02)', border: '1px solid #222' }}>
+                               <p style={{ fontSize: '0.65rem', color: '#666', fontWeight: 800, textTransform: 'uppercase' }}>Entry</p>
+                               <p style={{ fontWeight: 900, color: '#fff', fontSize: '1.1rem' }}>£{aiBenchmark.low}</p>
                             </div>
-                            <div style={{ textAlign: 'center', padding: '0.5rem', borderRadius: '8px', backgroundColor: 'rgba(99, 102, 241, 0.1)', border: '1px solid var(--accent-color)' }}>
-                               <p style={{ fontSize: '0.65rem', color: 'var(--accent-color)' }}>Average</p>
-                               <p style={{ fontWeight: 800 }}>£{aiBenchmark.average}</p>
+                            <div style={{ textAlign: 'center', padding: '0.75rem', borderRadius: '12px', backgroundColor: 'rgba(212, 175, 55, 0.05)', border: '1px solid rgba(212, 175, 55, 0.3)' }}>
+                               <p style={{ fontSize: '0.65rem', color: '#d4af37', fontWeight: 800, textTransform: 'uppercase' }}>Average</p>
+                               <p style={{ fontWeight: 900, color: '#d4af37', fontSize: '1.25rem' }}>£{aiBenchmark.average}</p>
                             </div>
-                            <div style={{ textAlign: 'center', padding: '0.5rem', borderRadius: '8px', backgroundColor: 'rgba(245, 158, 11, 0.1)' }}>
-                               <p style={{ fontSize: '0.65rem', color: '#f59e0b' }}>Premium</p>
-                               <p style={{ fontWeight: 800 }}>£{aiBenchmark.high}</p>
+                            <div style={{ textAlign: 'center', padding: '0.75rem', borderRadius: '12px', backgroundColor: 'rgba(255,255,255,0.02)', border: '1px solid #222' }}>
+                               <p style={{ fontSize: '0.65rem', color: '#666', fontWeight: 800, textTransform: 'uppercase' }}>Premium</p>
+                               <p style={{ fontWeight: 900, color: '#fff', fontSize: '1.1rem' }}>£{aiBenchmark.high}</p>
                             </div>
                          </div>
-                         <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontStyle: 'italic' }}>
-                            <Info size={12} style={{ display: 'inline', marginBottom: '2px' }} /> {aiBenchmark.insight}
-                         </p>
+                         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start', padding: '1rem', borderRadius: '12px', backgroundColor: '#111', border: '1px solid #222' }}>
+                            <Info size={16} color="#d4af37" style={{ marginTop: '2px' }} />
+                            <p style={{ fontSize: '0.8rem', color: '#999', lineHeight: 1.5 }}>
+                               {aiBenchmark.insight}
+                            </p>
+                         </div>
                       </div>
                     ) : (
-                      <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>點擊「即時比價」來獲取當前倫敦市場的收費基準。</p>
+                      <p style={{ fontSize: '0.8rem', color: '#666', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                        <Info size={14} /> 點擊「即時分析」獲取倫敦市場最新的服務收費大數據基準。
+                      </p>
                     )}
                  </div>
 
                  <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.5rem' }}>詳細描述</label>
+                    <label style={premiumLabelStyle}>詳細描述 (Description)</label>
                     <textarea 
-                      rows={4}
-                      className="input-field" 
-                      placeholder="簡要說明服務內容與包含的項目..." 
-                      style={{ resize: 'none' }}
+                      rows={5}
+                      placeholder="簡要說明您的服務優勢、包含的工具與特殊資歷..." 
+                      style={{ ...premiumInputStyle, resize: 'none' }}
                       value={formData.description}
                       onChange={e => setFormData({...formData, description: e.target.value})}
+                      onFocus={(e) => { e.currentTarget.style.borderColor = '#d4af37'; e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.05)'; }}
+                      onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.15)'; e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)'; }}
                     />
                  </div>
 
-                 <button type="submit" className="btn btn-primary" style={{ marginTop: 'auto', padding: '1rem' }}>
-                    {currentService ? "保存變更" : "立即發布"}
+                 <button 
+                  type="submit" 
+                  className="btn btn-primary" 
+                  style={{ 
+                    marginTop: '1rem', 
+                    padding: '1.25rem', 
+                    fontSize: '1.1rem',
+                    boxShadow: '0 10px 30px rgba(212, 175, 55, 0.2)'
+                  }}
+                 >
+                    {currentService ? <><CheckCircle2 size={20} /> 保存變更 (Update)</> : <><Plus size={20} /> 立即發布 (Publish Now)</>}
                  </button>
               </form>
            </div>

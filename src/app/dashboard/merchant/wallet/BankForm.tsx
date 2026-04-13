@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { updateBankDetails } from '@/app/actions/finance';
-import { Loader2, Landmark, CheckCircle2 } from 'lucide-react';
+import { Loader2, Landmark, CheckCircle2, ShieldCheck, CreditCard } from 'lucide-react';
 
 interface BankFormProps {
   initialSortCode?: string;
@@ -29,54 +29,132 @@ export default function BankForm({ initialSortCode = "", initialAccountNumber = 
     }
   };
 
+  const inputStyle = {
+    width: '100%',
+    padding: '0.875rem 1rem',
+    borderRadius: '14px',
+    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    border: '1px solid rgba(212, 175, 55, 0.15)',
+    color: '#fff',
+    fontSize: '1rem',
+    fontWeight: 500,
+    outline: 'none',
+    transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+    fontFamily: 'monospace',
+    letterSpacing: '1px'
+  };
+
+  const labelStyle = {
+    fontSize: '0.7rem',
+    fontWeight: 800,
+    color: '#666',
+    textTransform: 'uppercase' as const,
+    letterSpacing: '0.1em',
+    marginBottom: '0.5rem',
+    display: 'block'
+  };
+
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1rem' }}>
-      <h3 style={{ fontSize: '1rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-        <Landmark size={18} /> 指定銀行帳戶 (UK Bank Account)
-      </h3>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '0.75rem' }}>
-        <div style={{ display: 'grid', gap: '0.4rem' }}>
-          <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748b' }}>SORT CODE</label>
-          <input 
-            type="text" 
-            placeholder="00-00-00" 
-            value={sortCode}
-            onChange={(e) => setSortCode(e.target.value)}
-            style={{ padding: '0.75rem', borderRadius: '10px', border: '1px solid #e2e8f0', fontSize: '0.9rem', fontWeight: 600 }}
-          />
+    <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1.5rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+        <h3 style={{ fontSize: '1.1rem', fontWeight: 900, display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#fff' }}>
+          <Landmark size={20} color="#d4af37" /> 銀行詳細資訊 <span style={{ color: '#d4af37', opacity: 0.5, fontSize: '0.8rem' }}>Banking</span>
+        </h3>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.7rem', color: '#666', fontWeight: 700, textTransform: 'uppercase' }}>
+          <ShieldCheck size={14} color="#059669" /> Encrypted
         </div>
-        <div style={{ display: 'grid', gap: '0.4rem' }}>
-          <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748b' }}>ACCOUNT NUMBER</label>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+        <div style={{ gridColumn: 'span 1' }}>
+          <label style={labelStyle}>Sort Code (6 位數)</label>
+          <div style={{ position: 'relative' }}>
+            <input 
+              type="text" 
+              placeholder="XX-XX-XX" 
+              value={sortCode}
+              onChange={(e) => setSortCode(e.target.value)}
+              style={inputStyle}
+              onFocus={(e) => {
+                e.currentTarget.style.borderColor = '#d4af37';
+                e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.05)';
+                e.currentTarget.style.boxShadow = '0 0 0 4px rgba(212, 175, 55, 0.1)';
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.15)';
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            />
+          </div>
+        </div>
+        <div style={{ gridColumn: 'span 1' }}>
+          <label style={labelStyle}>Account Number (8 位數)</label>
           <input 
             type="text" 
-            placeholder="12345678" 
+            placeholder="XXXXXXXX" 
             value={accountNumber}
             onChange={(e) => setAccountNumber(e.target.value)}
-            style={{ padding: '0.75rem', borderRadius: '10px', border: '1px solid #e2e8f0', fontSize: '0.9rem', fontWeight: 600 }}
+            style={inputStyle}
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = '#d4af37';
+              e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.05)';
+              e.currentTarget.style.boxShadow = '0 0 0 4px rgba(212, 175, 55, 0.1)';
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.15)';
+              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
           />
         </div>
       </div>
       
+      <p style={{ fontSize: '0.75rem', color: '#555', marginTop: '-0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+        <Info size={14} /> 您的資訊經過加密儲存，僅供撥款使用。
+      </p>
+
       <button 
         type="submit" 
         disabled={loading}
         style={{ 
-          backgroundColor: saved ? '#facc15' : 'var(--text-primary)', 
-          color: 'white', 
-          border: 'none', 
-          padding: '0.75rem', 
-          borderRadius: '10px', 
-          fontWeight: 700, 
+          backgroundColor: saved ? 'rgba(5, 150, 105, 0.1)' : 'transparent', 
+          color: saved ? '#10b981' : '#d4af37', 
+          border: `1px solid ${saved ? '#10b981' : '#d4af37'}`, 
+          padding: '0.875rem', 
+          borderRadius: '14px', 
+          fontWeight: 900, 
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '0.5rem',
-          transition: 'all 0.3s'
+          gap: '0.6rem',
+          transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+          fontSize: '0.95rem',
+          textTransform: 'uppercase',
+          letterSpacing: '0.05em'
+        }}
+        onMouseOver={(e) => {
+          if (!saved) {
+            e.currentTarget.style.backgroundColor = '#d4af37';
+            e.currentTarget.style.color = '#000';
+            e.currentTarget.style.transform = 'translateY(-2px)';
+            e.currentTarget.style.boxShadow = '0 8px 20px rgba(212, 175, 55, 0.25)';
+          }
+        }}
+        onMouseOut={(e) => {
+          if (!saved) {
+            e.currentTarget.style.backgroundColor = 'transparent';
+            e.currentTarget.style.color = '#d4af37';
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = 'none';
+          }
         }}
       >
-        {loading ? <Loader2 size={18} className="animate-spin" /> : saved ? <><CheckCircle2 size={18} /> 已儲存</> : "儲存銀行資訊"}
+        {loading ? <Loader2 size={20} className="animate-spin" /> : saved ? <><CheckCircle2 size={20} /> 更新成功 SAVED</> : "更新銀行資訊"}
       </button>
     </form>
   );
 }
+
+import { Info } from 'lucide-react';
