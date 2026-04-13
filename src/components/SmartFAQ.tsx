@@ -50,7 +50,7 @@ export default function SmartFAQ() {
 
       {/* Questions */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        {faqs[activeCategory].map((faq, idx) => (
+        {(faqs[activeCategory] as any[]).map((faq: any, idx: number) => (
           <div key={idx} style={{ padding: '1.5rem 2rem', backgroundColor: '#f8fafc', borderRadius: '1.5rem', border: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', transition: 'all 0.2s', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
               <div style={{ padding: '0.5rem', backgroundColor: '#ffffff', borderRadius: '0.75rem', color: '#2563eb' }}>

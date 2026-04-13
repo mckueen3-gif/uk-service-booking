@@ -73,7 +73,7 @@ export default function SectorSelector({ onSelect, selectedSector }: SectorSelec
               </p>
               
               <div className="industry-tags">
-                {sector.industries.map((industry, idx) => (
+                {sector.industries.map((industry: string, idx: number) => (
                   <span key={idx} className="tag" style={{ border: '1px solid rgba(255,255,255,0.05)', color: '#555' }}>{industry}</span>
                 ))}
               </div>

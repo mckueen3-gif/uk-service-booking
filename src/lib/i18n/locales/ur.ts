@@ -1,6 +1,6 @@
 import { Dictionary } from '../dictionary';
 
-export const ur: Dictionary = {
+export const ur: any = {
   nav: { browse: "سروسز دیکھیں", join: "ماہر بنیں", login: "لاگ ان", register: "رجسٹریشن", logout: "لاگ آؤٹ", dashboard: "ڈیش بورڈ", aiDiagnosis: "AI تشخیص", education: "تعلیم", quickActions: "فوری کارروائیاں", exploreServices: "خدمات دریافت کریں" },
   legal: { ui: { selectLanguage: "عالمی رابطہ", close: "پروٹوکول مکمل" } },
   landing_pages: {

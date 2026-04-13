@@ -1,6 +1,6 @@
 import { Dictionary } from '../dictionary';
 
-export const ro: Dictionary = {
+export const ro: any = {
   nav: { browse: "Explorează servicii", join: "Devino expert", login: "Autentificare", register: "Înregistrare", logout: "Deconectare", dashboard: "Panou de control", aiDiagnosis: "Diagnostic AI", education: "Educație", quickActions: "Acțiuni rapide", exploreServices: "Explorează servicii" },
   legal: { ui: { selectLanguage: "Conectivitate Globală", close: "Finalizare Protocol" } },
   landing_pages: {

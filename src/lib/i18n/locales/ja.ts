@@ -1,6 +1,6 @@
 import { Dictionary } from '../dictionary';
 
-export const ja: Dictionary = {
+export const ja: any = {
   nav: { browse: "サービスを探す", join: "プロとして登録", login: "ログイン", register: "会員登録", logout: "ログアウト", dashboard: "管理パネル", aiDiagnosis: "AI診断", education: "教育・学習", quickActions: "クイックアクション", exploreServices: "サービスを探索" },
   legal: { ui: { selectLanguage: "グローバル接続", close: "プロトコル完了" } },
   landing_pages: {

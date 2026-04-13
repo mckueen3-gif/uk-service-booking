@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 
 export async function generateMetadata({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }): Promise<Metadata> {
-  const resolvedParams = await searchParams;
-  const category = resolvedParams.cat as string || "Expert";
+  const resolvedParams = await searchParams || {};
+  const category = (resolvedParams.cat as string) || "Expert";
   const location = resolvedParams.location as string || "UK";
   const query = resolvedParams.q as string || "";
 
