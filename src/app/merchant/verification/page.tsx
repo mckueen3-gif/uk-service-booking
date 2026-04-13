@@ -48,7 +48,7 @@ export default async function VerificationPage() {
                </li>
                <li style={{ display: 'flex', gap: '0.75rem' }}>
                  <div style={{ color: 'var(--accent-color)', fontWeight: 900 }}>✓</div>
-                 <div>优先出現在搜尋結果的前列。</div>
+                 <div>優先出現在搜尋結果的前列。</div>
                </li>
                <li style={{ display: 'flex', gap: '0.75rem' }}>
                  <div style={{ color: 'var(--accent-color)', fontWeight: 900 }}>✓</div>

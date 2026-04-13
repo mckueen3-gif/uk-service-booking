@@ -162,24 +162,23 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
                 style={{ 
                   width: '100%', 
                   padding: '1rem', 
-                  backgroundColor: 'rgba(255,255,255,0.05)', 
+                  backgroundColor: 'var(--bg-secondary, #f5f5f5)', 
                   border: '1px solid var(--border-color)', 
                   borderRadius: '0.75rem', 
-                  color: 'white',
+                  color: 'inherit',
                   fontSize: '0.95rem',
-                  appearance: 'none',
                   cursor: 'pointer'
                 }}
              >
-                <option value={DocumentType.BUSINESS_LICENSE} style={{ backgroundColor: '#1a1a1a' }}>營業執照 (Business License)</option>
-                <option value={DocumentType.GAS_SAFE} style={{ backgroundColor: '#1a1a1a' }}>Gas Safe 註冊證</option>
-                <option value={DocumentType.NICEIC} style={{ backgroundColor: '#1a1a1a' }}>NICEIC 電工認證</option>
-                <option value={DocumentType.SIA_LICENSE} style={{ backgroundColor: '#1a1a1a' }}>SIA 安全人員執照</option>
-                <option value={DocumentType.FOOD_HYGIENE} style={{ backgroundColor: '#1a1a1a' }}>食品衛生評級 (Food Hygiene)</option>
-                <option value={DocumentType.CQC_REG} style={{ backgroundColor: '#1a1a1a' }}>CQC 醫療護理註冊</option>
-                <option value={DocumentType.DVLA_CPC} style={{ backgroundColor: '#1a1a1a' }}>專業駕駛 CPC/DVLA</option>
-                <option value={DocumentType.DBS_CHECK} style={{ backgroundColor: '#1a1a1a' }}>DBS 無犯罪紀錄證明</option>
-                <option value={DocumentType.PUBLIC_LIABILITY} style={{ backgroundColor: '#1a1a1a' }}>公眾責任保險 (Insurance)</option>
+                <option value={DocumentType.BUSINESS_LICENSE}>營業執照 (Business License)</option>
+                <option value={DocumentType.GAS_SAFE}>Gas Safe 註冊證</option>
+                <option value={DocumentType.NICEIC}>NICEIC 電工認證</option>
+                <option value={DocumentType.SIA_LICENSE}>SIA 安全人員執照</option>
+                <option value={DocumentType.FOOD_HYGIENE}>食品衛生評級 (Food Hygiene)</option>
+                <option value={DocumentType.CQC_REG}>CQC 醫療護理註冊</option>
+                <option value={DocumentType.DVLA_CPC}>專業駕駛 CPC/DVLA</option>
+                <option value={DocumentType.DBS_CHECK}>DBS 無犯罪紀錄證明</option>
+                <option value={DocumentType.PUBLIC_LIABILITY}>公眾責任保險 (Insurance)</option>
              </select>
            </div>
 
@@ -219,7 +218,7 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
                      <Upload size={32} />
                    </div>
                    <div>
-                     <p style={{ fontWeight: 800, color: 'white', marginBottom: '0.2rem' }}>點擊或拖拽上傳</p>
+                     <p style={{ fontWeight: 800, marginBottom: '0.2rem' }}>點擊或拖拽上傳</p>
                      <p style={{ fontSize: '0.8rem' }}>支援 JPG, PNG, PDF（最大 10MB）</p>
                    </div>
                  </div>
@@ -288,7 +287,7 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
 
                    {/* File Info */}
                    <div style={{ flex: 1, minWidth: 0 }}>
-                     <p style={{ fontWeight: 800, fontSize: '0.9rem', color: 'white', marginBottom: '0.3rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                     <p style={{ fontWeight: 800, fontSize: '0.9rem', marginBottom: '0.3rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                        {selectedFile.name}
                      </p>
                      <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
