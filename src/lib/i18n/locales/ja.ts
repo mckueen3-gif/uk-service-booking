@@ -367,8 +367,7 @@ export const ja: Dictionary = {
     },
     visitDashboard: "教育ハブを探索する"
   }, 
-  home: {
-    hero: { badge: "認定済みの地元プロ", title1: "最高評価の", title2: "地元専門家を予約", subtitle: "英国トップ1%の専門家に即時アクセス。全員が認定・保険加入済みで、AIによる品質管理が行われています。", searchPlaceholder: "必要なサービス...", locationPlaceholder: "ロンドン, 英国",
+  home: { hero: { badge: "認定済みの地元プロ", title1: "最高評価の", title2: "地元専門家を予約", subtitle: "英国トップ1%の専門家に即時アクセス。全員が認定・保険加入済みで、AIによる品質管理が行われています。", searchPlaceholder: "必要なサービス...", locationPlaceholder: "ロンドン, 英国",
       aiMatch: "スマートマッチ",
       searchBtn: "連絡先検索",
       suggestions: [
@@ -379,8 +378,7 @@ export const ja: Dictionary = {
         "ロンドンのプロフェッショナル税務会計士…"
       ],
       popularLabel: "人気",
-      popularTags: ["住宅リノベーション", "税務申告", "ディープクリーン", "法律支援"]
-    },
+      popularTags: ["住宅リノベーション", "税務申告", "ディープクリーン", "法律支援"], trustedBy: "英国居住者に信頼され、検証済み" },
     recommendation: { title1: "あなたへ", title2: "おすすめ", subtitle: "ニーズと現在地に基づいたトッププロフェッショナル。", browse: "すべて見る" },
     recommendationResults: {
       trendingTitle: "{{city}} で人気: {{category}}",

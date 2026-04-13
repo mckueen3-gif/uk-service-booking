@@ -331,8 +331,7 @@ export const ro: Dictionary = {
     },
     visitDashboard: "Explorează Centrul de Educație"
   }, 
-  home: {
-    hero: {
+  home: { hero: {
       badge: "Profesioniști locali certificați",
       title1: "Rezervați cei mai buni",
       title2: "experți locali",
@@ -349,8 +348,7 @@ export const ro: Dictionary = {
         "Contabil fiscal profesionist în Londra…"
       ],
       popularLabel: "Popular",
-      popularTags: ["Renovare locuință", "Depunere taxe", "Curățenie profundă", "Asistență juridică"]
-    },
+      popularTags: ["Renovare locuință", "Depunere taxe", "Curățenie profundă", "Asistență juridică"], trustedBy: "De încredere pentru rezidenții din Marea Britanie și verificat de" },
     recommendation: { title1: "Pentru tine", title2: "Recomandat", subtitle: "Cei mai buni profesioniști bazat pe nevoile și locația ta.", browse: "Vezi toate" },
     recommendationResults: {
       trendingTitle: "Popular în {{city}}: {{category}}",

@@ -367,8 +367,7 @@ export const pa: Dictionary = {
     },
     visitDashboard: "ਸਿੱਖਿਆ ਕੇਂਦਰ ਦੀ ਪੜਚੋਲ ਕਰੋ"
   }, 
-  home: {
-    hero: { badge: "ਪ੍ਰਮਾਣਿਤ ਸਥਾਨਕ ਪੇਸ਼ੇਵਰ", title1: "ਸਭ ਤੋਂ ਵਧੀਆ ਬੁੱਕ ਕਰੋ", title2: "ਸਥਾਨਕ ਮਾਹਰ", subtitle: "ਯੂਕੇ ਦੇ ਚੋਟੀ ਦੇ 1% ਮਾਹਰਾਂ ਤੱਕ ਤੁਰੰਤ ਪਹੁੰਚ। ਸਾਰੇ ਪ੍ਰਮਾਣਿਤ, ਬੀਮਾਯੁਕਤ ਅਤੇ AI ਦੁਆਰਾ ਗੁਣਵੱਤਾ ਦੀ ਨਿਗਰਾਨੀ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।", searchPlaceholder: "ਮੈਨੂੰ ਲੋੜ ਹੈ...", locationPlaceholder: "ਲੰਡਨ, ਯੂਕੇ",
+  home: { hero: { badge: "ਪ੍ਰਮਾਣਿਤ ਸਥਾਨਕ ਪੇਸ਼ੇਵਰ", title1: "ਸਭ ਤੋਂ ਵਧੀਆ ਬੁੱਕ ਕਰੋ", title2: "ਸਥਾਨਕ ਮਾਹਰ", subtitle: "ਯੂਕੇ ਦੇ ਚੋਟੀ ਦੇ 1% ਮਾਹਰਾਂ ਤੱਕ ਤੁਰੰਤ ਪਹੁੰਚ। ਸਾਰੇ ਪ੍ਰਮਾਣਿਤ, ਬੀਮਾਯੁਕਤ ਅਤੇ AI ਦੁਆਰਾ ਗੁਣਵੱਤਾ ਦੀ ਨਿਗਰਾਨੀ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।", searchPlaceholder: "ਮੈਨੂੰ ਲੋੜ ਹੈ...", locationPlaceholder: "ਲੰਡਨ, ਯੂਕੇ",
       aiMatch: "ਸਮਾਰਟ ਮੈਚ",
       searchBtn: "ਸੰਪਰਕ ਖੋਜ",
       suggestions: [
@@ -379,8 +378,7 @@ export const pa: Dictionary = {
         "ਲੰਡਨ ਵਿੱਚ ਪੇਸ਼ੇਵਰ ਟੈਕਸ ਅਕਾਊਂਟੈਂਟ…"
       ],
       popularLabel: "ਲੋਕਪ੍ਰਿਯ",
-      popularTags: ["ਘਰ ਨਵੀਨੀਕਰਨ", "ਟੈਕਸ ਫਾਈਲਿੰਗ", "ਡੀਪ ਕਲੀਨਿੰਗ", "ਕਾਨੂੰਨੀ ਸਹਾਇਤਾ"]
-    },
+      popularTags: ["ਘਰ ਨਵੀਨੀਕਰਨ", "ਟੈਕਸ ਫਾਈਲਿੰਗ", "ਡੀਪ ਕਲੀਨਿੰਗ", "ਕਾਨੂੰਨੀ ਸਹਾਇਤਾ"], trustedBy: "ਯੂਕੇ ਦੇ ਨਿਵਾਸੀਆਂ ਦੁਆਰਾ ਭਰੋਸੇਯੋਗ ਅਤੇ ਪ੍ਰਮਾਣਿਤ" },
     recommendation: { title1: "ਤੁਹਾਡੇ ਲਈ", title2: "ਸਿਫਾਰਸ਼ੀ", subtitle: "ਤੁਹਾਡੀਆਂ ਲੋੜਾਂ ਅਤੇ ਸਥਾਨ ਦੇ ਆਧਾਰ 'ਤੇ ਚੋਟੀ ਦੇ ਪੇਸ਼ੇਵਰ।", browse: "ਸਭ ਦੇਖੋ" },
     recommendationResults: {
       trendingTitle: "{{city}} ਵਿੱਚ ਪ੍ਰਚਲਿਤ: {{category}}",

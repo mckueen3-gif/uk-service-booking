@@ -367,8 +367,7 @@ export const ko: Dictionary = {
     },
     visitDashboard: "교육 허브 탐색"
   }, 
-  home: {
-    hero: { badge: "인증된 현지 전문가", title1: "최고 평점의", title2: "현지 전문가 예약", subtitle: "영국 상위 1% 전문가에게 즉시 액세스하세요. 모두 인증 및 보험에 가입되어 있으며 AI로 품질을 관리합니다.", searchPlaceholder: "필요한 서비스...", locationPlaceholder: "런던, 영국",
+  home: { hero: { badge: "인증된 현지 전문가", title1: "최고 평점의", title2: "현지 전문가 예약", subtitle: "영국 상위 1% 전문가에게 즉시 액세스하세요. 모두 인증 및 보험에 가입되어 있으며 AI로 품질을 관리합니다.", searchPlaceholder: "필요한 서비스...", locationPlaceholder: "런던, 영국",
       aiMatch: "스마트 매치",
       searchBtn: "연락처 검색",
       suggestions: [
@@ -379,8 +378,7 @@ export const ko: Dictionary = {
         "런던 전문 세무 회계사…"
       ],
       popularLabel: "인기",
-      popularTags: ["주택 리노베이션", "세금 신고", "딥 클리닝", "법률 지원"]
-    },
+      popularTags: ["주택 리노베이션", "세금 신고", "딥 클리닝", "법률 지원"], trustedBy: "영국 거주자가 신뢰하고 검증함" },
     recommendation: { title1: "회원님을 위한", title2: "추천", subtitle: "회원님의 필요와 위치에 기반한 최고의 전문가들.", browse: "전체 보기" },
     recommendationResults: {
       trendingTitle: "{{city}} 인기 서비스: {{category}}",

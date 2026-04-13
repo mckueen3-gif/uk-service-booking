@@ -371,8 +371,7 @@ export const zhTW: Dictionary = {
       tryAgain: "重新挑戰"
     }
   },
-  home: {
-    hero: {
+  home: { hero: {
       badge: "已認證本地專家",
       title1: "預訂頂級評價",
       title2: "本地專家",
@@ -389,8 +388,7 @@ export const zhTW: Dictionary = {
         "倫敦專業稅務會計師…"
       ],
       popularLabel: "熱門精選",
-      popularTags: ["家居升級翻新", "稅務申報優化", "深度淨化清潔", "專業法律支援"]
-    },
+      popularTags: ["家居升級翻新", "稅務申報優化", "深度淨化清潔", "專業法律支援"], trustedBy: "受到英國居民信任並經過驗證" },
     recommendation: { title1: "為您", title2: "推薦", subtitle: "根據您的需求和近期位置匹配的頂尖專業人士。", browse: "查看所有專家" },
     recommendationResults: {
       trendingTitle: "{{city}} 熱門服務：{{category}}",

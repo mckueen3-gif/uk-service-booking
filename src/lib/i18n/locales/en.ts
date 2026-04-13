@@ -546,8 +546,7 @@ export const en: Dictionary = {
       tryAgain: "Recalibrate"
     }
   },
-  home: {
-    hero: {
+  home: { hero: {
       badge: "Verified Local Professionals",
       title1: "Schedule Top-Rated",
       title2: "Local Experts",
@@ -564,8 +563,7 @@ export const en: Dictionary = {
         "Professional Tax Accountant in London..."
       ],
       popularLabel: "Popular",
-      popularTags: ["Home Renovation", "Tax Filing", "Deep Cleaning", "Legal Aid"]
-    },
+      popularTags: ["Home Renovation", "Tax Filing", "Deep Cleaning", "Legal Aid"], trustedBy: "Trusted by UK Residents & Verified by" },
     recommendation: {
       title1: "Optimized",
       title2: "For You",

@@ -367,8 +367,7 @@ export const ar: Dictionary = {
     },
     visitDashboard: "استكشف مركز التعليم"
   }, 
-  home: {
-    hero: { badge: "محترفون محليون معتمدون", title1: "احجز أفضل", title2: "الخبراء المحليين", subtitle: "وصول فوري إلى أفضل 1% من المتخصصين في المملكة المتحدة. جميعهم معتمدون ومؤمن عليهم ومراقبون بواسطة AI.", searchPlaceholder: "أنا أحتاج...", locationPlaceholder: "لندن، المملكة المتحدة", aiMatch: "مطابقة ذكية", searchBtn: "بحث الاتصال",
+  home: { hero: { badge: "محترفون محليون معتمدون", title1: "احجز أفضل", title2: "الخبراء المحليين", subtitle: "وصول فوري إلى أفضل 1% من المتخصصين في المملكة المتحدة. جميعهم معتمدون ومؤمن عليهم ومراقبون بواسطة AI.", searchPlaceholder: "أنا أحتاج...", locationPlaceholder: "لندن، المملكة المتحدة", aiMatch: "مطابقة ذكية", searchBtn: "بحث الاتصال",
       suggestions: [
         "ابحث عن مهندس Gas Safe في تشيلسي…",
         "احجز مدرسًا بتصنيف عليا لـ GCSE…",
@@ -377,8 +376,7 @@ export const ar: Dictionary = {
         "محاسب ضرائب محترف في لندن…"
       ],
       popularLabel: "شائع",
-      popularTags: ["تجديد المنزل", "تقديم الضرائب", "تنظيف عميق", "مساعدة قانونية"]
-    },
+      popularTags: ["تجديد المنزل", "تقديم الضرائب", "تنظيف عميق", "مساعدة قانونية"], trustedBy: "موثوق به من قبل سكان المملكة المتحدة وموثق من قبل" },
     recommendation: { title1: "موصى به", title2: "لك", subtitle: "أفضل المحترفين بناءً على احتياجاتك وموقعك الحالي.", browse: "عرض الكل" },
     recommendationResults: {
       trendingTitle: "رائج في {{city}}: {{category}}",
