@@ -1,7 +1,7 @@
 import { Dictionary } from '../dictionary';
 
 export const ko: Dictionary = {
-  nav: { browse: "서비스 탐색", join: "전문가로 가입", login: "로그인", register: "회원가입", logout: "로그아웃", dashboard: "관리자 대시보드", aiDiagnosis: "AI 진단", education: "교육/학습" },
+  nav: { browse: "서비스 탐색", join: "전문가로 가입", login: "로그인", register: "회원가입", logout: "로그아웃", dashboard: "관리자 대시보드", aiDiagnosis: "AI 진단", education: "교육/학습", quickActions: "クイ액션", exploreServices: "서비스 탐색" },
   legal: { ui: { selectLanguage: "글로벌 연결성", close: "프로토콜 완료" } },
   landing_pages: {
     plumbing: {

@@ -1,7 +1,7 @@
 import { Dictionary } from '../dictionary';
 
 export const pl: Dictionary = {
-  nav: { browse: "Przeglądaj usługi", join: "Zostań ekspertem", login: "Logowanie", register: "Rejestracja", logout: "Wyloguj", dashboard: "Panel zarządzania", aiDiagnosis: "Diagnoza AI", education: "Edukacja" },
+  nav: { browse: "Przeglądaj usługi", join: "Zostań ekspertem", login: "Logowanie", register: "Rejestracja", logout: "Wyloguj", dashboard: "Panel zarządzania", aiDiagnosis: "Diagnoza AI", education: "Edukacja", quickActions: "Szybkie działania", exploreServices: "Eksploruj usługi" },
   legal: { ui: { selectLanguage: "Globalna Łączność", close: "Zakończ Protokół" } },
   landing_pages: {
     plumbing: {

@@ -1,7 +1,7 @@
 import { Dictionary } from '../dictionary';
 
 export const ar: Dictionary = {
-  nav: { browse: "تصفح الخدمات", join: "انضم كمحرف", login: "تسجيل الدخول", register: "إنشاء حساب", logout: "تسجيل الخروج", dashboard: "لوحة التحكم", aiDiagnosis: "تشخيص AI", education: "قطاع التعليم" },
+  nav: { browse: "تصفح الخدمات", join: "انضم كمحرف", login: "تسجيل الدخول", register: "إنشاء حساب", logout: "تسجيل الخروج", dashboard: "لوحة التحكم", aiDiagnosis: "تشخيص AI", education: "قطاع التعليم", quickActions: "إجراءات سريعة", exploreServices: "استكشاف الخدمات" },
   legal: { ui: { selectLanguage: "الاتصال العالمي", close: "إكمال البروتوكول" } },
   landing_pages: {
     plumbing: {

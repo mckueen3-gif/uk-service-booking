@@ -1,7 +1,7 @@
 import { Dictionary } from '../dictionary';
 
 export const hi: Dictionary = {
-  nav: { browse: "सेवाएं देखें", join: "विशेषज्ञ बनें", login: "लॉगिन", register: "पंजीकरण", logout: "लॉगआउट", dashboard: "डैशबोर्ड", aiDiagnosis: "AI निदान", education: "शिक्षा" },
+  nav: { browse: "सेवाएं देखें", join: "विशेषज्ञ बनें", login: "लॉगिन", register: "पंजीकरण", logout: "लॉगआउट", dashboard: "डैशबोर्ड", aiDiagnosis: "AI निदान", education: "शिक्षा", quickActions: "त्वरित कार्रवाई", exploreServices: "सेवाओं का पता लगाएं" },
   legal: { ui: { selectLanguage: "वैश्विक कनेक्टिविटी", close: "प्रोटोकॉल पूर्ण" } },
   landing_pages: {
     plumbing: {

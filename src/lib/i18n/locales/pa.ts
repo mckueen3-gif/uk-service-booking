@@ -1,7 +1,7 @@
 import { Dictionary } from '../dictionary';
 
 export const pa: Dictionary = {
-  nav: { browse: "ਸੇਵਾਵਾਂ ਦੇਖੋ", join: "ਮਾਹਰ ਬਣੋ", login: "ਲੌਗਇਨ", register: "ਰਜਿਸਟਰ", logout: "ਲੌਗਆਉਟ", dashboard: "ਡੈਸ਼ਬੋਰਡ", aiDiagnosis: "AI ਨਿਦਾਨ", education: "ਸਿੱਖਿਆ" },
+  nav: { browse: "ਸੇਵਾਵਾਂ ਦੇਖੋ", join: "ਮਾਹਰ ਬਣੋ", login: "ਲੌਗਇਨ", register: "ਰਜਿਸਟਰ", logout: "ਲੌਗਆਉਟ", dashboard: "ਡੈਸ਼ਬੋਰਡ", aiDiagnosis: "AI ਨਿਦਾਨ", education: "ਸਿੱਖਿਆ", quickActions: "ਤੁਰੰਤ ਕਾਰਵਾਈ", exploreServices: "ਸੇਵਾਵਾਂ ਦੀ ਪੜਚੋਲ ਕਰੋ" },
   legal: { ui: { selectLanguage: "ਗਲੋਬਲ ਕਨੈਕਟੀਵਿਟੀ", close: "ਪ੍ਰੋਟੋਕੋਲ ਪੂਰਾ ਹੋਇਆ" } },
   landing_pages: {
     plumbing: {
