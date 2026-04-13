@@ -375,7 +375,7 @@ export const ar: Dictionary = {
         "محاسب ضرائب محترف في لندن…"
       ],
       popularLabel: "شائع",
-      popularTags: ["تجديد المنزل", "تقديم الضرائب", "تنظيف عميق", "مساعدة قانونية"], trustedBy: "موثوق به من قبل سكان المملكة المتحدة وموثق من قبل" },
+      popularTags: ["تجديد المنزل", "تقديم الضرائب", "تنظيف عميق", "مساعدة قانونية"] },
     recommendation: { title1: "موصى به", title2: "لك", subtitle: "أفضل المحترفين بناءً على احتياجاتك وموقعك الحالي.", browse: "عرض الكل" },
     recommendationResults: {
       trendingTitle: "رائج في {{city}}: {{category}}",
@@ -394,12 +394,13 @@ export const ar: Dictionary = {
       trending: "رائج محلياً"
     },
     aiCTA: { badge: "مدعوم بواسطة ChatGPT, Gemini & Grok", title1: "لا تعرف ما المشكلة؟", title2: "احصل على تشخيص AI فوري", subtitle: "ارفع صورة للمشكلة. سيتعرف الذكاء الاصطناعي على العطل ويقدر التكلفة ويجد لك الخبير المناسب في ثوانٍ.", button: "ابدأ التشخيص المجاني" },
-    referralCTA: { badge: "مكافآت الترشيح", title: "اكسب 2% دخل سلبي", subtitle: "رشح أصدقاءك واحصل على 2% من جميع حجوزاتهم للسنوات الخمس القادمة في شكل قسائم تسوق (غير قابلة للسحب النقدي).", button: "ابدأ الكسب الآن", referralLabel: "كود الترشيح الخاص بك:" },
+    referralCTA: { badge: "مكافآت الترشيح", title: "اكسب 2% دخل سلبي", subtitle: "رشح أصدقاءك واحصل على 2% من جميع حجوزاتهم للسنوات الخمس القادمة في شكل قسائم تسوق (غير قابلة للسحب النقدي).", button: "ابدأ الكسب الآن", referralLabel: "كود الترشيح الخاص بك:", voucherDisclaimer: "* المكافآت قابلة للاستبدال كقسائم فقط. لا يوجد سحب نقدي." },
     educationCTA: "انتقل إلى التعليم",
     eliteLocal: "نخبة المنطقة",
     eliteBadge: "خبير نخبة",
     defaultCategory: "خبير خدمات",
     noResults: "لم يتم العثور على محترفين في هذه الفئة حالياً.",
+    trustedBy: "موثوق به من قبل سكان المملكة المتحدة وموثق من قبل",
     categories: { plumbing: "سباكة", repairs: "إصلاحات", renovation: "ترميم", education: "تعليم", accounting: "محاسبة", legal: "قانون", commercial: "تجاري", cleaning: "تنظيف", car: "سيارات" },
     sections: {
       plumbing: { title: "السباكة والخدمات الفنية", desc: "من التسريبات الطارئة إلى الأسلاك المعقدة، نصلك بفنيين معتمدين.", items: ["إصلاح التسريب", "كهرباء", "تركيب أجهزة", "صيانة غلايات", "مقابس", "منزل ذكي"] },
@@ -457,6 +458,7 @@ export const ar: Dictionary = {
       recommendedSolution: " الحل الموصى به",
       estimatedCostLabel: "نطاق التكلفة التقديري",
       ukStandard: "معيار المملكة المتحدة",
+      clinicalStandard: "معيار طبي",
       includesLabor: "يشمل القطع والعمالة",
       bookSpecialist: "احجز هذا المتخصص",
       confidence: "مستوى الثقة",
