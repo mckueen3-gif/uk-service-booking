@@ -1022,15 +1022,27 @@ export const en: Dictionary = {
       sectorDist: "Sector Distribution",
       volTitle: "Daily Transaction Volume",
     },
-    bookings: {
-      title: "Master Console: Bookings",
-      sub: "Governance and monitoring of all active mesh extractions.",
-      search: "Identify mission by ID, node, or sector...",
-      id: "Mission ID",
-      customer: "Client Node",
-      service: "Protocol",
       amount: "Credit",
       status: "State",
+    },
+    sidebar: {
+      overview: "Terminal Overview",
+      analytics: "Global Analytics",
+      bookings: "Mission Control",
+      verifications: "Expert Audits",
+      disputes: "Mesh Arbitrations",
+      merchants: "Specialist Nodes",
+      payouts: "Fiscal Settlements",
+      settings: "Mesh Configuration",
+      terminal: "Admin Terminal"
+    },
+    header: {
+      internal: "INTERNAL OPERATIONS",
+      operations: "Master Command Hub",
+      node: "Active Proxy Node"
+    },
+    settings_mgr: {
+      title: "System Parameters"
     }
   }
 };

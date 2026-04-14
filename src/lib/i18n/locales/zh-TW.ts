@@ -907,15 +907,27 @@ export const zhTW: Dictionary = {
       sectorDist: "領域分佈矩陣",
       volTitle: "每日交易活動量",
     },
-    bookings: {
-      title: "主控台：預約任務",
-      sub: "治理並監控所有活動中的網格提取任務。",
-      search: "按 ID、節點或領域識別任務...",
-      id: "任務 ID",
-      customer: "客戶節點",
-      service: "協議內容",
       amount: "點數價值",
       status: "當前狀態",
+    },
+    sidebar: {
+      overview: "總覽終端",
+      analytics: "全域分析",
+      bookings: "任務控制台",
+      verifications: "專家核准",
+      disputes: "網格仲裁",
+      merchants: "專家節點",
+      payouts: "財政結算",
+      settings: "網格配置",
+      terminal: "管理員終端"
+    },
+    header: {
+      internal: "內部營運專線",
+      operations: "全局指揮中心",
+      node: "活動代理節點"
+    },
+    settings_mgr: {
+      title: "系統參數"
     }
   },
   profile: {},

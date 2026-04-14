@@ -162,8 +162,8 @@ export default async function AdminLayout({
               <span style={{ fontSize: '12px', fontWeight: 900, color: '#d4af37' }}>AD</span>
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <p style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a', margin: 0 }}>{session.user.name || "管理員"}</p>
-              <p style={{ fontSize: '10px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 700, margin: 0 }}>{t.admin.sidebar.terminal}</p>
+              <p style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a', margin: 0 }}>{session?.user?.name || "管理員"}</p>
+              <p style={{ fontSize: '10px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 700, margin: 0 }}>{t?.admin?.sidebar?.terminal || "Terminal"}</p>
             </div>
             <Link href="/api/auth/signout" style={{ color: '#64748b', padding: '8px', borderRadius: '8px', display: 'flex', transition: 'background 0.2s' }}>
               <LogOut size={16} />
@@ -186,12 +186,12 @@ export default async function AdminLayout({
           boxShadow: '0 10px 30px rgba(0,0,0,0.03)'
         }}>
           <div>
-            <h1 style={{ fontSize: '10px', fontWeight: 900, color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.25em', marginBottom: '0.5rem' }}>{t.admin.header.internal}</h1>
-            <p style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0f172a', letterSpacing: '-0.02em', margin: 0 }}>{t.admin.header.operations}</p>
+            <h1 style={{ fontSize: '10px', fontWeight: 900, color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.25em', marginBottom: '0.5rem' }}>{t?.admin?.header?.internal || "INTERNAL"}</h1>
+            <p style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0f172a', letterSpacing: '-0.02em', margin: 0 }}>{t?.admin?.header?.operations || "Operations"}</p>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
             <div style={{ textAlign: 'right' }}>
-              <p style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', margin: 0 }}>{t.admin.header.node}</p>
+              <p style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', margin: 0 }}>{t?.admin?.header?.node || "Node"}</p>
               <p style={{ fontSize: '0.9rem', fontWeight: 900, color: '#0f172a', margin: 0 }}>London - LHR-01</p>
             </div>
             <div style={{ width: '1px', height: '40px', backgroundColor: '#e2e8f0' }}></div>
