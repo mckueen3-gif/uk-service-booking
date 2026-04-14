@@ -191,13 +191,13 @@ export default function CategoryLanding({
               </div>
               <div>
                 <h2 style={{ fontSize: '1.75rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.02em', margin: 0 }}>
-                  {t.home.recommendation.title1} {t.home.recommendation.title2}
+                  {t?.home?.recommendation?.title1} {t?.home?.recommendation?.title2}
                 </h2>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: '4px 0 0' }}>{t.common.aiMatchingSub}</p>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: '4px 0 0' }}>{t?.common?.aiMatchingSub}</p>
               </div>
             </div>
             <Link href={`/services/results?cat=${categoryName}`} style={{ textDecoration: 'none', color: 'var(--accent-color)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
-              {t.home.recommendation.browse} <ArrowRight size={18} />
+              {t?.home?.recommendation?.browse} <ArrowRight size={18} />
             </Link>
           </div>
           
@@ -211,7 +211,7 @@ export default function CategoryLanding({
               backgroundColor: 'var(--surface-2)', borderRadius: '24px',
               border: '2px dashed var(--border-color)'
             }}>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', fontWeight: 600 }}>{t.home.noResults}</p>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', fontWeight: 600 }}>{t?.home?.noResults}</p>
             </div>
           ) : (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2rem' }}>
@@ -227,10 +227,10 @@ export default function CategoryLanding({
       <section className="container" style={{ marginTop: '7rem' }}>
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
           <h2 style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.03em', marginBottom: '1rem' }}>
-            {t.education_sec.categories.title}
+            {t?.education_sec?.categories?.title}
           </h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto' }}>
-            {format(t.common.exploreSub, { category: categoryName })}
+            {format(t?.common?.exploreSub, { category: categoryName })}
           </p>
         </div>
 
@@ -275,7 +275,7 @@ export default function CategoryLanding({
               </p>
               
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-primary)', fontWeight: 800, fontSize: '0.95rem', position: 'relative', zIndex: 1 }}>
-                {t.education_sec.categories.browseBtn} <ArrowRight size={18} style={{ color: cat.color }} />
+                {t?.education_sec?.categories?.browseBtn} <ArrowRight size={18} style={{ color: cat.color }} />
               </div>
             </div>
           ))}
@@ -290,22 +290,22 @@ export default function CategoryLanding({
           textAlign: 'center',
           background: 'linear-gradient(to bottom, var(--surface-1), var(--surface-2))'
         }}>
-          <h2 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '1.5rem' }}>{t.common.escrow.title}</h2>
+          <h2 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '1.5rem' }}>{t?.common?.escrow?.title}</h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto 3rem' }}>
-            {format(t.common.escrow.subtitle, { category: categoryName })}
+            {format(t?.common?.escrow?.subtitle, { category: categoryName })}
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '3rem' }}>
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--accent-color)' }}>Top 1%</div>
-              <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 700 }}>{t.common.escrow.specialists}</div>
+              <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 700 }}>{t?.common?.escrow?.specialists}</div>
             </div>
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--accent-color)' }}>£0</div>
-              <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 700 }}>{t.common.escrow.fees}</div>
+              <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 700 }}>{t?.common?.escrow?.fees}</div>
             </div>
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--accent-color)' }}>24/7</div>
-              <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 700 }}>{t.common.escrow.support}</div>
+              <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 700 }}>{t?.common?.escrow?.support}</div>
             </div>
           </div>
         </div>

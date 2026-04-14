@@ -306,7 +306,7 @@ export default function SearchHero() {
              <span key={tag} style={{ fontSize: '0.85rem', cursor: 'pointer', color: 'var(--text-muted)', border: '1px solid var(--border-color)', padding: '0.5rem 1rem', borderRadius: '1rem', background: 'var(--surface-1)' }} onClick={() => setQuery(tag)}>
                {!isRTL && `${t?.home?.hero?.popularLabel || "Hot"}: `} 
                <strong style={{ textDecoration: 'underline', color: 'var(--accent-color)' }}>{tag}</strong>
-               {isRTL && ` :${t.home.hero.popularLabel}`}
+               {isRTL && ` :${t?.home?.hero?.popularLabel}`}
              </span>
            ))}
         </div>

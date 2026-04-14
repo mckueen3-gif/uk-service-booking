@@ -115,7 +115,7 @@ export default function SpecialistCard({ specialist, isAIMatch = false, category
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
             <Star size={16} fill="#f59e0b" color="#f59e0b" />
             <span style={{ fontWeight: 900, fontSize: '1.05rem' }}>{Number(rating).toFixed(1)}</span>
-            <span style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', fontWeight: 600 }}>({reviews} {t.common.reviews || 'logs'})</span>
+            <span style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', fontWeight: 600 }}>({reviews} {t?.common?.reviews || 'logs'})</span>
           </div>
           <div style={{ fontSize: '1.4rem', fontWeight: 900, color: 'var(--text-primary)' }}>
             £{rate}<span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 500 }}>/session</span>
@@ -129,7 +129,7 @@ export default function SpecialistCard({ specialist, isAIMatch = false, category
             backgroundColor: 'var(--text-primary)', color: 'var(--bg-primary)',
             border: 'none', transition: 'all 0.3s'
           }}>
-            {t.search.viewDetails}
+            {t?.search?.viewDetails}
           </button>
         </Link>
       </div>

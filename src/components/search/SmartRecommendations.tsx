@@ -16,9 +16,9 @@ export default function SmartRecommendations({ merchants }: RecProps) {
   const { t, isRTL } = useTranslation();
   
   const items = [
-    { data: merchants.best, label: t.search.recommendations.topMatch, icon: <Sparkles size={14} />, color: '#facc15' },
-    { data: merchants.closest, label: t.search.recommendations.closest, icon: <MapPin size={14} />, color: '#60a5fa' },
-    { data: merchants.earliest, label: t.search.recommendations.earliest, icon: <Clock size={14} />, color: '#10b981' }
+    { data: merchants.best, label: t?.search?.recommendations?.topMatch, icon: <Sparkles size={14} />, color: '#facc15' },
+    { data: merchants.closest, label: t?.search?.recommendations?.closest, icon: <MapPin size={14} />, color: '#60a5fa' },
+    { data: merchants.earliest, label: t?.search?.recommendations?.earliest, icon: <Clock size={14} />, color: '#10b981' }
   ].filter(item => item.data);
 
   if (items.length === 0) return null;
@@ -30,8 +30,8 @@ export default function SmartRecommendations({ merchants }: RecProps) {
             <Zap size={20} fill="#d4af37" />
          </div>
          <div>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#fff' }}>{t.search.recommendations.title}</h2>
-            <p style={{ fontSize: '0.8rem', color: '#666' }}>{t.search.recommendations.subtitle}</p>
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#fff' }}>{t?.search?.recommendations?.title}</h2>
+            <p style={{ fontSize: '0.8rem', color: '#666' }}>{t?.search?.recommendations?.subtitle}</p>
          </div>
       </div>
 
@@ -70,7 +70,7 @@ export default function SmartRecommendations({ merchants }: RecProps) {
                gap: '4px',
                boxShadow: `0 4px 12px ${item.color}44`
             }}>
-               {item.icon} {item.label.toUpperCase()}
+               {item.icon} {item.label?.toUpperCase()}
             </div>
 
             <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
@@ -83,7 +83,7 @@ export default function SmartRecommendations({ merchants }: RecProps) {
                      <div style={{ display: 'flex', alignItems: 'center', gap: '2px', color: '#facc15', fontSize: '0.8rem', fontWeight: 700 }}>
                         <Star size={12} fill="#facc15" /> {item.data.averageRating.toFixed(1)}
                      </div>
-                     <span style={{ fontSize: '0.75rem', color: '#666' }}>({item.data.completedJobsCount} {t.merchant.realReviews})</span>
+                     <span style={{ fontSize: '0.75rem', color: '#666' }}>({item.data.completedJobsCount} {t?.merchant?.realReviews})</span>
                   </div>
                </div>
             </div>
@@ -96,7 +96,7 @@ export default function SmartRecommendations({ merchants }: RecProps) {
                )}
                {item.data.isVerified && (
                  <span style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#d4af37' }}>
-                    <ShieldCheck size={12} /> {t.search.verified}
+                    <ShieldCheck size={12} /> {t?.search?.verified}
                  </span>
                )}
             </div>
@@ -114,7 +114,7 @@ export default function SmartRecommendations({ merchants }: RecProps) {
                  justifyContent: 'center',
                  gap: '0.5rem'
                }}>
-                  {t.search.recommendations.viewProfile} <ArrowRight size={14} />
+                  {t?.search?.recommendations?.viewProfile} <ArrowRight size={14} />
                </button>
             </Link>
           </div>

@@ -17,8 +17,8 @@ export default function SmartFAQ() {
   >("payments");
   const { t, isRTL } = useTranslation();
 
-  // Use localized FAQs from dictionary
-  const faqs = t.faq.questions;
+  // Use localized FAQs from dictionary with safety fallbacks
+  const faqs = t?.faq?.questions || { payments: [], disputes: [], bookings: [] };
 
   return (
     <div
@@ -40,9 +40,9 @@ export default function SmartFAQ() {
             marginBottom: "1rem",
           }}
         >
-          {t.faq.title}
+          {t?.faq?.title}
         </h2>
-        <p style={{ color: "#64748b", fontSize: "1.1rem" }}>{t.faq.subtitle}</p>
+        <p style={{ color: "#64748b", fontSize: "1.1rem" }}>{t?.faq?.subtitle}</p>
       </div>
 
       {/* Categories */}
@@ -59,17 +59,17 @@ export default function SmartFAQ() {
           {
             id: "payments" as const,
             icon: <CreditCard size={18} />,
-            label: t.faq.categories.payments,
+            label: t?.faq?.categories?.payments,
           },
           {
             id: "disputes" as const,
             icon: <AlertTriangle size={18} />,
-            label: t.faq.categories.disputes,
+            label: t?.faq?.categories?.disputes,
           },
           {
             id: "bookings" as const,
             icon: <Calendar size={18} />,
-            label: t.faq.categories.bookings,
+            label: t?.faq?.categories?.bookings,
           },
         ].map((cat) => (
           <button
@@ -98,7 +98,7 @@ export default function SmartFAQ() {
 
       {/* Questions */}
       <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        {(faqs[activeCategory] as any[]).map((faq: any, idx: number) => (
+        {((faqs as any)[activeCategory] || []).map((faq: any, idx: number) => (
           <div
             key={idx}
             style={{
@@ -168,10 +168,10 @@ export default function SmartFAQ() {
           }}
         >
           <h3 style={{ fontSize: "1.5rem", fontWeight: 800, color: "#1e3a8a" }}>
-            {t.faq.aura.title}
+            {t?.faq?.aura?.title}
           </h3>
           <p style={{ color: "#1e40af", maxWidth: "30rem", lineHeight: 1.6 }}>
-            {t.faq.aura.subtitle}
+            {t?.faq?.aura?.subtitle}
           </p>
           <button
             style={{
@@ -189,7 +189,7 @@ export default function SmartFAQ() {
               flexDirection: isRTL ? "row-reverse" : "row",
             }}
           >
-            {t.faq.aura.cta} <MessageSquare size={18} />
+            {t?.faq?.aura?.cta} <MessageSquare size={18} />
           </button>
         </div>
       </div>

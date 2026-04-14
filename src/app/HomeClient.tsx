@@ -420,10 +420,10 @@ export default function HomeClient() {
           <div className="reveal active" style={{ textAlign: 'center', marginBottom: '5rem' }}>
             <div style={{ color: 'var(--accent-color)', fontWeight: 800, fontSize: '0.9rem', marginBottom: '1.5rem', textTransform: 'uppercase', letterSpacing: '0.2rem' }}>{t.home.recommendation.title2}</div>
             <h2 style={{ fontSize: '3.5rem', fontWeight: 950, color: 'var(--text-primary)', marginBottom: '1.5rem', fontFamily: 'var(--font-heading)', letterSpacing: '-0.03em' }}>
-              {t.home.eliteLocal} <span style={{ color: 'var(--accent-color)' }}>{t.search.filters}</span>
+              {t?.home?.eliteLocal} <span style={{ color: 'var(--accent-color)' }}>{t?.search?.filters}</span>
             </h2>
             <p style={{ maxWidth: '600px', margin: '0 auto', color: 'var(--text-muted)', fontSize: '1.25rem', fontWeight: 500 }}>
-              {t.home.recommendation.subtitle}
+              {t?.home?.recommendation?.subtitle}
             </p>
           </div>
 
@@ -539,19 +539,19 @@ function SpecialistCard({ specialist, idx, city }: { specialist: any, idx: numbe
         </div>
         {idx < 2 && (
           <div className="shimmer-deluxe" style={{ position: 'absolute', top: '1rem', left: '1rem', background: 'var(--accent-color)', color: 'white', padding: '0.4rem 0.85rem', borderRadius: '1rem', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.05em', boxShadow: '0 4px 12px rgba(212, 175, 55, 0.3)', zIndex: 10 }}>
-            {t.home.eliteBadge}
+            {t?.home?.eliteBadge}
           </div>
         )}
       </div>
       <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-        <div style={{ color: 'var(--accent-color)', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>{specialist.category || t.home.defaultCategory}</div>
+        <div style={{ color: 'var(--accent-color)', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>{specialist.category || t?.home?.defaultCategory}</div>
         <h3 style={{ fontSize: '1.4rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '0.75rem', fontFamily: 'var(--font-heading)' }}>{specialist.companyName || specialist.user?.name}</h3>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem', fontWeight: 500 }}>
           <MapPin size={16} /> {specialist.city || city}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginTop: 'auto' }}>
            <Link href={`/merchant/${specialist.id}`} style={{ flex: 1, textDecoration: 'none' }}>
-             <button className="btn btn-primary" style={{ width: '100%', padding: '0.85rem', borderRadius: '12px', fontSize: '0.95rem' }}>{t.common.viewProfile}</button>
+             <button className="btn btn-primary" style={{ width: '100%', padding: '0.85rem', borderRadius: '12px', fontSize: '0.95rem' }}>{t?.common?.viewProfile}</button>
            </Link>
            <button className="btn" style={{ padding: '0.85rem', borderRadius: '12px', background: 'var(--surface-2)', color: 'var(--text-primary)', border: '1px solid var(--border-color)' }}>
              <ShieldCheck size={20} />

@@ -48,11 +48,10 @@ function createSafeDictionary(target: any, path: string = ''): any {
 
       const value = obj[prop];
       
-      // 🚀 TOTAL PATH SAFETY: If value is missing, return a recursive Null Proxy
-      // instead of undefined. This allows t.missing.deep.path to resolve gracefully.
+      // 🚀 REACT SAFETY: Return undefined for missing keys to allow optional chaining (t?.a?.b)
+      // and ensure React doesn't attempt to render a Proxy object {} which causes crashes.
       if (value === undefined) {
-        const fullPath = path ? `${path}.${String(prop)}` : String(prop);
-        return createSafeDictionary(undefined, fullPath);
+        return undefined;
       }
 
       // If the value is an object, wrap it recursively
