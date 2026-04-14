@@ -49,17 +49,15 @@ function createSafeDictionary(target: any, path: string = ''): any {
       
       const value = obj[prop];
       
-      // If reading a property that doesn't exist, return the path as a string to prevent React rendering crashes
+      // If reading a property that doesn't exist, return a new safe dictionary proxy representing that path
       if (value === undefined) {
         // Handle common array methods to prevent crashes during iteration
         if (prop === 'map' || prop === 'filter' || prop === 'slice') {
           return () => [];
         }
         
-        // 🚀 CRITICAL: Return the path as a string if it's likely a leaf node being rendered
         const fullPath = path ? `${path}.${String(prop)}` : String(prop);
-        console.warn(`[i18n] Missing key: ${fullPath}`);
-        return fullPath; 
+        return createSafeDictionary({}, fullPath);
       }
 
       // If the value is an object, wrap it recursively
