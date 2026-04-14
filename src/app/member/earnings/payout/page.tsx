@@ -74,7 +74,7 @@ export default function PayoutPage() {
 
   return (
     <div className="animate-fade-in" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
-      <Link href="/dashboard/earnings" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#666', textDecoration: 'none', marginBottom: '2rem', fontSize: '0.9rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+      <Link href="/member/earnings" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#666', textDecoration: 'none', marginBottom: '2rem', fontSize: '0.9rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
         <ArrowLeft size={16} /> {t.merchant.merchant_services.back}
       </Link>
 

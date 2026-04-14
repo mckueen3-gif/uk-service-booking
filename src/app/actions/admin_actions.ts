@@ -117,14 +117,14 @@ export async function overrideDisputeDecision(
         title: "⚖️ 爭議仲裁結果 (管理員覆核)",
         message: `管理員已針對您的預約裁定為：${decision}。${adminNotes}`,
         type: 'ALERT',
-        link: `/dashboard/disputes/${dispute.id}`
+        link: `/member/disputes/${dispute.id}`
       }),
       createNotification({
         userId: dispute.booking.merchant.userId,
         title: "⚖️ 爭議仲裁結果 (管理員覆核)",
         message: `管理員已針對您的爭議裁定為：${decision}。${adminNotes}`,
         type: 'ALERT',
-        link: `/dashboard/disputes/${dispute.id}`
+        link: `/merchant`
       })
     ]);
 
@@ -134,7 +134,8 @@ export async function overrideDisputeDecision(
   // Revalidate paths
   revalidatePath("/admin/disputes");
   revalidatePath(`/admin/disputes/${disputeId}`);
-  revalidatePath("/dashboard"); 
+  revalidatePath("/member"); 
+  revalidatePath("/merchant"); 
 
   return { success: true, dispute: result };
 }

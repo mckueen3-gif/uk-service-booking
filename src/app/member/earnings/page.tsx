@@ -46,7 +46,7 @@ export default function EarningsPage() {
           <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-primary)' }}>收入統計 (Earnings)</h1>
           <p style={{ color: 'var(--text-secondary)' }}>管理您的錢包、查看交易流水與申請提領</p>
         </div>
-        <Link href="/dashboard/earnings/payout" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
+        <Link href="/member/earnings/payout" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
            <ArrowDownCircle size={18} /> 申請提領
         </Link>
       </div>

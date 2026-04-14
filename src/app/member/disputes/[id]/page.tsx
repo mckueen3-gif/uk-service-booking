@@ -23,7 +23,7 @@ export default async function DisputeDetailPage({ params }: { params: Promise<{ 
       {/* Header */}
       <div className="animate-fade-up">
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1.25rem' }}>
-           <Link href="/dashboard/disputes" style={{ color: 'var(--text-muted)', fontSize: '0.9rem', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.4rem' }} className="hover-scale">
+           <Link href="/member/disputes" style={{ color: 'var(--text-muted)', fontSize: '0.9rem', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.4rem' }} className="hover-scale">
              ← <span style={{ textDecoration: 'underline' }}>返回爭議列表</span>
            </Link>
            <span style={{ color: 'var(--border-color)' }}>/</span>

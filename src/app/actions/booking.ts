@@ -110,7 +110,8 @@ export async function finalizeBooking(sessionId: string) {
        }
     }
 
-    revalidatePath('/dashboard');
+    revalidatePath('/member');
+    revalidatePath('/merchant');
     return { success: true, bookingId: booking.id };
 
   } catch (err: any) {

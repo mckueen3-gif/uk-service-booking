@@ -464,7 +464,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
         <section className="animate-fade-up" style={{ marginTop: '3rem' }}>
           <h2 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '1.5rem' }}>{t?.customer_dashboard?.quickLinks?.title || "Quick Links"}</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem' }}>
-            <Link href="/dashboard/garage" style={{ textDecoration: 'none' }}>
+            <Link href="/member/garage" style={{ textDecoration: 'none' }}>
               <div className="glass-panel hover-lift" style={{ 
                 padding: '1.5rem', 
                 borderRadius: '24px', 
@@ -487,7 +487,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
               </div>
             </Link>
             
-            <Link href="/dashboard/properties" style={{ textDecoration: 'none' }}>
+            <Link href="/member/properties" style={{ textDecoration: 'none' }}>
               <div className="glass-panel hover-lift" style={{ 
                 padding: '1.5rem', 
                 borderRadius: '24px', 

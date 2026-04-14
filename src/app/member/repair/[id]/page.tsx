@@ -56,7 +56,7 @@ export default async function RepairTracker({ params }: { params: Promise<{ id: 
   return (
     <div className="container" style={{ paddingTop: '6rem', paddingBottom: '10rem' }}>
       <div style={{ marginBottom: '2rem' }}>
-         <Link href="/dashboard" className="btn btn-secondary" style={{ display: 'inline-flex', padding: '0.6rem 1.2rem' }}>
+         <Link href="/member" className="btn btn-secondary" style={{ display: 'inline-flex', padding: '0.6rem 1.2rem' }}>
             <ArrowLeft size={18} /> Back to Dashboard
          </Link>
       </div>
@@ -165,7 +165,7 @@ export default async function RepairTracker({ params }: { params: Promise<{ id: 
                        <div style={{ color: 'var(--text-primary)' }}>
                           <p style={{ fontWeight: 800, color: '#facc15', marginBottom: '0.25rem' }}>維修已圓滿結束！</p>
                           <p style={{ color: 'var(--text-secondary)' }}>您已完成到店支付。如果您對這次服務滿意，請花一分鐘為師傅留下好評。</p>
-                          <Link href={`/dashboard/repair/${booking.id}/review`} style={{ display: 'inline-block', marginTop: '1rem' }}>
+                          <Link href={`/member/repair/${booking.id}/review`} style={{ display: 'inline-block', marginTop: '1rem' }}>
                              <button className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}>
                                 <CheckCircle2 size={14} style={{ marginRight: '0.4rem' }} /> 立即評價
                              </button>

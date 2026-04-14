@@ -139,7 +139,7 @@ export async function updateBookingStatus(bookingId: string, newStatus: string) 
       title: "🎉 服務已完成",
       message: `您向 ${merchantId} 預約的服務已標記為完成。感謝您的使用！`,
       type: 'SUCCESS',
-      link: `/dashboard`
+      link: `/member`
     });
 
     return { success: true, booking };
@@ -173,11 +173,12 @@ export async function rejectVariation(variationId: string, reason: string) {
       title: "⚠️ 金額變更被拒絕",
       message: `客戶已拒絕預約 #${variation.bookingId.slice(-6)} 的金額變更。爭議已自動開啟。`,
       type: 'ALERT',
-      link: `/dashboard/merchant`
+      link: `/merchant`
     });
   }
 
-  revalidatePath('/dashboard');
+  revalidatePath('/member');
+  revalidatePath('/merchant');
   return { success: true };
 }
 
@@ -203,10 +204,11 @@ export async function disputeBooking(bookingId: string, reason: string) {
     title: "⚖️ 收到新的爭議單",
     message: `客戶針對預約 #${bookingId.slice(-6)} 提交了爭議：${reason}`,
     type: 'ALERT',
-    link: `/dashboard/merchant`
+    link: `/merchant`
   });
 
-  revalidatePath('/dashboard');
+  revalidatePath('/member');
+  revalidatePath('/merchant');
   return res;
 }
 
@@ -220,7 +222,7 @@ export async function updateMerchantAvatar(avatarUrl: string) {
       where: { id: merchantId },
       data: { avatarUrl }
     });
-    revalidatePath('/dashboard/merchant');
+    revalidatePath('/merchant');
     return { success: true };
   } catch (err: any) {
     return { error: err.message };
@@ -244,11 +246,11 @@ export async function rescheduleBooking(bookingId: string, newDate: string) {
       title: "📅 預約時間已更改",
       message: `您的預約 #${bookingId.slice(-6)} 已被服務商重新安排至 ${new Date(newDate).toLocaleString()}。`,
       type: 'ALERT',
-      link: `/dashboard`
+      link: `/member`
     });
 
-    revalidatePath('/dashboard/merchant');
-    revalidatePath('/dashboard/merchant/schedule');
+    revalidatePath('/merchant');
+    revalidatePath('/merchant/schedule');
     return { success: true, booking };
   } catch (err: any) {
     console.error("Reschedule Booking Error:", err);
@@ -369,8 +371,8 @@ export async function activateAccountingSubscription() {
           quantity: 1,
         },
       ],
-      success_url: `${process.env.NEXTAUTH_URL || 'http://localhost:3002'}/dashboard/merchant/accounting?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXTAUTH_URL || 'http://localhost:3002'}/dashboard/merchant/accounting?status=canceled`,
+      success_url: `${process.env.NEXTAUTH_URL || 'http://localhost:3002'}/merchant/accounting?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXTAUTH_URL || 'http://localhost:3002'}/merchant/accounting?status=canceled`,
       metadata: {
         merchantId,
         subscription_type: 'accounting_premium'

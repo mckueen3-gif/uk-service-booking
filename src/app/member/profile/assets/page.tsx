@@ -7,7 +7,7 @@ export default function AssetsPage() {
     <div style={{ paddingBottom: '5rem' }}>
       <div style={{ marginBottom: '3rem', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
         <div>
-          <Link href="/dashboard/profile" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem', marginBottom: '0.8rem', transition: 'color 0.2s' }}>
+          <Link href="/member/profile" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem', marginBottom: '0.8rem', transition: 'color 0.2s' }}>
             <ArrowLeft size={14} /> 返回個人資料 (Back to Profile)
           </Link>
           <h1 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>

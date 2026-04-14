@@ -89,7 +89,8 @@ export async function createMerchantAction(data: any) {
       }
     });
 
-    revalidatePath('/dashboard');
+    revalidatePath('/member');
+    revalidatePath('/merchant');
     return { success: true, merchantId: merchant.id };
 
   } catch (error: any) {

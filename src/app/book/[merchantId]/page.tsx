@@ -228,7 +228,7 @@ export default function BookingPage() {
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-            <Link href="/dashboard" className="btn btn-primary" style={{ width: '100%' }}>{t.booking.buttons.dashboard}</Link>
+            <Link href="/member" className="btn btn-primary" style={{ width: '100%' }}>{t.booking.buttons.dashboard}</Link>
             <Link href="/" className="btn btn-secondary" style={{ width: '100%' }}>{t.booking.buttons.home}</Link>
           </div>
         </div>
@@ -540,7 +540,7 @@ export default function BookingPage() {
                 </div>
 
                 <Link 
-                  href={`/dashboard/chat?merchantId=${merchantId}`}
+                  href={`/member/chat?merchantId=${merchantId}`}
                   className="btn btn-secondary"
                   style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'center', padding: '0.75rem', borderRadius: '12px', flexDirection: isRTL ? 'row-reverse' : 'row' }}
                 >

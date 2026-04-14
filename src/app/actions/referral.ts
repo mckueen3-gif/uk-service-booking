@@ -45,7 +45,7 @@ export async function claimReferralCode(code: string) {
       }
     });
 
-    revalidatePath("/dashboard");
+    revalidatePath("/member");
     return { success: true };
   } catch (error) {
     console.error("Claim referral error:", error);

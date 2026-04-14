@@ -17,7 +17,7 @@ export function AppNavbar({ session }: { session: any }) {
   const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
 
-  const isObsidianPage = pathname?.startsWith('/join') || pathname?.includes('/merchant') || pathname?.startsWith('/dashboard') || pathname?.startsWith('/admin');
+  const isObsidianPage = pathname?.startsWith('/join') || pathname?.includes('/merchant') || pathname?.startsWith('/member') || pathname?.startsWith('/admin');
   const obsidianBg = theme === 'dark' ? '#050505' : 'var(--bg-primary)';
   const obsidianGold = '#d4af37';
 
@@ -376,7 +376,7 @@ export function AppNavbar({ session }: { session: any }) {
           {session?.user ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
               <NotificationHub />
-              <Link href="/dashboard" style={{ color: obsidianGold, fontWeight: 600, textDecoration: 'none' }}>
+              <Link href={pathname?.includes('/merchant') ? "/merchant" : "/member"} style={{ color: obsidianGold, fontWeight: 600, textDecoration: 'none' }}>
                 <span style={{ 
                   backgroundColor: isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--accent-soft)', 
                   padding: '0.4rem 0.8rem', borderRadius: '2rem', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem',
@@ -417,7 +417,7 @@ export function AppNavbar({ session }: { session: any }) {
              {theme === 'light' ? <Moon size={22} /> : <Sun size={22} />}
           </button>
           {session?.user ? (
-            <Link href="/dashboard" style={{ color: obsidianGold }}>
+            <Link href={pathname?.includes('/merchant') ? "/merchant" : "/member"} style={{ color: obsidianGold }}>
                <User size={22} />
             </Link>
           ) : (
@@ -545,7 +545,7 @@ export function AppNavbar({ session }: { session: any }) {
 export function AppFooter() {
   const { t, isRTL } = useTranslation();
   const pathname = usePathname();
-  const isObsidianPage = pathname?.startsWith('/join') || pathname?.includes('/merchant') || pathname?.startsWith('/dashboard') || pathname?.startsWith('/admin');
+  const isObsidianPage = pathname?.startsWith('/join') || pathname?.includes('/merchant') || pathname?.startsWith('/member') || pathname?.startsWith('/admin');
   const { theme } = useTheme();
   const obsidianBg = theme === 'dark' ? '#050505' : 'var(--bg-secondary)';
   const obsidianGold = '#d4af37';

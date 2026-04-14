@@ -138,7 +138,7 @@ export default function MerchantDashboard() {
         </div>
         <div style={{ display: 'flex', gap: '0.75rem' }}>
            <Link href="/services/results" style={{ padding: '0.6rem 1rem', fontSize: '0.9rem', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)', color: 'var(--accent-color)', borderRadius: '12px', textDecoration: 'none' }}>{t?.merchant?.previewProfile || "Preview Profile"}</Link>
-           <Link href="/dashboard/merchant/services" style={{ padding: '0.6rem 1.2rem', fontSize: '0.9rem', textDecoration: 'none', backgroundColor: 'var(--accent-color)', color: 'var(--text-contrast)', borderRadius: '12px', fontWeight: 700 }}>{t?.merchant?.manageServices || "Manage Services"}</Link>
+           <Link href="/merchant/services" style={{ padding: '0.6rem 1.2rem', fontSize: '0.9rem', textDecoration: 'none', backgroundColor: 'var(--accent-color)', color: 'var(--text-contrast)', borderRadius: '12px', fontWeight: 700 }}>{t?.merchant?.manageServices || "Manage Services"}</Link>
         </div>
       </header>
 

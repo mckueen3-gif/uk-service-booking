@@ -95,7 +95,7 @@ export default function ProfileContent({ initialUser }: { initialUser: any }) {
                </div>
             </div>
             
-            <Link href="/dashboard/profile/assets" style={{ 
+            <Link href="/member/profile/assets" style={{ 
               marginTop: '1.5rem', 
               padding: '0.75rem', 
               borderRadius: '12px', 

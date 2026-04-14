@@ -30,7 +30,8 @@ export async function createNotification(data: {
   console.log(`[EMAIL_MOCK] Subject: ${data.title}`);
   console.log(`[EMAIL_MOCK] Body: ${data.message}`);
 
-  revalidatePath('/dashboard');
+  revalidatePath('/member');
+  revalidatePath('/merchant');
   return { success: true, id: notification.id };
 }
 
@@ -61,7 +62,8 @@ export async function markAsRead(notificationId: string) {
     where: { id: notificationId },
     data: { isRead: true }
   });
-  revalidatePath('/dashboard');
+  revalidatePath('/member');
+  revalidatePath('/merchant');
   return { success: true };
 }
 
@@ -77,6 +79,7 @@ export async function markAllAsRead() {
     data: { isRead: true }
   });
 
-  revalidatePath('/dashboard');
+  revalidatePath('/member');
+  revalidatePath('/merchant');
   return { success: true };
 }

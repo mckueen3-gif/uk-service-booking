@@ -176,7 +176,7 @@ export default function NotificationHub() {
 
           {notifications.length > 0 && (
             <div style={{ padding: '0.75rem', textAlign: 'center', backgroundColor: 'var(--surface-2)', borderTop: '1px solid var(--border-color)' }}>
-               <Link href="/dashboard" style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-secondary)', textDecoration: 'none' }}>查看所有紀錄</Link>
+               <Link href="/member" style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-secondary)', textDecoration: 'none' }}>查看所有紀錄</Link>
             </div>
           )}
         </div>

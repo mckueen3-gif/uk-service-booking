@@ -109,7 +109,7 @@ export default function MerchantServicesPage() {
     <div className="container" style={{ padding: '2rem 1.5rem', maxWidth: '1000px' }}>
       <header style={{ marginBottom: '3rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
-          <Link href="/dashboard/merchant" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#666', textDecoration: 'none', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
+          <Link href="/merchant" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#666', textDecoration: 'none', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
             <ArrowLeft size={16} /> {t.merchant.merchant_services.back}
           </Link>
           <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem', color: '#fff' }}>

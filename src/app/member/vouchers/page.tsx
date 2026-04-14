@@ -26,7 +26,7 @@ export default async function VoucherRedemptionPage() {
 
   return (
     <div style={{ minHeight: '100vh', padding: '2rem', maxWidth: '1000px', margin: '0 auto', color: '#f8fafc' }}>
-      <Link href="/dashboard" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: '#94a3b8', textDecoration: 'none', marginBottom: '2rem' }} className="hover:text-white transition-colors">
+      <Link href="/member" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: '#94a3b8', textDecoration: 'none', marginBottom: '2rem' }} className="hover:text-white transition-colors">
         <ArrowLeft size={20} /> 返回控制台
       </Link>
 
