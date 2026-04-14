@@ -169,10 +169,11 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
   }, [refreshData]);
 
   // Hook was moved to top of component
-  const { user, isMerchant, merchantData, bookings } = data || {};
+  const { user, isMerchant, merchantData, bookings: rawBookings } = data || {};
+  const bookings = Array.isArray(rawBookings) ? rawBookings : [];
   
   // 🛡️ NO CRASH: Filter safe active bookings
-  const activeBookings = (Array.isArray(bookings) ? bookings : []).filter((b: any) =>
+  const activeBookings = bookings.filter((b: any) =>
     b?.status === "PENDING" || b?.status === "CONFIRMED"
   );
 
@@ -374,7 +375,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
               <div style={{ display: 'flex', gap: '0.5rem' }}>
                 <input 
                   type="text" 
-                  placeholder={t.home.referralCTA.referralLabel} 
+                  placeholder={t?.home?.referralCTA?.referralLabel || "Code"} 
                   value={claimCode}
                   onChange={(e) => setClaimCode(e.target.value.toUpperCase())}
                   disabled={claiming}
@@ -402,7 +403,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
                     fontWeight: 700
                   }}
                 >
-                  {claiming ? <Loader2 size={14} className="spin" /> : t.customer_dashboard.referral.claim}
+                  {claiming ? <Loader2 size={14} className="spin" /> : (t?.customer_dashboard?.referral?.claim || "Claim")}
                 </button>
               </div>
               {claimStatus && (
