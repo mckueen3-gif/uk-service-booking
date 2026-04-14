@@ -168,10 +168,10 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
   }, [refreshData]);
 
   // Hook was moved to top of component
-  const { user, isMerchant, merchantData, bookings: rawBookings } = data || {};
-  const bookings = Array.isArray(rawBookings) ? rawBookings : [];
-  
-  // 🛡️ NO CRASH: Filter safe active bookings
+  const user = data?.user || {};
+  const isMerchant = data?.isMerchant || false;
+  const merchantData = data?.merchantData || {};
+  const bookings = data?.bookings || [];
   const activeBookings = bookings.filter((b: any) =>
     b?.status === "PENDING" || b?.status === "CONFIRMED"
   );

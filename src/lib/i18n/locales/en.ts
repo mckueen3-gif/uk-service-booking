@@ -464,11 +464,14 @@ export const en: Dictionary = {
       },
     },
     bookings: {
-      title: "Current Missions",
-      viewAll: "All Logs",
-      empty: "No active missions.",
-      completed: "Mission Finalized",
-      actions: { confirm: "Accept Extraction", complete: "Confirm Extraction", completeAndPay: "Extract & Pay", variation: "Modify Payload" },
+      title: "Task Registry",
+      search: "Identify transaction by node ID...",
+      id: "Transaction ID",
+      customer: "Client Node",
+      service: "Protocol",
+      status: "State",
+      date: "Sync Date",
+      amount: "Credit"
     },
     status: {
       pending: "PENDING",
@@ -739,11 +742,13 @@ export const en: Dictionary = {
     },
   },
   customer_dashboard: {
-    welcomeBack: "Welcome back, {name}",
-    quickLinks: { title: "Private Assets", garage: "Private Garage", garageDesc: "Manage vehicle telemetry.", properties: "Property Portfolio", propertiesDesc: "Monitor unit maintenance." },
-    referral: { success: "Node Recruit Success!", failed: "Recruit Error", error: "Sync Error", claim: "Claim Yield" },
-    verification: { unverifiedTitle: "Node Unverified", unverifiedDesc: "Adhere to protocols to unlock withdrawal.", cta: "Finalize Audit" },
-    stats: { referralCredits: "Recruit Yield" },
+    welcomeBack: "Welcome back to your dashboard.",
+    stats: {
+      referralCredits: "Referral Credits",
+    },
+    referral: {
+      claim: "Credits Earned",
+    }
   },
   rewards_hub: {
     balance: "Asset Balance",

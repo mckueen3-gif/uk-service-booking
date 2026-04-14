@@ -36,14 +36,14 @@ export default function HomeClient() {
   };
 
   const getIcons = () => [
-    { id: 'plumbing', label: t.home.categories.plumbing, icon: <Droplets size={28} strokeWidth={1.5} />, category: 'Plumbing' },
-    { id: 'repairs', label: t.home.categories.repairs, icon: <Wrench size={28} strokeWidth={1.5} />, category: 'Repairs' },
-    { id: 'renovation', label: t.home.categories.renovation, icon: <PenTool size={28} strokeWidth={1.5} />, category: 'Renovation' },
-    { id: 'education', label: t.home.categories.education, icon: <GraduationCap size={28} strokeWidth={1.5} />, category: 'Education' },
-    { id: 'accounting', label: t.home.categories.accounting, icon: <Calculator size={28} strokeWidth={1.5} />, category: 'Accounting' },
-    { id: 'legal', label: t.home.categories.legal, icon: <Scale size={28} strokeWidth={1.5} />, category: 'Legal' },
-    { id: 'commercial', label: t.home.categories.commercial, icon: <Briefcase size={28} strokeWidth={1.5} />, category: 'Commercial' },
-    { id: 'cleaning', label: t.home.categories.cleaning, icon: <Sparkles size={28} strokeWidth={1.5} />, category: 'Cleaning' },
+    { id: 'plumbing', label: t?.home?.categories?.plumbing || "Plumbing", icon: <Droplets size={28} strokeWidth={1.5} />, category: 'Plumbing' },
+    { id: 'repairs', label: t?.home?.categories?.repairs || "Repairs", icon: <Wrench size={28} strokeWidth={1.5} />, category: 'Repairs' },
+    { id: 'renovation', label: t?.home?.categories?.renovation || "Renovation", icon: <PenTool size={28} strokeWidth={1.5} />, category: 'Renovation' },
+    { id: 'education', label: t?.home?.categories?.education || "Education", icon: <GraduationCap size={28} strokeWidth={1.5} />, category: 'Education' },
+    { id: 'accounting', label: t?.home?.categories?.accounting || "Accounting", icon: <Calculator size={28} strokeWidth={1.5} />, category: 'Accounting' },
+    { id: 'legal', label: t?.home?.categories?.legal || "Legal", icon: <Scale size={28} strokeWidth={1.5} />, category: 'Legal' },
+    { id: 'commercial', label: t?.home?.categories?.commercial || "Commercial", icon: <Briefcase size={28} strokeWidth={1.5} />, category: 'Commercial' },
+    { id: 'cleaning', label: t?.home?.categories?.cleaning || "Cleaning", icon: <Sparkles size={28} strokeWidth={1.5} />, category: 'Cleaning' },
   ];
 
   useEffect(() => {
@@ -132,18 +132,18 @@ export default function HomeClient() {
 
           <div style={{ flex: '1 1 500px', zIndex: 1 }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', background: 'var(--amber-600)', color: 'white', padding: '0.5rem 1.25rem', borderRadius: '2rem', fontSize: '0.8rem', fontWeight: 800, marginBottom: '1.5rem', boxShadow: '0 4px 12px rgba(212, 175, 55, 0.3)' }}>
-              <Sparkles size={16} /> {t.home.aiCTA.badge}
+              <Sparkles size={16} /> {t?.home?.aiCTA?.badge || "Alpha System"}
             </div>
             <h2 style={{ fontSize: 'clamp(2.2rem, 6vw, 3.8rem)', fontWeight: 950, marginBottom: '1.5rem', lineHeight: 1.05, letterSpacing: '-0.02em' }}>
-              {t.home.aiCTA.title1} <br />
-              <span style={{ color: 'var(--amber-600)' }}>{t.home.aiCTA.title2}</span>
+              {t?.home?.aiCTA?.title1 || "Instant AI"} <br />
+              <span style={{ color: 'var(--amber-600)' }}>{t?.[`home`]?.aiCTA?.title2 || "Diagnostics"}</span>
             </h2>
             <p style={{ fontSize: '1.25rem', color: 'var(--text-muted)', marginBottom: '3rem', lineHeight: 1.6, fontWeight: 500, maxWidth: '600px' }}>
-              {t.home.aiCTA.subtitle}
+              {t?.home?.aiCTA?.subtitle || "Analyze complex service vectors with mesh intelligence."}
             </p>
             <Link href="/diagnosis" style={{ textDecoration: 'none' }}>
               <button className="btn btn-primary" style={{ padding: '1.5rem 3.5rem', fontSize: '1.2rem', background: 'linear-gradient(135deg, var(--amber-600), var(--amber-800))' }}>
-                {t.home.aiCTA.button} <ChevronRight size={22} style={{ marginLeft: '0.5rem' }} />
+                {t?.home?.aiCTA?.button || "Start Diagnostic"} <ChevronRight size={22} style={{ marginLeft: '0.5rem' }} />
               </button>
             </Link>
           </div>
@@ -163,17 +163,17 @@ export default function HomeClient() {
         
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2.5rem' }}>
           {[
-            { title: t.home.howItWorks.step1Title, desc: t.home.howItWorks.step1Desc, icon: <Sparkles size={32} /> },
-            { title: t.home.howItWorks.step2Title, desc: t.home.howItWorks.step2Desc, icon: <Users size={32} /> },
-            { title: t.home.howItWorks.step3Title, desc: t.home.howItWorks.step3Desc, icon: <ShieldCheck size={32} /> },
-            { title: t.home.howItWorks.step4Title, desc: t.home.howItWorks.step4Desc, icon: <CheckCircle2 size={32} /> }
+            { title: t?.home?.howItWorks?.step1Title, desc: t?.home?.howItWorks?.step1Desc, icon: <Sparkles size={32} /> },
+            { title: t?.home?.howItWorks?.step2Title, desc: t?.home?.howItWorks?.step2Desc, icon: <Users size={32} /> },
+            { title: t?.home?.howItWorks?.step3Title, desc: t?.home?.howItWorks?.step3Desc, icon: <ShieldCheck size={32} /> },
+            { title: t?.home?.howItWorks?.step4Title, desc: t?.home?.howItWorks?.step4Desc, icon: <CheckCircle2 size={32} /> }
           ].map((item, i) => (
             <div key={i} className="glass-panel reveal" style={{ padding: '3rem 2rem', textAlign: 'center', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem', background: 'var(--surface-1)' }}>
               <div style={{ width: '80px', height: '80px', borderRadius: '2rem', backgroundColor: 'var(--accent-soft)', color: 'var(--accent-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
                 {item.icon}
               </div>
-              <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-primary)' }}>{item.title}</h3>
-              <p style={{ color: 'var(--text-muted)', lineHeight: 1.6, fontSize: '0.95rem', fontWeight: 500 }}>{item.desc}</p>
+              <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-primary)' }}>{item.title || "Vector Step"}</h3>
+              <p style={{ color: 'var(--text-muted)', lineHeight: 1.6, fontSize: '0.95rem', fontWeight: 500 }}>{item.desc || "Processing nodes..."}</p>
             </div>
           ))}
         </div>
@@ -345,14 +345,14 @@ export default function HomeClient() {
 
       {/* Service Sections */}
       {[
-        { id: 'plumbing', data: t.home.sections.plumbing, bg: 'var(--bg-primary)', img1: '/images/plumbing_main.png', img2: '/images/plumbing_detail.png' },
-        { id: 'repairs', data: t.home.sections.repairs, bg: 'var(--bg-secondary)', img1: '/images/repairs_main.png', img2: '/images/repairs_detail.png' },
-        { id: 'accounting', data: t.home.sections.accounting, bg: 'var(--bg-primary)', fullImg: '/images/accounting_hero.png' },
-        { id: 'renovation', data: t.home.sections.renovation, bg: 'var(--bg-secondary)', fullImg: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop' },
-        { id: 'education', data: t.home.sections.education, bg: 'var(--bg-primary)', fullImg: '/images/education_hero.png' },
-        { id: 'cleaning', data: t.home.sections.cleaning, bg: 'var(--bg-secondary)', fullImg: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=1200&auto=format&fit=crop' },
-        { id: 'legal', data: t.home.sections.legal, bg: 'var(--bg-primary)', fullImg: '/images/legal_hero.png' },
-        { id: 'commercial', data: t.home.sections.commercial, bg: 'var(--bg-secondary)', fullImg: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop' }
+        { id: 'plumbing', data: t?.home?.sections?.plumbing, bg: 'var(--bg-primary)', img1: '/images/plumbing_main.png', img2: '/images/plumbing_detail.png' },
+        { id: 'repairs', data: t?.home?.sections?.repairs, bg: 'var(--bg-secondary)', img1: '/images/repairs_main.png', img2: '/images/repairs_detail.png' },
+        { id: 'accounting', data: t?.home?.sections?.accounting, bg: 'var(--bg-primary)', fullImg: '/images/accounting_hero.png' },
+        { id: 'renovation', data: t?.home?.sections?.renovation, bg: 'var(--bg-secondary)', fullImg: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop' },
+        { id: 'education', data: t?.home?.sections?.education, bg: 'var(--bg-primary)', fullImg: '/images/education_hero.png' },
+        { id: 'cleaning', data: t?.home?.sections?.cleaning, bg: 'var(--bg-secondary)', fullImg: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=1200&auto=format&fit=crop' },
+        { id: 'legal', data: t?.home?.sections?.legal, bg: 'var(--bg-primary)', fullImg: '/images/legal_hero.png' },
+        { id: 'commercial', data: t?.home?.sections?.commercial, bg: 'var(--bg-secondary)', fullImg: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop' }
       ].map((sec, idx) => (
         <section key={sec.id} id={`section-${sec.id}`} style={{ backgroundColor: sec.bg, padding: 'clamp(4rem, 10vw, 8rem) 0', overflow: 'hidden' }}>
           <div className="container">
@@ -365,17 +365,17 @@ export default function HomeClient() {
               <div className="reveal" style={{ flex: '1 1 500px', textAlign: 'inherit' }}>
                 <div style={{ color: 'var(--accent-color)', fontWeight: 800, fontSize: '0.9rem', marginBottom: '1.5rem', textTransform: 'uppercase', letterSpacing: '0.15em', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                   <div style={{ width: '40px', height: '1.5px', background: 'var(--accent-color)' }}></div>
-                  {t.merchant.background}
+                  {t?.merchant?.background || "Background"}
                 </div>
-                <h2 style={{ fontSize: 'clamp(2.2rem, 7vw, 3.5rem)', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '1.5rem', lineHeight: 1.1, fontFamily: 'var(--font-heading)' }}>{sec.data.title}</h2>
-                <p style={{ fontSize: '1.15rem', color: 'var(--text-muted)', lineHeight: 1.8, marginBottom: '2.5rem', fontWeight: 500 }}>{sec.data.desc}</p>
+                <h2 style={{ fontSize: 'clamp(2.2rem, 7vw, 3.5rem)', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '1.5rem', lineHeight: 1.1, fontFamily: 'var(--font-heading)' }}>{sec?.data?.title || "Node Sector"}</h2>
+                <p style={{ fontSize: '1.15rem', color: 'var(--text-muted)', lineHeight: 1.8, marginBottom: '2.5rem', fontWeight: 500 }}>{sec?.data?.desc || "Processing sectoral transmission..."}</p>
                 
                 <div style={{ 
                   display: 'grid', 
                   gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
                   gap: '1.25rem' 
                 }}>
-                  {(sec.data.items as string[]).map((sub: string) => (
+                  {(sec?.data?.items as string[] || []).map((sub: string) => (
                     <Link key={sub} 
                           href={`/services/${sec.id}/search?q=${encodeURIComponent(sub)}`} 
                           style={{ textDecoration: 'none' }}>
