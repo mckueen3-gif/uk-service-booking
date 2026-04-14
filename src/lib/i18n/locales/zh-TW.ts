@@ -911,9 +911,6 @@ export const zhTW: Dictionary = {
       sectorDist: "領域分佈矩陣",
       volTitle: "每日交易活動量",
     },
-      amount: "點數價值",
-      status: "當前狀態",
-    },
     sidebar: {
       sections: {
         main: "核心基礎設施",
