@@ -1027,9 +1027,6 @@ export const en: Dictionary = {
       sectorDist: "Sector Distribution",
       volTitle: "Daily Transaction Volume",
     },
-      amount: "Credit",
-      status: "State",
-    },
     sidebar: {
       sections: {
         main: "Core Infrastructure",
