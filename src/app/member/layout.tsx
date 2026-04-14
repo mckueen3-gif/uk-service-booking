@@ -11,7 +11,7 @@ export default async function MemberLayout({ children }: { children: React.React
     redirect("/auth/login");
   }
 
-  const userName = session.user.name || "Member";
+  const isMerchant = session.user.role === "MERCHANT";
 
   return (
     <div style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', display: 'flex' }}>
@@ -34,12 +34,12 @@ export default async function MemberLayout({ children }: { children: React.React
             ConciergeAI<span style={{ color: 'var(--text-primary)' }}>.</span>
           </h1>
           <p style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-            Premier Member
+            {isMerchant ? "Specialist Node" : "Premier Member"}
           </p>
         </div>
         
         <div style={{ flex: 1, overflowY: 'auto', paddingRight: '0.5rem' }}>
-          <SidebarNav isMerchant={false} userName={userName} isIsolated={true} />
+          <SidebarNav isMerchant={isMerchant} userName={userName} isIsolated={true} />
         </div>
       </aside>
 

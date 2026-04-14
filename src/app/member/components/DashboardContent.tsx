@@ -173,7 +173,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
   const user = data?.user || {};
   const isMerchant = data?.isMerchant || false;
   const merchantData = data?.merchantData || {};
-  const bookings = data?.bookings || [];
+  const bookings = Array.isArray(data?.bookings) ? data.bookings : [];
   const activeBookings = bookings.filter((b: any) =>
     b?.status === "PENDING" || b?.status === "CONFIRMED"
   );
@@ -279,7 +279,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
           <>
             <StatCard
               title={t?.merchant?.stats?.totalBookings || "Missions"}
-              value={bookings.length.toString()} 
+              value={(bookings?.length || 0).toString()} 
               sub={t?.merchant?.stats?.totalJobs || "Completed Tasks"}
               icon={<TrendingUp size={24} />}
               loading={loading}
@@ -310,7 +310,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
           <>
             <StatCard
               title={t?.merchant?.stats?.totalBookings || "Active Missions"}
-              value={activeBookings.length.toString()}
+              value={(activeBookings?.length || 0).toString()}
               sub={t?.merchant?.bookings?.title || "Bookings"}
               icon={<Calendar size={24} />}
               loading={loading}
@@ -539,7 +539,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
                     </p>
                     {booking.vehicleReg && (
                       <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.1rem' }}>
-                        {t.common.licensePlate}: {booking.vehicleMake} {booking.vehicleModel} · {booking.vehicleReg}
+                        {t?.common?.licensePlate || "Plate"}: {booking.vehicleMake} {booking.vehicleModel} · {booking.vehicleReg}
                       </p>
                     )}
                   </div>
