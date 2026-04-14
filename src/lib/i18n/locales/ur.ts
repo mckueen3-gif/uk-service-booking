@@ -513,8 +513,7 @@ export const ur: any = {
     contactExpert: "ماہر سے رابطہ کریں",
     noReviews: "کوئی تبصرہ نہیں",
     reply: "جواب دیں",
-    dashboard: {
-      title: "مرچنٹ ڈیش بورڈ",
+    title: "مرچنٹ ڈیش بورڈ",
       welcome: "خوش آمدید، ",
       previewProfile: "عوامی پروفائل دیکھیں",
       manageServices: "سروسز کا انتظام کریں",
@@ -652,7 +651,6 @@ export const ur: any = {
         taxYear: "ٹیکس ईئر",
         regNumber: "رجسٹریشن नंबर (UTR/CRN)",
       },
-    },
     portfolio_mgr: {
       title: "کام کا پورٹ فولیو",
       subtitle: "مزید بکنگ جیتنے کے لیے اپنا بہترین کام دکھائیں۔",

@@ -505,8 +505,7 @@ export const hi: any = {
     contactExpert: "विशेषज्ञ से संपर्क करें",
     noReviews: "कोई समीक्षा नहीं",
     reply: "जवाब दें",
-    dashboard: {
-      title: "मर्चेंट डैशबोर्ड",
+    title: "मर्चेंट डैशबोर्ड",
       welcome: "वापसी पर स्वागत है, ",
       previewProfile: "सार्वजनिक प्रोफ़ाइल देखें",
       manageServices: "सेवाएं प्रबंधित करें",
@@ -642,7 +641,6 @@ export const hi: any = {
         taxYear: "कर वर्ष",
         regNumber: "पंजीकरण संख्या (UTR/CRN)",
       },
-    },
     portfolio_mgr: {
       title: "कार्य पोर्टफोलियो",
       subtitle: "अधिक बुकिंग जीतने के लिए अपना सर्वश्रेष्ठ कार्य दिखाएं।",

@@ -38,7 +38,7 @@ export default function VariationForm({ bookingId }: { bookingId: string }) {
   if (!isOpen) {
     return (
       <button onClick={() => setIsOpen(true)} className="btn btn-primary" style={{ padding: '0.5rem 1rem' }}>
-        <Plus size={18} /> {t.merchant.dashboard.variations.addBtn}
+        <Plus size={18} /> {t.merchant.variations.addBtn}
       </button>
     );
   }
@@ -47,7 +47,7 @@ export default function VariationForm({ bookingId }: { bookingId: string }) {
     <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.8)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
       <div className="glass-panel animate-scale-in" style={{ width: '100%', maxWidth: '500px', backgroundColor: 'var(--bg-primary)', padding: '2rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 800 }}>{t.merchant.dashboard.variations.title}</h2>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 800 }}>{t.merchant.variations.title}</h2>
           <button onClick={() => setIsOpen(false)} style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer' }}>
             <X size={24} />
           </button>
@@ -55,7 +55,7 @@ export default function VariationForm({ bookingId }: { bookingId: string }) {
 
         <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1.5rem' }}>
           <div>
-            <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.5rem' }}>{t.merchant.dashboard.variations.typeLabel}</label>
+            <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.5rem' }}>{t.merchant.variations.typeLabel}</label>
             <div style={{ display: 'flex', gap: '1rem' }}>
               <button 
                 type="button"
@@ -63,7 +63,7 @@ export default function VariationForm({ bookingId }: { bookingId: string }) {
                 className={formData.isPart ? "btn btn-primary" : "btn btn-secondary"}
                 style={{ flex: 1, gap: '0.5rem' }}
               >
-                <Settings size={18} /> {t.merchant.dashboard.variations.partType}
+                <Settings size={18} /> {t.merchant.variations.partType}
               </button>
               <button 
                 type="button"
@@ -71,27 +71,27 @@ export default function VariationForm({ bookingId }: { bookingId: string }) {
                 className={!formData.isPart ? "btn btn-primary" : "btn btn-secondary"}
                 style={{ flex: 1, gap: '0.5rem' }}
               >
-                <Wrench size={18} /> {t.merchant.dashboard.variations.laborType}
+                <Wrench size={18} /> {t.merchant.variations.laborType}
               </button>
             </div>
             <p style={{ marginTop: '0.75rem', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-                {formData.isPart ? t.merchant.dashboard.variations.partNote : t.merchant.dashboard.variations.laborNote}
+                {formData.isPart ? t.merchant.variations.partNote : t.merchant.variations.laborNote}
             </p>
           </div>
 
           <div>
-            <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.5rem' }}>{t.merchant.dashboard.variations.descLabel}</label>
+            <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.5rem' }}>{t.merchant.variations.descLabel}</label>
             <input 
               className="input-field"
               required
-              placeholder={t.merchant.dashboard.variations.descPlaceholder}
+              placeholder={t.merchant.variations.descPlaceholder}
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
             />
           </div>
 
           <div>
-            <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.5rem' }}>{t.merchant.dashboard.variations.amountLabel}</label>
+            <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.5rem' }}>{t.merchant.variations.amountLabel}</label>
             <input 
               type="number"
               className="input-field"
@@ -104,7 +104,7 @@ export default function VariationForm({ bookingId }: { bookingId: string }) {
           </div>
 
           <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '1rem' }} disabled={loading}>
-            {loading ? t.merchant.dashboard.variations.submitting : t.merchant.dashboard.variations.submitBtn}
+            {loading ? t.merchant.variations.submitting : t.merchant.variations.submitBtn}
           </button>
         </form>
       </div>

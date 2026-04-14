@@ -528,8 +528,7 @@ export const pl: any = {
     contactExpert: "Skontaktuj się z ekspertem",
     noReviews: "Brak opinii",
     reply: "Odpowiedz",
-    dashboard: {
-      title: "Panel kupca",
+    title: "Panel kupca",
       welcome: "Witaj ponownie, ",
       previewProfile: "Zobacz profil publiczny",
       manageServices: "Zarządzaj usługami",
@@ -667,7 +666,6 @@ export const pl: any = {
         taxYear: "Rok Podatkowy",
         regNumber: "Nr Rej. (UTR/CRN)",
       },
-    },
     portfolio_mgr: {
       title: "Portfolio prac",
       subtitle: "Pokaż swoje najlepsze prace, aby zdobyć więcej rezerwacji.",

@@ -20,9 +20,9 @@ if (globalForPrisma.prisma) {
   // Serverless functions should aggressively limit connection count
   const pool = new Pool({ 
     connectionString,
-    max: 1, // MUST be 1 for Serverless to prevent pool exhaustion 
-    connectionTimeoutMillis: 5000, 
-    idleTimeoutMillis: 10000,
+    max: 2, // Conservative pool size for Serverless
+    connectionTimeoutMillis: 10000, // 🚀 ROBUST: Increase to 10s for production cold-starts
+    idleTimeoutMillis: 5000, // Close idle connections quickly
   });
   
   // @ts-expect-error - PrismaPg expects a compatible Pool version, but types may mismatch due to nested dependencies

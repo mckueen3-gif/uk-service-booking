@@ -1,49 +1,62 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { Clock, Calendar, Save, Loader2, CheckCircle2, XCircle, Info, Settings2 } from 'lucide-react';
-import { getMerchantAvailability, updateMerchantAvailability, AvailabilityInput } from '@/app/actions/availability';
+import { useState, useEffect } from "react";
+import { 
+  Calendar, Clock, Save, 
+  Settings, Loader2, CheckCircle2, 
+  AlertCircle, Moon, Sun, 
+  Coffee, Users, Info
+} from 'lucide-react';
+import { getMerchantAvailability, updateMerchantAvailability, AvailabilityInput } from "@/app/actions/availability";
 
-const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-const CHINESE_DAYS = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+import { useTranslation } from "@/components/LanguageContext";
+
+const DAYS = [
+  "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+];
+
 
 export default function AvailabilityPage() {
+  const { t, locale } = useTranslation();
+  const [availability, setAvailability] = useState<AvailabilityInput[]>([]);
+  const [slotDuration, setSlotDuration] = useState(60);
+  const [maxDaily, setMaxDaily] = useState(8);
+  
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
 
-  const [availability, setAvailability] = useState<AvailabilityInput[]>(
-    DAYS.map((_, i) => ({ dayOfWeek: i, startTime: "09:00", endTime: "17:00", isOpen: true }))
-  );
-  const [slotDuration, setSlotDuration] = useState(60);
-  const [maxDaily, setMaxDaily] = useState(8);
-
   useEffect(() => {
     async function load() {
       const res = await getMerchantAvailability();
-      if (res.availability && (res.availability as any[]).length > 0) {
-        // Merge with defaults to ensure all days are present
-        const merged = DAYS.map((_, i) => {
-          const existing = (res.availability as any[])?.find(a => (a as any).dayOfWeek === i);
+      if (res.availability) {
+        // Ensure all days are represented
+        const fullList: AvailabilityInput[] = DAYS.map((_, i) => {
+          const existing = res.availability.find((a: any) => a.dayOfWeek === i);
           return existing ? {
             dayOfWeek: i,
             startTime: existing.startTime,
             endTime: existing.endTime,
             isOpen: existing.isOpen
-          } : { dayOfWeek: i, startTime: "09:00", endTime: "17:00", isOpen: true };
+          } : {
+            dayOfWeek: i,
+            startTime: "09:00",
+            endTime: "17:00",
+            isOpen: true
+          };
         });
-        setAvailability(merged);
+        setAvailability(fullList);
       }
       if (res.merchant) {
-        setSlotDuration((res.merchant as any).slotDuration);
-        setMaxDaily((res.merchant as any).maxDailyBookings);
+        setSlotDuration(res.merchant.slotDuration || 60);
+        setMaxDaily(res.merchant.maxDailyBookings || 8);
       }
       setLoading(false);
     }
     load();
   }, []);
 
-  const handleToggleDay = (index: number) => {
+  const handleToggle = (index: number) => {
     const next = [...availability];
     next[index].isOpen = !next[index].isOpen;
     setAvailability(next);
@@ -55,187 +68,167 @@ export default function AvailabilityPage() {
     setAvailability(next);
   };
 
-  const handleSave = async () => {
+  const onSave = async () => {
     setSaving(true);
     setMessage(null);
-    try {
-      const res = await updateMerchantAvailability(availability, slotDuration, maxDaily);
-      if (res.success) {
-        setMessage({ type: 'success', text: '設定已成功儲存！' });
-      } else {
-        setMessage({ type: 'error', text: '儲存失敗，請稍後再試。' });
-      }
-    } catch (err) {
-      setMessage({ type: 'error', text: '發生錯誤：' + (err as any).message });
-    } finally {
-      setSaving(false);
+    const res = await updateMerchantAvailability(availability, slotDuration, maxDaily);
+    if (res.success) {
+      setMessage({ type: 'success', text: t.merchant.merchant_availability.saved });
+    } else {
+      setMessage({ type: 'error', text: t.merchant.merchant_availability.failed });
     }
+    setSaving(false);
+    setTimeout(() => setMessage(null), 3000);
   };
 
-  if (loading) {
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '60vh', opacity: 0.5 }}>
-        <Loader2 className="animate-spin" size={48} />
-        <p style={{ marginTop: '1rem' }}>正在讀取您的時間表...</p>
-      </div>
-    );
-  }
+  if (loading) return (
+    <div style={{ display: 'flex', justifyContent: 'center', padding: '4rem' }}>
+      <Loader2 className="animate-spin" size={48} color="var(--accent-color)" />
+    </div>
+  );
 
   return (
-    <div className="container" style={{ paddingTop: '6rem', paddingBottom: '6rem', maxWidth: '1000px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
+    <div className="animate-fade-in" style={{ maxWidth: '1000px', margin: '0 auto' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
         <div>
-           <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem' }}>服務時間管理</h1>
-           <p style={{ color: 'var(--text-secondary)' }}>設定您的每週營業時段與接單規則，確保預約不衝突。</p>
+           <h1 style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--text-primary)' }}>{t.merchant.merchant_availability.title}</h1>
+           <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>{t.merchant.merchant_availability.subtitle}</p>
         </div>
         <button 
-          onClick={handleSave} 
+          onClick={onSave} 
           disabled={saving}
           className="btn btn-primary" 
-          style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '1rem 2.5rem' }}
+          style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '12px' }}
         >
-          {saving ? <Loader2 size={18} className="animate-spin" /> : <Save size={18} />}
-          {saving ? '儲存中...' : '儲存變更'}
+           {saving ? <Loader2 className="animate-spin" size={18} /> : <Save size={18} />}
+           {saving ? t.merchant.merchant_availability.saving : t.merchant.merchant_availability.save}
         </button>
       </div>
 
       {message && (
-        <div style={{ 
-          padding: '1.5rem', 
-          borderRadius: '1rem', 
-          marginBottom: '2rem', 
-          backgroundColor: message.type === 'success' ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)',
-          color: message.type === 'success' ? '#16a34a' : '#dc2626',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '1rem',
-          fontWeight: 700
-        }}>
-          {message.type === 'success' ? <CheckCircle2 size={24} /> : <XCircle size={24} />}
+        <div className="animate-bounce-in" style={{ backgroundColor: message.type === 'success' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)', color: message.type === 'success' ? '#facc15' : '#ef4444', padding: '1rem', borderRadius: '12px', border: `1px solid ${message.type === 'success' ? '#facc15' : '#ef4444'}`, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700 }}>
+          {message.type === 'success' ? <CheckCircle2 size={18} /> : <AlertCircle size={18} />}
           {message.text}
         </div>
       )}
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '3rem', alignItems: 'start' }}>
-        
-        {/* Weekly Schedule */}
-        <div className="glass-panel" style={{ padding: '2rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
-            <Calendar size={20} color="var(--accent-color)" />
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>每週預約時段</h2>
-          </div>
-
-          <div style={{ display: 'grid', gap: '1rem' }}>
-            {availability.map((day, i) => (
-              <div key={i} style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                gap: '1.5rem', 
-                padding: '1.25rem', 
-                borderRadius: '1rem', 
-                backgroundColor: day.isOpen ? 'var(--bg-secondary)' : 'transparent',
-                border: day.isOpen ? '1px solid var(--border-color)' : '1px dashed var(--border-color)',
-                opacity: day.isOpen ? 1 : 0.6,
-                transition: 'all 0.2s'
-              }}>
-                <div style={{ width: '100px', fontWeight: 700 }}>{CHINESE_DAYS[i]}</div>
-                
-                <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '1rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '2rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          {availability.map((day, i) => (
+            <div key={i} className="glass-panel" style={{ padding: '1.5rem', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', opacity: day.isOpen ? 1 : 0.6, transition: 'all 0.3s', backgroundColor: day.isOpen ? 'var(--surface-1)' : 'var(--bg-secondary)', border: '1.5px solid var(--border-color)' }}>
+               <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                  <div style={{ width: '80px' }}>
+                    <div style={{ fontWeight: 900, color: 'var(--text-primary)' }}>
+                      {locale === 'zh-TW' ? ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'][day.dayOfWeek] : DAYS[day.dayOfWeek]}
+                    </div>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>{DAYS[day.dayOfWeek]}</div>
+                  </div>
+                  
                   {day.isOpen ? (
-                    <>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <Clock size={16} opacity={0.5} />
-                        <input 
-                          type="time" 
-                          value={day.startTime} 
-                          onChange={(e) => handleTimeChange(i, 'startTime', e.target.value)}
-                          style={{ border: 'none', background: 'white', padding: '0.4rem 0.6rem', borderRadius: '0.5rem', fontSize: '0.9rem', color: '#0f172a' }}
-                        />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                      <div className="flex items-center gap-2">
+                         <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 800 }}>{t.merchant.merchant_availability.start}</div>
+                         <input 
+                           type="time" 
+                           value={day.startTime} 
+                           onChange={e => handleTimeChange(i, 'startTime', e.target.value)}
+                           className="input-field"
+                           style={{ padding: '0.4rem', border: '1px solid var(--border-color)', borderRadius: '8px', fontSize: '0.9rem' }}
+                         />
                       </div>
-                      <span style={{ opacity: 0.3 }}>—</span>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <Clock size={16} opacity={0.5} />
-                        <input 
-                          type="time" 
-                          value={day.endTime} 
-                          onChange={(e) => handleTimeChange(i, 'endTime', e.target.value)}
-                          style={{ border: 'none', background: 'white', padding: '0.4rem 0.6rem', borderRadius: '0.5rem', fontSize: '0.9rem', color: '#0f172a' }}
-                        />
+                      <div style={{ color: 'var(--text-secondary)' }}>—</div>
+                      <div className="flex items-center gap-2">
+                         <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 800 }}>{t.merchant.merchant_availability.end}</div>
+                         <input 
+                           type="time" 
+                           value={day.endTime} 
+                           onChange={e => handleTimeChange(i, 'endTime', e.target.value)}
+                           className="input-field"
+                           style={{ padding: '0.4rem', border: '1px solid var(--border-color)', borderRadius: '8px', fontSize: '0.9rem' }}
+                         />
                       </div>
-                    </>
+                    </div>
                   ) : (
-                    <span style={{ color: 'var(--text-secondary)', fontStyle: 'italic', fontSize: '0.9rem' }}>當日不開放預約 (休息日)</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)', fontStyle: 'italic', fontSize: '0.9rem' }}>
+                       <Moon size={16} /> 休息日 (Closed)
+                    </div>
                   )}
-                </div>
+               </div>
 
-                <div 
-                  onClick={() => handleToggleDay(i)}
-                  style={{ 
-                    cursor: 'pointer',
-                    padding: '0.4rem 1rem',
-                    borderRadius: '2rem',
-                    fontSize: '0.8rem',
-                    fontWeight: 700,
-                    backgroundColor: day.isOpen ? '#dcfce7' : '#f1f5f9',
-                    color: day.isOpen ? '#166534' : '#64748b',
-                    border: '1px solid ' + (day.isOpen ? '#bbf7d0' : '#e2e8f0')
-                  }}
-                >
-                  {day.isOpen ? '開發預約' : '關閉中'}
-                </div>
-              </div>
-            ))}
-          </div>
+               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <button 
+                    onClick={() => handleToggle(i)}
+                    style={{ 
+                      padding: '0.4rem 1rem', 
+                      borderRadius: '8px', 
+                      fontSize: '0.8rem', 
+                      fontWeight: 800,
+                      backgroundColor: day.isOpen ? '#fecaca' : '#dcfce7',
+                      color: day.isOpen ? '#dc2626' : '#166534',
+                      border: 'none',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    {day.isOpen ? t.merchant.merchant_availability.closeBtn : t.merchant.merchant_availability.openBtn}
+                  </button>
+               </div>
+            </div>
+          ))}
         </div>
 
-        {/* Global Settings Sidebar */}
-        <aside style={{ display: 'grid', gap: '2rem' }}>
-          <div className="glass-panel" style={{ padding: '2rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
-              <Settings2 size={18} color="var(--accent-color)" />
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 800 }}>接單規則</h3>
-            </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+           <div className="glass-panel" style={{ padding: '1.5rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', border: '1.5px solid var(--border-color)' }}>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 900, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Settings size={18} color="var(--accent-color)" /> 全局設定
+              </h3>
 
-            <div style={{ display: 'grid', gap: '1.5rem' }}>
-              <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.5rem' }}>平均服務時長 (分鐘)</label>
-                <select 
-                  value={slotDuration} 
-                  onChange={(e) => setSlotDuration(parseInt(e.target.value))}
-                  style={{ width: '100%', padding: '0.75rem', borderRadius: '0.75rem', border: '1px solid var(--border-color)', backgroundColor: 'var(--bg-secondary)', color: 'white' }}
-                >
-                  <option value={30}>30 分鐘</option>
-                  <option value={60}>1 小時</option>
-                  <option value={90}>1.5 小時</option>
-                  <option value={120}>2 小時</option>
-                </select>
-                <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.5rem' }}>這將決定預約系統中每個時段的間隔。</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                 <div>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>{t.merchant.merchant_availability.settings.interval}</label>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                       <Clock size={16} color="var(--text-secondary)" />
+                       <input 
+                         type="number" 
+                         value={slotDuration}
+                         onChange={e => setSlotDuration(parseInt(e.target.value))}
+                         className="input-field" 
+                         style={{ flex: 1 }}
+                       />
+                    </div>
+                 </div>
+
+                 <div>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>{t.merchant.merchant_availability.settings.maxDaily}</label>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                       <Users size={16} color="var(--text-secondary)" />
+                       <input 
+                         type="number" 
+                         value={maxDaily}
+                         onChange={e => setMaxDaily(parseInt(e.target.value))}
+                         className="input-field" 
+                         style={{ flex: 1 }}
+                       />
+                    </div>
+                 </div>
+
+                 <div style={{ backgroundColor: 'var(--bg-secondary)', padding: '1rem', borderRadius: '12px', fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                   <Info size={14} style={{ display: 'inline', marginBottom: '2px' }} /> 設定較長的面談/服務時間有助於應對倫敦交通繁忙的突發狀況。
+                 </div>
               </div>
+           </div>
 
-              <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.5rem' }}>每日最高接單量</label>
-                <input 
-                  type="number" 
-                  value={maxDaily} 
-                  onChange={(e) => setMaxDaily(parseInt(e.target.value))}
-                  style={{ width: '100%', padding: '0.75rem', borderRadius: '0.75rem', border: '1px solid var(--border-color)', backgroundColor: 'var(--bg-secondary)', color: 'white' }}
-                />
-                <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.5rem' }}>達到此數量後，當日將不再接受新預約。</p>
+           <div className="glass-panel" style={{ padding: '1.5rem', borderRadius: '24px', backgroundColor: 'var(--accent-soft)', border: '1px solid var(--accent-color)', color: 'var(--accent-color)' }}>
+              <div style={{ display: 'flex', gap: '0.75rem' }}>
+                <Sun size={24} />
+                <div>
+                   <p style={{ fontWeight: 800, marginBottom: '0.25rem' }}>{t.merchant.merchant_availability.tipTitle}</p>
+                   <p style={{ fontSize: '0.8rem', lineHeight: 1.5 }}>
+                      {t.merchant.merchant_availability.tipContent}
+                   </p>
+                </div>
               </div>
-            </div>
-          </div>
-
-          <div style={{ padding: '1.5rem', backgroundColor: '#eff6ff', borderRadius: '1rem', border: '1px solid #dbeafe' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#1e40af', marginBottom: '0.75rem' }}>
-              <Info size={18} />
-              <span style={{ fontWeight: 800, fontSize: '0.9rem' }}>專業提示</span>
-            </div>
-            <p style={{ fontSize: '0.85rem', color: '#1e40af', lineHeight: 1.5, opacity: 0.8 }}>
-              設定合理的服務間隔與每日上限，能幫助您提供更高品質的服務，並降低被取消或遲到的機率。
-            </p>
-          </div>
-        </aside>
-
+           </div>
+        </div>
       </div>
     </div>
   );

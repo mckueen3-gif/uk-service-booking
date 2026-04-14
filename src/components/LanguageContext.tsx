@@ -26,6 +26,44 @@ export const interpolate = (str: string, params: Record<string, string | number>
   }, str);
 };
 
+/**
+ * Creates a recursive proxy that handles missing translation keys gracefully.
+ * t.any.path.not.exist -> returns "" (empty string) instead of crashing.
+ */
+function createSafeDictionary(target: any, path: string = ''): any {
+  // Using an array as target so it's inherently iterable for .map() and for...of
+  const proxyTarget: any = [];
+  Object.assign(proxyTarget, target || {});
+
+  return new Proxy(proxyTarget, {
+    get(obj: any, prop) {
+      if (prop === 'then') return undefined;
+      
+      // Handle rendering/string conversion
+      if (prop === 'toString' || prop === Symbol.toPrimitive || prop === 'valueOf') {
+        return () => '';
+      }
+      
+      const value = obj[prop];
+      
+      // If reading a property that doesn't exist, return a new safe dictionary
+      if (value === undefined) {
+        // Handle array methods specifically to ensure they return something safe
+        if (prop === 'map' || prop === 'filter' || prop === 'slice') {
+          return (fn: any) => [];
+        }
+        return createSafeDictionary({}, path ? `${path}.${String(prop)}` : String(prop));
+      }
+
+      if (value !== null && typeof value === 'object') {
+        return createSafeDictionary(value, path ? `${path}.${String(prop)}` : String(prop));
+      }
+
+      return value;
+    }
+  });
+}
+
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>('en');
 
@@ -77,7 +115,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   const value = {
     locale,
-    t: dictionaries[locale],
+    t: createSafeDictionary(dictionaries[locale]),
     format: interpolate,
     setLocale,
     isRTL: locale === 'ar' || locale === 'ur'

@@ -451,8 +451,7 @@ export const ro: any = {
     contactExpert: "Contactează expertul",
     noReviews: "Nicio recenzie",
     reply: "Răspunde",
-    dashboard: {
-      title: "Panou comerciant",
+    title: "Panou comerciant",
       welcome: "Bine ai revenit, ",
       previewProfile: "Vezi profil public",
       manageServices: "Gestionază servicii",
@@ -590,7 +589,6 @@ export const ro: any = {
         taxYear: "An Fiscal",
         regNumber: "Nr. Înreg. (UTR/CRN)",
       },
-    },
     portfolio_mgr: {
       title: "Portofoliu lucrări",
       subtitle:

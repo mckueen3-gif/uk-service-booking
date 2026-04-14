@@ -91,7 +91,7 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       if (session.user) {
         session.user.role = token.role;
-        session.user.id = token.id;
+        session.user.id = token.id; // 🛡️ CRITICAL: Map DB ID to session
         session.user.referralCode = token.referralCode;
       }
       return session;

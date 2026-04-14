@@ -21,27 +21,27 @@ export default function StatusButtons({ bookingId, currentStatus }: { bookingId:
 
   const statusMap: Record<string, { label: string, next: string | null, color: string }> = {
     'PENDING': { 
-      label: t.merchant.dashboard.status.waiting, 
+      label: t.merchant.status.waiting, 
       next: 'IN_PROGRESS', 
       color: 'var(--accent-color)' 
     },
     'IN_PROGRESS': { 
-      label: t.merchant.dashboard.status.repairing, 
+      label: t.merchant.status.repairing, 
       next: 'FIXED', 
       color: '#f59e0b' 
     },
     'FIXED': { 
-      label: t.merchant.dashboard.status.ready, 
+      label: t.merchant.status.ready, 
       next: 'COMPLETED', 
       color: '#facc15' 
     },
     'COMPLETED': { 
-      label: t.merchant.dashboard.status.completed, 
+      label: t.merchant.status.completed, 
       next: null, 
       color: '#64748b' 
     },
     'CANCELLED': { 
-      label: t.merchant.dashboard.status.cancelled, 
+      label: t.merchant.status.cancelled, 
       next: null, 
       color: '#ef4444' 
     }
@@ -54,7 +54,7 @@ export default function StatusButtons({ bookingId, currentStatus }: { bookingId:
        {/* Current Status Display */}
        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '1rem', backgroundColor: 'var(--bg-secondary)', borderRadius: '0.75rem', border: `1px solid ${current.color}` }}>
           <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: current.color }} className={current.next ? "animate-pulse" : ""} />
-          <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{t.merchant.dashboard.status.currentStatus}：{current.label}</span>
+          <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{t.merchant.status.currentStatus}：{current.label}</span>
        </div>
 
        {/* Next Action Button */}
@@ -76,7 +76,7 @@ export default function StatusButtons({ bookingId, currentStatus }: { bookingId:
                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
             }}
           >
-             {loading ? t.merchant.dashboard.status.updating : `${t.merchant.dashboard.status.clickToUpdate}：${statusMap[current.next].label}`}
+             {loading ? t.merchant.status.updating : `${t.merchant.status.clickToUpdate}：${statusMap[current.next].label}`}
           </button>
        )}
 
@@ -87,7 +87,7 @@ export default function StatusButtons({ bookingId, currentStatus }: { bookingId:
              className="btn btn-secondary"
              style={{ opacity: 0.6, fontSize: '0.85rem' }}
           >
-             {t.merchant.dashboard.status.cancelBtn}
+             {t.merchant.status.cancelBtn}
           </button>
        )}
     </div>

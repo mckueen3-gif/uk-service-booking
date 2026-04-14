@@ -495,8 +495,7 @@ export const ar: any = {
     contactExpert: "اتصل بالخبير",
     noReviews: "لا توجد تقييمات",
     reply: "رد",
-    dashboard: {
-      title: "لوحة تحكم التاجر",
+    title: "لوحة تحكم التاجر",
       welcome: "مرحباً بك مجدداً،",
       previewProfile: "معاينة الملف العام",
       manageServices: "إدارة الخدمات",
@@ -633,7 +632,6 @@ export const ar: any = {
         taxYear: "سنة الضرائب",
         regNumber: "رقم التسجيل (UTR/CRN)",
       },
-    },
     portfolio_mgr: {
       title: "إدارة الأعمال",
       subtitle: "اعرض أفضل أعمالك لجذب المزيد من العملاء.",

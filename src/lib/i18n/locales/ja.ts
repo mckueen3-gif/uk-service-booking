@@ -490,8 +490,7 @@ export const ja: any = {
     contactExpert: "専門家へ連絡",
     noReviews: "レビューなし",
     reply: "返信",
-    dashboard: {
-      title: "加盟店ダッシュボード",
+    title: "加盟店ダッシュボード",
       welcome: "おかえりなさい、",
       previewProfile: "公開プロフィールを確認",
       manageServices: "サービス管理",
@@ -624,7 +623,6 @@ export const ja: any = {
         taxYear: "税年度",
         regNumber: "登録番号 (UTR/CRN)",
       },
-    },
     portfolio_mgr: {
       title: "実績ポートフォリオ",
       subtitle: "最高の仕事を見せて、より多くの予約を獲得しましょう。",

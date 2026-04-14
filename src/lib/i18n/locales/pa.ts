@@ -508,8 +508,7 @@ export const pa: any = {
     contactExpert: "ਮਾਹਰ ਨਾਲ ਸੰਪਰਕ ਕਰੋ",
     noReviews: "ਕੋਈ ਸਮੀਖਿਆ ਨਹੀਂ",
     reply: "ਜਵਾਬ ਦਿਓ",
-    dashboard: {
-      title: "ਮਰਚੈਂਟ ਡੈਸ਼ਬੋਰਡ",
+    title: "ਮਰਚੈਂਟ ਡੈਸ਼ਬੋਰਡ",
       welcome: "ਵਾਪਸੀ 'ਤੇ ਸਵਾਗਤ ਹੈ, ",
       previewProfile: "ਜਨਤਕ ਪ੍ਰੋਫਾਈਲ ਦੇਖੋ",
       manageServices: "ਸੇਵਾਵਾਂ ਦਾ ਪ੍ਰਬੰਧਨ ਕਰੋ",
@@ -644,7 +643,6 @@ export const pa: any = {
         taxYear: "ਕਰ ਸਾਲ",
         regNumber: "ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਨੰਬਰ (UTR/CRN)",
       },
-    },
     portfolio_mgr: {
       title: "ਕੰਮ ਦਾ ਪੋਰਟਫੋਲੀਓ",
       subtitle: "ਵਧੇਰੇ ਬੁਕਿੰਗ ਜਿੱਤਣ ਲਈ ਆਪਣਾ ਸਭ ਤੋਂ ਵਧੀਆ ਕੰਮ ਦਿਖਾਓ।",

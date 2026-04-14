@@ -15,6 +15,7 @@ import { useTranslation } from "@/components/LanguageContext";
 interface SidebarNavProps {
   isMerchant: boolean;
   userName: string;
+  isIsolated?: boolean;
 }
 
 export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
@@ -22,28 +23,30 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
   const { theme } = useTheme();
   const { t } = useTranslation();
 
+  const basePath = isMerchant ? "/merchant" : "/member";
+
   const mainItems = [
-    { href: "/dashboard", label: t.sidebar.labels.overview, icon: isMerchant ? LayoutDashboard : Home },
-    { href: "/dashboard/bookings", label: t.sidebar.labels.bookings, icon: Calendar },
-    { href: "/dashboard/chat", label: t.sidebar.labels.messages, icon: MessageSquare },
+    { href: basePath, label: t?.sidebar?.labels?.overview || "Overview", icon: isMerchant ? LayoutDashboard : Home },
+    { href: "/member/bookings", label: t?.sidebar?.labels?.bookings || "My Bookings", icon: Calendar },
+    { href: "/member/chat", label: t?.sidebar?.labels?.messages || "Live Messages", icon: MessageSquare },
   ];
 
   const businessItems = isMerchant ? [
-    { href: "/dashboard/merchant/schedule", label: t.sidebar.labels.schedule, icon: Calendar },
-    { href: "/dashboard/services", label: t.sidebar.labels.services, icon: ScrollText },
-    { href: "/dashboard/merchant/availability", label: t.sidebar.labels.availability, icon: Clock },
-    { href: "/dashboard/analytics", label: t.sidebar.labels.analytics, icon: BarChart3 },
-    { href: "/merchant/verification", label: t.sidebar.labels.verification, icon: ShieldCheck },
-    { href: "/dashboard/merchant/accounting", label: t.sidebar.labels.accounting, icon: Calculator },
-    { href: "/dashboard/earnings", label: t.sidebar.labels.wallet, icon: Wallet },
+    { href: "/merchant/schedule", label: t?.sidebar?.labels?.schedule || "Service Schedule", icon: Calendar },
+    { href: "/merchant/services", label: t?.sidebar?.labels?.services || "Service Management", icon: ScrollText },
+    { href: "/merchant/availability", label: t?.sidebar?.labels?.availability || "Availability", icon: Clock },
+    { href: "/member/analytics", label: t?.sidebar?.labels?.analytics || "Performance Audit", icon: BarChart3 },
+    { href: "/merchant/verification", label: t?.sidebar?.labels?.verification || "Expert Verification", icon: ShieldCheck },
+    { href: "/merchant/accounting", label: t?.sidebar?.labels?.accounting || "Ledger & Tax", icon: Calculator },
+    { href: "/merchant/wallet", label: t?.sidebar?.labels?.wallet || "Earnings Wallet", icon: Wallet },
   ] : [
-    { href: "/dashboard/garage", label: t.sidebar.labels.garage, icon: Car },
-    { href: "/dashboard/properties", label: t.sidebar.labels.properties, icon: HomeIcon },
-    { href: "/dashboard/wallet", label: t.sidebar.labels.rewards, icon: Star },
+    { href: "/member/garage", label: t?.sidebar?.labels?.garage || "Private Garage", icon: Car },
+    { href: "/member/properties", label: t?.sidebar?.labels?.properties || "Property Portfolio", icon: HomeIcon },
+    { href: "/member/wallet", label: t?.sidebar?.labels?.rewards || "Elite Points", icon: Star },
   ];
 
   const accountItems = [
-    { href: "/dashboard/profile", label: t.sidebar.labels.profile, icon: User },
+    { href: "/member/profile", label: t?.sidebar?.labels?.profile || "Profile Preferences", icon: User },
   ];
 
   const renderNavSection = (title: string, items: typeof mainItems) => (
@@ -100,13 +103,13 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
       paddingTop: '0.5rem' 
     }}>
       {/* Main Actions */}
-      {renderNavSection(t.sidebar.sections.main, mainItems)}
+      {renderNavSection(t.sidebar?.sections?.main || "Main", mainItems)}
       
       {/* Role-specific Actions */}
-      {renderNavSection(isMerchant ? t.sidebar.sections.business : t.sidebar.sections.assets, businessItems)}
+      {renderNavSection(isMerchant ? (t.sidebar?.sections?.business || "Business") : (t.sidebar?.sections?.assets || "Assets"), businessItems)}
       
       {/* Account Actions */}
-      {renderNavSection(t.sidebar.sections.account, accountItems)}
+      {renderNavSection(t.sidebar?.sections?.account || "Account", accountItems)}
 
       {/* Pro Membership / Verification status footer card */}
       <div style={{ 
@@ -123,8 +126,8 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
             <ShieldCheck size={18} color="#000" />
           </div>
           <div>
-            <p style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--text-primary)' }}>{t.sidebar.labels.verified}</p>
-            <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>{t.sidebar.labels.expert}</p>
+            <p style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--text-primary)' }}>{t?.sidebar?.labels?.verified || "Verified Pro"}</p>
+            <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>{t?.sidebar?.labels?.expert || "ConciergeAI Expert"}</p>
           </div>
         </div>
         <div style={{ 
@@ -138,7 +141,7 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
           cursor: 'pointer',
           border: '1px solid rgba(212, 175, 55, 0.3)'
         }} className="hover-lift">
-          <Zap size={14} style={{ marginRight: '4px', verticalAlign: 'middle' }} /> {t.sidebar.labels.boost}
+          <Zap size={14} style={{ marginRight: '4px', verticalAlign: 'middle' }} /> {t?.sidebar?.labels?.boost || "Boost Reach"}
         </div>
       </div>
 
@@ -163,7 +166,7 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
         }}
         className="hover-sidebar-item-red"
       >
-        <LogOut size={18} /> {t.sidebar.labels.logout}
+        <LogOut size={18} /> {t?.sidebar?.labels?.logout || "Exit Protocol"}
       </button>
 
       <style jsx>{`

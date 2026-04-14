@@ -444,8 +444,7 @@ export const ko: any = {
     contactExpert: "전문가에게 문의",
     noReviews: "리뷰 없음",
     reply: "답변",
-    dashboard: {
-      title: "판매자 대시보드",
+    title: "판매자 대시보드",
       welcome: "다시 오신 것을 환영합니다, ",
       previewProfile: "공개 프로필 미리보기",
       manageServices: "서비스 관리",
@@ -578,7 +577,6 @@ export const ko: any = {
         taxYear: "세금 연도",
         regNumber: "등록 번호 (UTR/CRN)",
       },
-    },
     portfolio_mgr: {
       title: "포트폴리오 관리",
       subtitle: "최고의 작업물을 보여주고 더 많은 예약을 받으세요.",

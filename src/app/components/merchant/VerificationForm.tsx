@@ -34,14 +34,14 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
   const handleFileSelect = (file: File) => {
     // Validate file size (10MB max)
     if (file.size > 10 * 1024 * 1024) {
-      alert(t.merchant.dashboard.verification.errorSize);
+      alert(t.merchant.verification.errorSize);
       return;
     }
     
     // Validate file type
     const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'application/pdf'];
     if (!validTypes.includes(file.type)) {
-      alert(t.merchant.dashboard.verification.errorType);
+      alert(t.merchant.verification.errorType);
       return;
     }
 
@@ -86,7 +86,7 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
     e.preventDefault();
     
     if (!selectedFile) {
-      alert(t.merchant.dashboard.verification.uploadPlaceholder);
+      alert(t.merchant.verification.uploadPlaceholder);
       return;
     }
 
@@ -118,7 +118,7 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
       }
     } catch (err) {
       console.error(err);
-      alert(t.merchant.dashboard.verification.errorSubmit);
+      alert(t.merchant.verification.errorSubmit);
     } finally {
       setLoading(false);
     }
@@ -139,26 +139,26 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
             <div style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: '#facc15', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
               <FileCheck size={40} />
             </div>
-            <h2 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#facc15' }}>{t.merchant.dashboard.verification.verified}</h2>
-            <p style={{ color: 'var(--text-secondary)' }}>{t.merchant.dashboard.verification.verifiedDesc}</p>
+            <h2 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#facc15' }}>{t.merchant.verification.verified}</h2>
+            <p style={{ color: 'var(--text-secondary)' }}>{t.merchant.verification.verifiedDesc}</p>
           </>
         ) : (
           <>
             <div style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: 'rgba(255,255,255,0.05)', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
               <ShieldAlert size={40} />
             </div>
-            <h2 style={{ fontSize: '1.8rem', fontWeight: 900 }}>{t.merchant.dashboard.verification.title}</h2>
-            <p style={{ color: 'var(--text-secondary)' }}>{t.merchant.dashboard.verification.unverifiedDesc}</p>
+            <h2 style={{ fontSize: '1.8rem', fontWeight: 900 }}>{t.merchant.verification.title}</h2>
+            <p style={{ color: 'var(--text-secondary)' }}>{t.merchant.verification.unverifiedDesc}</p>
           </>
         )}
       </div>
 
       {/* Upload Form */}
       <form onSubmit={handleVerify} className="glass-panel" style={{ padding: '2rem', display: 'grid', gap: '1.5rem', marginBottom: '2rem', direction: isRTL ? 'rtl' : 'ltr' }}>
-        <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '0.5rem', textAlign: 'inherit' }}>{t.merchant.dashboard.verification.uploadTitle}</h3>
+        <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '0.5rem', textAlign: 'inherit' }}>{t.merchant.verification.uploadTitle}</h3>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.5rem' }}>
            <div>
-             <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.5rem', textAlign: 'inherit' }}>{t.merchant.dashboard.verification.docType}</label>
+             <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.5rem', textAlign: 'inherit' }}>{t.merchant.verification.docType}</label>
              <select 
                 value={docType}
                 onChange={(e) => setDocType(e.target.value)}
@@ -174,21 +174,21 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
                   textAlign: 'center'
                 }}
              >
-                <option value={DocumentType.BUSINESS_LICENSE}>{t.merchant.dashboard.verification.types.license}</option>
-                <option value={DocumentType.GAS_SAFE}>{t.merchant.dashboard.verification.types.gas}</option>
-                <option value={DocumentType.NICEIC}>{t.merchant.dashboard.verification.types.electric}</option>
-                <option value={DocumentType.SIA_LICENSE}>{t.merchant.dashboard.verification.types.sia}</option>
-                <option value={DocumentType.FOOD_HYGIENE}>{t.merchant.dashboard.verification.types.food}</option>
-                <option value={DocumentType.CQC_REG}>{t.merchant.dashboard.verification.types.cqc}</option>
-                <option value={DocumentType.DVLA_CPC}>{t.merchant.dashboard.verification.types.dvla}</option>
-                <option value={DocumentType.DBS_CHECK}>{t.merchant.dashboard.verification.types.dbs}</option>
-                <option value={DocumentType.PUBLIC_LIABILITY}>{t.merchant.dashboard.verification.types.insurance}</option>
+                <option value={DocumentType.BUSINESS_LICENSE}>{t.merchant.verification.types.license}</option>
+                <option value={DocumentType.GAS_SAFE}>{t.merchant.verification.types.gas}</option>
+                <option value={DocumentType.NICEIC}>{t.merchant.verification.types.electric}</option>
+                <option value={DocumentType.SIA_LICENSE}>{t.merchant.verification.types.sia}</option>
+                <option value={DocumentType.FOOD_HYGIENE}>{t.merchant.verification.types.food}</option>
+                <option value={DocumentType.CQC_REG}>{t.merchant.verification.types.cqc}</option>
+                <option value={DocumentType.DVLA_CPC}>{t.merchant.verification.types.dvla}</option>
+                <option value={DocumentType.DBS_CHECK}>{t.merchant.verification.types.dbs}</option>
+                <option value={DocumentType.PUBLIC_LIABILITY}>{t.merchant.verification.types.insurance}</option>
              </select>
            </div>
 
            {/* Upload Area with Preview */}
            <div>
-             <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.5rem' }}>{t.merchant.dashboard.verification.uploadDesc}</label>
+             <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.5rem' }}>{t.merchant.verification.uploadDesc}</label>
              
              {!selectedFile ? (
                /* Empty Upload Zone */
@@ -222,8 +222,8 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
                      <Upload size={32} />
                    </div>
                    <div>
-                     <p style={{ fontWeight: 800, marginBottom: '0.2rem' }}>{t.merchant.dashboard.verification.dropzoneTitle}</p>
-                     <p style={{ fontSize: '0.8rem' }}>{t.merchant.dashboard.verification.dropzoneDesc}</p>
+                     <p style={{ fontWeight: 800, marginBottom: '0.2rem' }}>{t.merchant.verification.dropzoneTitle}</p>
+                     <p style={{ fontSize: '0.8rem' }}>{t.merchant.verification.dropzoneDesc}</p>
                    </div>
                  </div>
                </div>
@@ -309,7 +309,7 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
                        fontSize: '0.7rem',
                        fontWeight: 700
                      }}>
-                       <FileCheck size={12} /> {t.merchant.dashboard.verification.fileReady}
+                       <FileCheck size={12} /> {t.merchant.verification.fileReady}
                      </div>
                    </div>
                  </div>
@@ -337,7 +337,7 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
                 }}
               >
                 {loading ? <Loader2 size={20} className="animate-spin" /> : <Sparkles size={20} />}
-                {loading ? t.merchant.dashboard.verification.verifying : selectedFile ? t.merchant.dashboard.verification.uploadBtn : t.merchant.dashboard.verification.uploadPlaceholder}
+                {loading ? t.merchant.verification.verifying : selectedFile ? t.merchant.verification.uploadBtn : t.merchant.verification.uploadPlaceholder}
               </button>
            </div>
         </div>
@@ -346,7 +346,7 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
       {/* Document History */}
       {documents.length > 0 && (
         <div className="glass-panel" style={{ padding: '2rem', direction: isRTL ? 'rtl' : 'ltr' }}>
-          <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '1.5rem', textAlign: 'inherit' }}>{t.merchant.dashboard.verification.history}</h3>
+          <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '1.5rem', textAlign: 'inherit' }}>{t.merchant.verification.history}</h3>
           <div style={{ display: 'grid', gap: '1rem' }}>
             {documents.map((doc, idx) => (
               <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', padding: '1rem', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
@@ -355,7 +355,7 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
                   <div>
                     <div style={{ fontWeight: 800, fontSize: '0.9rem' }}>{doc.type.replace('_', ' ')}</div>
                     <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                      {doc.registrationNumber ? `${t.merchant.dashboard.verification.registrationNumber}: ${doc.registrationNumber}` : t.merchant.dashboard.verification.extracting}
+                      {doc.registrationNumber ? `${t.merchant.verification.registrationNumber}: ${doc.registrationNumber}` : t.merchant.verification.extracting}
                     </div>
                   </div>
                 </div>
@@ -375,7 +375,7 @@ export default function VerificationForm({ initialStatus }: { initialStatus: any
                      {doc.status}
                    </div>
                    <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
-                      {doc.expiryDate ? `${t.merchant.dashboard.verification.expiryDate}: ${new Date(doc.expiryDate).toLocaleDateString()}` : t.merchant.dashboard.verification.noExpiry}
+                      {doc.expiryDate ? `${t.merchant.verification.expiryDate}: ${new Date(doc.expiryDate).toLocaleDateString()}` : t.merchant.verification.noExpiry}
                    </div>
                 </div>
               </div>

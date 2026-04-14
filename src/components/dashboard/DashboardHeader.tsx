@@ -11,7 +11,7 @@ export default function DashboardHeader({ userName }: { userName: string }) {
   const pathname = usePathname();
   const [showNotifications, setShowNotifications] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  
+
   // Close dropdown on click outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -23,12 +23,19 @@ export default function DashboardHeader({ userName }: { userName: string }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const isMerchant = pathname.startsWith('/merchant');
+  const basePath = isMerchant ? "/merchant" : "/member";
+  const baseLabel = isMerchant ? "專家控制台" : "會員控制台";
+
   // Format breadcrumbs from pathname
   const segments = pathname.split('/').filter(Boolean);
-  const breadcrumbs = segments.map((s, i) => ({
-    label: s.charAt(0).toUpperCase() + s.slice(1).replace(/-/g, ' '),
-    href: '/' + segments.slice(0, i + 1).join('/')
-  }));
+  const breadcrumbs = segments.map((s, i) => {
+    const href = '/' + segments.slice(0, i + 1).join('/');
+    return {
+      label: s === 'merchant' || s === 'member' ? baseLabel : s.charAt(0).toUpperCase() + s.slice(1).replace(/-/g, ' '),
+      href
+    };
+  });
 
   return (
     <header style={{ 
@@ -50,11 +57,10 @@ export default function DashboardHeader({ userName }: { userName: string }) {
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
         <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           {breadcrumbs.length <= 1 ? (
-            // Root /dashboard — show nothing (page title already in page.tsx)
-            <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>控制面板</span>
+            <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{baseLabel}</span>
           ) : (
             <>
-              <Link href="/dashboard" style={{ textDecoration: 'none', color: 'inherit' }}>控制面板</Link>
+              <Link href={basePath} style={{ textDecoration: 'none', color: 'inherit' }}>{baseLabel}</Link>
               {breadcrumbs.slice(1).map((b, i) => (
                 <span key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <span style={{ opacity: 0.4 }}>/</span>

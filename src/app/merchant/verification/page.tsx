@@ -1,70 +1,203 @@
-import { redirect } from 'next/navigation';
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lib/auth";
-import { prisma } from '@/lib/prisma';
-import VerificationForm from '@/app/components/merchant/VerificationForm';
-import { ShieldCheck, Info } from 'lucide-react';
+"use client";
 
-export default async function VerificationPage() {
-  const session = await getServerSession(authOptions);
-  
-  if (!session?.user) {
-    redirect('/auth/login?callbackUrl=/merchant/verification');
+import { useState, useEffect } from "react";
+import { uploadMerchantDocument, getMerchantDocuments } from "@/app/actions/merchant_documents";
+import { ShieldCheck, FileText, Upload, CheckCircle2, AlertTriangle, Clock, Info, ExternalLink, Camera } from "lucide-react";
+import Link from "next/link";
+
+export default function MerchantVerificationPage() {
+  const [documents, setDocuments] = useState<any[]>([]);
+  const [uploading, setUploading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadDocuments();
+  }, []);
+
+  async function loadDocuments() {
+    try {
+      const res = await getMerchantDocuments();
+      if (res.documents) {
+        setDocuments(res.documents);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   }
 
-  if ((session.user as any).role !== 'MERCHANT') {
-    redirect('/auth/login'); // Or unauthorized page
-  }
+  const handleUpload = async (type: string) => {
+    const url = prompt(`請輸入 ${type} 證照的圖片連結 (模擬上傳):`, "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80&w=800");
+    if (!url) return;
 
-  const merchant = await prisma.merchant.findUnique({
-    where: { userId: (session.user as any).id },
-    select: { isVerified: true, licenseUrl: true, registrationNumber: true }
-  });
+    setUploading(true);
+    try {
+      const res = await uploadMerchantDocument(type as any, url);
+      if (res.success) {
+        setMessage(`✅ ${type} 已提交 AI 審核中...`);
+        setTimeout(loadDocuments, 3000); // Wait for AI processing
+      }
+    } catch (err: any) {
+      alert(err.message);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  if (loading) return <div style={{ padding: '4rem', textAlign: 'center', color: '#94a3b8' }}>載入認證資料中...</div>;
 
   return (
-    <div className="container" style={{ paddingTop: '8rem', paddingBottom: '10rem' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '4rem' }}>
-        <div style={{ width: '60px', height: '60px', borderRadius: '1.25rem', backgroundColor: 'var(--accent-color)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem', boxShadow: '0 8px 16px rgba(184, 134, 11, 0.2)' }}>
-          <ShieldCheck size={32} />
-        </div>
-        <div>
-          <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem' }}>專家認證中心</h1>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>完成認證，獲得平台專屬信任標誌</p>
-        </div>
+    <div style={{ padding: '2rem', maxWidth: '1000px', margin: '0 auto', color: 'var(--text-primary)' }}>
+      <div style={{ marginBottom: '3rem' }}>
+        <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem' }}>商戶資質認證 <span style={{ color: 'var(--accent-color)' }}>Verification</span></h1>
+        <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem' }}>上傳您的專業執照以獲得「已驗證」標章，提升客戶信任度與訂單量。</p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 350px', gap: '4rem', alignItems: 'start' }}>
-        <VerificationForm initialStatus={merchant} />
+      {message && (
+        <div style={{ padding: '1rem', backgroundColor: 'var(--accent-soft)', border: '1px solid var(--accent-color)', color: 'var(--accent-color)', borderRadius: '12px', marginBottom: '2rem', fontWeight: 600 }}>
+          {message}
+        </div>
+      )}
 
-        <aside style={{ display: 'grid', gap: '2rem' }}>
-          <div className="glass-panel" style={{ padding: '2rem' }}>
-             <h3 style={{ fontSize: '1.2rem', fontWeight: 800, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-               <Info size={18} color="var(--accent-color)" /> 為何需要認證？
-             </h3>
-             <ul style={{ padding: 0, margin: 0, listStyle: 'none', display: 'grid', gap: '1rem', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-               <li style={{ display: 'flex', gap: '0.75rem' }}>
-                 <div style={{ color: 'var(--accent-color)', fontWeight: 900 }}>✓</div>
-                 <div>取得「認證職人」標章，提升客戶信任度。</div>
-               </li>
-               <li style={{ display: 'flex', gap: '0.75rem' }}>
-                 <div style={{ color: 'var(--accent-color)', fontWeight: 900 }}>✓</div>
-                 <div>優先出現在搜尋結果的前列。</div>
-               </li>
-               <li style={{ display: 'flex', gap: '0.75rem' }}>
-                 <div style={{ color: 'var(--accent-color)', fontWeight: 900 }}>✓</div>
-                 <div>解鎖更高額度的轉帳限額。</div>
-               </li>
-             </ul>
-          </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 350px', gap: '2rem' }}>
+        
+        {/* Document List */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <h2 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <FileText size={20} color="var(--accent-color)" /> 已上傳證件 ({documents.length})
+          </h2>
 
-          <div className="glass-panel" style={{ padding: '2rem', backgroundColor: 'rgba(37,99,235,0.05)' }}>
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '0.75rem' }}>認證流程</h3>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-              1. 提交專屬註冊編號<br/>
-              2. 上傳對應證照正本照片<br/>
-              3. AI 進行初步數據比對<br/>
-              4. 審核小組最終確認
-            </p>
+          {documents.length === 0 ? (
+            <div style={{ padding: '4rem 2rem', backgroundColor: 'var(--surface-2)', borderRadius: '24px', border: '1px dashed var(--border-color)', textAlign: 'center', color: 'var(--text-muted)' }}>
+               <ShieldCheck size={48} style={{ opacity: 0.2, marginBottom: '1rem' }} />
+               <p>您尚未上傳任何專業證件。</p>
+            </div>
+          ) : (
+            documents.map((doc) => (
+              <div key={doc.id} style={{ backgroundColor: 'var(--surface-2)', borderRadius: '24px', border: '1px solid var(--border-color)', padding: '1.5rem', display: 'flex', gap: '1.5rem' }}>
+                <div style={{ width: '120px', height: '120px', borderRadius: '12px', overflow: 'hidden', backgroundColor: 'black', flexShrink: 0 }}>
+                  <img src={doc.fileUrl} alt="License" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
+                    <div>
+                      <h3 style={{ fontSize: '1.1rem', fontWeight: 800 }}>{doc.type}</h3>
+                      <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>於 {new Date(doc.createdAt).toLocaleDateString()} 上傳</p>
+                    </div>
+                    <span style={{ 
+                      padding: '0.4rem 1rem', 
+                      borderRadius: '8px', 
+                      fontSize: '0.75rem', 
+                      fontWeight: 900,
+                      backgroundColor: doc.status === 'APPROVED' ? 'rgba(212, 175, 55, 0.15)' : 
+                                     doc.status === 'UNDER_ADMIN_REVIEW' ? 'rgba(245, 158, 11, 0.15)' : 
+                                     'rgba(239, 68, 68, 0.15)',
+                      color: doc.status === 'APPROVED' ? '#d4af37' : 
+                             doc.status === 'UNDER_ADMIN_REVIEW' ? '#f59e0b' : 
+                             '#ef4444',
+                      border: `1px solid ${
+                        doc.status === 'APPROVED' ? 'rgba(212, 175, 55, 0.3)' : 
+                        doc.status === 'UNDER_ADMIN_REVIEW' ? 'rgba(245, 158, 11, 0.3)' : 
+                        'rgba(239, 68, 68, 0.3)'
+                      }`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.4rem'
+                    }}>
+                      {doc.status === 'UNDER_ADMIN_REVIEW' && <Clock size={14} />}
+                      {doc.status === 'APPROVED' ? '認證通過' : 
+                       doc.status === 'UNDER_ADMIN_REVIEW' ? '管理員審核中' : 
+                       doc.status === 'PENDING' ? 'AI 鑑定中' : '認證未通過'}
+                    </span>
+                  </div>
+
+                  {doc.status === 'UNDER_ADMIN_REVIEW' && (
+                    <div style={{ 
+                      marginTop: '0.75rem', 
+                      padding: '0.75rem 1rem', 
+                      backgroundColor: 'rgba(245, 158, 11, 0.05)', 
+                      border: '1px dashed rgba(245, 158, 11, 0.3)', 
+                      borderRadius: '12px',
+                      fontSize: '0.8rem',
+                      color: '#f59e0b',
+                      display: 'flex',
+                      gap: '0.5rem',
+                      alignItems: 'flex-start'
+                    }}>
+                      <Info size={16} />
+                      <span><strong>AI 提示：</strong> 證件鑑定結果具備爭議或畫質模糊。我們已自動指派 ConciergeAI 高級管理員進行人工手動覆核，預計在 24 小時內完成。</span>
+                    </div>
+                  )}
+
+                  {doc.aiAnalysis && (
+                    <div style={{ backgroundColor: 'var(--surface-1)', padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-color)', marginTop: '1rem', fontSize: '0.85rem' }}>
+                       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                          <span style={{ fontWeight: 800, color: '#d4af37' }}>AI 提取資訊 (Insights)</span>
+                          <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>鑑定信心值: {(doc.confidence * 100).toFixed(0)}%</span>
+                       </div>
+                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
+                          <div>註冊號: <strong>{doc.registrationNumber || "辨識中"}</strong></div>
+                          <div>有效期: <strong>{doc.expiryDate ? new Date(doc.expiryDate).toLocaleDateString() : "辨識中"}</strong></div>
+                       </div>
+                       <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', borderTop: '1px solid var(--border-color)', paddingTop: '0.5rem' }}>{doc.aiAnalysis}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* Upload Sidebar */}
+        <aside>
+          <div style={{ position: 'sticky', top: '2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <div style={{ backgroundColor: 'var(--accent-color)', borderRadius: '24px', padding: '1.5rem', color: 'white' }}>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Upload size={20} /> 上傳新資質
+              </h3>
+              <p style={{ fontSize: '0.85rem', opacity: 0.9, marginBottom: '1.5rem' }}>請選擇證件類型並上傳清晰的照片。AI 將自動提取關鍵資訊。</p>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                <button 
+                  onClick={() => handleUpload('GAS_SAFE')}
+                  disabled={uploading}
+                  style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', backgroundColor: 'rgba(255,255,255,0.2)', color: 'white', border: '1px solid rgba(255,255,255,0.3)', fontWeight: 700, cursor: 'pointer', textAlign: 'left', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+                >
+                  <Camera size={18} /> Gas Safe Register
+                </button>
+                <button 
+                  onClick={() => handleUpload('NICEIC')}
+                  disabled={uploading}
+                  style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', backgroundColor: 'rgba(255,255,255,0.2)', color: 'white', border: '1px solid rgba(255,255,255,0.3)', fontWeight: 700, cursor: 'pointer', textAlign: 'left', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+                >
+                  <Camera size={18} /> NICEIC Certificate
+                </button>
+                <button 
+                  onClick={() => handleUpload('PUBLIC_LIABILITY')}
+                  disabled={uploading}
+                  style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', backgroundColor: 'rgba(255,255,255,0.2)', color: 'white', border: '1px solid rgba(255,255,255,0.3)', fontWeight: 700, cursor: 'pointer', textAlign: 'left', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+                >
+                  <Camera size={18} /> 公共責任險 (Liability)
+                </button>
+              </div>
+            </div>
+
+            <div style={{ backgroundColor: 'var(--surface-2)', borderRadius: '24px', padding: '1.5rem', border: '1px solid var(--border-color)' }}>
+               <h3 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '1rem', color: 'var(--text-primary)' }}>審核規則 (UK Only)</h3>
+               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  <li style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: 'flex', gap: '0.5rem' }}>
+                     <Info size={16} /> <span>證件必須在有效期內。</span>
+                  </li>
+                  <li style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: 'flex', gap: '0.5rem' }}>
+                     <Info size={16} /> <span>證件姓名必須與帳戶姓名或公司名一致。</span>
+                  </li>
+                  <li style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: 'flex', gap: '0.5rem' }}>
+                     <Info size={16} /> <span>AI 自動審核通常在 5 分鐘內完成。</span>
+                  </li>
+               </ul>
+            </div>
           </div>
         </aside>
       </div>
