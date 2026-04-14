@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
+import { usePathname } from 'next/navigation';
 import SearchHero from '@/components/search/SearchHero';
 import RecommendationEngine from '@/components/discovery/RecommendationEngine';
 import { useTranslation } from "@/components/LanguageContext";
@@ -18,6 +19,7 @@ import { Copy, Check } from 'lucide-react';
 
 export default function HomeClient() {
   const { data: session } = useSession();
+  const pathname = usePathname();
   const { t, locale, isRTL } = useTranslation();
   const { city } = useLocation();
   const [activeTab, setActiveTab] = useState('all');
@@ -252,7 +254,7 @@ export default function HomeClient() {
                   </button>
                 </div>
               ) : (
-                <Link href="/auth/register">
+                <Link href={`/auth/register?callbackUrl=${encodeURIComponent(pathname)}`}>
                   <button className="btn btn-primary" style={{ padding: '1.25rem 2.5rem', fontSize: '1.1rem', boxShadow: '0 10px 25px -5px rgba(212, 175, 55, 0.4)' }}>
                     {t?.home?.referralCTA?.button || "Register Now"} <ChevronRight size={20} />
                   </button>

@@ -393,11 +393,11 @@ export function AppNavbar({ session }: { session: any }) {
             </div>
           ) : (
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <Link href="/auth/login" className="fluid-nav-item" style={{ 
+              <Link href={`/auth/login?callbackUrl=${encodeURIComponent(pathname)}`} className="fluid-nav-item" style={{ 
                 textDecoration: 'none', color: obsidianGold, fontWeight: 700
               }}>{t?.nav?.login}</Link>
               <div style={{ width: '1px', height: '14px', backgroundColor: 'var(--border-color)', opacity: 0.5 }}></div>
-              <Link href="/auth/register" className="btn btn-primary fluid-nav-item" style={{ 
+              <Link href={`/auth/register?callbackUrl=${encodeURIComponent(pathname)}`} className="btn btn-primary fluid-nav-item" style={{ 
                 textDecoration: 'none', padding: '0.5rem 1.25rem',
                 backgroundColor: isObsidianPage ? obsidianGold : 'var(--accent-color)',
                 color: isObsidianPage ? 'black' : 'white'
@@ -525,11 +525,11 @@ export function AppNavbar({ session }: { session: any }) {
              
              {!session?.user && (
                <div style={{ display: 'flex', gap: '0.75rem' }}>
-                 <Link href="/auth/login" onClick={() => setMobileMenuOpen(false)} style={{ 
+                 <Link href={`/auth/login?callbackUrl=${encodeURIComponent(pathname)}`} onClick={() => setMobileMenuOpen(false)} style={{ 
                    flex: 1, padding: '1rem', textAlign: 'center', borderRadius: '1rem',
                    background: 'transparent', border: '1.5px solid var(--border-color)', color: obsidianGold, fontWeight: 900, textDecoration: 'none'
                  }}>{t?.nav?.login}</Link>
-                 <Link href="/auth/register" onClick={() => setMobileMenuOpen(false)} style={{ 
+                 <Link href={`/auth/register?callbackUrl=${encodeURIComponent(pathname)}`} onClick={() => setMobileMenuOpen(false)} style={{ 
                    flex: 1, padding: '1rem', textAlign: 'center', borderRadius: '1rem',
                    background: obsidianGold, color: 'black', fontWeight: 900, textDecoration: 'none'
                  }}>{t?.nav?.register}</Link>
