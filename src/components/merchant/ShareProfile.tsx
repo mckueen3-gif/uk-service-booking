@@ -36,11 +36,11 @@ export default function ShareProfile({ merchantId, companyName }: { merchantId: 
          <div style={{ padding: '0.5rem', borderRadius: '8px', background: 'var(--accent-soft)', color: 'var(--accent-color)' }}>
             <Share2 size={18} />
          </div>
-         <h3 style={{ fontSize: '1rem', fontWeight: 800 }}>{t.merchant.merchant_profile.share.title}</h3>
+         <h3 style={{ fontSize: '1rem', fontWeight: 800 }}>{t?.merchant?.merchant_profile?.share?.title || "Share Node"}</h3>
       </div>
       
       <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '1.25rem' }}>
-        {t.merchant.merchant_profile.share.subtitle}
+        {t?.merchant?.merchant_profile?.share?.subtitle || "Propagate your professional credentials to the mesh."}
       </p>
 
       <div style={{ display: 'flex', gap: '0.75rem', flexDirection: isRTL ? 'row-reverse' : 'row', marginBottom: '1rem' }}>
