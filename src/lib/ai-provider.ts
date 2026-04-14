@@ -136,7 +136,7 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
       // Part A: Get Visual Description from Gemini 1.5 Flash (Fidelity King)
       console.info("[AI Provider] Step 1: Gemini 1.5 Flash stripping pixels...");
       const geminiClient = await getGeminiClient();
-      const visionModel = geminiClient.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const visionModel = geminiClient.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
       
       const visionPrompt = "Please provide a highly structured technical description of the physical issue in this photo. Use the format: PART_IDENTIFIED: [Exact name of part], DAMAGE_TYPE: [e.g., Burst, Pin-hole leak, Corrosion, Burned], CONTEXT: [e.g., Outdoor, Under-sink, In-wall]. Focus on identifying exactly what is failing to prevent diagnostic hallucinations.";
       
@@ -293,7 +293,7 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
 
   console.info("[AI Provider] Attempting Fallback (Google Gemini 1.5 Flash)...");
   const geminiClient = await getGeminiClient();
-  const model = geminiClient.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = geminiClient.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
   const contents = messages.map((m, idx) => {
     const parts: import("@google/generative-ai").Part[] = [{ text: m.content }];
