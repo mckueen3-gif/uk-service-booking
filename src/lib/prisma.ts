@@ -25,7 +25,6 @@ if (globalForPrisma.prisma) {
     idleTimeoutMillis: 5000, // Close idle connections quickly
   });
   
-  // @ts-expect-error - PrismaPg expects a compatible Pool version, but types may mismatch due to nested dependencies
   const adapter = new PrismaPg(pool);
   
   prismaClient = new PrismaClient({ 
