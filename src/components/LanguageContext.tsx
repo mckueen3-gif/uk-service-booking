@@ -28,37 +28,34 @@ export const interpolate = (str: string, params: Record<string, string | number>
 
 /**
  * Creates a recursive proxy that handles missing translation keys gracefully.
- * t.any.path.not.exist -> returns "" (empty string) instead of crashing.
- * 🚀 FIXED: Returns string/primitive on demand to prevent React rendering crashes.
+ * 🚀 FIXED: Now returns a "Null Proxy" for missing keys to ensure total path safety.
+ * This prevents "Cannot read property of undefined" crashes for deep access.
  */
 function createSafeDictionary(target: any, path: string = ''): any {
+  // If target is undefined, we return a "Null Proxy" that pretends to be a valid object
   const proxyTarget = target || {};
 
   return new Proxy(proxyTarget, {
     get(obj: any, prop) {
-      // 🚀 REACT & ARRAY SAFETY: Handle cases where the code expects an array or a string
+      // Internal React/Next.js and standard JS safety
       if (prop === 'toString' || prop === Symbol.toPrimitive || prop === 'valueOf') {
         return () => path || ''; 
       }
-
       if (prop === Symbol.iterator || prop === 'map' || prop === 'forEach' || prop === 'filter' || prop === 'reduce') {
-        // If the actual value is an array, return it. Otherwise, return an empty array to prevent crashes.
         return Array.isArray(obj[prop]) ? obj[prop] : (obj[prop] === undefined ? [] : obj[prop]);
       }
-
-      // Handle common React/Next.js internals or JSON conversion
-      if (prop === '$$typeof' || prop === 'toJSON') return undefined;
-      if (prop === 'then') return undefined; // Promise safety
+      if (prop === '$$typeof' || prop === 'toJSON' || prop === 'then') return undefined;
 
       const value = obj[prop];
       
-      // 🚀 CRITICAL FIX: Return undefined for missing keys to allow standard JS fallbacks (t.key || 'fallback')
-      // and prevent React from attempting to render a Proxy object {} which causes 500 crashes.
+      // 🚀 TOTAL PATH SAFETY: If value is missing, return a recursive Null Proxy
+      // instead of undefined. This allows t.missing.deep.path to resolve gracefully.
       if (value === undefined) {
-        return undefined;
+        const fullPath = path ? `${path}.${String(prop)}` : String(prop);
+        return createSafeDictionary(undefined, fullPath);
       }
 
-      // If the value is an object, wrap it recursively to maintain the Proxy context
+      // If the value is an object, wrap it recursively
       if (value !== null && typeof value === 'object') {
         const fullPath = path ? `${path}.${String(prop)}` : String(prop);
         return createSafeDictionary(value, fullPath);
