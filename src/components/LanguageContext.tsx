@@ -36,26 +36,24 @@ function createSafeDictionary(target: any, path: string = ''): any {
 
   return new Proxy(proxyTarget, {
     get(obj: any, prop) {
-      if (prop === 'then') return undefined;
-      
-      // 🚀 REACT SAFETY: If React tries to render the proxy object directly,
-      // we must return a string (empty or the path) to avoid "Objects are not valid as a React child" errors.
+      // 🚀 REACT & ARRAY SAFETY: Handle cases where the code expects an array or a string
       if (prop === 'toString' || prop === Symbol.toPrimitive || prop === 'valueOf') {
-        return () => ''; // Return empty string for safe rendering
+        return () => path || ''; 
+      }
+
+      if (prop === Symbol.iterator || prop === 'map' || prop === 'forEach' || prop === 'filter' || prop === 'reduce') {
+        // If the actual value is an array, return it. Otherwise, return an empty array to prevent crashes.
+        return Array.isArray(obj[prop]) ? obj[prop] : (obj[prop] === undefined ? [] : obj[prop]);
       }
 
       // Handle common React/Next.js internals or JSON conversion
       if (prop === '$$typeof' || prop === 'toJSON') return undefined;
-      
+      if (prop === 'then') return undefined; // Promise safety
+
       const value = obj[prop];
       
       // If reading a property that doesn't exist, return a new safe dictionary proxy representing that path
       if (value === undefined) {
-        // Handle common array methods to prevent crashes during iteration
-        if (prop === 'map' || prop === 'filter' || prop === 'slice') {
-          return () => [];
-        }
-        
         const fullPath = path ? `${path}.${String(prop)}` : String(prop);
         return createSafeDictionary({}, fullPath);
       }
