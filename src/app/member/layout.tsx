@@ -12,6 +12,7 @@ export default async function MemberLayout({ children }: { children: React.React
   }
 
   const isMerchant = session.user.role === "MERCHANT";
+  const userName = session.user.name || "Member";
 
   return (
     <div style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', display: 'flex' }}>
