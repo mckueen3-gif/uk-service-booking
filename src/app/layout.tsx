@@ -21,6 +21,8 @@ import { GoogleMapsProvider } from "@/components/GoogleMapProvider";
 const inter = Inter({ subsets: ["latin"], variable: "--font-body" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-heading" });
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: {
     default: "ConciergeAI | Elite UK & HK Service Experts",

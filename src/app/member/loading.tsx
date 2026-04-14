@@ -11,8 +11,8 @@ export default function DashboardLoading() {
         </div>
       </div>
       <div className="text-center space-y-2">
-        <h2 className="text-xl font-semibold text-slate-800">載入中...</h2>
-        <p className="text-slate-500 max-w-xs mx-auto">正在準備您的個人數據，請稍候。</p>
+        <h2 className="text-xl font-semibold text-slate-800">Initializing Console...</h2>
+        <p className="text-slate-500 max-w-xs mx-auto">Preparing your secure uplink, please stand by.</p>
       </div>
       
       {/* Skeleton placeholders */}

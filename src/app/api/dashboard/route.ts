@@ -7,6 +7,10 @@ import { generateUniqueReferralCode } from "@/lib/referral-utils";
 export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const isForce = searchParams.get('force') === 'true';
+  const isRepair = searchParams.get('repair') === 'true' || isForce;
+
   const session = await getServerSession(authOptions);
   if (!session || !session.user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -16,130 +20,93 @@ export async function GET(req: NextRequest) {
   const userEmail = (session.user as any).email?.toLowerCase();
 
   try {
-    // 🚀 Robust User Data Lookup (Fallback to Email)
+    // 🛡️ PHASE 1: SELF-HEALING (Only if explicitly requested or needed)
+    if (isRepair) {
+      const basicUser = await prisma.user.findUnique({
+        where: { id: userId || "idx" },
+        select: { id: true, role: true, name: true, merchantProfile: { select: { id: true } } }
+      });
+
+      if (basicUser && basicUser.role === "MERCHANT" && !basicUser.merchantProfile) {
+        console.log(`[Critical Repair] Auto-creating Merchant Profile for ${basicUser.id}`);
+        await prisma.merchant.upsert({
+          where: { userId: basicUser.id },
+          update: {},
+          create: {
+            userId: basicUser.id,
+            companyName: basicUser.name || "Specialist",
+            city: "London",
+            isVerified: false
+          }
+        });
+      }
+      
+      // Auto-create wallet if merchant profile exists
+      const merchant = await prisma.merchant.findUnique({ where: { userId: basicUser?.id || "idx" } });
+      if (merchant) {
+        await prisma.merchantWallet.upsert({
+          where: { merchantId: merchant.id },
+          update: {},
+          create: {
+            merchantId: merchant.id,
+            availableBalance: 0,
+            pendingBalance: 0,
+            totalEarned: 0,
+            authorizedBalance: 0
+          }
+        });
+      }
+    }
+
+    // 🚀 PHASE 2: CONSOLIDATED ROBUST QUERY
+    // This phase fetches everything needed for the dashboard in one go.
     const userWithData = await safeDbQuery(async () => {
-      let u = await prisma.user.findUnique({
-        where: { id: userId || "missing-id-fallback" },
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          role: true,
-          referralCode: true,
-          referralCredits: true,
-          referralReceived: {
-            select: {
-              referrer: { select: { name: true } }
-            }
-          },
-          referralsMade: {
-            select: {
-              id: true,
-              referee: { select: { name: true } },
-              earnedFromReferee: true,
-              createdAt: true
-            }
+      return await prisma.user.findUnique({
+        where: { id: userId || "missing-id" },
+        include: {
+          referralReceived: { include: { referrer: { select: { name: true } } } },
+          referralsMade: { 
+            include: { referee: { select: { name: true } } },
+            orderBy: { createdAt: 'desc' }
           },
           merchantProfile: {
-            select: {
-              id: true,
-              isVerified: true,
-              wallet: {
-                select: {
-                  totalEarned: true,
-                  pendingBalance: true
-                }
-              },
+            include: {
+              wallet: true,
               bookings: {
                 orderBy: { scheduledDate: 'desc' },
-                take: 5,
-                select: {
-                  id: true,
-                  status: true,
-                  totalAmount: true,
-                  scheduledDate: true,
-                  service: { select: { name: true } }
-                }
+                take: 10,
+                include: { service: { select: { name: true } } }
               }
             }
           },
           bookings: {
             orderBy: { scheduledDate: 'desc' },
-            take: 5,
-            select: {
-              id: true,
-              status: true,
-              totalAmount: true,
-              scheduledDate: true,
-              service: { select: { name: true } }
-            }
+            take: 10,
+            include: { service: { select: { name: true } } }
           }
         }
       });
-
-      // 🚀 Fallback to Email if ID fails
-      if (!u && userEmail) {
-        u = await prisma.user.findUnique({
-          where: { email: userEmail },
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            role: true,
-            referralCode: true,
-            referralCredits: true,
-            referralReceived: { select: { referrer: { select: { name: true } } } },
-            referralsMade: { select: { id: true, referee: { select: { name: true } }, earnedFromReferee: true, createdAt: true } },
-            merchantProfile: { select: { id: true, isVerified: true, wallet: { select: { totalEarned: true, pendingBalance: true } }, bookings: { take: 5, select: { id: true, status: true, totalAmount: true, scheduledDate: true, service: { select: { name: true } } } } } },
-            bookings: { take: 5, select: { id: true, status: true, totalAmount: true, scheduledDate: true, service: { select: { name: true } } } }
-          }
-        });
-      }
-
-      // 🚨 Auto-Heal ghost user
-      if (!u && userEmail) {
-          const newCode = await generateUniqueReferralCode((session.user as any).name || "USER");
-          u = await prisma.user.create({
-            data: {
-              email: userEmail,
-              name: (session.user as any).name || "User",
-              role: "CUSTOMER",
-              referralCode: newCode
-            },
-            select: {
-              id: true,
-              name: true,
-              email: true,
-              role: true,
-              referralCode: true,
-              referralCredits: true,
-              referralReceived: { select: { referrer: { select: { name: true } } } },
-              referralsMade: { select: { id: true, referee: { select: { name: true } }, earnedFromReferee: true, createdAt: true } },
-              merchantProfile: { select: { id: true, isVerified: true, wallet: { select: { totalEarned: true, pendingBalance: true } }, bookings: { take: 0, select: { id: true, status: true, totalAmount: true, scheduledDate: true, service: { select: { name: true } } } } } },
-              bookings: { take: 0, select: { id: true, status: true, totalAmount: true, scheduledDate: true, service: { select: { name: true } } } }
-            }
-          });
-      }
-
-      // 🛡️ Self-Healing referral code
-      if (u && (!u.referralCode || u.referralCode.startsWith("PENDING-"))) {
-        const finalCode = await generateUniqueReferralCode(u.name || "USER");
-        await prisma.user.update({
-          where: { id: u.id },
-          data: { referralCode: finalCode }
-        });
-        u.referralCode = finalCode;
-      }
-      return u;
     });
 
     if (!userWithData) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      return NextResponse.json({ error: "User profile out of sync" }, { status: 404 });
     }
 
+    // 🚀 PHASE 3: FLATTEN & SAFELY MAP
     const isMerchant = userWithData.role === "MERCHANT";
-    const merchantData = userWithData.merchantProfile;
-    const bookings = isMerchant ? (merchantData?.bookings || []) : (userWithData.bookings || []);
+    const rawMerchant = userWithData.merchantProfile;
+    
+    // Ensure merchantData root has all stats DashboardContent expects
+    const merchantData = rawMerchant ? {
+      ...rawMerchant,
+      balanceAvailable: rawMerchant.wallet?.availableBalance || 0,
+      balanceHeld: rawMerchant.wallet?.pendingBalance || 0,
+      totalEarned: rawMerchant.wallet?.totalEarned || 0,
+      rating: rawMerchant.averageRating || 5.0,
+      id: rawMerchant.id
+    } : null;
+
+    const bookings = isMerchant ? (rawMerchant?.bookings || []) : (userWithData.bookings || []);
 
     return NextResponse.json({
       user: {
@@ -154,27 +121,35 @@ export async function GET(req: NextRequest) {
       },
       isMerchant,
       merchantData,
-      bookings
+      bookings,
+      _isFallback: false
     });
+
   } catch (error) {
-    console.error("Dashboard API Error:", error);
+    console.error("Dashboard API High-Level Crash:", error);
     const sessionUser = (session?.user as any);
     
     return NextResponse.json({
       user: {
         id: sessionUser?.id || "anonymous",
         name: sessionUser?.name || "Member",
-        email: sessionUser?.email || "",
         role: sessionUser?.role || "CUSTOMER",
-        referralCode: sessionUser?.referralCode || "REF-SYNCING", 
-        referralCredits: 0,
-        referredBy: null,
-        referralsMade: []
+        referralCode: "REF-SYNCING",
+        referralCredits: 0
       },
       isMerchant: sessionUser?.role === "MERCHANT",
-      merchantData: null,
+      merchantData: { 
+        balanceAvailable: 0, 
+        balanceHeld: 0, 
+        totalEarned: 0,
+        _isFallback: true 
+      },
       bookings: [],
-      _isFallback: true
-    }, { status: 200 }); // 🚀 200 Status to prevent "Sync Delayed" warnings
+      _isFallback: true,
+      _diagnostic: {
+        reason: error instanceof Error ? error.message : "Internal Database Flux",
+        timestamp: new Date().toISOString()
+      }
+    }, { status: 200 }); // Return 200 with fallback data to avoid UI white screens
   }
 }

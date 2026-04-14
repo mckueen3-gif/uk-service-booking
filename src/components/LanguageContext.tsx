@@ -29,19 +29,23 @@ export const interpolate = (str: string, params: Record<string, string | number>
 /**
  * Creates a recursive proxy that handles missing translation keys gracefully.
  * t.any.path.not.exist -> returns "" (empty string) instead of crashing.
+ * 🚀 FIXED: Returns string/primitive on demand to prevent React rendering crashes.
  */
 function createSafeDictionary(target: any, path: string = ''): any {
-  // Use a plain object target for better compatibility
   const proxyTarget = target || {};
 
   return new Proxy(proxyTarget, {
     get(obj: any, prop) {
       if (prop === 'then') return undefined;
       
-      // Handle rendering/string conversion
+      // 🚀 REACT SAFETY: If React tries to render the proxy object directly,
+      // we must return a string (empty or the path) to avoid "Objects are not valid as a React child" errors.
       if (prop === 'toString' || prop === Symbol.toPrimitive || prop === 'valueOf') {
-        return () => '';
+        return () => ''; // Return empty string for safe rendering
       }
+
+      // Handle common React/Next.js internals or JSON conversion
+      if (prop === '$$typeof' || prop === 'toJSON') return undefined;
       
       const value = obj[prop];
       
@@ -68,31 +72,30 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>('en');
 
   useEffect(() => {
+    // Helper to validate and set locale
+    const safeSetLocale = (val: any) => {
+      if (val && dictionaries[val as Locale]) {
+        setLocaleState(val as Locale);
+        return true;
+      }
+      return false;
+    };
+
     // Phase 1: High-priority localStorage check
-    const saved = typeof window !== 'undefined' ? localStorage.getItem('user-locale') as Locale : null;
-    
-    if (saved && dictionaries[saved]) {
-      setLocaleState(saved);
-      return;
-    } 
+    const saved = typeof window !== 'undefined' ? localStorage.getItem('user-locale') : null;
+    if (safeSetLocale(saved)) return;
 
     // Phase 2: Fallback to Cookie
     const cookieValue = typeof document !== 'undefined' ? document.cookie
       .split('; ')
       .find(row => row.startsWith('user-locale='))
-      ?.split('=')[1] as Locale : undefined;
-    
-    if (cookieValue && dictionaries[cookieValue]) {
-      setLocaleState(cookieValue);
-      return;
-    }
+      ?.split('=')[1] : undefined;
+    if (safeSetLocale(cookieValue)) return;
 
-    // Phase 3: Browser Auto-Detection (Smart Fallback)
+    // Phase 3: Browser Auto-Detection
     if (typeof navigator !== 'undefined') {
-      const browserLang = navigator.language.split('-')[0] as Locale;
-      if (dictionaries[browserLang]) {
-        setLocaleState(browserLang);
-      }
+      const browserLang = navigator.language.split('-')[0];
+      safeSetLocale(browserLang);
     }
   }, []);
 

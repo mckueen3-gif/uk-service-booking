@@ -16,6 +16,8 @@ import {
 import { getDictionary, dictionaries, Locale } from "@/lib/i18n/dictionary";
 import { cookies } from "next/headers";
 
+export const dynamic = 'force-dynamic';
+
 function AdminNavLink({ href, icon, label, badge, active }: { href: string; icon: React.ReactNode; label: string; badge?: string; active?: boolean }) {
   return (
     <Link 

@@ -41,10 +41,9 @@ export const prisma = prismaClient;
 
 /**
  * 🚀 SILENT RESILIENCE: Helper to handle transient DB connection issues.
- * This prevents "Pool Saturated" errors from leaking to the UI immediately.
- * We retry up to 2 times with a short delay before giving up.
+ * Enhanced with exponential backoff to handle "stuck queues" or server ripples.
  */
-export async function safeDbQuery<T>(queryFn: () => Promise<T>, retries = 2, delay = 300): Promise<T> {
+export async function safeDbQuery<T>(queryFn: () => Promise<T>, retries = 3, initialDelay = 400): Promise<T> {
   let lastError: Error | unknown;
   for (let i = 0; i <= retries; i++) {
     try {
@@ -52,14 +51,24 @@ export async function safeDbQuery<T>(queryFn: () => Promise<T>, retries = 2, del
     } catch (error: unknown) {
       lastError = error;
       const errorStr = error instanceof Error ? error.message : String(error);
-      const isPoolIssue = errorStr.includes("pool") || errorStr.includes("client") || errorStr.includes("timeout") || errorStr.includes("6543") || errorStr.includes("MaxClients");
       
-      if (isPoolIssue && i < retries) {
-         // Force garbage collection of old connections by letting Node breathe
-        console.warn(`[Prisma Retry] DB Pool busy, waiting ${delay * (i+1)}ms...`);
-        await new Promise(resolve => setTimeout(resolve, delay * (i + 1)));
+      // Classify error type
+      const isTransient = errorStr.includes("pool") || 
+                          errorStr.includes("client") || 
+                          errorStr.includes("timeout") || 
+                          errorStr.includes("6543") || 
+                          errorStr.includes("MaxClients") ||
+                          errorStr.includes("connection");
+      
+      if (isTransient && i < retries) {
+        // Exponential backoff: 400ms, 800ms, 1200ms...
+        const currentDelay = initialDelay * (i + 1);
+        console.warn(`[Prisma Retry ${i+1}/${retries}] Transient DB issue: ${errorStr.slice(0, 50)}... Retrying in ${currentDelay}ms`);
+        await new Promise(resolve => setTimeout(resolve, currentDelay));
         continue;
       }
+      
+      // If it's a structural/vertical data error, don't retry, just propagate
       throw error;
     }
   }

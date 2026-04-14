@@ -8,6 +8,8 @@ import {
 import { getCommissionRate } from "@/lib/commission";
 import CommissionEditor from "./CommissionEditor";
 
+export const dynamic = 'force-dynamic';
+
 import { cookies } from "next/headers";
 import { dictionaries, Locale } from "@/lib/i18n/dictionary";
 

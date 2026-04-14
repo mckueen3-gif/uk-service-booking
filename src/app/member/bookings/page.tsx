@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
-import { dictionaries, Locale } from "@/lib/i18n/dictionary";
+import { dictionaries, Locale, Dictionary } from "@/lib/i18n/dictionary";
 import BookingsContent from "./components/BookingsContent";
 
 export default async function BookingsPage() {
@@ -11,7 +11,8 @@ export default async function BookingsPage() {
 
   const cookieStore = await cookies();
   const locale = (cookieStore.get('user-locale')?.value as Locale) || 'en';
-  const t = (dictionaries[locale] || dictionaries['en'] || {}) as any;
+  // 🚀 ROBUST FALLBACK
+  const t = (dictionaries[locale] || dictionaries['en'] || {}) as Dictionary;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>

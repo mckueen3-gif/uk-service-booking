@@ -989,18 +989,37 @@ export const en: Dictionary = {
   },
   auth: {
     login: {
-      subtitle: "Secure access to your ConciergeAI command center."
+      title: "Welcome Back",
+      subtitle: "Secure access to your ConciergeAI command center.",
+      success: "Authentication successful, accessing terminal...",
+      emailLabel: "Identity Email",
+      emailPlaceholder: "Your email address",
+      passwordLabel: "Password",
+      passwordPlaceholder: "Enter your password",
+      forgotPassword: "Forgot credentials?",
+      loading: "Verifying...",
+      submit: "Authorize Entry",
+      or: "or",
+      google: "Sign in with Google",
+      navToRegister: "New Expert?",
+      createAccount: "Apply for Node"
     },
     loading: {
-      preparing: "Initializing Secure Tunnel..."
+      preparing: "Initializing Secure Tunnel...",
+      initializing: "Initializing Secure Tunnel..."
     },
     forgotPassword: {
       title: "Recovery Protocol",
       subtitle: "Initiate identity verification to reset credentials.",
       emailLabel: "Identity Email",
+      emailPlaceholder: "Enter your expert email address...",
       sendBtn: "Push Reset Request",
+      submit: "Push Reset Request",
+      loading: "Transmitting protocol...",
+      back: "Return to Terminal",
       backToLogin: "Return to Terminal",
-      success: "Recovery signal dispatched. Check your transmission inbox.",
+      success: "Recovery signal dispatched.",
+      successDetail: "Calibration instructions sent to {email}. Check your inbox.",
       error: "Protocol failed. Verify your identity credentials."
     },
     errors: {
@@ -1008,6 +1027,42 @@ export const en: Dictionary = {
       invalid_credentials: "Identity verification failed.",
       session_expired: "Session persistence lost.",
       access_denied: "Clearance level insufficient."
+    },
+    register: {
+      title: "Create Expert Account",
+      subtitle: "Join the UK's elite expert mesh system.",
+      firstNameLabel: "First Name",
+      lastNameLabel: "Last Name",
+      emailLabel: "Email Address",
+      emailPlaceholder: "e.g., expert@conciergeai.uk",
+      accountTypeLabel: "Account Type",
+      roles: {
+        customer: "Client / User",
+        merchant: "Specialist / Expert"
+      },
+      passwordLabel: "Secure Password",
+      passwordHint: "Min. 6 characters",
+      referralLabel: "Referral Code (Optional)",
+      referralPlaceholder: "Enter invite code",
+      loading: "Syncing identity nodes...",
+      submit: "Register Now",
+      or: "or use social account",
+      google: "Sign in with Google",
+      navToLogin: "Already have an account?",
+      signIn: "Sign In Now"
+    }
+  },
+  onboarding: {
+    steps: {
+      profile: "Expert Profile",
+      credentials: "Credentials",
+      contract: "Agreement"
+    },
+    buttons: {
+      start: "Initialize Onboarding",
+      next: "Next Phase",
+      back: "Return",
+      submit: "Final Submission"
     }
   },
   admin: {

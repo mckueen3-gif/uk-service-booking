@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 import HomeClient from './HomeClient';
+
+export const dynamic = 'force-dynamic';
 import StructuredData from '@/components/StructuredData';
 
 export const metadata: Metadata = {

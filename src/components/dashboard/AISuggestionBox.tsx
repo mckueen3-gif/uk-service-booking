@@ -4,8 +4,10 @@ import React, { useEffect, useState } from 'react';
 import { getMerchantAnalytics } from '@/app/actions/analytics';
 import { Sparkles, Lightbulb, TrendingUp, Info, ChevronRight, Coins, Zap } from 'lucide-react';
 import Link from 'next/link';
+import { useTranslation } from "@/components/LanguageContext";
 
 export default function AISuggestionBox() {
+  const { t } = useTranslation();
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -20,50 +22,52 @@ export default function AISuggestionBox() {
 
   const suggestions = [];
 
-  if (data.performanceMetrics.conversionRate < 60) {
+  const convRate = data?.performanceMetrics?.conversionRate || 0;
+  if (convRate < 60) {
     suggestions.push({
       id: 'price-opt',
-      title: '競爭力定價建議 AI',
-      desc: '您的轉化率低於倫敦平均。建議檢查相似服務的競爭價格，微調標價或加入「材料費透明」標籤，可增加 25% 詢問度。',
+      title: t?.merchant?.ai?.pricing?.title || 'Competitive Pricing AI',
+      desc: t?.merchant?.ai?.pricing?.desc || 'Your conversion rate is below the regional average. AI suggests adjusting price points or adding material transparency labels.',
       icon: <Coins color="var(--accent-color)" />,
-      action: '查看市場分析 Check Market',
-      link: '/services?city=London'
+      action: t?.merchant?.ai?.pricing?.cta || 'Check Market',
+      link: '/services/results'
     });
   }
 
   suggestions.push({
     id: 'profile-opt',
-    title: '服務描述優化',
-    desc: '基於最新的 5 星評語，建議在主頁加入「專業準時」與「清潔衛生」標籤，AI 預估這能提升 18% 的點擊轉化。',
+    title: t?.merchant?.ai?.profile?.title || 'Profile Intelligence',
+    desc: t?.merchant?.ai?.profile?.desc || 'Based on recent 5-star reviews, adding "Professional" and "Hygienic" tags could boost click-through by 18%.',
     icon: <Lightbulb color="var(--accent-color)" />,
-    action: '更新商家頁面 Update Page',
+    action: t?.merchant?.ai?.profile?.cta || 'Update Page',
     link: '/dashboard/profile'
   });
 
   return (
     <div className="glass-panel" style={{ 
-      background: 'linear-gradient(135deg, var(--amber-800) 0%, var(--amber-950) 100%)', 
+      background: 'linear-gradient(135deg, #1a1a1a 0%, #000 100%)', 
       borderRadius: '32px', 
       padding: '2.5rem', 
-      border: 'none', 
-      boxShadow: 'var(--shadow-lg)',
+      border: '1px solid rgba(212, 175, 55, 0.3)', 
+      boxShadow: '0 10px 40px rgba(0,0,0,0.5)',
       overflow: 'hidden',
       position: 'relative',
       color: 'white'
     }}>
       {/* Decorative Glows */}
-      <div style={{ position: 'absolute', top: '-50px', right: '-50px', width: '200px', height: '200px', background: 'var(--accent-color)', opacity: 0.2, filter: 'blur(60px)', borderRadius: '50%' }}></div>
-      <div style={{ position: 'absolute', bottom: '-20px', left: '-20px', width: '150px', height: '150px', background: 'white', opacity: 0.1, filter: 'blur(50px)', borderRadius: '50%' }}></div>
-
+      <div style={{ position: 'absolute', top: '-50px', right: '-50px', width: '200px', height: '200px', background: 'var(--accent-color)', opacity: 0.1, filter: 'blur(60px)', borderRadius: '50%' }}></div>
+      
       <div style={{ position: 'relative', zIndex: 10 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2.5rem' }}>
           <div>
-            <h3 style={{ fontSize: '1.5rem', fontWeight: 950, display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'white', fontFamily: 'var(--font-heading)' }}>
-              <Sparkles color="var(--accent-color)" className="animate-pulse" /> Aura 經營策略導師
+            <h3 style={{ fontSize: '1.5rem', fontWeight: 950, display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'white' }}>
+              <Sparkles color="var(--accent-color)" className="animate-pulse" /> {t?.merchant?.ai?.title || "Aura Strategy Mentor"}
             </h3>
-            <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.9rem', marginTop: '0.25rem' }}>基於您的歷史績效與市場數據的動態智能建議</p>
+            <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.9rem', marginTop: '0.25rem' }}>
+              {t?.merchant?.ai?.subtitle || "Dynamic logic based on historical performance and mesh telemetry."}
+            </p>
           </div>
-          <div style={{ padding: '0.75rem', background: 'rgba(255,255,255,0.1)', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.1)' }}>
+          <div style={{ padding: '0.75rem', background: 'rgba(212, 175, 55, 0.1)', borderRadius: '14px', border: '1px solid rgba(212, 175, 55, 0.2)' }}>
             <Zap size={20} color="var(--accent-color)" />
           </div>
         </div>

@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import DashboardContent from "./components/DashboardContent";
 import DynamicGreeting from "./components/DynamicGreeting";
 import { cookies } from "next/headers";
-import { dictionaries, Locale } from "@/lib/i18n/dictionary";
+import { dictionaries, Locale, Dictionary } from "@/lib/i18n/dictionary";
 
 export const dynamic = 'force-dynamic';
 
@@ -15,7 +15,8 @@ export default async function DashboardPage() {
   // 🚀 i18n for Server Component (Shielded)
   const cookieStore = await cookies();
   const locale = (cookieStore.get('user-locale')?.value as Locale) || 'en';
-  const t = dictionaries[locale] || dictionaries['en']; // Hard fallback to English
+  // 🚀 ROBUST FALLBACK: Ensure t is never undefined even on server
+  const t = (dictionaries[locale] || dictionaries['en'] || {}) as Dictionary;
 
   // 🚀 TOTAL INSTANT SHELL
   const userName = session.user.name || "Member";

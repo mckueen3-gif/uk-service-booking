@@ -79,6 +79,8 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
   const [syncing, setSyncing] = useState(false);
   const [lastSync, setLastSync] = useState<Date | null>(null);
   const [error, setError] = useState(false);
+  const [diagnostic, setDiagnostic] = useState<any>(null);
+  const [refreshAttempt, setRefreshAttempt] = useState(0);
 
   // Referral claiming state
   const [claimCode, setClaimCode] = useState('');
@@ -113,10 +115,17 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
   };
 
   const refreshData = useCallback(async (isManual = false) => {
-    if (isManual) setSyncing(true);
+    if (isManual) {
+      setSyncing(true);
+      setRefreshAttempt(prev => prev + 1);
+    }
     
     try {
-      const res = await fetch('/api/dashboard', { cache: 'no-store' });
+      // 🚀 FORCE/REPAIR LOGIC: If manual and repeating, trigger deep repair
+      const useForce = isManual && refreshAttempt >= 2;
+      const url = `/api/dashboard?${useForce ? 'force=true' : 'refresh=true'}`;
+      
+      const res = await fetch(url, { cache: 'no-store' });
       
       if (res.status === 401 || res.status === 404) {
         localStorage.removeItem('dashboard_data');
@@ -130,15 +139,20 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
         if (result && !result.error) {
            setData(result);
            setLastSync(new Date());
+           setDiagnostic(result._diagnostic || null);
            localStorage.setItem('dashboard_data', JSON.stringify(result));
-           // 🚀 SILENT CLEAR: If we have data (even fallback), clear previous error state
-           if (!result._isFallback) {
+           
+           // 🛡️ VERBOSE DIAGNOSTIC LOGGING
+           if (result._isFallback) {
+             console.warn("[Dashboard Sync] Fallback Mode Active:", result._diagnostic?.reason);
+             setError(true);
+           } else {
              setError(false);
+             setRefreshAttempt(0); // Reset on full success
            }
         }
       } else {
         // 🚀 SMART NOISE REDUCTION: Only show alert for severe auth/routing issues.
-        // Transient 500s are handled by safeDbQuery retries.
         if (res.status === 401 || res.status === 403) {
            console.warn("Auth failure during sync", res.status);
            setError(true);
@@ -151,7 +165,7 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
       setLoading(false);
       setSyncing(false);
     }
-  }, [update]); // refreshData logic
+  }, [update, refreshAttempt]); // refreshData logic
 
   useEffect(() => {
     const cached = localStorage.getItem('dashboard_data');
@@ -230,8 +244,17 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
         <span style={{ fontSize: '0.75rem', color: error ? '#ef4444' : 'var(--text-secondary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
           {error
             ? <>
-                ⚠ {t?.merchant?.syncFailed || "Sync Delayed"}
-                <button onClick={() => { localStorage.clear(); window.location.href='/api/auth/signout'; }} style={{ marginLeft: '0.5rem', background: '#ef4444', color: 'white', border: 'none', padding: '0.2rem 0.5rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.7rem' }}>{t?.common?.exit || "Exit"}</button>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    ⚠ {t?.merchant?.syncFailed || "Sync Delayed"}
+                    <button onClick={() => { localStorage.clear(); window.location.href='/api/auth/signout'; }} style={{ marginLeft: '0.5rem', background: '#ef4444', color: 'white', border: 'none', padding: '0.2rem 0.5rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.7rem' }}>{t?.common?.exit || "Exit"}</button>
+                  </div>
+                  {diagnostic && (
+                    <span style={{ fontSize: '0.65rem', opacity: 0.7, fontStyle: 'italic', maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      Ref: {diagnostic.reason}
+                    </span>
+                  )}
+                </div>
               </>
             : lastSync
               ? <>

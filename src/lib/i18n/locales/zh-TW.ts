@@ -817,18 +817,37 @@ export const zhTW: Dictionary = {
   },
   auth: {
     login: {
-      subtitle: "登入 ConciergeAI 專家工作台"
+      title: "歡迎回來",
+      subtitle: "登入 ConciergeAI 專家工作台",
+      success: "認證成功，正在進入終端...",
+      emailLabel: "帳戶郵件",
+      emailPlaceholder: "您的電子郵件地址",
+      passwordLabel: "密碼",
+      passwordPlaceholder: "輸入您的密碼",
+      forgotPassword: "忘記協議憑據？",
+      loading: "驗證中...",
+      submit: "授權進入",
+      or: "或",
+      google: "使用 Google 認證",
+      navToRegister: "新專家？",
+      createAccount: "申請入駐"
     },
     loading: {
-      preparing: "正在初始化安全通道..."
+      preparing: "正在初始化安全通道...",
+      initializing: "正在初始化安全通道..."
     },
     forgotPassword: {
       title: "恢復協議",
       subtitle: "啟動身份驗證以重置憑據。",
       emailLabel: "身份郵件",
+      emailPlaceholder: "輸入您的專家郵件地址...",
       sendBtn: "推送重置請求",
+      submit: "推送重置請求",
+      loading: "正在傳輸協議...",
+      back: "返回終端",
       backToLogin: "返回終端",
-      success: "重置信號已派發。請檢查您的通訊收件箱。",
+      success: "重置信號已派發。",
+      successDetail: "校準指令已發送到 {email}，請檢查您的通訊收件箱。",
       error: "協議失敗。請驗證您的身份憑據。"
     },
     errors: {
@@ -836,6 +855,29 @@ export const zhTW: Dictionary = {
       invalid_credentials: "身份驗證失敗。",
       session_expired: "會話持續性丟失。",
       access_denied: "權限等級不足。"
+    },
+    register: {
+      title: "建立專家帳戶",
+      subtitle: "加入全英頂尖專家網格系統。",
+      firstNameLabel: "名字 (First Name)",
+      lastNameLabel: "姓氏 (Last Name)",
+      emailLabel: "電子郵件",
+      emailPlaceholder: "例如: expert@conciergeai.uk",
+      accountTypeLabel: "帳戶類型",
+      roles: {
+        customer: "普通客戶",
+        merchant: "專業服務商 / 專家"
+      },
+      passwordLabel: "安全密碼",
+      passwordHint: "至少 6 個字符",
+      referralLabel: "推薦代碼 (選填)",
+      referralPlaceholder: "輸入邀請碼",
+      loading: "正在同步身份節點...",
+      submit: "立即註冊",
+      or: "或使用社交帳戶",
+      google: "使用 Google 帳戶登入",
+      navToLogin: "已有帳戶？",
+      signIn: "立即登入"
     }
   },
   location: {},
@@ -893,7 +935,19 @@ export const zhTW: Dictionary = {
       desc: "???????? AI ????????"
     }
   },
-  onboarding: {},
+  onboarding: {
+    steps: {
+      profile: "專家檔案",
+      credentials: "資產資質",
+      contract: "服務協議"
+    },
+    buttons: {
+      start: "啟動入駐程序",
+      next: "下一階段",
+      back: "返回",
+      submit: "提交最終審核"
+    }
+  },
   admin: {
     stats: {
       syncing: "系統同步指令執行中...",
