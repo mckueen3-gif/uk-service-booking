@@ -13,7 +13,9 @@ import {
   Copy,
   Car,
   Home,
-  ShieldCheck
+  ShieldCheck,
+  Star,
+  Activity
 } from "lucide-react";
 import Link from 'next/link';
 import { useTranslation } from "@/components/LanguageContext";
