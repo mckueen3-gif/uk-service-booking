@@ -101,11 +101,11 @@ export default function ProfileForm({ user, isMerchant }: { user: any, isMerchan
 
         <div style={{ display: 'grid', gap: '0.6rem' }}>
           <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-            <Mail size={14} /> {t.merchant.profile.labels.emailReadOnly}
+            <Mail size={14} /> {t?.merchant?.profile?.labels?.emailReadOnly || "Email Access"}
           </label>
           <input 
             type="email" 
-            value={user.email || ''} 
+            value={user?.email || ''} 
             disabled
             style={{ padding: '0.85rem 1rem', borderRadius: '12px', border: '1px solid var(--border-color)', backgroundColor: 'rgba(255,255,255,0.02)', color: 'var(--text-secondary)', fontSize: '0.95rem', cursor: 'not-allowed' }} 
           />
@@ -117,7 +117,7 @@ export default function ProfileForm({ user, isMerchant }: { user: any, isMerchan
          
          <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '1rem' }}>
             <div style={{ display: 'grid', gap: '0.6rem' }}>
-              <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>{t.merchant.profile.labels.city}</label>
+              <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>{t?.merchant?.profile?.labels?.city || "Node City"}</label>
               <input 
                 type="text" 
                 value={formData.city}
@@ -127,7 +127,7 @@ export default function ProfileForm({ user, isMerchant }: { user: any, isMerchan
               />
             </div>
             <div style={{ display: 'grid', gap: '0.6rem' }}>
-              <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>{t.merchant.profile.labels.postcode}</label>
+              <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>{t?.merchant?.profile?.labels?.postcode || "Grid Postcode"}</label>
               <input 
                 type="text" 
                 value={formData.postcode}
@@ -140,7 +140,7 @@ export default function ProfileForm({ user, isMerchant }: { user: any, isMerchan
 
          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
             <div style={{ display: 'grid', gap: '0.6rem' }}>
-              <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>{t.merchant.profile.labels.addressLine1}</label>
+              <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>{t?.merchant?.profile?.labels?.addressLine1 || "Primary Vector"}</label>
               <input 
                 type="text" 
                 value={formData.addressLine1}
@@ -150,7 +150,7 @@ export default function ProfileForm({ user, isMerchant }: { user: any, isMerchan
               />
             </div>
             <div style={{ display: 'grid', gap: '0.6rem' }}>
-              <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>{t.merchant.profile.labels.addressLine2}</label>
+              <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>{t?.merchant?.profile?.labels?.addressLine2 || "Secondary Vector"}</label>
               <input 
                 type="text" 
                 value={formData.addressLine2}
@@ -164,31 +164,31 @@ export default function ProfileForm({ user, isMerchant }: { user: any, isMerchan
 
       {isMerchant && (
         <div style={{ display: 'grid', gap: '1.5rem', paddingTop: '1.5rem', borderTop: '1px solid var(--border-color)' }}>
-          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.5rem', color: 'var(--text-primary)' }}>{t.merchant.profile.sections.business}</h3>
+          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.5rem', color: 'var(--text-primary)' }}>{t?.merchant?.profile?.sections?.business || "Specialist Node"}</h3>
           
           <div style={{ display: 'grid', gap: '0.75rem' }}>
             <label style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Building2 size={16} /> {t.merchant.profile.labels.businessName}
+              <Building2 size={16} /> {t?.merchant?.profile?.labels?.businessName || "Service Brand"}
             </label>
             <input 
               type="text" 
               value={formData.businessName}
               onChange={(e) => setFormData({...formData, businessName: e.target.value})}
               style={{ padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-color)', backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', fontSize: '1rem', outline: 'none' }}
-              placeholder={t.merchant.profile.labels.businessNamePlaceholder}
+              placeholder={t?.merchant?.profile?.labels?.businessNamePlaceholder || "e.g. London Tech Solutions"}
             />
           </div>
 
           <div style={{ display: 'grid', gap: '0.75rem' }}>
             <label style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <FileText size={16} /> {t.merchant.profile.labels.bio}
+              <FileText size={16} /> {t?.merchant?.profile?.labels?.bio || "Node Protocol / Bio"}
             </label>
             <textarea 
               rows={4}
               value={formData.description}
               onChange={(e) => setFormData({...formData, description: e.target.value})}
               style={{ padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-color)', backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', fontSize: '1rem', outline: 'none', resize: 'vertical' }}
-              placeholder={t.merchant.profile.labels.bioPlaceholder}
+              placeholder={t?.merchant?.profile?.labels?.bioPlaceholder || "Describe your expertise..."}
             />
           </div>
         </div>
