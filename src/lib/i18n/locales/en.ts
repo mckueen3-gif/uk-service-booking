@@ -982,10 +982,6 @@ export const en: Dictionary = {
       desc: "Please log in to save your AI diagnostic reports to your garage."
     }
   },
-  onboarding: {},
-  admin: {},
-  profile: {},
-  notifications: {},
   auth: {
     login: {
       subtitle: "Secure access to your ConciergeAI command center."
@@ -1007,6 +1003,34 @@ export const en: Dictionary = {
       invalid_credentials: "Identity verification failed.",
       session_expired: "Session persistence lost.",
       access_denied: "Clearance level insufficient."
+    }
+  },
+  admin: {
+    stats: {
+      syncing: "SYSTEM SYNCING...",
+      gmv: "Total GMV",
+      netRevenue: "Net Revenue",
+      bookings: "Total Bookings",
+      processed: "Missions Processed",
+      dailyAvg: "Daily Average",
+      volume24h: "24h Volume",
+    },
+    analytics: {
+      gmvTitle: "Revenue Transmission Log",
+      gmvSub: "Real-time fiscal telemetry across all sectors.",
+      live: "LIVE MESH DATA",
+      sectorDist: "Sector Distribution",
+      volTitle: "Daily Transaction Volume",
+    },
+    bookings: {
+      title: "Master Console: Bookings",
+      sub: "Governance and monitoring of all active mesh extractions.",
+      search: "Identify mission by ID, node, or sector...",
+      id: "Mission ID",
+      customer: "Client Node",
+      service: "Protocol",
+      amount: "Credit",
+      status: "State",
     }
   }
 };

@@ -80,7 +80,7 @@ export async function finalizeBooking(sessionId: string) {
 
     // 🚀 NEW: Trigger Real-world Communications (Post-Prisma creation)
     const [fullCustomer, fullMerchant] = await Promise.all([
-      prisma.user.findUnique({ where: { id: customerId }, select: { email: true, name: true } }),
+      prisma.user.findUnique({ where: { id: customerId }, select: { email: true, name: true, phone: true } }),
       prisma.merchant.findUnique({ where: { id: merchantId }, include: { user: { select: { email: true, name: true, phone: true } } } })
     ]);
 

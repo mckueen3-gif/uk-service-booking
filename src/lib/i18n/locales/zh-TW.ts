@@ -790,14 +790,14 @@ export const zhTW: Dictionary = {
   },
   education_sec: {
     hero: {
-      badge: "情資擴展",
+      badge: "情報擴展",
       title1: "精英學習",
-      title2: "與技能演進",
-      subtitle: "聯繫英國前 1% 的教育者與導師。AI 審核的知識節點由您掌控。",
-      searchPlaceholder: "搜尋學科、技能、導師...",
-      searchBtn: "查詢導師",
+      title2: "與技能演化",
+      subtitle: "聯繫英國頂尖 1% 的教育者與行業導師。AI 審核的知識節點由您掌控。",
+      searchPlaceholder: "搜尋科目、技能、導師...",
+      searchBtn: "查詢導師節點",
     },
-    forYou: { title: "為您的節點優化", match: "AI 精英匹配", viewProfile: "查看導師" },
+    forYou: { title: "為您的節點優化", match: "AI 精英匹配", viewProfile: "審計導師" },
     visitDashboard: "查看工作台",
     categories: {
       title: "知識領域",
@@ -890,7 +890,34 @@ export const zhTW: Dictionary = {
     }
   },
   onboarding: {},
-  admin: {},
+  admin: {
+    stats: {
+      syncing: "系統同步指令執行中...",
+      gmv: "總 GMV 資產",
+      netRevenue: "淨收益傳輸",
+      bookings: "總預約任務",
+      processed: "已處理任務數",
+      dailyAvg: "每日平均流量",
+      volume24h: "24小時活動量",
+    },
+    analytics: {
+      gmvTitle: "收益傳輸日誌",
+      gmvSub: "跨領域的實時財政遙測數據。",
+      live: "即時網格數據",
+      sectorDist: "領域分佈矩陣",
+      volTitle: "每日交易活動量",
+    },
+    bookings: {
+      title: "主控台：預約任務",
+      sub: "治理並監控所有活動中的網格提取任務。",
+      search: "按 ID、節點或領域識別任務...",
+      id: "任務 ID",
+      customer: "客戶節點",
+      service: "協議內容",
+      amount: "點數價值",
+      status: "當前狀態",
+    }
+  },
   profile: {},
   notifications: {},
 };
