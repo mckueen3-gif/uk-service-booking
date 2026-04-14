@@ -1,6 +1,6 @@
 'use server';
 
-import { prisma } from '@/lib/prisma';
+import { prisma, safeDbQuery } from '@/lib/prisma';
 import { generateAIContent } from '@/lib/ai-provider';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
@@ -18,12 +18,14 @@ export async function getAIDiagnosis(imageUrl: string, category: string, locale:
     const startOfToday = new Date();
     startOfToday.setUTCHours(0, 0, 0, 0);
 
-    const diagnosisCount = await prisma.aiDiagnosis.count({
-      where: { 
-        userId, 
-        createdAt: { gte: startOfToday } 
-      }
-    });
+    const diagnosisCount = await safeDbQuery(() => 
+      prisma.aiDiagnosis.count({
+        where: { 
+          userId, 
+          createdAt: { gte: startOfToday } 
+        }
+      })
+    );
 
     if (diagnosisCount >= 5) {
       return { 
@@ -89,18 +91,20 @@ export async function getAIDiagnosis(imageUrl: string, category: string, locale:
     rawResponse = responseText;
 
     // 4. Save to database
-    const savedDiagnosis = await prisma.aiDiagnosis.create({
-      data: {
-        userId,
-        imageUrl, // Now safe because frontend compresses to ~200KB
-        category,
-        issue: diagnosisData.issue,
-        suggestedFix: diagnosisData.suggestedFix,
-        estimatedPriceRange: diagnosisData.estimatedPriceRange,
-        confidence: diagnosisData.confidence,
-        rawAIResponse: `${modelName}: ${rawResponse}`
-      }
-    });
+    const savedDiagnosis = await safeDbQuery(() => 
+      prisma.aiDiagnosis.create({
+        data: {
+          userId,
+          imageUrl, // Now safe because frontend compresses to ~200KB
+          category,
+          issue: diagnosisData.issue,
+          suggestedFix: diagnosisData.suggestedFix,
+          estimatedPriceRange: diagnosisData.estimatedPriceRange,
+          confidence: diagnosisData.confidence,
+          rawAIResponse: `${modelName}: ${rawResponse}`
+        }
+      })
+    );
 
     return { 
       success: true, 
@@ -127,11 +131,13 @@ export async function getRecentDiagnoses() {
     if (!session?.user?.id) return { diagnoses: [] };
 
     try {
-        const diagnoses = await prisma.aiDiagnosis.findMany({
-            where: { userId: session.user.id },
-            orderBy: { createdAt: 'desc' },
-            take: 5
-        });
+        const diagnoses = await safeDbQuery(() => 
+            prisma.aiDiagnosis.findMany({
+                where: { userId: session.user.id },
+                orderBy: { createdAt: 'desc' },
+                take: 5
+            })
+        );
         return { diagnoses };
     } catch (err) {
         console.error("Get Recent Diagnoses Error:", err);
@@ -147,12 +153,14 @@ export async function getAIDiagnosisCount() {
     startOfToday.setUTCHours(0, 0, 0, 0);
 
     try {
-        const count = await prisma.aiDiagnosis.count({
-            where: { 
-                userId: session.user.id, 
-                createdAt: { gte: startOfToday } 
-            }
-        });
+        const count = await safeDbQuery(() => 
+            prisma.aiDiagnosis.count({
+                where: { 
+                    userId: session.user.id, 
+                    createdAt: { gte: startOfToday } 
+                }
+            })
+        );
         return { count, remaining: Math.max(0, 5 - count) };
     } catch (err) {
         console.error("Get Diagnosis Count Error:", err);

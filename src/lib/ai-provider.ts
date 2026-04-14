@@ -112,7 +112,7 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
       });
 
       const response = await client.chat.completions.create({
-        model: "grok-4.20-0309-reasoning",
+        model: "grok-2-1212",
         messages: strictMessages,
         response_format: req.jsonMode ? { type: "json_object" } : undefined,
         temperature: 0.1,
@@ -128,67 +128,65 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
     }
   }
 
-  // 1. Try Vision Reasoning Chain (Legacy Primary / Standard Mode)
-  if (process.env.OPENAI_API_KEY && process.env.XAI_API_KEY && req.image) {
+  // 1. Try Vision Reasoning Chain (Gemini Vision + Grok Reasoning)
+  if (process.env.GEMINI_API_KEY && process.env.XAI_API_KEY && req.image) {
     try {
-      console.info("[AI Provider] Starting Vision Reasoning Chain...");
+      console.info("[AI Provider] Starting Unified Vision Reasoning Chain (Gemini + Grok)...");
       
-      // Part A: Get Visual Description from GPT-4o-mini
-      console.info("[AI Provider] Step 1: GPT-4o-mini analyzing image...");
-      const openaiClient = await getOpenAIClient();
-      const visionResponse = await openaiClient.chat.completions.create({
-        model: "gpt-4o-mini",
-        messages: [
-          {
-            role: "user",
-            content: [
-              { type: "text", text: "Please provide a highly structured technical description of the physical issue in this photo. Use the format: PART_IDENTIFIED: [Exact name of part], DAMAGE_TYPE: [e.g., Burst, Pin-hole leak, Corrosion, Burned], CONTEXT: [e.g., Outdoor, Under-sink, In-wall]. Focus on identifying exactly what is failing to prevent diagnostic hallucinations." },
-              {
-                type: "image_url",
-                image_url: { url: `data:${req.image.mimeType};base64,${req.image.base64}` }
-              }
-            ]
-          }
-        ],
-        max_tokens: 300
+      // Part A: Get Visual Description from Gemini 1.5 Flash (Fidelity King)
+      console.info("[AI Provider] Step 1: Gemini 1.5 Flash stripping pixels...");
+      const geminiClient = await getGeminiClient();
+      const visionModel = geminiClient.getGenerativeModel({ model: "gemini-1.5-flash" });
+      
+      const visionPrompt = "Please provide a highly structured technical description of the physical issue in this photo. Use the format: PART_IDENTIFIED: [Exact name of part], DAMAGE_TYPE: [e.g., Burst, Pin-hole leak, Corrosion, Burned], CONTEXT: [e.g., Outdoor, Under-sink, In-wall]. Focus on identifying exactly what is failing to prevent diagnostic hallucinations.";
+      
+      const imageData = req.image; // Narrow type for closure
+      const visionResult = await withRetry(async () => {
+        return await visionModel.generateContent([
+          { text: visionPrompt },
+          { inlineData: { data: imageData.base64, mimeType: imageData.mimeType } }
+        ]);
       });
+      
+      const visualDescription = visionResult.response.text();
+      console.info("[AI Provider] Step 1 Success. Gemini Visual Description received.");
 
-      const visualDescription = visionResponse.choices[0].message.content;
-      console.info("[AI Provider] Step 1 Success. Visual Description received.");
-
-      // Part B: Feed Description to Grok 4.20 Reasoning
+      // Part B: Feed Visual Ground Truth to Grok for Reasoning
       if (visualDescription) {
-        console.info("[AI Provider] Step 2: Grok-2-1212 diagnosing based on visual report...");
+        console.info("[AI Provider] Step 2: Grok-2 diagnosing based on visual ground truth...");
         
         const combinedPrompt = `
           SYSTEM: ${req.systemPrompt || "You are an expert UK maintenance specialist."}
           
-          CRITICAL INSTRUCTION: THE FOLLOWING TECHNICAL VISUAL REPORT IS THE ABSOLUTE GROUND TRUTH. 
-          STRICTLY FOLLOW THE VISUAL REPORT. IF THE REPORT IDENTIFIES A PIPE OR HOSE LEAK, DO NOT SUGGEST FAUCET OR TAP REPAIRS. 
-          IGNORE YOUR DEFAULT STATISTICAL ASSUMPTIONS. TRUST ONLY WHAT THE EYES SAW.
+          CRITICAL INSTRUCTION: THE FOLLOWING TECHNICAL VISUAL REPORT FROM GEMINI IS THE ABSOLUTE GROUND TRUTH. 
+          STRICTLY FOLLOW THE VISUAL REPORT. IGNORE YOUR DEFAULT STATISTICAL ASSUMPTIONS.
           
-          TECHNICAL VISUAL REPORT (from specialist image analysis): 
+          TECHNICAL VISUAL REPORT: 
           "${visualDescription}"
           
           USER DESCRIPTION: 
           "${req.prompt || "No text description provided."}"
           
-          TASK: Based on the GROUND TRUTH visual report and user description, perform a professional diagnosis.
+          TASK: Based on the visual report and user description, perform a professional diagnosis.
         `;
 
-        const client = await getXAIClient();
+        const xaiClient = await getXAIClient();
         
-        const response = await client.chat.completions.create({
-          model: "grok-4.20-0309-reasoning",
+        const response = await xaiClient.chat.completions.create({
+          model: "grok-2-1212",
           messages: [
-            { role: "system", content: "You are an expert UK maintenance specialist. Strictly follow the provided technical visual report." },
+            { role: "system", content: "You are an expert UK maintenance specialist. Strictly follow the provided Gemini technical visual report." },
             { role: "user", content: combinedPrompt }
           ],
           response_format: req.jsonMode ? { type: "json_object" } : undefined,
+          temperature: 0.1,
         });
 
         const content = response.choices[0].message.content;
-        if (content) return content;
+        if (content) {
+          console.info("[AI Provider] Vision Reasoning Chain Success.");
+          return content;
+        }
       }
     } catch (error: unknown) {
       console.error("[AI Provider] Vision Reasoning Chain failed:", error instanceof Error ? error.message : String(error));
@@ -198,11 +196,11 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
   // 1. Try Grok 4.20 (Standard Reasoning fallback for text only)
   if (process.env.XAI_API_KEY) {
     try {
-      console.info("[AI Provider] Attempting Tier 1 (xAI Grok-4.20-0309-reasoning)...");
+      console.info("[AI Provider] Attempting Tier 1 (xAI Grok-2-1212)...");
       const client = await getXAIClient();
       
       const response = await client.chat.completions.create({
-        model: "grok-4.20-0309-reasoning",
+        model: "grok-2-1212",
         messages: [
           ...(req.systemPrompt ? [{ role: "system", content: req.systemPrompt }] : []),
           ...messages
@@ -221,7 +219,7 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
   // 2. Try Grok 3 (Standard Chat)
   if (process.env.XAI_API_KEY) {
     try {
-      console.info("[AI Provider] Attempting Tier 2 (xAI Grok-4-fast-reasoning)...");
+      console.info("[AI Provider] Attempting Tier 2 (xAI Grok-beta)...");
       const grokMessages: OpenAI.Chat.ChatCompletionMessageParam[] = [];
       if (req.systemPrompt) {
         grokMessages.push({ role: "system", content: req.systemPrompt });
@@ -233,7 +231,7 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
 
       const client = await getXAIClient();
       const response = await client.chat.completions.create({
-        model: "grok-4-fast-reasoning",
+        model: "grok-beta",
         messages: grokMessages,
         response_format: req.jsonMode ? { type: "json_object" } : undefined,
         temperature: 0.1,
