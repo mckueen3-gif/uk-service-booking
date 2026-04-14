@@ -178,10 +178,40 @@ export const zhTW: Dictionary = {
     licensePlate: "車牌號碼",
   },
   hero: {
-    title: "英國前 1% 專家，即刻預約日程",
-    subtitle: "在倫敦及全英國聯繫認證專業人士。通過 AI 審查與背景調查。",
+    title: "英國頂級 1% 專家，即時預約",
+    subtitle: "聯繫倫敦及全英認證專業人士。AI 審核，背景調查。",
     searchPlaceholder: "輸入您的需求...",
     badge: "10,000+ 已認證專家",
+  },
+  home: {
+    trustedBy: "受領先機構信賴",
+    aiCTA: {
+      badge: "Alpha 系統",
+      title1: "即時 AI",
+      title2: "診斷",
+      subtitle: "使用網絡情報分析複雜的服務向量。",
+      button: "啟動診斷"
+    },
+    howItWorks: {
+      title: "運作原理",
+      subtitle: "精英服務流程。",
+      step1Title: "AI 匹配",
+      step1Desc: "專有機制定位最合適專家。",
+      step2Title: "安全預約",
+      step2Desc: "受保護的託管與調度。",
+      step3Title: "品質審計",
+      step3Desc: "AI 實時監控服務基準。",
+      step4Title: "任務達成",
+      step4Desc: "驗收與自動結算。"
+    },
+    referralCTA: {
+      badge: "擴展獎勵",
+      title: "建立您的被動收益流",
+      subtitle: "推薦專家或客戶。在每一次成功交易中獲取 2% 的終身分潤。",
+      button: "現在加入",
+      referralLabel: "您的推廣碼：",
+      voucherDisclaimer: "推薦後，代金券將自動發送至您的錢包。"
+    }
   },
   faq: {
     title: "知識庫",

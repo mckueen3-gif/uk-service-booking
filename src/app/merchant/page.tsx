@@ -185,7 +185,7 @@ export default function MerchantDashboard() {
 
         <aside style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
            <div style={{ padding: '1.5rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)' }}>
-              <h3 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '1rem' }}>{t?.merchant?.quickLinks || "Elite Actions"}</h3>
+              <h3 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '1rem' }}>{t?.merchant?.quickLinks?.title || "Elite Actions"}</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                  <QuickLink label={t?.merchant?.availabilityLink || "Set Availability"} />
                  <QuickLink label={t?.merchant?.servicePricing || "Service Pricing"} />
