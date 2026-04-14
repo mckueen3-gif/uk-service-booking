@@ -216,10 +216,32 @@ export const zhTW: Dictionary = {
       plumbing: "水電工程",
       accounting: "財稅會計",
       cleaning: "專業清潔",
-      automotive: "汽車維修"
+      automotive: "汽車維修",
+      repairs: "結構維修",
+      renovation: "空間裝修",
+      education: "精英教育",
+      legal: "法律諮詢",
+      commercial: "商業服務"
+    },
+    eliteLocal: "在地精英",
+    eliteBadge: "前 1% 專家",
+    defaultCategory: "專家節點",
+    recommendation: {
+      title: "探索矩陣",
+      title2: "最高評分",
+      subtitle: "AI 匹配前 1% 的專業人才。"
     },
     sections: {
-      trending: { title: "熱門領域", desc: "活躍板塊", items: ["清潔", "維修"] }
+      trending: { title: "熱門領域", desc: "活躍板塊", items: ["清潔", "維修"] },
+      plumbing: { title: "水電與能源", desc: "精準硬體與熱能審計。", items: ["鍋爐維修", "漏水檢測", "水管安裝"] },
+      repairs: { title: "結構維修", desc: "以精英級維護恢復完整性。", items: ["家具組裝", "牆面修補", "萬能工服務"] },
+      renovation: { title: "空間演進", desc: "由英國頂尖翻新專家改造您的物業。", items: ["廚房翻新", "閣樓改造", "地板鋪設"] },
+      cleaning: { title: "衛生標準", desc: "專業級消毒服務節點。", items: ["深層清潔", "租約到期清理", "窗戶清潔"] },
+      automotive: { title: "機械精準", desc: "車輛護理與診斷。", items: ["移動技師", "MOT 準備", "緊急救援"] },
+      accounting: { title: "財政治理", desc: "符合 HMRC 標準的財務監控。", items: ["稅務申報", "日常簿記", "薪資核算"] },
+      legal: { title: "法律基礎設施", desc: "與頂尖顧問一起保護您的利益。", items: ["合約法", "物業法", "民事訴訟"] },
+      commercial: { title: "企業支援", desc: "適用於高流量環境的服務網格。", items: ["辦公室清潔", "設施管理", "商業電力"] },
+      education: { title: "情報擴展", desc: "聯繫精英教育者與導師。", items: ["學術輔導", "STEM 矩陣", "語言節點"] }
     }
   },
   faq: {
@@ -315,6 +337,13 @@ export const zhTW: Dictionary = {
     sortDistance: "距離最近",
     sortPrice: "點數：由低到高",
     foundCount: "發現 {count} 位專家",
+    recommendations: {
+      title: "網格情報",
+      subtitle: "根據您的遙測數據分析最佳匹配。",
+      topMatch: "最佳匹配",
+      closest: "鄰近節點",
+      earliest: "最快響應"
+    },
     searching: "正在掃描專家節點...",
     noResults: "未檢測到匹配節點",
     noResultsHint: "請放寬您的參數或調整過濾指標。",

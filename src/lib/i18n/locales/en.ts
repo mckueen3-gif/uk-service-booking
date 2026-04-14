@@ -216,10 +216,32 @@ export const en: Dictionary = {
       plumbing: "Plumbing",
       accounting: "Accounting",
       cleaning: "Cleaning",
-      automotive: "Automotive"
+      automotive: "Automotive",
+      repairs: "Repairs",
+      renovation: "Renovation",
+      education: "Education",
+      legal: "Legal",
+      commercial: "Commercial"
+    },
+    eliteLocal: "Elite Local",
+    eliteBadge: "TOP 1%",
+    defaultCategory: "Specialist",
+    recommendation: {
+      title: "Discovery Mesh",
+      title2: "TOP RATED",
+      subtitle: "AI matching the top 1% of specialists."
     },
     sections: {
-      trending: { title: "Trending", desc: "Active sectors", items: ["Cleaning", "Repairs"] }
+      trending: { title: "Trending", desc: "Active sectors", items: ["Cleaning", "Repairs"] },
+      plumbing: { title: "Plumbing & Energy", desc: "Precision hardware and thermal audits.", items: ["Boiler Repair", "Leak Detection", "Pipe Installation"] },
+      repairs: { title: "Structural Repairs", desc: "Restore integrity with elite maintenance.", items: ["Furniture Assembly", "Wall Patching", "Handyman Services"] },
+      renovation: { title: "Space Evolution", desc: "Transform your property with UK's top renovators.", items: ["Kitchen Remodel", "Loft Conversion", "Flooring"] },
+      cleaning: { title: "Hygiene Standards", desc: "Professional grade sanitization nodes.", items: ["Deep Cleaning", "End of Tenancy", "Window Cleaning"] },
+      automotive: { title: "Mechanical Precision", desc: "Vehicle care and diagnostics.", items: ["Mobile Mechanic", "MOT Prep", "Recovery"] },
+      accounting: { title: "Fiscal Governance", desc: "HMRC compliant financial oversight.", items: ["Tax Return", "Bookkeeping", "Payroll"] },
+      legal: { title: "Legal Infrastructure", desc: "Protect your interests with top advisers.", items: ["Contract Law", "Property Law", "Civil Litigation"] },
+      commercial: { title: "Enterprise Support", desc: "Service grids for high-traffic environments.", items: ["Office Cleaning", "Facility Management", "Commercial Electric"] },
+      education: { title: "Intelligence Expansion", desc: "Connect with elite educators and mentors.", items: ["Academic Tutoring", "STEM Matrix", "Language Nodes"] }
     }
   },
   faq: {
@@ -315,6 +337,13 @@ export const en: Dictionary = {
     sortDistance: "Nearest",
     sortPrice: "Credit: Low to High",
     foundCount: "{count} Specialists Found",
+    recommendations: {
+      title: "Mesh Intelligence",
+      subtitle: "Analyzing best matches based on your telemetry.",
+      topMatch: "Best Match",
+      closest: "Nearby Node",
+      earliest: "Fastest Response"
+    },
     searching: "Scanning Expert Nodes...",
     noResults: "No matching nodes detected",
     noResultsHint: "Broaden your parameters or adjust filter metrics.",
