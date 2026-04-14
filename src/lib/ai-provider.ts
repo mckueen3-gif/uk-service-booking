@@ -291,9 +291,9 @@ export async function generateAIContent(req: AIRequest & { onPrimaryError?: (err
     throw new Error("No AI API Keys configured (XAI_API_KEY and GEMINI_API_KEY are missing)");
   }
 
-  console.info("[AI Provider] Attempting Fallback (Google Gemini 2.0 Flash)...");
+  console.info("[AI Provider] Attempting Fallback (Google Gemini 1.5 Flash)...");
   const geminiClient = await getGeminiClient();
-  const model = geminiClient.getGenerativeModel({ model: "gemini-2.0-flash" });
+  const model = geminiClient.getGenerativeModel({ model: "gemini-1.5-flash" });
 
   const contents = messages.map((m, idx) => {
     const parts: import("@google/generative-ai").Part[] = [{ text: m.content }];
