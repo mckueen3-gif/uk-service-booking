@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function WalletPage() {
   const session = await getServerSession(authOptions);
-  if (!session) redirect("/auth/login");
+  if (!session) return null;
 
   const cookieStore = await cookies();
   const locale = (cookieStore.get('user-locale')?.value as Locale) || 'en';

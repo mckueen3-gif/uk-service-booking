@@ -9,7 +9,7 @@ import Link from "next/link";
 export default async function DisputeDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
   const session = (await getServerSession(authOptions)) as any;
-  if (!session) redirect("/auth/login");
+  if (!session) return null;
 
   const { dispute } = await getDisputeDetails(resolvedParams.id) as any;
   if (!dispute) notFound();

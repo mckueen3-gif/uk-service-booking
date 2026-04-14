@@ -7,7 +7,7 @@ import BookingsContent from "./components/BookingsContent";
 
 export default async function BookingsPage() {
   const session = await getServerSession(authOptions);
-  if (!session || !session.user) redirect("/auth/login");
+  if (!session) return null;
 
   const cookieStore = await cookies();
   const locale = (cookieStore.get('user-locale')?.value as Locale) || 'en';

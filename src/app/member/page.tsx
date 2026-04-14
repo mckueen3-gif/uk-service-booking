@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
-  if (!session || !session.user) redirect("/auth/login");
+  if (!session) return null;
 
   // 🚀 i18n for Server Component (Shielded)
   const cookieStore = await cookies();

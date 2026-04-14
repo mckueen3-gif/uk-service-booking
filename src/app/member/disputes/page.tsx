@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default async function DisputesPage() {
   const session = (await getServerSession(authOptions)) as any;
-  if (!session) redirect("/auth/login");
+  if (!session) return null;
 
   const { disputes, error } = await getDisputes() as any;
 

@@ -7,7 +7,7 @@ import { prisma } from "@/lib/prisma";
 
 export default async function VoucherRedemptionPage() {
   const session = await getServerSession(authOptions);
-  if (!session) redirect("/auth/login");
+  if (!session) return null;
 
   const user = session.user as any;
   const dbUser = (await prisma.user.findUnique({

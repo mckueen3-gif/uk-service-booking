@@ -5,7 +5,7 @@ import GarageContent from "./components/GarageContent";
 
 export default async function GaragePage() {
   const session = await getServerSession(authOptions);
-  if (!session) redirect("/auth/login");
+  if (!session) return null;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>

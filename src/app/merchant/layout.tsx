@@ -7,17 +7,12 @@ import SidebarNav from "@/components/dashboard/SidebarNav";
 export default async function MerchantLayout({ children }: { children: React.ReactNode }) {
   const session = await getServerSession(authOptions);
 
-  if (!session) {
-    redirect("/auth/login");
-  }
-
+  if (!session) return null; // Middleware handles the redirect now
+  
   // Security: Ensure only merchants or admins access this route group
+  // Verified by middleware, but kept for type-safe role determination
   const isMerchant = session.user.role === "MERCHANT";
   const isAdmin = session.user.role === "ADMIN";
-  
-  if (!isMerchant && !isAdmin) {
-    redirect("/member");
-  }
 
   const userName = session.user.name || "Merchant";
 

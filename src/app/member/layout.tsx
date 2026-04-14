@@ -7,9 +7,7 @@ import SidebarNav from "@/components/dashboard/SidebarNav";
 export default async function MemberLayout({ children }: { children: React.ReactNode }) {
   const session = await getServerSession(authOptions);
 
-  if (!session) {
-    redirect("/auth/login");
-  }
+  if (!session) return null; // Middleware handles the redirect now
 
   const isMerchant = session.user.role === "MERCHANT";
   const userName = session.user.name || "Member";

@@ -7,7 +7,7 @@ import ProfileContent from "./components/ProfileContent";
 export default async function ProfilePage() {
   const session = await getServerSession(authOptions);
   
-  if (!session || !session.user) redirect("/auth/login");
+  if (!session) return null;
   
   const userId = (session.user as any).id;
 
