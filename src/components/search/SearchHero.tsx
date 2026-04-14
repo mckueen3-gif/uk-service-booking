@@ -34,8 +34,8 @@ export default function SearchHero() {
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const suggestions = [
-    t.home.hero.searchPlaceholder,
-    ...t.home.hero.suggestions
+    t?.home?.hero?.searchPlaceholder || "Search...",
+    ...(t?.home?.hero?.suggestions || [])
   ];
 
   useEffect(() => {
@@ -85,7 +85,7 @@ export default function SearchHero() {
         clearTimeout(typingTimeoutRef.current);
       }
     };
-  }, [t.home.hero.suggestions.join('|'), t.home.hero.searchPlaceholder]);
+  }, [(t?.home?.hero?.suggestions || []).join('|'), t?.home?.hero?.searchPlaceholder]);
 
   const postcodeRegex = /^[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}$/i;
 
@@ -145,7 +145,7 @@ export default function SearchHero() {
           flexDirection: isRTL ? 'row-reverse' : 'row'
         }}>
           <Sparkles size={16} />
-          <span>{t.home.hero.badge}</span>
+          <span>{t?.home?.hero?.badge || "Verified Experts"}</span>
         </div>
 
         <h1 style={{ 
@@ -156,12 +156,12 @@ export default function SearchHero() {
           letterSpacing: '-0.04em',
           color: 'var(--text-primary)' 
         }}>
-          {t.home.hero.title1} <br/>
+          {t?.home?.hero?.title1 || "Elite Experts"} <br/>
           <span style={{ 
             background: 'linear-gradient(to right, var(--amber-600), var(--amber-800))', 
             WebkitBackgroundClip: 'text', 
             WebkitTextFillColor: 'transparent' 
-          }}>{t.home.hero.title2}</span>
+          }}>{t?.home?.hero?.title2 || "Instant Match"}</span>
         </h1>
 
         <p style={{ 
@@ -172,7 +172,7 @@ export default function SearchHero() {
           lineHeight: 1.6,
           fontWeight: 500
         }}>
-          {t.home.hero.subtitle}
+          {t?.home?.hero?.subtitle || "Connect with verified UK professionals."}
         </p>
 
         <form 
@@ -237,7 +237,7 @@ export default function SearchHero() {
                 }}
               >
                 {isAiLoading ? <Loader2 size={16} className="animate-spin" /> : <Sparkles size={16} />}
-                <span className="hide-on-mobile">{t.home.hero.aiMatch}</span>
+                <span className="hide-on-mobile">{t?.home?.hero?.aiMatch || "AI Search"}</span>
                 <span className="show-only-mobile">AI</span>
               </button>
            </div>
@@ -251,7 +251,7 @@ export default function SearchHero() {
                   setCity(e.target.value);
                   handlePostcodeLookup(e.target.value);
                 }}
-                placeholder={t.home.hero.locationPlaceholder}
+                placeholder={t?.home?.hero?.locationPlaceholder || "Location..."}
                 style={{ 
                   width: '100%', 
                   padding: '1.5rem 4rem', 
@@ -298,13 +298,13 @@ export default function SearchHero() {
               boxShadow: '0 10px 25px -5px rgba(212, 175, 55, 0.4)'
             }}
           >
-             {t.home.hero.searchBtn} <ArrowRight size={22} style={{ transform: isRTL ? 'rotate(180deg)' : 'none' }} />
+             {t?.home?.hero?.searchBtn || "Search"} <ArrowRight size={22} style={{ transform: isRTL ? 'rotate(180deg)' : 'none' }} />
           </button>
         </form>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '3rem', flexDirection: isRTL ? 'row-reverse' : 'row', flexWrap: 'wrap' }}>
-           {(t.home.hero.popularTags as string[]).map((tag: string) => (
+           {(t?.home?.hero?.popularTags || []).map((tag: string) => (
              <span key={tag} style={{ fontSize: '0.85rem', cursor: 'pointer', color: 'var(--text-muted)', border: '1px solid var(--border-color)', padding: '0.5rem 1rem', borderRadius: '1rem', background: 'var(--surface-1)' }} onClick={() => setQuery(tag)}>
-               {!isRTL && `${t.home.hero.popularLabel}: `} 
+               {!isRTL && `${t?.home?.hero?.popularLabel || "Hot"}: `} 
                <strong style={{ textDecoration: 'underline', color: 'var(--accent-color)' }}>{tag}</strong>
                {isRTL && ` :${t.home.hero.popularLabel}`}
              </span>

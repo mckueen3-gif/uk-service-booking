@@ -94,7 +94,7 @@ export default function HomeClient() {
       <section className="reveal stagger-2" style={{ padding: '3rem 0', background: 'var(--surface-2)', marginTop: '4rem', overflow: 'hidden' }}>
         <div className="container" style={{ textAlign: 'center' }}>
           <p style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.2rem', marginBottom: '2.5rem' }}>
-            {t.home.trustedBy}
+            {t?.home?.trustedBy || "Trusted by Authorities"}
           </p>
           <div style={{ 
             display: 'flex', 
@@ -157,8 +157,8 @@ export default function HomeClient() {
       {/* NEW: How It Works Section */}
       <section className="container reveal stagger-2" style={{ maxWidth: '1200px', marginTop: '6rem', padding: '4rem 0' }}>
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <h2 style={{ fontSize: '3rem', fontWeight: 950, marginBottom: '1rem', color: 'var(--text-primary)' }}>{t.home.howItWorks.title}</h2>
-          <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', fontWeight: 500 }}>{t.home.howItWorks.subtitle}</p>
+          <h2 style={{ fontSize: '3rem', fontWeight: 950, marginBottom: '1rem', color: 'var(--text-primary)' }}>{t?.home?.howItWorks?.title || "How It Works"}</h2>
+          <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', fontWeight: 500 }}>{t?.home?.howItWorks?.subtitle || "Elite Service Pipeline"}</p>
         </div>
         
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2.5rem' }}>
@@ -209,13 +209,13 @@ export default function HomeClient() {
               marginBottom: '1.5rem',
               letterSpacing: '0.05em'
             }}>
-              <Users size={16} /> {t.home.referralCTA.badge}
+              <Users size={16} /> {t?.home?.referralCTA?.badge || "Expansion"}
             </div>
             <h2 style={{ fontSize: 'clamp(2rem, 6vw, 3.2rem)', fontWeight: 950, marginBottom: '1.5rem', lineHeight: 1.1, color: 'var(--text-primary)', fontFamily: 'var(--font-heading)' }}>
-              {t.home.referralCTA.title}
+              {t?.home?.referralCTA?.title || "Refer & Earn"}
             </h2>
             <p style={{ fontSize: '1.25rem', color: 'var(--text-muted)', marginBottom: '2.5rem', lineHeight: 1.6, fontWeight: 500 }}>
-              {t.home.referralCTA.subtitle}
+              {t?.home?.referralCTA?.subtitle || "Join the network expansion."}
             </p>
             <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
               {referralCode ? (
@@ -229,7 +229,7 @@ export default function HomeClient() {
                     alignItems: 'center',
                     gap: '1rem'
                   }}>
-                    <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem', fontWeight: 600 }}>{t.home.referralCTA.referralLabel}</span>
+                    <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem', fontWeight: 600 }}>{t?.home?.referralCTA?.referralLabel || "Your Code:"}</span>
                     <span style={{ color: 'var(--accent-color)', fontSize: '1.2rem', fontWeight: 900, letterSpacing: '0.1em' }}>{referralCode}</span>
                   </div>
                   <button 
@@ -248,13 +248,13 @@ export default function HomeClient() {
                     }}
                   >
                     {copied ? <Check size={18} /> : <Copy size={18} />}
-                    {copied ? t.common.copied : t.common.copy}
+                    {copied ? (t?.common?.copied || "Copied!") : (t?.common?.copy || "Copy")}
                   </button>
                 </div>
               ) : (
                 <Link href="/auth/register">
                   <button className="btn btn-primary" style={{ padding: '1.25rem 2.5rem', fontSize: '1.1rem', boxShadow: '0 10px 25px -5px rgba(212, 175, 55, 0.4)' }}>
-                    {t.home.referralCTA.button} <ChevronRight size={20} />
+                    {t?.home?.referralCTA?.button || "Register Now"} <ChevronRight size={20} />
                   </button>
                 </Link>
               )}
@@ -262,7 +262,7 @@ export default function HomeClient() {
             {/* ⚠️ Redemption Disclaimer */}
               <p style={{ marginTop: '1.5rem', fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Sparkles size={16} style={{ color: 'var(--accent-color)' }} />
-                {t.home.referralCTA.voucherDisclaimer}
+                {t?.home?.referralCTA?.voucherDisclaimer || "Terms apply."}
               </p>
           </div>
 
@@ -283,7 +283,7 @@ export default function HomeClient() {
                  </div>
                  <div style={{ textAlign: 'center' }}>
                     <div style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--text-primary)' }}>2%</div>
-                    <div style={{ fontSize: '1rem', color: 'var(--text-muted)', fontWeight: 600 }}>{t.home.referralCTA.badge}</div>
+                    <div style={{ fontSize: '1rem', color: 'var(--text-muted)', fontWeight: 600 }}>{t?.home?.referralCTA?.badge || "Node Bonus"}</div>
                  </div>
                </div>
             </div>
@@ -390,7 +390,7 @@ export default function HomeClient() {
                 {sec.id === 'education' && (
                   <Link href="/services/education" style={{ textDecoration: 'none', display: 'inline-block', marginTop: '2rem' }}>
                     <button className="btn btn-primary" style={{ padding: '0.875rem 2rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      {t.education_sec.visitDashboard} <ChevronRight size={18} />
+                      {t?.education_sec?.visitDashboard || "Visit Academy"} <ChevronRight size={18} />
                     </button>
                   </Link>
                 )}
@@ -439,7 +439,7 @@ export default function HomeClient() {
               ))
             ) : merchants.length === 0 ? (
               <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '5rem', color: 'var(--text-muted)' }}>
-                {t.home.noResults}
+                {t?.home?.noResults || "Scanning specialist nodes..."}
               </div>
             ) : (
               merchants.map((m: any, idx) => (
@@ -451,7 +451,7 @@ export default function HomeClient() {
           <div style={{ textAlign: 'center' }} className="reveal">
              <Link href="/services">
                 <button className="btn" style={{ padding: '1rem 3rem', borderRadius: '999px', fontSize: '1.1rem', fontWeight: 800, border: '1.5px solid var(--border-color)', color: 'var(--text-primary)', background: 'transparent' }}>
-                  {t.footer.explore} <ChevronRight size={20} style={{ marginLeft: '0.5rem' }} />
+                  {t?.footer?.explore || "Explore All"} <ChevronRight size={20} style={{ marginLeft: '0.5rem' }} />
                 </button>
              </Link>
           </div>

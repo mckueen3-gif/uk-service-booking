@@ -32,7 +32,7 @@ function RegisterForm() {
     if ('error' in res && res.error) {
         // Map server error key to dictionary string
         const errorKey = res.error as keyof typeof t.auth.errors;
-        setError(t.auth.errors[errorKey] || t.auth.errors.serverError);
+        setError(t?.auth?.errors?.[errorKey] || t?.auth?.errors?.serverError || "Server Error");
         setLoading(false);
      } else {
        const loginUrl = `/auth/login?registered=true${callbackUrl !== '/' ? `&callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`;
@@ -44,9 +44,9 @@ function RegisterForm() {
     <div className="auth-page-wrapper">
       <div className="auth-card">
         <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-          <h1 className="hero-title" style={{ fontSize: '2.5rem', marginBottom: '0.75rem', display: 'block' }}>{t.auth.register.title}</h1>
+          <h1 className="hero-title" style={{ fontSize: '2.5rem', marginBottom: '0.75rem', display: 'block' }}>{t?.auth?.register?.title || "Join Elite Network"}</h1>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
-            {t.auth.register.subtitle}
+            {t?.auth?.register?.subtitle || "Connect with certified UK professionals."}
           </p>
         </div>
         
@@ -61,30 +61,30 @@ function RegisterForm() {
 
           <div style={{ display: 'flex', gap: '1rem' }}>
              <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ flex: 1, animationDelay: '100ms' }}>
-               <label>{t.auth.register.firstNameLabel}</label>
+               <label>{t?.auth?.register?.firstNameLabel || "First Name"}</label>
                <div className="input-wrapper">
                  <User className="input-icon" size={18} />
-                 <input type="text" name="firstName" className="premium-input" placeholder={t.auth.register.firstNameLabel} required disabled={loading} />
+                 <input type="text" name="firstName" className="premium-input" placeholder={t?.auth?.register?.firstNameLabel || "First Name"} required disabled={loading} />
                </div>
              </div>
              <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ flex: 1, animationDelay: '150ms' }}>
-               <label>{t.auth.register.lastNameLabel}</label>
+               <label>{t?.auth?.register?.lastNameLabel || "Last Name"}</label>
                <div className="input-wrapper">
                  <User className="input-icon" size={18} />
-                 <input type="text" name="lastName" className="premium-input" placeholder={t.auth.register.lastNameLabel} required disabled={loading} />
+                 <input type="text" name="lastName" className="premium-input" placeholder={t?.auth?.register?.lastNameLabel || "Last Name"} required disabled={loading} />
                </div>
              </div>
           </div>
           
           <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '200ms' }}>
-            <label>{t.auth.register.emailLabel}</label>
+            <label>{t?.auth?.register?.emailLabel || "Email Address"}</label>
             <div className="input-wrapper">
               <Mail className="input-icon" size={18} />
               <input 
                 type="email" 
                 name="email" 
                 className="premium-input" 
-                placeholder={t.auth.register.emailPlaceholder} 
+                placeholder={t?.auth?.register?.emailPlaceholder || "email@example.com"} 
                 required 
                 disabled={loading} 
               />
@@ -92,29 +92,29 @@ function RegisterForm() {
           </div>
 
           <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '250ms' }}>
-            <label>{t.auth.register.accountTypeLabel}</label>
+            <label>{t?.auth?.register?.accountTypeLabel || "Node Type"}</label>
             <div className="input-wrapper">
               <Shield className="input-icon" size={18} />
               <select name="role" className="premium-input" required defaultValue="CUSTOMER" disabled={loading} style={{ appearance: 'none', cursor: 'pointer' }}>
-                <option value="CUSTOMER">{t.auth.register.roles.customer}</option>
-                <option value="MERCHANT">{t.auth.register.roles.merchant}</option>
+                <option value="CUSTOMER">{t?.auth?.register?.roles?.customer || "Customer"}</option>
+                <option value="MERCHANT">{t?.auth?.register?.roles?.merchant || "Merchant"}</option>
               </select>
             </div>
           </div>
           
           <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '300ms' }}>
-            <label>{t.auth.register.passwordLabel}</label>
+            <label>{t?.auth?.register?.passwordLabel || "Safe Protocol (Password)"}</label>
             <div className="input-wrapper">
               <Lock className="input-icon" size={18} />
-              <input type="password" name="password" className="premium-input" placeholder={t.auth.register.passwordHint} required minLength={6} disabled={loading} />
+              <input type="password" name="password" className="premium-input" placeholder={t?.auth?.register?.passwordHint || "Min 6 characters"} required minLength={6} disabled={loading} />
             </div>
           </div>
 
           <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '325ms' }}>
-            <label>{t.auth.register.referralLabel}</label>
+            <label>{t?.auth?.register?.referralLabel || "Referral Code (Optional)"}</label>
             <div className="input-wrapper">
               <User className="input-icon" size={18} />
-              <input type="text" name="referredBy" className="premium-input" placeholder={t.auth.register.referralPlaceholder} defaultValue={searchParams.get('ref') || ''} disabled={loading} />
+              <input type="text" name="referredBy" className="premium-input" placeholder={t?.auth?.register?.referralPlaceholder || "Elite Referral ID"} defaultValue={searchParams.get('ref') || ''} disabled={loading} />
             </div>
           </div>
           
@@ -124,13 +124,13 @@ function RegisterForm() {
             disabled={loading} 
             style={{ width: '100%', padding: '1rem', marginTop: '1.5rem', animationDelay: '350ms' }}
           >
-            {loading ? t.auth.register.loading : t.auth.register.submit}
+            {loading ? (t?.auth?.register?.loading || "Initializing...") : (t?.auth?.register?.submit || "Launch Terminal")}
             <ChevronRight size={20} />
           </button>
         </form>
 
         <div className="divider">
-          <span>{revealed ? t.auth.register.or : ''}</span>
+          <span>{revealed ? (t?.auth?.register?.or || "OR") : ''}</span>
         </div>
 
         <button 
@@ -144,11 +144,11 @@ function RegisterForm() {
             <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
             <path d="M12 5.38c1.62 0 3.06.56 4.21 1.66l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
           </svg>
-          {t.auth.register.google}
+          {t?.auth?.register?.google || "Sign in with Google"}
         </button>
         
         <div style={{ textAlign: 'center', fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '2rem' }}>
-          {t.auth.register.navToLogin} <Link href="/auth/login" style={{ color: 'var(--accent-color)', fontWeight: 800 }}>{t.auth.register.signIn}</Link>
+          {t?.auth?.register?.navToLogin || "Already have a node?"} <Link href="/auth/login" style={{ color: 'var(--accent-color)', fontWeight: 800 }}>{t?.auth?.register?.signIn || "Sign In"}</Link>
         </div>
       </div>
     </div>
@@ -158,7 +158,7 @@ function RegisterForm() {
 export default function RegisterPage() {
   const { t } = useTranslation();
   return (
-    <Suspense fallback={<div className="auth-page-wrapper"><div className="auth-card" style={{ textAlign: 'center' }}>{t.auth.loading.initializing}</div></div>}>
+    <Suspense fallback={<div className="auth-page-wrapper"><div className="auth-card" style={{ textAlign: 'center' }}>{t?.auth?.loading?.initializing || "Telemetry Sync..."}</div></div>}>
       <RegisterForm />
     </Suspense>
   );

@@ -177,14 +177,21 @@ export const zhTW: Dictionary = {
     serviceFallback: "服務協議",
     licensePlate: "車牌號碼",
   },
-  hero: {
-    title: "英國頂級 1% 專家，即時預約",
-    subtitle: "聯繫倫敦及全英認證專業人士。AI 審核，背景調查。",
-    searchPlaceholder: "輸入您的需求...",
-    badge: "10,000+ 已認證專家",
-  },
   home: {
-    trustedBy: "受領先機構信賴",
+    hero: {
+      title1: "英國頂級 1% 專家，",
+      title2: "即時預約",
+      subtitle: "聯繫倫敦及全英國的認證專業人士。AI 審核與背景調查。",
+      searchPlaceholder: "輸入您的需求...",
+      locationPlaceholder: "輸入您的位置或郵編...",
+      searchBtn: "掃描專家節點",
+      aiMatch: "AI 智配",
+      badge: "10,000+ 已驗證專家",
+      popularLabel: "熱門搜尋",
+      popularTags: ["緊急維修", "鍋爐保養", "稅務審計"],
+      suggestions: ["電工", "萬能工", "會計師"],
+    },
+    trustedBy: "備受領先機構信任",
     aiCTA: {
       badge: "Alpha 系統",
       title1: "即時 AI",

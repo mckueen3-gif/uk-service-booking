@@ -177,13 +177,20 @@ export const en: Dictionary = {
     serviceFallback: "Service Protocol",
     licensePlate: "License Plate",
   },
-  hero: {
-    title: "The Top 1% of UK Experts, Instant Scheduled",
-    subtitle: "Connect with certified professionals in London and across the UK. AI-vetted and background checked.",
-    searchPlaceholder: "Input your requirements...",
-    badge: "10,000+ Verified Pros",
-  },
   home: {
+    hero: {
+      title1: "The Top 1% of UK Experts,",
+      title2: "Instant Scheduled",
+      subtitle: "Connect with certified professionals in London and across the UK. AI-vetted and background checked.",
+      searchPlaceholder: "Input your requirements...",
+      locationPlaceholder: "Your location or postcode...",
+      searchBtn: "Scan Specialist Nodes",
+      aiMatch: "AI Smart Match",
+      badge: "10,000+ Verified Pros",
+      popularLabel: "Trending",
+      popularTags: ["Emergency Repair", "Boiler Service", "Tax Audit"],
+      suggestions: ["Electrician", "Handyman", "Accountant"],
+    },
     trustedBy: "Trusted by Leading Authorities",
     aiCTA: {
       badge: "Alpha System",
