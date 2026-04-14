@@ -941,7 +941,6 @@ export const zhTW: Dictionary = {
     settings_mgr: {
       title: "系統參數"
     }
-  },
   profile: {},
   notifications: {},
 };
