@@ -911,15 +911,23 @@ export const zhTW: Dictionary = {
       status: "當前狀態",
     },
     sidebar: {
-      overview: "總覽終端",
-      analytics: "全域分析",
-      bookings: "任務控制台",
-      verifications: "專家核准",
-      disputes: "網格仲裁",
-      merchants: "專家節點",
-      payouts: "財政結算",
-      settings: "網格配置",
-      terminal: "管理員終端"
+      sections: {
+        main: "核心基礎設施",
+        verification: "審核與品質",
+        business: "商務營運",
+        terminal: "管理員終端"
+      },
+      labels: {
+        overview: "總覽終端",
+        analytics: "全域分析",
+        bookings: "任務控制台",
+        verifications: "專家核准",
+        disputes: "網格仲裁",
+        merchants: "專家節點",
+        payouts: "財政結算",
+        settings: "網格配置",
+        terminal: "管理員終端"
+      }
     },
     header: {
       internal: "內部營運專線",

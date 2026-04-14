@@ -1026,15 +1026,23 @@ export const en: Dictionary = {
       status: "State",
     },
     sidebar: {
-      overview: "Terminal Overview",
-      analytics: "Global Analytics",
-      bookings: "Mission Control",
-      verifications: "Expert Audits",
-      disputes: "Mesh Arbitrations",
-      merchants: "Specialist Nodes",
-      payouts: "Fiscal Settlements",
-      settings: "Mesh Configuration",
-      terminal: "Admin Terminal"
+      sections: {
+        main: "Core Infrastructure",
+        verification: "Audit & Quality",
+        business: "Business Ops",
+        terminal: "Admin Terminal"
+      },
+      labels: {
+        overview: "Terminal Overview",
+        analytics: "Global Analytics",
+        bookings: "Mission Control",
+        verifications: "Expert Audits",
+        disputes: "Mesh Arbitrations",
+        merchants: "Specialist Nodes",
+        payouts: "Fiscal Settlements",
+        settings: "Mesh Configuration",
+        terminal: "Admin Terminal"
+      }
     },
     header: {
       internal: "INTERNAL OPERATIONS",

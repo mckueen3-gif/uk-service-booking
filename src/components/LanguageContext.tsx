@@ -31,9 +31,8 @@ export const interpolate = (str: string, params: Record<string, string | number>
  * t.any.path.not.exist -> returns "" (empty string) instead of crashing.
  */
 function createSafeDictionary(target: any, path: string = ''): any {
-  // Using an array as target so it's inherently iterable for .map() and for...of
-  const proxyTarget: any = [];
-  Object.assign(proxyTarget, target || {});
+  // Use a plain object target for better compatibility
+  const proxyTarget = target || {};
 
   return new Proxy(proxyTarget, {
     get(obj: any, prop) {
@@ -48,13 +47,14 @@ function createSafeDictionary(target: any, path: string = ''): any {
       
       // If reading a property that doesn't exist, return a new safe dictionary
       if (value === undefined) {
-        // Handle array methods specifically to ensure they return something safe
+        // Handle common array methods to prevent crashes during iteration
         if (prop === 'map' || prop === 'filter' || prop === 'slice') {
-          return (fn: any) => [];
+          return () => [];
         }
         return createSafeDictionary({}, path ? `${path}.${String(prop)}` : String(prop));
       }
 
+      // If the value is an object, wrap it recursively
       if (value !== null && typeof value === 'object') {
         return createSafeDictionary(value, path ? `${path}.${String(prop)}` : String(prop));
       }

@@ -103,13 +103,13 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
       paddingTop: '0.5rem' 
     }}>
       {/* Main Actions */}
-      {renderNavSection(t?.sidebar?.sections?.main || "Main", mainItems)}
+      {renderNavSection(String(t?.sidebar?.sections?.main || "Main"), mainItems)}
       
       {/* Role-specific Actions */}
-      {renderNavSection(isMerchant ? (t?.sidebar?.sections?.business || "Business") : (t?.sidebar?.sections?.assets || "Assets"), businessItems)}
+      {renderNavSection(isMerchant ? String(t?.sidebar?.sections?.business || "Business") : String(t?.sidebar?.sections?.assets || "Assets"), businessItems)}
       
       {/* Account Actions */}
-      {renderNavSection(t?.sidebar?.sections?.account || "Account", accountItems)}
+      {renderNavSection(String(t?.sidebar?.sections?.account || "Account"), accountItems)}
 
       {/* Pro Membership / Verification status footer card */}
       <div style={{ 
