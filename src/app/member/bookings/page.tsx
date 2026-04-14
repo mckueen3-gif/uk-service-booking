@@ -1,5 +1,9 @@
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { dictionaries, Locale } from "@/lib/i18n/dictionary";
+import BookingsContent from "./components/BookingsContent";
 
 export default async function BookingsPage() {
   const session = await getServerSession(authOptions);
