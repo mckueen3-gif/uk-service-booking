@@ -35,11 +35,11 @@ const STATUS_LABEL = (t: any): Record<string, string> => ({
   CANCELLED: t?.merchant?.status?.cancelled || "Cancelled",
 });
 
-function StatCard({ icon, title, value, trend, loading }: {
+function StatCard({ icon, title, value, sub, loading }: {
   icon: React.ReactNode;
   title: string;
   value: string | number;
-  trend?: string;
+  sub?: string;
   loading?: boolean;
 }) {
   return (
@@ -48,23 +48,22 @@ function StatCard({ icon, title, value, trend, loading }: {
       borderRadius: '20px',
       background: 'var(--soft-gradient)',
       border: '1px solid rgba(212, 175, 55, 0.25)',
-      boxShadow: '0 8px 20px rgba(184, 134, 11, 0.05)'
+      boxShadow: '0 8px 15px rgba(184, 134, 11, 0.05)',
+      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
         <div style={{ color: '#d4af37', backgroundColor: 'rgba(212, 175, 55, 0.1)', padding: '0.75rem', borderRadius: '14px', border: '1px solid rgba(212, 175, 55, 0.1)' }}>
           {icon}
         </div>
-        {trend && !loading && (
-          <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#facc15', backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '0.25rem 0.5rem', borderRadius: '99px' }}>
-            {trend}
-          </span>
-        )}
       </div>
-      <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.25rem' }}>{title}</p>
+      <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', fontWeight: 600, marginBottom: '0.25rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{title}</p>
       {loading ? (
-        <div className="skeleton-line" style={{ height: '2rem', width: '6rem', borderRadius: '8px', backgroundColor: 'rgba(255,255,255,0.06)' }} />
+        <div className="skeleton-line" style={{ height: '2rem', width: '6rem', borderRadius: '8px', backgroundColor: 'rgba(212, 175, 55, 0.05)', animation: 'pulse 1.5s infinite' }} />
       ) : (
-        <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>{value}</h3>
+        <>
+          <h3 style={{ fontSize: '1.875rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '0.4rem', letterSpacing: '-0.02em' }}>{value}</h3>
+          <p style={{ fontSize: '0.75rem', color: '#facc15', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.02em' }}>{sub}</p>
+        </>
       )}
     </div>
   );
@@ -277,42 +276,56 @@ export default function DashboardContent({ initialData }: { initialData: any }) 
         ) : isMerchant ? (
           <>
             <StatCard
-              title={t?.merchant?.stats?.availableBalance || "Balance"}
-              value={`£${(merchantData?.wallet?.totalEarned || 0).toFixed(2)}`}
-              icon={<Wallet size={24} />}
+              title={t?.merchant?.stats?.totalBookings || "Missions"}
+              value={bookings.length.toString()} 
+              sub={t?.merchant?.stats?.totalJobs || "Completed Tasks"}
+              icon={<TrendingUp size={24} />}
+              loading={loading}
             />
             <StatCard
-              title={t?.merchant?.stats?.pendingBalance || "Pending"}
-              value={`£${(merchantData?.wallet?.pendingBalance || 0).toFixed(2)}`}
+              title={t?.merchant?.stats?.pendingBalance || "Vault"}
+              value={`£${(merchantData?.balanceHeld || 0).toFixed(2)}`}
+              sub={t?.merchant?.stats?.escrowHeld || "Escrow Held"}
               icon={<Clock size={24} />}
+              loading={loading}
             />
             <StatCard
-              title={t?.merchant?.status?.completed || "Completed"}
-              value={(Array.isArray(bookings) ? bookings : []).filter((b: any) => b?.status === "COMPLETED").length}
-              icon={<CheckCircle size={24} />}
+              title={t?.merchant?.stats?.availableBalance || "Liquid"}
+              value={`£${(merchantData?.balanceAvailable || 0).toFixed(2)}`}
+              sub={t?.merchant?.stats?.availableNow || "Available Now"}
+              icon={<Wallet size={24} />}
+              loading={loading}
             />
             <StatCard
-              title={t?.customer_dashboard?.stats?.referralCredits || "Credits"}
-              value={`£${(user?.referralCredits || 0).toFixed(2)}`}
-              icon={<Gift size={24} />}
+              title={t?.merchant?.stats?.rating || "Mesh Rating"}
+              value={merchantData?.rating || "5.0"}
+              sub={t?.merchant?.stats?.reviews || "Client Reviews"}
+              icon={<Star size={24} />}
+              loading={loading}
             />
           </>
         ) : (
           <>
             <StatCard
-              title={t?.merchant?.bookings?.title || "Bookings"}
-              value={activeBookings.length}
+              title={t?.merchant?.stats?.totalBookings || "Active Missions"}
+              value={activeBookings.length.toString()}
+              sub={t?.merchant?.bookings?.title || "Bookings"}
               icon={<Calendar size={24} />}
+              loading={loading}
             />
             <StatCard
-              title={t?.merchant?.status?.completed || "Success"}
-              value={(Array.isArray(bookings) ? bookings : []).filter((b: any) => b?.status === "COMPLETED").length}
-              icon={<TrendingUp size={24} />}
-            />
-            <StatCard
-              title={t?.customer_dashboard?.stats?.referralCredits || "Rewards"}
+              title={t?.customer_dashboard?.stats?.referralCredits || "Referral Credits"}
               value={`£${(user?.referralCredits || 0).toFixed(2)}`}
+              sub={t?.customer_dashboard?.referral?.claim || "Credits Earned"}
               icon={<Gift size={24} />}
+              loading={loading}
+            />
+            <StatCard
+              title={t?.common?.user || "Node Status"}
+              value={user?.userType || "Member"}
+              sub={(user?.referralCode === "REF-PENDING" || !user?.referralCode) ? "---" : user.referralCode}
+              icon={<Activity size={24} />}
+              loading={loading}
             />
           </>
         )}
