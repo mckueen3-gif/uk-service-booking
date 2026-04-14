@@ -601,30 +601,6 @@ export const zhTW: Dictionary = {
         rules: ["所有任務有 7 天安全鎖定期。", "招募收益僅限零售券兌換。", "最低提現門檻為 10 鎊。", "硬體耗材成本不列入費用計算。"],
       },
     },
-    merchant: {
-      stats: {
-        totalBookings: "預約任務",
-        totalJobs: "已完成任務",
-        pendingBalance: "保管庫",
-        escrowHeld: "代管中資產",
-        availableBalance: "流動資產",
-        availableNow: "可供提取",
-        rating: "網格評分",
-        reviews: "客戶評論",
-        refresh: "同步終端"
-      },
-      bookings: {
-        title: "任務登記表",
-        search: "按節點 ID 識別交易...",
-        id: "交易 ID",
-        customer: "客戶節點",
-        service: "協議協議",
-        status: "狀態",
-        date: "同步日期",
-        amount: "點數值"
-      },
-      background: "專家背景情報",
-    },
     merchant_availability: {
       title: "在線窗口",
       subtitle: "校準您的營運時段。",
