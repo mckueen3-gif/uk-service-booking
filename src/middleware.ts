@@ -15,7 +15,11 @@ export default withAuth(
   },
   {
     callbacks: {
-      authorized: ({ token }) => !!token,
+      authorized: ({ token, req }) => {
+      // Always allow /diagnosis even if token is missing
+      if (req.nextUrl.pathname === "/diagnosis") return true;
+      return !!token;
+    },
     },
     pages: {
       signIn: "/auth/login",

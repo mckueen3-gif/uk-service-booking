@@ -10,12 +10,12 @@ export const dynamic = 'force-dynamic';
 export default function DiagnosisPage() {
   const { t, locale } = useTranslation();
 
-  // Defensive fallback for build-time missing keys
-  const d = t.diagnosis || {};
-  const df = d.features || {};
-  const d_instant = df.instant || { title: 'Triage', desc: 'Analyzing...' };
-  const d_pricing = df.pricing || { title: 'Pricing', desc: 'Estimating...' };
-  const d_verified = df.verified || { title: 'Experts', desc: 'Matching...' };
+  // High-resilience defensive layer for the UI
+  const d = t?.diagnosis ?? {};
+  const df = d.features ?? {};
+  const d_instant = df.instant ?? { title: 'Triage', desc: 'Analyzing...' };
+  const d_pricing = df.pricing ?? { title: 'Pricing', desc: 'Estimating...' };
+  const d_verified = df.verified ?? { title: 'Experts', desc: 'Matching...' };
 
   return (
     <div style={{ backgroundColor: 'var(--bg-secondary)', minHeight: '100vh', padding: '6rem 0' }}>

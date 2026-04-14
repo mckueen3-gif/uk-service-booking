@@ -96,8 +96,13 @@ export default function DiagnosisTool() {
   };
 
   const handleSubmit = async () => {
+    // Deep defensive check for translation and mandatory inputs
+    if (!t?.diagnosis?.tool?.errorPhotoCategory) {
+      console.warn("[DiagnosisTool] Translation not ready");
+    }
+
     if (!preview || !category) {
-      setError(t.diagnosis.tool.errorPhotoCategory);
+      setError(t?.diagnosis?.tool?.errorPhotoCategory || "Please select a category and upload a photo.");
       return;
     }
 
