@@ -50,26 +50,18 @@ function createSafeDictionary(target: any, path: string = ''): any {
       if (prop === '$$typeof' || prop === 'toJSON') return undefined;
       if (prop === 'then') return undefined; // Promise safety
 
-      // 🚀 RENDERING GUIDES: If React is trying to render this, don't return a Proxy
-      // React 19 check for objects that aren't elements
-      if (typeof prop === 'string' && (prop === 'prototype' || prop === 'displayName')) return undefined;
-
       const value = obj[prop];
       
-      // If reading a property that doesn't exist
+      // 🚀 CRITICAL FIX: Return undefined for missing keys to allow standard JS fallbacks (t.key || 'fallback')
+      // and prevent React from attempting to render a Proxy object {} which causes 500 crashes.
       if (value === undefined) {
-        const fullPath = path ? `${path}.${String(prop)}` : String(prop);
-        
-        // 🧪 SMARTER FALLBACK: If we are at a deep path, and React is likely rendering it,
-        // we might return an empty string. However, returning a Proxy is needed for nesting.
-        // To fix React child error, we implement the toString/Symbol.toPrimitive traps above.
-        // As an extra guard, if the caller is looking for specific rendering traits:
-        return createSafeDictionary({}, fullPath);
+        return undefined;
       }
 
-      // If the value is an object, wrap it recursively
+      // If the value is an object, wrap it recursively to maintain the Proxy context
       if (value !== null && typeof value === 'object') {
-        return createSafeDictionary(value, path ? `${path}.${String(prop)}` : String(prop));
+        const fullPath = path ? `${path}.${String(prop)}` : String(prop);
+        return createSafeDictionary(value, fullPath);
       }
 
       return value;
