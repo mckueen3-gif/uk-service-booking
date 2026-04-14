@@ -22,21 +22,21 @@ export default function AIChatbot() {
     // If the conversation is empty or only has the welcome message, sync it with the current language
     setMessages(prev => {
       if (prev.length <= 1) {
-        return [{ role: 'assistant', content: t.aura.welcome }];
+        return [{ role: 'assistant', content: t?.aura?.welcome }];
       }
       return prev;
     });
-  }, [t.aura.welcome]);
+  }, [t?.aura?.welcome]);
 
   // Handle positioning for Elite UI - Bottom Right
   const rightPos = '40px';
   const leftPos = 'auto';
 
   const suggestions = [
-    { label: t.aura.suggestions.refund, query: t.aura.suggestions.refundQuery },
-    { label: t.aura.suggestions.dispute, query: t.aura.suggestions.disputeQuery },
-    { label: t.aura.suggestions.warranty, query: t.aura.suggestions.warrantyQuery },
-    { label: t.aura.suggestions.booking, query: t.aura.suggestions.bookingQuery },
+    { label: t?.aura?.suggestions?.refund, query: t?.aura?.suggestions?.refundQuery },
+    { label: t?.aura?.suggestions?.dispute, query: t?.aura?.suggestions?.disputeQuery },
+    { label: t?.aura?.suggestions?.warranty, query: t?.aura?.suggestions?.warrantyQuery },
+    { label: t?.aura?.suggestions?.booking, query: t?.aura?.suggestions?.bookingQuery },
   ];
 
   useEffect(() => {
@@ -79,7 +79,7 @@ export default function AIChatbot() {
       }
     } catch (error) {
       console.error('Chat Error:', error);
-      setMessages(prev => [...prev, { role: 'assistant', content: t.aura.error || "I am having trouble connecting right now." }]);
+      setMessages(prev => [...prev, { role: 'assistant', content: t?.aura?.error || "I am having trouble connecting right now." }]);
     } finally {
       setIsLoading(false);
     }
@@ -163,7 +163,7 @@ export default function AIChatbot() {
               <div style={{ fontWeight: 800, fontSize: '1rem', letterSpacing: '0.025em' }}>Aura Concierge</div>
               <div style={{ fontSize: '0.7rem', opacity: 0.8, display: 'flex', alignItems: 'center', gap: '4px', justifyContent: isRTL ? 'flex-end' : 'flex-start' }}>
                 <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#22c55e' }}></div>
-                {t.aura.ready}
+                {t?.aura?.ready}
               </div>
             </div>
           </div>
@@ -257,7 +257,7 @@ export default function AIChatbot() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder={t.aura.placeholder}
+                placeholder={t?.aura?.placeholder}
                 style={{
                   flex: 1,
                   padding: '0.75rem 1rem',
@@ -291,7 +291,7 @@ export default function AIChatbot() {
               </button>
             </div>
             <p style={{ fontSize: '0.65rem', color: '#94a3b8', textAlign: 'center', marginTop: '0.75rem' }}>
-              {t.aura.footer}
+              {t?.aura?.footer}
             </p>
           </div>
         </div>

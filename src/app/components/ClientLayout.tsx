@@ -58,17 +58,17 @@ export function AppNavbar({ session }: { session: any }) {
   const currentLanguage = languages.find(l => l.code === locale) || languages[0];
 
   const servicesList = React.useMemo(() => [
-    { id: 'plumbing', label: t.home.categories.plumbing, icon: <Droplets size={16} strokeWidth={2} />, path: '/services/plumbing' },
-    { id: 'repairs', label: t.home.categories.repairs, icon: <Wrench size={16} strokeWidth={2} />, path: '/services/repairs' },
-    { id: 'renovation', label: t.home.categories.renovation, icon: <PenTool size={16} strokeWidth={2} />, path: '/services/renovation' },
-    { id: 'education', label: t.home.categories.education, icon: <GraduationCap size={16} strokeWidth={2} />, path: '/services/education' },
-    { id: 'accounting', label: t.home.categories.accounting, icon: <Calculator size={16} strokeWidth={2} />, path: '/services/accounting' },
-    { id: 'legal', label: t.home.categories.legal, icon: <Scale size={16} strokeWidth={2} />, path: '/services/legal' },
-    { id: 'commercial', label: t.home.categories.commercial, icon: <Briefcase size={16} strokeWidth={2} />, path: '/services/commercial' },
-    { id: 'cleaning', label: t.home.categories.cleaning, icon: <Sparkles size={16} strokeWidth={2} />, path: '/services/cleaning' }
+    { id: 'plumbing', label: t?.home?.categories?.plumbing, icon: <Droplets size={16} strokeWidth={2} />, path: '/services/plumbing' },
+    { id: 'repairs', label: t?.home?.categories?.repairs, icon: <Wrench size={16} strokeWidth={2} />, path: '/services/repairs' },
+    { id: 'renovation', label: t?.home?.categories?.renovation, icon: <PenTool size={16} strokeWidth={2} />, path: '/services/renovation' },
+    { id: 'education', label: t?.home?.categories?.education, icon: <GraduationCap size={16} strokeWidth={2} />, path: '/services/education' },
+    { id: 'accounting', label: t?.home?.categories?.accounting, icon: <Calculator size={16} strokeWidth={2} />, path: '/services/accounting' },
+    { id: 'legal', label: t?.home?.categories?.legal, icon: <Scale size={16} strokeWidth={2} />, path: '/services/legal' },
+    { id: 'commercial', label: t?.home?.categories?.commercial, icon: <Briefcase size={16} strokeWidth={2} />, path: '/services/commercial' },
+    { id: 'cleaning', label: t?.home?.categories?.cleaning, icon: <Sparkles size={16} strokeWidth={2} />, path: '/services/cleaning' }
   ], [t]);
 
-  const displayCity = city === ALL_UK ? t.home.allUK : city;
+  const displayCity = city === ALL_UK ? t?.home?.allUK : city;
 
   // Render City Items
   const sortedCities = React.useMemo(() => [...supportedCities].sort(), [supportedCities]);
@@ -209,7 +209,7 @@ export function AppNavbar({ session }: { session: any }) {
                  backdropFilter: 'blur(20px)',
                }}>
                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-                    <span style={{ fontWeight: 800, fontSize: '1rem', color: isObsidianPage ? 'white' : 'var(--text-primary)' }}>{t.search.location}</span>
+                    <span style={{ fontWeight: 800, fontSize: '1rem', color: isObsidianPage ? 'white' : 'var(--text-primary)' }}>{t?.search?.location}</span>
                     <button 
                       onClick={(e) => { e.stopPropagation(); detectLocation(); }}
                       disabled={isLocating}
@@ -226,7 +226,7 @@ export function AppNavbar({ session }: { session: any }) {
                       ) : (
                         <Navigation size={12} fill="currentColor" />
                       )}
-                      {isLocating ? t.location.detecting : t.home.hero.badge}
+                      {isLocating ? t?.location?.detecting : t?.home?.hero?.badge}
                     </button>
                  </div>
 
@@ -259,7 +259,7 @@ export function AppNavbar({ session }: { session: any }) {
                         fontWeight: 800
                       }}
                    >
-                     {t.home.allUK}
+                     {t?.home?.allUK}
                    </div>
                  </div>
                </div>
@@ -277,7 +277,7 @@ export function AppNavbar({ session }: { session: any }) {
                 fontWeight: 700, padding: '0.5rem 0'
               }}
             >
-              {t.nav.browse}
+              {t?.nav?.browse}
               <ChevronDown size={14} style={{ transform: activeDropdown === 'services' ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
             </div>
 
@@ -331,7 +331,7 @@ export function AppNavbar({ session }: { session: any }) {
             alignItems: 'center',
             gap: '0.4rem'
           }}>
-            <PenTool size={18} /> {t.nav.aiDiagnosis}
+            <PenTool size={18} /> {t?.nav?.aiDiagnosis}
           </Link>
 
           <Link href="/join" className="hover-bg fluid-nav-item" style={{ 
@@ -345,7 +345,7 @@ export function AppNavbar({ session }: { session: any }) {
             borderRadius: '0.75rem',
             transition: '0.2s'
           }}>
-            <Briefcase size={18} /> {t.nav.join}
+            <Briefcase size={18} /> {t?.nav?.join}
           </Link>
           
           <div className="fluid-search-container">
@@ -387,7 +387,7 @@ export function AppNavbar({ session }: { session: any }) {
               </Link>
               {isObsidianPage && pathname !== '/auth/login' && pathname !== '/auth/register' && (
                 <a href="/api/auth/signout" style={{ color: '#ef4444', fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none', whiteSpace: 'nowrap' }}>
-                  {t.nav.logout}
+                  {t?.nav?.logout}
                 </a>
               )}
             </div>
@@ -395,13 +395,13 @@ export function AppNavbar({ session }: { session: any }) {
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
               <Link href="/auth/login" className="fluid-nav-item" style={{ 
                 textDecoration: 'none', color: obsidianGold, fontWeight: 700
-              }}>{t.nav.login}</Link>
+              }}>{t?.nav?.login}</Link>
               <div style={{ width: '1px', height: '14px', backgroundColor: 'var(--border-color)', opacity: 0.5 }}></div>
               <Link href="/auth/register" className="btn btn-primary fluid-nav-item" style={{ 
                 textDecoration: 'none', padding: '0.5rem 1.25rem',
                 backgroundColor: isObsidianPage ? obsidianGold : 'var(--accent-color)',
                 color: isObsidianPage ? 'black' : 'white'
-              }}>{t.nav.register}</Link>
+              }}>{t?.nav?.register}</Link>
             </div>
           )}
         </div>
@@ -438,14 +438,14 @@ export function AppNavbar({ session }: { session: any }) {
         }}>
            {/* Section 1: Search & Diagnosis */}
            <div>
-              <h4 style={{ color: obsidianGold, fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '1rem', letterSpacing: '0.1em' }}>{t.nav.quickActions}</h4>
+              <h4 style={{ color: obsidianGold, fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '1rem', letterSpacing: '0.1em' }}>{t?.nav?.quickActions}</h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                  <div style={{ width: '100%' }}><NavbarSearch /></div>
                  <Link href="/diagnosis" onClick={() => setMobileMenuOpen(false)} style={{ 
                     display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem', borderRadius: '1rem',
                     background: 'var(--accent-soft)', color: obsidianGold, textDecoration: 'none', fontWeight: 800
                  }}>
-                    <PenTool size={20} /> {t.nav.aiDiagnosis}
+                    <PenTool size={20} /> {t?.nav?.aiDiagnosis}
                  </Link>
               </div>
            </div>
@@ -457,7 +457,7 @@ export function AppNavbar({ session }: { session: any }) {
                 display: 'flex', flexDirection: 'column', gap: '0.5rem'
               }}>
                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: obsidianGold, fontWeight: 800, fontSize: '0.8rem' }}>
-                    <MapPin size={16} /> {t.search.location}
+                    <MapPin size={16} /> {t?.search?.location}
                  </div>
                  <div style={{ fontSize: '1rem', fontWeight: 700, display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: obsidianGold }}>
                     {displayCity} <ChevronDown size={14} />
@@ -469,7 +469,7 @@ export function AppNavbar({ session }: { session: any }) {
                 display: 'flex', flexDirection: 'column', gap: '0.5rem'
               }}>
                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: obsidianGold, fontWeight: 800, fontSize: '0.8rem' }}>
-                    <Globe size={16} /> {t.legal.ui.selectLanguage}
+                    <Globe size={16} /> {t?.legal?.ui?.selectLanguage}
                  </div>
                  <div style={{ fontSize: '1rem', fontWeight: 700, display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: obsidianGold }}>
                     {currentLanguage.label.split(' ')[0]} <ChevronDown size={14} />
@@ -503,7 +503,7 @@ export function AppNavbar({ session }: { session: any }) {
 
            {/* Section 3: Services */}
            <div>
-              <h4 style={{ color: obsidianGold, fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '1rem', letterSpacing: '0.1em' }}>{t.nav.exploreServices}</h4>
+              <h4 style={{ color: obsidianGold, fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '1rem', letterSpacing: '0.1em' }}>{t?.nav?.exploreServices}</h4>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
                  {servicesList.map(s => (
                    <Link key={s.id} href={s.path} onClick={() => setMobileMenuOpen(false)} style={{ 
@@ -521,18 +521,18 @@ export function AppNavbar({ session }: { session: any }) {
              <Link href="/join" onClick={() => setMobileMenuOpen(false)} style={{ 
                width: '100%', padding: '1rem', textAlign: 'center', borderRadius: '1rem',
                border: `1.5px solid ${obsidianGold}`, color: obsidianGold, fontWeight: 900, textDecoration: 'none'
-             }}>{t.nav.join}</Link>
+             }}>{t?.nav?.join}</Link>
              
              {!session?.user && (
                <div style={{ display: 'flex', gap: '0.75rem' }}>
                  <Link href="/auth/login" onClick={() => setMobileMenuOpen(false)} style={{ 
                    flex: 1, padding: '1rem', textAlign: 'center', borderRadius: '1rem',
                    background: 'transparent', border: '1.5px solid var(--border-color)', color: obsidianGold, fontWeight: 900, textDecoration: 'none'
-                 }}>{t.nav.login}</Link>
+                 }}>{t?.nav?.login}</Link>
                  <Link href="/auth/register" onClick={() => setMobileMenuOpen(false)} style={{ 
                    flex: 1, padding: '1rem', textAlign: 'center', borderRadius: '1rem',
                    background: obsidianGold, color: 'black', fontWeight: 900, textDecoration: 'none'
-                 }}>{t.nav.register}</Link>
+                 }}>{t?.nav?.register}</Link>
                </div>
              )}
            </div>
@@ -759,7 +759,7 @@ export function AppFooter() {
 
            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
              <p style={{ color: isObsidianPage ? 'rgba(255,255,255,0.4)' : 'var(--text-muted)', fontSize: '0.85rem' }}>
-               © {new Date().getFullYear()} {getVal('companyName', 'Concierge AI')}. {t.footer?.rights || 'All rights reserved.'}
+               © {new Date().getFullYear()} {getVal('companyName', 'Concierge AI')}. {t?.footer?.rights || 'All rights reserved.'}
              </p>
              <p style={{ color: isObsidianPage ? 'rgba(255,255,255,0.3)' : 'var(--text-muted)', fontSize: '0.75rem', maxWidth: '600px', margin: '0 auto' }}>
                Registered in England & Wales: {getVal('companyRegistration', t?.footer?.companyNo || '12345678')} | 

@@ -66,15 +66,15 @@ export default function RecommendationEngine() {
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '4rem' }}>
          <div className="reveal active">
             <h2 style={{ fontSize: '2.75rem', fontWeight: 950, marginBottom: '1.25rem', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.8rem', letterSpacing: '-0.03em' }}>
-               {t.home.recommendation.title1} <span style={{ 
+               {t?.home?.recommendation?.title1} <span style={{ 
                  background: 'var(--premium-gradient)',
                  WebkitBackgroundClip: 'text',
                  WebkitTextFillColor: 'transparent'
-               }}>{t.home.recommendation.title2}</span>
+               }}>{t?.home?.recommendation?.title2}</span>
                <Sparkles size={28} color="var(--gold-600)" />
             </h2>
             <p style={{ color: 'var(--text-muted)', fontWeight: 500, fontSize: '1.15rem', maxWidth: '650px', margin: '0 auto', lineHeight: 1.6 }}>
-               {t.home.recommendation.subtitle}
+               {t?.home?.recommendation?.subtitle}
             </p>
          </div>
       </div>
@@ -87,20 +87,21 @@ export default function RecommendationEngine() {
       }}>
          {recommendations.map((rec, index) => {
            // Translation logic
+           const resultsTable = t?.home?.recommendationResults;
            const displayTitle = rec.titleKey 
-             ? format(t.home.recommendationResults[rec.titleKey as keyof typeof t.home.recommendationResults], {
+             ? format(resultsTable?.[rec.titleKey as keyof typeof resultsTable], {
                  city: city || 'London',
-                 category: t.home.recommendationResults[rec.categoryKey as keyof typeof t.home.recommendationResults] || rec.category
+                 category: resultsTable?.[rec.categoryKey as keyof typeof resultsTable] || rec.category
                })
              : rec.title;
 
            const displaySubtitle = rec.subtitleKey
-             ? t.home.recommendationResults[rec.subtitleKey as keyof typeof t.home.recommendationResults]
+             ? resultsTable?.[rec.subtitleKey as keyof typeof resultsTable]
              : rec.subtitle;
 
            const badgeText = rec.reasonKey === 'assetMatch' 
-             ? t.home.recommendationResults.assetMatch 
-             : t.home.recommendationResults.trending;
+             ? resultsTable?.assetMatch 
+             : resultsTable?.trending;
 
            return (
              <Link 
@@ -164,7 +165,7 @@ export default function RecommendationEngine() {
 
                 <div style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: isRTL ? 'row-reverse' : 'row', position: 'relative', zIndex: 1 }}>
                    <div className="btn-text" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.9rem', fontWeight: 800, color: 'var(--gold-600)', flexDirection: 'inherit' }}>
-                      {t.home.recommendation.browse} <ArrowRight size={16} style={{ transform: isRTL ? 'rotate(180deg)' : 'none' }} />
+                      {t?.home?.recommendation?.browse} <ArrowRight size={16} style={{ transform: isRTL ? 'rotate(180deg)' : 'none' }} />
                    </div>
                    <div style={{ display: 'flex', gap: '3px' }}>
                       {[1,2,3,4,5].map(i => <Star key={i} size={12} fill="var(--gold-600)" color="var(--gold-600)" />)}

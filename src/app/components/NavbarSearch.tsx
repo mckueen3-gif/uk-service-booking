@@ -10,7 +10,7 @@ export default function NavbarSearch() {
     <div className="search-nav" style={{ flex: 1, maxWidth: '200px', position: 'relative', direction: isRTL ? 'rtl' : 'ltr' }}>
       <input 
         type="text" 
-        placeholder={t.search.keyword + "..."} 
+        placeholder={(t?.search?.keyword || 'Search') + "..."} 
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
             window.location.href = `/services/results?q=${encodeURIComponent(e.currentTarget.value)}`;
