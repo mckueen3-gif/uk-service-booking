@@ -247,15 +247,15 @@ export const en: Dictionary = {
     },
     sections: {
       trending: { title: "Trending", desc: "Active sectors", items: ["Cleaning", "Repairs"] },
-      plumbing: { title: "Plumbing & Energy", desc: "Precision hardware and thermal audits.", items: ["Boiler Repair", "Leak Detection", "Pipe Installation"] },
-      repairs: { title: "Structural Repairs", desc: "Restore integrity with elite maintenance.", items: ["Furniture Assembly", "Wall Patching", "Handyman Services"] },
-      renovation: { title: "Space Evolution", desc: "Transform your property with UK's top renovators.", items: ["Kitchen Remodel", "Loft Conversion", "Flooring"] },
-      cleaning: { title: "Hygiene Standards", desc: "Professional grade sanitization nodes.", items: ["Deep Cleaning", "End of Tenancy", "Window Cleaning"] },
-      automotive: { title: "Mechanical Precision", desc: "Vehicle care and diagnostics.", items: ["Mobile Mechanic", "MOT Prep", "Recovery"] },
-      accounting: { title: "Fiscal Governance", desc: "HMRC compliant financial oversight.", items: ["Tax Return", "Bookkeeping", "Payroll"] },
-      legal: { title: "Legal Infrastructure", desc: "Protect your interests with top advisers.", items: ["Contract Law", "Property Law", "Civil Litigation"] },
-      commercial: { title: "Enterprise Support", desc: "Service grids for high-traffic environments.", items: ["Office Cleaning", "Facility Management", "Commercial Electric"] },
-      education: { title: "Intelligence Expansion", desc: "Connect with elite educators and mentors.", items: ["Academic Tutoring", "STEM Matrix", "Language Nodes"] }
+      plumbing: { title: "Plumbing & Energy", desc: "Precision plumbing, heating and electrical work.", items: ["Boiler Repair", "Leak Detection", "Pipe Installation", "Electrical Rewiring", "Central Heating", "Emergency Call-Out"] },
+      repairs: { title: "Structural Repairs", desc: "Expert maintenance to restore your home.", items: ["Furniture Assembly", "Wall Patching", "Handyman Services", "Door & Window Repair", "Tile Fitting", "Flooring Restoration"] },
+      renovation: { title: "Home Renovation", desc: "Transform your property with UK's top renovators.", items: ["Kitchen Remodel", "Loft Conversion", "Flooring", "Bathroom Renovation", "External Cladding", "Hallway Design"] },
+      cleaning: { title: "Professional Cleaning", desc: "Professional-grade cleaning and sanitation services.", items: ["Deep Cleaning", "End of Tenancy", "Window Cleaning", "Carpet Cleaning", "Office Cleaning", "Move-In Cleaning"] },
+      automotive: { title: "Automotive Services", desc: "Vehicle care and computer diagnostics.", items: ["Mobile Mechanic", "MOT Prep", "Breakdown Recovery", "Air Con Service", "Brake Replacement", "Tyre Fitting"] },
+      accounting: { title: "Financial Services", desc: "HMRC compliant financial management.", items: ["Tax Return", "Bookkeeping", "Payroll", "VAT Return", "Annual Accounts", "Financial Advisory"] },
+      legal: { title: "Legal Services", desc: "Protect your interests with top legal advisers.", items: ["Contract Law", "Property Law", "Civil Litigation", "Will Writing", "Immigration Law", "Employment Disputes"] },
+      commercial: { title: "Business Services", desc: "Professional services for commercial environments.", items: ["Office Cleaning", "Facility Management", "Commercial Electric", "Security Services", "HVAC Maintenance", "Reception Services"] },
+      education: { title: "Education & Tutoring", desc: "Connect with elite educators and specialist tutors.", items: ["Academic Tutoring", "STEM Courses", "Language Learning", "11+ Preparation", "University Applications", "Music Lessons"] }
     }
   },
   faq: {
