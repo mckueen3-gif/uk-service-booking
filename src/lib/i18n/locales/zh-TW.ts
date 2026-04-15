@@ -1157,6 +1157,7 @@ export const zhTW: Dictionary = {
         merchants: "專家管理",
         payouts: "結算管理",
         settings: "系統設定",
+        blog: "部落格管理",
         terminal: "管理員終端"
       }
     },
@@ -1244,5 +1245,21 @@ export const zhTW: Dictionary = {
       vehicles: "目前沒有任何車輛記錄。",
       properties: "目前沒有任何物業記錄。"
     }
+  },
+  footer: {
+    explore: "探索",
+    legal: "法律條款",
+    support: "客戶支援",
+    blog: "部落格",
+    aboutUs: "ConciergeAI UK - 頂級服務網絡",
+    homeCleaning: "家居清潔",
+    plumbingServices: "水電維修",
+    aiDiagnosis: "AI 診斷",
+    terms: "服務條款",
+    privacy: "隱私政策",
+    cookies: "Cookie 政策",
+    trustSignal: "Trustpilot 優質評價",
+    rights: "保留所有權利。",
+    address: "英國倫敦",
   }
 };

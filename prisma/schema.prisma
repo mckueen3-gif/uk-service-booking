@@ -109,18 +109,26 @@ model Merchant {
   maxDailyBookings   Int                    @default(8)
   createdAt          DateTime               @default(now())
   updatedAt          DateTime               @updatedAt
+  isAccountingActive Boolean                @default(false)
+  insuranceAmount    Float?
+  memberSince        DateTime               @default(now())
+  offersFreeQuotes   Boolean                @default(true)
+  ownerName          String?
+  vettingChecks      Json?
+  businessType       String?
+  vatNumber          String?
+  bannerUrl          String?
   bookings           Booking[]
   conversations      Conversation[]         @relation("MerchantConversations")
   user               User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  isAccountingActive Boolean                @default(false)
   availability       MerchantAvailability[]
   documents          MerchantDocument[]
   portfolio          MerchantPortfolio[]
+  scheduleSlots      MerchantScheduleSlot[]
   wallet             MerchantWallet?
   reviews            Review[]
   services           Service[]
   withdrawals        WithdrawalRequest[]
-  scheduleSlots      MerchantScheduleSlot[]
 
   @@index([city])
   @@index([isVerified])
@@ -223,20 +231,20 @@ model MerchantAvailability {
 }
 
 model Service {
-  id           String        @id @default(cuid())
-  merchantId   String
-  category     String
-  name         String
-  description  String?
-  price        Float
-  teachingMode TeachingMode?
-  subjects     String?
+  id                           String        @id @default(cuid())
+  merchantId                   String
+  category                     String
+  name                         String
+  description                  String?
+  price                        Float
+  teachingMode                 TeachingMode?
+  subjects                     String?
   aiMatchScore                 Float?
-  isEmergencyAble              Boolean       @default(false)
-  emergencySurchargePercentage Float         @default(0)
-  emergencyResponseTime        String?
   createdAt                    DateTime      @default(now())
   updatedAt                    DateTime      @updatedAt
+  emergencyResponseTime        String?
+  emergencySurchargePercentage Float         @default(0)
+  isEmergencyAble              Boolean       @default(false)
   bookings                     Booking[]
   merchant                     Merchant      @relation(fields: [merchantId], references: [id], onDelete: Cascade)
 
@@ -261,7 +269,6 @@ model Booking {
   stripeBalanceIntentId String?       @unique
   reauthDeadline        DateTime?
   coolingOffUntil       DateTime?
-  isUrgent              Boolean       @default(false)
   createdAt             DateTime      @default(now())
   updatedAt             DateTime      @updatedAt
   vehicleReg            String?
@@ -269,6 +276,7 @@ model Booking {
   vehicleModel          String?
   vehicleYear           String?
   vehicleNotes          String?
+  isUrgent              Boolean       @default(false)
   customer              User          @relation(fields: [customerId], references: [id])
   merchant              Merchant      @relation(fields: [merchantId], references: [id])
   service               Service       @relation(fields: [serviceId], references: [id])
@@ -312,20 +320,23 @@ model Payment {
 }
 
 model Review {
-  id         String   @id @default(cuid())
-  bookingId  String   @unique
-  customerId String
-  merchantId String
-  rating     Int
-  comment    String?
-  sentiment  String?
-  keywords   String?
-  reply      String?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  booking    Booking  @relation(fields: [bookingId], references: [id])
-  customer   User     @relation(fields: [customerId], references: [id])
-  merchant   Merchant @relation(fields: [merchantId], references: [id])
+  id                  String   @id @default(cuid())
+  bookingId           String   @unique
+  customerId          String
+  merchantId          String
+  rating              Int
+  comment             String?
+  sentiment           String?
+  keywords            String?
+  reply               String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  communicationRating Int?
+  qualityRating       Int?
+  reliabilityRating   Int?
+  booking             Booking  @relation(fields: [bookingId], references: [id])
+  customer            User     @relation(fields: [customerId], references: [id])
+  merchant            Merchant @relation(fields: [merchantId], references: [id])
 
   @@index([merchantId])
   @@index([customerId])
@@ -468,6 +479,40 @@ model AiDiagnosis {
   @@index([category])
 }
 
+model MerchantScheduleSlot {
+  id            String   @id @default(cuid())
+  merchantId    String
+  date          DateTime
+  startTime     String
+  endTime       String
+  isAvailable   Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  customerName  String?
+  customerPhone String?
+  notes         String?
+  title         String?
+  merchant      Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+
+  @@index([merchantId, date])
+}
+
+model BlogPost {
+  id         String   @id @default(cuid())
+  slug       String   @unique
+  title      String
+  content    String
+  excerpt    String?
+  coverImage String?
+  published  Boolean  @default(false)
+  authorName String   @default("ConciergeAI Team")
+  category   String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([slug])
+  @@index([category])
+}
+
 enum Role {
   CUSTOMER
   MERCHANT
@@ -541,22 +586,4 @@ enum TransactionType {
   VOUCHER_REDEEM
   ADMIN_ADJUSTMENT
   REDEMPTION_VOUCHER
-}
-
-
-model MerchantScheduleSlot {
-  id                String   @id @default(cuid())
-  merchantId        String
-  date              DateTime
-  startTime         String
-  endTime           String
-  isAvailable       Boolean  @default(true) 
-  title             String?
-  customerName      String?
-  customerPhone     String?
-  notes             String?
-  createdAt         DateTime @default(now())
-  merchant          Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
-
-  @@index([merchantId, date])
 }

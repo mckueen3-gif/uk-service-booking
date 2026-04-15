@@ -659,6 +659,7 @@ export function AppFooter() {
                  {[
                    { name: t?.footer?.homeCleaning || 'Home Cleaning', href: "/services/cleaning" },
                    { name: t?.footer?.plumbingServices || 'Plumbing', href: "/services/plumbing" },
+                   { name: (t?.footer?.blog || 'Blog'), href: "/blog" },
                    { name: (t?.footer?.aiDiagnosis || 'AI Diagnosis') + " ✨", href: "/diagnosis", highlight: true }
                  ].map((link, idx) => (
                    <Link key={idx} href={link.href} style={{ 

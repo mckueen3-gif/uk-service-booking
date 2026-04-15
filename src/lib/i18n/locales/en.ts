@@ -1117,6 +1117,7 @@ export const en: Dictionary = {
         merchants: "Specialist Nodes",
         payouts: "Fiscal Settlements",
         settings: "Mesh Configuration",
+        blog: "Content Management",
         terminal: "Admin Terminal"
       }
     },
@@ -1204,5 +1205,21 @@ export const en: Dictionary = {
       vehicles: "No vehicle telemetry registered.",
       properties: "No property nodes registered."
     }
+  },
+  footer: {
+    explore: "Explore",
+    legal: "Legal",
+    support: "Support",
+    blog: "Blog",
+    aboutUs: "ConciergeAI UK - Elite Service Network",
+    homeCleaning: "Home Cleaning",
+    plumbingServices: "Plumbing",
+    aiDiagnosis: "AI Diagnosis",
+    terms: "Terms",
+    privacy: "Privacy",
+    cookies: "Cookies",
+    trustSignal: "Excellent on Trustpilot",
+    rights: "All rights reserved.",
+    address: "London, UK",
   }
 };

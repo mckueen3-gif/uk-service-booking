@@ -46,8 +46,8 @@ async function main() {
 
   if (testMerchantIds.length > 0) {
       console.log(`Cleaning up records for ${testMerchantIds.length} merchants...`);
-      await prisma.booking.deleteMany({ where: { merchantId: { in: testMerchantIds } } });
       await prisma.review.deleteMany({ where: { merchantId: { in: testMerchantIds } } });
+      await prisma.booking.deleteMany({ where: { merchantId: { in: testMerchantIds } } });
       await prisma.merchantDocument.deleteMany({ where: { merchantId: { in: testMerchantIds } } });
       await prisma.merchantPortfolio.deleteMany({ where: { merchantId: { in: testMerchantIds } } });
       await prisma.merchantWallet.deleteMany({ where: { merchantId: { in: testMerchantIds } } });
@@ -86,14 +86,28 @@ async function main() {
         description: `Premium ${item.category} services in London. Highly rated professional with years of experience.`,
         isVerified: true,
         stripeAccountId: 'acct_test_mock_' + item.id,
-        averageRating: 4.5 + Math.random() * 0.4,
-        totalReviews: 12 + Math.floor(Math.random() * 50),
-        completedJobsCount: 45 + Math.floor(Math.random() * 100),
+        averageRating: 4.8,
+        totalReviews: 24,
+        completedJobsCount: 150,
+        ownerName: 'Alexander McQueen',
+        memberSince: new Date(Date.now() - 1000 * 60 * 60 * 24 * 365 * 3), // 3 years ago
+        insuranceAmount: 5000000,
+        businessType: item.category === 'Plumbing' || item.category === 'Renovation' ? 'Limited Company' : 'Sole Trader',
+        vatNumber: item.id === 'plumbing' || item.id === 'renovation' ? 'GB 987 6543 21' : null,
+        bannerUrl: item.id === 'plumbing' ? "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=1200&auto=format&fit=crop" : 
+                   item.id === 'renovation' ? "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop" :
+                   "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop",
+        vettingChecks: {
+            identityVerified: true,
+            addressVerified: true,
+            financialChecked: true,
+            professionalReferenceChecked: true
+        }
       }
     });
 
     // Create primary service
-    await prisma.service.create({
+    const service = await prisma.service.create({
       data: {
         merchantId: merchant.id,
         category: item.category,
@@ -131,6 +145,58 @@ async function main() {
         data: [
             { merchantId: merchant.id, title: 'Recent Project 1', imageUrl: portfolioUrls[0] },
             { merchantId: merchant.id, title: 'Recent Project 2', imageUrl: portfolioUrls[1] }
+        ]
+    });
+
+    // Add detailed reviews with sub-ratings
+    const booking1 = await prisma.booking.create({
+        data: {
+            customerId: user.id,
+            merchantId: merchant.id,
+            serviceId: service.id,
+            scheduledDate: new Date(),
+            status: 'COMPLETED',
+            totalAmount: service.price,
+            isUrgent: false
+        }
+    });
+
+    const booking2 = await prisma.booking.create({
+        data: {
+            customerId: user.id,
+            merchantId: merchant.id,
+            serviceId: service.id,
+            scheduledDate: new Date(Date.now() - 1000 * 60 * 60 * 24 * 5),
+            status: 'COMPLETED',
+            totalAmount: service.price,
+            isUrgent: false
+        }
+    });
+
+    await prisma.review.createMany({
+        data: [
+            {
+                merchantId: merchant.id,
+                customerId: user.id,
+                bookingId: booking1.id,
+                rating: 5,
+                qualityRating: 5,
+                reliabilityRating: 5,
+                communicationRating: 5,
+                comment: 'Excellent work! Very professional and punctual.',
+                createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2)
+            },
+            {
+                merchantId: merchant.id,
+                customerId: user.id,
+                bookingId: booking2.id,
+                rating: 4,
+                qualityRating: 5,
+                reliabilityRating: 4,
+                communicationRating: 4,
+                comment: 'Great service, though a bit of a delay in starting.',
+                createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 4)
+            }
         ]
     });
   }

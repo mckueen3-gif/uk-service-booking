@@ -111,35 +111,31 @@ export const getServiceDetails = unstable_cache(
   { tags: ['services'], revalidate: 3600 }
 );
 
-export const getMerchantDetails = unstable_cache(
-  async (merchantId: string) => {
-    try {
-      const merchant = await prisma.merchant.findUnique({
-        where: { id: merchantId },
-        include: {
-          documents: {
-            where: { status: 'APPROVED' }
-          },
-          reviews: {
-            include: { customer: { select: { name: true, image: true } } },
-            orderBy: { createdAt: 'desc' },
-            take: 10
-          },
-          portfolio: {
-            orderBy: { createdAt: 'desc' },
-            take: 12
-          },
-          services: true
-        }
-      });
-      return { success: true, merchant };
-    } catch (err: any) {
-      return { success: false, error: err.message };
-    }
-  },
-  ['merchant-details'],
-  { tags: ['merchants'], revalidate: 60 }
-);
+export async function getMerchantDetails(merchantId: string) {
+  try {
+    const merchant = await prisma.merchant.findUnique({
+      where: { id: merchantId },
+      include: {
+        documents: {
+          where: { status: 'APPROVED' }
+        },
+        reviews: {
+          include: { customer: { select: { name: true, image: true } } },
+          orderBy: { createdAt: 'desc' },
+          take: 10
+        },
+        portfolio: {
+          orderBy: { createdAt: 'desc' },
+          take: 12
+        },
+        services: true
+      }
+    });
+    return { success: true, merchant };
+  } catch (err: any) {
+    return { success: false, error: err.message };
+  }
+}
 
 export async function deleteService(id: string) {
   const merchantId = await getMerchantId();
