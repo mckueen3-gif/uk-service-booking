@@ -88,16 +88,26 @@ export default function RecommendationEngine() {
          {recommendations.map((rec, index) => {
            // Translation logic
            const resultsTable = t?.home?.recommendationResults;
+           const sectionsTable = t?.home?.sections;
+           
+           // Title: use titleKey from recommendationResults table
            const displayTitle = rec.titleKey 
-             ? format(resultsTable?.[rec.titleKey as keyof typeof resultsTable], {
-                 city: city || 'London',
-                 category: resultsTable?.[rec.categoryKey as keyof typeof resultsTable] || rec.category
-               })
+             ? (resultsTable?.[rec.titleKey as keyof typeof resultsTable] || rec.title || rec.titleKey)
              : rec.title;
 
-           const displaySubtitle = rec.subtitleKey
-             ? resultsTable?.[rec.subtitleKey as keyof typeof resultsTable]
-             : rec.subtitle;
+           // Subtitle: use subtitleKey from sections or a sensible default per category
+           let displaySubtitle = rec.subtitle;
+           if (!displaySubtitle) {
+             const sectionKey = rec.category?.toLowerCase();
+             const sectionMap: Record<string, string> = {
+               repair: sectionsTable?.repairs?.desc || "Expert structural repairs and installations.",
+               cleaning: sectionsTable?.cleaning?.desc || "Professional-grade sanitisation services.",
+               accounting: sectionsTable?.accounting?.desc || "HMRC-compliant financial management.",
+               auto: sectionsTable?.automotive?.desc || "Vehicle care and diagnostics.",
+               home: sectionsTable?.plumbing?.desc || "Home maintenance and systems.",
+             };
+             displaySubtitle = sectionMap[sectionKey] || t?.home?.recommendation?.subtitle;
+           }
 
            const badgeText = rec.reasonKey === 'assetMatch' 
              ? resultsTable?.assetMatch 
