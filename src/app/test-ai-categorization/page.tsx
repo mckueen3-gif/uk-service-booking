@@ -103,12 +103,18 @@ export default function AICategorizationDemo() {
               )}
 
               <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
-                {result.suggestedCategories?.map((cat: string) => (
-                  <div key={cat} style={{ background: "var(--surface-1)", border: "2px solid var(--gold-500)", color: "var(--text-primary)", padding: "0.6rem 1.2rem", borderRadius: "12px", fontSize: "0.95rem", fontWeight: 800, display: "flex", alignItems: "center", gap: "6px", boxShadow: "0 4px 12px rgba(212,175,55,0.1)" }}>
-                    {cat}
-                    <CheckCircle2 size={16} color="var(--gold-500)" />
+                {result.suggestedCategories && result.suggestedCategories.length > 0 ? (
+                  result.suggestedCategories.map((cat: string) => (
+                    <div key={cat} style={{ background: "var(--surface-1)", border: "2px solid var(--gold-500)", color: "var(--text-primary)", padding: "0.6rem 1.2rem", borderRadius: "12px", fontSize: "0.95rem", fontWeight: 800, display: "flex", alignItems: "center", gap: "6px", boxShadow: "0 4px 12px rgba(212,175,55,0.1)" }}>
+                      {cat}
+                      <CheckCircle2 size={16} color="var(--gold-500)" />
+                    </div>
+                  ))
+                ) : (
+                  <div style={{ color: "var(--text-muted)", fontSize: "0.9rem", fontStyle: "italic" }}>
+                    抱歉，AI 暫時無法從標準清單中找到匹配的分類。您可以嘗試用英文描述或輸入更多細節。
                   </div>
-                ))}
+                )}
               </div>
 
               <div style={{ marginTop: "2rem", display: "flex", justifyContent: "flex-end" }}>

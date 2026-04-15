@@ -60,17 +60,17 @@ export async function fetchBusinessInfoWithAI(url: string) {
     ? `Title: ${metadata.title}\nDescription: ${metadata.description}\nContent Sample: ${metadata.rawHtml}`
     : `URL: ${url}`;
 
-  const prompt = `Analyze this business from its website/info.
+  const prompt = `Task: Analyze this business website data to extract identity and trade categories.
   Context: ${context}
   
-  Available standard categories: ${categoriesList.join(", ")}
+  Available Standard Categories (MUST use these names): ${categoriesList.join(", ")}
 
   Return JSON ONLY: 
   { 
-    "businessName": "...", 
-    "bio": "...", 
-    "suggestedCategories": ["Category1", "Category2"], // Must match from Available list above
-    "sector": "automotive|home_services|professional|beauty|education|health" 
+    "businessName": "Official Company Name", 
+    "bio": "Strong professional summary (around 50 words)", 
+    "suggestedCategories": ["Category Name"], // Max 5, must match names exactly from available list
+    "sector": "home_services" // choose most suitable
   }`;
 
   try {
@@ -81,11 +81,11 @@ export async function fetchBusinessInfoWithAI(url: string) {
     if (jsonMatch) return JSON.parse(jsonMatch[0]);
     throw new Error("Invalid response");
   } catch (e) {
-    // Fallback logic
+    console.error("AI Website Fetch Error:", e);
     return { 
-      businessName: url.split('.')[0].replace(/[^a-zA-Z]/g, ' '),
-      bio: "Professional services provider.",
-      suggestedCategories: ["Handyman"],
+      businessName: url.replace(/(https?:\/\/)?(www\.)?/, "").split('.')[0],
+      bio: "Manual entry required.",
+      suggestedCategories: [],
       sector: "professional"
     };
   }
@@ -93,17 +93,30 @@ export async function fetchBusinessInfoWithAI(url: string) {
 
 export async function getSmartCategoriesFromText(text: string) {
   const categoriesList = await getCategoriesList();
-  const prompt = `Analyze this business description: "${text}"
-  Select the most relevant trade categories from this list: ${categoriesList.join(", ")}
-  Return JSON: { "categories": ["Category1", "Category2"] }`;
+  const prompt = `Task: Match the business description to standardized trade categories.
+  
+  Description: "${text}"
+  
+  Instructions:
+  1. The description might be in Chinese, English, or mixed. Translate/Understand it first.
+  2. Select up to 5 most relevant categories from the standardized list below.
+  3. Respond ONLY with a JSON object in this format: { "categories": ["Category Name 1", "Category Name 2"] }
+  4. If no clear matches, return an empty array for categories.
+  
+  Standardized Categories: ${categoriesList.join(", ")}`;
 
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const result = await model.generateContent(prompt);
-    const jsonMatch = result.response.text().match(/\{[\s\S]*\}/);
-    if (jsonMatch) return JSON.parse(jsonMatch[0]).categories;
+    const responseText = result.response.text();
+    const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      const parsed = JSON.parse(jsonMatch[0]);
+      return parsed.categories || [];
+    }
     return [];
   } catch (e) {
+    console.error("AI Categorization Error:", e);
     return [];
   }
 }
