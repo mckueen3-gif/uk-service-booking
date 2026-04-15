@@ -4,7 +4,7 @@ import Link from "next/link";
 import {
   Star, MapPin, ShieldCheck, CheckCircle2, ArrowRight,
   Briefcase, Phone, MessageSquare, Image as ImageIcon, Award, Clock,
-  Share2, Globe, Heart
+  Share2, Globe, Heart, Check, ThumbsUp
 } from "lucide-react";
 
 interface Props {
@@ -183,21 +183,28 @@ export default async function MerchantPublicPage({ params }: Props) {
 
           {services.length > 0 && (
             <section id="services" style={{ background: "linear-gradient(145deg, var(--surface-1) 0%, rgba(212,175,55,0.04) 100%)", borderRadius: "20px", padding: "2.5rem", border: "1px solid var(--border-color)" }}>
-              <h2 style={{ fontSize: "1.5rem", fontWeight: 900, color: "var(--text-primary)", marginBottom: "1.5rem" }}>專業服務項目</h2>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem" }}>
-                {services.map((svc: any) => (
-                  <Link key={svc.id} href={`/book/${m.id}?serviceId=${svc.id}`}
-                    style={{
-                      background: "var(--surface-2)", borderRadius: "16px", padding: "1.5rem",
-                      border: "1px solid var(--border-color)", textDecoration: "none",
-                      display: "block", transition: "all 0.2s ease"
-                    }}
-                  >
-                    <div style={{ fontSize: "0.75rem", fontWeight: 800, color: "var(--gold-600)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.5rem" }}>{svc.category}</div>
-                    <div style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)", marginBottom: "0.5rem" }}>{svc.name}</div>
-                    <div style={{ fontSize: "1.5rem", fontWeight: 900, color: "var(--text-primary)" }}>£{svc.price}</div>
-                  </Link>
-                ))}
+              <h2 style={{ fontSize: "1.5rem", fontWeight: 900, color: "var(--text-primary)", marginBottom: "1.5rem" }}>服務項目 (Services)</h2>
+              
+              <div style={{ background: "var(--surface-2)", borderRadius: "16px", border: "1px solid var(--border-color)", padding: "1.5rem" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
+                  <h3 style={{ fontSize: "1.1rem", fontWeight: 900, color: "var(--text-primary)", margin: 0 }}>
+                    {services[0]?.category || "提供的服務"} ({services.length})
+                  </h3>
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1rem" }}>
+                  {services.map((svc: any, idx: number) => (
+                    <Link key={svc.id} href={`/book/${m.id}?serviceId=${svc.id}`} style={{ display: "flex", alignItems: "center", gap: "10px", color: "var(--text-primary)", textDecoration: "none", fontSize: "0.95rem", padding: "6px 0" }}>
+                      <Check size={18} color="var(--gold-500)" style={{ flexShrink: 0, strokeWidth: 3 }} />
+                      <span style={{ fontWeight: 600 }}>{svc.name}</span>
+                      <span style={{ color: "var(--text-muted)", fontSize: "0.85rem" }}>£{svc.price}</span>
+                      {idx === 0 && (
+                        <span style={{ background: "#7166FF", color: "#fff", padding: "3px 8px", borderRadius: "6px", fontSize: "0.7rem", fontWeight: 800, display: "flex", alignItems: "center", gap: "4px", marginLeft: "auto" }}>
+                          您的搜尋 (Your search) <ThumbsUp size={12} />
+                        </span>
+                      )}
+                    </Link>
+                  ))}
+                </div>
               </div>
             </section>
           )}
@@ -318,6 +325,13 @@ export default async function MerchantPublicPage({ params }: Props) {
                   <div style={{ color: "var(--text-primary)", fontWeight: 800, fontSize: "1.1rem" }}>{m.ownerName || m.user?.name || "N/A"}</div>
                 </div>
                 
+                <div style={{ height: "1px", background: "var(--border-color)" }} />
+                
+                <div>
+                  <div style={{ color: "var(--text-muted)", fontSize: "0.85rem", fontWeight: 700, marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>服務範圍 (OPERATES IN)</div>
+                  <div style={{ color: "var(--text-primary)", fontWeight: 800, fontSize: "1.1rem" }}>{m.city ? `${m.city} 及周邊地區` : "全英國 (Nationwide)"}</div>
+                </div>
+
                 <div style={{ height: "1px", background: "var(--border-color)" }} />
                 
                 <div>
