@@ -80,6 +80,7 @@ export async function searchMerchants(filters: SearchFilters) {
       include: {
         user: true,
         services: true,
+        portfolio: true,
         documents: {
           where: { status: "APPROVED" },
         },
@@ -95,6 +96,7 @@ export async function searchMerchants(filters: SearchFilters) {
         include: {
           user: true,
           services: true,
+          portfolio: true,
           documents: {
             where: { status: "APPROVED" },
           },

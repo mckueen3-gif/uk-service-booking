@@ -361,7 +361,14 @@ function SearchResults() {
                     </div>
                   )}
                   <div style={{ width: 'var(--mobile-card-img-size, 150px)', flexShrink: 0, aspectRatio: '1', borderRadius: '1rem', overflow: 'hidden' }}>
-                    <img src={`https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=200&auto=format&fit=crop`} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    {(() => {
+                      const portfolio = merchant.portfolio || [];
+                      const avatar = merchant.avatarUrl;
+                      const catKey = (merchant.services?.[0]?.category || "default").toLowerCase();
+                      const fallback = "https://images.unsplash.com/photo-1581578731548-c744c843509c?q=80&w=400&auto=format&fit=crop";
+                      const imgUrl = portfolio.length > 0 ? portfolio[0].imageUrl : (avatar || fallback);
+                      return <img src={imgUrl} alt={merchant.companyName} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />;
+                    })()}
                   </div>
                     <div style={{ flex: 1 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', flexDirection: 'inherit' }}>

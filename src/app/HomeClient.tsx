@@ -491,14 +491,32 @@ export default function HomeClient() {
   );
 }
 
+const FALLBACK_IMAGES: Record<string, string[]> = {
+  plumbing: ["https://images.unsplash.com/photo-1581578731548-c744c843509c?q=80&w=800&auto=format&fit=crop"],
+  repairs: ["https://images.unsplash.com/photo-1581094288338-2314dddb7bc3?q=80&w=800&auto=format&fit=crop"],
+  renovation: ["https://images.unsplash.com/photo-1503387762-592dea58ef23?q=80&w=800&auto=format&fit=crop"],
+  education: ["https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=800&auto=format&fit=crop"],
+  accounting: ["https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800&auto=format&fit=crop"],
+  legal: ["https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=800&auto=format&fit=crop"],
+  commercial: ["https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop"],
+  cleaning: ["https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=800&auto=format&fit=crop"],
+  default: ["https://images.unsplash.com/photo-1581578731548-c744c843509c?q=80&w=800&auto=format&fit=crop"]
+};
+
 function SpecialistCard({ specialist, idx, city }: { specialist: any, idx: number, city: string }) {
   const { t } = useTranslation();
   const [imageIdx, setImageIdx] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const portfolio = specialist.portfolio || [];
+  const catKey = (specialist.category || "default").toLowerCase();
+  const fallbackPool = FALLBACK_IMAGES[catKey] || FALLBACK_IMAGES.default;
+  const fallbackUrl = fallbackPool[idx % fallbackPool.length];
+
   const images = portfolio.length > 0 
     ? portfolio.map((p: any) => p.imageUrl)
-    : [`https://images.unsplash.com/photo-${1581578731548 + idx}?q=80&w=600&auto=format&fit=crop`];
+    : specialist.avatarUrl 
+    ? [specialist.avatarUrl]
+    : [fallbackUrl];
 
   useEffect(() => {
     if (isHovered && images.length > 1) {
