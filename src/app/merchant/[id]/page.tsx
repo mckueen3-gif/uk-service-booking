@@ -113,7 +113,7 @@ export default async function MerchantPublicPage({ params }: Props) {
         <div style={{ marginLeft: "170px", paddingTop: "1rem", paddingBottom: "1.5rem", display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "2rem" }}>
           <div style={{ flex: 1 }}>
             <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "0.5rem", flexWrap: "wrap" }}>
-              <h1 style={{ fontSize: "2.8rem", fontWeight: 900, color: "#fff", margin: 0, letterSpacing: "-0.02em" }}>
+              <h1 style={{ fontSize: "2.8rem", fontWeight: 900, color: "var(--text-primary)", margin: 0, letterSpacing: "-0.02em" }}>
                 {displayName}
               </h1>
               {isVerified && (
@@ -144,8 +144,7 @@ export default async function MerchantPublicPage({ params }: Props) {
 
       <div style={{ 
         position: "sticky", top: "80px", zIndex: 50, 
-        backgroundColor: "rgba(10, 10, 10, 0.8)", 
-        backdropFilter: "blur(12px)",
+        backgroundColor: "var(--bg-primary)", 
         borderBottom: "1px solid rgba(212,175,55,0.1)",
         borderTop: "1px solid rgba(212,175,55,0.1)",
         marginTop: "1.5rem"
