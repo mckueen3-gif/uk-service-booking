@@ -15,7 +15,7 @@ export default function OnboardingHero() {
           <span>ConciergeAI Elite Expert</span>
         </div>
         <h1 className="hero-title">
-          {t.onboarding.hero.title.split('ConciergeAI').map((part: string, i: number, arr: string[]) => (
+          {(t?.onboarding?.hero?.title || "Join ConciergeAI").split('ConciergeAI').map((part: string, i: number, arr: string[]) => (
             <React.Fragment key={i}>
               {part}
               {i < arr.length - 1 && <span className="brand-gold">ConciergeAI</span>}
@@ -23,7 +23,7 @@ export default function OnboardingHero() {
           ))}
         </h1>
         <p className="hero-subtitle">
-          {t.onboarding.hero.subtitle}
+          {t?.onboarding?.hero?.subtitle || "Elite Professional Network"}
         </p>
 
         {/* Social Proof Metrics */}

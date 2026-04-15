@@ -1078,6 +1078,10 @@ export const zhTW: Dictionary = {
     }
   },
   onboarding: {
+    hero: {
+      title: "加入 ConciergeAI 全球精英專家網絡",
+      subtitle: "提供最具前瞻性的專業對接，讓您的專業價值在全球市場發光發熱。"
+    },
     steps: {
       profile: "專家資料",
       credentials: "資質證明",
@@ -1088,6 +1092,36 @@ export const zhTW: Dictionary = {
       next: "下一步",
       back: "返回",
       submit: "提交審核"
+    },
+    sectors: {
+      education: {
+        title: "教育培訓 (Education)",
+        desc: "涵蓋各學科補習、語言教學、藝術培訓等教學領域。",
+        industries: ["Academic Tutoring", "Languages", "Arts", "Exam Prep"]
+      },
+      technical: {
+        title: "技術工程 (Trades & Tech)",
+        desc: "包含水電、裝修、智慧家居安裝等專業技術服務。",
+        industries: ["Plumbing", "Electrical", "Renovation", "Smart Home"]
+      }
+    },
+    contract: {
+      clauses: {
+        platform_fee: {
+          title: "1. 平台服務費說明",
+          body: "身為專家，您可以自定義服務時薪或專案報價。教育及補習教育類專家免收平台佣金 (Student-Pay Model)。其他行業將由系統在結帳時自動抽取 9% 作為技術服務費。"
+        },
+        payments: {
+          title: "2. 款項支付與結算",
+          body: "所有款項將通過 Stripe 進行託管。客戶確認完工後，款項將在 T+3 個工作日內結算至您的銀行帳戶。"
+        },
+        conduct: {
+          title: "3. 專業守則",
+          body: "專家必須保證提供準確的資質信息，並尊重客戶隱私。任何違規線下私下交易的行為將導致帳號被永久封禁。"
+        }
+      },
+      scrollingNotice: "請閱讀完協議內容以繼續",
+      agree: "我已閱讀並同意上述入駐協議與隱私條款"
     }
   },
   admin: {

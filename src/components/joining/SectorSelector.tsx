@@ -33,17 +33,17 @@ export default function SectorSelector({
     {
       id: "education",
       icon: <GraduationCap size={32} />,
-      title: t.onboarding.sectors.education.title,
-      desc: t.onboarding.sectors.education.desc,
-      industries: t.onboarding.sectors.education.industries,
+      title: t?.onboarding?.sectors?.education?.title || "Academic & Tutoring",
+      desc: t?.onboarding?.sectors?.education?.desc || "Curriculum support and language education.",
+      industries: t?.onboarding?.sectors?.education?.industries || ["Academic Tutoring", "Languages"],
       isPremium: false,
     },
     {
       id: "technical",
       icon: <Wrench size={32} />,
-      title: t.onboarding.sectors.technical.title,
-      desc: t.onboarding.sectors.technical.desc,
-      industries: t.onboarding.sectors.technical.industries,
+      title: t?.onboarding?.sectors?.technical?.title || "Trades & Technical",
+      desc: t?.onboarding?.sectors?.technical?.desc || "Plumbing, heating, and renovation services.",
+      industries: t?.onboarding?.sectors?.technical?.industries || ["Plumbing", "Electrical"],
       isPremium: false,
     },
   ];

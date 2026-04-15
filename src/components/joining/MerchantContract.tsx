@@ -53,30 +53,25 @@ export default function MerchantContract({ onAccept, accepted }: MerchantContrac
         }}
       >
         <div className="contract-content">
-          <h4 style={{ color: '#d4af37' }}>{t.onboarding.contract.clauses.platform_fee.title}</h4>
-          <p>{t.onboarding.contract.clauses.platform_fee.body}</p>
-
-          <h4 style={{ color: '#d4af37' }}>{t.onboarding.contract.clauses.payments.title}</h4>
-          <p>{t.onboarding.contract.clauses.payments.body}</p>
-
-          <h4 style={{ color: '#d4af37' }}>{t.onboarding.contract.clauses.conduct.title}</h4>
-          <p>{t.onboarding.contract.clauses.conduct.body}</p>
-          
+          <h4 style={{ color: '#d4af37' }}>{t?.onboarding?.contract?.clauses?.platform_fee?.title || "1. Platform Fees"}</h4>
+          <p>{t?.onboarding?.contract?.clauses?.platform_fee?.body || "Standard platform commissions apply."}</p>
+          <h4 style={{ color: '#d4af37' }}>{t?.onboarding?.contract?.clauses?.payments?.title || "2. Payments"}</h4>
+          <p>{t?.onboarding?.contract?.clauses?.payments?.body || "Payouts are handled securely."}</p>
+          <h4 style={{ color: '#d4af37' }}>{t?.onboarding?.contract?.clauses?.conduct?.title || "3. Conduct"}</h4>
+          <p>{t?.onboarding?.contract?.clauses?.conduct?.body || "Professional conduct is mandatory."}</p>
           <div className="contract-legal" style={{ borderTop: '1px solid rgba(212, 175, 55, 0.1)', color: '#666' }}>
             <p><strong>Additional Terms:</strong> By joining ConciergeAI, you certify that all information provided is accurate and that you possess the necessary insurance and licenses required to practice in the United Kingdom.</p>
             <p>© 2026 ConciergeAI UK Limited. All Rights Reserved.</p>
           </div>
         </div>
       </div>
-
       <div className="contract-footer">
         {!hasReadToBottom && (
           <div className="scroll-hint">
             <AlertCircle size={16} />
-            <span>{t.onboarding.contract.scrollingNotice}</span>
+            <span>{t?.onboarding?.contract?.scrollingNotice || "Scroll to bottom to continue"}</span>
           </div>
         )}
-        
         <label className={`agree-label ${!hasReadToBottom ? 'disabled' : ''} ${accepted ? 'accepted' : ''}`}>
           <div className="checkbox-custom">
             <input 
@@ -86,7 +81,7 @@ export default function MerchantContract({ onAccept, accepted }: MerchantContrac
               disabled={!hasReadToBottom}
             />
           </div>
-          <span className="check-text">{t.onboarding.contract.agree}</span>
+          <span className="check-text">{t?.onboarding?.contract?.agree || "I agree to the terms"}</span>
         </label>
       </div>
 

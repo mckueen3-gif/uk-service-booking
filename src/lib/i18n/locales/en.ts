@@ -1038,6 +1038,10 @@ export const en: Dictionary = {
     }
   },
   onboarding: {
+    hero: {
+      title: "Join the ConciergeAI Global Expert Mesh",
+      subtitle: "Deploy your expertise across the UK's most advanced service infrastructure."
+    },
     steps: {
       profile: "Expert Profile",
       credentials: "Credentials",
@@ -1048,6 +1052,36 @@ export const en: Dictionary = {
       next: "Next Phase",
       back: "Return",
       submit: "Final Submission"
+    },
+    sectors: {
+      education: {
+        title: "Academic & Tutoring (Education)",
+        desc: "Specialist domains covering curriculum support, language acquisition, and arts mastery.",
+        industries: ["Academic Tutoring", "Languages", "Arts", "Exam Prep"]
+      },
+      technical: {
+        title: "Trades & Technical (Engineering)",
+        desc: "Critical service sectors including plumbing, electrical, and master home renovations.",
+        industries: ["Plumbing", "Electrical", "Renovation", "Smart Home"]
+      }
+    },
+    contract: {
+      clauses: {
+        platform_fee: {
+          title: "1. PLATFORM FEE ARCHITECTURE",
+          body: "As an expert, you define your base rates. Education/Tutors are 100% exempt from platform fees (Student-Pay Model). All other sectors are subject to a standard 9% commission deducted at checkout."
+        },
+        payments: {
+          title: "2. FISCAL SETTLEMENTS",
+          body: "All transactions are secured via Stripe Escrow. Funds are released to your registered account within T+3 business days following client task confirmation."
+        },
+        conduct: {
+          title: "3. PROFESSIONAL INTEGRITY",
+          body: "Experts must maintain valid certifications and respect client data protocols. Bypassing the platform for offline payments will lead to immediate node termination."
+        }
+      },
+      scrollingNotice: "Protocol requires reading full documentation to proceed",
+      agree: "I have reviewed and accept the Expert Agreement and Privacy Framework"
     }
   },
   admin: {
