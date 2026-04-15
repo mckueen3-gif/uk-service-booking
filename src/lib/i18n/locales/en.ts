@@ -1034,7 +1034,7 @@ export const en: Dictionary = {
       google: "Sign in with Google",
       navToLogin: "Already have an account?",
       signIn: "Sign In Now",
-      tutorDisclaimer: "To comply with UK fair working guidelines, Education & Tutor merchants are EXEMPT from all platform fees (100% of fees are paid by students)."
+      merchantDisclaimer: "To comply with fair working guidelines, ALL experts (including Trades, Plumbers, Electricians, and Tutors) are EXEMPT from all platform fees. A 9% platform markup is added to customer checkouts, guaranteeing 100% payout of your quoted rate."
     }
   },
   onboarding: {

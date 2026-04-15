@@ -109,10 +109,10 @@ function RegisterForm() {
                 <option value="MERCHANT">{t?.auth?.register?.roles?.merchant || "Merchant"}</option>
               </select>
             </div>
-            {role === 'MERCHANT' && t?.auth?.register?.tutorDisclaimer && (
+            {role === 'MERCHANT' && t?.auth?.register?.merchantDisclaimer && (
               <div style={{ marginTop: '0.75rem', padding: '0.75rem', backgroundColor: 'rgba(234, 179, 8, 0.05)', borderRadius: '8px', border: '1px solid rgba(234, 179, 8, 0.3)', fontSize: '0.8rem', color: '#ca8a04', lineHeight: '1.4' }}>
                 <Shield size={14} style={{ display: 'inline', marginRight: '6px', verticalAlign: 'text-bottom' }} />
-                {t.auth.register.tutorDisclaimer}
+                {t.auth.register.merchantDisclaimer}
               </div>
             )}
           </div>

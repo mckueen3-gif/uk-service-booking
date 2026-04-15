@@ -1074,7 +1074,7 @@ export const zhTW: Dictionary = {
       google: "使用 Google 帳號",
       navToLogin: "已有帳號？",
       signIn: "立即登入",
-      tutorDisclaimer: "為符合英國公平指引，教育及補習老師免收平台手續費（費用完全由學生承擔），保障老師 100% 收入。"
+      merchantDisclaimer: "為符合公平指引，本平台對所有專家（包含教育、水電、清潔等各行業）免收平台手續費及服務年費（平台費由消費者結帳時附加計算），保障專家實拿 100% 自訂報價的收入。"
     }
   },
   onboarding: {

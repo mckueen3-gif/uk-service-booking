@@ -349,27 +349,14 @@ export async function activateAccountingSubscription() {
   const merchantId = await getMerchantId();
   if (!merchantId) return { error: "Merchant not found" };
 
-  // UK COMPLIANCE CHECK:
-  // Tutors (Education category merchants) cannot be charged for platform/job-finding services.
-  // Per UK fair working guidelines (aligned with MyTutor, Tutorful model),
-  // platform fees must only be charged to students/parents (the customer side),
-  // not to the service providers. The Accounting Premium is a platform service
-  // charged to the merchant/tutor - this is NOT permitted for Education merchants.
-  const merchant = await prisma.merchant.findFirst({
-    where: { id: merchantId },
-    include: { services: { select: { category: true }, take: 1 } }
-  });
-
-  const isEducationMerchant = merchant?.services?.some(
-    (s: { category: string }) => s.category === 'Education'
-  );
-
-  if (isEducationMerchant) {
-    return {
-      error: 'EDUCATION_EXEMPT',
-      message: 'Accounting tools are included free of charge for verified tutors. Platform fees are only applied to student payments.'
-    };
-  }
+  // UK COMPLIANCE CHECK (GLOBAL):
+  // Per fair working guidelines, the platform MUST remain 100% free for ALL service providers
+  // (Education, Trades, Cleaners). Platform fees/markups are exclusively charged to the 
+  // purchasing customer. The Accounting Premium features are now built-in and free for all experts.
+  return {
+    error: 'ALL_EXEMPT',
+    message: 'Accounting tools and Premium platform features are entirely FREE for verified experts. All commission is charged as a markup on customer quotes.'
+  };
 
   try {
     const { getStripeClient } = await import("@/lib/stripe");
