@@ -349,11 +349,36 @@ export async function activateAccountingSubscription() {
   const merchantId = await getMerchantId();
   if (!merchantId) return { error: "Merchant not found" };
 
+  // UK COMPLIANCE CHECK:
+  // Tutors (Education category merchants) cannot be charged for platform/job-finding services.
+  // Per UK fair working guidelines (aligned with MyTutor, Tutorful model),
+  // platform fees must only be charged to students/parents (the customer side),
+  // not to the service providers. The Accounting Premium is a platform service
+  // charged to the merchant/tutor - this is NOT permitted for Education merchants.
+  const merchant = await prisma.merchant.findFirst({
+    where: { id: merchantId },
+    include: { services: { select: { category: true }, take: 1 } }
+  });
+
+  const isEducationMerchant = merchant?.services?.some(
+    (s: { category: string }) => s.category === 'Education'
+  );
+
+  if (isEducationMerchant) {
+    return {
+      error: 'EDUCATION_EXEMPT',
+      message: 'Accounting tools are included free of charge for verified tutors. Platform fees are only applied to student payments.'
+    };
+  }
+
   try {
     const { getStripeClient } = await import("@/lib/stripe");
     const stripe = await getStripeClient();
 
     // Create a real Stripe Checkout Session for the £4.99/mo subscription
+    // NOTE: This subscription is only available to non-education service merchants.
+    // For Education merchants (tutors), this feature is included free to comply
+    // with UK fair working guidelines prohibiting charges to tutors for job-finding services.
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
       payment_method_types: ['card'],
