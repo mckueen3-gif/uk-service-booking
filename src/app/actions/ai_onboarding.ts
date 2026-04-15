@@ -123,6 +123,7 @@ export async function getSmartCategoriesFromText(text: string, sector?: string) 
   }
 }
 
+
 export async function generateSmartBio(businessName: string, categories: string[], sector?: string) {
   const prompt = `Task: Write a premium, high-conversion professional bio for a UK-based business.
   
@@ -142,6 +143,64 @@ export async function generateSmartBio(businessName: string, categories: string[
     return await generateAIContent({ prompt });
   } catch (e) {
     return "Expert provider in " + (sector || "professional services") + ".";
+  }
+}
+
+/**
+ * Real AI Document Verification using Vision
+ */
+export async function verifyCredentialsWithAI(fileDataUrl: string, sector: string, categories: string[]) {
+  // Extract base64 and mime mapping if possible
+  const mimeType = fileDataUrl.split(';')[0].split(':')[1] || "image/jpeg";
+  const base64Image = fileDataUrl.split(',')[1];
+
+  const prompt = `
+    You are an expert UK Professional Compliance Auditor. 
+    Analyze this uploaded document for a merchant joining in the "${sector}" sector (Categories: ${categories.join(", ")}).
+
+    Task:
+    1. Determine if this is a genuine professional certificate/license.
+    2. Check if it is a specific UK mandate:
+       - Gas Safe Register (Plumbing/Heating)
+       - NICEIC/NAPIT (Electrical)
+       - ACCA/ICAEW (Accounting)
+       - SRA/Law Society (Legal)
+       - SIA (Security)
+    3. Verify the issuing body name and country (must be UK/Global).
+    4. Estimate the expiry date if visible.
+    
+    UK Regulatory Requirement Check:
+    - If sector is "technical", look for Gas Safe or NICEIC badges/watermarks.
+    - If sector is "professional", look for regulatory membership headers.
+
+    Instructions:
+    - If it's a placeholder, sample, or generic photo (e.g. cat, building exterior), return "rejected".
+    - If it's a valid certificate with high confidence, return "verified".
+    - If it's a blurry but likely valid document, return "manual_review".
+
+    Return JSON ONLY:
+    {
+      "status": "verified" | "manual_review" | "rejected",
+      "reason": "Clear explanation in Traditional Chinese & English",
+      "regulatoryBody": "Name of UK body recognized",
+      "confidence": 0-1
+    }
+  `;
+
+  try {
+    const responseText = await generateAIContent({
+      prompt,
+      image: { base64: base64Image, mimeType: mimeType.startsWith('image/') ? mimeType : 'image/jpeg' }, // Handle placeholder if PDF
+      jsonMode: true
+    });
+    return JSON.parse(responseText.replace(/```json|```/g, "").trim());
+  } catch (e) {
+    console.error("AI Vision Review Error:", e);
+    return { 
+      status: "manual_review", 
+      reason: "AI 視覺系統暫時無法分析，將由人工審核 (AI vision timeout, falling back to manual review)", 
+      regulatoryBody: "Unknown" 
+    };
   }
 }
 

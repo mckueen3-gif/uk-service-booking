@@ -2,6 +2,8 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { saveFileLocally } from '@/lib/storage';
+import { DocumentType, DocumentStatus } from '@prisma/client';
 
 export async function createMerchantAction(data: any) {
   try {
@@ -10,9 +12,14 @@ export async function createMerchantAction(data: any) {
       return { error: "Missing required fields." };
     }
 
-    // 2. Determine Free Orders & Commission Rate
-    let freeOrders = 0; // Default: No free orders (Admin/Code controlled)
-    let commissionRate = 0.09; // Default: 9%
+    // 2. Handle File Physical Persistence (Mock Cloud Storage)
+    const avatarUrl = data.avatar ? await saveFileLocally(data.avatar, 'avatars') : null;
+    const bannerUrl = data.bannerUrl ? await saveFileLocally(data.bannerUrl, 'banners') : null;
+    const credentialUrl = data.credentials ? await saveFileLocally(data.credentials, 'credentials') : null;
+
+    // 3. Determine Free Orders & Commission Rate
+    let freeOrders = 0;
+    let commissionRate = 0.09;
 
     if (data.promoCode) {
       const promo = await prisma.promoCode.findUnique({
@@ -20,31 +27,18 @@ export async function createMerchantAction(data: any) {
       });
 
       if (promo) {
-        if (promo.expiresAt && promo.expiresAt < new Date()) {
-          return { error: "Promo code has expired." };
+        if (!(promo.expiresAt && promo.expiresAt < new Date()) && 
+            !(promo.maxUses !== null && promo.currentUses >= promo.maxUses)) {
+          freeOrders = 5;
+          await prisma.promoCode.update({
+            where: { id: promo.id },
+            data: { currentUses: { increment: 1 } }
+          });
         }
-        if (promo.maxUses !== null && promo.currentUses >= promo.maxUses) {
-          return { error: "Promo code has reached its usage limit." };
-        }
-
-        // Apply promo benefits
-        // freeOrders = promo.freeOrdersCount; // Temporarily Disabled
-        freeOrders = 5; // Default promo benefit for any valid code
-        
-        // Increment usage count
-        await prisma.promoCode.update({
-          where: { id: promo.id },
-          data: { currentUses: { increment: 1 } }
-        });
-      } else {
-        // Optional: return error or just ignore invalid code? 
-        // User requested "Join with CODE", so let's be strict if they entered something.
-        if (data.promoCode.trim().length > 0) {
-           // If we want to support hardcoded "JOIN5" or "FREE10" for testing:
-           if (data.promoCode.toUpperCase() === 'JOIN10') freeOrders = 10;
-           else if (data.promoCode.toUpperCase() === 'FREE20') freeOrders = 20;
-           else return { error: "Invalid promo code." };
-        }
+      } else if (data.promoCode.trim().length > 0) {
+        if (data.promoCode.toUpperCase() === 'JOIN10') freeOrders = 10;
+        else if (data.promoCode.toUpperCase() === 'FREE20') freeOrders = 20;
+        else return { error: "Invalid promo code." };
       }
     }
 
@@ -60,13 +54,9 @@ export async function createMerchantAction(data: any) {
         }
       });
     } else {
-      // Upgrade existing user to MERCHANT if they are a CUSTOMER
-      const updateData: any = { role: 'MERCHANT' };
-      if (data.phone) updateData.phone = data.phone;
-      
       user = await prisma.user.update({
         where: { id: user.id },
-        data: updateData
+        data: { role: 'MERCHANT', phone: data.phone || user.phone }
       });
     }
 
@@ -79,20 +69,29 @@ export async function createMerchantAction(data: any) {
         isVerified: false,
         commissionRate: commissionRate,
         freeOrdersLeft: freeOrders,
-        avatarUrl: data.avatar || null,
-        bannerUrl: data.bannerUrl || null,
+        avatarUrl,
+        bannerUrl,
+        licenseUrl: credentialUrl,
         insuranceAmount: data.insuranceAmount ? parseFloat(data.insuranceAmount.replace(/,/g, '')) : 0,
         businessType: data.suggestedCategories ? data.suggestedCategories.join(', ') : data.sector
       }
     });
 
-    // Create a wallet for the new merchant
+    // 4. Create initial document entry if uploaded
+    if (credentialUrl) {
+      await (prisma as any).merchantDocument.create({
+        data: {
+          merchantId: merchant.id,
+          fileUrl: credentialUrl,
+          type: data.sector === 'technical' ? DocumentType.BUSINESS_LICENSE : DocumentType.PUBLIC_LIABILITY,
+          status: DocumentStatus.PENDING
+        }
+      });
+    }
+
+    // Create a wallet
     await prisma.merchantWallet.create({
-      data: {
-        merchantId: merchant.id,
-        totalEarned: 0,
-        availableBalance: 0
-      }
+      data: { merchantId: merchant.id, totalEarned: 0, availableBalance: 0 }
     });
 
     revalidatePath('/member');

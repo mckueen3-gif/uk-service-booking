@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { Locale, Dictionary, dictionaries } from '@/lib/i18n/dictionary';
+import { Locale, Dictionary, dictionaries, getDictionary } from '@/lib/i18n/dictionary';
 
 interface LanguageContextType {
   locale: Locale;
@@ -31,43 +31,60 @@ export const interpolate = (str: string, params: Record<string, string | number>
  * 🚀 FIXED: Now returns a "Null Proxy" for missing keys to ensure total path safety.
  * This prevents "Cannot read property of undefined" crashes for deep access.
  */
-function createSafeDictionary(target: any, path: string = ''): any {
-  // If target is undefined, we return a "Null Proxy" that pretends to be a valid object
+/**
+ * Creates a recursive proxy that handles missing translation keys gracefully.
+ * 🚀 FIXED: Now accepts a fallback dictionary (usually English) to ensure 
+ * that missing keys in other languages display English content instead of raw paths.
+ */
+function createSafeDictionary(target: any, fallback: any = {}, path: string = ''): any {
+  // We use dummy objects for undefined targets
   const proxyTarget = target || {};
+  const proxyFallback = fallback || {};
 
   return new Proxy(proxyTarget, {
     get(obj: any, prop) {
       // Internal React/Next.js and standard JS safety
       if (prop === 'toString' || prop === Symbol.toPrimitive || prop === 'valueOf') {
-        return () => path || ''; 
+        const val = obj[prop] || proxyFallback[prop];
+        if (typeof val === 'function') return val.bind(obj);
+        return () => val || path || ''; 
       }
+      
       if (prop === Symbol.iterator || prop === 'map' || prop === 'forEach' || prop === 'filter' || prop === 'reduce') {
-        const val = obj[prop];
+        const val = obj[prop] !== undefined ? obj[prop] : proxyFallback[prop];
         return Array.isArray(val) ? val : (val === undefined ? [] : val);
       }
-      if (prop === '$$typeof' || prop === 'toJSON' || prop === 'then') return undefined;
+
+      // Next.js/React internals
+      if (prop === '$$typeof' || prop === 'toJSON' || prop === 'then') return obj[prop];
 
       const value = obj[prop];
-      
-      // If the value is undefined, return undefined to allow optional chaining (?.) to work naturally 
-      // and prevent React from crashing when attempting to render a Proxy object.
-      if (value === undefined) {
-        return undefined;
+      const fallbackValue = proxyFallback[prop];
+      const fullPath = path ? `${path}.${String(prop)}` : String(prop);
+
+      // 1. If we found a value that is NOT an object (string, number, boolean), return it
+      if (value !== undefined && value !== null && typeof value !== 'object') {
+        return value;
       }
 
-      // If the value is an object, wrap it recursively
-      if (value !== null && typeof value === 'object') {
-        const fullPath = path ? `${path}.${String(prop)}` : String(prop);
-        return createSafeDictionary(value, fullPath);
+      // 2. If the value is missing but we have a fallback string/primitive, return it
+      if (value === undefined && fallbackValue !== undefined && typeof fallbackValue !== 'object') {
+        return fallbackValue;
       }
 
-      return value;
+      // 3. If we found an object in either target or fallback, wrap it recursively
+      if ((value !== undefined && typeof value === 'object') || (fallbackValue !== undefined && typeof fallbackValue === 'object')) {
+        return createSafeDictionary(value, fallbackValue, fullPath);
+      }
+
+      // 4. Final fallback: return a recursive Proxy for the missing path
+      return createSafeDictionary(undefined, undefined, fullPath);
     }
   });
 }
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>('en');
+export function LanguageProvider({ children, initialLocale = 'en' }: { children: React.ReactNode, initialLocale?: Locale }) {
+  const [locale, setLocaleState] = useState<Locale>(initialLocale);
 
   useEffect(() => {
     // Helper to validate and set locale
@@ -116,7 +133,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   const value = {
     locale,
-    t: createSafeDictionary(dictionaries[locale]),
+    t: createSafeDictionary(getDictionary(locale), getDictionary('en')),
     format: interpolate,
     setLocale,
     isRTL: locale === 'ar' || locale === 'ur'

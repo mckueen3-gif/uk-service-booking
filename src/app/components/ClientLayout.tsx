@@ -316,7 +316,7 @@ export function AppNavbar({ session }: { session: any }) {
                       backgroundColor: isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--accent-soft)', 
                       color: obsidianGold, padding: '0.75rem', borderRadius: '0.75rem', fontWeight: 800, fontSize: '0.9rem' 
                     }} className="hover-opacity">
-                      {isRTL ? 'عرض كافة الفئات' : 'View All Categories'} →
+                      {t?.nav?.view_all || 'View All Categories'} →
                     </div>
                   </Link>
                 </div>
@@ -368,7 +368,7 @@ export function AppNavbar({ session }: { session: any }) {
               boxShadow: 'var(--shadow-sm)'
             }}
             className="hover-scale active-scale"
-            title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+            title={theme === 'light' ? (t?.common?.dark_mode || 'Switch to Dark Mode') : (t?.common?.light_mode || 'Switch to Light Mode')}
           >
             {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
           </button>

@@ -6,6 +6,9 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { DocumentType, DocumentStatus } from '@prisma/client';
 import { generateAIContent } from "@/lib/ai-provider";
+import { saveFileLocally } from '@/lib/storage';
+import fs from 'fs';
+import path from 'path';
 
 export async function submitDocumentForVerification(fileUrl: string, type: DocumentType) {
   const session = await getServerSession(authOptions);
@@ -18,25 +21,43 @@ export async function submitDocumentForVerification(fileUrl: string, type: Docum
 
   if (!merchant) throw new Error("Merchant profile not found");
 
-  // 1. Create the pending document record
+  // 1. Handle File Persistence
+  const persistedUrl = fileUrl.startsWith('data:') 
+    ? await saveFileLocally(fileUrl, 'credentials')
+    : fileUrl;
+
+  // 2. Create the pending document record
   const doc = await (prisma as any).merchantDocument.create({
     data: {
       merchantId: merchant.id,
-      fileUrl,
+      fileUrl: persistedUrl,
       type,
       status: DocumentStatus.PENDING
     }
   });
 
-  // 2. Trigger AI Vision Analysis
+  // 3. Trigger AI Vision Analysis
   try {
-    // Fetch image
-    const imageResp = await fetch(fileUrl);
-    const buffer = await imageResp.arrayBuffer();
-    const base64Image = Buffer.from(buffer).toString('base64');
-    const mimeType = imageResp.headers.get("Content-Type") || "image/jpeg";
+    let base64Image: string;
+    let mimeType: string;
 
-      const prompt = `
+    if (persistedUrl.startsWith('/uploads/')) {
+       // Load from local disk for AI processing
+       const filePath = path.join(process.cwd(), 'public', persistedUrl);
+       const buffer = fs.readFileSync(filePath);
+       base64Image = buffer.toString('base64');
+       // Determine mime type from extension
+       const ext = path.extname(filePath).toLowerCase();
+       mimeType = ext === '.pdf' ? 'application/pdf' : `image/${ext.replace('.', '') || 'jpeg'}`;
+    } else {
+       // Remote fetch for existing URLs (Legacy or External)
+       const imageResp = await fetch(fileUrl);
+       const buffer = await imageResp.arrayBuffer();
+       base64Image = Buffer.from(buffer).toString('base64');
+       mimeType = imageResp.headers.get("Content-Type") || "image/jpeg";
+    }
+
+    const prompt = `
         You are an expert UK Compliance Auditor. Analyze this document strictly:
         TYPE: ${type}
         CURRENT DATE: ${new Date().toISOString().split('T')[0]}

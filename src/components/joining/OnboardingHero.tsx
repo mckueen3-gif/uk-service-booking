@@ -12,7 +12,7 @@ export default function OnboardingHero() {
       <div className="hero-content reveal active">
         <div className="premium-badge">
           <Sparkles size={14} color="#d4af37" />
-          <span>ConciergeAI Elite Expert</span>
+          <span>{t?.onboarding?.hero?.badge || "ConciergeAI Elite Expert"}</span>
         </div>
         <h1 className="hero-title">
           {(t?.onboarding?.hero?.title || "Join ConciergeAI").split('ConciergeAI').map((part: string, i: number, arr: string[]) => (
@@ -25,7 +25,7 @@ export default function OnboardingHero() {
         <p className="hero-subtitle">
           {t?.onboarding?.hero?.subtitle || "Elite Professional Network"}
         </p>
-
+        
         {/* Social Proof Metrics */}
         <div className="trust-stats">
           <div className="stat-card">
@@ -34,7 +34,7 @@ export default function OnboardingHero() {
             </div>
             <div className="stat-info">
               <span className="stat-val">2,500+</span>
-              <span className="stat-lbl">Active Professionals</span>
+              <span className="stat-lbl">{t?.onboarding?.hero?.stats?.active_pros || "Active Professionals"}</span>
             </div>
           </div>
           <div className="stat-card">
@@ -43,7 +43,7 @@ export default function OnboardingHero() {
             </div>
             <div className="stat-info">
               <span className="stat-val">9%</span>
-              <span className="stat-lbl">Platform Commission</span>
+              <span className="stat-lbl">{t?.onboarding?.hero?.stats?.commission || "Platform Commission"}</span>
             </div>
           </div>
           <div className="stat-card">
@@ -52,7 +52,7 @@ export default function OnboardingHero() {
             </div>
             <div className="stat-info">
               <span className="stat-val">4.8/5</span>
-              <span className="stat-lbl">Expert Rating</span>
+              <span className="stat-lbl">{t?.onboarding?.hero?.stats?.rating || "Expert Rating"}</span>
             </div>
           </div>
         </div>

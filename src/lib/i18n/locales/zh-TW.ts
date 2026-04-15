@@ -12,6 +12,7 @@ export const zhTW: Dictionary = {
     education: "教育頻道",
     quickActions: "快捷操作",
     exploreServices: "探索服務",
+    view_all: "查看所有類別",
   },
   sidebar: {
     sections: {
@@ -184,6 +185,8 @@ export const zhTW: Dictionary = {
     copy: "複製",
     copied: "已複製",
     exit: "退出",
+    dark_mode: "切換為深色模式",
+    light_mode: "切換為淺色模式",
     aiMatchingSub: "AI 已匹配前 1% 的精英專家",
     exploreSub: "按專業領域瀏覽我們的目錄",
     escrow: {
@@ -372,7 +375,7 @@ export const zhTW: Dictionary = {
     vatNo: "VAT 號碼 GB XXXXXXXXX",
     social: {
       facebook: "Facebook",
-      twitter: "X (Twitter)",
+      twitter: "X",
       instagram: "Instagram",
       linkedin: "LinkedIn",
     },
@@ -485,7 +488,7 @@ export const zhTW: Dictionary = {
       errorSubmit: "提交失敗",
       types: {
         license: "通用執照",
-        gas: "煤氣安全 (Gas Safe)",
+        gas: "煤氣安全認證",
         electric: "NICEIC/ELECSA 電工資質",
         sia: "SIA 保安執照",
         food: "食品衛生證書",
@@ -1001,7 +1004,7 @@ export const zhTW: Dictionary = {
         decompress: "正在解析照片數據...",
         mapping: "正在分析材質與結構...",
         normals: "正在評估結構完整性...",
-        schemas: "正在比對英國工程標準 (BS-7671)...",
+        schemas: "正在比對英國工程標準...",
         heuristics: "正在執行異常檢測...",
         resolution: "正在完成診斷報告..."
       }
@@ -1055,14 +1058,14 @@ export const zhTW: Dictionary = {
     register: {
       title: "建立帳號",
       subtitle: "加入英國頂尖專家平台。",
-      firstNameLabel: "名字 (First Name)",
-      lastNameLabel: "姓氏 (Last Name)",
+      firstNameLabel: "名字",
+      lastNameLabel: "姓氏",
       emailLabel: "電子郵件",
       emailPlaceholder: "例如: expert@conciergeai.uk",
       accountTypeLabel: "帳號類型",
       roles: {
         customer: "普通客戶",
-        merchant: "專業服務商 / 專家"
+        merchant: "專業服務商"
       },
       passwordLabel: "密碼",
       passwordHint: "至少 6 個字元",
@@ -1079,9 +1082,17 @@ export const zhTW: Dictionary = {
   },
   onboarding: {
     hero: {
-      title: "加入 ConciergeAI 全球精英專家網絡",
-      subtitle: "提供最具前瞻性的專業對接，讓您的專業價值在全球市場發光發熱。"
+      title: "加入 ConciergeAI 全球精英網絡",
+      subtitle: "提供最具前瞻性的專業對接，讓您的專業價值在全球市場發光發熱。",
+      badge: "ConciergeAI 精英專家",
+      stats: {
+        active_pros: "活躍專業人士",
+        commission: "平台技術服務費",
+        rating: "專家平均評分"
+      }
     },
+    sector_selection_title: "選擇您的專業領域",
+    sector_selection_subtitle: "請選擇您的核心服務範疇",
     steps: {
       profile: "專家資料",
       credentials: "資質證明",
@@ -1093,23 +1104,102 @@ export const zhTW: Dictionary = {
       back: "返回",
       submit: "提交審核"
     },
+    validation: {
+      select_sector: "請選擇一個業務領域以繼續",
+      fill_required: "請填寫所有必填欄位",
+      bio_short: "簡介過短，請提供更多關於您的專業資訊",
+      credentials_required: "您選擇的行業 (煤氣工程/電工) 必須上傳正式資格證件方可註冊",
+      business_name_required: "請輸入商號名稱",
+      email_required: "請輸入電郵",
+      phone_required: "請輸入聯絡電話",
+      city_required: "請選擇服務城市",
+      category_required: "請設置服務範疇",
+      ai_fallback: "AI 暫時無法處理，將轉為人工核實。"
+    },
+    profile_form: {
+      business_name: "商戶 / 專家名稱",
+      business_name_placeholder: "例如: 頂級水管修繕工程",
+      avatar_label: "專家頭像 / 標誌",
+      avatar_placeholder: "上傳標誌/照片",
+      avatar_hint: "JPG, PNG. 建議正方形, 最大 2MB",
+      banner_label: "商店封面",
+      banner_placeholder: "點擊上傳封面 (建議 1200x400)",
+      bio_label: "專家簡介 / 服務宗旨",
+      bio_optimize: "AI 優化",
+      bio_placeholder: "介紹您的專業背景、服務強項與經驗...",
+      credentials_label: "官方執照 / 專業資質文件",
+      credentials_required: "(必填)",
+      credentials_hint_technical: "* 英國政府法規要求：GAS / 電工類商戶必須上傳正式資格證件方可批准接單。",
+      credentials_hint_standard: "提示：您可以先提交基本資料，詳細資質可在完成入駐後透過控制台進行審核。",
+      city_label: "核心服務區域",
+      city_placeholder: "選擇您的主要服務城市...",
+      major_cities: "主要城市",
+      nationwide: "全英國",
+      insurance_label: "公眾責任保險",
+      insurance_required: "(必填)",
+      insurance_none: "未驗證 / 無",
+      insurance_1m: "£1,000,000 (100 萬)",
+      insurance_2m: "£2,000,000 (200 萬)",
+      insurance_5m: "£5,000,000 (500 萬)",
+      insurance_10m: "£10,000,000 (1,000 萬)",
+      insurance_hint: "為了安全與信任，建議投保公眾責任險。",
+      website_label: "官方網站 / LinkedIn",
+      ai_autofill: "AI 智能填寫",
+      promo_label: "推薦碼 / 優惠碼",
+      promo_placeholder: "例如: ELITE",
+      promo_active: "獎勵已啟用",
+      onboarding_tip_title: "專家入駐提示 Hub",
+      onboarding_tip_desc: "據統計，填寫完整的商號名稱與專業背景，能提升客戶 25% 的諮詢意願。",
+      ai_reviewing: "AI 正在進行專業批閱...",
+      uk_standards_hint: "正在根據英國行業標準進行核實...",
+      ai_verified: "AI 識別有效：符合執業合規要求",
+      ai_uncertain: "AI 無法完全識別：已轉交英國人工審核團隊",
+      ai_cert_badge: "AI CERT",
+      ai_verified_expert: "已認證專家",
+      form_title: "專家商務資訊",
+      form_subtitle: "請填寫您的專業背景，這將有助於我們為您對接優質客戶。",
+    },
+    preview: {
+      preview_label: "實時預覽 LIVE PREVIEW",
+      business_name_placeholder: "您的商號名稱",
+      sector_placeholder: "專業領域",
+      bio_placeholder: "請填寫簡介，這將是客戶對您的第一印象。建議提及您的專業年資或核心優勢內容。",
+      insurance_suffix: "責任險已投保",
+      booking_button: "立即預約諮詢",
+      location_suffix: "United Kingdom",
+      ai_cert_hint: "AI 自動秒批認證",
+      credentials_hint: "已上傳資質證件 (等待審核)"
+    },
+    success: {
+      title: "註冊成功！",
+      subtitle: "歡迎加入 ConciergeAI 的精英團隊。我們已收到您的申請，您可以先行探索商戶後台。",
+      ai_tax_title: "AI 稅務助手 (測試版)",
+      ai_tax_desc: "強大的 AI 記帳與稅務自動化工具即將開放內測，敬請期待。",
+      coming_soon: "COMING SOON",
+      enter_dashboard: "進入商戶中心"
+    },
     sectors: {
+      professional: {
+        title: "專業商務",
+        desc: "專為英國居民及中小企業提供合規報稅、年度審計及法律諮詢服務。",
+        industries: ["會計", "稅務", "法律", "財務顧問"]
+      },
       education: {
-        title: "教育培訓 (Education)",
+        title: "教育培訓",
         desc: "涵蓋各學科補習、語言教學、藝術培訓等教學領域。",
-        industries: ["Academic Tutoring", "Languages", "Arts", "Exam Prep"]
+        industries: ["學科補習", "語言", "藝術", "考試培訓"]
       },
       technical: {
-        title: "技術工程 (Trades & Tech)",
+        title: "技術工程",
         desc: "包含水電、裝修、智慧家居安裝等專業技術服務。",
-        industries: ["Plumbing", "Electrical", "Renovation", "Smart Home"]
+        industries: ["水電", "電工", "裝修", "智慧家居"]
       }
     },
     contract: {
       clauses: {
         platform_fee: {
           title: "1. 平台服務費說明",
-          body: "身為專家，您可以自定義服務時薪或專案報價。教育及補習教育類專家免收平台佣金 (Student-Pay Model)。其他行業將由系統在結帳時自動抽取 9% 作為技術服務費。"
+          body: "身為專家，您可以自定義服務時薪或專案報價。教育及補習教育類專家免收平台佣金。其他行業將由系統在結帳時自動抽取 9% 作為技術服務費。"
         },
         payments: {
           title: "2. 款項支付與結算",
@@ -1127,7 +1217,7 @@ export const zhTW: Dictionary = {
   admin: {
     stats: {
       syncing: "系統同步中...",
-      gmv: "總交易額 (GMV)",
+      gmv: "總交易額",
       netRevenue: "淨收入",
       bookings: "總預約數",
       processed: "已處理預約",
@@ -1173,19 +1263,19 @@ export const zhTW: Dictionary = {
   profile: {},
   notifications: {},
   repair_tracker: {
-    title: "維修進度狀態 (Repair Status)",
+    title: "維修進度狀態",
     stages: {
-      pending: "預約已確認 (Booking Confirmed)",
+      pending: "預約已確認",
       pending_desc: "等待技師進行初步檢測",
-      in_progress: "分診與維修中 (Triage & Remediation)",
+      in_progress: "分診與維修中",
       in_progress_desc: "專家正在處理您的車輛",
-      fixed: "維修已完成 (Remediation Completed)",
+      fixed: "維修已完成",
       fixed_desc: "車輛已就緒，等待提取",
-      completed: "任務圓滿結束 (Mission Finalized)",
+      completed: "任務圓滿結束",
       completed_desc: "感謝您選擇 ConciergeAI"
     },
     billing: {
-      title: "帳單明細摘要 (Billing Summary)",
+      title: "帳單明細摘要",
       initialFee: "初始診斷費（已線上支付）",
       additional: "額外人工與零件費用",
       totalCost: "預估總費用",
@@ -1196,12 +1286,12 @@ export const zhTW: Dictionary = {
       workshopNote: "完工後，請直接與技師結清**現場應付金額**。我們將提供正式服務收據。"
     },
     location: {
-      title: "維修中心位置 (Workshop Location)",
+      title: "維修中心位置",
       getDirections: "導航前往",
       callWorkshop: "致電維修中心"
     },
     evidence: {
-      title: "維修記錄與證明 (Remediation Archive & Evidence)",
+      title: "維修記錄與證明",
       waiting: "正在等待技師上傳維修照片...",
       accept: "授權施工",
       enquire: "查詢詳細資訊"
@@ -1225,15 +1315,15 @@ export const zhTW: Dictionary = {
     },
     forms: {
       vehicle: {
-        make: "廠牌 (Make)",
-        model: "型號 (Model)",
-        year: "年份 (Year)",
-        reg: "車牌 (Registration)"
+        make: "廠牌",
+        model: "型號",
+        year: "年份",
+        reg: "車牌"
       },
       property: {
-        address: "完整地址 (Full Address)",
-        type: "類型 (Type)",
-        boilerAge: "鍋爐機齡 (Boiler Age)",
+        address: "完整地址",
+        type: "類型",
+        boilerAge: "鍋爐機齡",
         types: {
           house: "獨立屋 / 半獨立屋",
           flat: "公寓 / 套房",

@@ -12,6 +12,18 @@ interface LiveProfilePreviewProps {
   bannerUrl?: string | null;
   insuranceAmount?: string;
   hasCredentials?: boolean;
+  isAiVerified?: boolean;
+  labels: {
+    preview_label: string;
+    business_name_placeholder: string;
+    sector_placeholder: string;
+    bio_placeholder: string;
+    insurance_suffix: string;
+    booking_button: string;
+    location_suffix: string;
+    ai_cert_hint: string;
+    credentials_hint: string;
+  };
 }
 
 export default function LiveProfilePreview({ 
@@ -22,13 +34,15 @@ export default function LiveProfilePreview({
   avatar, 
   bannerUrl, 
   insuranceAmount,
-  hasCredentials 
+  hasCredentials,
+  isAiVerified,
+  labels
 }: LiveProfilePreviewProps) {
   return (
     <div className="preview-sticky">
       <div className="preview-label">
         <Clock size={14} />
-        <span>實時預覽 Live Preview</span>
+        <span>{labels.preview_label}</span>
       </div>
       
       <div className="premium-card">
@@ -45,19 +59,28 @@ export default function LiveProfilePreview({
               <User size={32} color="#d4af37" />
             )}
             <div className="online-indicator" />
-            {hasCredentials && (
-              <div className="verified-badge-mini" title="已上傳資質證件">
+            
+            {/* Instant AI Approval Badge */}
+            {isAiVerified && (
+              <div className="ai-verified-seal" title={labels.ai_cert_hint}>
+                <ShieldCheck size={12} color="black" fill="white" />
+                <span className="seal-text">AI CERT</span>
+              </div>
+            )}
+
+            {hasCredentials && !isAiVerified && (
+              <div className="verified-badge-mini" title={labels.credentials_hint}>
                 <ShieldCheck size={10} color="black" fill="#d4af37" />
               </div>
             )}
           </div>
           <div className="header-info">
             <div className="name-row">
-              <h4 className="business-name">{businessName || "您的商號名稱"}</h4>
-              <ShieldCheck size={18} color="#d4af37" />
+              <h4 className="business-name">{businessName || labels.business_name_placeholder}</h4>
+              <ShieldCheck size={18} color={isAiVerified ? "#10b981" : "#d4af37"} />
             </div>
             <div className="meta-row">
-              <span className="sector-tag">{sector || "專業領域"}</span>
+              <span className="sector-tag">{sector || labels.sector_placeholder}</span>
               <div className="rating-pill">
                 <Star size={12} fill="#d4af37" color="#d4af37" />
                 <span>5.0</span>
@@ -68,25 +91,25 @@ export default function LiveProfilePreview({
 
         <div className="card-body">
           <p className="bio-text">
-            {bio || "請填寫簡介，這將是客戶對您的第一印象。建議提及您的專業年資或核心優勢內容。"}
+            {bio || labels.bio_placeholder}
           </p>
           
           <div className="extra-meta">
             <div className="location-info">
               <MapPin size={14} color="#666" />
-              <span>{city}, United Kingdom</span>
+              <span>{city}, {labels.location_suffix}</span>
             </div>
             {insuranceAmount && insuranceAmount !== 'None' && (
               <div className="insurance-badge">
                 <ShieldCheck size={12} color="#10b981" />
-                <span>£{insuranceAmount} 責任險已投保</span>
+                <span>£{insuranceAmount} {labels.insurance_suffix}</span>
               </div>
             )}
           </div>
         </div>
 
         <div className="card-footer">
-          <div className="btn-mock">立即預約諮詢</div>
+          <div className="btn-mock">{labels.booking_button}</div>
         </div>
         
         {/* Decorative corner */}
@@ -205,6 +228,30 @@ export default function LiveProfilePreview({
         @keyframes badge-pop {
           from { transform: scale(0); opacity: 0; }
           to { transform: scale(1); opacity: 1; }
+        }
+
+        .ai-verified-seal {
+          position: absolute;
+          top: -2px;
+          right: -2px;
+          background: #10b981;
+          color: white;
+          padding: 2px 6px;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          gap: 3px;
+          font-size: 0.55rem;
+          font-weight: 900;
+          letter-spacing: 0.05em;
+          border: 1.5px solid #000;
+          box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+          z-index: 10;
+          animation: badge-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .seal-text {
+          white-space: nowrap;
         }
 
         .header-info {

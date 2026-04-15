@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
+import { cookies } from "next/headers";
 import "./globals.css";
 import Link from "next/link";
 import { getServerSession } from "next-auth/next";
@@ -70,6 +71,9 @@ export default async function RootLayout({
     console.error("Auth Session Error:", err);
   }
 
+  const cookieStore = await cookies();
+  const initialLocale = (cookieStore.get('user-locale')?.value as any) || 'en';
+
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable}`} data-concierge-version="4.4-OMEGA">
       <body>
@@ -77,7 +81,7 @@ export default async function RootLayout({
         <GoogleMapsProvider>
           <AuthProvider>
             <ThemeProvider>
-              <LanguageProvider>
+              <LanguageProvider initialLocale={initialLocale}>
                 <LocationProvider>
                   <AppNavbar session={session} />
                   <main className="main-content" style={{ paddingTop: '80px' }}>

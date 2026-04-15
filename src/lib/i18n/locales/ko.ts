@@ -1,4 +1,4 @@
-import { Dictionary } from "../dictionary";
+import { Dictionary } from "../types";
 
 export const ko: any = {
   nav: {
@@ -10,7 +10,7 @@ export const ko: any = {
     dashboard: "관리자 대시보드",
     aiDiagnosis: "AI 진단",
     education: "교육/학습",
-    quickActions: "クイ액션",
+    quickActions: "신속한 조치",
     exploreServices: "서비스 탐색",
   },
   legal: { ui: { selectLanguage: "글로벌 연결성", close: "프로토콜 완료" } },

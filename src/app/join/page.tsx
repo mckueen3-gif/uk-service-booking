@@ -9,7 +9,7 @@ import MerchantContract from '@/components/joining/MerchantContract';
 import LiveProfilePreview from '@/components/joining/LiveProfilePreview';
 import { ChevronRight, ChevronLeft, CheckCircle2, Building2, Mail, Globe, User, Loader2, MapPin, Sparkles, Wand2, Calculator, Gift, ShieldCheck, Phone, Camera } from 'lucide-react';
 import { createMerchantAction } from '@/app/actions/merchant';
-import { fetchBusinessInfoWithAI, generateSmartBio } from '@/app/actions/ai_onboarding';
+import { fetchBusinessInfoWithAI, generateSmartBio, verifyCredentialsWithAI } from '@/app/actions/ai_onboarding';
 
 function JoinPageContent() {
   const { t, locale } = useTranslation();
@@ -18,6 +18,8 @@ function JoinPageContent() {
   const [loading, setLoading] = useState(false);
   const [aiLoading, setAiLoading] = useState(false);
   const [bioLoading, setBioLoading] = useState(false);
+  const [verifyingCredential, setVerifyingCredential] = useState(false);
+  const [credentialReview, setCredentialReview] = useState<{status: string, reason: string} | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [selectedSector, setSelectedSector] = useState<string | null>(null);
   const [contractAccepted, setContractAccepted] = useState(false);
@@ -39,21 +41,21 @@ function JoinPageContent() {
 
   const nextStep = () => {
     if (step === 1 && !selectedSector) {
-      setError("請選擇一個業務領域以繼續 (Please select a sector)");
+      setError(t.onboarding.validation.select_sector);
       return;
     }
     if (step === 2) {
       if (!formData.businessName || !formData.email || !formData.phone || !formData.bio || formData.suggestedCategories.length === 0) {
-        setError("請填寫所有必填欄位 (Please fill in all required fields)");
+        setError(t.onboarding.validation.fill_required);
         return;
       }
       if (formData.bio.length < 20) {
-        setError("簡介過短，請提供更多關於貴司的資訊 (Bio too short)");
+        setError(t.onboarding.validation.bio_short);
         return;
       }
       // Mandatory document upload for Technical (GAS/Electrical) sectors
       if (selectedSector === 'technical' && !formData.credentials) {
-        setError("您選擇的行業 (GAS/電工) 必須上傳正式資格證件方可註冊 (Official credentials required for high-risk trades)");
+        setError(t.onboarding.validation.credentials_required);
         return;
       }
     }
@@ -83,18 +85,33 @@ function JoinPageContent() {
     }
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = e.target;
     const file = e.target.files?.[0];
     if (file) {
-      if (file.size > 5 * 1024 * 1024) { // Increased to 5MB for documents
+      if (file.size > 5 * 1024 * 1024) { 
         setError("文件大小不能超過 5MB (File size must be < 5MB)");
         return;
       }
       
       const reader = new FileReader();
-      reader.onloadend = () => {
+      reader.onloadend = async () => {
         setFormData(prev => ({ ...prev, [name]: reader.result as string }));
+        
+        // Trigger AI Verification if it's a credential document
+        if (name === 'credentials' && selectedSector) {
+          setVerifyingCredential(true);
+          setCredentialReview(null);
+          try {
+            const fileDataUrl = reader.result as string;
+            const review = await verifyCredentialsWithAI(fileDataUrl, selectedSector, formData.suggestedCategories);
+            setCredentialReview(review);
+          } catch (err) {
+            setCredentialReview({ status: 'manual_review', reason: t.onboarding.validation.ai_fallback });
+          } finally {
+            setVerifyingCredential(false);
+          }
+        }
       };
       reader.readAsDataURL(file);
     }
@@ -150,15 +167,15 @@ function JoinPageContent() {
 
   const handleSubmit = async () => {
     // 1. Validate Required Fields
-    if (!formData.businessName) { setError("請輸入商號名稱 (Business Name is required)"); return; }
-    if (!formData.email) { setError("請輸入聯絡電郵 (Email is required)"); return; }
-    if (!formData.phone) { setError("請輸入聯絡電話 (Phone number is required)"); return; }
-    if (!formData.bio || formData.bio.length < 20) { setError("簡介長度不足，請至少輸入 20 字 (Bio is too short, min 20 chars)"); return; }
-    if (!selectedSector) { setError("請選擇業務領域 (Sector is required)"); return; }
-    if (formData.suggestedCategories.length === 0) { setError("請至少添加一個服務分類 (At least one category is required)"); return; }
-    if (!formData.city) { setError("請選擇服務區域 (City is required)"); return; }
+    if (!formData.businessName) { setError(t.onboarding.validation.business_name_required); return; }
+    if (!formData.email) { setError(t.onboarding.validation.email_required); return; }
+    if (!formData.phone) { setError(t.onboarding.validation.phone_required); return; }
+    if (!formData.bio || formData.bio.length < 20) { setError(t.onboarding.validation.bio_short); return; }
+    if (!selectedSector) { setError(t.onboarding.validation.select_sector); return; }
+    if (formData.suggestedCategories.length === 0) { setError(t.onboarding.validation.category_required); return; }
+    if (!formData.city) { setError(t.onboarding.validation.city_required); return; }
     if (selectedSector === 'technical' && !formData.credentials) {
-      setError("GAS / 電工類商戶必須上傳正式資格證件方可註冊 (Credentials required for high-risk trades)");
+      setError(t.onboarding.validation.credentials_required);
       return;
     }
 
@@ -251,79 +268,115 @@ function JoinPageContent() {
                 {/* Form Side */}
                 <div className="form-card">
                   <div className="card-header">
-                    <h2 className="form-title">專家商務資訊 <span style={{ color: '#d4af37' }}>Expert Profile</span></h2>
-                    <p className="form-intro">請告訴我們您的專業背景，以便我們為您對接優質客戶。</p>
+                    <h2 className="form-title">{t.onboarding.profile_form.form_title}</h2>
+                    <p className="form-intro">{t.onboarding.profile_form.form_subtitle}</p>
                   </div>
 
                   {error && (
-                    <div style={{ 
-                      padding: "1rem", backgroundColor: "rgba(220, 38, 38, 0.1)", 
-                      border: "1px solid rgba(220, 38, 38, 0.2)", borderRadius: "12px", 
-                      color: "#ef4444", marginBottom: "1.5rem", fontSize: "0.9rem",
-                      display: "flex", alignItems: "center", gap: "8px"
+                    <div className="error-msg premium-error fade-in" style={{ 
+                      background: 'rgba(212, 175, 55, 0.05)', 
+                      border: '1px solid rgba(212, 175, 55, 0.2)', 
+                      padding: '16px', borderRadius: '16px',
+                      color: '#d4af37', marginBottom: '24px', fontSize: '0.9rem',
+                      display: 'flex', alignItems: 'center', gap: '10px'
                     }}>
-                      <CheckCircle2 size={16} style={{ transform: 'rotate(180deg)' }} /> {error}
+                      <ShieldCheck size={16} /> {error}
                     </div>
                   )}
 
-                  <div className="profile-banner-section" style={{ marginBottom: '24px' }}>
-                    <div className="banner-dropzone" onClick={() => document.getElementById('banner-input')?.click()} style={{ 
-                      height: '140px', borderRadius: '24px', 
-                      background: formData.bannerUrl ? `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${formData.bannerUrl}) center/cover` : 'rgba(212, 175, 55, 0.05)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px dashed rgba(212, 175, 55, 0.2)'
-                    }}>
-                      {formData.bannerUrl ? <span style={{ color: '#d4af37', fontWeight: 800 }}>更換封面 (Change)</span> : <Camera size={24} color="#64748b" />}
-                      <input id="banner-input" type="file" accept="image/*" hidden onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        if (file) {
-                          const reader = new FileReader();
-                          reader.onloadend = () => setFormData(prev => ({ ...prev, bannerUrl: reader.result as string }));
-                          reader.readAsDataURL(file);
-                        }
-                      }} />
-                    </div>
+                  {/* 1. Primary Identity: Business Name */}
+                  <div className="input-group full" style={{ marginBottom: '32px' }}>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.75rem', fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                      <Building2 size={16} /> {t.onboarding.profile_form.business_name} 
+                      <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>{t.onboarding.profile_form.credentials_required}</span>
+                    </label>
+                    <input 
+                      type="text" 
+                      name="businessName" 
+                      value={formData.businessName} 
+                      onChange={handleInputChange} 
+                      placeholder={t.onboarding.profile_form.business_name_placeholder}
+                      className="premium-input-large"
+                      style={{ fontSize: '1.2rem', fontWeight: 700 }}
+                    />
                   </div>
-                  
-                  {/* Profile Photo Upload Section */}
-                  <div className="profile-photo-section">
-                    <div className="upload-container">
-                      <div className={`avatar-upload-circle ${formData.avatar ? 'has-image' : ''}`}>
+
+                  {/* 2. Professional Identity: Avatar & Banner */}
+                  <div className="visuals-container" style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '24px', marginBottom: '32px', alignItems: 'center' }}>
+                    <div className="avatar-upload-block">
+                      <div className={`avatar-upload-circle ${formData.avatar ? 'has-image' : ''}`} style={{ width: '100px', height: '100px' }}>
                         {formData.avatar ? (
                           <>
                             <img src={formData.avatar} alt="Profile Preview" className="uploaded-img" />
                             <div className="upload-overlay" onClick={() => document.getElementById('avatar-input')?.click()}>
                               <Wand2 size={24} color="white" />
-                              <span>更換照片</span>
                             </div>
                           </>
                         ) : (
                           <div className="upload-trigger" onClick={() => document.getElementById('avatar-input')?.click()}>
-                            <User size={32} color="#475569" />
-                            <div className="camera-badge"><Sparkles size={12} /></div>
-                            <span>上傳頭像/LOGO</span>
+                            <User size={32} color="#64748b" />
+                            <span style={{ fontSize: '0.65rem' }}>{t.onboarding.profile_form.avatar_placeholder}</span>
                           </div>
                         )}
-                        <input 
-                          id="avatar-input"
-                          type="file" 
-                          accept="image/*" 
-                          onChange={handleFileChange} 
-                          style={{ display: 'none' }}
-                        />
+                        <input id="avatar-input" name="avatar" type="file" accept="image/*" hidden onChange={handleFileChange} />
                       </div>
-                      <div className="upload-info">
-                        <h4 style={{ color: 'white', margin: '0 0 4px', fontSize: '1rem' }}>專業形象標誌</h4>
-                        <p style={{ color: '#64748b', fontSize: '0.8rem', margin: 0 }}>支援 JPG, PNG。建議使用正方形圖片，大小不超過 2MB。</p>
-                        {formData.avatar && (
-                          <button className="remove-avatar-btn" onClick={removeAvatar}>刪除照片</button>
+                    </div>
+                    
+                    <div className="banner-upload-block" style={{ flex: 1 }}>
+                      <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.75rem', fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>
+                        <Camera size={16} /> {t.onboarding.profile_form.banner_label}
+                      </label>
+                      <div className="banner-dropzone" onClick={() => document.getElementById('banner-input')?.click()} style={{ 
+                        height: '100px', borderRadius: '16px', 
+                        background: formData.bannerUrl ? `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${formData.bannerUrl}) center/cover` : 'rgba(212, 175, 55, 0.05)',
+                        display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1.5px dashed rgba(212, 175, 55, 0.2)', transition: 'all 0.3s ease'
+                      }}>
+                        {formData.bannerUrl ? (
+                          <span style={{ color: '#d4af37', fontWeight: 700, fontSize: '0.8rem' }}>{t.onboarding.buttons.back}</span>
+                        ) : (
+                          <>
+                            <Camera size={20} color="#d4af37" />
+                            <span style={{ color: '#64748b', fontSize: '0.75rem', fontWeight: 500 }}>{t.onboarding.profile_form.banner_placeholder}</span>
+                          </>
                         )}
+                        <input id="banner-input" type="file" accept="image/*" hidden onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            const reader = new FileReader();
+                            reader.onloadend = () => setFormData(prev => ({ ...prev, bannerUrl: reader.result as string }));
+                            reader.readAsDataURL(file);
+                          }
+                        }} />
                       </div>
                     </div>
                   </div>
-                  
+
+                  {/* 3. About & Digital Presence */}
                   <div className="form-grid">
+                    <div className="input-group full">
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                        <label style={{ margin: 0 }}><User size={16} /> {t.onboarding.profile_form.bio_label} <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>{t.onboarding.profile_form.credentials_required}</span></label>
+                        <button 
+                          onClick={handleBioRegeneration}
+                          disabled={bioLoading || !formData.businessName}
+                          className="ai-bio-btn-small"
+                        >
+                          {bioLoading ? <Loader2 className="animate-spin" size={14} /> : <Sparkles size={14} />}
+                          {t.onboarding.profile_form.bio_optimize}
+                        </button>
+                      </div>
+                      <textarea 
+                        name="bio" 
+                        value={formData.bio} 
+                        onChange={handleInputChange}
+                        placeholder={t.onboarding.profile_form.bio_placeholder}
+                        rows={3}
+                        className={bioLoading ? 'ai-loading-pulse' : ''}
+                      />
+                    </div>
+
                     <div className="input-group full ai-fetch-group">
-                      <label><Globe size={16} /> 您的官方網站 / LinkedIn (可選 AI 自動填寫)</label>
+                      <label><Globe size={16} /> {t.onboarding.profile_form.website_label}</label>
                       <div className="input-with-button">
                         <input 
                           type="text" 
@@ -338,228 +391,138 @@ function JoinPageContent() {
                           disabled={aiLoading || !formData.website}
                         >
                           {aiLoading ? <Loader2 className="animate-spin" size={16} /> : <Wand2 size={16} />}
-                          <span>AI 智能填寫</span>
+                          <span>{t.onboarding.profile_form.ai_autofill}</span>
                         </button>
                       </div>
                     </div>
 
-                    {formData.suggestedCategories && formData.suggestedCategories.length > 0 && (
-                      <div className="input-group full ai-suggestions-container premium-glass">
-                        <label><Sparkles size={16} color="#d4af37" className="animate-pulse" /> AI 建議的專業類別已生成 (Suggested Categories)</label>
-                        <div className="category-tags-interactive">
-                          {formData.suggestedCategories.map((cat, idx) => (
-                            <div key={idx} className="cat-tag-badge gold-glow">
-                              {cat}
-                              <button 
-                                className="remove-cat-btn"
-                                onClick={() => {
-                                  setFormData(prev => ({
-                                    ...prev,
-                                    suggestedCategories: prev.suggestedCategories.filter(c => c !== cat)
-                                  }));
-                                }}
-                              >
-                                ×
-                              </button>
-                            </div>
-                          ))}
-                        </div>
-                        <p className="ai-hint-small">✨ 精確的分類能幫助 AI 為您匹配更精準的訂單需求，並提升您的轉化率。</p>
-                      </div>
-                    )}
-
+                    {/* 4. Contact Info */}
                     <div className="input-group">
-                      <label><Building2 size={16} /> 商號名稱 (Business Name) <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>(必填)</span></label>
-                      <input 
-                        type="text" 
-                        name="businessName" 
-                        value={formData.businessName} 
-                        onChange={handleInputChange} 
-                        placeholder="例如: Elite Accounting Services"
-                      />
+                      <label><Mail size={16} /> {t.merchant_profile.labels.email} <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>{t.onboarding.profile_form.credentials_required}</span></label>
+                        <input 
+                          type="email" 
+                          name="email" 
+                          value={formData.email} 
+                          onChange={handleInputChange} 
+                          placeholder={t.onboarding.profile_form.email_placeholder}
+                        />
                     </div>
                     <div className="input-group">
-                      <label><Mail size={16} /> 聯絡電子郵件 (Contact Email) <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>(必填)</span></label>
-                      <input 
-                        type="email" 
-                        name="email" 
-                        value={formData.email} 
-                        onChange={handleInputChange} 
-                        placeholder="contact@business.com"
-                      />
-                    </div>
-                    <div className="input-group">
-                      <label><Phone size={16} /> 聯絡電話 (Phone Number) <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>(必填)</span></label>
-                      <input 
-                        type="tel" 
-                        name="phone" 
-                        value={formData.phone} 
-                        onChange={handleInputChange} 
-                        placeholder="+44 20 1234 5678"
-                      />
-                    </div>
-                    
-                    <div className="input-group full">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                        <label style={{ margin: 0 }}><User size={16} /> 專業簡介 (Business Bio) <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>(必填)</span></label>
-                        <button 
-                          onClick={handleBioRegeneration}
-                          disabled={bioLoading || !formData.businessName || formData.suggestedCategories.length === 0}
-                          className="ai-bio-btn-small"
-                          title="使用 AI 根據分類優化簡介"
-                        >
-                          {bioLoading ? <Loader2 className="animate-spin" size={14} /> : <Sparkles size={14} />}
-                          AI 優化
-                        </button>
-                      </div>
-                      <textarea 
-                        name="bio" 
-                        value={formData.bio} 
-                        onChange={handleInputChange}
-                        placeholder="介紹您的服務與優勢..."
-                        rows={3}
-                        className={bioLoading ? 'ai-loading-pulse' : ''}
-                      />
+                      <label><Phone size={16} /> {t.merchant_profile.labels.phone} <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>{t.onboarding.profile_form.credentials_required}</span></label>
+                        <input 
+                          type="tel" 
+                          name="phone" 
+                          value={formData.phone} 
+                          onChange={handleInputChange} 
+                          placeholder={t.onboarding.profile_form.phone_placeholder}
+                        />
                     </div>
 
+                    {/* 5. Service Location */}
                     <div className="input-group full">
-                      <label>
-                        <ShieldCheck size={16} /> 
-                        正式執照 / 專業資質文件 (Official Credentials / Licenses)
-                        {selectedSector === 'technical' ? (
-                          <span style={{ color: '#ef4444', fontSize: '0.8rem', fontWeight: 900 }}> (必填 / MANDATORY)</span>
-                        ) : (
-                          <span style={{ color: '#d4af37', fontSize: '0.8rem' }}> (建議提供)</span>
-                        )}
-                      </label>
-                      <input 
-                        type="file" 
-                        name="credentials" 
-                        onChange={handleFileChange}
-                        className={`premium-select ${selectedSector === 'technical' && !formData.credentials ? 'ai-loading-pulse' : ''}`}
-                        style={{ border: selectedSector === 'technical' ? '1.5px dashed rgba(239, 68, 68, 0.4)' : '1.5px dashed #333' }}
-                      />
-                      {selectedSector === 'technical' ? (
-                        <p style={{ color: '#ef4444', fontSize: '0.85rem', marginTop: '8px', fontWeight: 700 }}>
-                          * 英國政府法規要求：GAS / 電工類商戶必須上傳正式資格證件方可批准接單。
-                        </p>
-                      ) : (
-                        <p style={{ color: '#666', fontSize: '0.85rem', marginTop: '8px' }}>
-                          注意: 您可以先填寫基本資料，詳細證件可在進入後台後再行上傳審核。
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="input-group full">
-                      <label><MapPin size={16} /> 核心服務區域 (Primary City)</label>
+                      <label><MapPin size={16} /> {t.onboarding.profile_form.city_label}</label>
                       <select 
                         name="city" 
                         value={formData.city} 
                         onChange={(e: any) => handleInputChange(e)} 
                         className="premium-select"
                       >
-                        <option value="UK Nationwide">UK (Nationwide / Remote)</option>
-                        <optgroup label="Major Hubs">
-                          <option value="London">London (Greater London)</option>
+                        <option value="">{t.onboarding.profile_form.city_placeholder}</option>
+                        <option value="UK Nationwide">{t.onboarding.profile_form.nationwide}</option>
+                        <optgroup label={t.onboarding.profile_form.major_cities}>
+                          <option value="London">London</option>
                           <option value="Manchester">Manchester</option>
                           <option value="Birmingham">Birmingham</option>
                           <option value="Leeds">Leeds</option>
                           <option value="Glasgow">Glasgow</option>
-                          <option value="Liverpool">Liverpool</option>
-                          <option value="Edinburgh">Edinburgh</option>
-                          <option value="Bristol">Bristol</option>
-                        </optgroup>
-                        <optgroup label="All UK Cities & Towns">
-                          <option value="Aberdeen">Aberdeen</option>
-                          <option value="Armagh">Armagh</option>
-                          <option value="Bath">Bath</option>
-                          <option value="Belfast">Belfast</option>
-                          <option value="Blackpool">Blackpool</option>
-                          <option value="Bournemouth">Bournemouth</option>
-                          <option value="Bradford">Bradford</option>
-                          <option value="Brighton & Hove">Brighton & Hove</option>
-                          <option value="Cambridge">Cambridge</option>
-                          <option value="Canterbury">Canterbury</option>
-                          <option value="Cardiff">Cardiff</option>
-                          <option value="Carlisle">Carlisle</option>
-                          <option value="Chelmsford">Chelmsford</option>
-                          <option value="Chester">Chester</option>
-                          <option value="Chichester">Chichester</option>
-                          <option value="Colchester">Colchester</option>
-                          <option value="Coventry">Coventry</option>
-                          <option value="Derby">Derby</option>
-                          <option value="Derry">Derry</option>
-                          <option value="Doncaster">Doncaster</option>
-                          <option value="Dundee">Dundee</option>
-                          <option value="Durham">Durham</option>
-                          <option value="Ely">Ely</option>
-                          <option value="Exeter">Exeter</option>
-                          <option value="Gloucester">Gloucester</option>
-                          <option value="Hereford">Hereford</option>
-                          <option value="Inverness">Inverness</option>
-                          <option value="Kingston upon Hull">Kingston upon Hull</option>
-                          <option value="Lancaster">Lancaster</option>
-                          <option value="Leicester">Leicester</option>
-                          <option value="Lichfield">Lichfield</option>
-                          <option value="Lincoln">Lincoln</option>
-                          <option value="Lisburn">Lisburn</option>
-                          <option value="Londonderry">Londonderry</option>
-                          <option value="Luton">Luton</option>
-                          <option value="Milton Keynes">Milton Keynes</option>
-                          <option value="Newcastle upon Tyne">Newcastle upon Tyne</option>
-                          <option value="Newport">Newport</option>
-                          <option value="Newry">Newry</option>
-                          <option value="Northampton">Northampton</option>
-                          <option value="Norwich">Norwich</option>
-                          <option value="Nottingham">Nottingham</option>
-                          <option value="Oxford">Oxford</option>
-                          <option value="Perth">Perth</option>
-                          <option value="Peterborough">Peterborough</option>
-                          <option value="Plymouth">Plymouth</option>
-                          <option value="Portsmouth">Portsmouth</option>
-                          <option value="Preston">Preston</option>
-                          <option value="Reading">Reading</option>
-                          <option value="Ripon">Ripon</option>
-                          <option value="Salford">Salford</option>
-                          <option value="Salisbury">Salisbury</option>
-                          <option value="Sheffield">Sheffield</option>
-                          <option value="Shrewsbury">Shrewsbury</option>
-                          <option value="Southampton">Southampton</option>
-                          <option value="Southend-on-Sea">Southend-on-Sea</option>
-                          <option value="St Albans">St Albans</option>
-                          <option value="St Asaph">St Asaph</option>
-                          <option value="St Davids">St Davids</option>
-                          <option value="Stirling">Stirling</option>
-                          <option value="Stoke-on-Trent">Stoke-on-Trent</option>
-                          <option value="Sunderland">Sunderland</option>
-                          <option value="Swansea">Swansea</option>
-                          <option value="Truro">Truro</option>
-                          <option value="Wakefield">Wakefield</option>
-                          <option value="Wells">Wells</option>
-                          <option value="Westminster">Westminster</option>
-                          <option value="Winchester">Winchester</option>
-                          <option value="Wolverhampton">Wolverhampton</option>
-                          <option value="Worcester">Worcester</option>
-                          <option value="Wrexham">Wrexham</option>
-                          <option value="York">York</option>
                         </optgroup>
                       </select>
                     </div>
 
-                    <div className="input-group full">
-                      <label><ShieldCheck size={16} /> 公眾責任保險額度 (Public Liability Insurance) <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>(必填)</span></label>
-                      <select name="insuranceAmount" value={formData.insuranceAmount} onChange={handleInputChange} className="premium-select">
-                        <option value="1,000,000">£1,000,000 (1 Million)</option>
-                        <option value="2,000,000">£2,000,000 (2 Million)</option>
-                        <option value="5,000,000">£5,000,000 (5 Million)</option>
-                        <option value="10,000,000">£10,000,000 (10 Million)</option>
-                        <option value="None">尚未投保 (Not Insured)</option>
-                      </select>
+                    {/* 6. Verification & Compliance Section */}
+                    <div className="compliance-section full premium-glass" style={{ padding: '24px', borderRadius: '24px', border: '1px solid rgba(212, 175, 55, 0.1)', background: 'rgba(212, 175, 55, 0.02)', marginTop: '16px' }}>
+                      <div className="section-header" style={{ marginBottom: '20px' }}>
+                        <h4 style={{ color: '#d4af37', margin: 0, display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1rem', fontWeight: 800 }}>
+                          <ShieldCheck size={20} /> {t.onboarding.steps.credentials}
+                        </h4>
+                      </div>
+
+                      <div className="input-group full" style={{ marginBottom: '20px' }}>
+                        <label style={{ color: '#94a3b8' }}>{t.onboarding.profile_form.insurance_label}</label>
+                        <select name="insuranceAmount" value={formData.insuranceAmount} onChange={handleInputChange} className="premium-select">
+                          <option value="1,000,000">{t.onboarding.profile_form.insurance_1m}</option>
+                          <option value="2,000,000">{t.onboarding.profile_form.insurance_2m}</option>
+                          <option value="5,000,000">{t.onboarding.profile_form.insurance_5m}</option>
+                          <option value="10,000,000">{t.onboarding.profile_form.insurance_10m}</option>
+                          <option value="None">{t.onboarding.profile_form.insurance_none}</option>
+                        </select>
+                        <p style={{ fontSize: '0.75rem', color: '#64748b', marginTop: '6px' }}>{t.onboarding.profile_form.insurance_hint}</p>
+                      </div>
+
+                      <div className="input-group full">
+                        <label style={{ color: '#94a3b8' }}>{t.onboarding.profile_form.credentials_label} {t.onboarding.profile_form.credentials_required}</label>
+                        <div className="file-upload-wrapper">
+                          <input 
+                            type="file" 
+                            name="credentials" 
+                            onChange={handleFileChange}
+                            className={`premium-file-input ${selectedSector === 'technical' && !formData.credentials ? 'error' : ''}`}
+                          />
+                          {selectedSector === 'technical' ? (
+                            <div className="validation-alert error">
+                              <ShieldCheck size={14} />
+                              <span>{t.onboarding.profile_form.credentials_hint_technical}</span>
+                            </div>
+                          ) : (
+                            <div className="validation-alert info">
+                              <Sparkles size={14} />
+                              <span>{t.onboarding.profile_form.credentials_hint_standard}</span>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Real-time AI Review Display */}
+                        {verifyingCredential && (
+                          <div className="ai-review-loading" style={{ marginTop: '16px', display: 'flex', alignItems: 'center', gap: '12px', padding: '12px', background: 'rgba(255,255,255,0.02)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                             <Loader2 className="animate-spin" size={18} color="#d4af37" />
+                             <span style={{ fontSize: '0.85rem', color: '#94a3b8' }}>AI 正在即時批核文件 (AI is verifying your document in real-time)...</span>
+                          </div>
+                        )}
+
+                        {credentialReview && (
+                          <div className={`ai-review-result ${credentialReview.status}`} style={{ 
+                            marginTop: '16px', 
+                            padding: '16px', 
+                            borderRadius: '16px', 
+                            border: `1px solid ${credentialReview.status === 'verified' ? 'rgba(16, 185, 129, 0.2)' : credentialReview.status === 'rejected' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(245, 158, 11, 0.2)'}`,
+                            background: credentialReview.status === 'verified' ? 'rgba(16, 185, 129, 0.03)' : credentialReview.status === 'rejected' ? 'rgba(239, 68, 68, 0.03)' : 'rgba(245, 158, 11, 0.03)',
+                            display: 'flex',
+                            gap: '14px'
+                          }}>
+                            <div style={{ color: credentialReview.status === 'verified' ? '#10b981' : credentialReview.status === 'rejected' ? '#ef4444' : '#f59e0b' }}>
+                              {credentialReview.status === 'verified' ? <CheckCircle2 size={24} /> : <ShieldCheck size={24} />}
+                            </div>
+                            <div>
+                              <div style={{ fontWeight: 800, fontSize: '0.9rem', marginBottom: '4px', color: 'white' }}>
+                                {credentialReview.status === 'verified' ? 'AI 驗證成功 (AI Verified)' : 
+                                 credentialReview.status === 'rejected' ? 'AI 驗證失敗 (AI Rejected)' : '等待人工審核 (Manual Review Required)'}
+                              </div>
+                              <p style={{ fontSize: '0.8rem', color: '#94a3b8', margin: 0, lineHeight: 1.5 }}>{credentialReview.reason}</p>
+                              {(credentialReview as any).regulatoryBody && (
+                                <div style={{ marginTop: '8px', fontSize: '0.7rem', fontWeight: 700, color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                  Issuing Body: {(credentialReview as any).regulatoryBody}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </div>
                     </div>
 
-                    <div className="input-group full">
-                      <label style={{ color: promoApplied ? '#d4af37' : '#555' }}>
-                        <Gift size={16} /> 推薦碼 / 優惠碼 (PROMO CODE)
+                    {/* 7. Rewards / Promo Code */}
+                    <div className="input-group full" style={{ marginTop: '24px' }}>
+                      <label style={{ color: promoApplied ? '#d4af37' : '#94a3b8' }}>
+                        <Gift size={16} /> {t.onboarding.profile_form.promo_label}
                       </label>
                       <div className="promo-input-wrapper">
                         <input 
@@ -567,22 +530,20 @@ function JoinPageContent() {
                           name="promoCode" 
                           value={formData.promoCode} 
                           onChange={handleInputChange} 
-                          placeholder="例如: ELITE"
+                          placeholder={t.onboarding.profile_form.promo_placeholder}
                           className={promoApplied ? 'promo-active' : ''}
                         />
                         {promoApplied && (
                           <div className="promo-badge-mini">
                             <Sparkles size={12} />
-                            <span>獎勵已啟用</span>
+                            <span>{t.onboarding.profile_form.promo_active}</span>
                           </div>
                         )}
                       </div>
                     </div>
                   </div>
 
-                  {error && <div className="error-msg">{error}</div>}
-
-                  <div className="controls">
+                  <div className="controls" style={{ marginTop: '40px' }}>
                     <button className="btn-secondary" onClick={prevStep}>
                       <ChevronLeft size={20} /> {t.onboarding.buttons.back}
                     </button>
@@ -601,22 +562,20 @@ function JoinPageContent() {
                   <LiveProfilePreview 
                     businessName={formData.businessName}
                     bio={formData.bio}
-                    city={formData.city}
-                    sector={selectedSector || ""}
+                    city={formData.city === 'UK Nationwide' ? t.onboarding.profile_form.nationwide : formData.city}
+                    sector={
+                      selectedSector === 'professional' ? t.onboarding.sectors.professional.title :
+                      selectedSector === 'education' ? t.onboarding.sectors.education.title :
+                      selectedSector === 'technical' ? t.onboarding.sectors.technical.title :
+                      t.onboarding.preview.sector_placeholder
+                    }
                     avatar={formData.avatar}
+                    bannerUrl={formData.bannerUrl}
                     insuranceAmount={formData.insuranceAmount}
                     hasCredentials={!!formData.credentials}
+                    isAiVerified={credentialReview?.status === 'verified'}
+                    labels={t.onboarding.preview}
                   />
-                  
-                  <div className="success-tip-box">
-                    <ShieldCheck size={20} color="#d4af37" />
-                    <div>
-                      <h5 style={{ color: 'white', margin: '0 0 4px', fontSize: '0.9rem' }}>專家入駐提示</h5>
-                      <p style={{ color: '#777', margin: 0, fontSize: '0.8rem', lineHeight: 1.5 }}>
-                        據統計，填寫完整的商號名稱與專業背景，能提升客戶 25% 的諮詢意願。
-                      </p>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -654,9 +613,9 @@ function JoinPageContent() {
                     <CheckCircle2 color="#d4af37" size={100} />
                     <div className="check-glow" />
                   </div>
-                  <h2 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '1rem', color: 'white' }}>註冊成功！</h2>
+                  <h2 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '1rem', color: 'white' }}>{t.onboarding.success.title}</h2>
                   <p style={{ color: '#888', fontSize: '1.1rem', marginBottom: '3rem' }}>
-                    歡迎加入 ConciergeAI 的精英團隊。我們已收到您的申請，您可以先行探索商戶後台。
+                    {t.onboarding.success.subtitle}
                   </p>
                   
                   {/* AI Tax Assistant Placeholder */}
@@ -665,14 +624,14 @@ function JoinPageContent() {
                       <Calculator size={32} color="#d4af37" />
                     </div>
                     <div className="placeholder-text">
-                      <h4 style={{ color: '#d4af37', margin: 0, fontWeight: 900 }}>AI 稅務助手 (Beta)</h4>
-                      <p style={{ color: '#666', fontSize: '0.85rem', margin: '4px 0 0' }}>強大的 AI 記帳與稅務自動化工具即將開放內測，敬請期待。</p>
+                      <h4 style={{ color: '#d4af37', margin: 0, fontWeight: 900 }}>{t.onboarding.success.ai_tax_title}</h4>
+                      <p style={{ color: '#666', fontSize: '0.85rem', margin: '4px 0 0' }}>{t.onboarding.success.ai_tax_desc}</p>
                     </div>
-                    <div className="coming-soon-badge">COMING SOON</div>
+                    <div className="coming-soon-badge">{t.onboarding.success.coming_soon}</div>
                   </div>
 
                   <button className="btn-premium wide" onClick={() => window.location.href = '/dashboard/merchant'}>
-                    進入商戶中心 <ChevronRight size={20} />
+                    {t.onboarding.success.enter_dashboard} <ChevronRight size={20} />
                   </button>
                 </div>
               </div>

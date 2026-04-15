@@ -12,6 +12,7 @@ export const en: Dictionary = {
     education: "Education",
     quickActions: "Quick Actions",
     exploreServices: "Explore Services",
+    view_all: "View All Categories",
   },
   sidebar: {
     sections: {
@@ -159,6 +160,8 @@ export const en: Dictionary = {
     copy: "Copy",
     copied: "Persistent!",
     exit: "Exit",
+    dark_mode: "Switch to Dark Mode",
+    light_mode: "Switch to Light Mode",
     aiMatchingSub: "AI matched top 1% specialists",
     exploreSub: "Browse our directory by professional sector",
     escrow: {
@@ -1040,8 +1043,16 @@ export const en: Dictionary = {
   onboarding: {
     hero: {
       title: "Join the ConciergeAI Global Expert Mesh",
-      subtitle: "Deploy your expertise across the UK's most advanced service infrastructure."
+      subtitle: "Deploy your expertise across the UK's most advanced service infrastructure.",
+      badge: "ConciergeAI Elite Expert",
+      stats: {
+        active_pros: "Active Professionals",
+        commission: "Platform Commission",
+        rating: "Expert Rating"
+      }
     },
+    sector_selection_title: "Sector Selection",
+    sector_selection_subtitle: "Choose your primary professional domain",
     steps: {
       profile: "Expert Profile",
       credentials: "Credentials",
@@ -1053,7 +1064,86 @@ export const en: Dictionary = {
       back: "Return",
       submit: "Final Submission"
     },
+    validation: {
+      select_sector: "Please select a sector to continue.",
+      fill_required: "Please fill in all required fields.",
+      bio_short: "Bio too short. Please provide more detail about your expertise.",
+      credentials_required: "Official credentials required for high-risk trades (GAS/Electrical).",
+      business_name_required: "Business Name is required.",
+      email_required: "Contact Email is required.",
+      phone_required: "Phone number is required.",
+      city_required: "Service Hub (City) is required.",
+      category_required: "At least one service category is required.",
+      ai_fallback: "AI Uncertain: Falling back to internal manual review team."
+    },
+    profile_form: {
+      business_name: "Business Name",
+      business_name_placeholder: "e.g., Elite Plumbing Solutions",
+      avatar_label: "Expert Logo",
+      avatar_placeholder: "Upload logo/photo",
+      avatar_hint: "JPG, PNG. Square image recommended, max 2MB.",
+      banner_label: "Store Banner",
+      banner_placeholder: "Click to upload banner (1200x400 recommended)",
+      bio_label: "Expert Biography",
+      bio_optimize: "AI Optimize",
+      bio_placeholder: "Describe your professional background and strengths...",
+      credentials_label: "Official Credentials",
+      credentials_required: "(Mandatory)",
+      credentials_hint_technical: "* UK Government Regulation: GAS / Electrical merchants must upload official certification to authorize mission acceptance.",
+      credentials_hint_standard: "Note: Basic data can be submitted first; detailed credentials can be audited via the dashboard post-onboarding.",
+      city_label: "Primary Service Hub",
+      city_placeholder: "Select your primary city...",
+      major_cities: "Major Cities",
+      nationwide: "United Kingdom (Nationwide)",
+      insurance_label: "Public Liability Insurance",
+      insurance_required: "(Required)",
+      insurance_none: "Unverified / None",
+      insurance_1m: "£1,000,000 (1 Million)",
+      insurance_2m: "£2,000,000 (2 Million)",
+      insurance_5m: "£5,000,000 (5 Million)",
+      insurance_10m: "£10,000,000 (10 Million)",
+      insurance_hint: "Public liability insurance is recommended for safety and trust.",
+      website_label: "Website / LinkedIn",
+      ai_autofill: "AI Auto-Fill",
+      promo_label: "Promo Code",
+      promo_placeholder: "e.g., ELITE",
+      promo_active: "Reward Active",
+      onboarding_tip_title: "Merchant Onboarding Hub",
+      onboarding_tip_desc: "Statistically, a complete business profile and professional bio increases client inquiry rates by 25%.",
+      ai_reviewing: "AI is professionally reviewing...",
+      uk_standards_hint: "Verifying against UK industry standards...",
+      ai_verified: "AI Identified as Valid: Compliance verified.",
+      ai_uncertain: "AI Uncertain: Falling back to UK manual review team.",
+      ai_cert_badge: "AI CERT",
+      ai_verified_expert: "Verified Expert",
+      form_title: "Expert Business Information",
+      form_subtitle: "Please describe your professional background to help us connect you with high-quality clients.",
+    },
+    preview: {
+      preview_label: "LIVE PREVIEW",
+      business_name_placeholder: "Your Business Name",
+      sector_placeholder: "Professional Domain",
+      bio_placeholder: "Please complete your bio to make a strong first impression. Mentioning years of expertise or core strengths is recommended.",
+      insurance_suffix: "Liability Insured",
+      booking_button: "Book Now",
+      location_suffix: "United Kingdom",
+      ai_cert_hint: "AI Instant Approval",
+      credentials_hint: "Credentials Uploaded (Review Pending)"
+    },
+    success: {
+      title: "Registration Successful!",
+      subtitle: "Welcome to the ConciergeAI Elite Team. We have received your application; you can now begin exploring the merchant dashboard.",
+      ai_tax_title: "AI Tax Assistant (Beta)",
+      ai_tax_desc: "Powerful AI bookkeeping and tax automation tools are coming soon to internal beta.",
+      coming_soon: "COMING SOON",
+      enter_dashboard: "Enter Merchant Hub"
+    },
     sectors: {
+      professional: {
+        title: "Professional & Corporate (Business)",
+        desc: "Compliance, tax, auditing, and legal services for UK residents and SMEs.",
+        industries: ["Accounting", "Tax", "Legal", "Financial Advisory"]
+      },
       education: {
         title: "Academic & Tutoring (Education)",
         desc: "Specialist domains covering curriculum support, language acquisition, and arts mastery.",

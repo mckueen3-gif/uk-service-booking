@@ -25,9 +25,9 @@ export default function SectorSelector({
     {
       id: "professional",
       icon: <Briefcase size={32} />,
-      title: "專業商務 (Accounting & Law)",
-      desc: "專為英國海外居民及中小企業提供合規報稅、年度審計及法律諮詢服務。",
-      industries: ["Accounting", "Tax", "Legal", "Financial Advisory"],
+      title: t?.onboarding?.sectors?.professional?.title || "Professional & Corporate",
+      desc: t?.onboarding?.sectors?.professional?.desc || "Accounting, Legal, and Corporate Services.",
+      industries: t?.onboarding?.sectors?.professional?.industries || ["Accounting", "Legal"],
       isPremium: true,
     },
     {
@@ -51,8 +51,10 @@ export default function SectorSelector({
   return (
     <div className="sector-selector">
       <h2 className="section-title">
-        選擇您的專業領域{" "}
-        <span style={{ color: "#d4af37" }}>Sector Selection</span>
+        {t?.onboarding?.sector_selection_title || "Sector Selection"}{" "}
+        <span style={{ color: "#d4af37", opacity: 0.6, fontSize: '0.8em' }}>
+          {t?.onboarding?.sector_selection_subtitle || "Professional Domain"}
+        </span>
       </h2>
 
       <div className="sectors-grid">

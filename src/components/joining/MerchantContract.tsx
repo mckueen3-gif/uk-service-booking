@@ -38,7 +38,10 @@ export default function MerchantContract({ onAccept, accepted }: MerchantContrac
         <div className="icon-glow">
           <ShieldCheck className="icon-main" size={32} />
         </div>
-        <h3 style={{ color: 'white', fontSize: '1.75rem', fontWeight: 900 }}>入駐協議 <span style={{ color: '#d4af37', opacity: 0.8 }}>Expert Terms</span></h3>
+        <h3 style={{ color: 'white', fontSize: '1.75rem', fontWeight: 900 }}>
+          {t?.onboarding?.contract?.title_zh || "入駐協議"}{" "}
+          <span style={{ color: '#d4af37', opacity: 0.8 }}>{t?.onboarding?.contract?.title || "Expert Terms"}</span>
+        </h3>
       </div>
 
       <div 
@@ -60,8 +63,8 @@ export default function MerchantContract({ onAccept, accepted }: MerchantContrac
           <h4 style={{ color: '#d4af37' }}>{t?.onboarding?.contract?.clauses?.conduct?.title || "3. Conduct"}</h4>
           <p>{t?.onboarding?.contract?.clauses?.conduct?.body || "Professional conduct is mandatory."}</p>
           <div className="contract-legal" style={{ borderTop: '1px solid rgba(212, 175, 55, 0.1)', color: '#666' }}>
-            <p><strong>Additional Terms:</strong> By joining ConciergeAI, you certify that all information provided is accurate and that you possess the necessary insurance and licenses required to practice in the United Kingdom.</p>
-            <p>© 2026 ConciergeAI UK Limited. All Rights Reserved.</p>
+            <p><strong>{t?.onboarding?.contract?.legal_notice ? "" : "Additional Terms:"}</strong> {t?.onboarding?.contract?.legal_notice || "By joining ConciergeAI, you certify that all information provided is accurate and that you possess the necessary insurance and licenses required to practice in the United Kingdom."}</p>
+            <p>{t?.onboarding?.contract?.copyright || "© 2026 ConciergeAI UK Limited. All Rights Reserved."}</p>
           </div>
         </div>
       </div>

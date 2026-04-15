@@ -1,4 +1,4 @@
-import { Dictionary } from "../dictionary";
+import { Dictionary } from "../types";
 
 export const pl: any = {
   nav: {

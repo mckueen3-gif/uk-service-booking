@@ -150,7 +150,7 @@ export default function AdminExperts() {
                         {merchant.name?.slice(0, 2).toUpperCase() || "UN"}
                       </div>
                       <div>
-                         <div style={{ fontSize: '15px', fontWeight: 900, color: '#0f172a' }}>{merchant.name || "未知專家"}</div>
+                         <div style={{ fontSize: '15px', fontWeight: 900, color: '#0f172a' }}>{merchant.companyName || merchant.user?.name || merchant.id}</div>
                          <div style={{ fontSize: '12px', color: '#94a3b8', fontWeight: 600 }}>{merchant.user?.email || "無電子郵件"}</div>
                       </div>
                     </div>

@@ -138,7 +138,7 @@ export default function AdminVerifications() {
               <div style={{ padding: '2.5rem', display: 'flex', flexDirection: 'column', backgroundColor: '#ffffff' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2.5rem' }}>
                    <div>
-                     <h4 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0f172a', margin: 0, letterSpacing: '-0.01em' }}>{item.merchant?.name}</h4>
+                     <h4 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0f172a', margin: 0, letterSpacing: '-0.01em' }}>{item.merchant?.companyName || item.merchant?.user?.name || "Premium Expert"}</h4>
                      <p style={{ fontSize: '12px', color: '#94a3b8', fontWeight: 600, marginTop: '4px' }}>商戶證照審核 ID: {item.merchantId.slice(0, 12).toUpperCase()}</p>
                    </div>
                    <div style={{ textAlign: 'right' }}>
