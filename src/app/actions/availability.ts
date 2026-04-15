@@ -85,7 +85,18 @@ export async function getCustomScheduleSlots(dateStr: string) {
   return { success: true, slots: customSlots };
 }
 
-export async function addCustomScheduleSlot(dateStr: string, startTime: string, endTime: string, isAvailable: boolean) {
+export async function addCustomScheduleSlot(
+  dateStr: string, 
+  startTime: string, 
+  endTime: string, 
+  isAvailable: boolean,
+  details?: {
+    title?: string;
+    customerName?: string;
+    customerPhone?: string;
+    notes?: string;
+  }
+) {
   const session = (await getServerSession(authOptions)) as any;
   if (!session?.user?.id) return { error: "Unauthorized" };
 
@@ -104,7 +115,11 @@ export async function addCustomScheduleSlot(dateStr: string, startTime: string, 
       date,
       startTime,
       endTime,
-      isAvailable
+      isAvailable,
+      title: details?.title,
+      customerName: details?.customerName,
+      customerPhone: details?.customerPhone,
+      notes: details?.notes
     }
   });
   
