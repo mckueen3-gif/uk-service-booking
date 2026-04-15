@@ -52,20 +52,23 @@ export async function POST(req: Request) {
     });
 
     const isEducation = service?.category === 'Education';
-    const tutorAmountInPence = priceAmount * 100;
-
-    // Platform Fee Calculation (9% added ON TOP of merchant rate)
+    const baseAmountInPence = priceAmount * 100;
     const commissionRate = getCommissionRate(merchant);
-    const applicationFeeInPence = Math.round(tutorAmountInPence * commissionRate);
-    
-    // Total charged to student = Tutor Base Rate + Platform Commission
-    const totalAmountInPence = tutorAmountInPence + applicationFeeInPence;
+
+    // Default: fee is DEDUCTED from base amount (merchant pays)
+    let applicationFeeInPence = Math.round(baseAmountInPence * commissionRate);
+    let totalCustomerPaysInPence = baseAmountInPence;
+
+    if (isEducation) {
+      // EDUCATION ONLY: fee is ADDED ON TOP (student pays)
+      totalCustomerPaysInPence = baseAmountInPence + applicationFeeInPence;
+    }
 
     // Calculate Sector-Specific Logic
     // Education: 100% upfront
     // Others: 20% deposit, save card for 80% balance
-    const checkoutAmountInPence = isEducation ? totalAmountInPence : Math.round(totalAmountInPence * 0.20);
-    const balanceAmountInPence = totalAmountInPence - checkoutAmountInPence;
+    const checkoutAmountInPence = isEducation ? totalCustomerPaysInPence : Math.round(totalCustomerPaysInPence * 0.20);
+    const balanceAmountInPence = totalCustomerPaysInPence - checkoutAmountInPence;
     
     // Pro-rata application fee for deposit vs full
     const checkoutFeeInPence = isEducation ? applicationFeeInPence : Math.round(applicationFeeInPence * 0.20);

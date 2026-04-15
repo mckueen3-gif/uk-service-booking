@@ -7,17 +7,22 @@
  * ============================================================
  * ConciergeAI operates a STUDENT/CUSTOMER-PAYS model:
  *
- *  ✅ Platform commission (9%) is ADDED ON TOP of the merchant/tutor's base rate.
- *     The student/customer pays the gross amount, and the tutor receives exactly
- *     their requested rate.
+ *  ✅ EDUCATION / TUTORING: 
+ *     Platform commission (9%) is ADDED ON TOP of the tutor's base rate.
+ *     The student pays the marked-up price, and the tutor receives exactly
+ *     their requested rate. (100% payout guarantee to comply with UK guidelines).
  *
- *  ❌ Tutors and service providers are NEVER charged a listing fee, signup fee,
- *     or job-finding fee. This is to comply with UK fair working guidelines.
+ *  ✅ OTHER SECTORS (Trades, Cleaning, etc.):
+ *     Platform commission (9%) is DEDUCTED from the merchant's requested rate.
+ *     The customer pays exactly the quoted price.
  *
  * Example Education payout:
  *   Tutor sets rate: £100
- *   Platform marks up customer price: £100 + 9% = £109
  *   Student pays £109 → Platform retains £9 → Tutor receives £100
+ *
+ * Example Plumbing payout:
+ *   Plumber quotes: £100
+ *   Customer pays £100 → Platform retains £9 → Plumber receives £91
  *
  * This mirrors the model used by MyTutor, Tutorful, and other compliant UK marketplaces.
  * Under this structure, no FCA Payment Institution licence is required as we use
@@ -58,18 +63,28 @@ export function calculatePlatformFee(amount: number, merchant: { commissionRate:
 }
 
 /**
- * Calculates the gross customer payment and platform fee from a tutor's base rate.
- * The platform adds its fee on top of the provider's requested rate.
+ * Calculates the gross customer payment and platform fee from a provider's base rate.
+ * Education: markup approach (adds to base).
+ * Others: deduction approach (subtracts from base).
  *
- * @param providerBaseAmount The amount the tutor/merchant wants to earn
+ * @param providerBaseAmount The amount the tutor/merchant quotes
  * @param merchant The merchant object
- * @returns Object with platformFee and totalCustomerPayment
+ * @param isEducation Whether the service is in the Education category
+ * @returns Object with platformFee, totalCustomerPayment, merchantPayout
  */
-export function calculateNetPayout(providerBaseAmount: number, merchant: { commissionRate: number }) {
+export function calculateNetPayout(providerBaseAmount: number, merchant: { commissionRate: number }, isEducation: boolean = false) {
   const rate = getCommissionRate(merchant);
   const platformFee = Math.round(providerBaseAmount * rate * 100) / 100;
-  const totalCustomerPayment = Math.round((providerBaseAmount + platformFee) * 100) / 100;
-  return { platformFee, merchantPayout: providerBaseAmount, totalCustomerPayment, commissionRate: rate };
+  
+  const totalCustomerPayment = isEducation 
+    ? Math.round((providerBaseAmount + platformFee) * 100) / 100 
+    : providerBaseAmount;
+    
+  const merchantPayout = isEducation 
+    ? providerBaseAmount 
+    : Math.round((providerBaseAmount - platformFee) * 100) / 100;
+    
+  return { platformFee, merchantPayout, totalCustomerPayment, commissionRate: rate };
 }
 
 /**

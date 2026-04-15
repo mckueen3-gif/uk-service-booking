@@ -1034,7 +1034,7 @@ export const en: Dictionary = {
       google: "Sign in with Google",
       navToLogin: "Already have an account?",
       signIn: "Sign In Now",
-      merchantDisclaimer: "To comply with fair working guidelines, ALL experts (including Trades, Plumbers, Electricians, and Tutors) are EXEMPT from all platform fees. A 9% platform markup is added to customer checkouts, guaranteeing 100% payout of your quoted rate."
+      merchantDisclaimer: "FEE STRUCTURE: Education & Tutors are 100% exempt from platform fees (markup is paid by students). All other service sectors (e.g. Trades, Cleaners) are subject to a 9% commission deducted from their quoted rate."
     }
   },
   onboarding: {
