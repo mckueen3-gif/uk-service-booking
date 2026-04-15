@@ -1,13 +1,8 @@
 "use server";
 
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import OpenAI from "openai";
-
+import { generateAIContent } from "@/lib/ai-provider";
 import fs from "fs";
 import path from "path";
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY || "" });
 
 async function getCategoriesList() {
   try {
@@ -21,7 +16,6 @@ async function getCategoriesList() {
 }
 
 async function getUrlMetadata(url: string) {
-  // ... existing implementation remains mostly the same, but let's consolidate
   try {
     const targetUrl = url.startsWith('http') ? url : `https://${url}`;
     const controller = new AbortController();
@@ -74,12 +68,11 @@ export async function fetchBusinessInfoWithAI(url: string) {
   }`;
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-    const result = await model.generateContent(prompt);
-    const text = result.response.text();
-    const jsonMatch = text.match(/\{[\s\S]*\}/);
-    if (jsonMatch) return JSON.parse(jsonMatch[0]);
-    throw new Error("Invalid response");
+    const responseText = await generateAIContent({
+      prompt,
+      jsonMode: true
+    });
+    return JSON.parse(responseText);
   } catch (e) {
     console.error("AI Website Fetch Error:", e);
     return { 
@@ -106,15 +99,12 @@ export async function getSmartCategoriesFromText(text: string) {
   Standardized Categories: ${categoriesList.join(", ")}`;
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-    const result = await model.generateContent(prompt);
-    const responseText = result.response.text();
-    const jsonMatch = responseText.match(/\{[\s\S]*\}/);
-    if (jsonMatch) {
-      const parsed = JSON.parse(jsonMatch[0]);
-      return parsed.categories || [];
-    }
-    return [];
+    const responseText = await generateAIContent({
+      prompt,
+      jsonMode: true
+    });
+    const parsed = JSON.parse(responseText);
+    return parsed.categories || [];
   } catch (e) {
     console.error("AI Categorization Error:", e);
     return [];
