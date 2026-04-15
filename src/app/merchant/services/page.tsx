@@ -69,7 +69,7 @@ export default function MerchantServicesPage() {
   };
 
   const handleDelete = async (id: string) => {
-    if (confirm('確定要刪除這項服務嗎？')) {
+    if (confirm(t?.merchant?.merchant_services?.confirmDelete || 'Are you sure you want to delete this service?')) {
       const res = await deleteService(id);
       if (res.success) loadServices();
     }
@@ -109,20 +109,22 @@ export default function MerchantServicesPage() {
     <div className="container" style={{ padding: '2rem 1.5rem', maxWidth: '1000px' }}>
       <header style={{ marginBottom: '3rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
+        <div>
           <Link href="/merchant" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#666', textDecoration: 'none', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
-            <ArrowLeft size={16} /> {t.merchant.merchant_services.back}
+            <ArrowLeft size={16} /> {t?.merchant?.merchant_services?.back || "Back"}
           </Link>
           <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem', color: '#fff' }}>
-            {t.merchant.merchant_services.title.split('&')[0]} & <span style={{ color: '#d4af37' }}>{t.merchant.merchant_services.title.split('&')[1] || "Portfolio"}</span>
+            {(t?.merchant?.merchant_services?.title || "Staff & Services").split('&')[0]} & <span style={{ color: '#d4af37' }}>{(t?.merchant?.merchant_services?.title || "").split('&')[1] || "Portfolio"}</span>
           </h1>
-          <p style={{ color: '#999', fontSize: '1.1rem' }}>{t.merchant.merchant_services.subtitle}</p>
+          <p style={{ color: '#999', fontSize: '1.1rem' }}>{t?.merchant?.merchant_services?.subtitle || "Manage your service listings and professional profile."}</p>
+        </div>
         </div>
         <button 
           onClick={() => { setEditingService(null); setShowAddModal(true); }}
           className="btn-primary" 
           style={{ padding: '0.8rem 1.5rem', borderRadius: '12px', fontSize: '0.9rem', fontWeight: 900, background: '#d4af37', color: '#000', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
         >
-          <Plus size={18} /> {t.merchant.merchant_services.addNew}
+          <Plus size={18} /> {t?.merchant?.merchant_services?.addNew || "Add New Service"}
         </button>
       </header>
 
@@ -131,7 +133,7 @@ export default function MerchantServicesPage() {
         {services.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '5rem', opacity: 0.3 }}>
             <Tag size={64} style={{ margin: '0 auto 1.5rem' }} />
-            <p style={{ fontSize: '1.1rem' }}>{t.merchant.merchant_services.empty}</p>
+            <p style={{ fontSize: '1.1rem' }}>{t?.merchant?.merchant_services?.empty || "No services listed yet."}</p>
           </div>
         ) : (
           services.map(s => (
@@ -184,8 +186,8 @@ export default function MerchantServicesPage() {
           <div className="animate-slide-in" style={{ width: '100%', maxWidth: '550px', height: '100%', padding: '3.5rem', borderRadius: '0', backgroundColor: '#050505', borderLeft: '1px solid rgba(212, 175, 55, 0.2)', display: 'flex', flexDirection: 'column', boxShadow: '-20px 0 60px rgba(0,0,0,0.8)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3.5rem' }}>
               <div>
-                <h3 style={{ fontSize: '2rem', fontWeight: 900, color: '#fff' }}>{editingService ? '編輯服務 Edit' : '新增專業服務'}</h3>
-                <p style={{ color: '#666', marginTop: '0.5rem' }}>設定您的服務細節，讓客戶更了解您的專業。</p>
+                <h3 style={{ fontSize: '2rem', fontWeight: 900, color: '#fff' }}>{editingService ? (t?.merchant?.merchant_services?.modal?.edit || 'Edit Service') : (t?.merchant?.merchant_services?.modal?.add || 'Add New Service')}</h3>
+                <p style={{ color: '#666', marginTop: '0.5rem' }}>{t?.merchant?.merchant_services?.modal?.subtitle || "Set your service details to help customers understand your expertise."}</p>
               </div>
               <button 
                 onClick={() => setShowAddModal(false)} 
@@ -211,10 +213,10 @@ export default function MerchantServicesPage() {
 
             <form onSubmit={handleUpsert} style={{ display: 'grid', gap: '2rem', overflowY: 'auto', paddingRight: '0.5rem' }} className="custom-scrollbar">
               <div>
-                <label style={premiumLabelStyle}>{t.merchant.merchant_services.modal.name}</label>
+                <label style={premiumLabelStyle}>{t?.merchant?.merchant_services?.modal?.name || "Service Name"}</label>
                 <input 
                   required 
-                  placeholder={t.merchant.merchant_services.modal.namePlaceholder}
+                  placeholder={t?.merchant?.merchant_services?.modal?.namePlaceholder || "e.g. Full Property Valuation"}
                   value={formData.name} 
                   onChange={e => setFormData({...formData, name: e.target.value})} 
                   style={premiumInputStyle} 
@@ -225,7 +227,7 @@ export default function MerchantServicesPage() {
               
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
                 <div>
-                  <label style={premiumLabelStyle}>{t.merchant.merchant_services.modal.category}</label>
+                  <label style={premiumLabelStyle}>{t?.merchant?.merchant_services?.modal?.category || "Category"}</label>
                   <select 
                     value={formData.category} 
                     onChange={e => setFormData({...formData, category: e.target.value})} 
@@ -243,7 +245,7 @@ export default function MerchantServicesPage() {
                   </select>
                 </div>
                 <div>
-                  <label style={premiumLabelStyle}>{t.merchant.merchant_services.modal.pricing}</label>
+                  <label style={premiumLabelStyle}>{t?.merchant?.merchant_services?.modal?.pricing || "Pricing"}</label>
                   <div style={{ position: 'relative' }}>
                     <span style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', fontWeight: 900, color: '#d4af37' }}>£</span>
                     <input 
@@ -264,24 +266,24 @@ export default function MerchantServicesPage() {
                 <div className="animate-fade-in" style={{ padding: '1.5rem', backgroundColor: 'rgba(212,175,55,0.03)', borderRadius: '20px', border: '1px solid rgba(212,175,55,0.1)' }}>
                   <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center', marginBottom: '1rem', color: '#d4af37' }}>
                     <GraduationCap size={20} />
-                    <span style={{ fontSize: '0.9rem', fontWeight: 900 }}>{t.merchant.merchant_services.modal.eduTrack}</span>
+                    <span style={{ fontSize: '0.9rem', fontWeight: 900 }}>{t?.merchant?.merchant_services?.modal?.eduTrack || "Track & Subject"}</span>
                   </div>
                   <input 
                     required={formData.category === 'Education'}
                     value={formData.subjects} 
                     onChange={e => setFormData({...formData, subjects: e.target.value})} 
-                    placeholder={t.merchant.merchant_services.modal.eduPlaceholder}
+                    placeholder={t?.merchant?.merchant_services?.modal?.eduPlaceholder || "e.g. GCSE Maths, A-Level Physics"}
                     style={premiumInputStyle} 
                   />
                 </div>
               )}
 
               <div>
-                <label style={premiumLabelStyle}>{t.merchant.merchant_services.modal.description}</label>
+                <label style={premiumLabelStyle}>{t?.merchant?.merchant_services?.modal?.description || "Description"}</label>
                 <textarea 
                   value={formData.description} 
                   onChange={e => setFormData({...formData, description: e.target.value})} 
-                  placeholder={t.merchant.merchant_services.modal.descPlaceholder}
+                  placeholder={t?.merchant?.merchant_services?.modal?.descPlaceholder || "Describe what is included in this service..."}
                   style={{ ...premiumInputStyle, height: '140px', resize: 'none' }} 
                   onFocus={(e) => { e.currentTarget.style.borderColor = '#d4af37'; e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.05)'; }}
                   onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.15)'; e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)'; }}
@@ -293,7 +295,7 @@ export default function MerchantServicesPage() {
                 className="btn btn-primary" 
                 style={{ padding: '1.25rem', marginTop: '1rem', fontSize: '1.1rem', boxShadow: '0 10px 40px rgba(212,175,55,0.2)' }}
               >
-                 {editingService ? t.merchant.merchant_services.modal.save : t.merchant.merchant_services.modal.publish}
+                 {editingService ? (t?.merchant?.merchant_services?.modal?.save || 'Save Changes') : (t?.merchant?.merchant_services?.modal?.publish || 'Publish Service')}
               </button>
             </form>
           </div>

@@ -9,14 +9,6 @@ export default async function GaragePage() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-      {/* 🚀 INSTANT SHELL HEADER: Renders immediately */}
-      <div className="animate-fade-up">
-        <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
-          我的車庫 <span style={{ color: 'var(--accent-color)' }}>Garage</span>
-        </h1>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>管理您的所有車輛，追蹤 MOT 與保養狀態。</p>
-      </div>
-
       <GarageContent />
     </div>
   );

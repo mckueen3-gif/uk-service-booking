@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { UploadCloud, ShieldCheck, AlertCircle, CheckCircle2, Sparkles, XCircle } from "lucide-react";
+import { useTranslation } from "@/components/LanguageContext";
 import { verifyLicenseImage } from "@/app/actions/verification";
 
 export default function VerificationPage() {
+  const { t } = useTranslation();
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -45,8 +47,8 @@ export default function VerificationPage() {
   return (
     <div style={{ maxWidth: '800px', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       <div>
-        <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>AI 自動證件審核中心</h1>
-        <p style={{ color: 'var(--text-secondary)' }}>請上傳您的執業證照或身分證明，我們的 Gemini 1.5 視覺引擎會自動識別並決定是否通過認證，免去人工等待時間。</p>
+        <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>{t?.verification?.title || "AI Autonomous Audit Center"}</h1>
+        <p style={{ color: 'var(--text-secondary)' }}>{t?.verification?.subtitle || "Upload your professional license or identity documents. Our visual engine will automatically recognize and verify your status."}</p>
       </div>
 
       <div className="glass-panel" style={{ padding: '2.5rem', borderRadius: '16px', backgroundColor: 'var(--glass-bg)', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem' }}>
@@ -66,8 +68,8 @@ export default function VerificationPage() {
           ) : (
             <>
               <UploadCloud size={48} color="#94a3b8" style={{ marginBottom: '1rem' }} />
-              <div style={{ fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>點擊或拖曳上傳圖片</div>
-              <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>支援 JPG, PNG 格式 (最大 5MB)</div>
+              <div style={{ fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>{t?.verification?.upload?.prompt || "Click or drag to upload image"}</div>
+              <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{t?.verification?.upload?.specs || "Supports JPG, PNG (Max 5MB)"}</div>
             </>
           )}
         </label>
@@ -79,7 +81,7 @@ export default function VerificationPage() {
              className="btn btn-primary" 
              style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 2rem' }}
            >
-             {loading ? "視覺模型分析中..." : <><Sparkles size={18} /> 送出 AI 智能驗證</>}
+             {loading ? (t?.verification?.status?.analyzing || "Analyzing visual data...") : <><Sparkles size={18} /> {t?.verification?.submit || "Submit AI Verification"}</>}
            </button>
         )}
 
@@ -88,7 +90,7 @@ export default function VerificationPage() {
           <div style={{ width: '100%', maxWidth: '500px', backgroundColor: '#fee2e2', color: '#b91c1c', padding: '1rem', borderRadius: '8px', display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
             <AlertCircle size={20} style={{ flexShrink: 0, marginTop: '2px' }} />
             <div style={{ fontSize: '0.9rem', lineHeight: 1.5 }}>
-              <strong>系統錯誤或金鑰遺失：</strong><br /> {error}
+              <strong>{t?.verification?.error?.title || "System Error:"}</strong><br /> {error}
             </div>
           </div>
         )}
@@ -103,12 +105,12 @@ export default function VerificationPage() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
                {result.isValid ? <CheckCircle2 size={24} color="#d4af37" /> : <XCircle size={24} color="#dc2626" />}
                <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: result.isValid ? '#065f46' : '#991b1b' }}>
-                 {result.isValid ? "驗證成功！(Verified via AI)" : "驗證未通過 (Verification Failed)"}
+                 {result.isValid ? (t?.verification?.result?.success || "Verified via AI") : (t?.verification?.result?.failed || "Verification Failed")}
                </h3>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.9rem', color: '#334155' }}>
-              <div><strong>識別文件：</strong> {result.documentType}</div>
-              <div><strong>AI 判斷理由：</strong> {result.reason}</div>
+              <div><strong>{t?.verification?.result?.docTypeLabel || "Identified Document:"}</strong> {result.documentType}</div>
+              <div><strong>{t?.verification?.result?.reasonLabel || "AI Reason:"}</strong> {result.reason}</div>
             </div>
           </div>
         )}

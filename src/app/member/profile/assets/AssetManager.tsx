@@ -3,8 +3,12 @@
 import { useState, useEffect } from "react";
 import { addVehicle, addProperty, getUserAssets, deleteVehicle, deleteProperty } from "@/app/actions/profile_actions";
 import { Car, Home, Plus, Trash2, Loader2, Info, CheckCircle2 } from "lucide-react";
+import { useTranslation } from "@/components/LanguageContext";
 
 export default function AssetManager() {
+  const { t } = useTranslation();
+  const am = t?.asset_manager; // Helper
+
   const [activeTab, setActiveTab] = useState<'vehicles' | 'properties'>('vehicles');
   const [assets, setAssets] = useState<any>({ vehicles: [], properties: [] });
   const [loading, setLoading] = useState(true);
@@ -37,10 +41,10 @@ export default function AssetManager() {
     try {
       await addVehicle(vehicleForm);
       setVehicleForm({ make: '', model: '', year: '', reg: '' });
-      setMessage("Vehicle added successfully!");
+      setMessage(am?.actions?.successVehicle || "Vehicle added successfully!");
       loadAssets();
     } catch (err) {
-      alert("Error adding vehicle");
+      alert(am?.actions?.errorAdd || "Error adding vehicle");
     } finally {
       setSubmitting(false);
       setTimeout(() => setMessage(""), 3000);
@@ -53,10 +57,10 @@ export default function AssetManager() {
     try {
       await addProperty({ ...propertyForm, boilerAge: parseInt(propertyForm.boilerAge) || undefined });
       setPropertyForm({ address: '', type: 'House', boilerAge: '' });
-      setMessage("Property added successfully!");
+      setMessage(am?.actions?.successProperty || "Property added successfully!");
       loadAssets();
     } catch (err) {
-      alert("Error adding property");
+      alert(am?.actions?.errorAdd || "Error adding property");
     } finally {
       setSubmitting(false);
       setTimeout(() => setMessage(""), 3000);
@@ -64,13 +68,13 @@ export default function AssetManager() {
   };
 
   const handleDelete = async (id: string, type: 'vehicle' | 'property') => {
-    if (!confirm("Are you sure?")) return;
+    if (!confirm(am?.actions?.deleteConfirm || "Are you sure?")) return;
     try {
       if (type === 'vehicle') await deleteVehicle(id);
       else await deleteProperty(id);
       loadAssets();
     } catch (err) {
-      alert("Delete failed");
+      alert(am?.actions?.errorDelete || "Delete failed");
     }
   };
 
@@ -93,7 +97,7 @@ export default function AssetManager() {
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.6rem'
           }}
         >
-          <Car size={20} /> 我的車庫 (Garage)
+          <Car size={20} /> {am?.tabs?.garage || "Private Garage"}
         </button>
         <button 
           onClick={() => setActiveTab('properties')}
@@ -104,7 +108,7 @@ export default function AssetManager() {
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.6rem'
           }}
         >
-          <Home size={20} /> 我的物業 (Properties)
+          <Home size={20} /> {am?.tabs?.properties || "Property Portfolio"}
         </button>
       </div>
 
@@ -120,7 +124,7 @@ export default function AssetManager() {
         {/* Form Column */}
         <section className="glass-panel" style={{ padding: '2rem', borderRadius: '24px' }}>
           <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-            <Plus size={20} color="var(--accent-color)" /> {activeTab === 'vehicles' ? '新增車輛' : '新增物業'}
+            <Plus size={20} color="var(--accent-color)" /> {activeTab === 'vehicles' ? (am?.actions?.addVehicle || 'Register Vehicle') : (am?.actions?.addProperty || 'Register Property')}
           </h3>
           
           <form onSubmit={activeTab === 'vehicles' ? handleAddVehicle : handleAddProperty} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
@@ -128,21 +132,21 @@ export default function AssetManager() {
               <>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                   <div className="input-group">
-                    <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', display: 'block' }}>廠牌 (Make)</label>
+                    <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', display: 'block' }}>{am?.forms?.vehicle?.make || "Manufacturer"}</label>
                     <input required value={vehicleForm.make} onChange={e => setVehicleForm({...vehicleForm, make: e.target.value})} placeholder="Toyota" style={{ width: '100%', padding: '0.8rem', borderRadius: '12px', backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white' }} />
                   </div>
                   <div className="input-group">
-                    <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', display: 'block' }}>型號 (Model)</label>
+                    <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', display: 'block' }}>{am?.forms?.vehicle?.model || "Model Node"}</label>
                     <input required value={vehicleForm.model} onChange={e => setVehicleForm({...vehicleForm, model: e.target.value})} placeholder="Camry" style={{ width: '100%', padding: '0.8rem', borderRadius: '12px', backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white' }} />
                   </div>
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                   <div className="input-group">
-                    <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', display: 'block' }}>年份 (Year)</label>
+                    <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', display: 'block' }}>{am?.forms?.vehicle?.year || "Production Year"}</label>
                     <input required value={vehicleForm.year} onChange={e => setVehicleForm({...vehicleForm, year: e.target.value})} placeholder="2022" style={{ width: '100%', padding: '0.8rem', borderRadius: '12px', backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white' }} />
                   </div>
                   <div className="input-group">
-                    <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', display: 'block' }}>車牌 (Registration)</label>
+                    <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', display: 'block' }}>{am?.forms?.vehicle?.reg || "Registry Plate"}</label>
                     <input value={vehicleForm.reg} onChange={e => setVehicleForm({...vehicleForm, reg: e.target.value})} placeholder="ABC-123" style={{ width: '100%', padding: '0.8rem', borderRadius: '12px', backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white' }} />
                   </div>
                 </div>
@@ -150,20 +154,20 @@ export default function AssetManager() {
             ) : (
               <>
                 <div className="input-group">
-                  <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', display: 'block' }}>完整地址 (Full Address)</label>
+                  <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', display: 'block' }}>{am?.forms?.property?.address || "Full Address"}</label>
                   <input required value={propertyForm.address} onChange={e => setPropertyForm({...propertyForm, address: e.target.value})} placeholder="123 High St, London" style={{ width: '100%', padding: '0.8rem', borderRadius: '12px', backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white' }} />
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                   <div className="input-group">
-                    <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', display: 'block' }}>類型 (Type)</label>
+                    <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', display: 'block' }}>{am?.forms?.property?.type || "Type"}</label>
                     <select value={propertyForm.type} onChange={e => setPropertyForm({...propertyForm, type: e.target.value})} style={{ width: '100%', padding: '0.8rem', borderRadius: '12px', backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white' }}>
-                      <option>House</option>
-                      <option>Flat/Apartment</option>
-                      <option>Office</option>
+                      <option value="House">{am?.forms?.property?.types?.house || "House"}</option>
+                      <option value="Flat/Apartment">{am?.forms?.property?.types?.flat || "Flat/Apartment"}</option>
+                      <option value="Office">{am?.forms?.property?.types?.office || "Office"}</option>
                     </select>
                   </div>
                   <div className="input-group">
-                    <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', display: 'block' }}>鍋爐機齡 (Boiler Age)</label>
+                    <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', display: 'block' }}>{am?.forms?.property?.boilerAge || "Boiler Age"}</label>
                     <input type="number" value={propertyForm.boilerAge} onChange={e => setPropertyForm({...propertyForm, boilerAge: e.target.value})} placeholder="Years" style={{ width: '100%', padding: '0.8rem', borderRadius: '12px', backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white' }} />
                   </div>
                 </div>
@@ -174,7 +178,7 @@ export default function AssetManager() {
               disabled={submitting}
               style={{ padding: '1rem', borderRadius: '14px', backgroundColor: 'var(--accent-color)', color: 'white', fontWeight: 700, border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.6rem', marginTop: '1rem' }}
             >
-              {submitting ? <Loader2 className="animate-spin" size={20} /> : <><Plus size={20}/> 立即保存</>}
+              {submitting ? <Loader2 className="animate-spin" size={20} /> : <><Plus size={20}/> {am?.actions?.save || "Save Asset"}</>}
             </button>
           </form>
         </section>
@@ -186,7 +190,7 @@ export default function AssetManager() {
               <div style={{ width: '64px', height: '64px', borderRadius: '50%', backgroundColor: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1rem' }}>
                 <Info size={32} color="#64748b" />
               </div>
-              <p style={{ color: '#64748b' }}>目前沒有任何{activeTab === 'vehicles' ? '車輛' : '物業'}記錄。</p>
+              <p style={{ color: '#64748b' }}>{activeTab === 'vehicles' ? (am?.empty?.vehicles || 'No vehicles found') : (am?.empty?.properties || 'No properties found')}</p>
             </div>
           ) : (
             (activeTab === 'vehicles' ? assets.vehicles : assets.properties).map((item: any) => (

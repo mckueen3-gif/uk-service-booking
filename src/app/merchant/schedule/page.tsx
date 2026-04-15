@@ -48,13 +48,13 @@ export default function MerchantSchedulePage() {
     const res = await rescheduleBooking(selectedBooking.id, newDate);
     if (res.success) {
       setBookings(prev => prev.map(b => b.id === selectedBooking.id ? { ...b, scheduledDate: new Date(newDate) } : b));
-      setMsg({ type: 'success', text: t.merchant.merchant_schedule.reschedule.success });
+      setMsg({ type: 'success', text: t?.merchant?.merchant_schedule?.reschedule?.success || "Schedule updated successfully" });
       setTimeout(() => {
         setModalOpen(false);
         setMsg(null);
       }, 2000);
     } else {
-      setMsg({ type: 'error', text: t.merchant.merchant_schedule.reschedule.failed });
+      setMsg({ type: 'error', text: t?.merchant?.merchant_schedule?.reschedule?.failed || "Update failed" });
       setSaving(false);
     }
   };
@@ -147,10 +147,10 @@ export default function MerchantSchedulePage() {
       <header style={{ marginBottom: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
           <h1 style={{ fontSize: '2.2rem', fontWeight: 950, color: 'var(--text-primary)', letterSpacing: '-0.03em' }}>
-            {t.merchant.merchant_schedule.title.split(' ')[0]} <span style={{ color: 'var(--accent-color)' }}>{t.merchant.merchant_schedule.title.split(' ')[1] || ""}</span>
+            {(t?.merchant?.merchant_schedule?.title || "Staff Schedule").split(' ')[0]} <span style={{ color: 'var(--accent-color)' }}>{(t?.merchant?.merchant_schedule?.title || "").split(' ')[1] || ""}</span>
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>
-            {t.merchant.merchant_schedule.subtitle}
+            {t?.merchant?.merchant_schedule?.subtitle || "Coordinate your service portfolio and availability."}
           </p>
         </div>
         
@@ -179,15 +179,15 @@ export default function MerchantSchedulePage() {
       <div style={{ marginTop: '2.5rem', display: 'flex', gap: '2rem', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
           <div style={{ width: '12px', height: '12px', borderRadius: '3px', backgroundColor: '#f59e0b22', border: '1px solid #f59e0b44' }}></div>
-          {t.merchant.merchant_schedule.pending}
+          {t?.merchant?.merchant_schedule?.pending || "Pending"}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
           <div style={{ width: '12px', height: '12px', borderRadius: '3px', backgroundColor: '#10b98122', border: '1px solid #10b98144' }}></div>
-          {t.merchant.merchant_schedule.confirmed}
+          {t?.merchant?.merchant_schedule?.confirmed || "Confirmed"}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
           <div style={{ width: '12px', height: '12px', borderRadius: '3px', backgroundColor: 'rgba(212, 175, 55, 0.05)', border: '1px solid var(--accent-color)' }}></div>
-          {t.merchant.merchant_schedule.today}
+          {t?.merchant?.merchant_schedule?.today || "Today"}
         </div>
       </div>
 
@@ -226,18 +226,18 @@ export default function MerchantSchedulePage() {
               <div style={{ display: 'grid', gap: '0.8rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
                   <Clock size={20} /> 
-                  <span>{t.merchant.merchant_schedule.details.current}: {new Date(selectedBooking.scheduledDate).toLocaleString()}</span>
+                  <span>{t?.merchant?.merchant_schedule?.details?.current || "Current"}: {new Date(selectedBooking.scheduledDate).toLocaleString()}</span>
                 </div>
                 {selectedBooking.customer?.phone && (
                   <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
                     <MapPin size={20} /> 
-                    <span>{t.merchant.merchant_schedule.details.phone}: {selectedBooking.customer.phone}</span>
+                    <span>{t?.merchant?.merchant_schedule?.details?.phone || "Phone"}: {selectedBooking.customer.phone}</span>
                   </div>
                 )}
               </div>
 
                <div style={{ backgroundColor: 'var(--bg-secondary)', padding: '2rem', borderRadius: '24px', border: '1.5px solid var(--border-color)' }}>
-                <label style={{ display: 'block', fontWeight: 900, marginBottom: '1rem', color: 'var(--text-primary)' }}>{t.merchant.merchant_schedule.reschedule.title}</label>
+                <label style={{ display: 'block', fontWeight: 900, marginBottom: '1rem', color: 'var(--text-primary)' }}>{t?.merchant?.merchant_schedule?.reschedule?.title || "Reschedule Deployment"}</label>
                 <div style={{ display: 'flex', gap: '1rem' }}>
                   <input 
                     type="datetime-local" 
@@ -254,18 +254,18 @@ export default function MerchantSchedulePage() {
                     {saving ? <Loader2 className="animate-spin" size={20} /> : <Save size={20} />}
                   </button>
                 </div>
-                <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.75rem' }}>{t.merchant.merchant_schedule.notice}</p>
+                <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.75rem' }}>{t?.merchant?.merchant_schedule?.notice || "Customer will be notified of the adjustment."}</p>
               </div>
 
                <div style={{ display: 'flex', gap: '1rem' }}>
                 <Link href={`/dashboard/chat?customerId=${selectedBooking.customerId}`} style={{ flex: 1, textDecoration: 'none' }}>
                   <button className="btn" style={{ width: '100%', padding: '1.25rem', borderRadius: '16px', border: '1.5px solid var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', fontWeight: 800 }}>
-                    <MessageSquare size={20} /> {t.merchant.merchant_schedule.details.chat}
+                    <MessageSquare size={20} /> {t?.merchant?.merchant_schedule?.details?.chat || "Secure Chat"}
                   </button>
                 </Link>
                 <Link href={`/webhook/mock/stripe-checkout?bookingId=${selectedBooking.id}`} style={{ flex: 1, textDecoration: 'none' }}>
                   <button className="btn" style={{ width: '100%', padding: '1.25rem', borderRadius: '16px', border: '1.5px solid var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', fontWeight: 800 }}>
-                    <ExternalLink size={20} /> {t.merchant.merchant_schedule.details.viewOrder}
+                    <ExternalLink size={20} /> {t?.merchant?.merchant_schedule?.details?.viewOrder || "View Order"}
                   </button>
                 </Link>
               </div>

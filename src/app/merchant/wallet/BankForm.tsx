@@ -61,16 +61,16 @@ export default function BankForm({ initialSortCode = "", initialAccountNumber = 
     <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1.5rem' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
         <h3 style={{ fontSize: '1.1rem', fontWeight: 900, display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#fff' }}>
-          <Landmark size={20} color="#d4af37" /> {t.merchant.merchant_wallet.banking.title}
+          <Landmark size={20} color="#d4af37" /> {t?.merchant?.merchant_wallet?.banking?.title || "Asset Disbursement Connection"}
         </h3>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.7rem', color: '#666', fontWeight: 700, textTransform: 'uppercase' }}>
-          <ShieldCheck size={14} color="#059669" /> {t.merchant.merchant_wallet.banking.encrypted}
+          <ShieldCheck size={14} color="#059669" /> {t?.merchant?.merchant_wallet?.banking?.encrypted || "AES-256 Protocol"}
         </div>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
         <div style={{ gridColumn: 'span 1' }}>
-          <label style={labelStyle}>{t.merchant.merchant_wallet.banking.sortCode}</label>
+          <label style={labelStyle}>{t?.merchant?.merchant_wallet?.banking?.sortCode || "Sort Code"}</label>
           <div style={{ position: 'relative' }}>
             <input 
               type="text" 
@@ -92,7 +92,7 @@ export default function BankForm({ initialSortCode = "", initialAccountNumber = 
           </div>
         </div>
         <div style={{ gridColumn: 'span 1' }}>
-          <label style={labelStyle}>{t.merchant.merchant_wallet.banking.accountNumber}</label>
+          <label style={labelStyle}>{t?.merchant?.merchant_wallet?.banking?.accountNumber || "Account Number"}</label>
           <input 
             type="text" 
             placeholder="XXXXXXXX" 
@@ -114,7 +114,7 @@ export default function BankForm({ initialSortCode = "", initialAccountNumber = 
       </div>
       
       <p style={{ fontSize: '0.75rem', color: '#555', marginTop: '-0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-        <Info size={14} /> {t.merchant.merchant_wallet.banking.tip}
+        <Info size={14} /> {t?.merchant?.merchant_wallet?.banking?.tip || "Verify node credentials with your issuing authority."}
       </p>
 
       <button 
@@ -158,11 +158,11 @@ export default function BankForm({ initialSortCode = "", initialAccountNumber = 
           <Loader2 className="animate-spin" size={20} />
         ) : saved ? (
           <>
-            <CheckCircle2 size={20} /> {t.merchant.merchant_wallet.banking.saved}
+            <CheckCircle2 size={20} /> {t?.merchant?.merchant_wallet?.banking?.saved || "UPLINK SUCCESS"}
           </>
         ) : (
           <>
-            <CreditCard size={20} /> {t.merchant.merchant_wallet.banking.update}
+            <CreditCard size={20} /> {t?.merchant?.merchant_wallet?.banking?.update || "Calibrate Bank Node"}
           </>
         )}
       </button>

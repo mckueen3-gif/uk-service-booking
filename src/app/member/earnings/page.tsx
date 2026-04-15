@@ -7,9 +7,11 @@ import {
   CheckCircle2, Clock, AlertCircle
 } from 'lucide-react';
 import { getEarningsStats } from "@/app/actions/finance";
+import { useTranslation } from "@/components/LanguageContext";
 import Link from "next/link";
 
 export default function EarningsPage() {
+  const { t } = useTranslation();
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -34,7 +36,7 @@ export default function EarningsPage() {
   const jobs = data?.merchant?.completedJobsCount || 0;
 
   const getTierInfo = () => {
-    return { label: "精英專家 (Elite Merchant)", rate: "9%", next: "已達標準費率" };
+    return { label: t?.earnings?.tierLabel || "Elite Merchant", rate: "9%", next: t?.earnings?.tierMaxed || "Reached standard rate" };
   };
 
   const tier = getTierInfo();
@@ -43,11 +45,11 @@ export default function EarningsPage() {
     <div className="animate-fade-in">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
         <div>
-          <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-primary)' }}>收入統計 (Earnings)</h1>
-          <p style={{ color: 'var(--text-secondary)' }}>管理您的錢包、查看交易流水與申請提領</p>
+          <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-primary)' }}>{t?.earnings?.title || "Earnings"}</h1>
+          <p style={{ color: 'var(--text-secondary)' }}>{t?.earnings?.subtitle || "Manage your wallet, view transaction flow and request withdrawals"}</p>
         </div>
         <Link href="/member/earnings/payout" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
-           <ArrowDownCircle size={18} /> 申請提領
+           <ArrowDownCircle size={18} /> {t?.earnings?.payoutCTA || "Request Withdrawal"}
         </Link>
       </div>
 
@@ -57,29 +59,29 @@ export default function EarningsPage() {
            <div style={{ position: 'absolute', top: '-10px', right: '-10px', opacity: 0.1 }}>
               <Wallet size={100} color="var(--accent-color)" />
            </div>
-           <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '0.5rem' }}>可用餘額 (Available)</p>
+           <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '0.5rem' }}>{t?.earnings?.available || "Available"}</p>
            <h2 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-primary)' }}>£{wallet.availableBalance.toFixed(2)}</h2>
            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.5rem', fontSize: '0.8rem', color: '#facc15' }}>
-              <CheckCircle2 size={14} /> 可隨時提領
+              <CheckCircle2 size={14} /> {t?.earnings?.availableDesc || "Ready for withdrawal"}
            </div>
         </div>
 
         <div className="glass-panel" style={{ padding: '1.5rem', borderRadius: '24px' }}>
-           <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '0.5rem' }}>累積總收入 (Total Earned)</p>
+           <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '0.5rem' }}>{t?.earnings?.total || "Total Earned"}</p>
            <h2 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-primary)' }}>£{wallet.totalEarned.toFixed(2)}</h2>
            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.5rem', fontSize: '0.8rem', color: 'var(--accent-color)' }}>
-              <TrendingUp size={14} /> 持續增長中
+              <TrendingUp size={14} /> {t?.earnings?.growthDesc || "Continuously growing"}
            </div>
         </div>
 
         <div className="glass-panel" style={{ padding: '1.5rem', borderRadius: '24px', background: 'linear-gradient(135deg, rgba(15, 118, 110, 0.05), rgba(99, 102, 241, 0.05))' }}>
-           <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '0.5rem' }}>目前手續費級別 (Tier)</p>
+           <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '0.5rem' }}>{t?.earnings?.tierTitle || "Current Tier"}</p>
            <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0f766e' }}>{tier.label}</h2>
            <div style={{ fontSize: '0.85rem', marginTop: '0.5rem', color: 'var(--text-primary)' }}>
-              當前費率: <span style={{ fontWeight: 700 }}>{tier.rate}</span>
+              {t?.earnings?.rateLabel || "Current Rate"}: <span style={{ fontWeight: 700 }}>{tier.rate}</span>
            </div>
            <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
-              下一步: {tier.next}
+              {t?.earnings?.nextStep || "Next Step"}: {tier.next}
            </div>
         </div>
       </div>
@@ -89,11 +91,11 @@ export default function EarningsPage() {
         <div className="glass-panel" style={{ padding: '1.5rem', borderRadius: '24px' }}>
            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
               <History size={20} color="var(--accent-color)" />
-              <h3 style={{ fontWeight: 800 }}>最近收入紀錄 (Recent Jobs)</h3>
+              <h3 style={{ fontWeight: 800 }}>{t?.earnings?.recentJobs || "Recent Earnings"}</h3>
            </div>
            
            {data.recentBookings.length === 0 ? (
-             <p style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-secondary)' }}>尚無完成的訂單紀錄</p>
+             <p style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-secondary)' }}>{t?.earnings?.noJobs || "No order records yet"}</p>
            ) : (
              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                {data.recentBookings.map((b: any) => (
@@ -109,7 +111,7 @@ export default function EarningsPage() {
                     </div>
                     <div style={{ textAlign: 'right' }}>
                        <p style={{ fontWeight: 800, color: '#facc15' }}>+£{b.totalAmount.toFixed(2)}</p>
-                       <p style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>已入帳</p>
+                       <p style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>{t?.earnings?.jobStatus || "Settled"}</p>
                     </div>
                  </div>
                ))}
@@ -120,9 +122,9 @@ export default function EarningsPage() {
         {/* Payout History / Info */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
            <div className="glass-panel" style={{ padding: '1.5rem', borderRadius: '24px' }}>
-              <h3 style={{ fontWeight: 800, fontSize: '1rem', marginBottom: '1rem' }}>提領紀錄 (Withdrawals)</h3>
+              <h3 style={{ fontWeight: 800, fontSize: '1rem', marginBottom: '1rem' }}>{t?.earnings?.withdrawals || "Withdrawals"}</h3>
               {data.recentWithdrawals.length === 0 ? (
-                <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>尚無提領紀錄</p>
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>{t?.earnings?.noWithdrawals || "No withdrawal records yet"}</p>
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                    {data.recentWithdrawals.map((w: any) => (
@@ -148,9 +150,9 @@ export default function EarningsPage() {
               <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
                  <AlertCircle size={18} color="var(--accent-color)" style={{ marginTop: '2px' }} />
                  <div>
-                    <h4 style={{ fontSize: '0.9rem', fontWeight: 700, marginBottom: '0.25rem' }}>關於提領</h4>
+                    <h4 style={{ fontSize: '0.9rem', fontWeight: 700, marginBottom: '0.25rem' }}>{t?.earnings?.aboutPayout || "About Payouts"}</h4>
                     <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
-                       提領申請通常在 1-3 個工作天內處理完畢。請確保您的銀行帳號資訊準確，以避免撥款失敗。
+                       {t?.earnings?.payoutInfo || "Withdrawal requests are usually processed within 1-3 business days. Please ensure your bank information is accurate."}
                     </p>
                  </div>
               </div>

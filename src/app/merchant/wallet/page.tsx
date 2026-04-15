@@ -52,9 +52,9 @@ export default function MerchantWalletPage() {
       {/* Header */}
       <div className="animate-fade-up">
         <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem', color: '#fff' }}>
-          {t.merchant.merchant_wallet.title.split('&')[0]} & <span style={{ color: '#d4af37' }}>{t.merchant.merchant_wallet.title.split('&')[1] || "Earnings"}</span>
+          {(t?.merchant?.merchant_wallet?.title || "Wallet & Earnings").split('&')[0]} & <span style={{ color: '#d4af37' }}>{(t?.merchant?.merchant_wallet?.title || "Wallet & Earnings").split('&')[1] || "Earnings"}</span>
         </h1>
-        <p style={{ color: '#999', fontSize: '1.1rem' }}>{t.merchant.merchant_wallet.subtitle}</p>
+        <p style={{ color: '#999', fontSize: '1.1rem' }}>{t?.merchant?.merchant_wallet?.subtitle || "Manage your specialist assets"}</p>
       </div>
 
       {/* Expert Referral Hub - New Feature Injection */}
@@ -73,8 +73,8 @@ export default function MerchantWalletPage() {
             <Sparkles size={20} color="#d4af37" />
           </div>
           <div>
-            <h3 style={{ fontSize: '1rem', fontWeight: 900, color: '#fff', margin: 0 }}>{t.merchant.merchant_wallet.referral.title}</h3>
-            <p style={{ fontSize: '0.8rem', color: '#666', margin: 0 }}>{t.merchant.merchant_wallet.referral.subtitle}</p>
+            <h3 style={{ fontSize: '1rem', fontWeight: 900, color: '#fff', margin: 0 }}>{t?.merchant?.merchant_wallet?.referral?.title || "Expert Referral"}</h3>
+            <p style={{ fontSize: '0.8rem', color: '#666', margin: 0 }}>{t?.merchant?.merchant_wallet?.referral?.subtitle || "Scale the network and earn yield."}</p>
           </div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -95,7 +95,7 @@ export default function MerchantWalletPage() {
             onClick={() => {
               const code = (session?.user as any)?.referralCode;
               if (code) navigator.clipboard.writeText(code);
-              alert(t.merchant.merchant_wallet.referral.copied);
+              alert(t?.merchant?.merchant_wallet?.referral?.copied || "Copied!");
             }}
             style={{ 
               backgroundColor: '#d4af37', 
@@ -111,7 +111,7 @@ export default function MerchantWalletPage() {
             onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
             onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
           >
-            {t.merchant.merchant_wallet.referral.copy}
+            {t?.merchant?.merchant_wallet?.referral?.copy || "Copy"}
           </button>
         </div>
       </div>
@@ -132,13 +132,13 @@ export default function MerchantWalletPage() {
           <div style={{ position: 'absolute', top: '-10%', right: '-10%', opacity: 0.1, color: '#d4af37' }}>
             <Wallet size={180} />
           </div>
-          <div style={{ marginBottom: '1.5rem', opacity: 0.6, fontSize: '0.85rem', fontWeight: 800, letterSpacing: '0.1em', color: '#d4af37' }}>{t.merchant.merchant_wallet.available.toUpperCase()}</div>
+          <div style={{ marginBottom: '1.5rem', opacity: 0.6, fontSize: '0.85rem', fontWeight: 800, letterSpacing: '0.1em', color: '#d4af37' }}>{(t?.merchant?.merchant_wallet?.available || "Available").toUpperCase()}</div>
           <div style={{ marginBottom: '2rem' }}>
             <span style={{ fontSize: '1.5rem', fontWeight: 600, marginRight: '0.4rem', color: '#d4af37' }}>£</span>
             <span style={{ fontSize: '4.5rem', fontWeight: 900 }}>{wallet?.availableBalance?.toFixed(2) || "0.00"}</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', fontWeight: 700, color: '#d4af37' }}>
-            <CheckCircle2 size={16} /> {t.merchant.merchant_wallet.postFee}
+            <CheckCircle2 size={16} /> {t?.merchant?.merchant_wallet?.postFee || "Net available after platform fee"}
           </div>
         </div>
     
@@ -176,7 +176,7 @@ export default function MerchantWalletPage() {
           <div style={{ padding: '2rem', borderRadius: '28px', backgroundColor: '#0c0c0c', border: '1px solid #222' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
               <Landmark size={24} color="#d4af37" />
-              <h2 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#fff' }}>{t.merchant.merchant_wallet.banking.title}</h2>
+              <h2 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#fff' }}>{t?.merchant?.merchant_wallet?.banking?.title || "Banking Details"}</h2>
             </div>
             
             <div style={{ marginBottom: '2.5rem' }}>
@@ -186,7 +186,7 @@ export default function MerchantWalletPage() {
             <hr style={{ border: 'none', borderTop: '1px solid #222', margin: '2rem 0' }} />
 
             <div>
-              <h3 style={{ fontSize: '1rem', fontWeight: 900, color: '#fff', marginBottom: '1.25rem' }}>{t.merchant.merchant_wallet.payout.title}</h3>
+              <h3 style={{ fontSize: '1rem', fontWeight: 900, color: '#fff', marginBottom: '1.25rem' }}>{t?.merchant?.merchant_wallet?.payout?.title || "Payout Request"}</h3>
               <WithdrawForm availableBalance={wallet?.availableBalance || 0} />
             </div>
           </div>
@@ -207,10 +207,10 @@ export default function MerchantWalletPage() {
                 <div style={{ backgroundColor: '#050505', padding: '1.5rem', borderRadius: '20px', border: '1px solid #222' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.75rem', color: '#d4af37' }}>
                     <Info size={16} />
-                    <span style={{ fontWeight: 900, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{t.merchant.merchant_wallet.terms.rights}</span>
+                    <span style={{ fontWeight: 900, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{t?.merchant?.merchant_wallet?.terms?.rights || "Expert Rights"}</span>
                   </div>
                   <ul style={{ fontSize: '0.85rem', color: '#999', paddingLeft: '1.2rem', margin: 0, lineHeight: 1.6 }}>
-                    {t.merchant.merchant_wallet.terms.rules.map((rule: string, idx: number) => (
+                    {(t?.merchant?.merchant_wallet?.terms?.rules || ["Secure Escrow Protocol", "T+7 Settlement Cycle"]).map((rule: string, idx: number) => (
                       <li key={idx}>
                         {rule.includes(':') ? (
                           <>
@@ -240,22 +240,22 @@ export default function MerchantWalletPage() {
         <div style={{ padding: '2.5rem', borderRadius: '32px', backgroundColor: '#0c0c0c', border: '1px solid #222' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
             <History size={24} color="#d4af37" />
-            <h2 style={{ fontSize: '1.35rem', fontWeight: 900, color: '#fff' }}>{t.merchant.merchant_wallet.history.title}</h2>
+            <h2 style={{ fontSize: '1.35rem', fontWeight: 900, color: '#fff' }}>{t?.merchant?.merchant_wallet?.history?.title || "Asset History"}</h2>
           </div>
           
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid #222', color: '#555', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                  <th style={{ paddingBottom: '1rem', fontWeight: 800 }}>{t.merchant.merchant_wallet.history.date}</th>
-                  <th style={{ paddingBottom: '1rem', fontWeight: 800 }}>{t.merchant.merchant_wallet.history.amount}</th>
-                  <th style={{ paddingBottom: '1rem', fontWeight: 800 }}>{t.merchant.merchant_wallet.history.status}</th>
+                  <th style={{ paddingBottom: '1rem', fontWeight: 800 }}>{t?.merchant?.merchant_wallet?.history?.date || "Initiated"}</th>
+                  <th style={{ paddingBottom: '1rem', fontWeight: 800 }}>{t?.merchant?.merchant_wallet?.history?.amount || "Amount"}</th>
+                  <th style={{ paddingBottom: '1rem', fontWeight: 800 }}>{t?.merchant?.merchant_wallet?.history?.status || "Audit Status"}</th>
                 </tr>
               </thead>
               <tbody>
                 {recentWithdrawals.length === 0 ? (
                   <tr>
-                    <td colSpan={3} style={{ padding: '4rem', textAlign: 'center', color: '#444', fontSize: '1rem', fontWeight: 600 }}>{t.merchant.merchant_wallet.history.empty}</td>
+                    <td colSpan={3} style={{ padding: '4rem', textAlign: 'center', color: '#444', fontSize: '1rem', fontWeight: 600 }}>{t?.merchant?.merchant_wallet?.history?.empty || "No verified transactions found"}</td>
                   </tr>
                 ) : (
                   recentWithdrawals.map((req: any) => (

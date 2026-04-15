@@ -23,7 +23,7 @@ export const zhTW: Dictionary = {
     labels: {
       overview: "總覽",
       bookings: "我的預約",
-      messages: "即時訊息",
+      messages: "Nexus 連絡中心",
       schedule: "服務日程",
       services: "服務管理",
       availability: "可用時段",
@@ -708,60 +708,70 @@ export const zhTW: Dictionary = {
       avatar: { hint: "更新身份頭像", errorSize: "超過 2MB", success: "頭像已保存！", upload: "上傳" },
       tips: { growth: "更新您的操作存檔可將提取率提升 30%。" },
     },
-    merchant_profile: {
-      title: "個人設定",
-      subtitle: "更新您的專業操作身份。",
-      save: "更新節點",
-      sections: { basic: "身份信息", address: "地理坐標", business: "實體名稱", categories: "專業領域", branding: "視覺品牌" },
-      labels: {
-        name: "真實名稱",
-        bio: "專家情報",
-        bioPlaceholder: "描述您的專業背景與優勢...",
-        city: "服務城市",
-        addressLine1: "地址 1",
-        addressLine2: "地址 2",
-        postcode: "節點郵編",
-        phone: "聯络電話",
-        email: "認證郵件",
-        emailReadOnly: "唯讀",
-        businessName: "實體名稱",
-        businessNamePlaceholder: "註冊業務名稱",
-        mainCategory: "首要領域",
-        experience: "從業年資 (年)",
-        placeholderName: "John Doe",
-        placeholderPhone: "+44 (0) XXXX XXXX",
-      },
-      status: { saving: "同步中...", success: "節點已更新" },
-      share: {
-        title: "分享專家節點",
-        subtitle: "向您的社交網絡推廣您的專業檔案。"
-      }
+  },
+  merchant_profile: {
+    title: "個人設定",
+    subtitle: "更新您的專業操作身份。",
+    save: "更新節點",
+    sections: { basic: "身份信息", address: "地理坐標", business: "實體名稱", categories: "專業領域", branding: "視覺品牌" },
+    labels: {
+      name: "真實名稱",
+      bio: "專家情報",
+      bioPlaceholder: "描述您的專業背景與優勢...",
+      city: "服務城市",
+      addressLine1: "地址 1",
+      addressLine2: "地址 2",
+      postcode: "節點郵編",
+      phone: "聯络電話",
+      email: "認證郵件",
+      emailReadOnly: "唯讀",
+      businessName: "實體名稱",
+      businessNamePlaceholder: "註冊業務名稱",
+      mainCategory: "首要領域",
+      experience: "從業年資 (年)",
+      placeholderName: "John Doe",
+      placeholderPhone: "+44 (0) XXXX XXXX",
     },
-    merchant_messages: { title: "Nexus 中心", subtitle: "加密通訊網格。", hub: "聯络樞紐", hubDesc: "與各個活動節點保持實時連結。", empty: "目前無活動傳輸。", placeholder: "輸入訊息...", send: "推送" },
-    portfolio_mgr: {
-      title: "操作存檔",
-      subtitle: "展示先前成功任務的證明。",
-      addBtn: "登記新任務",
-      emptyTitle: "暫無操作存檔",
-      emptyDesc: "上傳您的完工作品以建立節點聲望。",
-      modal: {
-        title: "登記新任務",
-        itemTitle: "任務編號/標題",
-        itemTitlePlaceholder: "例如：中心公園翻新工程",
-        category: "領域",
-        uploadPhoto: "證據上傳 (IMG)",
-        errorSize: "檔案過大 (>2MB)",
-        details: "補救分析",
-        aiBtn: "AI 合成",
-        aiGenerating: "神經處理中...",
-        detailsPlaceholder: "描述您的技術方案...",
-        cancel: "中止",
-        publish: "部署至網格",
-      },
-      deleteConfirm: "從記憶體中清除此日誌？",
-      addError: "傳輸失敗",
-      aiError: "神經鏈接忙碌（需要標題）",
+    status: { saving: "同步中...", success: "節點已更新" },
+    share: {
+      title: "分享專家節點",
+      subtitle: "向您的社交網絡推廣您的專業檔案。"
+    }
+  },
+  merchant_messages: { 
+    title: "Nexus 連絡中心", 
+    subtitle: "加密的網格通訊鏈接。",
+    search: "搜尋活躍節點...",
+    empty: "查無任何通訊紀錄。",
+    startPrompt: "正在初始化安全連結...",
+    targetName: "正在建立節點聯繫...",
+    inputPlaceholder: "推送訊息至網格...",
+    selectChat: "請選擇一個對話以開始",
+    selectChatDesc: "溝通維修細節、上傳影像證據，或查詢專家狀態。"
+  },
+  portfolio_mgr: {
+    title: "操作存檔",
+    subtitle: "展示先前成功任務的證明。",
+    addBtn: "登記新任務",
+    emptyTitle: "暫無操作存檔",
+    emptyDesc: "上傳您的完工作品以建立節點聲望。",
+    modal: {
+      title: "登記新任務",
+      itemTitle: "任務編號/標題",
+      itemTitlePlaceholder: "例如：中心公園翻新工程",
+      category: "領域",
+      uploadPhoto: "證據上傳 (IMG)",
+      errorSize: "檔案過大 (>2MB)",
+      details: "補救分析",
+      aiBtn: "AI 合成",
+      aiGenerating: "神經處理中...",
+      detailsPlaceholder: "描述您的技術方案...",
+      cancel: "中止",
+      publish: "部署至網格",
     },
+    deleteConfirm: "從記憶體中清除此日誌？",
+    addError: "傳輸失敗",
+    aiError: "神經鏈接忙碌（需要標題）",
   },
   customer_dashboard: {
     welcomeBack: "歡迎回到控制台。",
@@ -1069,4 +1079,78 @@ export const zhTW: Dictionary = {
   },
   profile: {},
   notifications: {},
+  repair_tracker: {
+    title: "維修進度狀態 (Repair Status)",
+    stages: {
+      pending: "預約已確認 (Booking Confirmed)",
+      pending_desc: "等待技師進行初步檢測",
+      in_progress: "分診與維修中 (Triage & Remediation)",
+      in_progress_desc: "專家正在處理您的車輛",
+      fixed: "維修已完成 (Remediation Completed)",
+      fixed_desc: "車輛已就緒，等待提取",
+      completed: "任務圓滿結束 (Mission Finalized)",
+      completed_desc: "感謝您選擇 ConciergeAI"
+    },
+    billing: {
+      title: "帳單明細摘要 (Billing Summary)",
+      initialFee: "初始診斷費 (已在線支付)",
+      additional: "額外人工與零件費用",
+      totalCost: "預估總成本",
+      payAtWorkshop: "現場應付金額",
+      successTitle: "維修任務成功完成！",
+      successDesc: "現場結算已完成。如果您對服務滿意，請提供品質反饋。",
+      rateBtn: "提交品質記錄",
+      workshopNote: "完工後，請直接與技師結清 **現場應付金額**。我們將提供正式服務手冊。"
+    },
+    location: {
+      title: "維修中心地理節點 (Workshop Geospatial Node)",
+      getDirections: "導航至節點 (Scan Directions)",
+      callWorkshop: "建立語音聯繫 (Audio Liaison)"
+    },
+    evidence: {
+      title: "維修存檔與證據 (Remediation Archive & Evidence)",
+      waiting: "正在等待專家上傳檢漏遙測數據...",
+      accept: "授權施工",
+      enquire: "查詢詳細資訊"
+    }
+  },
+  asset_manager: {
+    tabs: {
+      garage: "我的車庫",
+      properties: "我的物業"
+    },
+    actions: {
+      addVehicle: "新增車輛",
+      addProperty: "新增物業",
+      save: "立即保存",
+      saving: "正在同步節點...",
+      deleteConfirm: "確定要從記憶體中清除此資產嗎？",
+      successVehicle: "車輛已持久化！",
+      successProperty: "物業已持久化！",
+      errorAdd: "登記失敗",
+      errorDelete: "解除登記失敗"
+    },
+    forms: {
+      vehicle: {
+        make: "廠牌 (Make)",
+        model: "型號 (Model)",
+        year: "年份 (Year)",
+        reg: "車牌 (Registration)"
+      },
+      property: {
+        address: "完整地址 (Full Address)",
+        type: "類型 (Type)",
+        boilerAge: "鍋爐機齡 (Boiler Age)",
+        types: {
+          house: "獨立屋 / 半獨立屋",
+          flat: "公寓 / 單位",
+          office: "商務辦公室"
+        }
+      }
+    },
+    empty: {
+      vehicles: "目前沒有任何車輛記錄。",
+      properties: "目前沒有任何物業記錄。"
+    }
+  }
 };

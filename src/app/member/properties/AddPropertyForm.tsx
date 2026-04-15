@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import { useTranslation } from '@/components/LanguageContext';
 import { addProperty } from '@/app/actions/properties';
 import { Loader2, Home, MapPin, CheckCircle2, AlertCircle, Plus } from 'lucide-react';
 
@@ -10,6 +11,7 @@ export default function AddPropertyForm() {
   const [boilerAge, setBoilerAge] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ text: string, type: 'success' | 'error' } | null>(null);
+  const { t } = useTranslation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,11 +29,11 @@ export default function AddPropertyForm() {
     setLoading(false);
 
     if (result.success) {
-      setMessage({ text: "房產已成功加入清單！", type: 'success' });
+      setMessage({ text: t?.properties?.addSuccess || "Property successfully added!", type: 'success' });
       setAddress("");
       setBoilerAge("");
     } else {
-      setMessage({ text: result.error || "加入失敗", type: 'error' });
+      setMessage({ text: result.error || t?.common?.failed || "Addition failed", type: 'error' });
     }
   };
 
@@ -40,7 +42,7 @@ export default function AddPropertyForm() {
       <div style={{ position: 'relative' }}>
         <input 
           type="text" 
-          placeholder="輸入地址 (例如: 123 London St, SW1A 1AA)" 
+          placeholder={t?.properties?.addressPlaceholder || "Enter address (e.g. 123 London St, SW1A 1AA)"} 
           value={address}
           onChange={(e) => setAddress(e.target.value)}
           disabled={loading}
@@ -71,7 +73,7 @@ export default function AddPropertyForm() {
         </select>
         <input 
           type="number" 
-          placeholder="鍋爐年齡 (年)" 
+          placeholder={t?.properties?.boilerAgePlaceholder || "Boiler Age (Years)"} 
           value={boilerAge}
           onChange={(e) => setBoilerAge(e.target.value)}
           disabled={loading}
@@ -85,7 +87,7 @@ export default function AddPropertyForm() {
         className="btn btn-primary"
         style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem' }}
       >
-        {loading ? <Loader2 size={18} className="animate-spin" /> : <><Plus size={18} /> 新增房產資產</>}
+        {loading ? <Loader2 size={18} className="animate-spin" /> : <><Plus size={18} /> {t?.properties?.addCTA || "Add Property Asset"}</>}
       </button>
 
       {message && (

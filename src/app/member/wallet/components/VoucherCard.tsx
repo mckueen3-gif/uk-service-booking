@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { ShoppingBag, Globe, Store, Lock, Sparkles, TrendingUp } from 'lucide-react';
+import { useTranslation } from "@/components/LanguageContext";
 
 interface VoucherCardProps {
   name: string;
@@ -26,6 +27,7 @@ const VoucherCard: React.FC<VoucherCardProps> = ({
   domain,
   onRedeem 
 }) => {
+  const { t } = useTranslation();
   const [logoError, setLogoError] = React.useState(false);
   // Generate a consistent placeholder color based on name
   const getBrandColor = (str: string) => {
@@ -220,7 +222,7 @@ const VoucherCard: React.FC<VoucherCardProps> = ({
           }}
           className="group-hover:bg-[#d4af37] group-hover:text-black"
         >
-          立即兌換
+          {t?.rewards_hub?.marketplace?.redeemBtn || "Redeem Now"}
         </button>
       )}
     </div>

@@ -148,11 +148,11 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
                     </div>
                   </div>
                   <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: '2rem', fontWeight: 900 }}>£{profile.rate}<span style={{ fontSize: '1rem', color: 'var(--text-secondary)', fontWeight: 500 }}>{t.education_sec.common.hr}</span></div>
+                    <div style={{ fontSize: '2rem', fontWeight: 900 }}>£{profile.rate}<span style={{ fontSize: '1rem', color: 'var(--text-secondary)', fontWeight: 500 }}>{t?.education_sec?.common?.hr || "/hr"}</span></div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px', justifyContent: 'flex-end', marginTop: '0.5rem' }}>
                       <Star size={18} fill="#f59e0b" color="#f59e0b" />
                       <span style={{ fontWeight: 800, fontSize: '1.1rem' }}>{Number(profile.rating).toFixed(1)}</span>
-                      <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>({profile.reviews} {t.education_sec.common.reviews})</span>
+                      <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>({profile.reviews} {t?.education_sec?.common?.reviews || "Reviews"})</span>
                     </div>
                   </div>
                 </div>
@@ -160,12 +160,12 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', fontSize: '1rem', color: 'var(--text-secondary)' }}>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><MapPin size={18} /> {profile.location}</span>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Video size={18} /> {profile.mode}</span>
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#facc15' }}><ShieldCheck size={18} /> {t.education_sec.tutorProfile.verified}</span>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#facc15' }}><ShieldCheck size={18} /> {t?.education_sec?.tutorProfile?.verified || "Shield Verified"}</span>
                 </div>
               </div>
             </div>
 
-            <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '1rem' }}>{t.education_sec.tutorProfile.about}</h3>
+            <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '1rem' }}>{t?.education_sec?.tutorProfile?.about || "About Professional"}</h3>
             <p style={{ fontSize: '1.05rem', lineHeight: 1.7, color: 'var(--text-secondary)', marginBottom: '2rem' }}>
               {profile.bio}
             </p>
@@ -174,14 +174,14 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
               <div style={{ padding: '1.5rem', backgroundColor: 'var(--surface-2)', borderRadius: '16px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.5rem' }}>
                   <GraduationCap size={20} color="var(--accent-color)" />
-                  <h4 style={{ fontWeight: 800 }}>{t.education_sec.tutorProfile.education}</h4>
+                  <h4 style={{ fontWeight: 800 }}>{t?.education_sec?.tutorProfile?.education || "Education"}</h4>
                 </div>
                 <p style={{ color: 'var(--text-secondary)' }}>{profile.education}</p>
               </div>
               <div style={{ padding: '1.5rem', backgroundColor: 'var(--surface-2)', borderRadius: '16px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.5rem' }}>
                   <UserCheck size={20} color="var(--accent-color)" />
-                  <h4 style={{ fontWeight: 800 }}>{t.education_sec.tutorProfile.experience}</h4>
+                  <h4 style={{ fontWeight: 800 }}>{t?.education_sec?.tutorProfile?.experience || "Experience"}</h4>
                 </div>
                 <p style={{ color: 'var(--text-secondary)' }}>{profile.experience}</p>
               </div>
@@ -191,7 +191,7 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
           {/* Portfolio Section */}
           {profile.portfolioImages && profile.portfolioImages.length > 0 && (
             <div className="glass-panel" style={{ padding: '3rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', marginBottom: '2rem' }}>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '1.5rem' }}>{t.education_sec.tutorProfile.portfolio}</h3>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '1.5rem' }}>{t?.education_sec?.tutorProfile?.portfolio || "Portfolio"}</h3>
               <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>Take a look at my past work, learning environments, and successful case studies.</p>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
                 {profile.portfolioImages.map((imgUrl: string, idx: number) => (
@@ -210,7 +210,7 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
 
           {/* Reviews Section */}
           <div className="glass-panel" style={{ padding: '3rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)' }}>
-            <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '1.5rem' }}>{t.education_sec.tutorProfile.reviews}</h3>
+            <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '1.5rem' }}>{t?.education_sec?.tutorProfile?.reviews || "Client Feedback"}</h3>
             {profile.recentReviews && profile.recentReviews.length > 0 ? (
               profile.recentReviews.map((r: any) => (
                 <div key={r.id} style={{ padding: '1.5rem', borderBottom: '1px solid var(--border-color)' }}>
@@ -250,11 +250,11 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
               }}
               className="hover-scale"
             >
-              <Sparkles size={20} color="#facc15" /> {t.education_sec.tutorProfile.aiTrial}
+              <Sparkles size={20} color="#facc15" /> {t?.education_sec?.tutorProfile?.aiTrial || "AI Trial Discovery"}
             </button>
 
             <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Clock size={20} /> {t.education_sec.tutorProfile.availability}
+              <Clock size={20} /> {t?.education_sec?.tutorProfile?.availability || "Schedule"}
             </h3>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2rem' }}>
@@ -277,7 +277,7 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
             </div>
 
             <button className="btn btn-primary" style={{ width: '100%', padding: '1rem', fontSize: '1.1rem', borderRadius: '12px' }}>
-              {t.education_sec.tutorProfile.bookNow}
+              {t?.education_sec?.tutorProfile?.bookNow || "Book Masterclass"}
             </button>
           </div>
         </aside>
@@ -454,14 +454,13 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
                 }}>
                   <Lock size={40} color="var(--accent-color)" />
                 </div>
-                <h2 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '1rem' }}>會員限定功能</h2>
+                <h2 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '1rem' }}>{t?.education_sec?.tutorProfile?.authPanel?.title || "Member-Only Feature"}</h2>
                 <p style={{ color: 'var(--text-secondary)', marginBottom: '2.5rem', fontSize: '1.1rem', lineHeight: 1.6 }}>
-                  AI 診斷試堂是為 <b>ConciergeAI</b> 會員提供的專屬服務。請先登入您的帳戶，以便我們為您記錄與分析學習進度。
+                  {t?.education_sec?.tutorProfile?.authPanel?.desc || "The AI Diagnostic Trial is an exclusive service for ConciergeAI members. Please log in to your account so we can record and analyze your learning progress."}
                 </p>
                 <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-                   {/* Here we would typically show login/register links */}
                    <button onClick={() => setShowAITrial(false)} style={{ padding: '1rem 2rem', border: 'none', background: 'transparent', color: 'var(--text-secondary)', cursor: 'pointer', fontWeight: 600 }}>
-                    稍後再說
+                    {t?.education_sec?.tutorProfile?.authPanel?.dismiss || "Maybe Later"}
                   </button>
                 </div>
               </div>

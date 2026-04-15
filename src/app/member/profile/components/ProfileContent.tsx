@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslation } from "@/components/LanguageContext";
 import { User, Mail, Phone, Shield, Camera, Save, Building2, LayoutGrid, Loader2 } from "lucide-react";
 import ProfileForm from "../components/ProfileForm";
 import Link from 'next/link';
@@ -9,6 +10,7 @@ export default function ProfileContent({ initialUser }: { initialUser: any }) {
   const [user, setUser] = useState(initialUser);
   const [loading, setLoading] = useState(true);
   const [syncing, setSyncing] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     // 🚀 STEP 1: LOAD FROM CACHE (INSTANT)
@@ -72,7 +74,7 @@ export default function ProfileContent({ initialUser }: { initialUser: any }) {
            
            <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem' }}>
               <span style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', color: '#facc15', padding: '0.35rem 0.75rem', borderRadius: '2rem', fontSize: '0.75rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                 <Shield size={14} /> 已驗證
+                 <Shield size={14} /> {t?.profile?.verified || "Verified"}
               </span>
               <span style={{ backgroundColor: 'rgba(99, 102, 241, 0.1)', color: '#6366f1', padding: '0.35rem 0.75rem', borderRadius: '2rem', fontSize: '0.75rem', fontWeight: 700 }}>
                  {user?.role}
@@ -82,15 +84,15 @@ export default function ProfileContent({ initialUser }: { initialUser: any }) {
 
         <div className="glass-panel" style={{ padding: '2rem', borderRadius: '24px' }}>
            <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-              <LayoutGrid size={20} color="var(--accent-color)" /> 帳戶摘要
+              <LayoutGrid size={20} color="var(--accent-color)" /> {t?.profile?.summary || "Account Summary"}
            </h3>
            <div style={{ display: 'grid', gap: '1rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem' }}>
-                 <span style={{ color: 'var(--text-secondary)' }}>註冊日期</span>
+                 <span style={{ color: 'var(--text-secondary)' }}>{t?.profile?.registrationDate || "Registration Date"}</span>
                  <span style={{ fontWeight: 600 }}>{user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : '---'}</span>
               </div>
                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem' }}>
-                  <span style={{ color: 'var(--text-secondary)' }}>推薦獎勵點數</span>
+                  <span style={{ color: 'var(--text-secondary)' }}>{t?.profile?.referralCredits || "Referral Credits"}</span>
                   <span style={{ fontWeight: 600, color: 'var(--accent-color)' }}>£{(user?.referralCredits ?? 0).toFixed(2)}</span>
                </div>
             </div>
@@ -108,7 +110,7 @@ export default function ProfileContent({ initialUser }: { initialUser: any }) {
               fontSize: '0.9rem',
               border: '1px solid rgba(99, 102, 241, 0.2)'
             }}>
-              管理車輛與物業資產 🚗🏠
+              {t?.profile?.manageAssets || "Manage Vehicles & Property Assets 🚗🏠"}
             </Link>
          </div>
       </div>

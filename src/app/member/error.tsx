@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { AlertCircle, RefreshCw } from "lucide-react";
+import { useTranslation } from "@/components/LanguageContext";
 
 export default function DashboardError({
   error,
@@ -10,6 +11,8 @@ export default function DashboardError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const { t } = useTranslation();
+
   useEffect(() => {
     // Log the error silently in background
     console.error("Dashboard Critical Error:", error);
@@ -56,8 +59,8 @@ export default function DashboardError({
       </div>
       
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "#1e293b" }}>系統正在自動修復 (Auto-Healing)</span>
-        <span style={{ fontSize: "0.75rem", color: "#64748b" }}>檢測到臨時連線波動，正在恢復中...</span>
+        <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "#1e293b" }}>{t?.common?.errorHealing?.title || "Auto-Healing Environment..."}</span>
+        <span style={{ fontSize: "0.75rem", color: "#64748b" }}>{t?.common?.errorHealing?.subtitle || "Recovering from a temporary connection fluctuation."}</span>
       </div>
 
       <button 

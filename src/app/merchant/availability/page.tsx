@@ -16,15 +16,8 @@ const DAYS = [
 ];
 
 
-export default function AvailabilityPage() {
-  const { t, locale } = useTranslation();
-  const [availability, setAvailability] = useState<AvailabilityInput[]>([]);
-  const [slotDuration, setSlotDuration] = useState(60);
-  const [maxDaily, setMaxDaily] = useState(8);
-  
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+  const mt = t?.merchant?.merchant_availability; // Helper for shorter access
 
   useEffect(() => {
     async function load() {
@@ -73,9 +66,9 @@ export default function AvailabilityPage() {
     setMessage(null);
     const res = await updateMerchantAvailability(availability, slotDuration, maxDaily);
     if (res.success) {
-      setMessage({ type: 'success', text: t.merchant.merchant_availability.saved });
+      setMessage({ type: 'success', text: mt?.saved || "Availability settings synchronized successfully." });
     } else {
-      setMessage({ type: 'error', text: t.merchant.merchant_availability.failed });
+      setMessage({ type: 'error', text: mt?.failed || "Failed to synchronize availability." });
     }
     setSaving(false);
     setTimeout(() => setMessage(null), 3000);
@@ -91,8 +84,8 @@ export default function AvailabilityPage() {
     <div className="animate-fade-in" style={{ maxWidth: '1000px', margin: '0 auto' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
         <div>
-           <h1 style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--text-primary)' }}>{t.merchant.merchant_availability.title}</h1>
-           <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>{t.merchant.merchant_availability.subtitle}</p>
+           <h1 style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--text-primary)' }}>{mt?.title || "Availability Control"}</h1>
+           <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>{mt?.subtitle || "Configure your service window and daily capacity."}</p>
         </div>
         <button 
           onClick={onSave} 
@@ -101,7 +94,7 @@ export default function AvailabilityPage() {
           style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '12px' }}
         >
            {saving ? <Loader2 className="animate-spin" size={18} /> : <Save size={18} />}
-           {saving ? t.merchant.merchant_availability.saving : t.merchant.merchant_availability.save}
+           {saving ? (mt?.saving || "Saving...") : (mt?.save || "Sync Protocol")}
         </button>
       </div>
 
@@ -127,7 +120,7 @@ export default function AvailabilityPage() {
                   {day.isOpen ? (
                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                       <div className="flex items-center gap-2">
-                         <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 800 }}>{t.merchant.merchant_availability.start}</div>
+                         <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 800 }}>{mt?.start || "Start"}</div>
                          <input 
                            type="time" 
                            value={day.startTime} 
@@ -138,7 +131,7 @@ export default function AvailabilityPage() {
                       </div>
                       <div style={{ color: 'var(--text-secondary)' }}>—</div>
                       <div className="flex items-center gap-2">
-                         <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 800 }}>{t.merchant.merchant_availability.end}</div>
+                         <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 800 }}>{mt?.end || "End"}</div>
                          <input 
                            type="time" 
                            value={day.endTime} 
@@ -150,7 +143,7 @@ export default function AvailabilityPage() {
                     </div>
                   ) : (
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)', fontStyle: 'italic', fontSize: '0.9rem' }}>
-                       <Moon size={16} /> 休息日 (Closed)
+                       <Moon size={16} /> {mt?.closedLabel || "Rest Day (Closed)"}
                     </div>
                   )}
                </div>
@@ -169,7 +162,7 @@ export default function AvailabilityPage() {
                       cursor: 'pointer'
                     }}
                   >
-                    {day.isOpen ? t.merchant.merchant_availability.closeBtn : t.merchant.merchant_availability.openBtn}
+                    {day.isOpen ? (mt?.closeBtn || "Mark Closed") : (mt?.openBtn || "Mark Open")}
                   </button>
                </div>
             </div>
@@ -179,7 +172,7 @@ export default function AvailabilityPage() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
            <div className="glass-panel" style={{ padding: '1.5rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', border: '1.5px solid var(--border-color)' }}>
               <h3 style={{ fontSize: '1.1rem', fontWeight: 900, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <Settings size={18} color="var(--accent-color)" /> 全局設定
+                <Settings size={18} color="var(--accent-color)" /> {mt?.settings?.title || "Global Settings"}
               </h3>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -212,7 +205,7 @@ export default function AvailabilityPage() {
                  </div>
 
                  <div style={{ backgroundColor: 'var(--bg-secondary)', padding: '1rem', borderRadius: '12px', fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                   <Info size={14} style={{ display: 'inline', marginBottom: '2px' }} /> 設定較長的面談/服務時間有助於應對倫敦交通繁忙的突發狀況。
+                   <Info size={14} style={{ display: 'inline', marginBottom: '2px' }} /> {mt?.settings?.hint || "Longer service windows help mitigate unforeseen UK traffic fluctuations."}
                  </div>
               </div>
            </div>
@@ -221,9 +214,9 @@ export default function AvailabilityPage() {
               <div style={{ display: 'flex', gap: '0.75rem' }}>
                 <Sun size={24} />
                 <div>
-                   <p style={{ fontWeight: 800, marginBottom: '0.25rem' }}>{t.merchant.merchant_availability.tipTitle}</p>
+                   <p style={{ fontWeight: 800, marginBottom: '0.25rem' }}>{mt?.tipTitle || "Expert Tip"}</p>
                    <p style={{ fontSize: '0.8rem', lineHeight: 1.5 }}>
-                      {t.merchant.merchant_availability.tipContent}
+                      {mt?.tipContent || "Maintaining consistent availability significantly increases your system ranking and visibility."}
                    </p>
                 </div>
               </div>

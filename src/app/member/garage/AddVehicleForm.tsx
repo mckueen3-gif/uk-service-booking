@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import { useTranslation } from '@/components/LanguageContext';
 import { lookupVehicle } from '@/app/actions/vehicle-lookup';
 import { addVehicle } from '@/app/actions/garage';
 import { Loader2, Search, Car, CheckCircle2, AlertCircle } from 'lucide-react';
@@ -15,6 +16,7 @@ export default function AddVehicleForm({ onVehicleAdded }: Props) {
   const [adding, setAdding] = useState(false);
   const [vehicleData, setVehicleData] = useState<{ make: string, model: string, year: string } | null>(null);
   const [message, setMessage] = useState<{ text: string, type: 'success' | 'error' } | null>(null);
+  const { t } = useTranslation();
 
   const handleLookup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,10 +31,10 @@ export default function AddVehicleForm({ onVehicleAdded }: Props) {
       if (result.success && result.data) {
         setVehicleData(result.data);
       } else {
-        setMessage({ text: result.error || "找不到車輛資訊", type: 'error' });
+        setMessage({ text: result.error || t?.garage?.lookupFailed || "Unable to find vehicle info", type: 'error' });
       }
     } catch (e) {
-      setMessage({ text: "查詢失敗，請重試", type: 'error' });
+      setMessage({ text: t?.common?.error || "Error occurred, please try again", type: 'error' });
     } finally {
       setLookingUp(false);
     }
@@ -51,16 +53,16 @@ export default function AddVehicleForm({ onVehicleAdded }: Props) {
       });
 
       if (result.success) {
-        setMessage({ text: "✓ 車輛已成功加入車庫！", type: 'success' });
+        setMessage({ text: `✓ ${t?.garage?.addSuccess || "Vehicle successfully added to your garage!"}`, type: 'success' });
         setVrm("");
         setVehicleData(null);
         // Notify parent to re-fetch vehicle list
         onVehicleAdded?.();
       } else {
-        setMessage({ text: (result as any).error || "加入失敗，請重試", type: 'error' });
+        setMessage({ text: (result as any).error || t?.common?.failed || "Addition failed, please try again", type: 'error' });
       }
     } catch (e) {
-      setMessage({ text: "加入失敗，請重試", type: 'error' });
+      setMessage({ text: t?.common?.failed || "Addition failed, please try again", type: 'error' });
     } finally {
       setAdding(false);
     }
@@ -73,7 +75,7 @@ export default function AddVehicleForm({ onVehicleAdded }: Props) {
         <div style={{ position: 'relative', flex: 1 }}>
           <input
             type="text"
-            placeholder="英國車牌 (例如: AB12CDE)"
+            placeholder={t?.garage?.placeholder || "UK Plate (e.g. AB12CDE)"}
             value={vrm}
             onChange={(e) => setVrm(e.target.value.toUpperCase())}
             disabled={lookingUp || adding}
@@ -99,7 +101,7 @@ export default function AddVehicleForm({ onVehicleAdded }: Props) {
           className="btn btn-primary"
           style={{ padding: '0 1.25rem', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '0.4rem', whiteSpace: 'nowrap' }}
         >
-          {lookingUp ? <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> : "查核"}
+          {lookingUp ? <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> : (t?.common?.lookup || "Verify")}
         </button>
       </form>
 
@@ -126,8 +128,9 @@ export default function AddVehicleForm({ onVehicleAdded }: Props) {
             }}>
               <Car size={22} color="#facc15" />
             </div>
+            </div>
             <div>
-              <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#facc15', textTransform: 'uppercase', letterSpacing: '0.05em' }}>系統偵測結果</div>
+              <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#facc15', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{t?.garage?.results || "System Detection Results"}</div>
               <div style={{ fontWeight: 800, fontSize: '1.05rem', color: 'var(--text-primary)' }}>
                 {vehicleData.make} {vehicleData.model} ({vehicleData.year})
               </div>
@@ -154,7 +157,7 @@ export default function AddVehicleForm({ onVehicleAdded }: Props) {
             }}
           >
             {adding ? <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> : <CheckCircle2 size={16} />}
-            {adding ? '加入中...' : '確認加入我的車庫'}
+            {adding ? (t?.common?.adding || 'Adding...') : (t?.garage?.confirmAdd || 'Confirm addition to garage')}
           </button>
         </div>
       )}

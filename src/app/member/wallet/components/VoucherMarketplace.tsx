@@ -23,6 +23,7 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
   locale: propLocale
 }) => {
   const { t, locale: contextLocale } = useTranslation();
+  const rt = t?.rewards_hub; // Helper for shorter access
   const locale = propLocale || contextLocale || 'en';
   const [searchTerm, setSearchTerm] = useState('');
   const [category, setCategory] = useState('All');
@@ -53,17 +54,17 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
   const handleRedeem = async (brandName: string) => {
     if (isLocked) return;
     
-    if (confirm(t.rewards_hub.marketplace.confirmRedeem.replace("{brand}", brandName))) {
+    if (confirm(rt?.marketplace?.confirmRedeem?.replace("{brand}", brandName) || `Confirm redemption for ${brandName}?`)) {
       setIsSubmitting(true);
-      setStatusMsg({ type: 'info', text: t.rewards_hub.marketplace.processing });
+      setStatusMsg({ type: 'info', text: rt?.marketplace?.processing || "Syncing with reward partner..." });
       
       const result = await requestRedemption(10, brandName) as any;
       
       if (result.success) {
-        setStatusMsg({ type: 'success', text: t.rewards_hub.marketplace.success.replace("{brand}", brandName) });
+        setStatusMsg({ type: 'success', text: rt?.marketplace?.success?.replace("{brand}", brandName) || `Successfully redeemed ${brandName} voucher.` });
         onSuccess();
       } else {
-        setStatusMsg({ type: 'error', text: result.error || t.rewards_hub.marketplace.failed });
+        setStatusMsg({ type: 'error', text: result.error || (rt?.marketplace?.failed || "Redemption protocol failed.") });
       }
       setIsSubmitting(false);
       
@@ -72,12 +73,12 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
     }
   };
 
-  const lastSyncedDate = metadata?.lastUpdated ? new Date(metadata.lastUpdated).toLocaleString('zh-TW', {
+  const lastSyncedDate = metadata?.lastUpdated ? new Date(metadata.lastUpdated).toLocaleString(locale === 'zh-TW' ? 'zh-TW' : 'en-GB', {
     month: 'short',
     day: 'numeric',
     hour: '2-digit',
     minute: '2-digit'
-  }) : '未知';
+  }) : (rt?.common?.unknown || 'Unknown');
 
   return (
     <div style={{ 
@@ -110,9 +111,9 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
         </div>
         <div style={{ color: '#fff', fontSize: '13px', lineHeight: 1.5 }}>
           <strong style={{ color: '#d4af37', display: 'block', textTransform: 'uppercase', fontSize: '11px', letterSpacing: '0.05em', marginBottom: '2px' }}>
-            {t.rewards_hub.marketplace.policyTitle}
+            {rt?.marketplace?.policyTitle || "Redemption Policy"}
           </strong>
-          {t.rewards_hub.marketplace.policyText}
+          {rt?.marketplace?.policyText || "All redemptions are final and processed via AI secure gateway."}
         </div>
       </div>
 
@@ -126,14 +127,12 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
         <div 
           onClick={onAdminTrigger}
           style={{ cursor: 'pointer', userSelect: 'none' }}
-          title="管理員模式隱藏開關"
-        >
           <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: 'var(--text-primary)', marginBottom: '5px' }}>
-            {t.rewards_hub.marketplaceText}
+            {rt?.marketplaceText || "Voucher Marketplace"}
           </h2>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#475569', fontSize: '13px', fontWeight: '500' }}>
             <Clock size={14} style={{ color: '#1e293b' }} />
-            {t.rewards_hub.marketplace.lastSynced} <span style={{ color: '#1e293b', fontWeight: '600' }}>{lastSyncedDate}</span> {t.rewards_hub.marketplace.aiMonitoring}
+            {rt?.marketplace?.lastSynced || "Last synchronized:"} <span style={{ color: '#1e293b', fontWeight: '600' }}>{lastSyncedDate}</span> {rt?.marketplace?.aiMonitoring || "AI monitoring active"}
           </div>
         </div>
         
@@ -143,13 +142,13 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
               disabled={isSubmitting}
               onClick={async () => {
                 setIsSubmitting(true);
-                setStatusMsg({ type: 'info', text: t.rewards_hub.marketplace.syncing });
+                setStatusMsg({ type: 'info', text: rt?.marketplace?.syncing || "Synchronizing with UK retail network..." });
                 const res = await runVoucherSync() as any;
                 if (res.success) {
-                  setStatusMsg({ type: 'success', text: t.rewards_hub.marketplace.syncSuccess });
+                  setStatusMsg({ type: 'success', text: rt?.marketplace?.syncSuccess || "Catalog synchronized successfully." });
                   onSuccess(); // Trigger parent refresh if needed
                 } else {
-                  setStatusMsg({ type: 'error', text: res.error || t.rewards_hub.marketplace.syncFailed });
+                  setStatusMsg({ type: 'error', text: res.error || (rt?.marketplace?.syncFailed || "Sync protocol failed.") });
                 }
                 setIsSubmitting(false);
               }}
@@ -165,7 +164,7 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
                 opacity: isSubmitting ? 0.5 : 1
               }}
             >
-              {isSubmitting ? t.rewards_hub.marketplace.syncingBtn : t.rewards_hub.marketplace.forceSync}
+              {isSubmitting ? (rt?.marketplace?.syncingBtn || "Syncing...") : (rt?.marketplace?.forceSync || "Force Global Sync")}
             </button>
           )}
           <div style={{
@@ -181,7 +180,7 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
             fontWeight: '600'
           }}>
             <Zap size={14} fill="#d4af37" />
-            {t.rewards_hub.marketplace.liveUpdate}
+            {rt?.marketplace?.liveUpdate || "Live UK Catalog"}
           </div>
         </div>
       </div>
@@ -191,7 +190,7 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
         <div style={{ marginBottom: '35px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '15px', color: '#b8860b' }}>
             <Sparkles size={18} fill="#d4af37" />
-            <span style={{ fontWeight: '900', letterSpacing: '0.1em', fontSize: '14px' }}>{t.rewards_hub.marketplace.hotDeals}</span>
+            <span style={{ fontWeight: '900', letterSpacing: '0.1em', fontSize: '14px' }}>{rt?.marketplace?.hotDeals || "ELITE SELECTION"}</span>
           </div>
           
           <div style={{ 
@@ -241,7 +240,7 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
           }} />
           <input 
             type="text"
-            placeholder={t.rewards_hub.marketplace.searchPlaceholder}
+            placeholder={rt?.marketplace?.searchPlaceholder || "Search brand or category..."}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{
@@ -277,12 +276,12 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
                   boxShadow: isSelected ? '0 4px 12px rgba(184, 134, 11, 0.2)' : 'none'
                 }}
               >
-                {cat === 'All' ? t.rewards_hub.marketplace.categories.all : 
-                 cat === 'Supermarkets' ? t.rewards_hub.marketplace.categories.supermarkets : 
-                 cat === 'Food & Drink' ? t.rewards_hub.marketplace.categories.food :
-                 cat === 'Retail' ? t.rewards_hub.marketplace.categories.retail :
-                 cat === 'Travel' ? t.rewards_hub.marketplace.categories.travel : 
-                 cat === 'Entertainment' ? t.rewards_hub.marketplace.categories.entertainment : cat}
+                {cat === 'All' ? (rt?.marketplace?.categories?.all || "All") : 
+                 cat === 'Supermarkets' ? (rt?.marketplace?.categories?.supermarkets || "Supermarkets") : 
+                 cat === 'Food & Drink' ? (rt?.marketplace?.categories?.food || "Food & Drink") :
+                 cat === 'Retail' ? (rt?.marketplace?.categories?.retail || "Retail") :
+                 cat === 'Travel' ? (rt?.marketplace?.categories?.travel || "Travel") : 
+                 cat === 'Entertainment' ? (rt?.marketplace?.categories?.entertainment || "Entertainment") : cat}
               </button>
             );
           })}
@@ -304,7 +303,7 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
         }}>
           <AlertCircle size={20} />
           <div style={{ fontSize: '14px', fontWeight: '500' }}>
-            {t.rewards_hub.marketplace.threshold.replace("{current}", currentCredits.toFixed(2)).replace("{remaining}", (10 - currentCredits).toFixed(2))}
+            {rt?.marketplace?.threshold?.replace("{current}", currentCredits.toFixed(2)).replace("{remaining}", (10 - currentCredits).toFixed(2)) || `Earn £${(10 - currentCredits).toFixed(2)} more to unlock redemptions.`}
           </div>
         </div>
       )}
@@ -337,7 +336,7 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
         fontWeight: '500'
       }}>
         <TrendingUp size={16} style={{ color: '#d4af37' }} />
-        <span>{t.rewards_hub.marketplace.found.replace("{count}", filteredVouchers.length.toString())}</span>
+        <span>{rt?.marketplace?.found?.replace("{count}", filteredVouchers.length.toString()) || `${filteredVouchers.length} brands identified`}</span>
         <Sparkles size={14} style={{ color: '#d4af37', marginLeft: '5px' }} />
       </div>
 
@@ -369,7 +368,7 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
           padding: '60px',
           color: 'var(--text-muted)'
         }}>
-          {t.rewards_hub.marketplace.empty}
+          {rt?.marketplace?.empty || "No matching brands found in current catalog."}
         </div>
       )}
     </div>

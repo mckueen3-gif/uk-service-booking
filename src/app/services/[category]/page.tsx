@@ -104,10 +104,11 @@ export default function DynamicCategoryPage() {
   // Handle education separately if needed, though we want it unified
   if (category === 'education') {
     // Current education data is in education_sec, let's map it
-    const eduSub = Object.keys(t.education_sec.categories.items).map(key => ({
+    const eduItems = t?.education_sec?.categories?.items || {};
+    const eduSub = Object.keys(eduItems).map(key => ({
       id: key,
-      title: t.education_sec.categories.items[key].title,
-      desc: t.education_sec.categories.items[key].desc,
+      title: eduItems[key]?.title || "Specialist Module",
+      desc: eduItems[key]?.desc || "Academic support protocol",
       icon: iconMap[key] || <GraduationCap size={28} />,
       color: colorMap.education
     }));
@@ -115,20 +116,20 @@ export default function DynamicCategoryPage() {
     return (
       <CategoryLanding 
         categoryKey="education"
-        categoryName={t.home.categories.education}
-        heroBadge={t.education_sec.hero.badge}
-        heroTitle1={t.education_sec.hero.title1}
-        heroTitle2={t.education_sec.hero.title2}
-        heroSubtitle={t.education_sec.hero.subtitle}
-        searchPlaceholder={t.education_sec.hero.searchPlaceholder}
-        searchBtn={t.education_sec.hero.searchBtn}
+        categoryName={t?.home?.categories?.education || "Education"}
+        heroBadge={t?.education_sec?.hero?.badge || "Expert Tutors"}
+        heroTitle1={t?.education_sec?.hero?.title1 || "Academic"}
+        heroTitle2={t?.education_sec?.hero?.title2 || "Excellence"}
+        heroSubtitle={t?.education_sec?.hero?.subtitle || "Elite educational support in London & HK"}
+        searchPlaceholder={t?.education_sec?.hero?.searchPlaceholder || "Search subjects..."}
+        searchBtn={t?.education_sec?.hero?.searchBtn || "Find Tutor"}
         subCategories={eduSub}
         apiEndpoint="/api/education/tutors"
       />
     );
   }
 
-  const landingData = t.landing_pages[category];
+  const landingData = t?.landing_pages?.[category];
 
   if (!landingData) {
     return (
@@ -141,10 +142,11 @@ export default function DynamicCategoryPage() {
     );
   }
 
-  const subCategories = Object.keys(landingData.sub_categories).map(key => ({
+  const subCategoryData = landingData?.sub_categories || {};
+  const subCategories = Object.keys(subCategoryData).map(key => ({
     id: key,
-    title: landingData.sub_categories[key].title,
-    desc: landingData.sub_categories[key].desc,
+    title: subCategoryData[key]?.title || "Expert Service",
+    desc: subCategoryData[key]?.desc || "Technical delivery protocol",
     icon: iconMap[key] || <Wrench size={28} />,
     color: colorMap[category] || '#6366f1'
   }));
@@ -152,13 +154,13 @@ export default function DynamicCategoryPage() {
   return (
     <CategoryLanding 
       categoryKey={category}
-      categoryName={t.home.categories[category] || category}
-      heroBadge={landingData.hero.badge}
-      heroTitle1={landingData.hero.title1}
-      heroTitle2={landingData.hero.title2}
-      heroSubtitle={landingData.hero.subtitle}
-      searchPlaceholder={landingData.hero.searchPlaceholder}
-      searchBtn={landingData.hero.searchBtn}
+      categoryName={t?.home?.categories?.[category] || category}
+      heroBadge={landingData?.hero?.badge || "Vetted Pro"}
+      heroTitle1={landingData?.hero?.title1 || "Premier"}
+      heroTitle2={landingData?.hero?.title2 || "Services"}
+      heroSubtitle={landingData?.hero?.subtitle || "Elite technical solutions delivered by experts"}
+      searchPlaceholder={landingData?.hero?.searchPlaceholder || "Describe your requirement..."}
+      searchBtn={landingData?.hero?.searchBtn || "Search"}
       subCategories={subCategories}
     />
   );

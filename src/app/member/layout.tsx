@@ -3,6 +3,8 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import SidebarNav from "@/components/dashboard/SidebarNav";
+import { dictionaries, Locale, Dictionary } from "@/lib/i18n/dictionary";
+import { cookies } from "next/headers";
 
 export default async function MemberLayout({ children }: { children: React.ReactNode }) {
   const session = await getServerSession(authOptions);
@@ -11,6 +13,11 @@ export default async function MemberLayout({ children }: { children: React.React
 
   const isMerchant = session.user.role === "MERCHANT";
   const userName = session.user.name || "Member";
+
+  // 🚀 i18n for Sidebar (Shielded)
+  const cookieStore = await cookies();
+  const locale = (cookieStore.get('user-locale')?.value as Locale) || 'en';
+  const t = (dictionaries[locale] || dictionaries['en'] || {}) as Dictionary;
 
   return (
     <div style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', display: 'flex' }}>
@@ -33,7 +40,7 @@ export default async function MemberLayout({ children }: { children: React.React
             ConciergeAI<span style={{ color: 'var(--text-primary)' }}>.</span>
           </h1>
           <p style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-            {isMerchant ? "Specialist Node" : "Premier Member"}
+            {isMerchant ? (t?.common?.specialistNode || "Specialist Node") : (t?.common?.premierMember || "Premier Member")}
           </p>
         </div>
         

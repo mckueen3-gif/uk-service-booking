@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useTranslation } from "@/components/LanguageContext";
 import { Car, Plus, AlertTriangle, Edit3, Trash2, Loader2, RefreshCw, WrenchIcon } from "lucide-react";
 import AddVehicleForm from "../AddVehicleForm";
 
@@ -9,6 +10,7 @@ export default function GarageContent() {
   const [loading, setLoading] = useState(true);
   const [synced, setSynced] = useState(false);
   const [deleting, setDeleting] = useState<string | null>(null);
+  const { t } = useTranslation();
 
   const syncGarage = useCallback(async () => {
     try {
@@ -54,7 +56,7 @@ export default function GarageContent() {
   }, [syncGarage]);
 
   const handleDelete = async (id: string) => {
-    if (!confirm('確認刪除此車輛？')) return;
+    if (!confirm(t?.garage?.confirmDelete || 'Confirm deletion of this vehicle?')) return;
     setDeleting(id);
     try {
       const { deleteVehicle } = await import('@/app/actions/garage');
@@ -71,7 +73,15 @@ export default function GarageContent() {
   };
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+      <div className="animate-fade-up">
+        <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
+          {(t?.garage?.pageTitle || "My Garage").split(' ')[0]} <span style={{ color: 'var(--accent-color)' }}>{(t?.garage?.pageTitle || "Garage").split(' ')[1] || "Garage"}</span>
+        </h1>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>{t?.garage?.pageSubtitle || "Manage all your vehicles and track MOT/service status."}</p>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2rem' }}>
 
       {/* Left: Quick Actions */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -93,7 +103,7 @@ export default function GarageContent() {
             color: 'var(--text-primary)'
           }}>
             <Plus size={22} color="var(--accent-color)" />
-            新增車輛
+            {t?.garage?.addVehicle || "Add Vehicle"}
           </h2>
           <AddVehicleForm onVehicleAdded={handleVehicleAdded} />
         </div>
@@ -114,12 +124,12 @@ export default function GarageContent() {
             ? <Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} />
             : <RefreshCw size={14} />
           }
-          <span>{synced ? '● 車庫資料已是最新' : '○ 正在載入車庫...'}</span>
+          <span>{synced ? (t?.garage?.synced || '● Garage data is up to date') : (t?.garage?.syncing || '○ Synchronizing garage...')}</span>
           <button
             onClick={() => syncGarage()}
             style={{ marginLeft: 'auto', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-secondary)', fontSize: '0.78rem' }}
           >
-            刷新
+            {t?.merchant?.refresh || "Refresh"}
           </button>
         </div>
 
@@ -132,12 +142,12 @@ export default function GarageContent() {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
             <AlertTriangle size={20} color="#dc2626" />
-            <h3 style={{ fontSize: '0.95rem', fontWeight: 800, color: '#ef4444' }}>即將到期的提醒</h3>
+            <h3 style={{ fontSize: '0.95rem', fontWeight: 800, color: '#ef4444' }}>{t?.garage?.alerts?.title || "Upcoming Reminders"}</h3>
           </div>
           <p style={{ fontSize: '0.85rem', color: '#f87171', lineHeight: 1.5 }}>
             {vehicles.length > 0
-              ? '請定期檢查車輛 MOT 及保養日期，保持車況良好。'
-              : '新增您的車輛後，MOT 到期提醒將顯示在此。'
+              ? (t?.garage?.alerts?.checkMot || 'Please check your MOT and service dates regularly.')
+              : (t?.garage?.alerts?.empty || 'Once you add a vehicle, MOT reminders will appear here.')
             }
           </p>
         </div>
@@ -163,10 +173,10 @@ export default function GarageContent() {
           }}>
             <Car size={64} style={{ margin: '0 auto 1.25rem', opacity: 0.12, color: 'var(--accent-color)' }} />
             <h3 style={{ fontWeight: 800, fontSize: '1.15rem', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
-              車庫目前空空如也
+              {t?.garage?.empty || "Your garage is currently empty"}
             </h3>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-              使用左側表單新增您的第一部愛車！
+              {t?.garage?.emptyDesc || "Use the form on the left to add your first vehicle!"}
             </p>
           </div>
         ) : (
@@ -209,7 +219,7 @@ export default function GarageContent() {
                         {vehicle.reg || 'N/A'}
                       </span>
                       <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
-                        · {vehicle.year} 年
+                        · {vehicle.year} {t?.common?.year || "Year"}
                       </span>
                     </div>
                   </div>
@@ -229,7 +239,7 @@ export default function GarageContent() {
                       display: 'flex',
                       alignItems: 'center'
                     }}
-                    title="刪除車輛"
+                    title={t?.common?.delete || "Delete"}
                   >
                     {deleting === vehicle.id
                       ? <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} />
@@ -248,10 +258,10 @@ export default function GarageContent() {
                   border: '1px solid var(--border-color)'
                 }}>
                   <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.4rem' }}>
-                    MOT 到期
+                    {t?.garage?.motDate || "MOT Expiry"}
                   </div>
                   <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-primary)' }}>
-                    {vehicle.motDate ? new Date(vehicle.motDate).toLocaleDateString('zh-HK') : '未設定'}
+                    {vehicle.motDate ? new Date(vehicle.motDate).toLocaleDateString() : (t?.common?.notSet || 'Not set')}
                   </div>
                 </div>
                 <div style={{
@@ -261,10 +271,10 @@ export default function GarageContent() {
                   border: '1px solid var(--border-color)'
                 }}>
                   <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.4rem' }}>
-                    上次保養
+                    {t?.garage?.lastService || "Last Service"}
                   </div>
                   <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-primary)' }}>
-                    {vehicle.lastService ? new Date(vehicle.lastService).toLocaleDateString('zh-HK') : '待記錄'}
+                    {vehicle.lastService ? new Date(vehicle.lastService).toLocaleDateString() : (t?.common?.noData || 'Pending')}
                   </div>
                 </div>
               </div>
@@ -289,13 +299,13 @@ export default function GarageContent() {
                   }}
                 >
                   <WrenchIcon size={16} />
-                  預約維修
+                  {t?.home?.categories?.repairs || "Book Repair"}
                 </a>
               </div>
 
               {vehicle.notes && (
                 <p style={{ marginTop: '1rem', fontSize: '0.82rem', color: 'var(--text-secondary)', fontStyle: 'italic' }}>
-                  備註：{vehicle.notes}
+                  {t?.common?.notes || "Notes"}: {vehicle.notes}
                 </p>
               )}
             </div>

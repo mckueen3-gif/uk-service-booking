@@ -7,19 +7,22 @@ import {
   BarChart3, List, ChevronDown, CheckCircle2, ShieldCheck, ThumbsUp, ArrowRight
 } from 'lucide-react';
 import Link from 'next/link';
+import { useTranslation } from "@/components/LanguageContext";
 
 interface ServicesClientProps {
   initialMerchants: any[];
 }
 
-const CATEGORIES = [
-  { id: 'all', name: '所有類別', count: null },
-  { id: 'plumber', name: '水電工', count: null },
-  { id: 'accounting', name: '會計服務', count: null },
-  { id: 'renovation', name: '房屋裝修', count: null },
-];
-
 export default function ServicesClient({ initialMerchants }: ServicesClientProps) {
+  const { t } = useTranslation();
+  
+  const CATEGORIES = [
+    { id: 'all', name: t?.services?.categories?.all || 'All Categories', count: null },
+    { id: 'plumber', name: t?.services?.categories?.plumber || 'Plumber', count: null },
+    { id: 'accounting', name: t?.services?.categories?.accounting || 'Accounting', count: null },
+    { id: 'renovation', name: t?.services?.categories?.renovation || 'Renovation', count: null },
+  ];
+
   const [merchants, setMerchants] = useState(initialMerchants);
   const [activeCategory, setActiveCategory] = useState('all');
   const [viewMode, setViewMode] = useState<'list' | 'map'>('list');
@@ -134,7 +137,7 @@ export default function ServicesClient({ initialMerchants }: ServicesClientProps
         {/* Left Sidebar Filters */}
         <aside className="sidebar">
           <div className="glass-panel" style={{ padding: '1.5rem', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px' }}>
-            <h3 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '1.25rem', color: '#0f172a' }}>服務類別</h3>
+            <h3 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '1.25rem', color: '#0f172a' }}>{t?.services?.filters?.category || "Service Category"}</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               {CATEGORIES.map(cat => (
                 <button 
@@ -157,10 +160,10 @@ export default function ServicesClient({ initialMerchants }: ServicesClientProps
           </div>
           
           <div className="glass-panel" style={{ padding: '1.5rem', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px' }}>
-             <h3 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '1rem' }}>專業認證</h3>
+             <h3 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '1rem' }}>{t?.services?.filters?.verification || "Verification"}</h3>
              <label style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', fontSize: '0.9rem', color: '#475569' }}>
                 <input type="checkbox" style={{ width: '18px', height: '18px' }} defaultChecked />
-                僅顯示已驗證商戶
+                {t?.services?.filters?.verifiedOnly || "Verified Merchants Only"}
              </label>
           </div>
         </aside>
@@ -170,14 +173,14 @@ export default function ServicesClient({ initialMerchants }: ServicesClientProps
           
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
             <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a' }}>
-               找到 <span style={{ color: '#0f766e' }}>{filteredMerchants.length}</span> 家符合條件的專家
+               {t?.services?.resultsFound?.replace('{count}', filteredMerchants.length.toString()) || `Found ${filteredMerchants.length} matches`}
             </h2>
             <div style={{ display: 'flex', backgroundColor: '#f1f5f9', padding: '4px', borderRadius: '10px' }}>
                <button onClick={() => setViewMode('list')} style={{ padding: '0.5rem 1rem', borderRadius: '8px', border: 'none', backgroundColor: isListView ? '#ffffff' : 'transparent', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer', boxShadow: isListView ? '0 1px 3px rgba(0,0,0,0.1)' : 'none' }}>
-                  列表
+                  {t?.services?.view?.list || "List"}
                </button>
                <button onClick={() => setViewMode('map')} disabled style={{ padding: '0.5rem 1rem', borderRadius: '8px', border: 'none', backgroundColor: !isListView ? '#ffffff' : 'transparent', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer', opacity: 0.5 }}>
-                  地圖
+                  {t?.services?.view?.map || "Map"}
                </button>
             </div>
           </div>
@@ -208,17 +211,17 @@ export default function ServicesClient({ initialMerchants }: ServicesClientProps
                                </Link>
                                {merchant.isVerified && (
                                   <span style={{ backgroundColor: '#ccfbf1', color: '#0f766e', padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.7rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '2px' }}>
-                                     <CheckCircle2 size={12} /> 已認證
+                                     <CheckCircle2 size={12} /> {t?.services?.badges?.verified || "Verified"}
                                   </span>
                                )}
                             </div>
-                            <p style={{ fontSize: '0.9rem', color: '#64748b', margin: 0 }}>{merchant.description || "專業服務供應商"}</p>
+                            <p style={{ fontSize: '0.9rem', color: '#64748b', margin: 0 }}>{merchant.description || (t?.services?.placeholders?.description || "Professional Service Provider")}</p>
                          </div>
                          <div style={{ textAlign: 'right' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#0f172a', fontWeight: 800, fontSize: '1.1rem', justifyContent: 'flex-end' }}>
                                <Star size={18} fill="#f59e0b" color="#f59e0b" /> {merchant.averageRating}
                             </div>
-                            <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>{merchant.totalReviews} 則評價</span>
+                            <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>{merchant.totalReviews} {t?.services?.labels?.reviews || "Reviews"}</span>
                          </div>
                       </div>
 
@@ -227,10 +230,10 @@ export default function ServicesClient({ initialMerchants }: ServicesClientProps
                             <MapPin size={16} color="#0f766e" /> {merchant.city}
                          </div>
                          <div style={{ fontSize: '0.85rem', color: '#475569', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                            <ShieldCheck size={16} color="#0f766e" /> 已投保
+                            <ShieldCheck size={16} color="#0f766e" /> {t?.services?.badges?.insured || "Insured"}
                          </div>
                          <div style={{ fontSize: '0.85rem', color: '#facc15', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                            <ThumbsUp size={16} /> AI 價格稽核：合理
+                            <ThumbsUp size={16} /> {t?.services?.ai?.auditResult || "AI Price Audit: Reasonable"}
                          </div>
                       </div>
                    </div>
@@ -245,11 +248,11 @@ export default function ServicesClient({ initialMerchants }: ServicesClientProps
                       </div>
                       <div className="price-cta" style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
                          <div style={{ textAlign: 'right' }}>
-                            <div style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 600 }}>預估起步價</div>
+                            <div style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 600 }}>{t?.services?.labels?.basePrice || "Est. Base Price"}</div>
                             <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0f172a' }}>£{merchant.basePrice}</div>
                          </div>
                          <Link href={`/merchant/${merchant.id}`} className="btn btn-primary btn-book" style={{ padding: '0.75rem 1.5rem', borderRadius: '10px', fontSize: '0.95rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
-                            查看詳情 <ArrowRight size={18} />
+                            {t?.services?.viewDetails || "View Details"} <ArrowRight size={18} />
                          </Link>
                       </div>
                    </div>
@@ -260,8 +263,8 @@ export default function ServicesClient({ initialMerchants }: ServicesClientProps
             {filteredMerchants.length === 0 && (
                <div style={{ padding: '5rem', textAlign: 'center', backgroundColor: '#ffffff', borderRadius: '20px', border: '2px dashed #e2e8f0' }}>
                   <Search size={48} color="#94a3b8" style={{ margin: '0 auto 1.5rem' }} />
-                  <h3 style={{ color: '#0f172a', fontWeight: 800 }}>找不到匹配的商戶</h3>
-                  <p style={{ color: '#64748b' }}>請嘗試調整過濾條件或搜尋其他地區。</p>
+                  <h3 style={{ color: '#0f172a', fontWeight: 800 }}>{t?.services?.empty?.title || "No matching merchants found"}</h3>
+                  <p style={{ color: '#64748b' }}>{t?.services?.empty?.subtitle || "Please try adjusting filters or searching in other areas."}</p>
                </div>
             )}
           </div>

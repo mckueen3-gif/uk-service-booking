@@ -120,13 +120,13 @@ function SearchResults() {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '2rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
             <Filter size={20} color="var(--accent-color)" />
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>{t.search.filters}</h2>
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>{t?.search?.filters || "Filters"}</h2>
           </div>
 
           <div style={{ display: 'grid', gap: '2rem' }}>
             {/* Keyword Search */}
             <div>
-               <label style={{ display: 'block', fontWeight: 700, marginBottom: '0.75rem', fontSize: '0.9rem', textAlign: 'inherit' }}>{t.search.keyword}</label>
+               <label style={{ display: 'block', fontWeight: 700, marginBottom: '0.75rem', fontSize: '0.9rem', textAlign: 'inherit' }}>{t?.search?.keyword || "Keyword"}</label>
                <div style={{ position: 'relative' }}>
                   <input 
                     type="text" 
@@ -142,7 +142,7 @@ function SearchResults() {
 
             {/* Location Search */}
             <div>
-               <label style={{ display: 'block', fontWeight: 700, marginBottom: '0.75rem', fontSize: '0.9rem', textAlign: 'inherit' }}>{t.search.location}</label>
+               <label style={{ display: 'block', fontWeight: 700, marginBottom: '0.75rem', fontSize: '0.9rem', textAlign: 'inherit' }}>{t?.search?.location || "Location"}</label>
                <div style={{ position: 'relative' }}>
                   <input 
                     type="text" 
@@ -158,27 +158,27 @@ function SearchResults() {
 
             {/* Category Select */}
             <div>
-               <label style={{ display: 'block', fontWeight: 700, marginBottom: '0.75rem', fontSize: '0.9rem', textAlign: 'inherit' }}>{t.search.category}</label>
+               <label style={{ display: 'block', fontWeight: 700, marginBottom: '0.75rem', fontSize: '0.9rem', textAlign: 'inherit' }}>{t?.search?.category || "Specialism"}</label>
                 <select 
                  value={category} 
                  onChange={(e) => setCategory(e.target.value)}
                  style={{ width: '100%', padding: '0.75rem', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)', borderRadius: '0.75rem', color: 'var(--text-primary)', textAlign: 'inherit', outline: 'none', cursor: 'pointer' }}
                  >
-                   <option value="All">{t.search.category}</option>
-                   <option value="Plumbing">{t.home.categories.plumbing}</option>
-                   <option value="Repairs">{t.home.categories.repairs}</option>
-                   <option value="Renovation">{t.home.categories.renovation}</option>
-                   <option value="Education">{t.home.categories.education}</option>
-                   <option value="Accounting">{t.home.categories.accounting}</option>
-                   <option value="Legal">{t.home.categories.legal}</option>
-                   <option value="Commercial">{t.home.categories.commercial}</option>
-                   <option value="Cleaning">{t.home.categories.cleaning}</option>
+                   <option value="All">{t?.search?.category || "Specialism"}</option>
+                   <option value="Plumbing">{t?.home?.categories?.plumbing || "Plumbing"}</option>
+                   <option value="Repairs">{t?.home?.categories?.repairs || "Repairs"}</option>
+                   <option value="Renovation">{t?.home?.categories?.renovation || "Renovation"}</option>
+                   <option value="Education">{t?.home?.categories?.education || "Education"}</option>
+                   <option value="Accounting">{t?.home?.categories?.accounting || "Accounting"}</option>
+                   <option value="Legal">{t?.home?.categories?.legal || "Legal"}</option>
+                   <option value="Commercial">{t?.home?.categories?.commercial || "Commercial"}</option>
+                   <option value="Cleaning">{t?.home?.categories?.cleaning || "Cleaning"}</option>
                  </select>
             </div>
 
             {/* Min Rating */}
             <div>
-               <label style={{ display: 'block', fontWeight: 700, marginBottom: '0.75rem', fontSize: '0.9rem', textAlign: 'inherit' }}>{t.search.minRating}</label>
+               <label style={{ display: 'block', fontWeight: 700, marginBottom: '0.75rem', fontSize: '0.9rem', textAlign: 'inherit' }}>{t?.search?.minRating || "Experience Level"}</label>
                <div style={{ display: 'flex', gap: '0.5rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
                   {[3, 4, 4.5].map(r => (
                     <button 
@@ -196,7 +196,7 @@ function SearchResults() {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', backgroundColor: 'var(--accent-soft)', borderRadius: '0.75rem', cursor: 'pointer', flexDirection: isRTL ? 'row-reverse' : 'row' }} onClick={() => setVerifiedOnly(!verifiedOnly)}>
                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
                   <ShieldCheck size={18} color="var(--accent-color)" />
-                  <span style={{ fontSize: '0.9rem', fontWeight: 700 }}>{t.search.verifiedOnly}</span>
+                  <span style={{ fontSize: '0.9rem', fontWeight: 700 }}>{t?.search?.verifiedOnly || "Verified Professionals"}</span>
                </div>
                <div style={{ width: '40px', height: '20px', borderRadius: '10px', backgroundColor: verifiedOnly ? 'var(--accent-color)' : 'var(--border-color)', position: 'relative' }}>
                   <div style={{ width: '16px', height: '16px', borderRadius: '50%', backgroundColor: 'var(--surface-1)', position: 'absolute', top: '2px', [isRTL ? 'right' : 'left']: verifiedOnly ? '22px' : '2px', transition: '0.3s' }} />
@@ -207,7 +207,7 @@ function SearchResults() {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', backgroundColor: 'rgba(239, 68, 68, 0.05)', borderRadius: '0.75rem', cursor: 'pointer', border: '1px solid ' + (isEmergency ? 'var(--accent-color)' : 'transparent'), flexDirection: isRTL ? 'row-reverse' : 'row' }} onClick={() => setIsEmergency(!isEmergency)}>
                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
                   <Sparkles size={18} color="var(--accent-color)" />
-                  <span style={{ fontSize: '0.9rem', fontWeight: 900, color: 'var(--accent-color)' }}>{t.search.urgentOnly}</span>
+                  <span style={{ fontSize: '0.9rem', fontWeight: 900, color: 'var(--accent-color)' }}>{t?.search?.urgentOnly || "Emergency Rapid Response"}</span>
                </div>
                <div style={{ width: '40px', height: '20px', borderRadius: '10px', backgroundColor: isEmergency ? 'var(--accent-color)' : 'var(--border-color)', position: 'relative' }}>
                   <div style={{ width: '16px', height: '16px', borderRadius: '50%', backgroundColor: 'var(--surface-1)', position: 'absolute', top: '2px', [isRTL ? 'right' : 'left']: isEmergency ? '22px' : '2px', transition: '0.3s' }} />
@@ -215,7 +215,7 @@ function SearchResults() {
             </div>
 
             <button onClick={() => performSearch()} className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
-              {t.search.apply}
+              {t?.search?.apply || "Apply Optimization"}
             </button>
 
             {/* AI Diagnosis CTA */}
@@ -232,8 +232,8 @@ function SearchResults() {
                    <Sparkles size={24} />
                 </div>
               </div>
-              <h3 style={{ fontSize: '1rem', fontWeight: 900, marginBottom: '0.5rem', color: 'white' }}>{t.home.aiCTA.title1}</h3>
-              <p style={{ fontSize: '0.75rem', opacity: 0.9, marginBottom: '1rem', lineHeight: 1.4 }}>{t.home.aiCTA.subtitle}</p>
+              <h3 style={{ fontSize: '1rem', fontWeight: 900, marginBottom: '0.5rem', color: 'white' }}>{t?.home?.aiCTA?.title1 || "Instant AI Analysis"}</h3>
+              <p style={{ fontSize: '0.75rem', opacity: 0.9, marginBottom: '1rem', lineHeight: 1.4 }}>{t?.home?.aiCTA?.subtitle || "Upload evidence for a rapid technical appraisal"}</p>
               <Link href="/diagnosis">
                 <button style={{ 
                   width: '100%', padding: '0.6rem', borderRadius: '0.75rem', 
@@ -252,7 +252,7 @@ function SearchResults() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <h1 style={{ fontSize: '1.75rem', fontWeight: 900 }}>
-                  {loading ? t.search.searching : format(t.search.foundCount, { count: results.length })}
+                  {loading ? (t?.search?.searching || "Scanning network...") : format(t?.search?.foundCount || "{count} matches found", { count: results.length })}
                 </h1>
                 
                 {/* View Mode Toggle */}
@@ -272,7 +272,7 @@ function SearchResults() {
                         transition: '0.2s'
                       }}
                     >
-                      <LayoutGrid size={16} /> {t.search.listView}
+                      <LayoutGrid size={16} /> {t?.search?.listView || "List"}
                     </button>
                     <button 
                       onClick={() => setViewMode('map')}
@@ -285,7 +285,7 @@ function SearchResults() {
                         transition: '0.2s'
                       }}
                     >
-                      <MapIcon size={16} /> {t.search.mapView}
+                      <MapIcon size={16} /> {t?.search?.mapView || "Map"}
                     </button>
                   </div>
                 )}
@@ -297,10 +297,10 @@ function SearchResults() {
                   onChange={(e) => setSortBy(e.target.value as any)}
                   style={{ backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)', borderRadius: '0.5rem', padding: '0.2rem 0.5rem', color: 'var(--accent-color)', fontWeight: 700, outline: 'none', cursor: 'pointer', textAlign: 'inherit' }}
                 >
-                  <option value="rating" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>{t.search.sortRating}</option>
-                  <option value="jobs" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>{t.search.sortJobs}</option>
-                  <option value="distance" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>{t.search.sortDistance}</option>
-                  <option value="price" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>{t.search.sortPrice}</option>
+                  <option value="rating" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>{t?.search?.sortRating || "Top Rated"}</option>
+                  <option value="jobs" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>{t?.search?.sortJobs || "Most Experience"}</option>
+                  <option value="distance" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>{t?.search?.sortDistance || "Nearest"}</option>
+                  <option value="price" style={{ backgroundColor: 'var(--surface-1)', color: 'var(--text-primary)' }}>{t?.search?.sortPrice || "Best Value"}</option>
                 </select>
              </div>
           </div>
@@ -308,12 +308,12 @@ function SearchResults() {
           {loading ? (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '10rem 0', opacity: 0.5 }}>
               <Loader2 className="animate-spin" size={48} />
-              <p style={{ marginTop: '1rem' }}>{t.search.searching}</p>
+              <p style={{ marginTop: '1rem' }}>{t?.search?.searching || "Scanning network..."}</p>
             </div>
           ) : results.length === 0 ? (
             <div className="glass-panel" style={{ padding: '5rem 2rem', textAlign: 'center', borderRadius: '2rem' }}>
               <Search size={40} style={{ color: 'var(--text-secondary)', opacity: 0.5, marginBottom: '1.5rem' }} />
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '0.5rem' }}>{t.search.noResults}</h3>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '0.5rem' }}>{t?.search?.noResults || "No matching nodes found"}</h3>
               <button 
                 onClick={() => {
                   setCategory("All");
@@ -324,7 +324,7 @@ function SearchResults() {
                 className="btn btn-secondary" 
                 style={{ marginTop: '1.5rem' }}
               >
-                {t.search.clearFilters}
+                {t?.search?.clearFilters || "Reset Parameters"}
               </button>
             </div>
           ) : viewMode === 'map' ? (
@@ -357,7 +357,7 @@ function SearchResults() {
                       boxShadow: 'var(--shadow-md)', zIndex: 5,
                       display: 'flex', alignItems: 'center', gap: '4px'
                     }}>
-                      <Sparkles size={10} /> {t.home.hero.aiMatch}
+                      <Sparkles size={10} /> {t?.home?.hero?.aiMatch || "Calculated Match"}
                     </div>
                   )}
                   <div style={{ width: 'var(--mobile-card-img-size, 150px)', flexShrink: 0, aspectRatio: '1', borderRadius: '1rem', overflow: 'hidden' }}>
@@ -380,14 +380,14 @@ function SearchResults() {
                       </div>
                     </div>
                      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-end', gap: '0.25rem', minWidth: '120px' }}>
-                      <div style={{ fontSize: '0.75rem', opacity: 0.6 }}>{t.search.basePrice}</div>
+                      <div style={{ fontSize: '0.75rem', opacity: 0.6 }}>{t?.search?.basePrice || "Consultation Fee"}</div>
                       <div style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--accent-color)' }}>£{merchant.basePrice}</div>
                       {merchant.services?.some((s: any) => s.isEmergencyAble) && (
                         <div style={{ fontSize: '0.65rem', fontWeight: 800, color: '#f59e0b', backgroundColor: 'rgba(245, 158, 11, 0.1)', padding: '2px 6px', borderRadius: '4px', marginTop: '4px' }}>
-                          {t.search.emergencyReady}
+                          {t?.search?.emergencyReady || "RAPID RESPONSE ACTIVE"}
                         </div>
                       )}
-                      <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)', marginTop: '4px' }}>{t.search.viewDetails}</div>
+                      <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)', marginTop: '4px' }}>{t?.search?.viewDetails || "View Dossier"}</div>
                     </div>
                 </Link>
               ))}

@@ -7,9 +7,18 @@ import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 import { calculateCarRepairPayout } from '@/lib/commission';
 import VerifiedBadge from '@/app/components/VerifiedBadge';
+import { cookies } from 'next/headers';
+import { getDictionary, Locale } from '@/lib/i18n/dictionary';
 
 export default async function RepairTracker({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
+  
+  // I18n Setup
+  const cookieStore = await cookies();
+  const locale = (cookieStore.get('user-locale')?.value || 'en') as Locale;
+  const t = getDictionary(locale);
+  const rt = t?.repair_tracker; // Helper
+  
   const booking = await prisma.booking.findUnique({
     where: { id },
     include: {
@@ -39,16 +48,16 @@ export default async function RepairTracker({ params }: { params: Promise<{ id: 
   booking.variations = variations;
 
   const payout = calculateCarRepairPayout(
-    booking.totalAmount - booking.variations.reduce((acc: number, v: any) => acc + v.amount, 0),
-    booking.variations,
+    booking.totalAmount - (booking.variations?.reduce((acc: number, v: any) => acc + v.amount, 0) || 0),
+    booking.variations || [],
     booking.merchant
   );
 
   const stages = [
-    { key: 'PENDING', label: '預約已確認', desc: '等待師傅檢查', icon: Clock },
-    { key: 'IN_PROGRESS', label: '維修檢查中', desc: '師傅正處理您的車輛', icon: Wrench },
-    { key: 'FIXED', label: '維修已完成', desc: '車輛已就緒，等待取車', icon: CheckCircle2 },
-    { key: 'COMPLETED', label: '服務結清', desc: '感謝使用我們的服務', icon: ShieldCheck },
+    { key: 'PENDING', label: rt?.stages?.pending || 'Booking Confirmed', desc: rt?.stages?.pending_desc || 'Awaiting specialist inspection', icon: Clock },
+    { key: 'CONFIRMED', label: rt?.stages?.in_progress || 'Triage & Remediation', desc: rt?.stages?.in_progress_desc || 'Specialist is managing your vehicle', icon: Wrench },
+    { key: 'FIXED', label: rt?.stages?.fixed || 'Remediation Completed', desc: rt?.stages?.fixed_desc || 'Vehicle ready for extraction', icon: CheckCircle2 },
+    { key: 'COMPLETED', label: rt?.stages?.completed || 'Mission Finalized', desc: rt?.stages?.completed_desc || 'Thank you for using ConciergeAI', icon: ShieldCheck },
   ];
 
   const currentStageIndex = stages.findIndex(s => s.key === booking.status);
@@ -57,7 +66,7 @@ export default async function RepairTracker({ params }: { params: Promise<{ id: 
     <div className="container" style={{ paddingTop: '6rem', paddingBottom: '10rem' }}>
       <div style={{ marginBottom: '2rem' }}>
          <Link href="/member" className="btn btn-secondary" style={{ display: 'inline-flex', padding: '0.6rem 1.2rem' }}>
-            <ArrowLeft size={18} /> Back to Dashboard
+            <ArrowLeft size={18} /> {t?.nav?.dashboard || "Back to Dashboard"}
          </Link>
       </div>
 
@@ -72,7 +81,7 @@ export default async function RepairTracker({ params }: { params: Promise<{ id: 
                     <Car size={32} />
                  </div>
                  <div>
-                    <h1 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '0.25rem' }}>Repair Status</h1>
+                    <h1 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '0.25rem' }}>{rt?.title || "Repair Status"}</h1>
                     <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>{booking.vehicleMake} {booking.vehicleModel} ({booking.vehicleReg})</p>
                  </div>
               </div>
@@ -84,7 +93,6 @@ export default async function RepairTracker({ params }: { params: Promise<{ id: 
                     
                     return (
                        <div key={stage.key} style={{ position: 'relative' }}>
-                          {/* Indicator Dot */}
                           <div style={{ 
                              position: 'absolute', 
                              left: '-3rem', 
@@ -116,17 +124,17 @@ export default async function RepairTracker({ params }: { params: Promise<{ id: 
 
           <div className="glass-panel" style={{ padding: '2rem' }}>
              <h2 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                <MapPin size={20} color="var(--accent-color)" /> Workshop Location
+                <MapPin size={20} color="var(--accent-color)" /> {rt?.location?.title || "Workshop Location"}
              </h2>
              <div style={{ padding: '1.5rem', backgroundColor: 'var(--bg-secondary)', borderRadius: '1rem', border: '1px solid var(--border-color)' }}>
                 <div style={{ fontWeight: 700, fontSize: '1.1rem', marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                   {booking.merchant.user.name}
-                   {booking.merchant.isVerified && <VerifiedBadge size={16} />}
+                   {booking.merchant?.user?.name || "Specialist Node"}
+                   {booking.merchant?.isVerified && <VerifiedBadge size={16} />}
                 </div>
-                <div style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>{booking.postcode}</div>
+                <div style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>{booking.merchant?.city || "London, UK"}</div>
                 <div style={{ marginTop: '1rem', display: 'flex', gap: '0.5rem' }}>
-                   <button className="btn btn-secondary" style={{ flex: 1, padding: '0.5rem' }}>Get Directions</button>
-                   <button className="btn btn-secondary" style={{ flex: 1, padding: '0.5rem' }}>Call Workshop</button>
+                   <button className="btn btn-secondary" style={{ flex: 1, padding: '0.5rem' }}>{rt?.location?.getDirections || "Get Directions"}</button>
+                   <button className="btn btn-secondary" style={{ flex: 1, padding: '0.5rem' }}>{rt?.location?.callWorkshop || "Call Workshop"}</button>
                 </div>
              </div>
           </div>
@@ -136,26 +144,26 @@ export default async function RepairTracker({ params }: { params: Promise<{ id: 
         <section style={{ display: 'grid', gap: '2rem' }}>
            
            <div className="glass-panel gradient-border" style={{ padding: '2.5rem', border: '2px solid var(--accent-color)' }}>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '1.5rem' }}>Billing Summary</h2>
+              <h2 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '1.5rem' }}>{rt?.billing?.title || "Billing Summary"}</h2>
               
               <div style={{ display: 'grid', gap: '1.25rem' }}>
                  <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-secondary)' }}>
-                    <span>Initial Diagnostic Fee (Paid Online)</span>
-                    <span style={{ fontWeight: 600 }}>£{booking.diagnosticFee || 20.00}</span>
+                    <span>{rt?.billing?.initialFee || "Initial Diagnostic Fee (Paid Online)"}</span>
+                    <span style={{ fontWeight: 600 }}>£{(booking.depositPaid || 20.00).toFixed(2)}</span>
                  </div>
                  <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1rem', borderBottom: '1px solid var(--border-color)' }}>
-                    <span>Additional Labor & Parts</span>
-                    <span style={{ fontWeight: 600 }}>£{(payout.totalCustomerPrice - (booking.diagnosticFee || 20)).toFixed(2)}</span>
+                    <span>{rt?.billing?.additional || "Additional Labor & Parts"}</span>
+                    <span style={{ fontWeight: 600 }}>£{(payout.totalCustomerPrice - (booking.depositPaid || 20)).toFixed(2)}</span>
                  </div>
                  
                  <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '0.5rem' }}>
                     <div>
                        <div style={{ fontWeight: 900, fontSize: '1.5rem', color: 'var(--accent-color)' }}>£{payout.totalCustomerPrice.toFixed(2)}</div>
-                       <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Total Estimated Cost</div>
+                       <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>{rt?.billing?.totalCost || "Total Estimated Cost"}</div>
                     </div>
                     <div style={{ textAlign: 'right' }}>
-                       <div style={{ fontWeight: 900, fontSize: '1.5rem', color: '#facc15' }}>£{(payout.totalCustomerPrice - (booking.diagnosticFee || 20)).toFixed(2)}</div>
-                       <div style={{ fontSize: '0.85rem', color: '#facc15' }}>Pay at Workshop</div>
+                       <div style={{ fontWeight: 900, fontSize: '1.5rem', color: '#facc15' }}>£{(payout.totalCustomerPrice - (booking.depositPaid || 20)).toFixed(2)}</div>
+                       <div style={{ fontSize: '0.85rem', color: '#facc15' }}>{rt?.billing?.payAtWorkshop || "Pay at Workshop"}</div>
                     </div>
                  </div>
 
@@ -163,33 +171,33 @@ export default async function RepairTracker({ params }: { params: Promise<{ id: 
                     <AlertCircle size={16} style={{ marginBottom: '0.5rem' }} />
                     {booking.status === 'COMPLETED' ? (
                        <div style={{ color: 'var(--text-primary)' }}>
-                          <p style={{ fontWeight: 800, color: '#facc15', marginBottom: '0.25rem' }}>維修已圓滿結束！</p>
-                          <p style={{ color: 'var(--text-secondary)' }}>您已完成到店支付。如果您對這次服務滿意，請花一分鐘為師傅留下好評。</p>
+                          <p style={{ fontWeight: 800, color: '#facc15', marginBottom: '0.25rem' }}>{rt?.billing?.successTitle || "Mission Successfully Finalized!"}</p>
+                          <p style={{ color: 'var(--text-secondary)' }}>{rt?.billing?.successDesc || "On-site settlement complete. Please provide a quality log if satisfied."}</p>
                           <Link href={`/member/repair/${booking.id}/review`} style={{ display: 'inline-block', marginTop: '1rem' }}>
                              <button className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}>
-                                <CheckCircle2 size={14} style={{ marginRight: '0.4rem' }} /> 立即評價
+                                <CheckCircle2 size={14} style={{ marginRight: '0.4rem' }} /> {rt?.billing?.rateBtn || "Submit Quality Log"}
                              </button>
                           </Link>
                        </div>
                     ) : (
                        <p style={{ color: 'var(--text-secondary)' }}>
-                          維修完成後，請直接向師傅支付 **Pay at Workshop** 的金額。師傅會提供正式發票。
+                          {rt?.billing?.workshopNote || "Upon completion, settle the **Pay at Workshop** balance directly with the specialist. Formal documentation will be provided."}
                        </p>
                     )}
                  </div>
               </div>
            </div>
 
-           <div className="glass-panel" style={{ padding: '2rem' }}>
-              <h2 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '1.5rem' }}>Repair Items & Evidence</h2>
-              
-              <div style={{ display: 'grid', gap: '1rem' }}>
-                 {booking.variations.length === 0 ? (
-                    <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-secondary)' }}>
-                       <Camera size={32} style={{ margin: '0 auto 1rem', opacity: 0.3 }} />
-                       <p>Waiting for mechanic to update inspection details.</p>
-                    </div>
-                 ) : (
+            <div className="glass-panel" style={{ padding: '2rem' }}>
+               <h2 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '1.5rem' }}>{rt?.evidence?.title || "Remediation Archive & Evidence"}</h2>
+               
+               <div style={{ display: 'grid', gap: '1rem' }}>
+                  {booking.variations.length === 0 ? (
+                     <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-secondary)' }}>
+                        <Camera size={32} style={{ margin: '0 auto 1rem', opacity: 0.3 }} />
+                        <p>{rt?.evidence?.waiting || "Awaiting specialist inspection telemetry..."}</p>
+                     </div>
+                  ) : (
                     booking.variations.map((v: any) => (
                        <div key={v.id} style={{ display: 'flex', gap: '1rem', padding: '1rem', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: '1rem', border: '1px solid var(--border-color)' }}>
                           {v.photoUrl && (
@@ -203,8 +211,8 @@ export default async function RepairTracker({ params }: { params: Promise<{ id: 
                              <div style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', marginTop: '0.2rem' }}>£{v.amount.toFixed(2)}</div>
                              {v.status === 'PENDING' && (
                                 <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.75rem' }}>
-                                   <button className="btn btn-primary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}>Accept</button>
-                                   <button className="btn btn-secondary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}>Enquire</button>
+                                   <button className="btn btn-primary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}>{rt?.evidence?.accept || "Authorize"}</button>
+                                   <button className="btn btn-secondary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}>{rt?.evidence?.enquire || "Query"}</button>
                                 </div>
                              )}
                           </div>

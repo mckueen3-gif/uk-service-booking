@@ -23,7 +23,7 @@ export const en: Dictionary = {
     labels: {
       overview: "Overview",
       bookings: "My Bookings",
-      messages: "Live Messages",
+      messages: "Nexus Center",
       schedule: "Service Schedule",
       services: "Service Management",
       availability: "Availability",
@@ -708,60 +708,70 @@ export const en: Dictionary = {
       avatar: { hint: "Update Identity Photo", errorSize: "Over 2MB", success: "Avatar Persistent!", upload: "Upload" },
       tips: { growth: "Updating your portfolio increases extraction rate by 30%." },
     },
-    merchant_profile: {
-      title: "Profile Preferences",
-      subtitle: "Update your professional operational identity.",
-      save: "Update Node",
-      sections: { basic: "Identity", address: "Geospatial", business: "Entity Name", categories: "Professional Sectors", branding: "Visual Branding" },
-      labels: {
-        name: "True Name",
-        bio: "Specialist Intel",
-        bioPlaceholder: "Describe your professional background and strengths...",
-        city: "Service City",
-        addressLine1: "Address 1",
-        addressLine2: "Address 2",
-        postcode: "Node Postcode",
-        phone: "Liaison Phone",
-        email: "Certified Email",
-        emailReadOnly: "Read-only",
-        businessName: "Entity Name",
-        businessNamePlaceholder: "Registered business name",
-        mainCategory: "Primary Profession",
-        experience: "Tenure (Years)",
-        placeholderName: "John Doe",
-        placeholderPhone: "+44 (0) XXXX XXXX",
-      },
-      status: { saving: "Syncing...", success: "Node Updated" },
-      share: {
-        title: "Share Specialist Node",
-        subtitle: "Promote your professional profile across the social mesh."
-      }
+  },
+  merchant_profile: {
+    title: "Profile Preferences",
+    subtitle: "Update your professional operational identity.",
+    save: "Update Node",
+    sections: { basic: "Identity", address: "Geospatial", business: "Entity Name", categories: "Professional Sectors", branding: "Visual Branding" },
+    labels: {
+      name: "True Name",
+      bio: "Specialist Intel",
+      bioPlaceholder: "Describe your professional background and strengths...",
+      city: "Service City",
+      addressLine1: "Address 1",
+      addressLine2: "Address 2",
+      postcode: "Node Postcode",
+      phone: "Liaison Phone",
+      email: "Certified Email",
+      emailReadOnly: "Read-only",
+      businessName: "Entity Name",
+      businessNamePlaceholder: "Registered business name",
+      mainCategory: "Primary Profession",
+      experience: "Tenure (Years)",
+      placeholderName: "John Doe",
+      placeholderPhone: "+44 (0) XXXX XXXX",
     },
-    merchant_messages: { title: "Nexus Center", subtitle: "Encrypted communication mesh.", hub: "Liaison Hub", hubDesc: "Real-time links with active nodes.", empty: "No active transmissions.", placeholder: "Input message...", send: "Push" },
-    portfolio_mgr: {
-      title: "Operational Archive",
-      subtitle: "Showcase proof of previous successful missions.",
-      addBtn: "Record New Mission",
-      emptyTitle: "No operational archives",
-      emptyDesc: "Upload your completed work to build node reputation.",
-      modal: {
-        title: "Archive New Mission",
-        itemTitle: "Mission ID / Title",
-        itemTitlePlaceholder: "e.g., Central Park Refurbishment",
-        category: "Sector",
-        uploadPhoto: "Evidence Upload (IMG)",
-        errorSize: "File too large (>2MB)",
-        details: "Remediation Analysis",
-        aiBtn: "AI Synthesis",
-        aiGenerating: "Neural processing...",
-        detailsPlaceholder: "Describe your technical approach...",
-        cancel: "Abort",
-        publish: "Deploy to Net",
-      },
-      deleteConfirm: "Purge this log from memory?",
-      addError: "Transmission Failed",
-      aiError: "Neural Link Busy (Title Required)",
+    status: { saving: "Syncing...", success: "Node Updated" },
+    share: {
+      title: "Share Specialist Node",
+      subtitle: "Promote your professional profile across the social mesh."
+    }
+  },
+  merchant_messages: { 
+    title: "Nexus Center", 
+    subtitle: "Encrypted liaison mesh.",
+    search: "Search active nodes...",
+    empty: "No communication history found.",
+    startPrompt: "Initialize secure link...",
+    targetName: "Connecting Node...",
+    inputPlaceholder: "Push message to grid...",
+    selectChat: "Select a liaison to begin",
+    selectChatDesc: "Communicate remediation details, upload visual evidence, or query node status."
+  },
+  portfolio_mgr: {
+    title: "Operational Archive",
+    subtitle: "Showcase proof of previous successful missions.",
+    addBtn: "Record New Mission",
+    emptyTitle: "No operational archives",
+    emptyDesc: "Upload your completed work to build node reputation.",
+    modal: {
+      title: "Archive New Mission",
+      itemTitle: "Mission ID / Title",
+      itemTitlePlaceholder: "e.g., Central Park Refurbishment",
+      category: "Sector",
+      uploadPhoto: "Evidence Upload (IMG)",
+      errorSize: "File too large (>2MB)",
+      details: "Remediation Analysis",
+      aiBtn: "AI Synthesis",
+      aiGenerating: "Neural processing...",
+      detailsPlaceholder: "Describe your technical approach...",
+      cancel: "Abort",
+      publish: "Deploy to Net",
     },
+    deleteConfirm: "Purge this log from memory?",
+    addError: "Transmission Failed",
+    aiError: "Neural Link Busy (Title Required)",
   },
   customer_dashboard: {
     welcomeBack: "Welcome back to your dashboard.",
@@ -1069,4 +1079,78 @@ export const en: Dictionary = {
   },
   profile: {},
   notifications: {},
+  repair_tracker: {
+    title: "Repair Status",
+    stages: {
+      pending: "Booking Confirmed",
+      pending_desc: "Awaiting specialist inspection",
+      in_progress: "Triage & Remediation",
+      in_progress_desc: "Specialist is managing your vehicle",
+      fixed: "Remediation Completed",
+      fixed_desc: "Vehicle ready for extraction",
+      completed: "Mission Finalized",
+      completed_desc: "Thank you for using ConciergeAI"
+    },
+    billing: {
+      title: "Billing Summary",
+      initialFee: "Initial Diagnostic Fee (Paid Online)",
+      additional: "Additional Labor & Parts",
+      totalCost: "Total Estimated Cost",
+      payAtWorkshop: "Pay at Workshop",
+      successTitle: "Mission Successfully Finalized!",
+      successDesc: "On-site settlement complete. Please provide a quality log if satisfied.",
+      rateBtn: "Submit Quality Log",
+      workshopNote: "Upon completion, settle the **Pay at Workshop** balance directly with the specialist. Formal documentation will be provided."
+    },
+    location: {
+      title: "Workshop Geospatial Node",
+      getDirections: "Scan Directions",
+      callWorkshop: "Establish Audio Liaison"
+    },
+    evidence: {
+      title: "Remediation Archive & Evidence",
+      waiting: "Awaiting specialist inspection telemetry...",
+      accept: "Authorize",
+      enquire: "Query"
+    }
+  },
+  asset_manager: {
+    tabs: {
+      garage: "Private Garage",
+      properties: "Property Portfolio"
+    },
+    actions: {
+      addVehicle: "Register Vehicle",
+      addProperty: "Register Property",
+      save: "Finalize Registration",
+      saving: "Syncing Nodes...",
+      deleteConfirm: "Purge this asset from memory?",
+      successVehicle: "Vehicle Persistent!",
+      successProperty: "Property Persistent!",
+      errorAdd: "Registration Failure",
+      errorDelete: "De-registration Failure"
+    },
+    forms: {
+      vehicle: {
+        make: "Manufacturer",
+        model: "Model Node",
+        year: "Production Year",
+        reg: "Registry Plate (Optional)"
+      },
+      property: {
+        address: "Geofence Address",
+        type: "Structure Type",
+        boilerAge: "Boiler Cycle (Years)",
+        types: {
+          house: "House",
+          flat: "Flat/Apartment",
+          office: "Commercial Node"
+        }
+      }
+    },
+    empty: {
+      vehicles: "No vehicle telemetry registered.",
+      properties: "No property nodes registered."
+    }
+  }
 };

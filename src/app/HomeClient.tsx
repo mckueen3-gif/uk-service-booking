@@ -420,7 +420,7 @@ export default function HomeClient() {
       <section id="discovery" style={{ padding: '8rem 0', background: 'var(--bg-primary)' }}>
         <div className="container">
           <div className="reveal active" style={{ textAlign: 'center', marginBottom: '5rem' }}>
-            <div style={{ color: 'var(--accent-color)', fontWeight: 800, fontSize: '0.9rem', marginBottom: '1.5rem', textTransform: 'uppercase', letterSpacing: '0.2rem' }}>{t.home.recommendation.title2}</div>
+            <div style={{ color: 'var(--accent-color)', fontWeight: 800, fontSize: '0.9rem', marginBottom: '1.5rem', textTransform: 'uppercase', letterSpacing: '0.2rem' }}>{t?.home?.recommendation?.title2 || "Top Rated Specialists"}</div>
             <h2 style={{ fontSize: '3.5rem', fontWeight: 950, color: 'var(--text-primary)', marginBottom: '1.5rem', fontFamily: 'var(--font-heading)', letterSpacing: '-0.03em' }}>
               {t?.home?.eliteLocal} <span style={{ color: 'var(--accent-color)' }}>{t?.search?.filters}</span>
             </h2>
