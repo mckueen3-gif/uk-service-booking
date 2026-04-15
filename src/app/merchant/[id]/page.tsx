@@ -18,8 +18,8 @@ export async function generateMetadata({ params }: Props) {
   }
   const m = result.merchant as any;
   return {
-    title: `${m.companyName || m.name || "Merchant"} | ConciergeAI`,
-    description: m.description || `Book ${m.companyName || m.name || "our verified professional"} on ConciergeAI — verified UK expert.`,
+    title: `${m.companyName || m.ownerName || m.user?.name || "Merchant"} | ConciergeAI`,
+    description: m.description || `Book ${m.companyName || m.ownerName || m.user?.name || "our verified professional"} on ConciergeAI — verified UK expert.`,
   };
 }
 
@@ -58,6 +58,12 @@ export default async function MerchantPublicPage({ params }: Props) {
     ? `/book/${m?.id}?serviceId=${primaryService.id}`
     : `/book/${m?.id || ''}`;
     
+  // Resolve best profile picture / avatar
+  const avatar = m.avatarUrl || m.profileImage || m.user?.image;
+  // Resolve best name
+  const displayName = m.companyName || m.ownerName || m.user?.name || "Merchant";
+
+    
   // Safe date parsing
   let memberYear = "2024";
   if (m.createdAt) {
@@ -93,9 +99,9 @@ export default async function MerchantPublicPage({ params }: Props) {
             display: "flex", alignItems: "center", justifyContent: "center",
             overflow: "hidden"
           }}>
-             {m.profileImage
-              ? <img src={m.profileImage} alt={m.companyName || "Logo"} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-              : <div style={{ fontSize: "3rem", fontWeight: 900, color: "var(--gold-500)" }}>{(m.companyName || m.name || "?")[0].toUpperCase()}</div>
+             {avatar
+              ? <img src={avatar} alt={displayName} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              : <div style={{ fontSize: "3rem", fontWeight: 900, color: "var(--gold-500)" }}>{(displayName)[0]?.toUpperCase() || "?"}</div>
             }
           </div>
           
@@ -108,7 +114,7 @@ export default async function MerchantPublicPage({ params }: Props) {
           <div style={{ flex: 1 }}>
             <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "0.5rem", flexWrap: "wrap" }}>
               <h1 style={{ fontSize: "2.8rem", fontWeight: 900, color: "#fff", margin: 0, letterSpacing: "-0.02em" }}>
-                {m.companyName || m.name}
+                {displayName}
               </h1>
               {isVerified && (
                 <div style={{ display: "flex", alignItems: "center", gap: "6px", backgroundColor: "rgba(212,175,55,0.15)", padding: "4px 12px", borderRadius: "100px", color: "var(--gold-400)", fontWeight: 800, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em", border: "1px solid rgba(212,175,55,0.3)" }}>
@@ -120,8 +126,8 @@ export default async function MerchantPublicPage({ params }: Props) {
             <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap", color: "var(--text-secondary)", fontSize: "1.1rem", marginTop: "1rem" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                 <Star size={20} fill="#d4af37" color="#d4af37" /> 
-                <span style={{ fontWeight: 900, color: "var(--text-primary)", fontSize: "1.4rem" }}>{avgRating}</span>
-                <span style={{ fontSize: "0.95rem", opacity: 0.7 }}>({reviews.length} 評價)</span>
+                <span style={{ fontWeight: 900, color: "var(--text-primary)", fontSize: "1.4rem" }}>{m.averageRating > 0 ? m.averageRating.toFixed(1) : avgRating}</span>
+                <span style={{ fontSize: "0.95rem", opacity: 0.7 }}>({m.totalReviews || reviews.length} 評價)</span>
               </div>
               {m.city && (
                 <div style={{ display: "flex", alignItems: "center", gap: "8px", fontWeight: 600 }}>
@@ -307,7 +313,7 @@ export default async function MerchantPublicPage({ params }: Props) {
               <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
                 <div>
                   <div style={{ color: "var(--text-muted)", fontSize: "0.85rem", fontWeight: 700, marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>Owner</div>
-                  <div style={{ color: "var(--text-primary)", fontWeight: 800, fontSize: "1.1rem" }}>{m.ownerName || m.name || "N/A"}</div>
+                  <div style={{ color: "var(--text-primary)", fontWeight: 800, fontSize: "1.1rem" }}>{m.ownerName || m.user?.name || "N/A"}</div>
                 </div>
                 
                 <div style={{ height: "1px", background: "var(--border-color)" }} />

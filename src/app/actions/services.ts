@@ -128,7 +128,10 @@ export async function getMerchantDetails(merchantId: string) {
           orderBy: { createdAt: 'desc' },
           take: 12
         },
-        services: true
+        services: true,
+        user: {
+          select: { name: true, image: true, email: true }
+        }
       }
     });
     return { success: true, merchant };
