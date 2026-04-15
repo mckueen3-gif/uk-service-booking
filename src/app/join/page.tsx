@@ -38,8 +38,23 @@ function JoinPageContent() {
   });
 
   const nextStep = () => {
-    if (step === 1 && !selectedSector) return;
+    if (step === 1 && !selectedSector) {
+      setError("請選擇一個業務領域以繼續 (Please select a sector)");
+      return;
+    }
+    if (step === 2) {
+      if (!formData.businessName || !formData.email || !formData.phone || !formData.bio || formData.suggestedCategories.length === 0) {
+        setError("請填寫所有必填欄位 (Please fill in all required fields)");
+        return;
+      }
+      if (formData.bio.length < 20) {
+        setError("簡介過短，請提供更多關於貴司的資訊 (Bio too short)");
+        return;
+      }
+    }
     if (step === 3 && !contractAccepted) return;
+    
+    setError(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setStep(step + 1);
   };
@@ -128,6 +143,15 @@ function JoinPageContent() {
   };
 
   const handleSubmit = async () => {
+    // 1. Validate Required Fields
+    if (!formData.businessName) { setError("請輸入商號名稱 (Business Name is required)"); return; }
+    if (!formData.email) { setError("請輸入聯絡電郵 (Email is required)"); return; }
+    if (!formData.phone) { setError("請輸入聯絡電話 (Phone number is required)"); return; }
+    if (!formData.bio || formData.bio.length < 20) { setError("簡介長度不足，請至少輸入 20 字 (Bio is too short, min 20 chars)"); return; }
+    if (!selectedSector) { setError("請選擇業務領域 (Sector is required)"); return; }
+    if (formData.suggestedCategories.length === 0) { setError("請至少添加一個服務分類 (At least one category is required)"); return; }
+    if (!formData.city) { setError("請選擇服務區域 (City is required)"); return; }
+
     setLoading(true);
     setError(null);
     try {
@@ -137,6 +161,7 @@ function JoinPageContent() {
       });
       if (res.error) {
         setError(res.error);
+        setLoading(false);
       } else {
         setStep(4);
       }
@@ -219,6 +244,17 @@ function JoinPageContent() {
                     <h2 className="form-title">專家商務資訊 <span style={{ color: '#d4af37' }}>Expert Profile</span></h2>
                     <p className="form-intro">請告訴我們您的專業背景，以便我們為您對接優質客戶。</p>
                   </div>
+
+                  {error && (
+                    <div style={{ 
+                      padding: "1rem", backgroundColor: "rgba(220, 38, 38, 0.1)", 
+                      border: "1px solid rgba(220, 38, 38, 0.2)", borderRadius: "12px", 
+                      color: "#ef4444", marginBottom: "1.5rem", fontSize: "0.9rem",
+                      display: "flex", alignItems: "center", gap: "8px"
+                    }}>
+                      <CheckCircle2 size={16} style={{ transform: 'rotate(180deg)' }} /> {error}
+                    </div>
+                  )}
 
                   <div className="profile-banner-section" style={{ marginBottom: '24px' }}>
                     <div className="banner-dropzone" onClick={() => document.getElementById('banner-input')?.click()} style={{ 
@@ -323,7 +359,7 @@ function JoinPageContent() {
                     )}
 
                     <div className="input-group">
-                      <label><Building2 size={16} /> 商號名稱 (Business Name)</label>
+                      <label><Building2 size={16} /> 商號名稱 (Business Name) <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>(必填)</span></label>
                       <input 
                         type="text" 
                         name="businessName" 
@@ -333,7 +369,7 @@ function JoinPageContent() {
                       />
                     </div>
                     <div className="input-group">
-                      <label><Mail size={16} /> 聯絡電子郵件 (Contact Email)</label>
+                      <label><Mail size={16} /> 聯絡電子郵件 (Contact Email) <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>(必填)</span></label>
                       <input 
                         type="email" 
                         name="email" 
@@ -343,7 +379,7 @@ function JoinPageContent() {
                       />
                     </div>
                     <div className="input-group">
-                      <label><Building2 size={16} /> 聯絡電話 (Phone Number)</label>
+                      <label><Building2 size={16} /> 聯絡電話 (Phone Number) <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>(必填)</span></label>
                       <input 
                         type="tel" 
                         name="phone" 
@@ -355,7 +391,7 @@ function JoinPageContent() {
                     
                     <div className="input-group full">
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                        <label style={{ margin: 0 }}><User size={16} /> 專業簡介 (Business Bio)</label>
+                        <label style={{ margin: 0 }}><User size={16} /> 專業簡介 (Business Bio) <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>(必填)</span></label>
                         <button 
                           onClick={handleBioRegeneration}
                           disabled={bioLoading || !formData.businessName || formData.suggestedCategories.length === 0}
@@ -484,7 +520,7 @@ function JoinPageContent() {
                     </div>
 
                     <div className="input-group full">
-                      <label><ShieldCheck size={16} /> 公眾責任保險額度 (Public Liability Insurance)</label>
+                      <label><ShieldCheck size={16} /> 公眾責任保險額度 (Public Liability Insurance) <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>(必填)</span></label>
                       <select name="insuranceAmount" value={formData.insuranceAmount} onChange={handleInputChange} className="premium-select">
                         <option value="1,000,000">£1,000,000 (1 Million)</option>
                         <option value="2,000,000">£2,000,000 (2 Million)</option>
