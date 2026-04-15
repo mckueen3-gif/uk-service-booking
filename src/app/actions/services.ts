@@ -130,7 +130,7 @@ export async function getMerchantDetails(merchantId: string) {
         },
         services: true,
         user: {
-          select: { name: true, image: true, email: true }
+          select: { name: true, image: true, email: true, phone: true }
         }
       }
     });

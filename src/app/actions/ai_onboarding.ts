@@ -4,14 +4,18 @@ import { generateAIContent } from "@/lib/ai-provider";
 import fs from "fs";
 import path from "path";
 
-async function getCategoriesList() {
+async function getCategoriesList(sector?: string) {
   try {
-    const dataPath = path.join(process.cwd(), "src/data/checkatrade_categories.json");
+    let fileName = "checkatrade_categories.json"; // default for technical
+    if (sector === 'professional') fileName = "professional_categories.json";
+    if (sector === 'education') fileName = "education_categories.json";
+
+    const dataPath = path.join(process.cwd(), "src/data", fileName);
     const content = fs.readFileSync(dataPath, "utf8");
     const json = JSON.parse(content);
     return Object.values(json).flat() as string[];
   } catch (e) {
-    return ["Plumber", "Electrician", "Builder", "Handyman", "Painter & Decorator"];
+    return ["General Service"];
   }
 }
 
@@ -44,27 +48,34 @@ async function getUrlMetadata(url: string) {
   }
 }
 
-export async function fetchBusinessInfoWithAI(url: string) {
+export async function fetchBusinessInfoWithAI(url: string, sector?: string) {
   if (!url) return { error: "Please provide a valid URL." };
 
   const metadata = await getUrlMetadata(url);
-  const categoriesList = await getCategoriesList();
+  const categoriesList = await getCategoriesList(sector);
   
   const context = metadata 
     ? `Title: ${metadata.title}\nDescription: ${metadata.description}\nContent Sample: ${metadata.rawHtml}`
     : `URL: ${url}`;
 
-  const prompt = `Task: Analyze this business website data to extract identity and trade categories.
+  const prompt = `Task: Analyze this business website data and write a highly compelling professional bio.
   Context: ${context}
+  Target Sector: ${sector || 'unspecified'}
   
-  Available Standard Categories (MUST use these names): ${categoriesList.join(", ")}
+  Available Standard Categories (MUST use these names): ${categoriesList.slice(0, 200).join(", ")}
+
+  Instructions for BIO:
+  1. Style: Premium, Trustworthy, and Persuasive.
+  2. Length: Approx 50-70 words.
+  3. Content: Highlight their expertise, service areas, and commitment to quality.
+  4. Language: If the input is Chinese/Mixed, please write the BIO in the same language style preferred by the user (or English as default if unsure).
 
   Return JSON ONLY: 
   { 
     "businessName": "Official Company Name", 
-    "bio": "Strong professional summary (around 50 words)", 
+    "bio": "A compelling, high-conversion professional bio...", 
     "suggestedCategories": ["Category Name"], // Max 5, must match names exactly from available list
-    "sector": "home_services" // choose most suitable
+    "sector": "${sector || 'home_services'}" 
   }`;
 
   try {
@@ -79,16 +90,17 @@ export async function fetchBusinessInfoWithAI(url: string) {
       businessName: url.replace(/(https?:\/\/)?(www\.)?/, "").split('.')[0],
       bio: "Manual entry required.",
       suggestedCategories: [],
-      sector: "professional"
+      sector: sector || "professional"
     };
   }
 }
 
-export async function getSmartCategoriesFromText(text: string) {
-  const categoriesList = await getCategoriesList();
+export async function getSmartCategoriesFromText(text: string, sector?: string) {
+  const categoriesList = await getCategoriesList(sector);
   const prompt = `Task: Match the business description to standardized trade categories.
   
   Description: "${text}"
+  Target Sector: ${sector || 'unspecified'}
   
   Instructions:
   1. The description might be in Chinese, English, or mixed. Translate/Understand it first.
@@ -96,7 +108,7 @@ export async function getSmartCategoriesFromText(text: string) {
   3. Respond ONLY with a JSON object in this format: { "categories": ["Category Name 1", "Category Name 2"] }
   4. If no clear matches, return an empty array for categories.
   
-  Standardized Categories: ${categoriesList.join(", ")}`;
+  Standardized Categories: ${categoriesList.slice(0, 200).join(", ")}`;
 
   try {
     const responseText = await generateAIContent({
@@ -110,3 +122,26 @@ export async function getSmartCategoriesFromText(text: string) {
     return [];
   }
 }
+
+export async function generateSmartBio(businessName: string, categories: string[], sector?: string) {
+  const prompt = `Task: Write a premium, high-conversion professional bio for a UK-based business.
+  
+  Business Name: ${businessName}
+  Specialities: ${categories.join(", ")}
+  Sector: ${sector || 'Professional Services'}
+  
+  Instructions:
+  1. Language: Both Traditional Chinese and professional English (Bilingual).
+  2. Tone: Elite, Reliable, Expert.
+  3. Format: ONE paragraph, approx 60 words.
+  4. Focus: Mention their specific categories and why users should trust them. 
+  
+  Return the BIO text directly (NOT JSON).`;
+
+  try {
+    return await generateAIContent({ prompt });
+  } catch (e) {
+    return "Expert provider in " + (sector || "professional services") + ".";
+  }
+}
+

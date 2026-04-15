@@ -9,7 +9,7 @@ import MerchantContract from '@/components/joining/MerchantContract';
 import LiveProfilePreview from '@/components/joining/LiveProfilePreview';
 import { ChevronRight, ChevronLeft, CheckCircle2, Building2, Mail, Globe, User, Loader2, MapPin, Sparkles, Wand2, Calculator, Gift, ShieldCheck } from 'lucide-react';
 import { createMerchantAction } from '@/app/actions/merchant';
-import { fetchBusinessInfoWithAI } from '@/app/actions/ai_onboarding';
+import { fetchBusinessInfoWithAI, generateSmartBio } from '@/app/actions/ai_onboarding';
 
 function JoinPageContent() {
   const { t, locale } = useTranslation();
@@ -17,6 +17,7 @@ function JoinPageContent() {
   const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [aiLoading, setAiLoading] = useState(false);
+  const [bioLoading, setBioLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedSector, setSelectedSector] = useState<string | null>(null);
   const [contractAccepted, setContractAccepted] = useState(false);
@@ -29,7 +30,11 @@ function JoinPageContent() {
     credentials: '',
     city: 'London',
     promoCode: '',
-    avatar: null as string | null
+    avatar: null as string | null,
+    bannerUrl: null as string | null,
+    phone: '',
+    insuranceAmount: '1,000,000',
+    suggestedCategories: [] as string[]
   });
 
   const nextStep = () => {
@@ -86,14 +91,16 @@ function JoinPageContent() {
     setAiLoading(true);
     setError(null);
     try {
-      const data = await fetchBusinessInfoWithAI(formData.website);
+      const data = await fetchBusinessInfoWithAI(formData.website, selectedSector || undefined);
       if (data.error) {
         setError(data.error);
       } else {
         setFormData(prev => ({
           ...prev,
           businessName: data.businessName || prev.businessName,
-          bio: data.bio || prev.bio
+          bio: data.bio || prev.bio,
+          bannerUrl: data.bannerUrl || prev.bannerUrl,
+          suggestedCategories: data.suggestedCategories || []
         }));
         if (data.sector) setSelectedSector(data.sector);
       }
@@ -101,6 +108,22 @@ function JoinPageContent() {
       setError("AI was unable to fetch information. Please fill manually.");
     } finally {
       setAiLoading(false);
+    }
+  };
+
+  const handleBioRegeneration = async () => {
+    if (!formData.businessName || formData.suggestedCategories.length === 0) {
+      setError("Please ensure Business Name and at least one category are present.");
+      return;
+    }
+    setBioLoading(true);
+    try {
+      const bio = await generateSmartBio(formData.businessName, formData.suggestedCategories, selectedSector || undefined);
+      setFormData(prev => ({ ...prev, bio }));
+    } catch (err) {
+      setError("AI was unable to generate a bio.");
+    } finally {
+      setBioLoading(false);
     }
   };
 
@@ -124,7 +147,7 @@ function JoinPageContent() {
     }
   };
 
-  const isFormValid = formData.businessName && formData.email;
+  const isFormValid = formData.businessName && formData.email && formData.phone;
 
   return (
     <div className={`join-layout ${locale === 'ar' || locale === 'ur' ? 'rtl' : 'ltr'}`}>
@@ -197,6 +220,24 @@ function JoinPageContent() {
                     <p className="form-intro">請告訴我們您的專業背景，以便我們為您對接優質客戶。</p>
                   </div>
 
+                  <div className="profile-banner-section" style={{ marginBottom: '24px' }}>
+                    <div className="banner-dropzone" onClick={() => document.getElementById('banner-input')?.click()} style={{ 
+                      height: '140px', borderRadius: '24px', 
+                      background: formData.bannerUrl ? `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${formData.bannerUrl}) center/cover` : 'rgba(212, 175, 55, 0.05)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '1px dashed rgba(212, 175, 55, 0.2)'
+                    }}>
+                      {formData.bannerUrl ? <span style={{ color: '#d4af37', fontWeight: 800 }}>更換封面 (Change)</span> : <Camera size={24} color="#64748b" />}
+                      <input id="banner-input" type="file" accept="image/*" hidden onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onloadend = () => setFormData(prev => ({ ...prev, bannerUrl: reader.result as string }));
+                          reader.readAsDataURL(file);
+                        }
+                      }} />
+                    </div>
+                  </div>
+                  
                   {/* Profile Photo Upload Section */}
                   <div className="profile-photo-section">
                     <div className="upload-container">
@@ -256,6 +297,31 @@ function JoinPageContent() {
                       </div>
                     </div>
 
+                    {formData.suggestedCategories && formData.suggestedCategories.length > 0 && (
+                      <div className="input-group full ai-suggestions-container premium-glass">
+                        <label><Sparkles size={16} color="#d4af37" className="animate-pulse" /> AI 建議的專業類別已生成 (Suggested Categories)</label>
+                        <div className="category-tags-interactive">
+                          {formData.suggestedCategories.map((cat, idx) => (
+                            <div key={idx} className="cat-tag-badge gold-glow">
+                              {cat}
+                              <button 
+                                className="remove-cat-btn"
+                                onClick={() => {
+                                  setFormData(prev => ({
+                                    ...prev,
+                                    suggestedCategories: prev.suggestedCategories.filter(c => c !== cat)
+                                  }));
+                                }}
+                              >
+                                ×
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                        <p className="ai-hint-small">✨ 精確的分類能幫助 AI 為您匹配更精準的訂單需求，並提升您的轉化率。</p>
+                      </div>
+                    )}
+
                     <div className="input-group">
                       <label><Building2 size={16} /> 商號名稱 (Business Name)</label>
                       <input 
@@ -276,15 +342,48 @@ function JoinPageContent() {
                         placeholder="contact@business.com"
                       />
                     </div>
+                    <div className="input-group">
+                      <label><Building2 size={16} /> 聯絡電話 (Phone Number)</label>
+                      <input 
+                        type="tel" 
+                        name="phone" 
+                        value={formData.phone} 
+                        onChange={handleInputChange} 
+                        placeholder="+44 20 1234 5678"
+                      />
+                    </div>
                     
                     <div className="input-group full">
-                      <label><User size={16} /> 專業背景與資質 (Credentials)</label>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                        <label style={{ margin: 0 }}><User size={16} /> 專業簡介 (Business Bio)</label>
+                        <button 
+                          onClick={handleBioRegeneration}
+                          disabled={bioLoading || !formData.businessName || formData.suggestedCategories.length === 0}
+                          className="ai-bio-btn-small"
+                          title="使用 AI 根據分類優化簡介"
+                        >
+                          {bioLoading ? <Loader2 className="animate-spin" size={14} /> : <Sparkles size={14} />}
+                          AI 優化
+                        </button>
+                      </div>
+                      <textarea 
+                        name="bio" 
+                        value={formData.bio} 
+                        onChange={handleInputChange}
+                        placeholder="介紹您的服務與優勢..."
+                        rows={3}
+                        className={bioLoading ? 'ai-loading-pulse' : ''}
+                      />
+                    </div>
+
+                    <div className="input-group full">
+                      <label><ShieldCheck size={16} /> 專業背景與資質 (Credentials)</label>
                       <textarea 
                         name="credentials" 
                         value={formData.credentials} 
                         onChange={handleInputChange}
                         placeholder={selectedSector === 'professional' ? "例如: ACCA 會計師, 10年英國稅務經驗..." : "輸入您的技術認證..."}
-                        rows={3}
+                        rows={2}
                       />
                       <small style={{ color: '#666', marginTop: '4px', display: 'block' }}>注意: 您可以先填寫基本資料，詳細證件可在進入後台後上傳審核。</small>
                     </div>
@@ -381,7 +480,17 @@ function JoinPageContent() {
                           <option value="Worcester">Worcester</option>
                           <option value="Wrexham">Wrexham</option>
                           <option value="York">York</option>
-                        </optgroup>
+                      </select>
+                    </div>
+
+                    <div className="input-group full">
+                      <label><ShieldCheck size={16} /> 公眾責任保險額度 (Public Liability Insurance)</label>
+                      <select name="insuranceAmount" value={formData.insuranceAmount} onChange={handleInputChange} className="premium-select">
+                        <option value="1,000,000">£1,000,000 (1 Million)</option>
+                        <option value="2,000,000">£2,000,000 (2 Million)</option>
+                        <option value="5,000,000">£5,000,000 (5 Million)</option>
+                        <option value="10,000,000">£10,000,000 (10 Million)</option>
+                        <option value="None">尚未投保 (Not Insured)</option>
                       </select>
                     </div>
 
@@ -734,6 +843,113 @@ function JoinPageContent() {
 
         .success-tip-box p {
           color: #94a3b8 !important;
+        }
+
+        .ai-fetch-group {
+          margin-bottom: 12px;
+        }
+
+        .ai-suggestions-container {
+          background: rgba(212, 175, 55, 0.03);
+          padding: 24px;
+          border-radius: 24px;
+          border: 1px dashed rgba(212, 175, 55, 0.2);
+          margin-bottom: 24px;
+          animation: slideDown 0.4s ease-out;
+        }
+
+        @keyframes slideDown {
+          from { opacity: 0; transform: translateY(-10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        .category-tags-interactive {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px;
+          margin-top: 10px;
+        }
+
+        .cat-tag-badge {
+          background: #111;
+          color: white;
+          padding: 8px 16px;
+          border-radius: 12px;
+          border: 1.5px solid #d4af37;
+          font-size: 0.9rem;
+          font-weight: 800;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          box-shadow: 0 4px 12px rgba(212, 175, 55, 0.1);
+          transition: all 0.3s ease;
+        }
+
+        .cat-tag-badge:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(212, 175, 55, 0.2);
+        }
+
+        .remove-cat-btn {
+          background: rgba(255, 255, 255, 0.05);
+          border: none;
+          color: #d4af37;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          font-size: 14px;
+          transition: all 0.2s;
+        }
+
+        .remove-cat-btn:hover {
+          background: #d4af37;
+          color: black;
+        }
+
+        .ai-hint-small {
+          font-size: 0.75rem;
+          color: #64748b;
+          margin-top: 12px;
+          font-style: italic;
+        }
+
+        .ai-bio-btn-small {
+          background: rgba(212, 175, 55, 0.1);
+          border: 1px solid rgba(212, 175, 55, 0.2);
+          color: #d4af37;
+          padding: 4px 12px;
+          border-radius: 8px;
+          font-size: 0.75rem;
+          font-weight: 800;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .ai-bio-btn-small:hover:not(:disabled) {
+          background: #d4af37;
+          color: black;
+        }
+
+        .ai-bio-btn-small:disabled {
+          opacity: 0.3;
+          cursor: not-allowed;
+        }
+
+        .ai-loading-pulse {
+          animation: borderPulse 1.5s infinite;
+        }
+
+        @keyframes borderPulse {
+          0% { border-color: #222; }
+          50% { border-color: #d4af37; }
+          100% { border-color: #222; }
         }
 
         .btn-premium {

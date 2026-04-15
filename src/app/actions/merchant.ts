@@ -55,17 +55,19 @@ export async function createMerchantAction(data: any) {
         data: {
           email: data.email,
           name: data.businessName,
-          role: 'MERCHANT'
+          role: 'MERCHANT',
+          phone: data.phone || null
         }
       });
     } else {
       // Upgrade existing user to MERCHANT if they are a CUSTOMER
-      if (user.role !== 'MERCHANT' && user.role !== 'ADMIN') {
-        user = await prisma.user.update({
-          where: { id: user.id },
-          data: { role: 'MERCHANT' }
-        });
-      }
+      const updateData: any = { role: 'MERCHANT' };
+      if (data.phone) updateData.phone = data.phone;
+      
+      user = await prisma.user.update({
+        where: { id: user.id },
+        data: updateData
+      });
     }
 
     const merchant = await prisma.merchant.create({
@@ -73,10 +75,14 @@ export async function createMerchantAction(data: any) {
         userId: user.id,
         companyName: data.businessName,
         description: data.bio || `Premium ${data.sector} services in the UK.`,
-        city: data.city || 'London', // Use sector location or default
+        city: data.city || 'London',
         isVerified: false,
         commissionRate: commissionRate,
         freeOrdersLeft: freeOrders,
+        avatarUrl: data.avatar || null,
+        bannerUrl: data.bannerUrl || null,
+        insuranceAmount: data.insuranceAmount ? parseFloat(data.insuranceAmount.replace(/,/g, '')) : 0,
+        businessType: data.suggestedCategories ? data.suggestedCategories.join(', ') : data.sector
       }
     });
 

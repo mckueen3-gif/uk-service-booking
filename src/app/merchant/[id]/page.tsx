@@ -1,3 +1,4 @@
+import ProfileActions from "@/components/merchant/ProfileActions";
 import { getMerchantDetails } from "@/app/actions/services";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -153,15 +154,20 @@ export default async function MerchantPublicPage({ params }: Props) {
         marginTop: "1.5rem"
       }}>
         <div className="container" style={{ maxWidth: "1140px", display: "flex", gap: "2.5rem", overflowX: "auto", padding: "0 1.5rem" }}>
-          {["概覽 (Overview)", "服務 (Services)", "評價 (Reviews)", "公司資訊 (Company Info)"].map((nav) => (
-            <button key={nav} style={{
+          {[
+            { label: "概覽 (Overview)", id: "about" },
+            { label: "服務 (Services)", id: "services" },
+            { label: "評價 (Reviews)", id: "reviews" },
+            { label: "公司資訊 (Company Info)", id: "company-info" }
+          ].map((nav) => (
+            <a key={nav.id} href={`#${nav.id}`} style={{
               padding: "1.25rem 0", color: "var(--text-primary)", fontSize: "0.95rem",
               fontWeight: 800, background: "none", border: "none", cursor: "pointer",
               borderBottom: "3px solid transparent", transition: "all 0.2s",
-              whiteSpace: "nowrap"
+              whiteSpace: "nowrap", textDecoration: "none"
             }}>
-              {nav}
-            </button>
+              {nav.label}
+            </a>
           ))}
         </div>
       </div>
@@ -212,9 +218,13 @@ export default async function MerchantPublicPage({ params }: Props) {
           <section id="reviews" style={{ background: "linear-gradient(145deg, var(--surface-1) 0%, rgba(212,175,55,0.04) 100%)", borderRadius: "20px", padding: "2.5rem", border: "1px solid var(--border-color)" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem", flexWrap: "wrap", gap: "1rem" }}>
               <h2 style={{ fontSize: "1.8rem", fontWeight: 900, color: "var(--text-primary)", margin: 0 }}>客戶評價 ({reviews.length})</h2>
-              <button style={{ background: "transparent", border: "2px solid var(--gold-500)", color: "var(--gold-400)", padding: "0.6rem 1.5rem", borderRadius: "8px", fontWeight: 800, cursor: "pointer" }}>
+              <Link href={`/book/${m.id}/review`} style={{ 
+                background: "transparent", border: "2px solid var(--gold-500)", 
+                color: "var(--gold-400)", padding: "0.6rem 1.5rem", borderRadius: "8px", 
+                fontWeight: 800, cursor: "pointer", textDecoration: "none" 
+              }}>
                 撰寫評價 (Write a review)
-              </button>
+              </Link>
             </div>
             
             <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", marginBottom: "1.5rem" }}>過去 12 個月內的評價總覽 (Based on reviews over the past 12 months)</p>
@@ -311,6 +321,16 @@ export default async function MerchantPublicPage({ params }: Props) {
                 }}>
                   <MessageSquare size={18} /> 發送訊息
                 </Link>
+                {m.user?.phone && (
+                  <a href={`tel:${m.user.phone}`} style={{
+                    background: "transparent", border: "1px solid var(--border-color)",
+                    color: "var(--text-primary)", padding: "1.1rem", borderRadius: "12px",
+                    fontWeight: 800, textAlign: "center", textDecoration: "none",
+                    display: "flex", alignItems: "center", justifyContent: "center", gap: "8px"
+                  }}>
+                    <Phone size={18} /> 直接通話 ({m.user.phone})
+                  </a>
+                )}
                 <div style={{ fontSize: "0.8rem", color: "var(--text-muted)", textAlign: "center", marginTop: "0.5rem" }}>
                   平台建議：我們強制要求透過 ConciergeAI 內部聊天進行溝通，以保障您的安全。
                 </div>
@@ -353,21 +373,28 @@ export default async function MerchantPublicPage({ params }: Props) {
                     )}
                   </div>
                 </div>
+
+                <div style={{ height: "1px", background: "var(--border-color)" }} />
+
+                <div>
+                  <div style={{ color: "var(--text-muted)", fontSize: "0.85rem", fontWeight: 700, marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>公眾責任保險 (INSURANCE)</div>
+                  <div style={{ color: "var(--text-primary)", fontWeight: 800, fontSize: "1.1rem", display: "flex", alignItems: "center", gap: "6px" }}>
+                    {m.insuranceAmount && m.insuranceAmount > 0 ? (
+                      <><ShieldCheck size={18} color="#10b981" /> £{m.insuranceAmount.toLocaleString()} 已投保</>
+                    ) : (
+                      <span style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}>未提供資料 (Contact for info)</span>
+                    )}
+                  </div>
+                </div>
               </div>
             </section>
             
             {/* Auxiliary Actions */}
-            <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", justifyContent: "center", marginTop: "0.5rem" }}>
-              <button style={{ padding: "0.4rem 0.8rem", fontSize: "0.85rem", border: "1px solid var(--border-color)", background: "var(--surface-1)", color: "var(--text-primary)", borderRadius: "8px", fontWeight: 700, display: "flex", alignItems: "center", gap: "4px", cursor: "pointer", boxShadow: "0 2px 4px rgba(0,0,0,0.02)", transition: "all 0.2s ease" }}>
-                <Share2 size={14} /> 分享 (Share)
-              </button>
-              <button style={{ padding: "0.4rem 0.8rem", fontSize: "0.85rem", border: "1px solid var(--border-color)", background: "var(--surface-1)", color: "var(--text-primary)", borderRadius: "8px", fontWeight: 700, display: "flex", alignItems: "center", gap: "4px", cursor: "pointer", boxShadow: "0 2px 4px rgba(0,0,0,0.02)", transition: "all 0.2s ease" }}>
-                <Globe size={14} /> 網站 (Website)
-              </button>
-              <button style={{ padding: "0.4rem 0.8rem", fontSize: "0.85rem", border: "1px solid var(--border-color)", background: "var(--surface-1)", color: "var(--text-primary)", borderRadius: "8px", fontWeight: 700, display: "flex", alignItems: "center", gap: "4px", cursor: "pointer", boxShadow: "0 2px 4px rgba(0,0,0,0.02)", transition: "all 0.2s ease" }}>
-                <Heart size={14} /> 儲存 (Save)
-              </button>
-            </div>
+            <ProfileActions 
+              displayName={displayName}
+              description={m.description || m.bio}
+              website={m.website}
+            />
             
           </div>
         </div>
