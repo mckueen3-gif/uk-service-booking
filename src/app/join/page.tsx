@@ -51,6 +51,11 @@ function JoinPageContent() {
         setError("簡介過短，請提供更多關於貴司的資訊 (Bio too short)");
         return;
       }
+      // Mandatory document upload for Technical (GAS/Electrical) sectors
+      if (selectedSector === 'technical' && !formData.credentials) {
+        setError("您選擇的行業 (GAS/電工) 必須上傳正式資格證件方可註冊 (Official credentials required for high-risk trades)");
+        return;
+      }
     }
     if (step === 3 && !contractAccepted) return;
     
@@ -79,16 +84,17 @@ function JoinPageContent() {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name } = e.target;
     const file = e.target.files?.[0];
     if (file) {
-      if (file.size > 2 * 1024 * 1024) { // 2MB limit
-        setError("Image size must be less than 2MB.");
+      if (file.size > 5 * 1024 * 1024) { // Increased to 5MB for documents
+        setError("文件大小不能超過 5MB (File size must be < 5MB)");
         return;
       }
       
       const reader = new FileReader();
       reader.onloadend = () => {
-        setFormData(prev => ({ ...prev, avatar: reader.result as string }));
+        setFormData(prev => ({ ...prev, [name]: reader.result as string }));
       };
       reader.readAsDataURL(file);
     }
@@ -151,6 +157,10 @@ function JoinPageContent() {
     if (!selectedSector) { setError("請選擇業務領域 (Sector is required)"); return; }
     if (formData.suggestedCategories.length === 0) { setError("請至少添加一個服務分類 (At least one category is required)"); return; }
     if (!formData.city) { setError("請選擇服務區域 (City is required)"); return; }
+    if (selectedSector === 'technical' && !formData.credentials) {
+      setError("GAS / 電工類商戶必須上傳正式資格證件方可註冊 (Credentials required for high-risk trades)");
+      return;
+    }
 
     setLoading(true);
     setError(null);
@@ -413,15 +423,31 @@ function JoinPageContent() {
                     </div>
 
                     <div className="input-group full">
-                      <label><ShieldCheck size={16} /> 專業背景與資質 (Credentials)</label>
-                      <textarea 
+                      <label>
+                        <ShieldCheck size={16} /> 
+                        正式執照 / 專業資質文件 (Official Credentials / Licenses)
+                        {selectedSector === 'technical' ? (
+                          <span style={{ color: '#ef4444', fontSize: '0.8rem', fontWeight: 900 }}> (必填 / MANDATORY)</span>
+                        ) : (
+                          <span style={{ color: '#d4af37', fontSize: '0.8rem' }}> (建議提供)</span>
+                        )}
+                      </label>
+                      <input 
+                        type="file" 
                         name="credentials" 
-                        value={formData.credentials} 
-                        onChange={handleInputChange}
-                        placeholder={selectedSector === 'professional' ? "例如: ACCA 會計師, 10年英國稅務經驗..." : "輸入您的技術認證..."}
-                        rows={2}
+                        onChange={handleFileChange}
+                        className={`premium-select ${selectedSector === 'technical' && !formData.credentials ? 'ai-loading-pulse' : ''}`}
+                        style={{ border: selectedSector === 'technical' ? '1.5px dashed rgba(239, 68, 68, 0.4)' : '1.5px dashed #333' }}
                       />
-                      <small style={{ color: '#666', marginTop: '4px', display: 'block' }}>注意: 您可以先填寫基本資料，詳細證件可在進入後台後上傳審核。</small>
+                      {selectedSector === 'technical' ? (
+                        <p style={{ color: '#ef4444', fontSize: '0.85rem', marginTop: '8px', fontWeight: 700 }}>
+                          * 英國政府法規要求：GAS / 電工類商戶必須上傳正式資格證件方可批准接單。
+                        </p>
+                      ) : (
+                        <p style={{ color: '#666', fontSize: '0.85rem', marginTop: '8px' }}>
+                          注意: 您可以先填寫基本資料，詳細證件可在進入後台後再行上傳審核。
+                        </p>
+                      )}
                     </div>
 
                     <div className="input-group full">
