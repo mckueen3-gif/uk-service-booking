@@ -16,8 +16,9 @@ export default withAuth(
   {
     callbacks: {
       authorized: ({ token, req }) => {
+      const path = req.nextUrl.pathname.replace(/\/$/, "");
       // Always allow /diagnosis even if token is missing
-      if (req.nextUrl.pathname === "/diagnosis") return true;
+      if (path === "/diagnosis") return true;
       return !!token;
     },
     },

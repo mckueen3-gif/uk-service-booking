@@ -166,7 +166,7 @@ export default function DiagnosisTool() {
       setLoading(false);
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : String(err);
-      setError(t.diagnosis.tool.errorUnexpected + errorMessage);
+      setError((t?.diagnosis?.tool?.errorUnexpected || "意外錯誤：") + errorMessage);
       setLoading(false);
     }
   };
@@ -177,10 +177,10 @@ export default function DiagnosisTool() {
         <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'var(--accent-soft)', color: 'var(--accent-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 2rem' }}>
           <ShieldCheck size={40} />
         </div>
-        <h2 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '1rem' }}>{t.diagnosis.tool.authRequired}</h2>
-        <p style={{ color: 'var(--text-muted)', marginBottom: '2.5rem', fontSize: '1.1rem' }}>{t.auth.login.subtitle}</p>
+        <h2 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '1rem' }}>{t?.diagnosis?.tool?.authRequired || "身份認證"}</h2>
+        <p style={{ color: 'var(--text-muted)', marginBottom: '2.5rem', fontSize: '1.1rem' }}>{t?.auth?.login?.subtitle || "請登入以使用 AI 診斷服務"}</p>
         <Link href="/auth/login?callbackUrl=/diagnosis">
-          <button className="btn btn-primary" style={{ padding: '1rem 3rem' }}>{t.nav.login}</button>
+          <button className="btn btn-primary" style={{ padding: '1rem 3rem' }}>{t?.nav?.login || "登入"}</button>
         </Link>
       </div>
     );
@@ -192,14 +192,14 @@ export default function DiagnosisTool() {
         <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: '#fef2f2', color: '#b91c1c', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 2rem' }}>
           <AlertCircle size={40} />
         </div>
-        <h2 style={{ fontSize: '2.2rem', fontWeight: 950, marginBottom: '1rem', color: '#b91c1c' }}>{t.diagnosis.tool.limitReached}</h2>
-        <p style={{ color: 'var(--text-muted)', marginBottom: '3rem', fontSize: '1.2rem', fontWeight: 500 }}>{t.diagnosis.tool.limitReachedHint}</p>
+        <h2 style={{ fontSize: '2.2rem', fontWeight: 950, marginBottom: '1rem', color: '#b91c1c' }}>{t?.diagnosis?.tool?.limitReached || "用量已達上限"}</h2>
+        <p style={{ color: 'var(--text-muted)', marginBottom: '3rem', fontSize: '1.2rem', fontWeight: 500 }}>{t?.diagnosis?.tool?.limitReachedHint || "您今日的 AI 診斷次數已用完"}</p>
         
         <div style={{ background: 'var(--surface-2)', padding: '2.5rem', borderRadius: '2rem', border: '1px solid var(--border-color)' }}>
-          <h3 style={{ fontSize: '1.2rem', fontWeight: 800, marginBottom: '1.5rem' }}>{t.diagnosis.tool.bookSpecialist}</h3>
+          <h3 style={{ fontSize: '1.2rem', fontWeight: 800, marginBottom: '1.5rem' }}>{t?.diagnosis?.tool?.bookSpecialist || "預約專業人士"}</h3>
           <Link href={`/services/results?category=${category || 'Plumbing'}`}>
             <button className="btn btn-primary" style={{ width: '100%', padding: '1.25rem', fontSize: '1.1rem' }}>
-              {t.diagnosis.tool.findSpecialist} <ChevronRight size={20} />
+              {t?.diagnosis?.tool?.findSpecialist || "尋找專家"} <ChevronRight size={20} />
             </button>
           </Link>
         </div>
@@ -208,7 +208,7 @@ export default function DiagnosisTool() {
           onClick={() => setQuotaExceeded(false)}
           style={{ marginTop: '2rem', background: 'transparent', border: 'none', color: 'var(--amber-600)', fontWeight: 700, cursor: 'pointer', fontSize: '0.95rem' }}
         >
-          ← {t.diagnosis.tool.newDiagnosis}
+          ← {t?.diagnosis?.tool?.newDiagnosis || "新診斷"}
         </button>
       </div>
     );
@@ -222,7 +222,7 @@ export default function DiagnosisTool() {
           className="btn" 
           style={{ marginBottom: '1.5rem', background: 'var(--surface-2)', color: 'var(--text-primary)', fontSize: '0.9rem', padding: '0.6rem 1.2rem' }}
         >
-          <ArrowLeft size={16} /> {t.diagnosis.tool.newDiagnosis}
+          <ArrowLeft size={16} /> {t?.diagnosis?.tool?.newDiagnosis || "返回"}
         </button>
         <DiagnosisResult diagnosis={result} />
       </div>
@@ -250,18 +250,18 @@ export default function DiagnosisTool() {
               whiteSpace: 'nowrap',
               zIndex: 10
             }}>
-              {t.diagnosis.tool.remaining}: {remainingUses} / 5
+              {t?.diagnosis?.tool?.remaining || "剩餘次數"}: {remainingUses} / 5
             </div>
           )}
         </div>
-        <h2 style={{ fontSize: '2.5rem', fontWeight: 950, marginBottom: '0.75rem', letterSpacing: '-0.02em' }}>{t.diagnosis.tool.title}</h2>
-        <p style={{ color: 'var(--text-muted)', fontSize: '1.15rem', fontWeight: 500 }}>{t.diagnosis.tool.subtitle}</p>
+        <h2 style={{ fontSize: '2.5rem', fontWeight: 950, marginBottom: '0.75rem', letterSpacing: '-0.02em' }}>{t?.diagnosis?.tool?.title || "AI 視覺診斷"}</h2>
+        <p style={{ color: 'var(--text-muted)', fontSize: '1.15rem', fontWeight: 500 }}>{t?.diagnosis?.tool?.subtitle || "上傳照片，獲取即時維修建議"}</p>
       </div>
 
       <div style={{ display: 'grid', gap: '2.5rem' }}>
         {/* Step 1: Upload */}
         <div>
-          <label style={{ display: 'block', fontWeight: 900, marginBottom: '1.25rem', color: 'var(--text-primary)', fontSize: '1.1rem' }}>{t.diagnosis.tool.step1}</label>
+          <label style={{ display: 'block', fontWeight: 900, marginBottom: '1.25rem', color: 'var(--text-primary)', fontSize: '1.1rem' }}>{t?.diagnosis?.tool?.step1 || "第一步：上傳照片"}</label>
           <div 
             onClick={() => fileInputRef.current?.click()}
             style={{ 
@@ -323,7 +323,7 @@ export default function DiagnosisTool() {
                 )}
 
                 <div style={{ position: 'absolute', bottom: '1.5rem', right: '1.5rem', background: 'rgba(0,0,0,0.8)', color: 'white', padding: '0.75rem 1.25rem', borderRadius: '2rem', fontSize: '0.85rem', fontWeight: 700, backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.2)', boxShadow: '0 8px 32px rgba(0,0,0,0.3)', pointerEvents: 'none', zIndex: 5 }}>
-                  {t.diagnosis.tool.replaceHint}
+                  {t?.diagnosis?.tool?.replaceHint || "點擊以更換照片"}
                 </div>
               </>
             ) : (
@@ -332,8 +332,8 @@ export default function DiagnosisTool() {
                   <Camera size={40} strokeWidth={1.5} />
                 </div>
                 <div style={{ textAlign: 'center' }}>
-                  <p style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '1.2rem', marginBottom: '0.25rem' }}>{t.diagnosis.tool.uploadHint}</p>
-                  <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 500 }}>{t.diagnosis.tool.uploadFormatHint}</p>
+                  <p style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '1.2rem', marginBottom: '0.25rem' }}>{t?.diagnosis?.tool?.uploadHint || "點擊或拖放照片"}</p>
+                  <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 500 }}>{t?.diagnosis?.tool?.uploadFormatHint || "支援 JPG, PNG 格式"}</p>
                 </div>
               </>
             )}
@@ -349,7 +349,7 @@ export default function DiagnosisTool() {
 
         {/* Step 2: Category */}
         <div>
-          <label style={{ display: 'block', fontWeight: 900, marginBottom: '1.25rem', color: 'var(--text-primary)', fontSize: '1.1rem' }}>{t.diagnosis.tool.step2}</label>
+          <label style={{ display: 'block', fontWeight: 900, marginBottom: '1.25rem', color: 'var(--text-primary)', fontSize: '1.1rem' }}>{t?.diagnosis?.tool?.step2 || "第二步：選擇類別"}</label>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '1.25rem' }}>
             {CATEGORIES.map(cat => (
               <button
@@ -383,9 +383,9 @@ export default function DiagnosisTool() {
 
         {/* Step 3: Description */}
         <div>
-          <label style={{ display: 'block', fontWeight: 900, marginBottom: '1.25rem', color: 'var(--text-primary)', fontSize: '1.1rem' }}>{t.diagnosis.tool.step3}</label>
+          <label style={{ display: 'block', fontWeight: 900, marginBottom: '1.25rem', color: 'var(--text-primary)', fontSize: '1.1rem' }}>{t?.diagnosis?.tool?.step3 || "第三步：補充描述 (可選)"}</label>
           <textarea 
-            placeholder={t.diagnosis.tool.descriptionPlaceholder}
+            placeholder={t?.diagnosis?.tool?.descriptionPlaceholder || "請描述您觀察到的問題..."}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             style={{
@@ -481,18 +481,18 @@ export default function DiagnosisTool() {
           {loading ? (
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
               <Loader2 className="animate-spin" size={24} />
-              <span className="loading-dots">{t.diagnosis.tool.loading}</span>
+              <span className="loading-dots">{t?.diagnosis?.tool?.loading || "分析中"}</span>
             </div>
           ) : (
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
-              {t.diagnosis.tool.submit} <ChevronRight size={20} />
+              {t?.diagnosis?.tool?.submit || "開始診斷"} <ChevronRight size={20} />
             </div>
           )}
         </button>
         
         <div style={{ textAlign: 'center', fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 500, padding: '0.5rem' }}>
           <Info size={16} style={{ verticalAlign: 'middle', marginRight: '6px', opacity: 0.7 }} /> 
-          {t.diagnosis.tool.disclaimer}
+          {t?.diagnosis?.tool?.disclaimer || "AI 診斷僅供參考，請以專業人士判斷為準。"}
         </div>
       </div>
       
