@@ -7,11 +7,12 @@ import {
 } from "lucide-react";
 
 interface Props {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export async function generateMetadata({ params }: Props) {
-  const result = await getMerchantDetails(params.id);
+  const resolvedParams = await params;
+  const result = await getMerchantDetails(resolvedParams.id);
   if (!result.success || !result.merchant) {
     return { title: "Merchant Not Found | ConciergeAI" };
   }
@@ -23,7 +24,8 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function MerchantPublicPage({ params }: Props) {
-  const result = await getMerchantDetails(params.id);
+  const resolvedParams = await params;
+  const result = await getMerchantDetails(resolvedParams.id);
   if (!result.success || !result.merchant) {
     notFound();
   }

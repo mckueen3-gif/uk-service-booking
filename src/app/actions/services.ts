@@ -138,7 +138,7 @@ export const getMerchantDetails = unstable_cache(
     }
   },
   ['merchant-details'],
-  { tags: ['merchants'], revalidate: 3600 }
+  { tags: ['merchants'], revalidate: 60 }
 );
 
 export async function deleteService(id: string) {
