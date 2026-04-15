@@ -192,7 +192,7 @@ export default async function MerchantPublicPage({ params }: Props) {
                   >
                     <div style={{ fontSize: "0.75rem", fontWeight: 800, color: "var(--gold-600)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.5rem" }}>{svc.category}</div>
                     <div style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)", marginBottom: "0.5rem" }}>{svc.name}</div>
-                    <div style={{ fontSize: "1.5rem", fontWeight: 900, color: "#fff" }}>£{svc.price}</div>
+                    <div style={{ fontSize: "1.5rem", fontWeight: 900, color: "var(--text-primary)" }}>£{svc.price}</div>
                   </Link>
                 ))}
               </div>
@@ -201,19 +201,19 @@ export default async function MerchantPublicPage({ params }: Props) {
 
           <section id="reviews" style={{ backgroundColor: "var(--surface-1)", borderRadius: "20px", padding: "2.5rem", border: "1px solid var(--border-color)" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem", flexWrap: "wrap", gap: "1rem" }}>
-              <h2 style={{ fontSize: "1.8rem", fontWeight: 900, color: "#fff", margin: 0 }}>客戶評價 ({reviews.length})</h2>
+              <h2 style={{ fontSize: "1.8rem", fontWeight: 900, color: "var(--text-primary)", margin: 0 }}>客戶評價 ({reviews.length})</h2>
               <button style={{ background: "transparent", border: "2px solid var(--gold-500)", color: "var(--gold-400)", padding: "0.6rem 1.5rem", borderRadius: "8px", fontWeight: 800, cursor: "pointer" }}>
-                Write a review
+                撰寫評價 (Write a review)
               </button>
             </div>
             
-            <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", marginBottom: "1.5rem" }}>Based on reviews over the past 12 months</p>
+            <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", marginBottom: "1.5rem" }}>過去 12 個月內的評價總覽 (Based on reviews over the past 12 months)</p>
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1.5rem", marginBottom: "3rem" }}>
               {[
-                { label: "Quality of work", score: qualityScore },
-                { label: "Reliability", score: reliabilityScore },
-                { label: "Communication", score: commsScore }
+                { label: "工作品質 (Quality of work)", score: qualityScore },
+                { label: "可靠度 (Reliability)", score: reliabilityScore },
+                { label: "溝通能力 (Communication)", score: commsScore }
               ].map(stat => (
                 <div key={stat.label} style={{ textAlign: "center", padding: "1.5rem", backgroundColor: "rgba(255,255,255,0.02)", borderRadius: "16px", border: "1px solid var(--border-color)" }}>
                   <div style={{ fontSize: "2.2rem", fontWeight: 900, color: "var(--gold-400)", marginBottom: "0.3rem" }}>{stat.score}</div>
@@ -232,12 +232,12 @@ export default async function MerchantPublicPage({ params }: Props) {
               <div style={{ backgroundColor: "rgba(212,175,55,0.05)", border: "1px solid rgba(212,175,55,0.2)", borderRadius: "16px", padding: "1.5rem", marginBottom: "3rem" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "0.75rem" }}>
                   <Award size={18} color="var(--gold-500)" />
-                  <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--gold-400)", margin: 0 }}>What customers are saying</h3>
+                  <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--gold-400)", margin: 0 }}>顧客回饋摘要 (What customers are saying)</h3>
                 </div>
                 <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6, margin: "0 0 0.75rem 0", fontStyle: "italic" }}>
-                  "Customers consistently praise the high quality and efficiency of the work. They are noted for their excellent communication and reliability, always arriving on time and leaving the site clean."
+                  「客戶一致讚賞工作的高品質與高效率，並特別指出良好的溝通與準時度，同時在完工後總會保持場地整潔。」
                 </p>
-                <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>✦ AI-generated from customer reviews over last 24 months</div>
+                <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>✦ 由 AI 統整過去 24 個月的客戶評價 (AI-generated from customer reviews)</div>
               </div>
             )}
 
@@ -245,7 +245,7 @@ export default async function MerchantPublicPage({ params }: Props) {
               {reviews.map((rev: any) => (
                 <div key={rev.id} style={{ borderBottom: "1px solid var(--border-color)", paddingBottom: "2rem" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "1rem" }}>
-                    <div style={{ fontWeight: 800, color: "#fff", fontSize: "1.1rem" }}>{rev.customer?.name || "匿名客戶"}</div>
+                    <div style={{ fontWeight: 800, color: "var(--text-primary)", fontSize: "1.1rem" }}>{rev.customer?.name || "匿名客戶"}</div>
                     <div style={{ display: "flex", gap: "2px" }}>
                       {[...Array(5)].map((_, i) => (
                         <Star key={i} size={14} fill={i < (rev.rating || 5) ? "#d4af37" : "none"} color="#d4af37" />
@@ -281,7 +281,7 @@ export default async function MerchantPublicPage({ params }: Props) {
               border: "1px solid var(--gold-500)",
               boxShadow: "0 10px 40px rgba(212,175,55,0.1)"
             }}>
-              <h3 style={{ fontSize: "1.2rem", fontWeight: 900, color: "#fff", marginBottom: "1.5rem" }}>預約諮詢 (Consultation)</h3>
+              <h3 style={{ fontSize: "1.2rem", fontWeight: 900, color: "var(--text-primary)", marginBottom: "1.5rem" }}>預約諮詢 (Consultation)</h3>
               <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                 <Link href={bookingHref} style={{
                   background: "linear-gradient(135deg, #d4af37, #f5e07a)",
@@ -292,8 +292,8 @@ export default async function MerchantPublicPage({ params }: Props) {
                   立即預訂服務 <ArrowRight size={18} />
                 </Link>
                 <Link href={`/member/chat?merchantId=${m.id}`} style={{
-                  background: "rgba(255,255,255,0.05)", border: "1px solid var(--border-color)",
-                  color: "#fff", padding: "1.1rem", borderRadius: "12px",
+                  background: "transparent", border: "1px solid var(--border-color)",
+                  color: "var(--text-primary)", padding: "1.1rem", borderRadius: "12px",
                   fontWeight: 800, textAlign: "center", textDecoration: "none",
                   display: "flex", alignItems: "center", justifyContent: "center", gap: "8px"
                 }}>
@@ -307,30 +307,30 @@ export default async function MerchantPublicPage({ params }: Props) {
 
             {/* Company Info Box */}
             <section id="company-info" style={{ backgroundColor: "var(--surface-1)", borderRadius: "20px", padding: "2rem", border: "1px solid var(--border-color)" }}>
-              <h2 style={{ fontSize: "1.3rem", fontWeight: 900, color: "#fff", marginBottom: "1.5rem" }}>Company Info</h2>
+              <h2 style={{ fontSize: "1.3rem", fontWeight: 900, color: "var(--text-primary)", marginBottom: "1.5rem" }}>公司資訊 (Company Info)</h2>
               
               <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
                 <div>
-                  <div style={{ color: "var(--text-muted)", fontSize: "0.85rem", fontWeight: 700, marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>Owner</div>
+                  <div style={{ color: "var(--text-muted)", fontSize: "0.85rem", fontWeight: 700, marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>負責人 (OWNER)</div>
                   <div style={{ color: "var(--text-primary)", fontWeight: 800, fontSize: "1.1rem" }}>{m.ownerName || m.user?.name || "N/A"}</div>
                 </div>
                 
                 <div style={{ height: "1px", background: "var(--border-color)" }} />
                 
                 <div>
-                  <div style={{ color: "var(--text-muted)", fontSize: "0.85rem", fontWeight: 700, marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>Business Type</div>
-                  <div style={{ color: "var(--text-primary)", fontWeight: 800, fontSize: "1.1rem" }}>{m.businessType || "Sole Trader"}</div>
+                  <div style={{ color: "var(--text-muted)", fontSize: "0.85rem", fontWeight: 700, marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>公司類型 (BUSINESS TYPE)</div>
+                  <div style={{ color: "var(--text-primary)", fontWeight: 800, fontSize: "1.1rem" }}>{m.businessType || "獨資經營 (Sole Trader)"}</div>
                 </div>
                 
                 <div style={{ height: "1px", background: "var(--border-color)" }} />
 
                 <div>
-                  <div style={{ color: "var(--text-muted)", fontSize: "0.85rem", fontWeight: 700, marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>VAT Registered</div>
+                  <div style={{ color: "var(--text-muted)", fontSize: "0.85rem", fontWeight: 700, marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>增值稅註冊 (VAT REGISTERED)</div>
                   <div style={{ color: "var(--text-primary)", fontWeight: 800, fontSize: "1.1rem", display: "flex", alignItems: "center", gap: "6px" }}>
                     {m.vatNumber ? (
-                      <><CheckCircle2 size={18} color="var(--gold-500)" /> Yes (Valid)</>
+                      <><CheckCircle2 size={18} color="var(--gold-500)" /> 是 (Yes)</>
                     ) : (
-                      "No"
+                      "否 (No)"
                     )}
                   </div>
                 </div>
