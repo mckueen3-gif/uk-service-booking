@@ -171,7 +171,7 @@ export default async function MerchantPublicPage({ params }: Props) {
         {/* Left Column - Main Content */}
         <div style={{ display: "flex", flexDirection: "column", gap: "3rem" }}>
           
-          <section id="about" style={{ backgroundColor: "var(--surface-1)", borderRadius: "20px", padding: "2.5rem", border: "1px solid var(--border-color)" }}>
+          <section id="about" style={{ background: "linear-gradient(145deg, var(--surface-1) 0%, rgba(212,175,55,0.04) 100%)", borderRadius: "20px", padding: "2.5rem", border: "1px solid var(--border-color)" }}>
             <h2 style={{ fontSize: "1.5rem", fontWeight: 900, color: "var(--text-primary)", marginBottom: "1.25rem" }}>關於商戶 (About)</h2>
             <p style={{ color: "var(--text-secondary)", lineHeight: 1.8, fontSize: "1.05rem", margin: 0 }}>
               {m.bio || m.description || "專業的服務供應商，致力於提供高品質的服務。擁有豐富經驗及專業認證，確保為每位客戶提供最優質的滿意度。"}
@@ -179,7 +179,7 @@ export default async function MerchantPublicPage({ params }: Props) {
           </section>
 
           {services.length > 0 && (
-            <section id="services" style={{ backgroundColor: "var(--surface-1)", borderRadius: "20px", padding: "2.5rem", border: "1px solid var(--border-color)" }}>
+            <section id="services" style={{ background: "linear-gradient(145deg, var(--surface-1) 0%, rgba(212,175,55,0.04) 100%)", borderRadius: "20px", padding: "2.5rem", border: "1px solid var(--border-color)" }}>
               <h2 style={{ fontSize: "1.5rem", fontWeight: 900, color: "var(--text-primary)", marginBottom: "1.5rem" }}>專業服務項目</h2>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem" }}>
                 {services.map((svc: any) => (
@@ -199,7 +199,7 @@ export default async function MerchantPublicPage({ params }: Props) {
             </section>
           )}
 
-          <section id="reviews" style={{ backgroundColor: "var(--surface-1)", borderRadius: "20px", padding: "2.5rem", border: "1px solid var(--border-color)" }}>
+          <section id="reviews" style={{ background: "linear-gradient(145deg, var(--surface-1) 0%, rgba(212,175,55,0.04) 100%)", borderRadius: "20px", padding: "2.5rem", border: "1px solid var(--border-color)" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem", flexWrap: "wrap", gap: "1rem" }}>
               <h2 style={{ fontSize: "1.8rem", fontWeight: 900, color: "var(--text-primary)", margin: 0 }}>客戶評價 ({reviews.length})</h2>
               <button style={{ background: "transparent", border: "2px solid var(--gold-500)", color: "var(--gold-400)", padding: "0.6rem 1.5rem", borderRadius: "8px", fontWeight: 800, cursor: "pointer" }}>
@@ -215,7 +215,7 @@ export default async function MerchantPublicPage({ params }: Props) {
                 { label: "可靠度 (Reliability)", score: reliabilityScore },
                 { label: "溝通能力 (Communication)", score: commsScore }
               ].map(stat => (
-                <div key={stat.label} style={{ textAlign: "center", padding: "1.5rem", backgroundColor: "rgba(255,255,255,0.02)", borderRadius: "16px", border: "1px solid var(--border-color)" }}>
+                <div key={stat.label} style={{ textAlign: "center", padding: "1.5rem", background: "linear-gradient(180deg, var(--surface-1) 0%, rgba(212,175,55,0.06) 100%)", borderRadius: "16px", border: "1px solid var(--border-color)" }}>
                   <div style={{ fontSize: "2.2rem", fontWeight: 900, color: "var(--gold-400)", marginBottom: "0.3rem" }}>{stat.score}</div>
                   <div style={{ color: "var(--text-secondary)", fontWeight: 700, fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>{stat.label}</div>
                   <div style={{ display: "flex", justifyContent: "center", gap: "2px", marginTop: "0.5rem" }}>
@@ -276,7 +276,7 @@ export default async function MerchantPublicPage({ params }: Props) {
             
             {/* CTA Box */}
             <div style={{ 
-              background: "var(--surface-1)", 
+              background: "linear-gradient(145deg, var(--surface-1) 0%, rgba(212,175,55,0.08) 100%)", 
               borderRadius: "20px", padding: "2rem", 
               border: "1px solid var(--gold-500)",
               boxShadow: "0 10px 40px rgba(212,175,55,0.1)"
@@ -306,7 +306,7 @@ export default async function MerchantPublicPage({ params }: Props) {
             </div>
 
             {/* Company Info Box */}
-            <section id="company-info" style={{ backgroundColor: "var(--surface-1)", borderRadius: "20px", padding: "2rem", border: "1px solid var(--border-color)" }}>
+            <section id="company-info" style={{ background: "linear-gradient(145deg, var(--surface-1) 0%, rgba(212,175,55,0.04) 100%)", borderRadius: "20px", padding: "2rem", border: "1px solid var(--border-color)" }}>
               <h2 style={{ fontSize: "1.3rem", fontWeight: 900, color: "var(--text-primary)", marginBottom: "1.5rem" }}>公司資訊 (Company Info)</h2>
               
               <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
