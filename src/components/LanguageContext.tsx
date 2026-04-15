@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { Locale, Dictionary, dictionaries, getDictionary } from '@/lib/i18n/dictionary';
+import { interpolate } from '@/lib/i18n/interpolate';
 
 interface LanguageContextType {
   locale: Locale;
@@ -14,21 +15,6 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-/**
- * Helper to replace {{var}} or {var} in strings
- */
-export const interpolate = (str: any, params: Record<string, string | number>) => {
-  if (!str) return "";
-  let result = typeof str === 'string' ? str : String(str);
-  
-  Object.entries(params).forEach(([key, val]) => {
-    const safeVal = val !== undefined && val !== null ? val.toString() : "";
-    const regex = new RegExp(`(\\{\\{${key}\\}\\}|\\{${key}\\})`, 'g');
-    result = result.replace(regex, safeVal);
-  });
-  
-  return result;
-};
 
 /**
  * Creates a recursive proxy that handles missing translation keys gracefully.

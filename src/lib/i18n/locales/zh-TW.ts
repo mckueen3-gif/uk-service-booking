@@ -40,6 +40,7 @@ export const zhTW: Dictionary = {
       boost: "提升曝光",
       verified: "已認證專家",
       expert: "ConciergeAI 專家",
+      aftercare: "售後追蹤",
     },
   },
   legal: { ui: { selectLanguage: "選擇語言", close: "關閉" } },
@@ -674,7 +675,7 @@ export const zhTW: Dictionary = {
         title: "錢包政策",
         fee: "標準 9% 平台費",
         rights: "專家保護協議",
-        rules: ["所有工作均有 7 天的安全鎖定期。", "推薦獎勵將以購物代金券形式發放。", "最低提款門檻為 £10。", "零件材料成本不計入費用計算。"],
+        rules: ["所有工作均有 7 天的安全鎖定期。", "推薦獎勵將以購物代金券形式發放。", "最低提款門檻為 £10。", "零件材料成本不計入費用計算協助。"],
       },
     },
     merchant_availability: {
@@ -963,7 +964,7 @@ export const zhTW: Dictionary = {
       },
       pricing: {
         title: "報價估算",
-        desc: "針對特定問題的零件和人工費用估算範圍。"
+        desc: "針對特定問題的零件 and 人工費用估算範圍。"
       },
       verified: {
         title: "認證專家",
@@ -1261,8 +1262,6 @@ export const zhTW: Dictionary = {
       title: "系統設定"
     }
   },
-  profile: {},
-  notifications: {},
   repair_tracker: {
     title: "維修進度狀態",
     stages: {
@@ -1336,5 +1335,46 @@ export const zhTW: Dictionary = {
       vehicles: "目前沒有任何車輛記錄。",
       properties: "目前沒有任何物業記錄。"
     }
+  },
+  merchant_public: {
+    verified_expert: "已認證專家",
+    reviews_count: "{count} 則評價",
+    member_since: "平台成員自 {year} 年",
+    tabs: {
+      about: "商家概覽",
+      services: "服務項目",
+      reviews: "客戶評價",
+      company: "公司資訊"
+    },
+    about_title: "關於商戶",
+    about_fallback: "專業的服務供應商，致力於提供高品質的服務。擁有豐富經驗及專業認證，確保為每位客戶提供最優質的滿意度。",
+    services_title: "服務項目",
+    services_provided: "提供的服務",
+    your_search: "您的關鍵字搜尋",
+    customer_reviews: "客戶評價 ({count})",
+    write_review: "撰寫評價",
+    review_summary_title: "顧客回饋摘要 (AI 生成)",
+    review_summary_note: "✦ AI 根據客戶評價自動生成。ConciergeAI 不對摘要或其中的意見負責。欲了解更多細節，請閱讀原始評價並查閱我們的評價政策。",
+    no_reviews: "尚無評價",
+    consultation_title: "預約諮詢",
+    book_now: "立即預訂服務",
+    send_message: "發送訊息",
+    call_now: "直接通話 ({phone})",
+    platform_tip: "平台建議：我們會強制要求透過 ConciergeAI 內部聊天進行溝通，以保障您的安全與獲得 100% 滿意保證的資格。",
+    owner: "負責人",
+    operates_in: "服務範圍",
+    nationwide: "全英國區域",
+    business_type: "公司類型",
+    vat_registered: "增值稅註冊 (VAT)",
+    insurance: "公眾責任保險",
+    insured_amount: "£{amount} 已投保",
+    not_provided: "未提供資料，請洽商戶",
+    yes: "是",
+    no: "否",
+    nearby: "及周邊地區",
+    quality: "工作品質",
+    reliability: "可靠度",
+    communication: "溝通能力",
+    review_overview: "過去 12 個月內的評價總覽"
   }
 };

@@ -7,6 +7,9 @@ import {
   Briefcase, Phone, MessageSquare, Image as ImageIcon, Award, Clock,
   Share2, Globe, Heart, Check, ThumbsUp
 } from "lucide-react";
+import { cookies } from "next/headers";
+import { getDictionary, Locale } from "@/lib/i18n/dictionary";
+import { interpolate } from "@/lib/i18n/interpolate";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -36,6 +39,11 @@ export default async function MerchantPublicPage({ params }: Props) {
   const reviews = m.reviews || [];
   const portfolio = m.portfolio || [];
   const services = m.services || [];
+
+  const cookieStore = await cookies();
+  const locale = (cookieStore.get("user-locale")?.value || "en") as Locale;
+  const t = getDictionary(locale);
+  const tp = t.merchant_public;
   
   // Defensive fallbacks for numerical values
   const avgRating = reviews.length > 0
@@ -120,7 +128,7 @@ export default async function MerchantPublicPage({ params }: Props) {
               </h1>
               {isVerified && (
                 <div style={{ display: "flex", alignItems: "center", gap: "6px", backgroundColor: "rgba(212,175,55,0.15)", padding: "4px 12px", borderRadius: "100px", color: "var(--gold-400)", fontWeight: 800, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em", border: "1px solid rgba(212,175,55,0.3)" }}>
-                  <ShieldCheck size={14} /> 已認證專家
+                  <ShieldCheck size={14} /> {tp.verified_expert}
                 </div>
               )}
             </div>
@@ -129,7 +137,7 @@ export default async function MerchantPublicPage({ params }: Props) {
               <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                 <Star size={20} fill="#d4af37" color="#d4af37" /> 
                 <span style={{ fontWeight: 900, color: "var(--text-primary)", fontSize: "1.4rem" }}>{m.averageRating > 0 ? m.averageRating.toFixed(1) : avgRating}</span>
-                <span style={{ fontSize: "0.95rem", opacity: 0.7 }}>({m.totalReviews || reviews.length} 評價)</span>
+                <span style={{ fontSize: "0.95rem", opacity: 0.7 }}>({interpolate(tp.reviews_count, { count: m.totalReviews || reviews.length })})</span>
               </div>
               {m.city && (
                 <div style={{ display: "flex", alignItems: "center", gap: "8px", fontWeight: 600 }}>
@@ -137,7 +145,7 @@ export default async function MerchantPublicPage({ params }: Props) {
                 </div>
               )}
               <div style={{ display: "flex", alignItems: "center", gap: "8px", fontWeight: 600 }}>
-                <Award size={18} color="var(--gold-500)" /> 平台成員自 {memberYear} 年
+                <Award size={18} color="var(--gold-500)" /> {interpolate(tp.member_since, { year: memberYear })}
               </div>
             </div>
           </div>
@@ -155,10 +163,10 @@ export default async function MerchantPublicPage({ params }: Props) {
       }}>
         <div className="container" style={{ maxWidth: "1140px", display: "flex", gap: "2.5rem", overflowX: "auto", padding: "0 1.5rem" }}>
           {[
-            { label: "概覽 (Overview)", id: "about" },
-            { label: "服務 (Services)", id: "services" },
-            { label: "評價 (Reviews)", id: "reviews" },
-            { label: "公司資訊 (Company Info)", id: "company-info" }
+            { label: tp.tabs.about, id: "about" },
+            { label: tp.tabs.services, id: "services" },
+            { label: tp.tabs.reviews, id: "reviews" },
+            { label: tp.tabs.company, id: "company-info" }
           ].map((nav) => (
             <a key={nav.id} href={`#${nav.id}`} style={{
               padding: "1.25rem 0", color: "var(--text-primary)", fontSize: "0.95rem",
@@ -181,20 +189,20 @@ export default async function MerchantPublicPage({ params }: Props) {
         <div style={{ display: "flex", flexDirection: "column", gap: "3rem" }}>
           
           <section id="about" style={{ background: "linear-gradient(145deg, var(--surface-1) 0%, rgba(212,175,55,0.04) 100%)", borderRadius: "20px", padding: "2.5rem", border: "1px solid var(--border-color)" }}>
-            <h2 style={{ fontSize: "1.5rem", fontWeight: 900, color: "var(--text-primary)", marginBottom: "1.25rem" }}>關於商戶 (About)</h2>
+            <h2 style={{ fontSize: "1.5rem", fontWeight: 900, color: "var(--text-primary)", marginBottom: "1.25rem" }}>{tp.about_title}</h2>
             <p style={{ color: "var(--text-secondary)", lineHeight: 1.8, fontSize: "1.05rem", margin: 0 }}>
-              {m.bio || m.description || "專業的服務供應商，致力於提供高品質的服務。擁有豐富經驗及專業認證，確保為每位客戶提供最優質的滿意度。"}
+              {m.bio || m.description || tp.about_fallback}
             </p>
           </section>
 
           {services.length > 0 && (
             <section id="services" style={{ background: "linear-gradient(145deg, var(--surface-1) 0%, rgba(212,175,55,0.04) 100%)", borderRadius: "20px", padding: "2.5rem", border: "1px solid var(--border-color)" }}>
-              <h2 style={{ fontSize: "1.5rem", fontWeight: 900, color: "var(--text-primary)", marginBottom: "1.5rem" }}>服務項目 (Services)</h2>
+              <h2 style={{ fontSize: "1.5rem", fontWeight: 900, color: "var(--text-primary)", marginBottom: "1.5rem" }}>{tp.services_title}</h2>
               
               <div style={{ background: "var(--surface-2)", borderRadius: "16px", border: "1px solid var(--border-color)", padding: "1.5rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
                   <h3 style={{ fontSize: "1.1rem", fontWeight: 900, color: "var(--text-primary)", margin: 0 }}>
-                    {services[0]?.category || "提供的服務"} ({services.length})
+                    {services[0]?.category || tp.services_provided} ({services.length})
                   </h3>
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1rem" }}>
@@ -205,7 +213,7 @@ export default async function MerchantPublicPage({ params }: Props) {
                       <span style={{ color: "var(--text-muted)", fontSize: "0.85rem" }}>£{svc.price}</span>
                       {idx === 0 && (
                         <span style={{ background: "#7166FF", color: "#fff", padding: "3px 8px", borderRadius: "6px", fontSize: "0.7rem", fontWeight: 800, display: "flex", alignItems: "center", gap: "4px", marginLeft: "auto" }}>
-                          您的搜尋 (Your search) <ThumbsUp size={12} />
+                          {tp.your_search} <ThumbsUp size={12} />
                         </span>
                       )}
                     </Link>
@@ -217,23 +225,23 @@ export default async function MerchantPublicPage({ params }: Props) {
 
           <section id="reviews" style={{ background: "linear-gradient(145deg, var(--surface-1) 0%, rgba(212,175,55,0.04) 100%)", borderRadius: "20px", padding: "2.5rem", border: "1px solid var(--border-color)" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem", flexWrap: "wrap", gap: "1rem" }}>
-              <h2 style={{ fontSize: "1.8rem", fontWeight: 900, color: "var(--text-primary)", margin: 0 }}>客戶評價 ({reviews.length})</h2>
+              <h2 style={{ fontSize: "1.8rem", fontWeight: 900, color: "var(--text-primary)", margin: 0 }}>{interpolate(tp.customer_reviews, { count: reviews.length })}</h2>
               <Link href={`/book/${m.id}/review`} style={{ 
                 background: "transparent", border: "2px solid var(--gold-500)", 
                 color: "var(--gold-400)", padding: "0.6rem 1.5rem", borderRadius: "8px", 
                 fontWeight: 800, cursor: "pointer", textDecoration: "none" 
               }}>
-                撰寫評價 (Write a review)
+                {tp.write_review}
               </Link>
             </div>
             
-            <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", marginBottom: "1.5rem" }}>過去 12 個月內的評價總覽 (Based on reviews over the past 12 months)</p>
+            <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", marginBottom: "1.5rem" }}>{tp.review_overview}</p>
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1.5rem", marginBottom: "3rem" }}>
               {[
-                { label: "工作品質 (Quality of work)", score: qualityScore },
-                { label: "可靠度 (Reliability)", score: reliabilityScore },
-                { label: "溝通能力 (Communication)", score: commsScore }
+                { label: tp.quality, score: qualityScore },
+                { label: tp.reliability, score: reliabilityScore },
+                { label: tp.communication, score: commsScore }
               ].map(stat => (
                 <div key={stat.label} style={{ textAlign: "center", padding: "1.5rem", background: "linear-gradient(180deg, var(--surface-1) 0%, rgba(212,175,55,0.06) 100%)", borderRadius: "16px", border: "1px solid var(--border-color)" }}>
                   <div style={{ fontSize: "2.2rem", fontWeight: 900, color: "var(--gold-400)", marginBottom: "0.3rem" }}>{stat.score}</div>
@@ -252,13 +260,13 @@ export default async function MerchantPublicPage({ params }: Props) {
               <div style={{ backgroundColor: "rgba(212,175,55,0.05)", border: "1px solid rgba(212,175,55,0.2)", borderRadius: "16px", padding: "1.5rem", marginBottom: "3rem" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "0.75rem" }}>
                   <Award size={18} color="var(--gold-500)" />
-                  <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--gold-400)", margin: 0 }}>顧客回饋摘要 (What customers are saying)</h3>
+                  <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--gold-400)", margin: 0 }}>{tp.review_summary_title}</h3>
                 </div>
                 <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6, margin: "0 0 0.75rem 0", fontStyle: "italic" }}>
                   「客戶一致讚賞工作的高品質與高效率，並特別指出良好的溝通與準時度，同時在完工後總會保持場地整潔。」
                 </p>
                 <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", lineHeight: 1.5 }}>
-                  ✦ AI-generated from customer reviews. ConciergeAI is not responsible for the summary or the opinions in it. For more information, please read the reviews themselves and learn more in our reviews policy.
+                  {tp.review_summary_note}
                 </div>
               </div>
             )}
@@ -285,7 +293,7 @@ export default async function MerchantPublicPage({ params }: Props) {
                 </div>
               ))}
               {reviews.length === 0 && (
-                <div style={{ color: "var(--text-muted)", textAlign: "center", padding: "2rem 0" }}>尚無評價 (No reviews yet)</div>
+                <div style={{ color: "var(--text-muted)", textAlign: "center", padding: "2rem 0" }}>{tp.no_reviews}</div>
               )}
             </div>
           </section>
@@ -303,7 +311,7 @@ export default async function MerchantPublicPage({ params }: Props) {
               border: "1px solid var(--gold-500)",
               boxShadow: "0 10px 40px rgba(212,175,55,0.1)"
             }}>
-              <h3 style={{ fontSize: "1.2rem", fontWeight: 900, color: "var(--text-primary)", marginBottom: "1.5rem" }}>預約諮詢 (Consultation)</h3>
+              <h3 style={{ fontSize: "1.2rem", fontWeight: 900, color: "var(--text-primary)", marginBottom: "1.5rem" }}>{tp.consultation_title}</h3>
               <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                 <Link href={bookingHref} style={{
                   background: "linear-gradient(135deg, #d4af37, #f5e07a)",
@@ -311,7 +319,7 @@ export default async function MerchantPublicPage({ params }: Props) {
                   fontWeight: 900, textAlign: "center", textDecoration: "none",
                   display: "flex", alignItems: "center", justifyContent: "center", gap: "8px"
                 }}>
-                  立即預訂服務 <ArrowRight size={18} />
+                  {tp.book_now} <ArrowRight size={18} />
                 </Link>
                 <Link href={`/member/chat?merchantId=${m.id}`} style={{
                   background: "transparent", border: "1px solid var(--border-color)",
@@ -319,7 +327,7 @@ export default async function MerchantPublicPage({ params }: Props) {
                   fontWeight: 800, textAlign: "center", textDecoration: "none",
                   display: "flex", alignItems: "center", justifyContent: "center", gap: "8px"
                 }}>
-                  <MessageSquare size={18} /> 發送訊息
+                  <MessageSquare size={18} /> {tp.send_message}
                 </Link>
                 {m.user?.phone && (
                   <a href={`tel:${m.user.phone}`} style={{
@@ -328,48 +336,48 @@ export default async function MerchantPublicPage({ params }: Props) {
                     fontWeight: 800, textAlign: "center", textDecoration: "none",
                     display: "flex", alignItems: "center", justifyContent: "center", gap: "8px"
                   }}>
-                    <Phone size={18} /> 直接通話 ({m.user.phone})
+                    <Phone size={18} /> {interpolate(tp.call_now, { phone: m.user.phone })}
                   </a>
                 )}
                 <div style={{ fontSize: "0.8rem", color: "var(--text-muted)", textAlign: "center", marginTop: "0.5rem" }}>
-                  平台建議：我們強制要求透過 ConciergeAI 內部聊天進行溝通，以保障您的安全。
+                  {tp.platform_tip}
                 </div>
               </div>
             </div>
 
             {/* Company Info Box */}
             <section id="company-info" style={{ background: "linear-gradient(145deg, var(--surface-1) 0%, rgba(212,175,55,0.04) 100%)", borderRadius: "20px", padding: "2rem", border: "1px solid var(--border-color)" }}>
-              <h2 style={{ fontSize: "1.3rem", fontWeight: 900, color: "var(--text-primary)", marginBottom: "1.5rem" }}>公司資訊 (Company Info)</h2>
+              <h2 style={{ fontSize: "1.3rem", fontWeight: 900, color: "var(--text-primary)", marginBottom: "1.5rem" }}>{tp.tabs.company}</h2>
               
               <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
                 <div>
-                  <div style={{ color: "var(--text-muted)", fontSize: "0.85rem", fontWeight: 700, marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>負責人 (OWNER)</div>
+                  <div style={{ color: "var(--text-muted)", fontSize: "0.85rem", fontWeight: 700, marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>{tp.owner}</div>
                   <div style={{ color: "var(--text-primary)", fontWeight: 800, fontSize: "1.1rem" }}>{m.ownerName || m.user?.name || "N/A"}</div>
                 </div>
                 
                 <div style={{ height: "1px", background: "var(--border-color)" }} />
                 
                 <div>
-                  <div style={{ color: "var(--text-muted)", fontSize: "0.85rem", fontWeight: 700, marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>服務範圍 (OPERATES IN)</div>
-                  <div style={{ color: "var(--text-primary)", fontWeight: 800, fontSize: "1.1rem" }}>{m.city ? `${m.city} 及周邊地區` : "全英國 (Nationwide)"}</div>
+                  <div style={{ color: "var(--text-muted)", fontSize: "0.85rem", fontWeight: 700, marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>{tp.operates_in}</div>
+                  <div style={{ color: "var(--text-primary)", fontWeight: 800, fontSize: "1.1rem" }}>{m.city ? `${m.city} ${tp.nearby}` : tp.nationwide}</div>
                 </div>
 
                 <div style={{ height: "1px", background: "var(--border-color)" }} />
                 
                 <div>
-                  <div style={{ color: "var(--text-muted)", fontSize: "0.85rem", fontWeight: 700, marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>公司類型 (BUSINESS TYPE)</div>
-                  <div style={{ color: "var(--text-primary)", fontWeight: 800, fontSize: "1.1rem" }}>{m.businessType || "獨資經營 (Sole Trader)"}</div>
+                  <div style={{ color: "var(--text-muted)", fontSize: "0.85rem", fontWeight: 700, marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>{tp.business_type}</div>
+                  <div style={{ color: "var(--text-primary)", fontWeight: 800, fontSize: "1.1rem" }}>{m.businessType || "Sole Trader"}</div>
                 </div>
                 
                 <div style={{ height: "1px", background: "var(--border-color)" }} />
 
                 <div>
-                  <div style={{ color: "var(--text-muted)", fontSize: "0.85rem", fontWeight: 700, marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>增值稅註冊 (VAT REGISTERED)</div>
+                  <div style={{ color: "var(--text-muted)", fontSize: "0.85rem", fontWeight: 700, marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>{tp.vat_registered}</div>
                   <div style={{ color: "var(--text-primary)", fontWeight: 800, fontSize: "1.1rem", display: "flex", alignItems: "center", gap: "6px" }}>
                     {m.vatNumber ? (
-                      <><CheckCircle2 size={18} color="var(--gold-500)" /> 是 (Yes)</>
+                      <><CheckCircle2 size={18} color="var(--gold-500)" /> {tp.yes}</>
                     ) : (
-                      "否 (No)"
+                      tp.no
                     )}
                   </div>
                 </div>
@@ -377,12 +385,12 @@ export default async function MerchantPublicPage({ params }: Props) {
                 <div style={{ height: "1px", background: "var(--border-color)" }} />
 
                 <div>
-                  <div style={{ color: "var(--text-muted)", fontSize: "0.85rem", fontWeight: 700, marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>公眾責任保險 (INSURANCE)</div>
+                  <div style={{ color: "var(--text-muted)", fontSize: "0.85rem", fontWeight: 700, marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>{tp.insurance}</div>
                   <div style={{ color: "var(--text-primary)", fontWeight: 800, fontSize: "1.1rem", display: "flex", alignItems: "center", gap: "6px" }}>
                     {m.insuranceAmount && m.insuranceAmount > 0 ? (
-                      <><ShieldCheck size={18} color="#10b981" /> £{m.insuranceAmount.toLocaleString()} 已投保</>
+                      <><ShieldCheck size={18} color="#10b981" /> {interpolate(tp.insured_amount, { amount: m.insuranceAmount.toLocaleString() })}</>
                     ) : (
-                      <span style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}>未提供資料 (Contact for info)</span>
+                      <span style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}>{tp.not_provided}</span>
                     )}
                   </div>
                 </div>

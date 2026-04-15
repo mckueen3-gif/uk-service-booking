@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from '@/lib/prisma';
+import { prisma, safeDbQuery } from '@/lib/prisma';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { unstable_cache, revalidateTag, revalidatePath } from "next/cache";
@@ -113,29 +113,32 @@ export const getServiceDetails = unstable_cache(
 
 export async function getMerchantDetails(merchantId: string) {
   try {
-    const merchant = await prisma.merchant.findUnique({
-      where: { id: merchantId },
-      include: {
-        documents: {
-          where: { status: 'APPROVED' }
-        },
-        reviews: {
-          include: { customer: { select: { name: true, image: true } } },
-          orderBy: { createdAt: 'desc' },
-          take: 10
-        },
-        portfolio: {
-          orderBy: { createdAt: 'desc' },
-          take: 12
-        },
-        services: true,
-        user: {
-          select: { name: true, image: true, email: true, phone: true }
+    return await safeDbQuery(async () => {
+      const merchant = await prisma.merchant.findUnique({
+        where: { id: merchantId },
+        include: {
+          documents: {
+            where: { status: 'APPROVED' }
+          },
+          reviews: {
+            include: { customer: { select: { name: true, image: true } } },
+            orderBy: { createdAt: 'desc' },
+            take: 10
+          },
+          portfolio: {
+            orderBy: { createdAt: 'desc' },
+            take: 12
+          },
+          services: true,
+          user: {
+            select: { name: true, image: true, email: true, phone: true }
+          }
         }
-      }
+      });
+      return { success: true, merchant };
     });
-    return { success: true, merchant };
   } catch (err: any) {
+    console.error(`[DB Error] getMerchantDetails(${merchantId}):`, err);
     return { success: false, error: err.message };
   }
 }
