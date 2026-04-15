@@ -11,9 +11,19 @@ interface LiveProfilePreviewProps {
   avatar?: string | null;
   bannerUrl?: string | null;
   insuranceAmount?: string;
+  hasCredentials?: boolean;
 }
 
-export default function LiveProfilePreview({ businessName, bio, city, sector, avatar, bannerUrl, insuranceAmount }: LiveProfilePreviewProps) {
+export default function LiveProfilePreview({ 
+  businessName, 
+  bio, 
+  city, 
+  sector, 
+  avatar, 
+  bannerUrl, 
+  insuranceAmount,
+  hasCredentials 
+}: LiveProfilePreviewProps) {
   return (
     <div className="preview-sticky">
       <div className="preview-label">
@@ -35,6 +45,11 @@ export default function LiveProfilePreview({ businessName, bio, city, sector, av
               <User size={32} color="#d4af37" />
             )}
             <div className="online-indicator" />
+            {hasCredentials && (
+              <div className="verified-badge-mini" title="已上傳資質證件">
+                <ShieldCheck size={10} color="black" fill="#d4af37" />
+              </div>
+            )}
           </div>
           <div className="header-info">
             <div className="name-row">
@@ -169,6 +184,27 @@ export default function LiveProfilePreview({ businessName, bio, city, sector, av
           background: #10b981;
           border: 2px solid #000;
           border-radius: 50%;
+        }
+        
+        .verified-badge-mini {
+          position: absolute;
+          top: 2px;
+          right: 2px;
+          width: 18px;
+          height: 18px;
+          background: #d4af37;
+          border: 2px solid #000;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+          animation: badge-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes badge-pop {
+          from { transform: scale(0); opacity: 0; }
+          to { transform: scale(1); opacity: 1; }
         }
 
         .header-info {

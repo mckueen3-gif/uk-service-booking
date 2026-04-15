@@ -600,10 +600,12 @@ function JoinPageContent() {
                 <div className="preview-side">
                   <LiveProfilePreview 
                     businessName={formData.businessName}
-                    bio={formData.credentials}
+                    bio={formData.bio}
                     city={formData.city}
-                    sector={selectedSector === 'professional' ? "專業商務" : selectedSector === 'education' ? "教育培訓" : "技術工程"}
+                    sector={selectedSector || ""}
                     avatar={formData.avatar}
+                    insuranceAmount={formData.insuranceAmount}
+                    hasCredentials={!!formData.credentials}
                   />
                   
                   <div className="success-tip-box">
