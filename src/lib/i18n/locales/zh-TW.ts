@@ -1,6 +1,20 @@
 import { Dictionary } from "../types";
 
 export const zhTW: Dictionary = {
+  common: {
+    online: "在線",
+    offline: "離線",
+    unknownUser: "未知用戶",
+    loading: "載入中...",
+    error: "錯誤",
+    save: "儲存",
+    cancel: "取消",
+    delete: "刪除",
+    back: "返回",
+    next: "下一步",
+    confirm: "確認",
+    success: "成功"
+  },
   nav: {
     browse: "瀏覽服務",
     join: "加入成為專家",
@@ -797,6 +811,7 @@ export const zhTW: Dictionary = {
     empty: "尚無任何對話記錄。",
     startPrompt: "正在建立安全連線...",
     targetName: "正在連接...",
+    initialPrompt: "您好，我對您的服務預約有相關諮詢。",
     inputPlaceholder: "輸入訊息...",
     selectChat: "請選擇一個對話",
     selectChatDesc: "與客戶溝通服務細節、上傳照片，或確認預約安排。"

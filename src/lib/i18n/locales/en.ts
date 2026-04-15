@@ -1,6 +1,20 @@
 import { Dictionary } from "../types";
 
 export const en: Dictionary = {
+  common: {
+    online: "Online",
+    offline: "Offline",
+    unknownUser: "Unknown User",
+    loading: "Loading...",
+    error: "Error",
+    save: "Save",
+    cancel: "Cancel",
+    delete: "Delete",
+    back: "Back",
+    next: "Next",
+    confirm: "Confirm",
+    success: "Success"
+  },
   nav: {
     browse: "Browse Services",
     join: "Join as Pro",
@@ -797,6 +811,7 @@ export const en: Dictionary = {
     empty: "No communication logs found.",
     startPrompt: "Establishing Secure Signal...",
     targetName: "Connecting...",
+    initialPrompt: "Hi, I have an inquiry about a booking.",
     inputPlaceholder: "Transmit message...",
     selectChat: "Select a Communication Channel",
     selectChatDesc: "Sync with clients regarding mission specs, media uplink, or schedule coordination."
