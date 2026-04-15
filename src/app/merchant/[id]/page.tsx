@@ -247,7 +247,9 @@ export default async function MerchantPublicPage({ params }: Props) {
                 <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6, margin: "0 0 0.75rem 0", fontStyle: "italic" }}>
                   「客戶一致讚賞工作的高品質與高效率，並特別指出良好的溝通與準時度，同時在完工後總會保持場地整潔。」
                 </p>
-                <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>✦ 由 AI 統整過去 24 個月的客戶評價 (AI-generated from customer reviews)</div>
+                <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", lineHeight: 1.5 }}>
+                  ✦ AI-generated from customer reviews. ConciergeAI is not responsible for the summary or the opinions in it. For more information, please read the reviews themselves and learn more in our reviews policy.
+                </div>
               </div>
             )}
 
