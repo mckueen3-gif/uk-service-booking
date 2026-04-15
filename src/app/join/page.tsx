@@ -7,7 +7,7 @@ import OnboardingHero from '@/components/joining/OnboardingHero';
 import SectorSelector from '@/components/joining/SectorSelector';
 import MerchantContract from '@/components/joining/MerchantContract';
 import LiveProfilePreview from '@/components/joining/LiveProfilePreview';
-import { ChevronRight, ChevronLeft, CheckCircle2, Building2, Mail, Globe, User, Loader2, MapPin, Sparkles, Wand2, Calculator, Gift, ShieldCheck } from 'lucide-react';
+import { ChevronRight, ChevronLeft, CheckCircle2, Building2, Mail, Globe, User, Loader2, MapPin, Sparkles, Wand2, Calculator, Gift, ShieldCheck, Phone, Camera } from 'lucide-react';
 import { createMerchantAction } from '@/app/actions/merchant';
 import { fetchBusinessInfoWithAI, generateSmartBio } from '@/app/actions/ai_onboarding';
 
@@ -64,7 +64,7 @@ function JoinPageContent() {
     setStep(Math.max(0, step - 1));
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
     
@@ -379,7 +379,7 @@ function JoinPageContent() {
                       />
                     </div>
                     <div className="input-group">
-                      <label><Building2 size={16} /> 聯絡電話 (Phone Number) <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>(必填)</span></label>
+                      <label><Phone size={16} /> 聯絡電話 (Phone Number) <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>(必填)</span></label>
                       <input 
                         type="tel" 
                         name="phone" 
@@ -516,6 +516,7 @@ function JoinPageContent() {
                           <option value="Worcester">Worcester</option>
                           <option value="Wrexham">Wrexham</option>
                           <option value="York">York</option>
+                        </optgroup>
                       </select>
                     </div>
 
