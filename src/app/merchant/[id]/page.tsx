@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import {
   Star, MapPin, ShieldCheck, CheckCircle2, ArrowRight,
-  Briefcase, Phone, MessageSquare, Image as ImageIcon, Award, Clock
+  Briefcase, Phone, MessageSquare, Image as ImageIcon, Award, Clock,
+  Share2, Globe, Heart
 } from "lucide-react";
 
 interface Props {
@@ -138,6 +139,18 @@ export default async function MerchantPublicPage({ params }: Props) {
                 <Award size={18} color="var(--gold-500)" /> 平台成員自 {memberYear} 年
               </div>
             </div>
+          </div>
+          
+          <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginTop: "0.25rem" }}>
+            <button style={{ padding: "0.6rem 1rem", border: "1px solid var(--border-color)", background: "var(--surface-1)", color: "var(--text-primary)", borderRadius: "10px", fontWeight: 700, display: "flex", alignItems: "center", gap: "6px", cursor: "pointer", boxShadow: "0 2px 4px rgba(0,0,0,0.02)" }}>
+              <Share2 size={16} /> 分享 (Share)
+            </button>
+            <button style={{ padding: "0.6rem 1rem", border: "1px solid var(--border-color)", background: "var(--surface-1)", color: "var(--text-primary)", borderRadius: "10px", fontWeight: 700, display: "flex", alignItems: "center", gap: "6px", cursor: "pointer", boxShadow: "0 2px 4px rgba(0,0,0,0.02)" }}>
+              <Globe size={16} /> 網站 (Website)
+            </button>
+            <button style={{ padding: "0.6rem 1rem", border: "1px solid var(--border-color)", background: "var(--surface-1)", color: "var(--text-primary)", borderRadius: "10px", fontWeight: 700, display: "flex", alignItems: "center", gap: "6px", cursor: "pointer", boxShadow: "0 2px 4px rgba(0,0,0,0.02)" }}>
+              <Heart size={16} /> 儲存 (Save)
+            </button>
           </div>
         </div>
       </div>
