@@ -148,7 +148,32 @@ export const zhTW: Dictionary = {
         payroll: { title: "薪資核算", desc: "公司薪資計算與 HMRC RTI 申報。" },
         consulting: { title: "戰略顧問", desc: "業務優化與財政增長建議。" },
         audit: { title: "合規審計", desc: "法定審計與公司財務健康檢查。" },
-        formation: { title: "公司成立", desc: "快速高效地建立業務實體。" },
+        formation: { title: "公司成立", desc: "快速有效的業務實體建立。" },
+      },
+      common: {
+        viewProfile: "參看資料",
+        reviews: "評價",
+        hr: "小時",
+        copy: "複製",
+        copied: "已複製!",
+        exit: "離開",
+        aiMatchingSub: "AI 匹配前 1% 的專業精英",
+        exploreSub: "根據專業領域瀏覽我們的目錄",
+        escrow: {
+          title: "安全託管",
+          subtitle: "您的資金會被安全保管，直到任務圓滿完成。",
+          specialists: "已驗證專家",
+          fees: "零隱藏費用",
+          support: "精英聯絡",
+        },
+        greetings: {
+          morning: "早安",
+          afternoon: "午安",
+          evening: "晚安",
+        },
+        user: "用戶節點",
+        serviceFallback: "服務協議",
+        licensePlate: "車牌號碼",
       },
     },
   },
@@ -192,6 +217,13 @@ export const zhTW: Dictionary = {
       suggestions: ["電工", "萬能工", "會計師"],
     },
     trustedBy: "備受領先機構信任",
+    brands: {
+      trustpilot: "Trustpilot",
+      checkatrade: "Checkatrade",
+      hmrc: "HMRC 認證",
+      stripe: "Stripe 安全支付",
+      gassafe: "Gas Safe 認證",
+    },
     aiCTA: {
       badge: "Alpha 系統",
       title1: "即時 AI",
@@ -236,7 +268,19 @@ export const zhTW: Dictionary = {
     recommendation: {
       title: "探索矩陣",
       title2: "最高評分",
-      subtitle: "AI 匹配前 1% 的專業人才。"
+      subtitle: "AI 匹配前 1% 的專業人才。",
+      browse: "瀏覽詳情"
+    },
+    recommendationResults: {
+      trending: "熱門趨勢",
+      assetMatch: "資產匹配",
+      london_plumbing: "倫敦水電專家",
+      london_cleaning: "倫敦專業清潔",
+      manchester_repair: "曼徹斯特維修專家",
+      birmingham_accounting: "伯明翰財稅會計",
+      top_experts_in_city: "{city} 的頂尖專家",
+      emergency_services: "緊急救援服務",
+      professional_category: "專業 {category} 服務",
     },
     sections: {
       trending: { title: "熱門領域", desc: "活躍板塊", items: ["清潔", "維修"] },
@@ -249,7 +293,9 @@ export const zhTW: Dictionary = {
       legal: { title: "法律基礎設施", desc: "與頂尖顧問一起保護您的利益。", items: ["合約法", "物業法", "民事訴訟"] },
       commercial: { title: "企業支援", desc: "適用於高流量環境的服務網格。", items: ["辦公室清潔", "設施管理", "商業電力"] },
       education: { title: "情報擴展", desc: "聯繫精英教育者與導師。", items: ["學術輔導", "STEM 矩陣", "語言節點"] }
-    }
+    },
+    noResults: "未偵測到匹配節點專家",
+    viewAll: "查看全部專家",
   },
   faq: {
     title: "知識庫",
@@ -942,11 +988,21 @@ export const zhTW: Dictionary = {
       remaining: "今日剩餘次數",
       errorPhotoCategory: "請同時選擇照片與類別。",
       errorUnexpected: "發生預期外錯誤：",
+      analyzedPhoto: "分析照片",
       categories: {
         plumbing: "水電工程",
-        renovation: "裝修工程",
+        renovation: "房屋裝修",
         electrical: "電力工程",
         cleaning: "專業清潔"
+      },
+      logs: {
+        init: "正在初始化量子視覺核心...",
+        decompress: "正在解壓視覺遙測數據...",
+        mapping: "正在將像素密度映射到材料拓撲...",
+        normals: "正在解析結構完整性的頂點法線...",
+        schemas: "正在交叉引用英國工程模式 (BS-7671)...",
+        heuristics: "正在執行異常檢測的啟發式算法...",
+        resolution: "正在完成診斷解析..."
       }
     },
     authRequired: {

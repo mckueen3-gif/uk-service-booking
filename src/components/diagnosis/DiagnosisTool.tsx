@@ -51,13 +51,13 @@ export default function DiagnosisTool() {
   // Technical Thinking Log State
   const [techLines, setTechLines] = useState<string[]>([]);
   const techLogMessages = [
-    "Initializing Quantum Vision core...",
-    "Decompressing visual telemetry data...",
-    "Mapping pixel density to material topology...",
-    "Resolving vertex normals for structural integrity...",
-    "Cross-referencing UK engineering schemas (BS-7671)...",
-    "Executing heuristics for anomaly detection...",
-    "Finalizing diagnostic resolution..."
+    t?.diagnosis?.tool?.logs?.init || "Initializing Quantum Vision core...",
+    t?.diagnosis?.tool?.logs?.decompress || "Decompressing visual telemetry data...",
+    t?.diagnosis?.tool?.logs?.mapping || "Mapping pixel density to material topology...",
+    t?.diagnosis?.tool?.logs?.normals || "Resolving vertex normals for structural integrity...",
+    t?.diagnosis?.tool?.logs?.schemas || "Cross-referencing UK engineering schemas (BS-7671)...",
+    t?.diagnosis?.tool?.logs?.heuristics || "Executing heuristics for anomaly detection...",
+    t?.diagnosis?.tool?.logs?.resolution || "Finalizing diagnostic resolution..."
   ];
 
   useEffect(() => {

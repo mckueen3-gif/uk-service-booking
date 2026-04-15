@@ -49,10 +49,10 @@ function createSafeDictionary(target: any, path: string = ''): any {
 
       const value = obj[prop];
       
-      // 🚀 REACT SAFETY: If value is missing, return a Null Proxy instead of undefined.
-      // This allows infinite depth like t.a.b.c.d.e without crashing.
+      // If the value is undefined, return undefined to allow optional chaining (?.) to work naturally 
+      // and prevent React from crashing when attempting to render a Proxy object.
       if (value === undefined) {
-        return createSafeDictionary(undefined, path ? `${path}.${String(prop)}` : String(prop));
+        return undefined;
       }
 
       // If the value is an object, wrap it recursively

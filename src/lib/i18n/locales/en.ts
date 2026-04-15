@@ -192,6 +192,13 @@ export const en: Dictionary = {
       suggestions: ["Electrician", "Handyman", "Accountant"],
     },
     trustedBy: "Trusted by Leading Authorities",
+    brands: {
+      trustpilot: "Trustpilot",
+      checkatrade: "Checkatrade",
+      hmrc: "HMRC Approved",
+      stripe: "Stripe Secure",
+      gassafe: "Gas Safe",
+    },
     aiCTA: {
       badge: "Alpha System",
       title1: "Instant AI",
@@ -942,11 +949,21 @@ export const en: Dictionary = {
       remaining: "Today's allowance",
       errorPhotoCategory: "Please select both a photo and a category.",
       errorUnexpected: "An unexpected error occurred: ",
+      analyzedPhoto: "Analyzed Photo",
       categories: {
         plumbing: "Plumbing",
         renovation: "Renovation",
         electrical: "Electrical",
         cleaning: "Cleaning"
+      },
+      logs: {
+        init: "Initializing Quantum Vision core...",
+        decompress: "Decompressing visual telemetry data...",
+        mapping: "Mapping pixel density to material topology...",
+        normals: "Resolving vertex normals for structural integrity...",
+        schemas: "Cross-referencing UK engineering schemas (BS-7671)...",
+        heuristics: "Executing heuristics for anomaly detection...",
+        resolution: "Finalizing diagnostic resolution..."
       }
     },
     authRequired: {

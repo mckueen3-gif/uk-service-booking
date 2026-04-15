@@ -107,7 +107,13 @@ export default function HomeClient() {
             opacity: 0.6,
             filter: 'grayscale(100%)'
           }}>
-            {['Trustpilot', 'Checkatrade', 'HMRC Approved', 'Stripe Secure', 'Gas Safe'].map(brand => (
+            {[
+              t?.home?.brands?.trustpilot || 'Trustpilot', 
+              t?.home?.brands?.checkatrade || 'Checkatrade', 
+              t?.home?.brands?.hmrc || 'HMRC Approved', 
+              t?.home?.brands?.stripe || 'Stripe Secure', 
+              t?.home?.brands?.gassafe || 'Gas Safe'
+            ].map(brand => (
               <span key={brand} style={{ fontSize: '1.5rem', fontWeight: 900, fontFamily: 'var(--font-heading)', color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
                 {brand}
               </span>
@@ -546,14 +552,33 @@ function SpecialistCard({ specialist, idx, city }: { specialist: any, idx: numbe
         )}
       </div>
       <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-        <div style={{ color: 'var(--accent-color)', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>{specialist.category || t?.home?.defaultCategory}</div>
-        <h3 style={{ fontSize: '1.4rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '0.75rem', fontFamily: 'var(--font-heading)' }}>{specialist.companyName || specialist.user?.name}</h3>
+        <div style={{ 
+          color: 'var(--accent-color)', 
+          fontSize: '0.75rem', 
+          fontWeight: 900, 
+          textTransform: 'uppercase', 
+          letterSpacing: '0.1em', 
+          marginBottom: '0.5rem' 
+        }}>
+          {(specialist.category && t?.home?.categories?.[specialist.category.toLowerCase()]) || specialist.category || t?.home?.defaultCategory}
+        </div>
+        <h3 style={{ 
+          fontSize: '1.4rem', 
+          fontWeight: 900, 
+          color: 'var(--text-primary)', 
+          marginBottom: '0.75rem', 
+          fontFamily: 'var(--font-heading)' 
+        }}>
+          {specialist.companyName || (specialist.user?.name && (specialist.user.name.length > 20 ? `${specialist.user.name.substring(0, 20)}...` : specialist.user.name)) || "Elite Specialist"}
+        </h3>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem', fontWeight: 500 }}>
-          <MapPin size={16} /> {specialist.city || city}
+          <MapPin size={16} /> {specialist.city || city || "London, UK"}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginTop: 'auto' }}>
            <Link href={`/merchant/${specialist.id}`} style={{ flex: 1, textDecoration: 'none' }}>
-             <button className="btn btn-primary" style={{ width: '100%', padding: '0.85rem', borderRadius: '12px', fontSize: '0.95rem' }}>{t?.common?.viewProfile}</button>
+             <button className="btn btn-primary" style={{ width: '100%', padding: '0.85rem', borderRadius: '12px', fontSize: '0.95rem' }}>
+               {t?.common?.viewProfile || "View Profile"}
+             </button>
            </Link>
            <button className="btn" style={{ padding: '0.85rem', borderRadius: '12px', background: 'var(--surface-2)', color: 'var(--text-primary)', border: '1px solid var(--border-color)' }}>
              <ShieldCheck size={20} />
