@@ -313,7 +313,7 @@ function SearchResults() {
           ) : results.length === 0 ? (
             <div className="glass-panel" style={{ padding: '5rem 2rem', textAlign: 'center', borderRadius: '2rem' }}>
               <Search size={40} style={{ color: 'var(--text-secondary)', opacity: 0.5, marginBottom: '1.5rem' }} />
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '0.5rem' }}>{t?.search?.noResults || "No matching nodes found"}</h3>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '0.5rem' }}>{t?.search?.noResults || "No matching experts found"}</h3>
               <button 
                 onClick={() => {
                   setCategory("All");
@@ -324,7 +324,7 @@ function SearchResults() {
                 className="btn btn-secondary" 
                 style={{ marginTop: '1.5rem' }}
               >
-                {t?.search?.clearFilters || "Reset Parameters"}
+                {t?.search?.clearFilters || "Clear Filters"}
               </button>
             </div>
           ) : viewMode === 'map' ? (
@@ -387,7 +387,7 @@ function SearchResults() {
                           {t?.search?.emergencyReady || "RAPID RESPONSE ACTIVE"}
                         </div>
                       )}
-                      <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)', marginTop: '4px' }}>{t?.search?.viewDetails || "View Dossier"}</div>
+                      <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)', marginTop: '4px' }}>{t?.search?.viewDetails || "View Profile"}</div>
                     </div>
                 </Link>
               ))}

@@ -385,7 +385,7 @@ export default function HomeClient() {
                 }}>
                   {(sec?.data?.items as string[] || []).map((sub: string) => (
                     <Link key={sub} 
-                          href={`/services/${sec.id}/search?q=${encodeURIComponent(sub)}`} 
+                          href={`/services/results?q=${encodeURIComponent(sub)}&cat=${encodeURIComponent(sec.id)}`} 
                           style={{ textDecoration: 'none' }}>
                       <div className="glass-panel" style={{ padding: '1rem 1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-primary)', fontWeight: 700, fontSize: '0.95rem', background: 'var(--surface-1)' }}>
                         <div style={{ color: 'var(--accent-color)', display: 'flex' }}><CheckCircle2 size={18} strokeWidth={2.5} /></div>
