@@ -127,6 +127,7 @@ const VoucherMarketplace: React.FC<VoucherMarketplaceProps> = ({
         <div 
           onClick={onAdminTrigger}
           style={{ cursor: 'pointer', userSelect: 'none' }}
+        >
           <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: 'var(--text-primary)', marginBottom: '5px' }}>
             {rt?.marketplaceText || "Voucher Marketplace"}
           </h2>

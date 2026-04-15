@@ -152,6 +152,7 @@ export default function PropertiesContent() {
         )}
       </div>
 
+      </div>
     </div>
   );
 }

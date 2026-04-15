@@ -128,7 +128,6 @@ export default function AddVehicleForm({ onVehicleAdded }: Props) {
             }}>
               <Car size={22} color="#facc15" />
             </div>
-            </div>
             <div>
               <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#facc15', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{t?.garage?.results || "System Detection Results"}</div>
               <div style={{ fontWeight: 800, fontSize: '1.05rem', color: 'var(--text-primary)' }}>

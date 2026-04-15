@@ -38,6 +38,7 @@ function LoginForm() {
       redirect: false,
     });
 
+    if (result?.error) {
       // result.error for credentials is usually 'CredentialsSignin'
       setError(t?.auth?.errors?.invalidCredentials || "Invalid credentials provided.");
       setLoading(false);

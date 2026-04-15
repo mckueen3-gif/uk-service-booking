@@ -320,6 +320,7 @@ export default function GarageContent() {
           50% { opacity: 0.4; }
         }
       `}</style>
+      </div>
     </div>
   );
 }

@@ -16,6 +16,13 @@ const DAYS = [
 ];
 
 
+export default function AvailabilityPage() {
+  const { t, locale } = useTranslation();
+  const [availability, setAvailability] = useState<AvailabilityInput[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [slotDuration, setSlotDuration] = useState(60);
+  const [maxDaily, setMaxDaily] = useState(8);
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
   const mt = t?.merchant?.merchant_availability; // Helper for shorter access
 
