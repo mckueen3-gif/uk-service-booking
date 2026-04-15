@@ -1,0 +1,1 @@
+const fs = require('fs'); const html = fs.readFileSync('temp_checkatrade.html', 'utf8'); const regex = /<a[^>]*>(.*?)<\/a>/g; let match; const trades = new Set(); while ((match = regex.exec(html)) !== null) { if(match[1] && !match[1].includes('<')) trades.add(match[1].trim()); } console.log(Array.from(trades).filter(x => x).join('\n'));

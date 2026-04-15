@@ -1,0 +1,159 @@
+{
+  "A": [
+    "Access Equipment",
+    "Accountant",
+    "Air Conditioning Installer",
+    "Alarm / CCTV Installer",
+    "Architect",
+    "Arborist / Tree Surgeon",
+    "Architectural",
+    "Asbestos Removal",
+    "Asbestos Surveyor"
+  ],
+  "B": [
+    "Bathroom Fitter",
+    "Bike Repair",
+    "Bifold Door Installer",
+    "Blacksmith",
+    "Block Paving",
+    "Boiler Installer / Central Heating",
+    "Brick / Stone Merchant",
+    "Bricklayer",
+    "Builder",
+    "Building Contractor"
+  ],
+  "C": [
+    "Cabinet Maker",
+    "Carpenter / Joiner",
+    "Carpet / Flooring Fitter",
+    "Chimney & Fireplace Specialist",
+    "Chimney Sweep",
+    "Cleaning Services",
+    "Cladding",
+    "Conservatory Installer",
+    "Conservatory Repairs",
+    "Conversion Specialist"
+  ],
+  "D": [
+    "Damp Proofer",
+    "Decking Installer",
+    "Deep Clean Services",
+    "Demolition Services",
+    "Disabled Adaptations",
+    "Door Fitting / Hanging",
+    "Double Glazing Installer",
+    "Drains / Drainage",
+    "Driveway Installer"
+  ],
+  "E": [
+    "Electric Underfloor Heating",
+    "Electric Vehicle Charging Installer",
+    "Electrician",
+    "Emergency Locksmith",
+    "Emergency Plumber",
+    "End of Tenancy Cleaning",
+    "Energy Assessor",
+    "Extension Builder"
+  ],
+  "F": [
+    "Fascia / Soffit Replacement",
+    "Fence / Gate Supplier & Installer",
+    "Fire Door Installation",
+    "Fire Protection",
+    "Firewood Supplier",
+    "Floor Sanding",
+    "Flooring Contractor",
+    "Furniture Assembler"
+  ],
+  "G": [
+    "Garage Conversion",
+    "Garage Door Installer",
+    "Garden Clearance",
+    "Garden Design",
+    "Garden Maintenance",
+    "Garden Pond Installation",
+    "Garden Rooms / Timber Structures",
+    "Gardener",
+    "Gas Engineer",
+    "Gas Safety Testing",
+    "Gutter Cleaning"
+  ],
+  "H": [
+    "Handyman",
+    "Hard Landscaping",
+    "Heat Pump Installer",
+    "Holiday Let / Airbnb Cleaner"
+  ],
+  "I": [
+    "Interior Designer"
+  ],
+  "J": [
+    "Joiner"
+  ],
+  "K": [
+    "Kitchen Fitter"
+  ],
+  "L": [
+    "Landscape Gardener",
+    "Loft Conversion Specialist",
+    "Locksmith"
+  ],
+  "M": [
+    "Man and Van",
+    "Marble Worktops",
+    "Metal Worker",
+    "Mobile Mechanic"
+  ],
+  "N": [
+    "New Build / Full House Build"
+  ],
+  "O": [
+    "Oven / Hob / Extractor Servicing & Repair"
+  ],
+  "P": [
+    "Paint Sprayer",
+    "Painter & Decorator",
+    "Partition Wall Installation",
+    "PEST CONTROL",
+    "Pile Driving / Mini Piling",
+    "Plasterer",
+    "Plumber",
+    "Pointing / Repointing",
+    "Porch Builder"
+  ],
+  "R": [
+    "Refurbishments",
+    "Removals",
+    "Renewable Energy",
+    "Restoration & Refurbishment",
+    "Roofer",
+    "Rubber Roofing"
+  ],
+  "S": [
+    "Scaffolder",
+    "Skip Hire",
+    "Skylight / Velux / Roof Window",
+    "Solar Panel Installer",
+    "Specialist Cleaning",
+    "Staircase Balustrade",
+    "Stonemason",
+    "Structural Engineer",
+    "Surveyor"
+  ],
+  "T": [
+    "Tiler - Tiling",
+    "Tree Surgeon"
+  ],
+  "U": [
+    "Underfloor Heating Installer"
+  ],
+  "V": [
+    "Van Hire"
+  ],
+  "W": [
+    "Waste Clearance",
+    "Water Feature Installer",
+    "Water Softeners",
+    "Window Fitter"
+  ]
+}

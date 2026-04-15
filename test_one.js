@@ -1,0 +1,1 @@
+const https = require('https'); https.get('https://www.checkatrade.com/sitemap/trades/A', { headers: { 'User-Agent': 'Mozilla/5.0' } }, (res) => { console.log('Status:', res.statusCode); console.log('Headers:', res.headers); let body = ''; res.on('data', d => body += d); res.on('end', () => console.log('Body length:', body.length)); });
