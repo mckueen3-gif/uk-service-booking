@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
+const nextConfig: any = {
   /* config options here */
   typescript: {
     // Vercel deployment block fix: ignore TypeScript errors during production builds

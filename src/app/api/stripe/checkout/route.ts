@@ -111,7 +111,7 @@ export async function POST(req: Request) {
             serviceName,
             isEducation: isEducation ? 'true' : 'false',
             isUrgent: isUrgent ? 'true' : 'false',
-            totalAmount: totalAmountInPence.toString(),
+            totalAmount: totalCustomerPaysInPence.toString(),
             depositAmount: checkoutAmountInPence.toString(),
             balanceAmount: balanceAmountInPence.toString(),
             vehicleInfo: JSON.stringify(vehicleInfo || {})

@@ -14,7 +14,7 @@ import {
   Calendar as CalendarIcon, ChevronLeft, ChevronRight, 
   Users, Clock, MapPin, MessageSquare, 
   ExternalLink, Loader2, Sparkles, X,
-  Save, AlertCircle, CheckCircle2, Plus, Trash2, ShieldContext,
+  Save, AlertCircle, CheckCircle2, Plus, Trash2,
   UserPlus
 } from 'lucide-react';
 import Link from 'next/link';

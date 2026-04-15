@@ -345,7 +345,7 @@ export async function getMerchantAccountingSummary() {
   };
 }
 
-export async function activateAccountingSubscription() {
+export async function activateAccountingSubscription(): Promise<{ error?: string; message?: string; url?: string }> {
   const merchantId = await getMerchantId();
   if (!merchantId) return { error: "Merchant not found" };
 
@@ -357,43 +357,4 @@ export async function activateAccountingSubscription() {
     error: 'ALL_EXEMPT',
     message: 'Accounting tools and Premium platform features are entirely FREE for verified experts. All commission is charged as a markup on customer quotes.'
   };
-
-  try {
-    const { getStripeClient } = await import("@/lib/stripe");
-    const stripe = await getStripeClient();
-
-    // Create a real Stripe Checkout Session for the £4.99/mo subscription
-    // NOTE: This subscription is only available to non-education service merchants.
-    // For Education merchants (tutors), this feature is included free to comply
-    // with UK fair working guidelines prohibiting charges to tutors for job-finding services.
-    const session = await stripe.checkout.sessions.create({
-      mode: 'subscription',
-      payment_method_types: ['card'],
-      line_items: [
-        {
-          price_data: {
-            currency: 'gbp',
-            product_data: {
-              name: 'ConciergeAI Accounting Premium',
-              description: 'Professional Tax Reporting & Monthly Audits',
-            },
-            unit_amount: 499, // £4.99
-            recurring: { interval: 'month' },
-          },
-          quantity: 1,
-        },
-      ],
-      success_url: `${process.env.NEXTAUTH_URL || 'http://localhost:3002'}/merchant/accounting?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXTAUTH_URL || 'http://localhost:3002'}/merchant/accounting?status=canceled`,
-      metadata: {
-        merchantId,
-        subscription_type: 'accounting_premium'
-      }
-    });
-
-    return { url: session.url };
-  } catch (err: any) {
-    console.error("[Stripe Session Error]", err);
-    return { error: err.message };
-  }
 }
