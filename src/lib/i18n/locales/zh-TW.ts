@@ -1073,7 +1073,8 @@ export const zhTW: Dictionary = {
       or: "或使用社交帳號",
       google: "使用 Google 帳號",
       navToLogin: "已有帳號？",
-      signIn: "立即登入"
+      signIn: "立即登入",
+      tutorDisclaimer: "為符合英國公平指引，教育及補習老師免收平台手續費（費用完全由學生承擔），保障老師 100% 收入。"
     }
   },
   onboarding: {

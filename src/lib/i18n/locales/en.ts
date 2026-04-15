@@ -1033,7 +1033,8 @@ export const en: Dictionary = {
       or: "or use social account",
       google: "Sign in with Google",
       navToLogin: "Already have an account?",
-      signIn: "Sign In Now"
+      signIn: "Sign In Now",
+      tutorDisclaimer: "To comply with UK fair working guidelines, Education & Tutor merchants are EXEMPT from all platform fees (100% of fees are paid by students)."
     }
   },
   onboarding: {

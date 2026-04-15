@@ -17,6 +17,7 @@ function RegisterForm() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [revealed, setRevealed] = useState(false);
+  const [role, setRole] = useState('CUSTOMER');
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -95,11 +96,25 @@ function RegisterForm() {
             <label>{t?.auth?.register?.accountTypeLabel || "Node Type"}</label>
             <div className="input-wrapper">
               <Shield className="input-icon" size={18} />
-              <select name="role" className="premium-input" required defaultValue="CUSTOMER" disabled={loading} style={{ appearance: 'none', cursor: 'pointer' }}>
+              <select 
+                name="role" 
+                className="premium-input" 
+                required 
+                value={role} 
+                onChange={(e) => setRole(e.target.value)}
+                disabled={loading} 
+                style={{ appearance: 'none', cursor: 'pointer' }}
+              >
                 <option value="CUSTOMER">{t?.auth?.register?.roles?.customer || "Customer"}</option>
                 <option value="MERCHANT">{t?.auth?.register?.roles?.merchant || "Merchant"}</option>
               </select>
             </div>
+            {role === 'MERCHANT' && t?.auth?.register?.tutorDisclaimer && (
+              <div style={{ marginTop: '0.75rem', padding: '0.75rem', backgroundColor: 'rgba(234, 179, 8, 0.05)', borderRadius: '8px', border: '1px solid rgba(234, 179, 8, 0.3)', fontSize: '0.8rem', color: '#ca8a04', lineHeight: '1.4' }}>
+                <Shield size={14} style={{ display: 'inline', marginRight: '6px', verticalAlign: 'text-bottom' }} />
+                {t.auth.register.tutorDisclaimer}
+              </div>
+            )}
           </div>
           
           <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '300ms' }}>
