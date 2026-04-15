@@ -141,17 +141,7 @@ export default async function MerchantPublicPage({ params }: Props) {
             </div>
           </div>
           
-          <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginTop: "0.25rem" }}>
-            <button style={{ padding: "0.6rem 1rem", border: "1px solid var(--border-color)", background: "var(--surface-1)", color: "var(--text-primary)", borderRadius: "10px", fontWeight: 700, display: "flex", alignItems: "center", gap: "6px", cursor: "pointer", boxShadow: "0 2px 4px rgba(0,0,0,0.02)" }}>
-              <Share2 size={16} /> 分享 (Share)
-            </button>
-            <button style={{ padding: "0.6rem 1rem", border: "1px solid var(--border-color)", background: "var(--surface-1)", color: "var(--text-primary)", borderRadius: "10px", fontWeight: 700, display: "flex", alignItems: "center", gap: "6px", cursor: "pointer", boxShadow: "0 2px 4px rgba(0,0,0,0.02)" }}>
-              <Globe size={16} /> 網站 (Website)
-            </button>
-            <button style={{ padding: "0.6rem 1rem", border: "1px solid var(--border-color)", background: "var(--surface-1)", color: "var(--text-primary)", borderRadius: "10px", fontWeight: 700, display: "flex", alignItems: "center", gap: "6px", cursor: "pointer", boxShadow: "0 2px 4px rgba(0,0,0,0.02)" }}>
-              <Heart size={16} /> 儲存 (Save)
-            </button>
-          </div>
+
         </div>
       </div>
 
@@ -349,6 +339,19 @@ export default async function MerchantPublicPage({ params }: Props) {
                 </div>
               </div>
             </section>
+            
+            {/* Auxiliary Actions */}
+            <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", justifyContent: "center", marginTop: "0.5rem" }}>
+              <button style={{ padding: "0.4rem 0.8rem", fontSize: "0.85rem", border: "1px solid var(--border-color)", background: "var(--surface-1)", color: "var(--text-primary)", borderRadius: "8px", fontWeight: 700, display: "flex", alignItems: "center", gap: "4px", cursor: "pointer", boxShadow: "0 2px 4px rgba(0,0,0,0.02)", transition: "all 0.2s ease" }} onMouseOver={(e) => e.currentTarget.style.backgroundColor="var(--surface-2)"} onMouseOut={(e) => e.currentTarget.style.backgroundColor="var(--surface-1)"}>
+                <Share2 size={14} /> 分享 (Share)
+              </button>
+              <button style={{ padding: "0.4rem 0.8rem", fontSize: "0.85rem", border: "1px solid var(--border-color)", background: "var(--surface-1)", color: "var(--text-primary)", borderRadius: "8px", fontWeight: 700, display: "flex", alignItems: "center", gap: "4px", cursor: "pointer", boxShadow: "0 2px 4px rgba(0,0,0,0.02)", transition: "all 0.2s ease" }} onMouseOver={(e) => e.currentTarget.style.backgroundColor="var(--surface-2)"} onMouseOut={(e) => e.currentTarget.style.backgroundColor="var(--surface-1)"}>
+                <Globe size={14} /> 網站 (Website)
+              </button>
+              <button style={{ padding: "0.4rem 0.8rem", fontSize: "0.85rem", border: "1px solid var(--border-color)", background: "var(--surface-1)", color: "var(--text-primary)", borderRadius: "8px", fontWeight: 700, display: "flex", alignItems: "center", gap: "4px", cursor: "pointer", boxShadow: "0 2px 4px rgba(0,0,0,0.02)", transition: "all 0.2s ease" }} onMouseOver={(e) => e.currentTarget.style.backgroundColor="var(--surface-2)"} onMouseOut={(e) => e.currentTarget.style.backgroundColor="var(--surface-1)"}>
+                <Heart size={14} /> 儲存 (Save)
+              </button>
+            </div>
             
           </div>
         </div>
