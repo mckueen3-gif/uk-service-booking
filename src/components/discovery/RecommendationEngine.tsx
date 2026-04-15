@@ -66,7 +66,7 @@ export default function RecommendationEngine() {
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '4rem' }}>
          <div className="reveal active">
             <h2 style={{ fontSize: '2.75rem', fontWeight: 950, marginBottom: '1.25rem', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.8rem', letterSpacing: '-0.03em' }}>
-               {t?.home?.recommendation?.title1} <span style={{ 
+               {(t?.home?.recommendation?.title1 || t?.home?.recommendation?.title)} <span style={{ 
                  background: 'var(--premium-gradient)',
                  WebkitBackgroundClip: 'text',
                  WebkitTextFillColor: 'transparent'

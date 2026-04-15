@@ -271,6 +271,7 @@ export const zhTW: Dictionary = {
     defaultCategory: "專家",
     recommendation: {
       title: "探索專家",
+      title1: "探索專家",
       title2: "最高評分",
       subtitle: "AI 匹配前 1% 的專業人才。",
       browse: "查看詳情"

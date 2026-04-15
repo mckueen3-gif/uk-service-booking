@@ -245,8 +245,10 @@ export const en: Dictionary = {
     defaultCategory: "Specialist",
     recommendation: {
       title: "Discovery Mesh",
+      title1: "Discovery Mesh",
       title2: "TOP RATED",
-      subtitle: "AI matching the top 1% of specialists."
+      subtitle: "AI matching the top 1% of specialists.",
+      browse: "Explore"
     },
     sections: {
       trending: { title: "Trending", desc: "Active sectors", items: ["Cleaning", "Repairs"] },
