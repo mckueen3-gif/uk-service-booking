@@ -5,7 +5,6 @@ import DiagnosisTool from '@/components/diagnosis/DiagnosisTool';
 import { Sparkles, ArrowRight, ShieldCheck, Zap, PoundSterling } from 'lucide-react';
 import Link from 'next/link';
 
-export const dynamic = 'force-dynamic';
 
 export default function DiagnosisPage() {
   const { t, locale } = useTranslation();

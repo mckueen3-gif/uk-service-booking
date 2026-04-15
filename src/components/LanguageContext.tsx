@@ -42,16 +42,17 @@ function createSafeDictionary(target: any, path: string = ''): any {
         return () => path || ''; 
       }
       if (prop === Symbol.iterator || prop === 'map' || prop === 'forEach' || prop === 'filter' || prop === 'reduce') {
-        return Array.isArray(obj[prop]) ? obj[prop] : (obj[prop] === undefined ? [] : obj[prop]);
+        const val = obj[prop];
+        return Array.isArray(val) ? val : (val === undefined ? [] : val);
       }
       if (prop === '$$typeof' || prop === 'toJSON' || prop === 'then') return undefined;
 
       const value = obj[prop];
       
-      // 🚀 REACT SAFETY: Return undefined for missing keys to allow optional chaining (t?.a?.b)
-      // and ensure React doesn't attempt to render a Proxy object {} which causes crashes.
+      // 🚀 REACT SAFETY: If value is missing, return a Null Proxy instead of undefined.
+      // This allows infinite depth like t.a.b.c.d.e without crashing.
       if (value === undefined) {
-        return undefined;
+        return createSafeDictionary(undefined, path ? `${path}.${String(prop)}` : String(prop));
       }
 
       // If the value is an object, wrap it recursively

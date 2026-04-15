@@ -35,7 +35,7 @@ export default function DiagnosisTool() {
     { id: 'Cleaning', label: t.diagnosis?.tool?.categories?.cleaning || "專業清潔", icon: '✨' },
   ];
 
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [category, setCategory] = useState('');
@@ -170,6 +170,15 @@ export default function DiagnosisTool() {
       setLoading(false);
     }
   };
+
+  if (status === 'loading') {
+    return (
+      <div className="glass-panel active" style={{ padding: '5rem', textAlign: 'center', maxWidth: '800px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem' }}>
+        <Loader2 className="animate-spin" size={48} style={{ color: 'var(--accent-color)' }} />
+        <p style={{ fontWeight: 700, color: 'var(--text-muted)' }}>{t?.common?.loading || "Initializing AI Vision..."}</p>
+      </div>
+    );
+  }
 
   if (!session) {
     return (
