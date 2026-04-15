@@ -7,14 +7,17 @@
  * ============================================================
  * ConciergeAI operates a STUDENT/CUSTOMER-PAYS model:
  *
- *  ✅ Platform commission (9%) is deducted from the STUDENT/CUSTOMER payment BEFORE
- *     the net amount is transferred to the service provider (merchant/tutor).
+ *  ✅ Platform commission (9%) is ADDED ON TOP of the merchant/tutor's base rate.
+ *     The student/customer pays the gross amount, and the tutor receives exactly
+ *     their requested rate.
  *
  *  ❌ Tutors and service providers are NEVER charged a listing fee, signup fee,
  *     or job-finding fee. This is to comply with UK fair working guidelines.
  *
  * Example Education payout:
- *   Student pays £100 → Platform retains £9 (9%) → Tutor receives £91
+ *   Tutor sets rate: £100
+ *   Platform marks up customer price: £100 + 9% = £109
+ *   Student pays £109 → Platform retains £9 → Tutor receives £100
  *
  * This mirrors the model used by MyTutor, Tutorful, and other compliant UK marketplaces.
  * Under this structure, no FCA Payment Institution licence is required as we use
@@ -55,18 +58,18 @@ export function calculatePlatformFee(amount: number, merchant: { commissionRate:
 }
 
 /**
- * Calculates the net payout due to the service provider.
- * The platform deducts its fee from the customer's gross payment.
+ * Calculates the gross customer payment and platform fee from a tutor's base rate.
+ * The platform adds its fee on top of the provider's requested rate.
  *
- * @param grossCustomerPayment Total amount paid by the student/customer
+ * @param providerBaseAmount The amount the tutor/merchant wants to earn
  * @param merchant The merchant object
- * @returns Object with platformFee and merchantPayout
+ * @returns Object with platformFee and totalCustomerPayment
  */
-export function calculateNetPayout(grossCustomerPayment: number, merchant: { commissionRate: number }) {
+export function calculateNetPayout(providerBaseAmount: number, merchant: { commissionRate: number }) {
   const rate = getCommissionRate(merchant);
-  const platformFee = Math.round(grossCustomerPayment * rate * 100) / 100;
-  const merchantPayout = Math.round((grossCustomerPayment - platformFee) * 100) / 100;
-  return { platformFee, merchantPayout, commissionRate: rate };
+  const platformFee = Math.round(providerBaseAmount * rate * 100) / 100;
+  const totalCustomerPayment = Math.round((providerBaseAmount + platformFee) * 100) / 100;
+  return { platformFee, merchantPayout: providerBaseAmount, totalCustomerPayment, commissionRate: rate };
 }
 
 /**
