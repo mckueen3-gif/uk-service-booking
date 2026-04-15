@@ -120,6 +120,7 @@ model Merchant {
   reviews            Review[]
   services           Service[]
   withdrawals        WithdrawalRequest[]
+  scheduleSlots      MerchantScheduleSlot[]
 
   @@index([city])
   @@index([isVerified])
@@ -540,4 +541,18 @@ enum TransactionType {
   VOUCHER_REDEEM
   ADMIN_ADJUSTMENT
   REDEMPTION_VOUCHER
+}
+
+
+model MerchantScheduleSlot {
+  id                String   @id @default(cuid())
+  merchantId        String
+  date              DateTime
+  startTime         String
+  endTime           String
+  isAvailable       Boolean  @default(true) 
+  createdAt         DateTime @default(now())
+  merchant          Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+
+  @@index([merchantId, date])
 }
