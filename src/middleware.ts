@@ -32,12 +32,6 @@ export default withAuth(
       return NextResponse.redirect(new URL("/member/home", req.url));
     }
 
-    if (isPublicHome && token) {
-      if (token.role === "MERCHANT" || token.role === "ADMIN") {
-        return NextResponse.redirect(new URL("/merchant", req.url));
-      }
-      return NextResponse.redirect(new URL("/member/home", req.url));
-    }
 
     if (isMerchantDashboard) {
       // Must be logged in as MERCHANT or ADMIN

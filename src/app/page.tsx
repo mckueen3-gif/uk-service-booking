@@ -16,14 +16,6 @@ export default async function HomePage() {
   const session = await getServerSession(authOptions);
 
   // If logged in, prioritize the member/merchant experience
-  if (session?.user) {
-    if (session.user.role === "MERCHANT" || session.user.role === "ADMIN") {
-      redirect("/merchant");
-    } else {
-      // Members land on their personalized dashboard
-      redirect("/member/home");
-    }
-  }
 
   const jsonLd = {
     "@context": "https://schema.org",
