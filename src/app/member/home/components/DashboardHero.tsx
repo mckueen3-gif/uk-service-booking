@@ -20,7 +20,7 @@ export default function DashboardHero({ userName, city }: DashboardHeroProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   // Get greeting based on current hour
@@ -38,8 +38,14 @@ export default function DashboardHero({ userName, city }: DashboardHeroProps) {
   ];
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    // 🚀 Precision container-only scroll to avoid page jumping
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTo({
+        top: chatContainerRef.current.scrollHeight,
+        behavior: "smooth"
+      });
+    }
+  }, [messages, isLoading]);
 
   const handleSend = async (messageText?: string) => {
     const text = (messageText ?? input).trim();
@@ -192,6 +198,7 @@ export default function DashboardHero({ userName, city }: DashboardHeroProps) {
 
       {/* ── Chat Area ───────────────────────────────────────── */}
       <div
+        ref={chatContainerRef}
         style={{
           minHeight: messages.length === 0 ? "0px" : "300px",
           maxHeight: "420px",
@@ -295,7 +302,6 @@ export default function DashboardHero({ userName, city }: DashboardHeroProps) {
           </div>
         )}
 
-        <div ref={messagesEndRef} />
       </div>
 
       {/* ── Quick Prompts (only when chat is empty) ─────────── */}
