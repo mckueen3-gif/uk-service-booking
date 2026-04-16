@@ -1087,12 +1087,17 @@ export const en: Dictionary = {
       phoneLabel: "Phone Number",
       postcodeLabel: "Postcode (Optional)",
       houseNumberLabel: "House Number",
-      accountTypeLabel: "Node Class",
+      accountTypeLabel: "Account Type",
       roles: {
-        customer: "Client Node",
-        merchant: "Specialist Node"
+        customer: "Regular Customer",
+        merchant: "Professional Specialist"
       },
-      passwordLabel: "Security Key",
+      expertSignupPrompt: "Are you a service provider? Register as an Expert",
+      searchAddressLabel: "Search for your address",
+      searchAddressPlaceholder: "Postcode (e.g. SW1A 1AA)",
+      addressResultHint: "Found addresses:",
+      manualAddressEntry: "Manual Entry",
+      passwordLabel: "Password",
       passwordHint: "Min 6 tokens",
       referralLabel: "Referral Key (Optional)",
       referralPlaceholder: "Input Key",

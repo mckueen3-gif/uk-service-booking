@@ -291,6 +291,9 @@ export async function toggleMerchantVerification(merchantId: string, isVerified:
 /**
  * Fetch financial stats for the admin payout dashboard
  */
+export async function getPayoutStats() {
+  await ensureAdmin();
+
   const [pendingPayouts, completedPayouts] = await Promise.all([
     prisma.withdrawalRequest.findMany({
       where: { status: 'PENDING' },

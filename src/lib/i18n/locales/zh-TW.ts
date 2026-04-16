@@ -1092,6 +1092,11 @@ export const zhTW: Dictionary = {
         customer: "普通客戶",
         merchant: "專業服務商"
       },
+      expertSignupPrompt: "你是專業服務商嗎？點擊此處加入專家網絡",
+      searchAddressLabel: "搜尋地址",
+      searchAddressPlaceholder: "輸入郵遞區號 (例如: NG15 7HU)",
+      addressResultHint: "請選擇正確地址：",
+      manualAddressEntry: "手動輸入地址",
       passwordLabel: "密碼",
       passwordHint: "至少 6 個字元",
       referralLabel: "推薦碼（選填）",

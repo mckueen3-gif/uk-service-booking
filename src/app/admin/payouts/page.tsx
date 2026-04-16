@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getPayoutStats } from "@/app/actions/admin_actions";
+import { processWithdrawal } from "@/app/actions/admin";
 import { 
   Wallet, 
   ArrowUpRight, 
@@ -14,24 +15,48 @@ import {
   TrendingUp,
   Loader2,
   Zap,
-  DollarSign
+  DollarSign,
+  XCircle,
+  MinusCircle
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "@/components/LanguageContext";
 
 export default function AdminPayouts() {
   const [stats, setStats] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [processingId, setProcessingId] = useState<string | null>(null);
   const { t } = useTranslation();
 
+  async function load() {
+    setLoading(true);
+    const data = await getPayoutStats();
+    setStats(data);
+    setLoading(false);
+  }
+
   useEffect(() => {
-    async function load() {
-      const data = await getPayoutStats();
-      setStats(data);
-      setLoading(false);
-    }
     load();
   }, []);
+
+  async function handleAction(id: string, status: "COMPLETED" | "REJECTED") {
+    if (!confirm(`確定要將此申請標註為 ${status === 'COMPLETED' ? '已支付 (Stripe 將執行轉帳)' : '已拒絕 (資金將退回主錢包)'} 嗎？`)) return;
+    
+    setProcessingId(id);
+    try {
+      const result = await processWithdrawal(id, status);
+      if (result.success) {
+        alert(result.message);
+        load(); // Refresh table
+      } else {
+        alert("失敗: " + result.message);
+      }
+    } catch (err: any) {
+      alert("出錯了: " + err.message);
+    } finally {
+      setProcessingId(null);
+    }
+  }
 
   return (
     <motion.div 
@@ -48,7 +73,7 @@ export default function AdminPayouts() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
          <FinancialBox 
            label={t.admin.payouts.snapshot} 
-           value={`£${stats?.totalAssets?.toLocaleString() || "142,500"}`} 
+           value={`£${stats?.totalAssets?.toLocaleString() || "0"}`} 
            sub="全平台資金流轉通量" 
            accent="#d4af37" 
            icon={<Wallet size={24} />}
@@ -56,14 +81,14 @@ export default function AdminPayouts() {
          />
          <FinancialBox 
            label="待處理清算" 
-           value={`£${stats?.pendingPayouts?.toLocaleString() || "8,420"}`} 
+           value={`£${stats?.pendingPayouts?.toLocaleString() || "0"}`} 
            sub={t.admin.payouts.pending} 
            accent="#0f172a" 
            icon={<Clock size={24} />}
          />
          <FinancialBox 
            label="今日清算總額" 
-           value={`£${stats?.todayVolume?.toLocaleString() || "2,150"}`} 
+           value={`£${stats?.todayVolume?.toLocaleString() || "0"}`} 
            sub={t.admin.payouts.volume} 
            accent="#c5a02e" 
            icon={<TrendingUp size={24} />}
@@ -113,7 +138,7 @@ export default function AdminPayouts() {
               </tr>
             </thead>
             <tbody>
-              {loading ? (
+              {loading && !stats ? (
                 [...Array(3)].map((_, i) => (
                   <tr key={i}><td colSpan={4} style={{ padding: '2rem', textAlign: 'center' }}><Loader2 className="animate-spin" size={24} style={{ margin: '0 auto' }} color="#d4af37" /></td></tr>
                 ))
@@ -122,6 +147,7 @@ export default function AdminPayouts() {
                   const grossAmount = req.amount;
                   const stripeFee = grossAmount * 0.0025 + 0.25;
                   const netPayout = grossAmount - stripeFee;
+                  const isProcessing = processingId === req.id;
 
                   return (
                     <tr key={req.id} style={{ borderBottom: '1px solid #f8fafc', transition: 'background-color 0.2s' }}>
@@ -141,21 +167,49 @@ export default function AdminPayouts() {
                          </div>
                       </td>
                       <td style={{ padding: '1.75rem 2rem' }}>
-                         <button style={{ 
-                            padding: '10px 20px', 
-                            borderRadius: '12px', 
-                            backgroundColor: '#0f172a', 
-                            color: '#d4af37', 
-                            fontSize: '11px', 
-                            fontWeight: 900, 
-                            border: 'none', 
-                            cursor: 'pointer', 
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.05em',
-                            boxShadow: '0 8px 20px rgba(15,23,42,0.1)'
-                         }}>
-                           准予支付 £{netPayout.toFixed(2)}
-                         </button>
+                         <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+                           <button 
+                             onClick={() => handleAction(req.id, 'REJECTED')}
+                             disabled={!!processingId}
+                             style={{ 
+                                padding: '10px 16px', 
+                                borderRadius: '12px', 
+                                backgroundColor: '#fff', 
+                                color: '#ef4444', 
+                                fontSize: '11px', 
+                                fontWeight: 900, 
+                                border: '1px solid #fee2e2', 
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '6px'
+                             }}
+                           >
+                             <MinusCircle size={14} />
+                             拒絕
+                           </button>
+                           <button 
+                             onClick={() => handleAction(req.id, 'COMPLETED')}
+                             disabled={!!processingId}
+                             style={{ 
+                                padding: '10px 20px', 
+                                borderRadius: '12px', 
+                                backgroundColor: '#0f172a', 
+                                color: '#d4af37', 
+                                fontSize: '11px', 
+                                fontWeight: 900, 
+                                border: 'none', 
+                                cursor: 'pointer', 
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                                boxShadow: '0 8px 20px rgba(15,23,42,0.1)'
+                             }}
+                           >
+                             {isProcessing ? <Loader2 className="animate-spin" size={14} /> : <CheckCircle2 size={14} />}
+                             准予支付 £{netPayout.toFixed(2)}
+                           </button>
+                         </div>
                       </td>
                     </tr>
                   );

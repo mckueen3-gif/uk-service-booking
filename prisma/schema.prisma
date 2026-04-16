@@ -211,9 +211,9 @@ model WithdrawalRequest {
   merchantId String
   amount     Float
   status     String   @default("PENDING")
-  adminNotes String?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  stripeTransferId String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
   merchant   Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
 }
 
