@@ -110,7 +110,7 @@ export function AppNavbar({ session }: { session: any }) {
             {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
 
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+          <Link href={session?.user ? "/member/home" : "/"} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
             <img 
               src="/images/logo_concierge_ai.png" 
               alt="ConciergeAI Logo" 
@@ -122,6 +122,7 @@ export function AppNavbar({ session }: { session: any }) {
               }} 
             />
           </Link>
+
 
           {/* Concise Language Switcher (Moved next to Logo) */}
           <div className="hide-on-mobile" style={{ position: 'relative', marginLeft: '0.2rem' }}>
@@ -376,7 +377,8 @@ export function AppNavbar({ session }: { session: any }) {
           {session?.user ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
               <NotificationHub />
-              <Link href={pathname?.includes('/merchant') ? "/merchant" : "/member"} style={{ color: obsidianGold, fontWeight: 600, textDecoration: 'none' }}>
+              <Link href="/member/home" style={{ color: obsidianGold, fontWeight: 600, textDecoration: 'none' }}>
+
                 <span style={{ 
                   backgroundColor: isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--accent-soft)', 
                   padding: '0.4rem 0.8rem', borderRadius: '2rem', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem',
@@ -417,9 +419,10 @@ export function AppNavbar({ session }: { session: any }) {
              {theme === 'light' ? <Moon size={22} /> : <Sun size={22} />}
           </button>
           {session?.user ? (
-            <Link href={pathname?.includes('/merchant') ? "/merchant" : "/member"} style={{ color: obsidianGold }}>
+            <Link href="/member/home" style={{ color: obsidianGold }}>
                <User size={22} />
             </Link>
+
           ) : (
             <Link href="/auth/login" style={{ color: obsidianGold }}>
                <User size={22} />
