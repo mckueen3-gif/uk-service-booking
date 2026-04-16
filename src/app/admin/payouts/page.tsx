@@ -117,37 +117,53 @@ export default function AdminPayouts() {
                 [...Array(3)].map((_, i) => (
                   <tr key={i}><td colSpan={4} style={{ padding: '2rem', textAlign: 'center' }}><Loader2 className="animate-spin" size={24} style={{ margin: '0 auto' }} color="#d4af37" /></td></tr>
                 ))
+              ) : stats?.pendingRequests?.length > 0 ? (
+                stats.pendingRequests.map((req: any) => {
+                  const grossAmount = req.amount;
+                  const stripeFee = grossAmount * 0.0025 + 0.25;
+                  const netPayout = grossAmount - stripeFee;
+
+                  return (
+                    <tr key={req.id} style={{ borderBottom: '1px solid #f8fafc', transition: 'background-color 0.2s' }}>
+                      <td style={{ padding: '1.75rem 2rem' }}>
+                         <div style={{ fontSize: '15px', fontWeight: 900, color: '#0f172a' }}>{req.merchant.companyName}</div>
+                         <div style={{ fontSize: '12px', color: '#94a3b8', fontWeight: 600 }}>ID: {req.merchant.id.substring(0, 10)}...</div>
+                      </td>
+                      <td style={{ padding: '1.75rem 2rem' }}>
+                         <div style={{ fontSize: '16px', fontWeight: 900, color: '#0f172a' }}>£{grossAmount.toFixed(2)}</div>
+                         <div style={{ fontSize: '11px', color: '#ef4444', fontWeight: 700 }}>Fee: -£{stripeFee.toFixed(2)}</div>
+                         <div style={{ fontSize: '13px', color: '#10b981', fontWeight: 800 }}>Net: £{netPayout.toFixed(2)}</div>
+                      </td>
+                      <td style={{ padding: '1.75rem 2rem' }}>
+                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: 800, color: '#64748b' }}>
+                           <CreditCard size={16} />
+                           Stripe Connect
+                         </div>
+                      </td>
+                      <td style={{ padding: '1.75rem 2rem' }}>
+                         <button style={{ 
+                            padding: '10px 20px', 
+                            borderRadius: '12px', 
+                            backgroundColor: '#0f172a', 
+                            color: '#d4af37', 
+                            fontSize: '11px', 
+                            fontWeight: 900, 
+                            border: 'none', 
+                            cursor: 'pointer', 
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.05em',
+                            boxShadow: '0 8px 20px rgba(15,23,42,0.1)'
+                         }}>
+                           准予支付 £{netPayout.toFixed(2)}
+                         </button>
+                      </td>
+                    </tr>
+                  );
+                })
               ) : (
-                <tr style={{ borderBottom: '1px solid #f8fafc', transition: 'background-color 0.2s' }}>
-                  <td style={{ padding: '1.75rem 2rem' }}>
-                     <div style={{ fontSize: '15px', fontWeight: 900, color: '#0f172a' }}>Tech Repair Central</div>
-                     <div style={{ fontSize: '12px', color: '#94a3b8', fontWeight: 600 }}>STRIPE_ACC_847192</div>
-                  </td>
-                  <td style={{ padding: '1.75rem 2rem' }}>
-                     <span style={{ fontSize: '16px', fontWeight: 900, color: '#0f172a' }}>£450.00</span>
-                  </td>
-                  <td style={{ padding: '1.75rem 2rem' }}>
-                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: 800, color: '#64748b' }}>
-                       <CreditCard size={16} />
-                       Stripe Connect
-                     </div>
-                  </td>
-                  <td style={{ padding: '1.75rem 2rem' }}>
-                     <button style={{ 
-                        padding: '10px 20px', 
-                        borderRadius: '12px', 
-                        backgroundColor: '#0f172a', 
-                        color: '#d4af37', 
-                        fontSize: '11px', 
-                        fontWeight: 900, 
-                        border: 'none', 
-                        cursor: 'pointer', 
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.05em',
-                        boxShadow: '0 8px 20px rgba(15,23,42,0.1)'
-                     }}>
-                       准予支付
-                     </button>
+                <tr>
+                  <td colSpan={4} style={{ padding: '4rem', textAlign: 'center', color: '#94a3b8', fontWeight: 600 }}>
+                    暫無待處理的清算申請
                   </td>
                 </tr>
               )}

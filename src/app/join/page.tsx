@@ -569,6 +569,7 @@ function JoinPageContent() {
                       selectedSector === 'technical' ? t.onboarding.sectors.technical.title :
                       t.onboarding.preview.sector_placeholder
                     }
+                    rawSector={selectedSector}
                     avatar={formData.avatar}
                     bannerUrl={formData.bannerUrl}
                     insuranceAmount={formData.insuranceAmount}

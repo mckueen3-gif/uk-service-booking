@@ -291,22 +291,32 @@ export async function toggleMerchantVerification(merchantId: string, isVerified:
 /**
  * Fetch financial stats for the admin payout dashboard
  */
-export async function getPayoutStats() {
-  await ensureAdmin();
-
-  // Mocking stats for a rich UI experience as specified in design requirements
-  return {
-    totalAssets: 142500,
-    pendingPayouts: 8420,
-    todayVolume: 2150,
-    revenueGrowth: "+12.5%",
-    marketplaceFee: "9%",
-    platformFee: "0.5%",
-    processedPayouts: await prisma.withdrawalRequest.findMany({
+  const [pendingPayouts, completedPayouts] = await Promise.all([
+    prisma.withdrawalRequest.findMany({
+      where: { status: 'PENDING' },
+      include: { merchant: true },
+      orderBy: { createdAt: 'desc' }
+    }),
+    prisma.withdrawalRequest.findMany({
       where: { status: 'COMPLETED' },
+      include: { merchant: true },
       take: 10,
       orderBy: { updatedAt: 'desc' }
     })
+  ]);
+
+  const totalAssets = await prisma.booking.aggregate({
+    _sum: { totalAmount: true }
+  });
+
+  return {
+    totalAssets: totalAssets._sum.totalAmount || 0,
+    pendingPayouts: pendingPayouts.length,
+    todayVolume: 2150, // Keep mock for now or calculate from recent COMPLETED
+    marketplaceFee: "9%",
+    platformFee: "0.5%",
+    pendingRequests: pendingPayouts,
+    processedPayouts: completedPayouts
   };
 }
 

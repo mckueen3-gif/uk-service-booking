@@ -18,6 +18,7 @@ model User {
   city                 String?
   addressLine1         String?
   addressLine2         String?
+  houseNumber          String?
   postcode             String?
   referralCode         String?             @unique
   referralCredits      Float               @default(0)

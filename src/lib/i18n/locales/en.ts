@@ -674,16 +674,19 @@ export const en: Dictionary = {
         update: "Refresh Link",
         saved: "Saved",
       },
-      payout: {
-        title: "Liquidate Credits",
-        amount: "Liquidate Value",
-        max: "Full Transfer",
-        minAlert: "Limit: £10",
-        insufficient: "Buffer Low",
-        confirm: "Execute Transfer",
-        success: "Transfer persistent. Processing...",
-        failed: "Transfer Failed",
-      },
+        payout: {
+          title: "Liquidate Credits",
+          amount: "Liquidate Value",
+          max: "Full Transfer",
+          minAlert: "Limit: £10",
+          insufficient: "Buffer Low",
+          confirm: "Execute Transfer",
+          success: "Transfer persistent. Processing...",
+          failed: "Transfer Failed",
+          feeLabel: "Stripe Payout Fee (0.25% + £0.25)",
+          estimatedNet: "Estimated Net Payout",
+          feeWarning: "The payout fee is charged by Stripe and will be deducted from your requested amount."
+        },
       history: { title: "Transfer Archive", empty: "No transfer logs found.", date: "Timestamp", amount: "Credit", status: "Status" },
       terms: {
         title: "Fiscal Policy",
@@ -1079,6 +1082,9 @@ export const en: Dictionary = {
       lastNameLabel: "Last Name",
       emailLabel: "Data Link",
       emailPlaceholder: "expert@conciergeai.uk",
+      phoneLabel: "Phone Number",
+      postcodeLabel: "Postcode (Optional)",
+      houseNumberLabel: "House Number",
       accountTypeLabel: "Node Class",
       roles: {
         customer: "Client Node",
@@ -1148,10 +1154,12 @@ export const en: Dictionary = {
       credentials_required: "(Required)",
       credentials_hint_technical: "* UK Compliance Warning: GAS/Electric nodes require valid license for mission authorization.",
       credentials_hint_standard: "Tip: Detailed audits can be finalized via Dashboard after initial integration.",
-      city_label: "Core Sector Target",
+      nationwide: "Nationwide Deployment",
+      email_placeholder: "e.g. expert@conciergeai.uk",
+      phone_placeholder: "e.g. +44 7700 900XXX",
+      city_label: "Active Sector / Primary City",
       city_placeholder: "Select lead city...",
       major_cities: "Primary Hubs",
-      nationwide: "Nationwide Deployment",
       insurance_label: "Liability Escrow (Insurance)",
       insurance_required: "(Required)",
       insurance_none: "Unverified",
@@ -1185,7 +1193,10 @@ export const en: Dictionary = {
       booking_button: "Authorize Deployment",
       location_suffix: "United Kingdom",
       ai_cert_hint: "Instant AI Authorization",
-      credentials_hint: "Media Uplinked (Audit Pending)"
+      credentials_hint: "Media Uplinked (Audit Pending)",
+      commission_technical: "Trades & Technical: 9% system fee applies.",
+      commission_education: "Education: 100% payout. 9% tech fee charged to client.",
+      commission_standard: "Standard: 9% professional service fee applies.",
     },
     success: {
       title: "Integration Successful!",
@@ -1216,7 +1227,7 @@ export const en: Dictionary = {
       clauses: {
         platform_fee: {
           title: "1. System Load Logic",
-          body: "As a specialist, you define pricing. Education nodes are load-exempt. Other sectors: 9% commission extracted from base quote during checkout."
+          body: "As a specialist, you define your pricing. Education sectors are commission-exempt. Other sectors incur a 9% technical service fee. Apart from this commission and additional platform services, there are no other fees (Stripe payment processing fees for customers are already covered by the platform). Note: Stripe applies a standard fee for each manual withdrawal to your bank account."
         },
         payments: {
           title: "2. Settlement Protocols",

@@ -4,14 +4,17 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from "@/components/LanguageContext";
-import { Globe, User, MapPin, ChevronRight, Navigation, PenTool, Sun, Moon, Droplets, Wrench, GraduationCap, Calculator, Scale, Briefcase, Sparkles, Car, ChevronDown, Star, Menu, X, Mail, Phone, Share2, MessageSquare } from "lucide-react";
+import { useSession, signOut } from "next-auth/react";
+import { Globe, User, MapPin, ChevronRight, Navigation, PenTool, Sun, Moon, Droplets, Wrench, GraduationCap, Calculator, Scale, Briefcase, Sparkles, Car, ChevronDown, Star, Menu, X, Mail, Phone, Share2, MessageSquare, LogOut } from "lucide-react";
 import NavbarSearch from "@/app/components/NavbarSearch";
 import NotificationHub from "@/components/dashboard/NotificationHub";
 import { useLocation, ALL_UK } from "@/components/LocationContext";
 import { useTheme } from "@/components/ThemeContext";
 import { getDictionary } from "@/lib/i18n/dictionary";
 
-export function AppNavbar({ session }: { session: any }) {
+export function AppNavbar({ session: serverSession }: { session: any }) {
+  const { data: clientSession } = useSession();
+  const session = clientSession || serverSession;
   const { t, locale, setLocale, isRTL } = useTranslation();
   const { city, setCity, supportedCities, detectLocation, isLocating } = useLocation();
   const { theme, toggleTheme } = useTheme();
@@ -405,10 +408,27 @@ export function AppNavbar({ session }: { session: any }) {
                   <User size={16} /> {session.user.name} 
                 </span>
               </Link>
-              {isObsidianPage && pathname !== '/auth/login' && pathname !== '/auth/register' && (
-                <a href="/api/auth/signout" style={{ color: '#ef4444', fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none', whiteSpace: 'nowrap' }}>
-                  {t?.nav?.logout}
-                </a>
+              {pathname !== '/auth/login' && pathname !== '/auth/register' && (
+                <button 
+                  onClick={() => signOut({ callbackUrl: '/' })}
+                  className="hover-scale"
+                  style={{ 
+                    background: 'none',
+                    border: 'none',
+                    color: '#ef4444', 
+                    fontWeight: 700, 
+                    fontSize: '0.9rem', 
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.4rem',
+                    whiteSpace: 'nowrap',
+                    padding: '0.4rem'
+                  }}
+                >
+                  <LogOut size={16} />
+                  {t?.nav?.logout || (locale === 'en' ? 'Sign Out' : '登出')}
+                </button>
               )}
             </div>
           ) : (

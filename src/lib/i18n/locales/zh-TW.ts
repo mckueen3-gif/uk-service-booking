@@ -674,16 +674,19 @@ export const zhTW: Dictionary = {
         update: "更新帳戶",
         saved: "已儲存",
       },
-      payout: {
-        title: "申請提款",
-        amount: "提款金額",
-        max: "全額提取",
-        minAlert: "最低 £10",
-        insufficient: "餘額不足",
-        confirm: "確認提款",
-        success: "提款申請已提交，正在處理中。",
-        failed: "提款失敗",
-      },
+        payout: {
+          title: "申請提款",
+          amount: "提款金額",
+          max: "全額提取",
+          minAlert: "最低 £10",
+          insufficient: "餘額不足",
+          confirm: "確認提款",
+          success: "提款申請已提交，正在處理中。",
+          failed: "提款失敗",
+          feeLabel: "Stripe 提領手續費 (0.25% + £0.25)",
+          estimatedNet: "預計到帳金額",
+          feeWarning: "提領手續費由 Stripe 收取，將從您的申請金額中直接扣除。"
+        },
       history: { title: "提款記錄", empty: "暫無提款記錄。", date: "日期", amount: "金額", status: "狀態" },
       terms: {
         title: "錢包政策",
@@ -1077,8 +1080,11 @@ export const zhTW: Dictionary = {
       subtitle: "加入英國頂尖專家平台。",
       firstNameLabel: "名字",
       lastNameLabel: "姓氏",
-      emailLabel: "電子郵件",
-      emailPlaceholder: "例如: expert@conciergeai.uk",
+      emailLabel: "電郵地址",
+      emailPlaceholder: "expert@conciergeai.uk",
+      phoneLabel: "電話號碼",
+      postcodeLabel: "郵政編碼 (選填)",
+      houseNumberLabel: "門牌號碼",
       accountTypeLabel: "帳號類型",
       roles: {
         customer: "普通客戶",
@@ -1148,10 +1154,12 @@ export const zhTW: Dictionary = {
       credentials_required: "(必填)",
       credentials_hint_technical: "* 英國政府法規要求：GAS / 電工類商戶必須上傳正式資格證件方可批准接單。",
       credentials_hint_standard: "提示：您可以先提交基本資料，詳細資質可在完成入駐後透過控制台進行審核。",
-      city_label: "核心服務區域",
+      nationwide: "全英國",
+      email_placeholder: "例：expert@conciergeai.uk",
+      phone_placeholder: "例：+44 7700 900XXX",
+      city_label: "活躍區域 / 主要城市 (Active Region)",
       city_placeholder: "選擇您的主要服務城市...",
       major_cities: "主要城市",
-      nationwide: "全英國",
       insurance_label: "公眾責任保險",
       insurance_required: "(必填)",
       insurance_none: "未驗證 / 無",
@@ -1185,7 +1193,10 @@ export const zhTW: Dictionary = {
       booking_button: "立即預約諮詢",
       location_suffix: "United Kingdom",
       ai_cert_hint: "AI 自動秒批認證",
-      credentials_hint: "已上傳資質證件 (等待審核)"
+      credentials_hint: "已上傳資質證件 (等待審核)",
+      commission_technical: "技術/水電類：收取 9% 佣金",
+      commission_education: "教育類：向客人收取 9% 技術服務費，老師實拿全額",
+      commission_standard: "標準類：收取 9% 系統服務費",
     },
     success: {
       title: "註冊成功！",
@@ -1216,7 +1227,7 @@ export const zhTW: Dictionary = {
       clauses: {
         platform_fee: {
           title: "1. 平台服務費說明",
-          body: "身為專家，您可以自定義服務時薪或專案報價。教育及補習教育類專家免收平台佣金。其他行業將由系統在結帳時自動抽取 9% 作為技術服務費。"
+          body: "身為專家，您可以自定義服務時薪或專案報價。教育及補習教育類專家免收平台佣金，其他行業將由系統在結帳時自動抽取 9% 作為技術服務費。除此佣金與額外平台附加服務外，沒有任何其他費用（平台已包含客戶支付時產生的 Stripe 手續費）。唯提領款項至銀行帳戶時，Stripe 會收取每次提領的固定手續費。"
         },
         payments: {
           title: "2. 款項支付與結算",

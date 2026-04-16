@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { registerUser } from '@/app/actions/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
-import { User, Mail, Shield, Lock, ChevronRight } from 'lucide-react';
+import { User, Mail, Shield, Lock, ChevronRight, Phone, MapPin, Home } from 'lucide-react';
 import '../auth.css';
 import { useTranslation } from '@/components/LanguageContext';
 import { useSession } from 'next-auth/react';
@@ -83,6 +83,59 @@ function RegisterForm() {
                </div>
              </div>
           </div>
+
+          <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '200ms' }}>
+            <label>{t?.auth?.register?.phoneLabel || "Phone Number"}</label>
+            <div className="input-wrapper">
+              <Phone className="input-icon" size={18} />
+              <input 
+                type="tel" 
+                name="phone" 
+                className="premium-input" 
+                placeholder="+44 7..." 
+                required 
+                disabled={loading} 
+              />
+            </div>
+          </div>
+
+          <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '225ms' }}>
+            <label>{t?.auth?.register?.postcodeLabel || "Postcode (Optional)"}</label>
+            <div className="input-wrapper" style={{ display: 'flex', gap: '8px' }}>
+              <div style={{ position: 'relative', flex: 1 }}>
+                <MapPin className="input-icon" size={18} />
+                <input 
+                  type="text" 
+                  name="postcode" 
+                  className="premium-input" 
+                  placeholder="SW1A 1AA" 
+                  disabled={loading} 
+                />
+              </div>
+              <button 
+                type="button" 
+                className="btn btn-secondary" 
+                style={{ padding: '0 1rem', fontSize: '0.8rem', whiteSpace: 'nowrap' }}
+                onClick={() => alert('Postcode lookup is simulated. Please enter address manually.')}
+              >
+                Find
+              </button>
+            </div>
+          </div>
+
+          <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '250ms' }}>
+            <label>{t?.auth?.register?.houseNumberLabel || "Door / House Number"}</label>
+            <div className="input-wrapper">
+              <Home className="input-icon" size={18} />
+              <input 
+                type="text" 
+                name="houseNumber" 
+                className="premium-input" 
+                placeholder="10" 
+                disabled={loading} 
+              />
+            </div>
+          </div>
           
           <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '200ms' }}>
             <label>{t?.auth?.register?.emailLabel || "Email Address"}</label>
@@ -99,30 +152,7 @@ function RegisterForm() {
             </div>
           </div>
 
-          <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '250ms' }}>
-            <label>{t?.auth?.register?.accountTypeLabel || "Node Type"}</label>
-            <div className="input-wrapper">
-              <Shield className="input-icon" size={18} />
-              <select 
-                name="role" 
-                className="premium-input" 
-                required 
-                value={role} 
-                onChange={(e) => setRole(e.target.value)}
-                disabled={loading} 
-                style={{ appearance: 'none', cursor: 'pointer' }}
-              >
-                <option value="CUSTOMER">{t?.auth?.register?.roles?.customer || "Customer"}</option>
-                <option value="MERCHANT">{t?.auth?.register?.roles?.merchant || "Merchant"}</option>
-              </select>
-            </div>
-            {role === 'MERCHANT' && t?.auth?.register?.merchantDisclaimer && (
-              <div style={{ marginTop: '0.75rem', padding: '0.75rem', backgroundColor: 'rgba(234, 179, 8, 0.05)', borderRadius: '8px', border: '1px solid rgba(234, 179, 8, 0.3)', fontSize: '0.8rem', color: '#ca8a04', lineHeight: '1.4' }}>
-                <Shield size={14} style={{ display: 'inline', marginRight: '6px', verticalAlign: 'text-bottom' }} />
-                {t.auth.register.merchantDisclaimer}
-              </div>
-            )}
-          </div>
+          <input type="hidden" name="role" value={role} />
           
           <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '300ms' }}>
             <label>{t?.auth?.register?.passwordLabel || "Safe Protocol (Password)"}</label>
@@ -171,7 +201,11 @@ function RegisterForm() {
         
         <div style={{ textAlign: 'center', fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '2rem' }}>
           {t?.auth?.register?.navToLogin || "Already have a node?"} <Link href={`/auth/login${callbackUrl !== '/member/home' ? `?callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`} style={{ color: 'var(--accent-color)', fontWeight: 800 }}>{t?.auth?.register?.signIn || "Sign In"}</Link>
-
+          <div style={{ marginTop: '1rem' }}>
+            <Link href="/auth/register?role=MERCHANT" style={{ color: 'var(--text-muted)', fontSize: '0.8rem', textDecoration: 'underline' }}>
+              Are you a service provider? Register as a Specialist
+            </Link>
+          </div>
         </div>
       </div>
     </div>

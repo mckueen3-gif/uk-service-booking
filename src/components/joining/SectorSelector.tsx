@@ -170,8 +170,9 @@ export default function SectorSelector({
 
         .sectors-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-          gap: 2rem;
+          grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+          gap: 2.5rem;
+          justify-content: center;
         }
 
         .sector-card {
@@ -180,9 +181,21 @@ export default function SectorSelector({
           position: relative;
           text-align: left;
           height: 100%;
-          border-radius: 28px;
+          display: flex;
+          flex-direction: column;
+          border-radius: 32px;
           transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
           overflow: hidden;
+          background: rgba(15, 15, 15, 0.6);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .card-inner {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          position: relative;
+          z-index: 1;
         }
 
         .sector-card:hover {
@@ -202,21 +215,28 @@ export default function SectorSelector({
           transition: all 0.3s ease;
         }
 
+        .sector-desc {
+          word-wrap: break-word;
+          overflow-wrap: break-word;
+        }
+
         .industry-tags {
           display: flex;
           flex-wrap: wrap;
-          gap: 10px;
+          gap: 8px;
           margin-top: auto;
+          padding-top: 1.5rem;
         }
 
         .tag {
           padding: 6px 14px;
-          background: rgba(255, 255, 255, 0.02);
+          background: rgba(255, 255, 255, 0.03);
           border-radius: 10px;
-          font-size: 0.75rem;
-          font-weight: 700;
+          font-size: 0.7rem;
+          font-weight: 800;
           text-transform: uppercase;
-          letter-spacing: 0.04em;
+          letter-spacing: 0.05em;
+          color: #64748b;
         }
 
         .selection-badge {
@@ -225,9 +245,18 @@ export default function SectorSelector({
           right: 24px;
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 1200px) {
+          .sectors-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 800px) {
           .sectors-grid {
             grid-template-columns: 1fr;
+          }
+          .sector-card {
+            padding: 2rem;
           }
         }
       `}</style>
