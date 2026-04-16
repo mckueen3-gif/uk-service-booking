@@ -66,27 +66,27 @@ export const zhTW: Dictionary = {
       commission: {
         title: "平台佣金",
         others: "15% - 30% 每單手續費",
-        concierge: "0% (專家優先模式)"
+        concierge: "所有專家商戶 9% 佣金"
       },
       client_calibre: {
         title: "客戶質量",
         others: "大眾市場",
-        concierge: "高淨值 Elite 會員"
+        concierge: "更多不同客戶"
       },
       earnings_model: {
         title: "收益模式",
         others: "單次性收入",
-        concierge: "終身推薦收益分成 (長期收益)"
+        concierge: "推薦收益分成 (5年) 現金券"
       },
       verification: {
         title: "驗證系統",
         others: "手動/緩慢",
-        concierge: "AI 實時專業驗證 (Smart Bio)"
+        concierge: "SMART AI"
       },
       marketing_support: {
         title: "營銷支持",
         others: "需付費廣告",
-        concierge: "全平台自動化精準匹配"
+        concierge: "公平全平台自動化精準匹配 (探索模式)"
       }
     }
   },

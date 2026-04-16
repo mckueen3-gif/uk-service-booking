@@ -66,27 +66,27 @@ export const en: Dictionary = {
       commission: {
         title: "Commission Fees",
         others: "15% - 30% Per Job",
-        concierge: "0% (Expert-First Model)"
+        concierge: "9% Commission for All Experts"
       },
       client_calibre: {
         title: "Client Calibre",
         others: "Mass Market",
-        concierge: "High-Net-Worth Elite"
+        concierge: "Diverse Client Base"
       },
       earnings_model: {
         title: "Earnings Model",
         others: "One-off Income",
-        concierge: "Passive Dividends (Lifetime)"
+        concierge: "Referral Dividends (5 Years) Vouchers"
       },
       verification: {
         title: "Verification",
         others: "Manual / Slow",
-        concierge: "AI Smart Bio (Real-time)"
+        concierge: "SMART AI"
       },
       marketing_support: {
         title: "Marketing Support",
         others: "Paid Advertising Required",
-        concierge: "Automated Global Matching"
+        concierge: "Fair Global Automated Matching (Discovery Mode)"
       }
     }
   },
