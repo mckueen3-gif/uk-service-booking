@@ -12,7 +12,8 @@ import { useTranslation } from '@/components/LanguageContext';
 function RegisterForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') || '/';
+  const callbackUrl = searchParams.get('callbackUrl') || '/member/home';
+
   
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -36,8 +37,9 @@ function RegisterForm() {
         setError(t?.auth?.errors?.[errorKey] || t?.auth?.errors?.serverError || "Server Error");
         setLoading(false);
      } else {
-       const loginUrl = `/auth/login?registered=true${callbackUrl !== '/' ? `&callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`;
+       const loginUrl = `/auth/login?registered=true${callbackUrl !== '/member/home' ? `&callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`;
        router.push(loginUrl);
+
     }
   }
 
@@ -163,7 +165,8 @@ function RegisterForm() {
         </button>
         
         <div style={{ textAlign: 'center', fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '2rem' }}>
-          {t?.auth?.register?.navToLogin || "Already have a node?"} <Link href={`/auth/login${callbackUrl !== '/' ? `?callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`} style={{ color: 'var(--accent-color)', fontWeight: 800 }}>{t?.auth?.register?.signIn || "Sign In"}</Link>
+          {t?.auth?.register?.navToLogin || "Already have a node?"} <Link href={`/auth/login${callbackUrl !== '/member/home' ? `?callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`} style={{ color: 'var(--accent-color)', fontWeight: 800 }}>{t?.auth?.register?.signIn || "Sign In"}</Link>
+
         </div>
       </div>
     </div>

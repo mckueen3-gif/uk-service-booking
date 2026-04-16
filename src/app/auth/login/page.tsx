@@ -12,7 +12,8 @@ function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const isRegistered = searchParams.get('registered');
-  const callbackUrl = searchParams.get('callbackUrl') || '/';
+  const callbackUrl = searchParams.get('callbackUrl') || '/member/home';
+
   
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
