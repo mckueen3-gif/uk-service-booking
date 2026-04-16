@@ -13,6 +13,6 @@ export default async function DashboardRedirect() {
   if (session.user.role === "MERCHANT" || session.user.role === "ADMIN") {
     redirect("/merchant");
   } else {
-    redirect("/member");
+    redirect("/member/home");
   }
 }

@@ -1,0 +1,58 @@
+{
+  "name": "ConciergeAI",
+  "short_name": "ConciergeAI",
+  "description": "Your AI-powered life concierge for the UK. Find top specialists, get instant AI advice, and manage your daily life.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d0d0d",
+  "theme_color": "#d4af37",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-GB",
+  "categories": ["lifestyle", "business", "productivity"],
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/images/og-premium.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "label": "ConciergeAI Home"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Find a Specialist",
+      "short_name": "Search",
+      "description": "Search for top local specialists",
+      "url": "/services",
+      "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "My Dashboard",
+      "short_name": "Dashboard",
+      "description": "View your bookings and AI assistant",
+      "url": "/member/home",
+      "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "AI Diagnosis",
+      "short_name": "AI Scan",
+      "description": "Get instant AI diagnosis for your home issues",
+      "url": "/diagnosis",
+      "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
+    }
+  ]
+}
