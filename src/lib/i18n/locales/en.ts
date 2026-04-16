@@ -1391,5 +1391,50 @@ export const en: Dictionary = {
     reliability: "Reliability",
     communication: "Communication",
     review_overview: "Based on reviews over the past 12 months"
+  },
+  booking: {
+    titles: {
+      details: "Service Details",
+      schedule: "Select Schedule",
+      confirm: "Confirm Booking",
+      success: "Booking Successful!"
+    },
+    steps: {
+      details: "Details",
+      schedule: "Schedule",
+      confirmation: "Payment"
+    },
+    labels: {
+      service: "Service",
+      merchant: "Expert",
+      time: "Time Slot",
+      date: "Preferred Date",
+      summary: "Booking Summary",
+      total: "Total Price",
+      paid: "Amount Paid",
+      price: "Base Price",
+      expressSupport: "Express Support",
+      expressSurcharge: "Urgent Surcharge",
+      make: "Vehicle Make",
+      model: "Vehicle Model",
+      address: "Property Address",
+      notes: "Additional Notes",
+      agree: "I agree to the service terms and conditions",
+      merchant_id: "Merchant ID"
+    },
+    messages: {
+      finalizing: "Finalizing your booking...",
+      wait: "Please wait while we secure your slot.",
+      contact24h: "Your expert will contact you within 24 hours to confirm the arrival window.",
+      selectTime: "Please select a time slot to continue.",
+      safety: "Your payment is protected by ConciergeAI Escrow. Funds are only released after job completion."
+    },
+    buttons: {
+      dashboard: "My Dashboard",
+      home: "Go Home",
+      prev: "Previous",
+      next: "Next Step",
+      pay: "Pay Now"
+    }
   }
 };

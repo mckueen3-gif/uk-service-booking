@@ -1391,5 +1391,50 @@ export const zhTW: Dictionary = {
     reliability: "可靠度",
     communication: "溝通能力",
     review_overview: "過去 12 個月內的評價總覽"
+  },
+  booking: {
+    titles: {
+      details: "服務詳情",
+      schedule: "選擇時間",
+      confirm: "確認預約",
+      success: "預約成功！"
+    },
+    steps: {
+      details: "詳情",
+      schedule: "時段",
+      confirmation: "支付"
+    },
+    labels: {
+      service: "服務項目",
+      merchant: "專家",
+      time: "預約時段",
+      date: "預約日期",
+      summary: "預約總結",
+      total: "總價格",
+      paid: "已付金額",
+      price: "基礎價格",
+      expressSupport: "特快支援",
+      expressSurcharge: "緊急附加費",
+      make: "車輛品牌",
+      model: "車輛型號",
+      address: "服務地址",
+      notes: "備註事項",
+      agree: "我同意服務條款與細則",
+      merchant_id: "商家 ID"
+    },
+    messages: {
+      finalizing: "正在完成您的預約...",
+      wait: "請稍候，我們正在為您鎖定時段。",
+      contact24h: "您的專家將在 24 小時內與您聯繫，確認具體上門時間。",
+      selectTime: "請選擇一個時段以繼續。",
+      safety: "您的款項受 ConciergeAI 託管保護。資金僅在工作完成後發放。"
+    },
+    buttons: {
+      dashboard: "個人控制台",
+      home: "返回首頁",
+      prev: "上一步",
+      next: "下一步",
+      pay: "立即支付"
+    }
   }
 };
