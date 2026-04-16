@@ -138,8 +138,13 @@ export async function getMerchantDetails(merchantId: string) {
       return { success: true, merchant };
     });
   } catch (err: any) {
-    console.error(`[DB Error] getMerchantDetails(${merchantId}):`, err);
-    return { success: false, error: err.message };
+    console.error(`[DB Error] getMerchantDetails(${merchantId}):`, {
+      message: err.message,
+      stack: err.stack,
+      code: err.code,
+      timestamp: new Date().toISOString()
+    });
+    return { success: false, error: err.message || "Unknown database error" };
   }
 }
 

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Locale, Dictionary, dictionaries, getDictionary } from '@/lib/i18n/dictionary';
 import { interpolate } from '@/lib/i18n/interpolate';
 
@@ -93,6 +93,7 @@ function createSafeDictionary(target: any, fallback: any = {}, path: string = ''
 
 export function LanguageProvider({ children, initialLocale = 'en' }: { children: React.ReactNode, initialLocale?: Locale }) {
   const [locale, setLocaleState] = useState<Locale>(initialLocale);
+  const router = useRouter();
 
   useEffect(() => {
     // Helper to validate and set locale
@@ -132,6 +133,9 @@ export function LanguageProvider({ children, initialLocale = 'en' }: { children:
     // Update document dir and lang for SEO and accessibility
     document.documentElement.lang = newLocale;
     document.documentElement.dir = (newLocale === 'ar' || newLocale === 'ur') ? 'rtl' : 'ltr';
+
+    // 🚀 CRITICAL: Force Next.js to re-fetch Server Components with the new cookie
+    router.refresh();
   };
 
   useEffect(() => {

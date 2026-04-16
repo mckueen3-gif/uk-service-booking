@@ -31,19 +31,40 @@ export async function generateMetadata({ params }: Props) {
 export default async function MerchantPublicPage({ params }: Props) {
   const resolvedParams = await params;
   const result = await getMerchantDetails(resolvedParams.id);
-  if (!result.success || !result.merchant) {
+  
+  if (!result.success) {
+    // 🚀 SILENT RESILIENCE: Instead of a raw 500 or misleading 404, show a clean error state
+    return (
+      <div style={{ backgroundColor: "var(--bg-primary)", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem" }}>
+        <div style={{ textAlign: "center", maxWidth: "400px" }}>
+          <ShieldCheck size={48} color="var(--gold-500)" style={{ margin: "0 auto 1.5rem" }} />
+          <h1 style={{ color: "var(--text-primary)", fontSize: "1.5rem", fontWeight: 800, marginBottom: "1rem" }}>System Temporarily Unavailable</h1>
+          <p style={{ color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "2rem" }}>
+            Our expert directory is currently undergoing synchronization. Please try refreshing in a few moments.
+          </p>
+          <a href="/" style={{ backgroundColor: "var(--gold-500)", color: "black", padding: "0.8rem 1.5rem", borderRadius: "8px", fontWeight: 800, textDecoration: "none" }}>
+            Return Home
+          </a>
+        </div>
+      </div>
+    );
+  }
+
+  if (!result.merchant) {
     notFound();
   }
 
   const m = result.merchant as any;
-  const reviews = m.reviews || [];
+  // Filter out self-reviews (where reviewer userId matches the merchant's associated user id)
+  const reviews = (m.reviews || []).filter((r: any) => r.userId !== m.userId);
   const portfolio = m.portfolio || [];
   const services = m.services || [];
 
   const cookieStore = await cookies();
   const locale = (cookieStore.get("user-locale")?.value || "en") as Locale;
   const t = getDictionary(locale);
-  const tp = t.merchant_public;
+  // Strong defensive default for translation dictionary
+  const tp = t?.merchant_public || (getDictionary("en").merchant_public);
   
   // Defensive fallbacks for numerical values
   const avgRating = reviews.length > 0
@@ -225,17 +246,19 @@ export default async function MerchantPublicPage({ params }: Props) {
 
           <section id="reviews" style={{ background: "linear-gradient(145deg, var(--surface-1) 0%, rgba(212,175,55,0.04) 100%)", borderRadius: "20px", padding: "2.5rem", border: "1px solid var(--border-color)" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem", flexWrap: "wrap", gap: "1rem" }}>
-              <h2 style={{ fontSize: "1.8rem", fontWeight: 900, color: "var(--text-primary)", margin: 0 }}>{interpolate(tp.customer_reviews, { count: reviews.length })}</h2>
+              <h2 style={{ fontSize: "1.8rem", fontWeight: 900, color: "var(--text-primary)", margin: 0 }}>
+                {tp.customer_reviews ? interpolate(tp.customer_reviews, { count: reviews.length }) : `Customer Reviews (${reviews.length})`}
+              </h2>
               <Link href={`/book/${m.id}/review`} style={{ 
                 background: "transparent", border: "2px solid var(--gold-500)", 
                 color: "var(--gold-400)", padding: "0.6rem 1.5rem", borderRadius: "8px", 
                 fontWeight: 800, cursor: "pointer", textDecoration: "none" 
               }}>
-                {tp.write_review}
+                {tp.write_review || "Write a review"}
               </Link>
             </div>
             
-            <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", marginBottom: "1.5rem" }}>{tp.review_overview}</p>
+            <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", marginBottom: "1.5rem" }}>{tp.review_overview || "Based on reviews over the past 12 months"}</p>
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1.5rem", marginBottom: "3rem" }}>
               {[
@@ -260,13 +283,13 @@ export default async function MerchantPublicPage({ params }: Props) {
               <div style={{ backgroundColor: "rgba(212,175,55,0.05)", border: "1px solid rgba(212,175,55,0.2)", borderRadius: "16px", padding: "1.5rem", marginBottom: "3rem" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "0.75rem" }}>
                   <Award size={18} color="var(--gold-500)" />
-                  <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--gold-400)", margin: 0 }}>{tp.review_summary_title}</h3>
+                  <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--gold-400)", margin: 0 }}>{tp.review_summary_title || "AI Analysis Summary"}</h3>
                 </div>
                 <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6, margin: "0 0 0.75rem 0", fontStyle: "italic" }}>
-                  「客戶一致讚賞工作的高品質與高效率，並特別指出良好的溝通與準時度，同時在完工後總會保持場地整潔。」
+                  {tp.review_summary_content || "Excellent feedback history with strong focus on quality and reliability."}
                 </p>
                 <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", lineHeight: 1.5 }}>
-                  {tp.review_summary_note}
+                  {tp.review_summary_note || "✦ AI-generated from customer reviews."}
                 </div>
               </div>
             )}
