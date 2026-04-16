@@ -54,7 +54,7 @@ export default withAuth(
         const path = req.nextUrl.pathname.replace(/\/$/, "");
 
         // Public routes — no login required
-        if (path === "/diagnosis") return true;
+        if (path === "" || path === "/diagnosis") return true;
         if (path === "/services" || path.startsWith("/services/")) return true;
 
         // /merchant/[id] is a single segment — public profile page
