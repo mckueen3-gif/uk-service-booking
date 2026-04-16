@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import SearchHero from '@/components/search/SearchHero';
 import RecommendationEngine from '@/components/discovery/RecommendationEngine';
 import { useTranslation } from "@/components/LanguageContext";
