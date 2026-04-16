@@ -9,33 +9,33 @@ const MerchantComparisonTable = () => {
 
   const comparisonData = [
     {
-      feature: '平台佣金 (Commission Fees)',
-      others: '15% - 30% Per Job',
-      concierge: '0% (Expert-First Model)',
+      feature: t?.comparison_table?.rows?.commission?.title || 'Commission Fees',
+      others: t?.comparison_table?.rows?.commission?.others || '15% - 30% Per Job',
+      concierge: t?.comparison_table?.rows?.commission?.concierge || '0% (Expert-First Model)',
       isHighlight: true
     },
     {
-      feature: '客戶質量 (Client Calibre)',
-      others: '大眾市場 (Mass Market)',
-      concierge: '高淨值 Elite 會員',
+      feature: t?.comparison_table?.rows?.client_calibre?.title || 'Client Calibre',
+      others: t?.comparison_table?.rows?.client_calibre?.others || 'Mass Market',
+      concierge: t?.comparison_table?.rows?.client_calibre?.concierge || 'High-Net-Worth Elite',
       isHighlight: false
     },
     {
-      feature: '收益模式 (Earnings Model)',
-      others: '單次性收入',
-      concierge: '終身推薦收益分成 (Passive Dividends)',
+      feature: t?.comparison_table?.rows?.earnings_model?.title || 'Earnings Model',
+      others: t?.comparison_table?.rows?.earnings_model?.others || 'One-off Income',
+      concierge: t?.comparison_table?.rows?.earnings_model?.concierge || 'Passive Dividends (Lifetime)',
       isHighlight: true
     },
     {
-      feature: '驗證系統 (Verification)',
-      others: '手動/緩慢',
-      concierge: 'AI 實時專業驗證 (Smart Bio)',
+      feature: t?.comparison_table?.rows?.verification?.title || 'Verification',
+      others: t?.comparison_table?.rows?.verification?.others || 'Manual / Slow',
+      concierge: t?.comparison_table?.rows?.verification?.concierge || 'AI Smart Bio (Real-time)',
       isHighlight: false
     },
     {
-      feature: '營銷支持 (Marketing Support)',
-      others: '需付費廣告',
-      concierge: '全平台自動化精準匹配',
+      feature: t?.comparison_table?.rows?.marketing_support?.title || 'Marketing Support',
+      others: t?.comparison_table?.rows?.marketing_support?.others || 'Paid Ads Required',
+      concierge: t?.comparison_table?.rows?.marketing_support?.concierge || 'Automated Matching',
       isHighlight: false
     }
   ];
@@ -44,8 +44,8 @@ const MerchantComparisonTable = () => {
     <div className="comparison-wrapper">
       <div className="table-container">
         <div className="table-header">
-          <div className="header-cell feature-col">服務對比 (Features)</div>
-          <div className="header-cell platforms">一般預約平台</div>
+          <div className="header-cell feature-col">{t?.comparison_table?.header_features || "Features"}</div>
+          <div className="header-cell platforms">{t?.comparison_table?.header_others || "Legacy Platforms"}</div>
           <div className="header-cell branding">
             <div className="brand-badge">
               <Crown size={14} className="gold-text" />
@@ -61,14 +61,14 @@ const MerchantComparisonTable = () => {
                 <span className="feature-text">{row.feature}</span>
               </div>
               <div className="cell others">
-                <div className="mobile-label">一般平台: </div>
+                <div className="mobile-label">{t?.comparison_table?.label_legacy || "Legacy: "}</div>
                 <div className="val-flex">
                   <X size={16} className="text-red" />
                   <span>{row.others}</span>
                 </div>
               </div>
               <div className="cell concierge">
-                <div className="mobile-label">ConciergeAI: </div>
+                <div className="mobile-label">{t?.comparison_table?.label_concierge || "ConciergeAI: "}</div>
                 <div className="val-flex gold-text">
                   <Check size={18} className="gold-glow" />
                   <span className="weight-bold">{row.concierge}</span>

@@ -57,6 +57,39 @@ export const en: Dictionary = {
       aftercare: "Support & Aftercare",
     },
   },
+  comparison_table: {
+    header_features: "Features",
+    header_others: "Legacy Platforms",
+    label_legacy: "Legacy: ",
+    label_concierge: "ConciergeAI: ",
+    rows: {
+      commission: {
+        title: "Commission Fees",
+        others: "15% - 30% Per Job",
+        concierge: "0% (Expert-First Model)"
+      },
+      client_calibre: {
+        title: "Client Calibre",
+        others: "Mass Market",
+        concierge: "High-Net-Worth Elite"
+      },
+      earnings_model: {
+        title: "Earnings Model",
+        others: "One-off Income",
+        concierge: "Passive Dividends (Lifetime)"
+      },
+      verification: {
+        title: "Verification",
+        others: "Manual / Slow",
+        concierge: "AI Smart Bio (Real-time)"
+      },
+      marketing_support: {
+        title: "Marketing Support",
+        others: "Paid Advertising Required",
+        concierge: "Automated Global Matching"
+      }
+    }
+  },
   legal: { ui: { selectLanguage: "Language", close: "Close" } },
   landing_pages: {
     plumbing: {

@@ -57,6 +57,39 @@ export const zhTW: Dictionary = {
       aftercare: "售後追蹤",
     },
   },
+  comparison_table: {
+    header_features: "服務優勢",
+    header_others: "一般預約平台",
+    label_legacy: "一般平台: ",
+    label_concierge: "ConciergeAI: ",
+    rows: {
+      commission: {
+        title: "平台佣金",
+        others: "15% - 30% 每單手續費",
+        concierge: "0% (專家優先模式)"
+      },
+      client_calibre: {
+        title: "客戶質量",
+        others: "大眾市場",
+        concierge: "高淨值 Elite 會員"
+      },
+      earnings_model: {
+        title: "收益模式",
+        others: "單次性收入",
+        concierge: "終身推薦收益分成 (長期收益)"
+      },
+      verification: {
+        title: "驗證系統",
+        others: "手動/緩慢",
+        concierge: "AI 實時專業驗證 (Smart Bio)"
+      },
+      marketing_support: {
+        title: "營銷支持",
+        others: "需付費廣告",
+        concierge: "全平台自動化精準匹配"
+      }
+    }
+  },
   legal: { ui: { selectLanguage: "選擇語言", close: "關閉" } },
   landing_pages: {
     plumbing: {
