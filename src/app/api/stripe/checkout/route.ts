@@ -31,15 +31,16 @@ export async function POST(req: Request) {
     // Developer Bypass: If they clicked the Mock "LondonFix" dummy UI card, 
     // automatically find YOUR real onboarded merchant account and route the money there!
     let targetMerchantId = merchantId;
-    if (merchantId === 'merchant_demo_123' || merchantId === 'undefined' || merchantId === undefined) {
+    if (merchantId === 'merchant_demo_123' || merchantId === 'undefined' || !merchantId) {
       const onboarded = await prisma.merchant.findFirst({ 
         where: { stripeAccountId: { not: null } }
       });
-      if (onboarded) targetMerchantId = onboarded.userId;
+      if (onboarded) targetMerchantId = onboarded.id;
     }
 
+    // Crucially query by ID (not userId) because frontend passes Merchant.id in URLs
     const merchant = await prisma.merchant.findUnique({
-      where: { userId: targetMerchantId }
+      where: { id: targetMerchantId }
     });
 
     if (!merchant || !merchant.stripeAccountId) {
