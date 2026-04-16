@@ -30,24 +30,27 @@ export default async function MemberHomePage() {
   // ── Fetch Bookings (recent 3, defensive) ───────────────────────────────
   let bookings: any[] = [];
   try {
-    bookings = await (prisma.booking as any).findMany({
-      where: { customerId: userId },
-      orderBy: { createdAt: "desc" },
-      take: 3,
-      select: {
-        id: true,
-        status: true,
-        scheduledDate: true,
-        totalAmount: true,
-        service: { select: { name: true } },
-        merchant: {
-          select: {
-            companyName: true,
-            user: { select: { name: true } },
+    const bookingModel = (prisma as any).booking;
+    if (bookingModel) {
+      bookings = await bookingModel.findMany({
+        where: { customerId: userId },
+        orderBy: { createdAt: "desc" },
+        take: 3,
+        select: {
+          id: true,
+          status: true,
+          scheduledDate: true,
+          totalAmount: true,
+          service: { select: { name: true } },
+          merchant: {
+            select: {
+              companyName: true,
+              user: { select: { name: true } },
+            },
           },
         },
-      },
-    });
+      });
+    }
   } catch (err) {
     console.error("[MemberHome] Bookings fetch error:", err);
     bookings = [];
@@ -56,20 +59,23 @@ export default async function MemberHomePage() {
   // ── Fetch Top Merchants for Feed (defensive) ───────────────────────────
   let merchants: any[] = [];
   try {
-    merchants = await (prisma.merchant as any).findMany({
-      where: { isVerified: true },
-      orderBy: { rating: "desc" },
-      take: 6,
-      select: {
-        id: true,
-        companyName: true,
-        category: true,
-        city: true,
-        rating: true,
-        avatarUrl: true,
-        user: { select: { name: true } },
-      },
-    });
+    const merchantModel = (prisma as any).merchant;
+    if (merchantModel) {
+      merchants = await merchantModel.findMany({
+        where: { isVerified: true },
+        orderBy: { averageRating: "desc" },
+        take: 6,
+        select: {
+          id: true,
+          companyName: true,
+          category: true,
+          city: true,
+          averageRating: true,
+          avatarUrl: true,
+          user: { select: { name: true } },
+        },
+      });
+    }
   } catch (err) {
     console.error("[MemberHome] Merchants fetch error:", err);
     merchants = [];
