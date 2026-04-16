@@ -1,20 +1,48 @@
 import type { NextConfig } from "next";
-
-// @ducanh2912/next-pwa is the modern successor to next-pwa, 
-// providing much better support for Next.js 14/15/16 and Turbopack.
-const withPWA = require("@ducanh2912/next-pwa").default({
+const withPWA = require("next-pwa")({
   dest: "public",
-  cacheOnFrontEndNav: true,
-  aggressiveFrontEndNavCaching: true,
-  reloadOnOnline: true,
-  swcMinify: true,
+  register: true,
+  skipWaiting: true,
+  // Disable PWA in development to avoid caching issues
   disable: process.env.NODE_ENV === "development",
-  workboxOptions: {
-    disableDevLogs: true,
-  },
+  // Cache strategy for core assets
+  runtimeCaching: [
+    {
+      urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+      handler: "CacheFirst",
+      options: {
+        cacheName: "google-fonts",
+        expiration: { maxEntries: 20, maxAgeSeconds: 365 * 24 * 60 * 60 },
+      },
+    },
+    {
+      urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+      handler: "CacheFirst",
+      options: {
+        cacheName: "google-fonts-static",
+        expiration: { maxEntries: 20, maxAgeSeconds: 365 * 24 * 60 * 60 },
+      },
+    },
+    {
+      urlPattern: /\.(?:jpg|jpeg|gif|png|svg|ico|webp|avif)$/i,
+      handler: "StaleWhileRevalidate",
+      options: {
+        cacheName: "static-images",
+        expiration: { maxEntries: 64, maxAgeSeconds: 30 * 24 * 60 * 60 },
+      },
+    },
+    {
+      urlPattern: /\/_next\/static\/.*/i,
+      handler: "CacheFirst",
+      options: {
+        cacheName: "next-static",
+        expiration: { maxEntries: 200, maxAgeSeconds: 30 * 24 * 60 * 60 },
+      },
+    },
+  ],
 });
 
-const nextConfig: NextConfig = {
+const nextConfig: any = {
   typescript: {
     // Vercel deployment block fix: ignore TypeScript errors during production builds
     ignoreBuildErrors: true,
@@ -24,8 +52,9 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   experimental: {
-    // Ensure we are explicitly using the desired engine features
-  }
+    // 🚀 Turbopack compatibility with next-pwa
+    turbopack: {},
+  },
 };
 
 export default withPWA(nextConfig);
