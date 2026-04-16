@@ -59,34 +59,40 @@ export default function ChatInterface({ initialConversationId }: ChatProps) {
     async function init() {
       // 1. Load conversations first
       const convoRes = await getConversations();
-      if (convoRes.conversations) {
+      
+      if ('error' in convoRes) {
+        console.error("Chat init error:", convoRes.error);
+        setLoading(false);
+        return;
+      }
+
+      if (convoRes && convoRes.conversations) {
         setConversations(convoRes.conversations);
         
-        // 2. If we have a merchantId/customerId in URL, see if we need to start/focus it
         const mid = searchParams?.get("merchantId");
         const cid = searchParams?.get("customerId");
 
         if ((mid || cid) && !currentConvoId) {
-           // Check if this conversation already exists in the list we just fetched
            const existing = convoRes.conversations.find((c: any) => 
              (mid && c.merchantId === mid) || (cid && c.customerId === cid)
            );
 
            if (existing) {
+             console.log("Found existing conversation:", existing.id);
              setCurrentConvoId(existing.id);
-           } else {
-             // Only send initial prompt if it truly doesn't exist yet
+           } else if (mid) {
+             console.log("Creating new conversation with merchant:", mid);
              setLoading(true);
              const res = await sendMessage({ 
-               merchantId: mid || undefined, 
-               customerId: cid || undefined,
+               merchantId: mid, 
                content: t?.merchant_messages?.initialPrompt || "Hi, I have an inquiry about a booking." 
              });
+             
              if (res.success && res.message) {
                 const newConvoId = (res.message as any).conversationId;
                 setCurrentConvoId(newConvoId);
-                // Refresh list to include the new one
-                loadConversations(true);
+                const refreshed = await getConversations();
+                if (refreshed.conversations) setConversations(refreshed.conversations);
              }
              setLoading(false);
            }
