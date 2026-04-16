@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import SearchHero from '@/components/search/SearchHero';
 import RecommendationEngine from '@/components/discovery/RecommendationEngine';
 import { useTranslation } from "@/components/LanguageContext";
@@ -18,8 +18,21 @@ import { ALL_UK } from '@/components/LocationContext';
 import { Copy, Check } from 'lucide-react';
 
 export default function HomeClient() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const router = useRouter();
   const pathname = usePathname();
+
+  // Super App Redirect: If logged in on the homepage, go to the member dashboard
+  useEffect(() => {
+    if (status === 'authenticated' && session?.user) {
+      if (session.user.role === 'MERCHANT' || session.user.role === 'ADMIN') {
+        router.replace('/merchant');
+      } else {
+        router.replace('/member/home');
+      }
+    }
+  }, [status, session, router]);
+
   const { t, locale, isRTL } = useTranslation();
   const { city } = useLocation();
   const [activeTab, setActiveTab] = useState('all');
