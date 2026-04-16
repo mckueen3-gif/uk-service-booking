@@ -335,19 +335,37 @@ export function AppNavbar({ session }: { session: any }) {
             <PenTool size={18} /> {t?.nav?.aiDiagnosis}
           </Link>
 
-          <Link href="/join" className="hover-bg fluid-nav-item" style={{ 
-            color: obsidianGold, 
-            fontWeight: 800, 
-            textDecoration: 'none', 
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.4rem',
-            padding: '0.5rem 0.75rem',
-            borderRadius: '0.75rem',
-            transition: '0.2s'
-          }}>
-            <Briefcase size={18} /> {t?.nav?.join}
-          </Link>
+          {!session?.user && (
+            <Link href="/join" className="hover-bg fluid-nav-item" style={{ 
+              color: obsidianGold, 
+              fontWeight: 800, 
+              textDecoration: 'none', 
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              padding: '0.5rem 0.75rem',
+              borderRadius: '0.75rem',
+              transition: '0.2s'
+            }}>
+              <Briefcase size={18} /> {t?.nav?.join}
+            </Link>
+          )}
+          
+          {session?.user?.role === 'MERCHANT' && (
+            <Link href="/merchant" className="hover-bg fluid-nav-item" style={{ 
+              color: obsidianGold, 
+              fontWeight: 800, 
+              textDecoration: 'none', 
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              padding: '0.5rem 0.75rem',
+              borderRadius: '0.75rem',
+              transition: '0.2s'
+            }}>
+              <Briefcase size={18} /> {t?.common?.merchantPortal || "Merchant Node"}
+            </Link>
+          )}
           
           <div className="fluid-search-container">
             <NavbarSearch />
@@ -521,10 +539,12 @@ export function AppNavbar({ session }: { session: any }) {
 
            {/* Auth CTA Mobile */}
            <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-             <Link href="/join" onClick={() => setMobileMenuOpen(false)} style={{ 
-               width: '100%', padding: '1rem', textAlign: 'center', borderRadius: '1rem',
-               border: `1.5px solid ${obsidianGold}`, color: obsidianGold, fontWeight: 900, textDecoration: 'none'
-             }}>{t?.nav?.join}</Link>
+             {!session?.user && (
+               <Link href="/join" onClick={() => setMobileMenuOpen(false)} style={{ 
+                 width: '100%', padding: '1rem', textAlign: 'center', borderRadius: '1rem',
+                 border: `1.5px solid ${obsidianGold}`, color: obsidianGold, fontWeight: 900, textDecoration: 'none'
+               }}>{t?.nav?.join}</Link>
+             )}
              
              {!session?.user && (
                <div style={{ display: 'flex', gap: '0.75rem' }}>

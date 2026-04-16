@@ -8,9 +8,11 @@ import { signIn } from 'next-auth/react';
 import { User, Mail, Shield, Lock, ChevronRight } from 'lucide-react';
 import '../auth.css';
 import { useTranslation } from '@/components/LanguageContext';
+import { useSession } from 'next-auth/react';
 
 function RegisterForm() {
   const router = useRouter();
+  const { data: session, status } = useSession();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') || '/member/home';
 
@@ -22,9 +24,12 @@ function RegisterForm() {
   const { t } = useTranslation();
 
   useEffect(() => {
+    if (status === 'authenticated') {
+      router.replace(callbackUrl);
+    }
     // Start stagger animation
     setTimeout(() => setRevealed(true), 100);
-  }, []);
+  }, [status, router, callbackUrl]);
 
   async function handleSubmit(formData: FormData) {
     setLoading(true);

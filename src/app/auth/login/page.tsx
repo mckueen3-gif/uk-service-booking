@@ -7,9 +7,11 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Mail, Lock, LogIn, AlertCircle, CheckCircle2 } from 'lucide-react';
 import '../auth.css';
 import { useTranslation } from '@/components/LanguageContext';
+import { useSession } from 'next-auth/react';
 
 function LoginForm() {
   const router = useRouter();
+  const { status } = useSession();
   const searchParams = useSearchParams();
   const isRegistered = searchParams.get('registered');
   const callbackUrl = searchParams.get('callbackUrl') || '/member/home';
@@ -21,8 +23,11 @@ function LoginForm() {
   const { t } = useTranslation();
 
   useEffect(() => {
+    if (status === 'authenticated') {
+      router.replace(callbackUrl);
+    }
     setTimeout(() => setRevealed(true), 100);
-  }, []);
+  }, [status, router, callbackUrl]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
