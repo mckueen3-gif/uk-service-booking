@@ -13,11 +13,69 @@ export const ja: any = {
     quickActions: "クイックアクション",
     exploreServices: "サービスを探索",
   },
+  comparison_table: {
+    header_features: "サービス特典",
+    header_others: "標準的な予約プラットフォーム",
+    label_legacy: "標準的なプラットフォーム: ",
+    label_concierge: "ConciergeAI: ",
+    rows: {
+      commission: {
+        title: "プラットフォーム手数料",
+        others: "15% - 30% のサービス料",
+        concierge: "すべての専門業者に対して 9% の一律手数料"
+      },
+      client_calibre: {
+        title: "顧客の質",
+        others: "一般的な一般市場",
+        concierge: "より限定的で高品質な顧客層"
+      },
+      earnings_model: {
+        title: "収益モデル",
+        others: "一回限りの収入のみ",
+        concierge: "紹介収益分配 (5年間) キャッシュバウチャー"
+      },
+      verification: {
+        title: "検証システム",
+        others: "手動 / 低速",
+        concierge: "スマートAI (SMART AI)"
+      },
+      marketing_support: {
+        title: "マーケティング支援",
+        others: "広告費が必要",
+        concierge: "公平なプラットフォーム全体の自動精密マッチング (探索モード)"
+      },
+      communication: {
+        title: "インスタントメッセージ",
+        others: "外部チャネル (WhatsApp/電話) による断片的な管理",
+        concierge: "Nexus専用インスタントチャットハブ (暗号化済み)"
+      },
+      booking_system: {
+        title: "予約システム",
+        others: "手動スケジューリング / 時間の競合",
+        concierge: "完全自動のスケジューリング調整 (スマートスケジューリング)"
+      },
+      toolkit: {
+        title: "技術ツール",
+        others: "基本的なリストのみ",
+        concierge: "組み込みのAI診断と資産管理"
+      },
+      data_sovereignty: {
+        title: "データ主権",
+        others: "プラットフォームがデータを所有・管理",
+        concierge: "分散型プロ用プロフィール (Smart Bio)"
+      },
+      growth: {
+        title: "専門的な成長",
+        others: "トレーニングリソースなし",
+        concierge: "教育チャンネルと専門スキル研修"
+      }
+    }
+  },
   legal: { ui: { selectLanguage: "グローバル接続", close: "プロトコル完了" } },
   landing_pages: {
     plumbing: {
       hero: {
-        badge: "エリートの精度",
+        badge: "高品質な精度",
         title1: "優れたエンジニアリング",
         title2: "配管と動力",
         subtitle:
@@ -56,9 +114,9 @@ export const ja: any = {
       hero: {
         badge: "構造の完全性",
         title1: "ノードを復元",
-        title2: "エリートメンテナンス",
+        title2: "高品質なメンテナンス",
         subtitle:
-          "家具の組み立てから構造の修復まで。英国トップ1%のメンテナンスエキスパートが対応します。",
+          "家具の組み立てから構造の修復まで。英国の厳選された高品質なメンテナンスエキスパートが対応します。",
         searchPlaceholder: "家具組み立て、壁の修理...",
         searchBtn: "連絡を検索",
       },
@@ -92,7 +150,7 @@ export const ja: any = {
         title1: "居住空間を",
         title2: "再設計する",
         subtitle:
-          "英国のエリート改修スペシャリストと共にあなたの物件を変革しましょう。透明なテレメトリと品質保証の結果を提供します。",
+          "英国の厳選された高品質な改修スペシャリストと共にあなたの物件を変革しましょう。透明なテレメトリと品質保証の結果を提供します。",
         searchPlaceholder: "キッチン拡張、ロフト改造...",
         searchBtn: "プロジェクトを開始",
       },
@@ -129,7 +187,7 @@ export const ja: any = {
         title1: "キャピタルレジャー",
         title2: "をマスターする",
         subtitle:
-          "中小企業および専門家のための英国のエリート会計士および財務戦略家。運用のコンプライアンスと税務の最適化を保証します。",
+          "中小企業および専門家のための英国の厳選された高品質な会計士および財務戦略家。運用のコンプライアンスと税務の最適化を保証します。",
         searchPlaceholder: "確定申告、年次決算、給与計算...",
         searchBtn: "監査エキスパート",
       },
@@ -194,7 +252,7 @@ export const ja: any = {
         title1: "環境を",
         title2: "浄化する",
         subtitle:
-          "住宅および商業ノードのためのエリートクリーニングプロトコル。高整合性の除菌と細部への細心の注意。",
+          "住宅および商業ノードのための厳選された高品質なクリーニングプロトコル。高整合性の除菌と細部への細心の注意。",
         searchPlaceholder: "ディープクリーニング、退去時清掃...",
         searchBtn: "専門家を配置",
       },
@@ -376,7 +434,7 @@ export const ja: any = {
     },
   },
   footer: {
-    tagline: "英国トップクラスの認定専門家と繋がる。",
+    tagline: "英国の厳選された高品質な認定専門家と繋がる。",
     explore: "探す",
     legal: "法的情報",
     support: "サポート",
@@ -395,7 +453,7 @@ export const ja: any = {
     phone: "+44 20 1234 5678",
     email: "support@conciergeai.uk",
     aboutUs:
-      "ConciergeAIは、英国の住宅所有者と、英国トップ1%の認定サービス専門家を繋ぎます。",
+      "ConciergeAIは、英国の住宅所有者と、英国の厳選された高品質な認定サービス専門家を繋ぎます。",
     companyNo: "12345678",
     vatNo: "GB123456789",
     social: {
@@ -576,7 +634,7 @@ export const ja: any = {
       tips: {
         title: "成長のヒント",
         growth:
-          "高品質なサービスを維持して、エリートとしての露出度と安定した依頼獲得を目指しましょう。",
+          "高品質なサービスを維持して、高品質なプロとしての露出度と安定した依頼獲得を目指しましょう。",
       },
       quickLinks: {
         title: "クイックリンク",
@@ -651,11 +709,11 @@ export const ja: any = {
   },
   education_sec: {
     hero: {
-      badge: "英国のエリート講師",
+      badge: "英国の厳選された高品質な講師",
       title1: "新しいスキルを",
       title2: "プロから学ぶ",
       subtitle:
-        "学業、語学、専門スキルのエリート講師と繋がる。あなたの成功のためのパーソナライズされた学習。",
+        "学業、語学、専門スキルの高品質な講師と繋がる。あなたの成功のためのパーソナライズされた学習。",
       searchPlaceholder: "何を学びたいですか？",
       searchBtn: "講師を探す",
     },
@@ -685,7 +743,7 @@ export const ja: any = {
           desc: "Portfolio, Piano, Design, Fine Arts",
         },
         finance: {
-          title: "Elite Certifications",
+          title: "高度な認定資格",
           desc: "CFA, ACCA, PMP, Professional Certs",
         },
         career: {
@@ -771,7 +829,7 @@ export const ja: any = {
       title1: "最高評価の",
       title2: "地元専門家を予約",
       subtitle:
-        "英国トップ1%の専門家に即時アクセス。全員が認定・保険加入済みで、AIによる品質管理が行われています。",
+        "英国の厳選された高品質な専門家に即時アクセス。全員が認定・保険加入済みで、AIによる品質管理が行われています。",
       searchPlaceholder: "必要なサービス...",
       locationPlaceholder: "ロンドン, 英国",
       aiMatch: "スマートマッチ",

@@ -13,6 +13,64 @@ export const ro: any = {
     quickActions: "Acțiuni rapide",
     exploreServices: "Explorează servicii",
   },
+  comparison_table: {
+    header_features: "Avantajele Serviciului",
+    header_others: "Platforme de Rezervare Standard",
+    label_legacy: "Platformă Standard: ",
+    label_concierge: "ConciergeAI: ",
+    rows: {
+      commission: {
+        title: "Comision Platformă",
+        others: "15% - 30% taxă de servicii",
+        concierge: "9% comision pentru toți comercianții experți"
+      },
+      client_calibre: {
+        title: "Calitatea Clientului",
+        others: "Piață de masă nespecifică",
+        concierge: "Mai mulți clienți de nivel înalt"
+      },
+      earnings_model: {
+        title: "Model de Câștig",
+        others: "Single-time income only",
+        concierge: "Recompensă recomandare (5 ani) Vouchere"
+      },
+      verification: {
+        title: "Sistem Verificare",
+        others: "Manual / Lent",
+        concierge: "SMART AI"
+      },
+      marketing_support: {
+        title: "Suport Marketing",
+        others: "Necesită cheltuieli publicitare",
+        concierge: "Corelare automată precisă pe platformă"
+      },
+      communication: {
+        title: "Comunicare Instantanee",
+        others: "Canale externe nesecurizate",
+        concierge: "Nexus Chat Hub (Criptat)"
+      },
+      booking_system: {
+        title: "Sistem Rezervare",
+        others: "Programări manuale / Conflicte",
+        concierge: "Calibrare Automată Program (Programare Inteligentă)"
+      },
+      toolkit: {
+        title: "Instrumente Tehnice",
+        others: "Doar listări de bază",
+        concierge: "Diagnostic AI și Management Active integrate"
+      },
+      data_sovereignty: {
+        title: "Suveranitatea Datelor",
+        others: "Platforma deține și controlează datele",
+        concierge: "Profil de Expert Descentralizat (Smart Bio)"
+      },
+      growth: {
+        title: "Creșterea Carierei",
+        others: "Fără resurse de training",
+        concierge: "Cursuri exclusive și mentorat de la egal la egal"
+      }
+    }
+  },
   legal: {
     ui: {
       selectLanguage: "Conectivitate Globală",
@@ -22,7 +80,7 @@ export const ro: any = {
   landing_pages: {
     plumbing: {
       hero: {
-        badge: "Precizie de Elită",
+        badge: "Precizie Superioară",
         title1: "Inginerie Superioară",
         title2: "Instalații și Energie",
         subtitle:
@@ -61,9 +119,9 @@ export const ro: any = {
       hero: {
         badge: "Integritate Structurală",
         title1: "Restaurează-ți Nodul",
-        title2: "Întreținere de Elită",
+        title2: "Întreținere de Înaltă Calitate",
         subtitle:
-          "De la asamblare mobilă la remediere structurală. Top 1% specialiști în întreținere din UK la comanda ta.",
+          "De la asamblare mobilă la remediere structurală. Specialiști de înaltă calitate selectați în întreținere din UK la comanda ta.",
         searchPlaceholder: "Asamblare mobilă, reparații pereți...",
         searchBtn: "Căutare Liaison",
       },
@@ -100,7 +158,7 @@ export const ro: any = {
         title1: "Reconciliere",
         title2: "Spațiu Locativ",
         subtitle:
-          "Transformă-și proprietatea cu experții în renovare de elită din UK. Telemetrie transparentă și rezultate garantate calitativ.",
+          "Transformă-și proprietatea cu experții în renovare de înaltă calitate selectați din UK. Telemetrie transparentă și rezultate garantate calitativ.",
         searchPlaceholder: "Extensie bucătărie, conversie mansardă...",
         searchBtn: "Inițializează Proiect",
       },
@@ -137,7 +195,7 @@ export const ro: any = {
         title1: "Stăpânește-ți",
         title2: "Registrul de Capital",
         subtitle:
-          "Contabili și strategi fiscali de elită din UK pentru IMM-uri și profesioniști. Asigurarea conformității operaționale și optimizarea fiscală.",
+          "Contabili și strategi fiscali de înaltă calitate selectați din UK pentru IMM-uri și profesioniști. Asigurarea conformității operaționale și optimizarea fiscală.",
         searchPlaceholder: "Declarații fiscale, conturi anuale, salarizare...",
         searchBtn: "Audit Experți",
       },
@@ -207,11 +265,11 @@ export const ro: any = {
     },
     cleaning: {
       hero: {
-        badge: "Biosecuritate și Igienă",
+        badge: "Igienă de Înaltă Calitate",
         title1: "Purifică-ți",
         title2: "Nodul Domestic",
         subtitle:
-          "Protocoale de curățenie elită pentru reședințe britanice. Decontaminare de înaltă frecvență și logistică de final de contract de închiriere.",
+          "Protocoale de curățenie de înaltă calitate pentru reședințe britanice. Decontaminare de înaltă frecvență și logistică de final de contract de închiriere.",
         searchPlaceholder: "Curățenie generală, curățenie end-of-tenancy...",
         searchBtn: "Inițializează Purificarea",
       },
@@ -356,7 +414,7 @@ export const ro: any = {
     phone: "+44 20 1234 5678",
     email: "support@conciergeai.uk",
     aboutUs:
-      "ConciergeAI conectează proprietarii din UK cu top 1% experți certificați.",
+      "ConciergeAI conectează proprietarii din UK cu specialiști de înaltă calitate selectați.",
     companyNo: "12345678",
     vatNo: "GB123456789",
     social: {
@@ -619,11 +677,11 @@ export const ro: any = {
   },
   education_sec: {
     hero: {
-      badge: "Tutori de elită în UK",
+      badge: "Tutori de înaltă calitate selectați în UK",
       title1: "Învață o abilitate nouă",
       title2: "cu experți",
       subtitle:
-        "Conectează-te cu tutori de elită pentru studii academice, limbi străine și abilități profesionale. Educație personalizată pentru succesul tău.",
+        "Conectează-te cu tutori de înaltă calitate pentru studii academice, limbi străine și abilități profesionale. Educație personalizată pentru succesul tău.",
       searchPlaceholder: "Ce vrei să înveți?",
       searchBtn: "Găsește tutor",
     },
@@ -653,7 +711,7 @@ export const ro: any = {
           desc: "Portfolio, Piano, Design, Fine Arts",
         },
         finance: {
-          title: "Elite Certifications",
+          title: "Certificări Superioare",
           desc: "CFA, ACCA, PMP, Professional Certs",
         },
         career: {
@@ -738,7 +796,7 @@ export const ro: any = {
       title1: "Rezervați cei mai buni",
       title2: "experți locali",
       subtitle:
-        "Acces instantaneu la primii 1% experți din Marea Britanie. Toți certificați, asigurați și monitorizați de AI.",
+        "Acces instantaneu la experți de înaltă calitate selectați din Marea Britanie. Toți certificați, asigurați și monitorizați de AI.",
       searchPlaceholder: "Am nevoie de...",
       locationPlaceholder: "Londra, Marea Britanie",
       aiMatch: "Potrivire Inteligentă",

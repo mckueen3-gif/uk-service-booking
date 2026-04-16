@@ -13,13 +13,71 @@ export const pl: any = {
     quickActions: "Szybkie działania",
     exploreServices: "Eksploruj usługi",
   },
+  comparison_table: {
+    header_features: "Zalety Serwisu",
+    header_others: "Standardowe Platformy Rezerwacyjne",
+    label_legacy: "Standardowa Platforma: ",
+    label_concierge: "ConciergeAI: ",
+    rows: {
+      commission: {
+        title: "Prowizja Platformy",
+        others: "15% - 30% opłaty serwisowej",
+        concierge: "9% prowizji dla wszystkich profesjonalnych partnerów"
+      },
+      client_calibre: {
+        title: "Jakość Klienta",
+        others: "Rynek masowy",
+        concierge: "Większa liczba zdywersyfikowanych klientów premium"
+      },
+      earnings_model: {
+        title: "Model Zarobkowy",
+        others: "Tylko jednorazowy dochód",
+        concierge: "Program poleceń (5 lat) Vouchery gotówkowe"
+      },
+      verification: {
+        title: "System Weryfikacji",
+        others: "Manualny / Powolny",
+        concierge: "SMART AI"
+      },
+      marketing_support: {
+        title: "Wsparcie Marketingowe",
+        others: "Wymaga wydatków na reklamę",
+        concierge: "Precyzyjne, automatyczne dopasowanie w całej sieci"
+      },
+      communication: {
+        title: "Komunikacja Błyskawiczna",
+        others: "Zewnętrzne kanały (WhatsApp/Tel) brak nadzoru",
+        concierge: "Nexus Ekskluzywne Centrum Czatu (Szyfrowane)"
+      },
+      booking_system: {
+        title: "System Rezerwacji",
+        others: "Ręczne planowanie / Konflikty terminów",
+        concierge: "Zautomatyzowana kalibracja harmonogramu (Smart Scheduling)"
+      },
+      toolkit: {
+        title: "Narzędzia Techniczne",
+        others: "Tylko podstawowe listy",
+        concierge: "Wbudowana diagnostyka AI i zarządzanie zasobami"
+      },
+      data_sovereignty: {
+        title: "Suwerenność Danych",
+        others: "Platforma posiada i kontroluje Twoje dane",
+        concierge: "Zdecentralizowany profil eksperta (Smart Bio)"
+      },
+      growth: {
+        title: "Rozwój Zawodowy",
+        others: "Brak zasobów szkoleniowych",
+        concierge: "Kanały edukacyjne i szkolenia z technik pozyskiwania zleceń"
+      }
+    }
+  },
   legal: {
     ui: { selectLanguage: "Globalna Łączność", close: "Zakończ Protokół" },
   },
   landing_pages: {
     plumbing: {
       hero: {
-        badge: "Elitarna Precyzja",
+        badge: "Wysoka Precyzja",
         title1: "Doskonała Inżynieria",
         title2: "Hydraulika i Zasilanie",
         subtitle:
@@ -58,9 +116,9 @@ export const pl: any = {
       hero: {
         badge: "Integralność Strukturalna",
         title1: "Przywróć",
-        title2: "Węzły",
+        title2: "Wysoka Jakość Konserwacji",
         subtitle:
-          "Od montażu mebli po naprawy strukturalne. Z pomocą top 1% brytyjskich ekspertów od konserwacji.",
+          "Od montażu mebli po naprawy strukturalne. Z pomocą starannie dobranych brytyjskich ekspertów o wysokiej jakości.",
         searchPlaceholder: "Montaż mebli, naprawa ścian...",
         searchBtn: "Szukaj kontaktu",
       },
@@ -97,7 +155,7 @@ export const pl: any = {
         title1: "Redesign",
         title2: "Przestrzeni Życiowej",
         subtitle:
-          "Przekształć swoją nieruchomość z elitarnymi brytyjskimi specjalistami od renowacji. Przejrzysta telemetria i gwarantowane wyniki jakościowe.",
+          "Przekształć swoją nieruchomość ze starannie dobranymi brytyjskimi specjalistami od renowacji o wysokiej jakości. Przejrzysta telemetria i gwarantowane wyniki jakościowe.",
         searchPlaceholder: "Rozbudowa kuchni, adaptacja poddasza...",
         searchBtn: "Rozpocznij projekt",
       },
@@ -134,7 +192,7 @@ export const pl: any = {
         title1: "Mistrzostwo",
         title2: "Księgi Kapitałowej",
         subtitle:
-          "Elitarni brytyjscy księgowi i stratedzy finansowi dla MŚP i profesjonalistów. Zapewnienie zgodności operacyjnej i optymalizacji podatkowej.",
+          "Starannie dobrani brytyjscy księgowi i stratedzy finansowi o wysokiej jakości dla MŚP i profesjonalistów. Zapewnienie zgodności operacyjnej i optymalizacji podatkowej.",
         searchPlaceholder: "Zeznania podatkowe, roczne sprawozdania, kadry...",
         searchBtn: "Ekspert audytu",
       },
@@ -208,7 +266,7 @@ export const pl: any = {
         title1: "Oczyść",
         title2: "Środowisko",
         subtitle:
-          "Elitarne protokoły sprzątania dla jednostek mieszkalnych i komercyjnych. Wysoka spójność sanitarna i dbałość o szczegóły.",
+          "Protokoły sprzątania o wysokiej jakości dla jednostek mieszkalnych i komercyjnych. Wysoka spójność sanitarna i dbałość o szczegóły.",
         searchPlaceholder: "Głębokie sprzątanie, sprzątanie po najmie...",
         searchBtn: "Wdróż ekspertów",
       },
@@ -219,7 +277,7 @@ export const pl: any = {
         },
         tenancy: {
           title: "Sprzątanie po najmie",
-          desc: "Elitarne protokoły sprzątania przy zmianie lokatorów.",
+          desc: "Protokoły sprzątania o wysokiej jakości przy zmianie lokatorów.",
         },
         textile: {
           title: "Czyszczenie tekstyliów",
@@ -432,7 +490,7 @@ export const pl: any = {
     phone: "+44 20 1234 5678",
     email: "support@conciergeai.uk",
     aboutUs:
-      "ConciergeAI łączy właścicieli domów w Wielkiej Brytanii z top 1% certyfikowanych ekspertów serwisowych.",
+      "ConciergeAI łączy właścicieli domów w Wielkiej Brytanii ze starannie dobranymi certyfikowanymi ekspertami serwisowymi o wysokiej jakości.",
     companyNo: "12345678",
     vatNo: "GB123456789",
     social: {
@@ -616,7 +674,7 @@ export const pl: any = {
       tips: {
         title: "Wskazówki wzrostu",
         growth:
-          "Utrzymuj wysoką jakość usług, aby zapewnić sobie status elitarnego eksperta i stały dopływ zleceń.",
+          "Utrzymuj wysoką jakość usług, aby zapewnić sobie status wysokiej jakości eksperta i stały dopływ zleceń.",
       },
       quickLinks: {
         title: "Szybkie linki",
@@ -694,11 +752,11 @@ export const pl: any = {
   },
   education_sec: {
     hero: {
-      badge: "Elitarni korepetytorzy w Wielkiej Brytanii",
+      badge: "Starannie dobrani korepetytorzy o wysokiej jakości w UK",
       title1: "Naucz się nowej umiejętności",
       title2: "z ekspertami",
       subtitle:
-        "Połącz się z elitarnymi korepetytorami akademickimi, językowymi i zawodowymi. Spersonalizowana edukacja dla Twojego sukcesu.",
+        "Połącz się ze starannie dobranymi korepetytorami akademickimi, językowymi i zawodowymi o wysokiej jakości. Spersonalizowana edukacja dla Twojego sukcesu.",
       searchPlaceholder: "Czego chcesz się nauczyć?",
       searchBtn: "Znajdź korepetytora",
     },
@@ -728,7 +786,7 @@ export const pl: any = {
           desc: "Portfolio, Piano, Design, Fine Arts",
         },
         finance: {
-          title: "Elite Certifications",
+          title: "Certyfikaty Specjalistyczne",
           desc: "CFA, ACCA, PMP, Professional Certs",
         },
         career: {

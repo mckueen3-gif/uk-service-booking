@@ -119,7 +119,7 @@ export const zhTW: Dictionary = {
   landing_pages: {
     plumbing: {
       hero: {
-        badge: "頂尖專業水準",
+        badge: "嚴選高質素標準",
         title1: "專業",
         title2: "水電與能源工程",
         subtitle: "聯繫認證專家進行精準水管維修、電力重新佈線和家電安裝。AI 全程品質監控。",
@@ -139,8 +139,8 @@ export const zhTW: Dictionary = {
       hero: {
         badge: "結構維修專家",
         title1: "修復您的空間",
-        title2: "交給頂級維修師",
-        subtitle: "從家具組裝到牆面修補。由英國前 1% 的維護專家為您服務。",
+        title2: "嚴選高質素維護師",
+        subtitle: "從家具組裝到牆面修補。由英國嚴選高質素專家為您服務。",
         searchPlaceholder: "家具組裝、牆面修補...",
         searchBtn: "搜尋專家",
       },
@@ -158,7 +158,7 @@ export const zhTW: Dictionary = {
         badge: "空間翻新專家",
         title1: "改造您的",
         title2: "生活空間",
-        subtitle: "與英國頂尖翻新團隊合作改造您的物業。透明報價與品質保證。",
+        subtitle: "與英國嚴選高質素團隊合作改造您的物業。透明報價與品質保證。",
         searchPlaceholder: "廚房翻新、閣樓改造...",
         searchBtn: "開始規劃",
       },
@@ -231,7 +231,7 @@ export const zhTW: Dictionary = {
         copy: "複製",
         copied: "已複製!",
         exit: "離開",
-        aiMatchingSub: "AI 匹配前 1% 的精英專家",
+        aiMatchingSub: "AI 匹配嚴選高質素專家",
         exploreSub: "根據專業領域瀏覽我們的目錄",
         escrow: {
           title: "安全託管",
@@ -260,7 +260,7 @@ export const zhTW: Dictionary = {
     exit: "退出",
     dark_mode: "切換為深色模式",
     light_mode: "切換為淺色模式",
-    aiMatchingSub: "AI 已匹配前 1% 的精英專家",
+    aiMatchingSub: "AI 已匹配嚴選高質素專家",
     exploreSub: "按專業領域瀏覽我們的目錄",
     escrow: {
       title: "安全託管",
@@ -282,7 +282,7 @@ export const zhTW: Dictionary = {
   },
   home: {
     hero: {
-      title1: "英國頂級 1% 專家，",
+      title1: "英國嚴選高質素專家，",
       title2: "即時預約",
       subtitle: "聯繫倫敦及全英國的認證專業人士。AI 審核與背景調查。",
       searchPlaceholder: "輸入您的需求...",
@@ -341,13 +341,13 @@ export const zhTW: Dictionary = {
       commercial: "商業服務"
     },
     eliteLocal: "本地精英",
-    eliteBadge: "前 1% 專家",
+    eliteBadge: "嚴選高質素專家",
     defaultCategory: "專家",
     recommendation: {
       title: "探索專家",
       title1: "探索專家",
       title2: "最高評分",
-      subtitle: "AI 匹配前 1% 的專業人才。",
+      subtitle: "AI 匹配嚴選高質素人力。",
       browse: "查看詳情"
     },
     recommendationResults: {
@@ -357,7 +357,7 @@ export const zhTW: Dictionary = {
       london_cleaning: "倫敦專業清潔",
       manchester_repair: "曼徹斯特維修專家",
       birmingham_accounting: "伯明翰財稅會計",
-      top_experts_in_city: "{city} 的頂尖專家",
+      top_experts_in_city: "{city} 的嚴選高質素專家",
       emergency_services: "緊急救援服務",
       professional_category: "專業 {category} 服務",
     },
@@ -365,11 +365,11 @@ export const zhTW: Dictionary = {
       trending: { title: "熱門領域", desc: "本月最受歡迎", items: ["清潔", "維修"] },
       plumbing: { title: "水電與能源", desc: "精準水管維修與電力工程。", items: ["鍋爐維修", "漏水檢測", "水管安裝", "電力佈線", "中央暖氣", "緊急搶修"] },
       repairs: { title: "結構維修", desc: "以專業維護恢復空間完整性。", items: ["家具組裝", "牆壁修補", "萬能工服務", "門窗維修", "瓷磚鋪設", "地板修復"] },
-      renovation: { title: "室內裝修", desc: "由英國頂尖翻新專家改造您的物業。", items: ["廚房翻新", "閣樓改造", "地板鋪設", "浴室改裝", "外牆裝修", "通道設計"] },
+      renovation: { title: "室內裝修", desc: "由英國嚴選高質素團隊改造您的物業。", items: ["廚房翻新", "閣樓改造", "地板鋪設", "浴室改裝", "外牆裝修", "通道設計"] },
       cleaning: { title: "專業清潔", desc: "專業級消毒清潔服務。", items: ["深層清潔", "租約到期清理", "窗戶清洗", "地毯清洗", "辦公室清潔", "搬家清潔"] },
       automotive: { title: "汽車維修", desc: "車輛護理與電腦檢測。", items: ["上門技師", "MOT 準備", "道路救援", "空調保養", "剎車更換", "輪胎服務"] },
       accounting: { title: "財稅服務", desc: "符合 HMRC 標準的財務管理。", items: ["稅務申報", "日常簿記", "薪資核算", "VAT 申報", "年度報告", "財務顧問"] },
-      legal: { title: "法律服務", desc: "與頂尖律師一起保護您的權益。", items: ["合約法", "物業法", "民事訴訟", "遺囑訂立", "移民法律", "勞工糾紛"] },
+      legal: { title: "法律服務", desc: "與嚴選高質素團隊一起保護您的權益。", items: ["合約法", "物業法", "民事訴訟", "遺囑訂立", "移民法律", "勞工糾紛"] },
       commercial: { title: "商業服務", desc: "適用於企業環境的服務方案。", items: ["辦公室清潔", "設施管理", "商業電力", "保安服務", "空調維護", "訪客接待"] },
       education: { title: "教育輔導", desc: "聯繫精英教育者與補習老師。", items: ["學術補習", "STEM 課程", "語言學習", "11+ 備試", "大學申請", "音樂指導"] }
     },
@@ -427,7 +427,7 @@ export const zhTW: Dictionary = {
     },
   },
   footer: {
-    tagline: "重新定義英國生活服務：結合 AI 與頂尖 1% 的專業人士。",
+    tagline: "重新定義英國生活服務：結合 AI 與嚴選高質素專家。",
     explore: "探索目錄",
     legal: "法律條款",
     support: "客戶支援",
@@ -796,7 +796,7 @@ export const zhTW: Dictionary = {
       sentiment: { title: "情感分析", positive: "正面", negative: "負面" },
       traits: "客戶常提標籤",
       waitForData: "正在載入數據...",
-      insights: { title: "AI 優化建議", desc: "建議更新高清工作照片以維持前 1% 的排名。" },
+      insights: { title: "AI 優化建議", desc: "建議更新高清工作照片以維持高質素排名。" },
       management: {
         title: "評價管理",
         filterAll: "全部",
@@ -961,7 +961,7 @@ export const zhTW: Dictionary = {
       badge: "精英教育平台",
       title1: "精英學習",
       title2: "與技能提升",
-      subtitle: "聯繫英國頂尖 1% 的教育者與業界導師。AI 審核的知識專家由您選擇。",
+      subtitle: "聯繫英國嚴選高質素教育者與業界導師。AI 審核的知識專家由您選擇。",
       searchPlaceholder: "搜尋科目、技能、導師...",
       searchBtn: "搜尋導師",
     },
@@ -1046,7 +1046,7 @@ export const zhTW: Dictionary = {
       },
       verified: {
         title: "認證專家",
-        desc: "配對曾處理類似問題的英國頂尖 1% 專家。"
+        desc: "配對具備豐富經驗的嚴選高質素專家。"
       }
     },
     cta: "立即開始 AI 診斷",
@@ -1173,7 +1173,7 @@ export const zhTW: Dictionary = {
   },
   onboarding: {
     hero: {
-      title: "加入 ConciergeAI 全球精英網絡",
+      title: "加入 ConciergeAI 全球嚴選高質素專家網絡",
       subtitle: "提供最具前瞻性的專業對接，讓您的專業價值在全球市場發光發熱。",
       badge: "ConciergeAI 精英專家",
       stats: {

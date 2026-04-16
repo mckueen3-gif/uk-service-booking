@@ -55,7 +55,7 @@ export const ko: any = {
         title1: "노드 복구",
         title2: "엘리트 유지보수",
         subtitle:
-          "가구 조립부터 구조적 수리까지. 영국의 상위 1% 유지보수 전문가가 도와드립니다.",
+          "가구 조립부터 구조적 수리까지. 영국의 엄선된 고품질 유지보수 전문가가 도와드립니다.",
         searchPlaceholder: "가구 조립, 벽 수리...",
         searchBtn: "연락처 검색",
       },
@@ -83,7 +83,7 @@ export const ko: any = {
         title1: "생활 공간의",
         title2: "재설계",
         subtitle:
-          "영국의 엘리트 리노베이션 전문가와 함께 자산을 변화시키세요. 투명한 분석과 품질 보증 결과를 제공합니다.",
+          "영국의 엄선된 고품질 리노베이션 전문가와 함께 자산을 변화시키세요. 투명한 분석과 품질 보증 결과를 제공합니다.",
         searchPlaceholder: "주방 확장, 다락방 개조...",
         searchBtn: "프로젝트 시작",
       },
@@ -111,7 +111,7 @@ export const ko: any = {
         title1: "자본 장부",
         title2: "마스터하기",
         subtitle:
-          "SME 및 전문가를 위한 영국의 엘리트 회계사 및 재무 전략가. 운영 규정 준수 및 세무 최적화 보장.",
+          "SME 및 전문가를 위한 영국의 엄선된 고품질 회계사 및 재무 전략가. 운영 규정 준수 및 세무 최적화 보장.",
         searchPlaceholder: "세금 신고, 연차 결산, 급여 관리...",
         searchBtn: "감사 전문가",
       },
@@ -158,7 +158,7 @@ export const ko: any = {
         title1: "환경을",
         title2: "정화하세요",
         subtitle:
-          "주거 및 상업 노드를 위한 엘리트 청소 프로토콜. 고신뢰성 위생 및 세심한 주의.",
+          "주거 및 상업 노드를 위한 엄선된 고품질 청소 프로토콜. 고신뢰성 위생 및 세심한 주의.",
         searchPlaceholder: "딥 클리닝, 퇴거 청소...",
         searchBtn: "전문가 배포",
       },
@@ -330,7 +330,7 @@ export const ko: any = {
     },
   },
   footer: {
-    tagline: "영국 최고의 인증 전문가와 연결하세요.",
+    tagline: "영국의 엄선된 고품질 인증 전문가와 연결하세요.",
     explore: "탐색",
     legal: "법적 정보",
     support: "고객 지원",
@@ -349,7 +349,7 @@ export const ko: any = {
     phone: "+44 20 1234 5678",
     email: "support@conciergeai.uk",
     aboutUs:
-      "ConciergeAI는 영국 주택 소유자와 영국 상위 1%의 인증된 서비스 전문가를 연결합니다.",
+      "ConciergeAI는 영국 주택 소유자와 영국의 엄선된 고품질 인증된 서비스 전문가를 연결합니다.",
     companyNo: "12345678",
     vatNo: "GB123456789",
     social: {
@@ -604,11 +604,11 @@ export const ko: any = {
   },
   education_sec: {
     hero: {
-      badge: "영국 엘리트 튜터",
+      badge: "영국 엄선된 고품질 튜터",
       title1: "새로운 기술 습득",
       title2: "전문가와 함께",
       subtitle:
-        "학업, 언어 및 전문 기술을 위한 엘리트 튜터와 연결하세요. 성공을 위한 맞춤형 1:1 교육.",
+        "학업, 언어 및 전문 기술을 위한 고품질 튜터와 연결하세요. 성공을 위한 맞춤형 1:1 교육.",
       searchPlaceholder: "무엇을 배우고 싶으신가요?",
       searchBtn: "튜터 찾기",
     },
@@ -720,7 +720,7 @@ export const ko: any = {
       title1: "최고 평점의",
       title2: "현지 전문가 예약",
       subtitle:
-        "영국 상위 1% 전문가에게 즉시 액세스하세요. 모두 인증 및 보험에 가입되어 있으며 AI로 품질을 관리합니다.",
+        "영국의 엄선된 고품질 전문가에게 즉시 액세스하세요. 모두 인증 및 보험에 가입되어 있으며 AI로 품질을 관리합니다.",
       searchPlaceholder: "필요한 서비스...",
       locationPlaceholder: "런던, 영국",
       aiMatch: "스마트 매치",

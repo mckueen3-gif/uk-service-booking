@@ -119,7 +119,7 @@ export const en: Dictionary = {
   landing_pages: {
     plumbing: {
       hero: {
-        badge: "Elite Engineering Standards",
+        badge: "Selected High-Quality Standards",
         title1: "Expert",
         title2: "Plumbing & Energy",
         subtitle: "Connect with certified professionals for precision plumbing, full rewiring, and appliance integration. AI quality monitoring included.",
@@ -140,7 +140,7 @@ export const en: Dictionary = {
         badge: "Home Maintenance Specialists",
         title1: "Restore Your",
         title2: "Living Space",
-        subtitle: "From professional furniture assembly to structural wall repairs. Trusted by the UK's top-rated maintenance experts.",
+        subtitle: "From professional furniture assembly to structural wall repairs. Trusted by our carefully selected high-quality maintenance experts.",
         searchPlaceholder: "Assembly, wall repair, mounting...",
         searchBtn: "Find Professional",
       },
@@ -155,10 +155,10 @@ export const en: Dictionary = {
     },
     renovation: {
       hero: {
-        badge: "Property Transformation Elite",
+        badge: "Property Transformation Vetted",
         title1: "Reimagine Your",
         title2: "Living Environment",
-        subtitle: "Collaborate with the UK's premier renovation teams to overhaul your assets. Transparent auditing and quality assurance.",
+        subtitle: "Collaborate with our highly-vetted renovation teams to overhaul your assets. Transparent auditing and quality assurance.",
         searchPlaceholder: "Kitchen overhaul, loft transformation...",
         searchBtn: "Start Project",
       },
@@ -231,7 +231,7 @@ export const en: Dictionary = {
         copy: "Copy",
         copied: "Copied!",
         exit: "Close",
-        aiMatchingSub: "AI-Matched Top-Rated Specialists",
+        aiMatchingSub: "AI-Matched Selected High-Quality Specialists",
         exploreSub: "Browse by Category",
         escrow: {
           title: "Secure Payment",
@@ -260,7 +260,7 @@ export const en: Dictionary = {
     exit: "Close",
     dark_mode: "Dark Mode",
     light_mode: "Light Mode",
-    aiMatchingSub: "AI Recommendation: Best Specialist Matched",
+    aiMatchingSub: "AI-Matched High-Quality Specialist",
     exploreSub: "Browse by Category",
     escrow: {
       title: "Secure Payment",
@@ -282,9 +282,9 @@ export const en: Dictionary = {
   },
   home: {
     hero: {
-      title1: "UK's Elite Professionals,",
+      title1: "UK's Selected High-Quality Professionals,",
       title2: "Book Instantly",
-      subtitle: "Connect with top-rated certified professionals in London and across the UK. Vetted and Identity-verified.",
+      subtitle: "Connect with vetted certified professionals in London and across the UK. Identity-verified.",
       searchPlaceholder: "Search for a service...",
       locationPlaceholder: "Enter town or postcode...",
       searchBtn: "Search Experts",
@@ -341,13 +341,13 @@ export const en: Dictionary = {
       commercial: "Business Services"
     },
     eliteLocal: "Local Elite Units",
-    eliteBadge: "Top 1% Unit",
+    eliteBadge: "Selected High-Quality Unit",
     defaultCategory: "Professional",
     recommendation: {
       title: "Explore Professionals",
       title1: "Explore",
       title2: "Top Rated",
-      subtitle: "Verified top-tier talent.",
+      subtitle: "Carefully selected high-quality specialists.",
       browse: "View Profile"
     },
     recommendationResults: {
@@ -357,7 +357,7 @@ export const en: Dictionary = {
       london_cleaning: "London Cleaning Units",
       manchester_repair: "Manchester Repair Techs",
       birmingham_accounting: "Birmingham Fiscal Units",
-      top_experts_in_city: "Top Specialists in {city}",
+      top_experts_in_city: "Selected High-Quality Specialists in {city}",
       emergency_services: "Emergency Response",
       professional_category: "Professional {category} Units",
     },
@@ -427,7 +427,7 @@ export const en: Dictionary = {
     },
   },
   footer: {
-    tagline: "Redefining UK Living: AI-Managed Elite 1% Specialists.",
+    tagline: "Redefining UK Living: AI-Managed High-Quality Specialists.",
     explore: "Services",
     legal: "Legal Info",
     support: "Help & Support",
@@ -962,7 +962,7 @@ export const en: Dictionary = {
       badge: "Professional Tutors",
       title1: "Share Expertise",
       title2: "Scale Your Impact",
-      subtitle: "Connect with the top 1% of UK's best educators and mentors. Verified knowledge experts.",
+      subtitle: "Connect with selected high-quality UK educators and mentors. Verified knowledge experts.",
       searchPlaceholder: "Search subjects, skills, or tutors...",
       searchBtn: "Search Now",
     },
@@ -1047,7 +1047,7 @@ export const en: Dictionary = {
       },
       verified: {
         title: "Matched Experts",
-        desc: "Get matched with top-rated professionals who can fix the issue."
+        desc: "Get matched with selected high-quality specialists who can fix the issue."
       }
     },
     cta: "Start AI Diagnosis",
@@ -1138,7 +1138,7 @@ export const en: Dictionary = {
     },
     register: {
       title: "Create Account",
-      subtitle: "Join the UK's top community of professionals.",
+      subtitle: "Join the UK's vetted community of high-quality professionals.",
       firstNameLabel: "First Name",
       lastNameLabel: "Last Name",
       emailLabel: "Email Address",
@@ -1174,7 +1174,7 @@ export const en: Dictionary = {
   },
   onboarding: {
     hero: {
-      title: "Join the Global Network of Elite Professionals",
+      title: "Join the Global Network of High-Quality Professionals",
       subtitle: "Showcase your expertise and connect with clients through our intelligent matching platform.",
       badge: "ConciergeAI Professional",
       stats: {
