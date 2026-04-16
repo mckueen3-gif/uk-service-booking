@@ -89,6 +89,7 @@ export default function OnboardingHero() {
           font-size: 3.5rem;
           font-weight: 900;
           color: #ffffff;
+          -webkit-text-fill-color: #ffffff;
           letter-spacing: -0.04em;
           margin-bottom: 2rem;
           line-height: 1.15;

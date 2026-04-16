@@ -121,7 +121,7 @@ function RegisterForm() {
         </div>
 
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <h1 className="hero-title" style={{ fontSize: '2.8rem', fontWeight: 900, marginBottom: '0.75rem', letterSpacing: '-0.02em' }}>
+          <h1 className="hero-title" style={{ fontSize: '2.8rem', fontWeight: 900, marginBottom: '0.75rem', letterSpacing: '-0.02em', WebkitTextFillColor: '#ffffff' }}>
             {t?.auth?.register?.title || "Initialize Identity"}
           </h1>
           <p style={{ color: 'var(--text-muted)', fontSize: '1rem', fontWeight: 500 }}>

@@ -58,7 +58,7 @@ function LoginForm() {
     <div className="auth-page-wrapper">
       <div className="auth-card">
         <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-          <h1 className="hero-title" style={{ fontSize: '2.5rem', marginBottom: '0.75rem', display: 'block' }}>{t?.auth?.login?.title || "Initialize Session"}</h1>
+          <h1 className="hero-title" style={{ fontSize: '2.5rem', marginBottom: '0.75rem', display: 'block', WebkitTextFillColor: '#ffffff' }}>{t?.auth?.login?.title || "Initialize Session"}</h1>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
             {t?.auth?.login?.subtitle || "Enter your credentials to access the mesh."}
           </p>
