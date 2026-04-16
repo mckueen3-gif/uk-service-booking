@@ -110,7 +110,7 @@ export function AppNavbar({ session }: { session: any }) {
             {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
 
-          <Link href={session?.user ? "/member/home" : "/"} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
             <img 
               src="/images/logo_concierge_ai.png" 
               alt="ConciergeAI Logo" 
