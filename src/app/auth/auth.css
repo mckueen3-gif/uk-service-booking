@@ -94,6 +94,8 @@
 .input-icon {
   position: absolute;
   left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
   color: var(--gold-600);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;

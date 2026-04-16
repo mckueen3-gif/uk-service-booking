@@ -22,6 +22,9 @@ export async function registerUser(formData: FormData) {
   const phone = formData.get("phone") as string;
   const postcode = formData.get("postcode") as string;
   const houseNumber = formData.get("houseNumber") as string;
+  const city = formData.get("city") as string;
+  const district = formData.get("district") as string;
+  const country = formData.get("country") as string;
 
   if (!email || !password || !firstName || !lastName || !phone) {
     return { error: "missingFields" };
@@ -55,6 +58,9 @@ export async function registerUser(formData: FormData) {
           phone,
           postcode,
           houseNumber,
+          city,
+          addressLine1: district,
+          addressLine2: country,
           referralCode,
         }
       });

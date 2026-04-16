@@ -20,13 +20,19 @@ function RegisterForm() {
   const [loading, setLoading] = useState(false);
   const [revealed, setRevealed] = useState(false);
   const [role, setRole] = useState('CUSTOMER');
-  
+
   // Address Lookup State
   const [postcodeQuery, setPostcodeQuery] = useState('');
-  const [addressResults, setAddressResults] = useState<{houseNumber: string, fullAddress: string}[]>([]);
+  const [addressResults, setAddressResults] = useState<{houseNumber: string, fullAddress: string, district: string, city: string, country: string, postcode: string}[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [showManual, setShowManual] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState<string | null>(null);
+
+  // Manual Address Fields
+  const [district, setDistrict] = useState('');
+  const [city, setCity] = useState('');
+  const [country, setCountry] = useState('');
+  const [postcode, setPostcode] = useState('');
+  const [houseNumber, setHouseNumber] = useState('');
 
   const { t } = useTranslation();
 
@@ -46,13 +52,19 @@ function RegisterForm() {
         const data = await res.json();
         if (data.status === 200) {
             const result = data.result;
-            const area = result.admin_district || result.parliamentary_constituency;
-            const region = result.region || result.country;
+            const resDistrict = result.admin_district || "";
+            const resCity = result.parliamentary_constituency || result.region || "";
+            const resCountry = result.country || "";
+            const resPostcode = result.postcode || postcodeQuery;
             
-            // Simulate House Numbers for the Image 2 experience
-            const mocks = [7, 12, 15, 22, 38].map(num => ({
+            // Generate simulated house numbers for the dropdown experience
+            const mocks = [7, 12, 18, 25, 42].map(num => ({
                 houseNumber: num.toString(),
-                fullAddress: `${num} Westminster Way, ${area}, ${region}`
+                fullAddress: `${num} Westminster Way, ${resDistrict}, ${resCity}`,
+                district: resDistrict,
+                city: resCity,
+                country: resCountry,
+                postcode: resPostcode
             }));
             setAddressResults(mocks);
         } else {
@@ -158,16 +170,8 @@ function RegisterForm() {
             </div>
           </div>
 
-          {/* Role Selection - Restricted to Customer */}
-          <div className="input-group revealed">
-            <label>{t?.auth?.register?.accountTypeLabel || "Account Type"}</label>
-            <div className="input-wrapper" style={{ border: '2px solid rgba(212, 175, 55, 0.6)', background: 'rgba(212, 175, 55, 0.05)' }}>
-              <Shield className="input-icon" size={18} color="#d4af37" />
-              <select name="role" className="premium-input" value={role} onChange={(e) => setRole(e.target.value)} disabled={loading} style={{ color: 'white', fontWeight: 800 }}>
-                <option value="CUSTOMER">{t?.auth?.register?.roles?.customer || "Regular Customer"}</option>
-              </select>
-            </div>
-          </div>
+          {/* Account Type hidden as per user request */}
+          <input type="hidden" name="role" value={role} />
 
           <div className="input-group revealed">
             <label>{t?.auth?.register?.phoneLabel || "Phone Number"}</label>
@@ -231,9 +235,12 @@ function RegisterForm() {
                         onClick={() => {
                             setSelectedAddress(item.fullAddress);
                             setPostcodeQuery(item.fullAddress);
+                            setDistrict(item.district);
+                            setCity(item.city);
+                            setCountry(item.country);
+                            setPostcode(item.postcode);
+                            setHouseNumber(item.houseNumber);
                             setAddressResults([]);
-                            // Set hidden fields
-                            setRole(role); // Trigger dummy state update
                         }}
                         style={{
                             padding: '14px 16px',
@@ -251,9 +258,56 @@ function RegisterForm() {
              )}
           </div>
 
-          {/* Hidden inputs for selected data */}
-          <input type="hidden" name="postcode" value={postcodeQuery.split(',').pop()?.trim() || ''} />
-          <input type="hidden" name="houseNumber" value={postcodeQuery.split(',')[0]?.trim() || ''} />
+          {/* New Granular Address Fields */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+             <div className="input-group revealed">
+                <label>{t?.auth?.register?.districtLabel || "District"}</label>
+                <div className="input-wrapper">
+                   <MapPin className="input-icon" size={18} />
+                   <input 
+                      type="text" 
+                      name="district" 
+                      className="premium-input" 
+                      value={district} 
+                      onChange={(e) => setDistrict(e.target.value)} 
+                      placeholder="e.g. Camden" 
+                   />
+                </div>
+             </div>
+             <div className="input-group revealed">
+                <label>{t?.auth?.register?.cityLabel || "City"}</label>
+                <div className="input-wrapper">
+                   <MapPin className="input-icon" size={18} />
+                   <input 
+                      type="text" 
+                      name="city" 
+                      className="premium-input" 
+                      value={city} 
+                      onChange={(e) => setCity(e.target.value)} 
+                      placeholder="e.g. London" 
+                   />
+                </div>
+             </div>
+          </div>
+
+          <div className="input-group revealed">
+             <label>{t?.auth?.register?.countryLabel || "Country"}</label>
+             <div className="input-wrapper">
+                <MapPin className="input-icon" size={18} />
+                <input 
+                   type="text" 
+                   name="country" 
+                   className="premium-input" 
+                   value={country} 
+                   onChange={(e) => setCountry(e.target.value)} 
+                   placeholder="e.g. United Kingdom" 
+                />
+             </div>
+          </div>
+
+          {/* Hidden inputs to maintain compatibility with the action */}
+          <input type="hidden" name="postcode" value={postcode} />
+          <input type="hidden" name="houseNumber" value={houseNumber} />
           
           <div className="input-group revealed">
             <label>{t?.auth?.register?.passwordLabel || "Safe Protocol (Password)"}</label>
