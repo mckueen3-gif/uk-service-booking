@@ -25,6 +25,20 @@ export default withAuth(
       pathname === p || pathname.startsWith(p + "/")
     ) || pathname === "/merchant";
 
+    const isMemberRoot = pathname === "/member" || pathname === "/member/";
+    const isPublicHome = pathname === "/";
+
+    if (isMemberRoot) {
+      return NextResponse.redirect(new URL("/member/home", req.url));
+    }
+
+    if (isPublicHome && token) {
+      if (token.role === "MERCHANT" || token.role === "ADMIN") {
+        return NextResponse.redirect(new URL("/merchant", req.url));
+      }
+      return NextResponse.redirect(new URL("/member/home", req.url));
+    }
+
     if (isMerchantDashboard) {
       // Must be logged in as MERCHANT or ADMIN
       if (token?.role !== "MERCHANT" && token?.role !== "ADMIN") {
@@ -65,5 +79,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ["/member/:path*", "/merchant/:path*", "/book/:path*"],
+  matcher: ["/", "/member/:path*", "/merchant/:path*", "/book/:path*"],
 };

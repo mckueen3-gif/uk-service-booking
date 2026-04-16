@@ -9,7 +9,9 @@ import { cookies } from "next/headers";
 export default async function MemberLayout({ children }: { children: React.ReactNode }) {
   const session = await getServerSession(authOptions);
 
-  if (!session) return null; // Middleware handles the redirect now
+  if (!session) {
+    redirect("/auth/login?callbackUrl=/member/home");
+  }
 
   const isMerchant = session.user.role === "MERCHANT";
   const userName = session.user.name || "Member";
