@@ -11,31 +11,61 @@ const MerchantComparisonTable = () => {
     {
       feature: t?.comparison_table?.rows?.commission?.title || 'Commission Fees',
       others: t?.comparison_table?.rows?.commission?.others || '15% - 30% Per Job',
-      concierge: t?.comparison_table?.rows?.commission?.concierge || '0% (Expert-First Model)',
+      concierge: t?.comparison_table?.rows?.commission?.concierge || '9% Commission for All Experts',
       isHighlight: true
     },
     {
       feature: t?.comparison_table?.rows?.client_calibre?.title || 'Client Calibre',
       others: t?.comparison_table?.rows?.client_calibre?.others || 'Mass Market',
-      concierge: t?.comparison_table?.rows?.client_calibre?.concierge || 'High-Net-Worth Elite',
+      concierge: t?.comparison_table?.rows?.client_calibre?.concierge || 'Diverse Client Base',
       isHighlight: false
     },
     {
       feature: t?.comparison_table?.rows?.earnings_model?.title || 'Earnings Model',
       others: t?.comparison_table?.rows?.earnings_model?.others || 'One-off Income',
-      concierge: t?.comparison_table?.rows?.earnings_model?.concierge || 'Passive Dividends (Lifetime)',
+      concierge: t?.comparison_table?.rows?.earnings_model?.concierge || 'Referral Dividends (5 Years) Vouchers',
       isHighlight: true
     },
     {
       feature: t?.comparison_table?.rows?.verification?.title || 'Verification',
       others: t?.comparison_table?.rows?.verification?.others || 'Manual / Slow',
-      concierge: t?.comparison_table?.rows?.verification?.concierge || 'AI Smart Bio (Real-time)',
+      concierge: t?.comparison_table?.rows?.verification?.concierge || 'SMART AI',
       isHighlight: false
     },
     {
       feature: t?.comparison_table?.rows?.marketing_support?.title || 'Marketing Support',
       others: t?.comparison_table?.rows?.marketing_support?.others || 'Paid Ads Required',
-      concierge: t?.comparison_table?.rows?.marketing_support?.concierge || 'Automated Matching',
+      concierge: t?.comparison_table?.rows?.marketing_support?.concierge || 'Fair Global Automated Matching (Discovery Mode)',
+      isHighlight: false
+    },
+    {
+      feature: t?.comparison_table?.rows?.communication?.title || 'Communication',
+      others: t?.comparison_table?.rows?.communication?.others || 'Scattered (Phone/WhatsApp)',
+      concierge: t?.comparison_table?.rows?.communication?.concierge || 'Nexus Secure Real-time Chat',
+      isHighlight: false
+    },
+    {
+      feature: t?.comparison_table?.rows?.booking_system?.title || 'Booking System',
+      others: t?.comparison_table?.rows?.booking_system?.others || 'Manual / Fragmented',
+      concierge: t?.comparison_table?.rows?.booking_system?.concierge || 'Intelligent Automated Scheduling',
+      isHighlight: false
+    },
+    {
+      feature: t?.comparison_table?.rows?.toolkit?.title || 'Technical Toolkit',
+      others: t?.comparison_table?.rows?.toolkit?.others || 'Basic Booking Records',
+      concierge: t?.comparison_table?.rows?.toolkit?.concierge || 'AI Diagnosis & Asset Management',
+      isHighlight: false
+    },
+    {
+      feature: t?.comparison_table?.rows?.data_sovereignty?.title || 'Data Sovereignty',
+      others: t?.comparison_table?.rows?.data_sovereignty?.others || 'Legacy Platform Controlled',
+      concierge: t?.comparison_table?.rows?.data_sovereignty?.concierge || 'Decentralized Expert Identity',
+      isHighlight: false
+    },
+    {
+      feature: t?.comparison_table?.rows?.growth?.title || 'Professional Growth',
+      others: t?.comparison_table?.rows?.growth?.others || 'Zero Resources Provided',
+      concierge: t?.comparison_table?.rows?.growth?.concierge || 'Education Hub & Mentorship',
       isHighlight: false
     }
   ];

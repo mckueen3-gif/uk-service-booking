@@ -87,6 +87,31 @@ export const zhTW: Dictionary = {
         title: "營銷支持",
         others: "需付費廣告",
         concierge: "公平全平台自動化精準匹配 (探索模式)"
+      },
+      communication: {
+        title: "即時通訊",
+        others: "外部通訊 (電話/WhatsApp) 零散管理",
+        concierge: "Nexus 專屬即時聊天中心 (加密)"
+      },
+      booking_system: {
+        title: "預約系統",
+        others: "手動排班 / 容易衝突",
+        concierge: "全自動化排班校準 (智能調度)"
+      },
+      toolkit: {
+        title: "技術工具",
+        others: "僅有預約清單",
+        concierge: "內建 AI 診斷與資產管理 (Garage/Property)"
+      },
+      data_sovereignty: {
+        title: "數據主權",
+        others: "傳統平台擁有並控制數據",
+        concierge: "去中心化專家檔案 (Smart Bio)"
+      },
+      growth: {
+        title: "專業成長",
+        others: "無提供進修資源",
+        concierge: "教育頻道與專家接單技巧培訓"
       }
     }
   },

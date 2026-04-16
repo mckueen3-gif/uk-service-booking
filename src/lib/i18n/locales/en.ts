@@ -87,6 +87,31 @@ export const en: Dictionary = {
         title: "Marketing Support",
         others: "Paid Advertising Required",
         concierge: "Fair Global Automated Matching (Discovery Mode)"
+      },
+      communication: {
+        title: "Communication",
+        others: "Scattered (Phone/WhatsApp)",
+        concierge: "Nexus Secure Real-time Chat"
+      },
+      booking_system: {
+        title: "Booking System",
+        others: "Manual / Fragmented",
+        concierge: "Intelligent Automated Scheduling"
+      },
+      toolkit: {
+        title: "Technical Toolkit",
+        others: "Basic Booking Records",
+        concierge: "AI Diagnosis & Asset Management"
+      },
+      data_sovereignty: {
+        title: "Data Sovereignty",
+        others: "Legacy Platform Controlled",
+        concierge: "Decentralized Expert Identity"
+      },
+      growth: {
+        title: "Professional Growth",
+        others: "Zero Resources Provided",
+        concierge: "Education Hub & Mentorship"
       }
     }
   },
