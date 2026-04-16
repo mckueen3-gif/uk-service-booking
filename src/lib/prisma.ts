@@ -20,9 +20,9 @@ if (globalForPrisma.prisma) {
   // Serverless functions should aggressively limit connection count
   const pool = new Pool({ 
     connectionString,
-    max: 2, // Conservative pool size for Serverless
-    connectionTimeoutMillis: 10000, // 🚀 ROBUST: Increase to 10s for production cold-starts
-    idleTimeoutMillis: 5000, // Close idle connections quickly
+    max: 3, // Conservative but slightly expanded pool size
+    connectionTimeoutMillis: 5000, 
+    idleTimeoutMillis: 2000, // 🚀 AGGRESSIVE: Close idle connections after 2s of inactivity
   });
   
   const adapter = new PrismaPg(pool);

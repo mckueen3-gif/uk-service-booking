@@ -57,32 +57,54 @@ export default function ChatInterface({ initialConversationId }: ChatProps) {
   // Polling for new messages
   useEffect(() => {
     async function init() {
-      await loadConversations();
-      
-      // If we have a merchantId but no convo, try to get/start it
-      const mid = searchParams?.get("merchantId");
-      const cid = searchParams?.get("customerId");
+      // 1. Load conversations first
+      const convoRes = await getConversations();
+      if (convoRes.conversations) {
+        setConversations(convoRes.conversations);
+        
+        // 2. If we have a merchantId/customerId in URL, see if we need to start/focus it
+        const mid = searchParams?.get("merchantId");
+        const cid = searchParams?.get("customerId");
 
-      if ((mid || cid) && !currentConvoId) {
-         setLoading(true);
-         const res = await sendMessage({ 
-           merchantId: mid || undefined, 
-           customerId: cid || undefined,
-           content: t?.merchant_messages?.initialPrompt || "Hi, I have an inquiry about a booking." 
-         });
-         if (res.success && res.message) {
-            setCurrentConvoId((res.message as any).conversationId);
-            await loadConversations(true);
-         }
-         setLoading(false);
+        if ((mid || cid) && !currentConvoId) {
+           // Check if this conversation already exists in the list we just fetched
+           const existing = convoRes.conversations.find((c: any) => 
+             (mid && c.merchantId === mid) || (cid && c.customerId === cid)
+           );
+
+           if (existing) {
+             setCurrentConvoId(existing.id);
+           } else {
+             // Only send initial prompt if it truly doesn't exist yet
+             setLoading(true);
+             const res = await sendMessage({ 
+               merchantId: mid || undefined, 
+               customerId: cid || undefined,
+               content: t?.merchant_messages?.initialPrompt || "Hi, I have an inquiry about a booking." 
+             });
+             if (res.success && res.message) {
+                const newConvoId = (res.message as any).conversationId;
+                setCurrentConvoId(newConvoId);
+                // Refresh list to include the new one
+                loadConversations(true);
+             }
+             setLoading(false);
+           }
+        }
       }
+      setLoading(false);
     }
-    init();
+
+    if (userId) {
+      init();
+    }
 
     const interval = setInterval(() => {
-      loadConversations(true);
-      if (currentConvoId) loadMessages(currentConvoId, true);
-    }, 4000); // 4 seconds polling
+      if (userId) {
+        loadConversations(true);
+        if (currentConvoId) loadMessages(currentConvoId, true);
+      }
+    }, 8000); // 🚀 OPTIMIZED: Reduce polling to 8s to prevent DB connection exhaustion
     return () => clearInterval(interval);
   }, [currentConvoId, searchParams, userId]);
 
@@ -204,7 +226,11 @@ export default function ChatInterface({ initialConversationId }: ChatProps) {
                   </div>
                   <div style={{ flex: 1, overflow: 'hidden' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
-                      <span style={{ fontWeight: 800, fontSize: '0.9rem', color: 'var(--text-primary)' }}>{c?.customer?.name || t?.common?.unknownUser || "Unknown User"}</span>
+                      <span style={{ fontWeight: 800, fontSize: '0.9rem', color: 'var(--text-primary)' }}>
+                        {userId === c?.customerId 
+                          ? (c?.merchant?.companyName || c?.merchant?.user?.name || "Merchant")
+                          : (c?.customer?.name || t?.common?.unknownUser || "Unknown User")}
+                      </span>
                       <span style={{ fontSize: '0.65rem', color: 'var(--text-secondary)' }}>{formatTime(c?.updatedAt)}</span>
                     </div>
                     <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
@@ -228,7 +254,11 @@ export default function ChatInterface({ initialConversationId }: ChatProps) {
                     <UserIcon size={18} />
                   </div>
                   <div>
-                    <div style={{ fontWeight: 800, color: 'var(--text-primary)' }}>{activeConvo?.customer?.name || t?.merchant_messages?.targetName || "Connecting..."}</div>
+                    <div style={{ fontWeight: 800, color: 'var(--text-primary)' }}>
+                      {userId === activeConvo?.customerId 
+                        ? (activeConvo?.merchant?.companyName || activeConvo?.merchant?.user?.name || t?.merchant_messages?.targetName || "Merchant")
+                        : (activeConvo?.customer?.name || t?.merchant_messages?.targetName || "Connecting...")}
+                    </div>
                     <div style={{ fontSize: '0.7rem', color: '#facc15', display: 'flex', alignItems: 'center', gap: '4px' }}>
                        <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#facc15' }}></div> {t?.common?.online || "Online"}
                     </div>

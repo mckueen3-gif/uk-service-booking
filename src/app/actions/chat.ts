@@ -182,6 +182,6 @@ export async function sendMessage(data: {
   // Optional: Trigger Notification for recipient
   // (In a real app, this would trigger a push or socket event)
   
-  revalidatePath('/dashboard/chat');
+  revalidatePath('/member/chat');
   return { success: true, message };
 }
