@@ -2,9 +2,8 @@
 
 import { useState } from 'react';
 import { 
-  Search, MapPin, Star, Filter, Grid, Map as MapIcon, 
-  ChevronRight, Calendar, Clock, Shield, Award, Check,
-  BarChart3, List, ChevronDown, CheckCircle2, ShieldCheck, ThumbsUp, ArrowRight
+  Search, MapPin, Star, Check,
+  CheckCircle2, ShieldCheck, ThumbsUp, ArrowRight
 } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslation } from "@/components/LanguageContext";
@@ -247,10 +246,13 @@ export default function ServicesClient({ initialMerchants }: ServicesClientProps
                          ))}
                       </div>
                       <div className="price-cta" style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-                         <div style={{ textAlign: 'right' }}>
+                          <div style={{ textAlign: 'right' }}>
                             <div style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 600 }}>{t?.services?.labels?.basePrice || "Est. Base Price"}</div>
                             <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0f172a' }}>£{merchant.basePrice}</div>
-                         </div>
+                            <div style={{ fontSize: '0.7rem', color: '#0f766e', fontWeight: 700, marginTop: '2px' }}>
+                               {t?.common?.platformFeeIncluded}
+                            </div>
+                          </div>
                          <Link href={`/merchant/${merchant.id}`} className="btn btn-primary btn-book" style={{ padding: '0.75rem 1.5rem', borderRadius: '10px', fontSize: '0.95rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
                             {t?.services?.viewDetails || "View Details"} <ArrowRight size={18} />
                          </Link>

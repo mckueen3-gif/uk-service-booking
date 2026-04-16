@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getStripeClient } from '@/lib/stripe';
-import { getCommissionRate } from '@/lib/commission';
+import { calculateNetPayout } from '@/lib/commission';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 
@@ -23,13 +23,9 @@ export async function POST(req: Request) {
     }
 
     // Clean price string, e.g. "£54" -> 54
-    const priceAmount = parseInt(basePriceStr.replace(/[^0-9]/g, ''), 10);
-    const amountInPence = priceAmount * 100;
+    const priceAmount = parseFloat(basePriceStr.replace(/[^0-9.]/g, ''));
     
-    // (Fee calculation moved after merchant fetch)
-
-    // Developer Bypass: If they clicked the Mock "LondonFix" dummy UI card, 
-    // automatically find YOUR real onboarded merchant account and route the money there!
+    // (Developer Bypass logic...)
     let targetMerchantId = merchantId;
     if (merchantId === 'merchant_demo_123' || merchantId === 'undefined' || !merchantId) {
       const onboarded = await prisma.merchant.findFirst({ 
@@ -38,7 +34,6 @@ export async function POST(req: Request) {
       if (onboarded) targetMerchantId = onboarded.id;
     }
 
-    // Crucially query by ID (not userId) because frontend passes Merchant.id in URLs
     const merchant = await prisma.merchant.findUnique({
       where: { id: targetMerchantId }
     });
@@ -53,17 +48,13 @@ export async function POST(req: Request) {
     });
 
     const isEducation = service?.category === 'Education';
-    const baseAmountInPence = priceAmount * 100;
-    const commissionRate = getCommissionRate(merchant);
+    
+    // 🛡️ UNIFIED COMMISSION LOGIC
+    // This ensures Education is MARKUP (+9%) and others are DEDUCTION (-9%)
+    const { totalCustomerPayment, platformFee } = calculateNetPayout(priceAmount, merchant, isEducation);
 
-    // Default: fee is DEDUCTED from base amount (merchant pays)
-    let applicationFeeInPence = Math.round(baseAmountInPence * commissionRate);
-    let totalCustomerPaysInPence = baseAmountInPence;
-
-    if (isEducation) {
-      // EDUCATION ONLY: fee is ADDED ON TOP (student pays)
-      totalCustomerPaysInPence = baseAmountInPence + applicationFeeInPence;
-    }
+    const totalCustomerPaysInPence = Math.round(totalCustomerPayment * 100);
+    const totalPlatformFeeInPence = Math.round(platformFee * 100);
 
     // Calculate Sector-Specific Logic
     // Education: 100% upfront
@@ -72,7 +63,7 @@ export async function POST(req: Request) {
     const balanceAmountInPence = totalCustomerPaysInPence - checkoutAmountInPence;
     
     // Pro-rata application fee for deposit vs full
-    const checkoutFeeInPence = isEducation ? applicationFeeInPence : Math.round(applicationFeeInPence * 0.20);
+    const checkoutFeeInPence = isEducation ? totalPlatformFeeInPence : Math.round(totalPlatformFeeInPence * 0.20);
 
     let checkoutSession;
     

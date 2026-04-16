@@ -220,6 +220,7 @@ export const en: Dictionary = {
     serviceFallback: "Service Agreement",
     licensePlate: "Vehicle Registry",
     noData: "Empty Buffer",
+    platformFeeIncluded: "Platform commission (9%) included in the total.",
   },
   home: {
     hero: {
@@ -967,6 +968,7 @@ export const en: Dictionary = {
       assessmentDesc: "Based on your Aura interaction, we recommend the following learning tracks.",
       bookFirstLesson: "Schedule Mission 01",
       tryAgain: "Reset Baseline",
+      feeDisclosure: "A 9% platform protocol fee is applied at checkout. Your educator receives 100% of the tuition.",
     },
   },
   location: {},

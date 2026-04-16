@@ -220,6 +220,7 @@ export const zhTW: Dictionary = {
     serviceFallback: "服務協議",
     licensePlate: "車牌號碼",
     noData: "暫無資料",
+    platformFeeIncluded: "報價已包含 9% 平台佣金。",
   },
   home: {
     hero: {
@@ -967,6 +968,7 @@ export const zhTW: Dictionary = {
       assessmentDesc: "根據您與 Aura 的互動，我們為您推薦以下學習方向。",
       bookFirstLesson: "預約第一堂課",
       tryAgain: "重新挑戰",
+      feeDisclosure: "結帳時將收取 9% 平台服務費。導師將獲得 100% 的學費。",
     },
   },
   location: {},
