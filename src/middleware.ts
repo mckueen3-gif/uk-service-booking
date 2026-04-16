@@ -42,7 +42,6 @@ export default withAuth(
         // Public routes — no login required
         if (path === "/diagnosis") return true;
         if (path === "/services" || path.startsWith("/services/")) return true;
-        if (path === "/book" || path.startsWith("/book/")) return true;
 
         // /merchant/[id] is a single segment — public profile page
         const merchantSegments = path.split("/").filter(Boolean);
