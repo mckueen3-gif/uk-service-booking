@@ -22,6 +22,7 @@ export default function OnboardingHero() {
             </React.Fragment>
           ))}
         </h1>
+        
         <p className="hero-subtitle">
           {t?.onboarding?.hero?.subtitle || "Elite Professional Network"}
         </p>
@@ -188,7 +189,7 @@ export default function OnboardingHero() {
         }
 
         .stat-lbl {
-          color: #64748b;
+          color: #94a3b8;
           font-size: 0.7rem;
           font-weight: 700;
           text-transform: uppercase;

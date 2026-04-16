@@ -8,6 +8,7 @@ import SectorSelector from '@/components/joining/SectorSelector';
 import MerchantContract from '@/components/joining/MerchantContract';
 import LiveProfilePreview from '@/components/joining/LiveProfilePreview';
 import { ChevronRight, ChevronLeft, CheckCircle2, Building2, Mail, Globe, User, Loader2, MapPin, Sparkles, Wand2, Calculator, Gift, ShieldCheck, Phone, Camera } from 'lucide-react';
+import MerchantComparisonTable from '@/components/joining/MerchantComparisonTable';
 import { createMerchantAction } from '@/app/actions/merchant';
 import { fetchBusinessInfoWithAI, generateSmartBio, verifyCredentialsWithAI } from '@/app/actions/ai_onboarding';
 
@@ -223,12 +224,8 @@ function JoinPageContent() {
             <div className="step-0 flex-col" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '40px', paddingBottom: '60px' }}>
               <OnboardingHero />
               
-              <div style={{ maxWidth: '800px', width: '100%', margin: '0 auto' }}>
-                <img 
-                  src="/images/merchant-comparison.png" 
-                  alt="Merchant Comparison" 
-                  style={{ width: '100%', height: 'auto', borderRadius: '16px', border: '1px solid rgba(212, 175, 55, 0.2)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }} 
-                />
+              <div style={{ maxWidth: '900px', width: '100%', margin: '0 auto' }}>
+                <MerchantComparisonTable />
               </div>
 
               <button 

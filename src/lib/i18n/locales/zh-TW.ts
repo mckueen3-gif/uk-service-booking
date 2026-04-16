@@ -33,7 +33,7 @@ export const zhTW: Dictionary = {
       main: "主選單",
       business: "業務管理",
       account: "帳戶設定",
-      assets: "資產與獎勵",
+      assets: "資產與權益",
     },
     labels: {
       overview: "總覽",
@@ -48,7 +48,7 @@ export const zhTW: Dictionary = {
       wallet: "收益錢包",
       garage: "我的車庫",
       properties: "我的物業",
-      rewards: "積分獎勵",
+      rewards: "權益積分",
       profile: "個人設定",
       logout: "登出",
       boost: "提升曝光",
@@ -264,8 +264,8 @@ export const zhTW: Dictionary = {
       step4Desc: "確認完工並自動結算款項。"
     },
     referralCTA: {
-      badge: "推薦獎勵",
-      title: "建立您的被動收入",
+      badge: "推薦分成",
+      title: "建立您的長期收益",
       subtitle: "推薦專家或客戶。每次成功交易可獲得 2% 的終身分成。",
       button: "立即加入",
       referralLabel: "您的推薦碼：",
@@ -544,9 +544,9 @@ export const zhTW: Dictionary = {
       validUntil: "有效至",
       availableNow: "立即可用",
       rewards: {
-        title: "獎勵中心",
+        title: "權益中心",
         subtitle: "將積分兌換為購物代金券。",
-        myVault: "我的積分",
+        myVault: "收益中心",
         redeemBtn: "兌換積分",
         statusProcessing: "代金券生成中...",
         statusReady: "代金券已生成",
@@ -847,22 +847,22 @@ export const zhTW: Dictionary = {
   customer_dashboard: {
     welcomeBack: "歡迎回到控制台。",
     stats: {
-      referralCredits: "推薦獎勵",
+      referralCredits: "推薦分成",
     },
     referral: {
-      claim: "已賺取獎勵",
+      claim: "已賺取收益",
     },
     quickLinks: { title: "我的資產", garage: "我的車庫", garageDesc: "管理車輛資料。", properties: "我的物業", propertiesDesc: "管理物業維修記錄。" },
     verification: { unverifiedTitle: "身份未驗證", unverifiedDesc: "完成驗證以解鎖全部功能。", cta: "立即驗證" },
   },
   rewards_hub: {
-    balance: "積分餘額",
+    balance: "權益積分",
     subtitle: "將積分兌換為購物代金券。",
     disclaimer: "代金券僅限購物使用。",
     status: "狀態",
     lifetimeSavings: "終身節省",
     marketplaceTitle: "代金券市場",
-    voucherRedeemTitle: "兌換積分",
+    voucherRedeemTitle: "提取權益",
     voucherRedeemDesc: "即時生成購物代金券。",
     syncReady: "準備同步",
     syncing: "同步中...",

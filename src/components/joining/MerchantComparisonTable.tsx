@@ -1,0 +1,241 @@
+'use client';
+
+import React from 'react';
+import { Check, X, ShieldCheck, Zap, TrendingUp, Users, Crown } from 'lucide-react';
+import { useTranslation } from '@/components/LanguageContext';
+
+const MerchantComparisonTable = () => {
+  const { t } = useTranslation();
+
+  const comparisonData = [
+    {
+      feature: '平台佣金 (Commission Fees)',
+      others: '15% - 30% Per Job',
+      concierge: '0% (Expert-First Model)',
+      isHighlight: true
+    },
+    {
+      feature: '客戶質量 (Client Calibre)',
+      others: '大眾市場 (Mass Market)',
+      concierge: '高淨值 Elite 會員',
+      isHighlight: false
+    },
+    {
+      feature: '收益模式 (Earnings Model)',
+      others: '單次性收入',
+      concierge: '終身推薦收益分成 (Passive Dividends)',
+      isHighlight: true
+    },
+    {
+      feature: '驗證系統 (Verification)',
+      others: '手動/緩慢',
+      concierge: 'AI 實時專業驗證 (Smart Bio)',
+      isHighlight: false
+    },
+    {
+      feature: '營銷支持 (Marketing Support)',
+      others: '需付費廣告',
+      concierge: '全平台自動化精準匹配',
+      isHighlight: false
+    }
+  ];
+
+  return (
+    <div className="comparison-wrapper">
+      <div className="table-container">
+        <div className="table-header">
+          <div className="header-cell feature-col">服務對比 (Features)</div>
+          <div className="header-cell platforms">一般預約平台</div>
+          <div className="header-cell branding">
+            <div className="brand-badge">
+              <Crown size={14} className="gold-text" />
+              <span>ConciergeAI</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="table-body">
+          {comparisonData.map((row, idx) => (
+            <div key={idx} className={`table-row ${row.isHighlight ? 'highlighted' : ''}`}>
+              <div className="cell feature-col">
+                <span className="feature-text">{row.feature}</span>
+              </div>
+              <div className="cell others">
+                <div className="mobile-label">一般平台: </div>
+                <div className="val-flex">
+                  <X size={16} className="text-red" />
+                  <span>{row.others}</span>
+                </div>
+              </div>
+              <div className="cell concierge">
+                <div className="mobile-label">ConciergeAI: </div>
+                <div className="val-flex gold-text">
+                  <Check size={18} className="gold-glow" />
+                  <span className="weight-bold">{row.concierge}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <style jsx>{`
+        .comparison-wrapper {
+          width: 100%;
+          max-width: 900px;
+          margin: 0 auto;
+          background: rgba(10, 10, 10, 0.4);
+          border-radius: 24px;
+          padding: 2px;
+          background: linear-gradient(135deg, rgba(212, 175, 55, 0.3) 0%, transparent 40%, rgba(212, 175, 55, 0.1) 100%);
+          box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+        }
+
+        .table-container {
+          background: #050505;
+          border-radius: 22px;
+          overflow: hidden;
+          width: 100%;
+        }
+
+        .table-header {
+          display: grid;
+          grid-template-columns: 1.2fr 1fr 1fr;
+          background: rgba(212, 175, 55, 0.05);
+          border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .header-cell {
+          padding: 24px;
+          font-size: 0.85rem;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          color: #94a3b8;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .feature-col {
+          justify-content: flex-start;
+          border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .brand-badge {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(212, 175, 55, 0.1);
+          padding: 8px 16px;
+          border-radius: 100px;
+          border: 1px solid rgba(212, 175, 55, 0.2);
+          color: white;
+          font-weight: 900;
+        }
+
+        .gold-text {
+          color: #d4af37;
+        }
+
+        .table-row {
+          display: grid;
+          grid-template-columns: 1.2fr 1fr 1fr;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+          transition: all 0.3s ease;
+        }
+
+        .table-row:last-child {
+          border-bottom: none;
+        }
+
+        .table-row:hover {
+          background: rgba(255, 255, 255, 0.02);
+        }
+
+        .table-row.highlighted {
+          background: rgba(212, 175, 55, 0.02);
+        }
+
+        .cell {
+          padding: 20px 24px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 0.95rem;
+          color: #cbd5e1;
+        }
+
+        .cell.feature-col {
+          justify-content: flex-start;
+          font-weight: 600;
+          color: #94a3b8;
+        }
+
+        .val-flex {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          text-align: center;
+        }
+
+        .text-red {
+          color: #ef4444;
+          opacity: 0.6;
+        }
+
+        .gold-glow {
+          filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.5));
+        }
+
+        .weight-bold {
+          font-weight: 800;
+        }
+
+        .mobile-label {
+          display: none;
+        }
+
+        @media (max-width: 768px) {
+          .table-header {
+            display: none;
+          }
+
+          .table-row {
+            grid-template-columns: 1fr;
+            padding: 20px;
+            gap: 12px;
+          }
+
+          .cell {
+            padding: 0;
+            justify-content: flex-start;
+          }
+
+          .cell.feature-col {
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            color: #d4af37;
+          }
+
+          .mobile-label {
+            display: block;
+            min-width: 100px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #64748b;
+          }
+
+          .feature-col {
+            border-right: none;
+          }
+        }
+      `}</style>
+    </div>
+  );
+};
+
+export default MerchantComparisonTable;

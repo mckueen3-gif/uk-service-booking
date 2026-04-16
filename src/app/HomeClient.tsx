@@ -199,7 +199,7 @@ export default function HomeClient() {
           ))}
         </div>
       </section>
-      {/* NEW: Referral Program Passive Income CTA */}
+      {/* NEW: Referral Program Passive Yield CTA */}
       <section className="container reveal stagger-1" style={{ maxWidth: '1200px', marginTop: '4rem' }}>
         <div className="glass-panel mobile-stack" style={{ 
           padding: 'clamp(1.5rem, 6vw, 4rem)',
@@ -230,7 +230,7 @@ export default function HomeClient() {
               marginBottom: '1.5rem',
               letterSpacing: '0.05em'
             }}>
-              <Users size={16} /> {t?.home?.referralCTA?.badge || "Expansion"}
+              <Users size={16} /> {t?.home?.referralCTA?.badge || "Strategic Yield"}
             </div>
             <h2 style={{ fontSize: 'clamp(2rem, 6vw, 3.2rem)', fontWeight: 950, marginBottom: '1.5rem', lineHeight: 1.1, color: 'var(--text-primary)', fontFamily: 'var(--font-heading)' }}>
               {t?.home?.referralCTA?.title || "Refer & Earn"}
@@ -304,7 +304,7 @@ export default function HomeClient() {
                  </div>
                  <div style={{ textAlign: 'center' }}>
                     <div style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--text-primary)' }}>2%</div>
-                    <div style={{ fontSize: '1rem', color: 'var(--text-muted)', fontWeight: 600 }}>{t?.home?.referralCTA?.badge || "Node Bonus"}</div>
+                    <div style={{ fontSize: '1rem', color: 'var(--text-muted)', fontWeight: 600 }}>{t?.home?.referralCTA?.badge || "Strategic Dividends"}</div>
                  </div>
                </div>
             </div>

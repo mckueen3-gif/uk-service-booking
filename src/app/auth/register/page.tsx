@@ -115,17 +115,17 @@ function RegisterForm() {
             transition: 'all 0.3s ease'
           }}>
             <Shield size={18} />
-            {t?.auth?.register?.expertSignupPrompt || "Register as Specialist Expert"}
+            {t?.auth?.register?.expertSignupPrompt || "Register as an Expert"}
             <ChevronRight size={16} />
           </Link>
         </div>
 
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <h1 className="hero-title" style={{ fontSize: '2.8rem', fontWeight: 900, marginBottom: '0.75rem', letterSpacing: '-0.02em', WebkitTextFillColor: '#ffffff' }}>
-            {t?.auth?.register?.title || "Initialize Identity"}
+          <h1 className="hero-title" style={{ fontSize: '2.8rem', fontWeight: 900, marginBottom: '0.75rem', letterSpacing: '-0.02em' }}>
+            {t?.auth?.register?.title || "Create Account"}
           </h1>
           <p style={{ color: 'var(--text-muted)', fontSize: '1rem', fontWeight: 500 }}>
-            {t?.auth?.register?.subtitle || "Join the UK's elite professional node array."}
+            {t?.auth?.register?.subtitle || "Join the UK's top community of professionals."}
           </p>
         </div>
         
@@ -310,7 +310,7 @@ function RegisterForm() {
           <input type="hidden" name="houseNumber" value={houseNumber} />
           
           <div className="input-group revealed">
-            <label>{t?.auth?.register?.passwordLabel || "Safe Protocol (Password)"}</label>
+            <label>{t?.auth?.register?.passwordLabel || "Password"}</label>
             <div className="input-wrapper">
               <Lock className="input-icon" size={18} />
               <input type="password" name="password" className="premium-input" placeholder={t?.auth?.register?.passwordHint || "Min 6 characters"} required minLength={6} disabled={loading} />
@@ -321,7 +321,7 @@ function RegisterForm() {
             <label>{t?.auth?.register?.referralLabel || "Referral Code (Optional)"}</label>
             <div className="input-wrapper">
               <User className="input-icon" size={18} />
-              <input type="text" name="referredBy" className="premium-input" placeholder={t?.auth?.register?.referralPlaceholder || "Elite Referral ID"} defaultValue={searchParams.get('ref') || ''} disabled={loading} />
+              <input type="text" name="referredBy" className="premium-input" placeholder={t?.auth?.register?.referralPlaceholder || "Referral Code"} defaultValue={searchParams.get('ref') || ''} disabled={loading} />
             </div>
           </div>
           
@@ -331,7 +331,7 @@ function RegisterForm() {
             disabled={loading} 
             style={{ width: '100%', padding: '1.25rem', marginTop: '1rem', background: 'var(--accent-color)', color: 'black', fontWeight: 900, borderRadius: '18px' }}
           >
-            {loading ? (t?.auth?.register?.loading || "Initializing Identity...") : (t?.auth?.register?.submit || "Execute Integration")}
+            {loading ? (t?.auth?.register?.loading || "Creating account...") : (t?.auth?.register?.submit || "Sign Up")}
             <ChevronRight size={20} />
           </button>
         </form>
@@ -355,7 +355,7 @@ function RegisterForm() {
         </button>
         
         <div style={{ textAlign: 'center', fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '2.5rem' }}>
-          {t?.auth?.register?.navToLogin || "Already have a node?"} <Link href={`/auth/login${callbackUrl !== '/member/home' ? `?callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`} style={{ color: 'var(--accent-color)', fontWeight: 800 }}>{t?.auth?.register?.signIn || "Sign In"}</Link>
+          {t?.auth?.register?.navToLogin || "Already have an account?"} <Link href={`/auth/login${callbackUrl !== '/member/home' ? `?callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`} style={{ color: 'var(--accent-color)', fontWeight: 800 }}>{t?.auth?.register?.signIn || "Sign In"}</Link>
         </div>
       </div>
 
@@ -376,8 +376,9 @@ function RegisterForm() {
 }
 
 export default function RegisterPage() {
+  const { t } = useTranslation();
   return (
-    <Suspense fallback={<div className="auth-page-wrapper"><div className="auth-card" style={{ textAlign: 'center' }}>Connecting to Terminal...</div></div>}>
+    <Suspense fallback={<div className="auth-page-wrapper"><div className="auth-card" style={{ textAlign: 'center' }}>{t?.auth?.loading?.preparing || "Preparing account..."}</div></div>}>
       <RegisterForm />
     </Suspense>
   );

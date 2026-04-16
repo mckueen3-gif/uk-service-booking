@@ -82,7 +82,7 @@ export async function updateBookingStatus(bookingId: string, newStatus: string) 
       const { completeBookingFunds } = await import('@/lib/finance');
       await completeBookingFunds(booking);
 
-      // 3. Referral Reward Logic (Passive Income: 2% of each order)
+      // 3. Referral Dividend Logic (Passive Yield: 2% of each order)
       try {
         const referral = await (prisma as any).referral.findUnique({
           where: { refereeId: (booking as any).customerId }
@@ -120,11 +120,11 @@ export async function updateBookingStatus(bookingId: string, newStatus: string) 
                     userId: referral.referrerId,
                     amount: rewardAmount,
                     type: 'EARNED_REFERRAL',
-                    description: `2% Referral Passive Income from Booking: ${booking.id}`
+                    description: `2% Referral Passive Yield from Booking: ${booking.id}`
                   }
                 })
               ]);
-              console.log(`Issued ${rewardAmount} passive credits to referrer ${referral.referrerId}`);
+              console.log(`Issued ${rewardAmount} passive dividends to referrer ${referral.referrerId}`);
             }
           }
         }

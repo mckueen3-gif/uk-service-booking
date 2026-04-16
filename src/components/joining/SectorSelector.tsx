@@ -117,7 +117,7 @@ export default function SectorSelector({
               <p
                 className="sector-desc"
                 style={{
-                  color: "#777",
+                  color: "#a0a0a0",
                   fontSize: "0.9rem",
                   lineHeight: 1.6,
                   marginBottom: "1.5rem",
@@ -134,7 +134,7 @@ export default function SectorSelector({
                     className="tag"
                     style={{
                       border: "1px solid rgba(255,255,255,0.05)",
-                      color: "#555",
+                      color: "#999",
                     }}
                   >
                     {industry}
@@ -236,7 +236,7 @@ export default function SectorSelector({
           font-weight: 800;
           text-transform: uppercase;
           letter-spacing: 0.05em;
-          color: #64748b;
+          color: #94a3b8;
         }
 
         .selection-badge {

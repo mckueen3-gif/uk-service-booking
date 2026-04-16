@@ -134,7 +134,7 @@ export default function WalletContent() {
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2.5rem' }}>
             <CreditCard size={20} color="#b8860b" />
-            <span style={{ fontWeight: 800, letterSpacing: '0.15em', fontSize: '0.85rem', color: '#475569' }}>{t?.rewards_hub?.balance || "Available Wallet"}</span>
+            <span style={{ fontWeight: 800, letterSpacing: '0.15em', fontSize: '0.85rem', color: '#475569' }}>{t?.rewards_hub?.balance || "Credits Hub"}</span>
           </div>
           
           <div style={{ marginBottom: '0.5rem' }}>
@@ -156,8 +156,7 @@ export default function WalletContent() {
             borderRadius: '8px',
             width: 'fit-content'
           }}>
-            <Sparkles size={12} className="animate-pulse" />
-            {t?.rewards_hub?.disclaimer || "Credits are non-transferable"}
+            {t?.rewards_hub?.disclaimer || "Dividends are locked to your expert identity"}
           </div>
           
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -205,17 +204,17 @@ export default function WalletContent() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '1.5rem' }}>
         
         {/* Voucher Input Card */}
-        <GoldCard title={t?.rewards_hub?.voucherRedeemTitle || "Voucher Rewards"} icon={Ticket}>
+        <GoldCard title={t?.rewards_hub?.voucherRedeemTitle || "Credits Redemption"} icon={Ticket}>
           <VoucherForm />
           <p style={{ marginTop: '1rem', fontSize: '0.75rem', color: 'rgba(255,255,255,0.3)', textAlign: 'center' }}>
-            {t?.rewards_hub?.voucherRedeemDesc || "Redeem your service vouchers here"}
+            {t?.rewards_hub?.voucherRedeemDesc || "Exchange credits for premium service vouchers"}
           </p>
         </GoldCard>
 
         {/* Referral Program Card */}
         <GoldCard title={t?.merchant?.merchant_wallet?.referralTitle || "Referral Program"} icon={Gift}>
           <p style={{ fontSize: '0.9rem', color: '#475569', marginBottom: '1.5rem', lineHeight: 1.6, fontWeight: '500' }}>
-            {t?.merchant?.merchant_wallet?.referralDesc || "Invite friends to earn credits for every successful referral."}
+            {t?.merchant?.merchant_wallet?.referralDesc || "Refer specialists to earn 2% lifetime dividends from every booking."}
           </p>
           <div style={{
             display: 'flex',
@@ -250,7 +249,7 @@ export default function WalletContent() {
         
         {/* Digital Card Vault */}
         {redemptions.length > 0 && (
-          <GoldCard title={t?.merchant?.merchant_wallet?.rewards?.myVault || "Digital Vault"} icon={Sparkles}>
+          <GoldCard title={t?.merchant?.merchant_wallet?.rewards?.myVault || "Earnings Vault"} icon={Sparkles}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
               {redemptions.map((req: any) => (
                 <div 
@@ -303,7 +302,7 @@ export default function WalletContent() {
         )}
 
         {/* Transaction History Card */}
-        <GoldCard title={t?.merchant?.merchant_wallet?.historyTitle || "Transaction History"} icon={History}>
+        <GoldCard title={t?.merchant?.merchant_wallet?.historyTitle || "Ledger History"} icon={History}>
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', color: 'rgba(255,255,255,0.8)', fontSize: '0.95rem' }}>
               <thead>
