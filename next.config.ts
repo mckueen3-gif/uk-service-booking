@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-const withPWA = require("next-pwa")({
+const withPWA = require("@ducanh2912/next-pwa").default({
   dest: "public",
   register: true,
   skipWaiting: true,
@@ -51,10 +51,8 @@ const nextConfig: any = {
     // Vercel deployment block fix: ignore ESLint errors during production builds
     ignoreDuringBuilds: true,
   },
-  experimental: {
-    // 🚀 Turbopack compatibility with next-pwa
-    turbopack: {},
-  },
+  // 🚀 Turbopack compatibility with next-pwa
+  turbopack: {},
 };
 
 export default withPWA(nextConfig);
