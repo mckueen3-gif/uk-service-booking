@@ -11,6 +11,8 @@ import { ChevronRight, ChevronLeft, CheckCircle2, Building2, Mail, Globe, User, 
 import MerchantComparisonTable from '@/components/joining/MerchantComparisonTable';
 import { createMerchantAction } from '@/app/actions/merchant';
 import { fetchBusinessInfoWithAI, generateSmartBio, verifyCredentialsWithAI } from '@/app/actions/ai_onboarding';
+import { signIn } from 'next-auth/react';
+import { Lock } from 'lucide-react';
 
 function JoinPageContent() {
   const { t, locale } = useTranslation();
@@ -36,6 +38,7 @@ function JoinPageContent() {
     avatar: null as string | null,
     bannerUrl: null as string | null,
     phone: '',
+    password: '',
     insuranceAmount: '1,000,000',
     suggestedCategories: [] as string[]
   });
@@ -46,7 +49,7 @@ function JoinPageContent() {
       return;
     }
     if (step === 2) {
-      if (!formData.businessName || !formData.email || !formData.phone || !formData.bio || formData.suggestedCategories.length === 0) {
+      if (!formData.businessName || !formData.email || !formData.phone || !formData.bio) {
         setError(t.onboarding.validation.fill_required);
         return;
       }
@@ -54,11 +57,7 @@ function JoinPageContent() {
         setError(t.onboarding.validation.bio_short);
         return;
       }
-      // Mandatory document upload for Technical (GAS/Electrical) sectors
-      if (selectedSector === 'technical' && !formData.credentials) {
-        setError(t.onboarding.validation.credentials_required);
-        return;
-      }
+      // Technical sector credentials no longer strictly mandatory to align with UI tip "can review later"
     }
     if (step === 3 && !contractAccepted) return;
     
@@ -171,14 +170,14 @@ function JoinPageContent() {
     if (!formData.businessName) { setError(t.onboarding.validation.business_name_required); return; }
     if (!formData.email) { setError(t.onboarding.validation.email_required); return; }
     if (!formData.phone) { setError(t.onboarding.validation.phone_required); return; }
+    if (!formData.password || formData.password.length < 6) { 
+      setError("密碼長度至少需 6 個字元 (Password must be at least 6 characters)"); 
+      return; 
+    }
     if (!formData.bio || formData.bio.length < 20) { setError(t.onboarding.validation.bio_short); return; }
     if (!selectedSector) { setError(t.onboarding.validation.select_sector); return; }
-    if (formData.suggestedCategories.length === 0) { setError(t.onboarding.validation.category_required); return; }
     if (!formData.city) { setError(t.onboarding.validation.city_required); return; }
-    if (selectedSector === 'technical' && !formData.credentials) {
-      setError(t.onboarding.validation.credentials_required);
-      return;
-    }
+    // Technical sector credentials no longer strictly mandatory to align with UI tip "can review later"
 
     setLoading(true);
     setError(null);
@@ -191,6 +190,12 @@ function JoinPageContent() {
         setError(res.error);
         setLoading(false);
       } else {
+        // Auto-login after successful registration
+        await signIn('credentials', {
+          email: formData.email,
+          password: formData.password,
+          redirect: false
+        });
         setStep(4);
       }
     } catch (err) {
@@ -414,6 +419,16 @@ function JoinPageContent() {
                           placeholder={t.onboarding.profile_form.phone_placeholder}
                         />
                     </div>
+                    <div className="input-group full">
+                      <label><Lock size={16} /> 設定登入密碼 (Set Login Password) <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>* {t.onboarding.profile_form.credentials_required}</span></label>
+                        <input 
+                          type="password" 
+                          name="password" 
+                          value={formData.password} 
+                          onChange={handleInputChange} 
+                          placeholder="請輸入至少 6 位數密碼 (Min. 6 characters)"
+                        />
+                    </div>
 
                     {/* 5. Service Location */}
                     <div className="input-group full">
@@ -628,7 +643,7 @@ function JoinPageContent() {
                     <div className="coming-soon-badge">{t.onboarding.success.coming_soon}</div>
                   </div>
 
-                  <button className="btn-premium wide" onClick={() => window.location.href = '/dashboard/merchant'}>
+                  <button className="btn-premium wide" onClick={() => window.location.href = '/merchant'}>
                     {t.onboarding.success.enter_dashboard} <ChevronRight size={20} />
                   </button>
                 </div>

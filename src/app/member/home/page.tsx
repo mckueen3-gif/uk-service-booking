@@ -26,66 +26,88 @@ export default async function MemberHomePage() {
   }
 
   const userId = session.user.id;
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-  // ── Fetch Bookings (recent 3, defensive) ───────────────────────────────
+  // ── Fetch User AI Data & Bookings ─────────────────────────────────────
+  let userData: any = null;
   let bookings: any[] = [];
   try {
-    const bookingModel = (prisma as any).booking;
-    if (bookingModel) {
-      bookings = await bookingModel.findMany({
-        where: { customerId: userId },
-        orderBy: { createdAt: "desc" },
-        take: 3,
-        select: {
-          id: true,
-          status: true,
-          scheduledDate: true,
-          totalAmount: true,
-          service: { select: { name: true } },
-          merchant: {
-            select: {
-              companyName: true,
-              user: { select: { name: true } },
-            },
-          },
+    userData = await prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        dailyAiLimitUsed: true,
+        lastAiUsageDate: true,
+        educationAttempts: {
+          orderBy: { createdAt: "desc" },
+          take: 3,
+          include: { quiz: { select: { title: true, subject: true } } }
         },
-      });
-    }
+        bookings: {
+          where: { customerId: userId },
+          orderBy: { createdAt: "desc" },
+          take: 5,
+          select: {
+            id: true,
+            status: true,
+            scheduledDate: true,
+            totalAmount: true,
+            service: { select: { name: true } },
+            merchant: {
+              select: {
+                id: true,
+                companyName: true,
+                user: { select: { name: true } },
+              },
+            },
+            googleMeetLink: true,
+            isEducation: true,
+          },
+        }
+      }
+    });
+    bookings = userData?.bookings ?? [];
   } catch (err) {
-    console.error("[MemberHome] Bookings fetch error:", err);
-    bookings = [];
+    console.error("[MemberHome] Data fetch error:", err);
   }
 
-  // ── Fetch Top Merchants for Feed (defensive) ───────────────────────────
+  // ── Fetch Top Merchants (defensive) ──────────────────────────────────
   let merchants: any[] = [];
   try {
-    const merchantModel = (prisma as any).merchant;
-    if (merchantModel) {
-      merchants = await merchantModel.findMany({
-        where: { isVerified: true },
-        orderBy: { averageRating: "desc" },
-        take: 6,
-        select: {
-          id: true,
-          companyName: true,
-          category: true,
-          city: true,
-          averageRating: true,
-          avatarUrl: true,
-          user: { select: { name: true } },
-        },
-      });
-    }
+    merchants = await prisma.merchant.findMany({
+      where: { isVerified: true },
+      orderBy: { averageRating: "desc" },
+      take: 6,
+      select: {
+        id: true,
+        companyName: true,
+        businessType: true,
+        city: true,
+        averageRating: true,
+        avatarUrl: true,
+        user: { select: { name: true } },
+      },
+    });
   } catch (err) {
     console.error("[MemberHome] Merchants fetch error:", err);
-    merchants = [];
   }
 
-  // ── Serialize dates for client ─────────────────────────────────────────
+  // ── Logic for Quota ────────────────────────────────────────────────────
+  const hasPaidBooking = bookings.some(b => ['CONFIRMED', 'COMPLETED'].includes(b.status) && b.isEducation);
+  const aiLimit = hasPaidBooking ? 5 : 2;
+  const lastUsage = userData?.lastAiUsageDate;
+  const usedToday = (!lastUsage || new Date(lastUsage).getTime() < today.getTime()) ? 0 : (userData?.dailyAiLimitUsed ?? 0);
+
+  // ── Serialization ──────────────────────────────────────────────────────
   const serializedBookings = bookings.map((b: any) => ({
     ...b,
     scheduledDate: b.scheduledDate?.toISOString?.() ?? null,
     totalAmount: b.totalAmount ?? null,
+  }));
+
+  const serializedAttempts = (userData?.educationAttempts ?? []).map((a: any) => ({
+    ...a,
+    createdAt: a.createdAt.toISOString(),
   }));
 
   return (
@@ -93,6 +115,11 @@ export default async function MemberHomePage() {
       userName={session.user.name ?? session.user.email ?? "用戶"}
       bookings={serializedBookings}
       merchants={merchants}
+      aiStats={{
+        usedToday,
+        limit: aiLimit,
+        attempts: serializedAttempts
+      }}
     />
   );
 }

@@ -473,8 +473,9 @@ export const zhTW: Dictionary = {
       title: "智能推薦",
       subtitle: "根據您的需求分析最佳匹配。",
       topMatch: "最佳配對",
-      closest: "最近鄰近",
-      earliest: "最快響應"
+      risingStar: "潛力之星",
+      bestValue: "超值首選",
+      viewProfile: "查看專家"
     },
     searching: "正在搜尋專家...",
     noResults: "未找到符合條件的專家",

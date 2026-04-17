@@ -101,3 +101,46 @@ export async function getUserTimelineContext(): Promise<string> {
     return "User schedule is currently unavailable.";
   }
 }
+
+/**
+ * Fetches deep context for a specific merchant to power the Merchant-AI layer.
+ */
+export async function getSingleMerchantContext(merchantId: string): Promise<string> {
+  try {
+    const m = await prisma.merchant.findUnique({
+      where: { id: merchantId },
+      include: {
+        services: true,
+        reviews: {
+          take: 5,
+          orderBy: { createdAt: 'desc' },
+          select: { rating: true, comment: true, qualityRating: true }
+        }
+      }
+    });
+
+    if (!m) return "No specific data found for this merchant.";
+
+    const services = m.services.map(s => `- ${s.name}: £${s.price} (${s.category})`).join('\n');
+    const recentReviews = m.reviews.map(r => `- Rating ${r.rating}/5: "${r.comment}"`).join('\n');
+    
+    return `
+EXPERT PROFILE: ${m.companyName}
+BUSINESS TYPE: ${m.businessType}
+EXPERT KNOWLEDGE BASE:
+${m.aiKnowledgeBase || "No specialized raw data provided yet, rely on bio and services."}
+
+BIO/BACKGROUND: 
+${m.bio || m.description || "Top-tier expert on ConciergeAI."}
+
+OFFERED SERVICES:
+${services}
+
+RECENT FEEDBACK:
+${recentReviews}
+`;
+  } catch (error) {
+    console.error('[AI Context Provider] Failed to fetch single merchant context:', error);
+    return "Expert data is currently unavailable.";
+  }
+}

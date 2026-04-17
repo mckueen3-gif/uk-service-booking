@@ -135,7 +135,18 @@ export async function getMerchantDetails(merchantId: string) {
           }
         }
       });
-      return { success: true, merchant };
+      if (!merchant) {
+        return { success: false, error: "Merchant not found" };
+      }
+
+      return { 
+        success: true, 
+        merchant: {
+          ...merchant,
+          youtubeVideoUrl: merchant.youtubeVideoUrl,
+          aiKnowledgeBase: merchant.aiKnowledgeBase
+        } 
+      };
     });
   } catch (err: any) {
     console.error(`[DB Error] getMerchantDetails(${merchantId}):`, {

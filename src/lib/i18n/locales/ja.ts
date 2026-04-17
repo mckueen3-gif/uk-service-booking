@@ -490,6 +490,14 @@ export const ja: any = {
     insured: "保険加入済み",
     priceAudit: "AI価格監査：適正",
     defaultDesc: "プロフェッショナル・サービスプロバイダー",
+    recommendations: {
+      title: "スマート推奨",
+      subtitle: "リクエストに最適なマッチ。",
+      topMatch: "最適マッチ",
+      risingStar: "新星",
+      bestValue: "最高の価値",
+      viewProfile: "プロフィールを見る"
+    },
   },
   booking: {
     steps: {

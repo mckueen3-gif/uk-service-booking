@@ -457,7 +457,15 @@ export const ur: any = {
     verified: "تصدیق شدہ",
     insured: "انشورنس شدہ",
     priceAudit: "AI قیمت آڈٹ: مناسب",
-    defaultDesc: "پیشہ ور سروس فراہم کنندہ",
+    defaultDesc: "پیشہ ورانہ خدمت فراہم کنندہ",
+    recommendations: {
+      title: "سمارٹ سفارشات",
+      subtitle: "آپ کی درخواست کے لیے بہترین میچ۔",
+      topMatch: "بہترین میچ",
+      risingStar: "ابھرتا ستارہ",
+      bestValue: "بہترین قدر",
+      viewProfile: "پروفائل دیکھیں"
+    },
   },
   booking: {
     steps: { details: "تفصیلات", schedule: "شیڈول", confirmation: "تصدیق" },

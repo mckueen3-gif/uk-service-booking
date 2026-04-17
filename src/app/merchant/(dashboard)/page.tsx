@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 import { 
   getMerchantDashboardStats, 
   getMerchantBookings, 
-  updateBookingStatus,
-  updateMerchantAvatar
+  updateMerchantAvatar,
+  updateMerchantProfile,
+  updateBookingMeetingLink
 } from '@/app/actions/merchant_dashboard';
 import { 
   proposeVariation, 
@@ -15,7 +16,8 @@ import {
   Users, Briefcase, Star, Clock, 
   TrendingUp, Wallet, CheckCircle2, 
   AlertCircle, ChevronRight, MoreHorizontal,
-  PlusCircle, Camera, X, Cpu
+  PlusCircle, Camera, X, Cpu, Loader2,
+  Video, Link2, ExternalLink
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -34,13 +36,49 @@ export default function MerchantDashboard() {
   const [vAmount, setVAmount] = useState('');
   const [vDesc, setVDesc] = useState('');
   const [vPhoto, setVPhoto] = useState('');
+  
+  // Advanced Settings State
+  const [youtubeUrl, setYoutubeUrl] = useState('');
+  const [aiKnowledge, setAiKnowledge] = useState('');
+  const [baseRate, setBaseRate] = useState('');
+  const [trialPrice, setTrialPrice] = useState('');
+  const [isTrialAvailable, setIsTrialAvailable] = useState(false);
+  const [pricingHealth, setPricingHealth] = useState<any>(null);
+  const [marketTrend, setMarketTrend] = useState<any>(null);
+  const [isSavingProfile, setIsSavingProfile] = useState(false);
+  const [editingMeetId, setEditingMeetId] = useState<string | null>(null);
+  const [meetLinkInput, setMeetLinkInput] = useState('');
+
+  const handleUpdateMeetLink = async (id: string) => {
+    setUpdatingId(id);
+    const res = await updateBookingMeetingLink(id, meetLinkInput);
+    if (res.success) {
+      setBookings(prev => prev.map(b => b.id === id ? { ...b, googleMeetLink: meetLinkInput } : b));
+      setEditingMeetId(null);
+    }
+    setUpdatingId(null);
+  };
 
   useEffect(() => {
     async function loadData() {
       try {
         const s = await getMerchantDashboardStats();
         const b = await getMerchantBookings();
-        if (!s.error) setStats(s);
+        const p = await getAIPricingInsights() as any;
+
+        if (!s.error) {
+          setStats(s);
+          setYoutubeUrl(s.youtubeVideoUrl || '');
+          setAiKnowledge(s.aiKnowledgeBase || '');
+          setBaseRate(s.baseHourlyRate?.toString() || '');
+          setTrialPrice(s.trialPrice?.toString() || '');
+          setIsTrialAvailable(s.isTrialAvailable || false);
+        }
+        
+        if (p && !p.error) {
+          setPricingHealth(p.health);
+          setMarketTrend(p.trend);
+        }
         
         if (!b.error && b.bookings) {
           const enriched = await Promise.all((b.bookings as any[]).map(async (book: any) => {
@@ -94,6 +132,26 @@ export default function MerchantDashboard() {
       if (!newStats.error) setStats(newStats);
     }
     setUpdatingId(null);
+  };
+
+  const handleSaveAdvanced = async () => {
+    setIsSavingProfile(true);
+    const res = await updateMerchantProfile({
+      youtubeVideoUrl: youtubeUrl,
+      aiKnowledgeBase: aiKnowledge,
+      baseHourlyRate: parseFloat(baseRate) || 0,
+      trialPrice: parseFloat(trialPrice) || 0,
+      isTrialAvailable: isTrialAvailable
+    });
+    if (res.success) {
+      alert(t?.merchant?.settings?.saved || "Elite settings & Pricing calibrated successfully.");
+      // Refresh insights if rate changed
+      const p = await getAIPricingInsights() as any;
+      if (p && !p.error) setPricingHealth(p.health);
+    } else {
+      alert(res.error || "Calibration failed.");
+    }
+    setIsSavingProfile(false);
   };
 
   if (loading) {
@@ -163,22 +221,76 @@ export default function MerchantDashboard() {
              </div>
           ) : (
              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-               {bookings.map((booking: any) => (
-                 <div key={booking.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', backgroundColor: 'var(--bg-secondary)', borderRadius: '16px' }}>
-                    <div>
-                      <p style={{ fontWeight: 700 }}>{booking.service?.name}</p>
-                      <p style={{ fontSize: '0.8rem', opacity: 0.6 }}>{new Date(booking.scheduledDate).toLocaleDateString()}</p>
+                {bookings.map((booking: any) => (
+                  <div key={booking.id} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', padding: '1.25rem', backgroundColor: 'var(--bg-secondary)', borderRadius: '20px', border: '1px solid var(--border-color)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <div>
+                        <p style={{ fontWeight: 800, fontSize: '1.1rem' }}>{booking.service?.name}</p>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginTop: '0.25rem' }}>
+                          <p style={{ fontSize: '0.8rem', opacity: 0.6 }}>{new Date(booking.scheduledDate).toLocaleString()}</p>
+                          <span style={{ fontSize: '0.8rem', opacity: 0.4 }}>•</span>
+                          <p style={{ fontSize: '0.8rem', opacity: 0.6 }}>{booking.customer?.name}</p>
+                        </div>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                         <StatusBadge status={booking.status} t={t} />
+                         <button 
+                          onClick={() => { setSelectedBooking(booking); setShowVariationModal(true); }}
+                          style={{ padding: '0.5rem', background: 'none', border: 'none', color: 'var(--accent-color)', cursor: 'pointer' }}>
+                          <PlusCircle size={20} />
+                         </button>
+                      </div>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                       <StatusBadge status={booking.status} t={t} />
-                       <button 
-                        onClick={() => { setSelectedBooking(booking); setShowVariationModal(true); }}
-                        style={{ padding: '0.5rem', background: 'none', border: 'none', color: 'var(--accent-color)', cursor: 'pointer' }}>
-                        <PlusCircle size={20} />
-                       </button>
-                    </div>
-                 </div>
-               ))}
+
+                    {/* 🎓 GOOGLE MEET INTEGRATION FOR EDUCATION */}
+                    {booking.isEducation && (
+                      <div style={{ marginTop: '0.5rem', padding: '1rem', background: 'rgba(212, 175, 55, 0.05)', border: '1px dashed var(--gold-500)', borderRadius: '14px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: editingMeetId === booking.id ? '1rem' : '0' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <Video size={18} color="var(--gold-500)" />
+                            <span style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--gold-400)' }}>Google Meeting</span>
+                          </div>
+                          
+                          {editingMeetId !== booking.id ? (
+                            <div style={{ display: 'flex', gap: '0.5rem' }}>
+                              {booking.googleMeetLink && (
+                                <a href={booking.googleMeetLink} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-color)', textDecoration: 'none' }}>
+                                  <ExternalLink size={16} />
+                                </a>
+                              )}
+                              <button 
+                                onClick={() => { setEditingMeetId(booking.id); setMeetLinkInput(booking.googleMeetLink || ''); }}
+                                style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', textDecoration: 'underline' }}
+                              >
+                                {booking.googleMeetLink ? "Edit Link" : "Set Meet Link"}
+                              </button>
+                            </div>
+                          ) : null}
+                        </div>
+
+                        {editingMeetId === booking.id && (
+                          <div style={{ display: 'flex', gap: '0.5rem' }}>
+                            <input 
+                              type="text" 
+                              value={meetLinkInput}
+                              onChange={e => setMeetLinkInput(e.target.value)}
+                              placeholder="https://meet.google.com/..."
+                              style={{ flex: 1, padding: '0.5rem 0.75rem', borderRadius: '8px', background: 'var(--bg-primary)', border: '1px solid var(--gold-500)', color: 'var(--text-primary)', fontSize: '0.8rem' }}
+                            />
+                            <button 
+                              onClick={() => handleUpdateMeetLink(booking.id)}
+                              className="hover-scale"
+                              style={{ padding: '0.5rem 1rem', borderRadius: '8px', background: 'var(--gold-500)', color: '#000', border: 'none', fontSize: '0.8rem', fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                            >
+                              {updatingId === booking.id ? <Loader2 size={16} className="animate-spin" /> : "Save"}
+                            </button>
+                            <button onClick={() => setEditingMeetId(null)} style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', fontSize: '0.8rem', cursor: 'pointer' }}><X size={18} /></button>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                ))}
              </div>
           )}
         </section>
@@ -190,6 +302,115 @@ export default function MerchantDashboard() {
                  <QuickLink label={t?.merchant?.availabilityLink || "Set Availability"} />
                  <QuickLink label={t?.merchant?.servicePricing || "Service Pricing"} />
                  <QuickLink label={t?.merchant?.documentAudit || "Document Audit"} />
+              </div>
+           </div>
+
+           {/* 🚀 NEW: Elite AI & Video Configuration */}
+           <div style={{ padding: '1.5rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', border: '1.5px solid var(--gold-500)', boxShadow: '0 0 20px rgba(212, 175, 55, 0.1)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1.25rem' }}>
+                <Cpu size={20} color="var(--gold-500)" />
+                <h3 style={{ fontSize: '1rem', fontWeight: 900, color: 'var(--gold-400)' }}>Elite AI & Video</h3>
+              </div>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)', marginBottom: '0.5rem', textTransform: 'uppercase' }}>Introduction Video (YouTube)</label>
+                  <input 
+                    type="text" 
+                    value={youtubeUrl}
+                    onChange={(e) => setYoutubeUrl(e.target.value)}
+                    placeholder="https://youtube.com/watch?v=..."
+                    style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: '0.85rem' }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)', marginBottom: '0.5rem', textTransform: 'uppercase' }}>AI Expert Knowledge Base</label>
+                  <textarea 
+                    value={aiKnowledge}
+                    onChange={(e) => setAiKnowledge(e.target.value)}
+                    placeholder="Paste your specialized knowledge, experience, and service nuances here to power your AI Assistant..."
+                    style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: '0.85rem', height: '120px', resize: 'none' }}
+                  />
+                </div>
+
+                <button 
+                  onClick={handleSaveAdvanced}
+                  disabled={isSavingProfile}
+                  style={{ 
+                    width: '100%', padding: '0.85rem', borderRadius: '14px', 
+                    background: 'linear-gradient(135deg, #d4af37, #f5e07a)', 
+                    color: '#000', fontWeight: 900, border: 'none', cursor: 'pointer',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'
+                  }}
+                >
+                  {isSavingProfile ? <Loader2 size={18} className="animate-spin" /> : <><CheckCircle2 size={18} /> Update Profile</>}
+                </button>
+              </div>
+           </div>
+
+           {/* 💎 NEW: AI Pricing Intelligence Pulse */}
+           <div style={{ marginTop: '1.5rem', padding: '1.5rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', border: `1.5px solid ${pricingHealth?.color || 'var(--border-color)'}`, position: 'relative', overflow: 'hidden' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
+                <TrendingUp size={18} color={pricingHealth?.color} />
+                <h3 style={{ fontSize: '1rem', fontWeight: 900, color: pricingHealth?.color }}>AI Pricing Pulse</h3>
+              </div>
+              
+              <div style={{ background: 'rgba(255,255,255,0.03)', padding: '1rem', borderRadius: '16px', marginBottom: '1rem' }}>
+                 <p style={{ fontSize: '0.9rem', fontWeight: 800, marginBottom: '0.5rem' }}>
+                    Status: <span style={{ color: pricingHealth?.color }}>{pricingHealth?.status || 'OPTIMAL'}</span>
+                 </p>
+                 <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                    {pricingHealth?.message || 'Scanning market trends...'}
+                 </p>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.75rem' }}>
+                 <span style={{ color: 'var(--text-secondary)' }}>Market Trend ({stats?.businessType || 'GCSE'}):</span>
+                 <span style={{ fontWeight: 800, color: '#10b981' }}>{marketTrend?.change || '+0.0%'}</span>
+              </div>
+           </div>
+
+           {/* 💰 NEW: Pricing & Packages Control */}
+           <div style={{ marginTop: '1.5rem', padding: '1.5rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)' }}>
+              <h3 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '1.25rem' }}>Pricing & Trial</h3>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <div>
+                   <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 800, color: 'var(--text-secondary)', marginBottom: '0.4rem' }}>BASE HOURLY RATE (£)</label>
+                   <input 
+                     type="number" 
+                     value={baseRate} 
+                     onChange={(e) => setBaseRate(e.target.value)}
+                     style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }} 
+                   />
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.75rem', background: 'var(--bg-secondary)', borderRadius: '12px' }}>
+                   <span style={{ fontSize: '0.85rem', fontWeight: 600 }}>Enable Trial (30m)</span>
+                   <input 
+                     type="checkbox" 
+                     checked={isTrialAvailable} 
+                     onChange={(e) => setIsTrialAvailable(e.target.checked)}
+                     style={{ width: '20px', height: '20px', accentColor: 'var(--accent-color)' }}
+                   />
+                </div>
+
+                {isTrialAvailable && (
+                  <div className="animate-fade-in">
+                    <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 800, color: 'var(--text-secondary)', marginBottom: '0.4rem' }}>TRIAL PRICE (£)</label>
+                    <input 
+                      type="number" 
+                      value={trialPrice} 
+                      onChange={(e) => setTrialPrice(e.target.value)}
+                      style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--accent-color)', fontWeight: 800 }} 
+                    />
+                  </div>
+                )}
+
+                <p style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', textAlign: 'center', padding: '0.5rem' }}>
+                   * platform fee (9%) will be added to student total.
+                </p>
               </div>
            </div>
         </aside>

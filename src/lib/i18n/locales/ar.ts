@@ -499,6 +499,14 @@ export const ar: any = {
     insured: "مؤمن عليه",
     priceAudit: "تدقيق السعر AI: عادل",
     defaultDesc: "خبير خدمات محترف",
+    recommendations: {
+      title: "ترشيحاتك الذكية",
+      subtitle: "أفضل ما يناسب طلبك.",
+      topMatch: "أفضل تطابق",
+      risingStar: "نجم صاعد",
+      bestValue: "أفضل قيمة",
+      viewProfile: "عرض الملف الشخصي"
+    },
   },
   booking: {
     steps: { details: "التفاصيل", schedule: "الجدول", confirmation: "التأكيد" },

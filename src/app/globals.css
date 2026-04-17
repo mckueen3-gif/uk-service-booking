@@ -162,6 +162,29 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+@media (max-width: 1200px) {
+  .hide-on-tablet, .hide-on-narrow-desktop {
+    display: none !important;
+  }
+}
+
+/* --- Merchant Page Mobile Header Fix --- */
+@media (max-width: 768px) {
+  .merchant-header-content {
+    padding-left: 1.5rem !important;
+    padding-top: 80px !important;
+    text-align: center !important;
+  }
+  .merchant-logo-resp {
+    left: 50% !important;
+    transform: translateX(-50%);
+    bottom: calc(100% - 10px) !important;
+    width: 110px !important;
+    height: 110px !important;
+    border-width: 3px !important;
+  }
+}
+
 /* --- Sophisticated Glass --- */
 .glass-panel {
   background: var(--glass-bg);

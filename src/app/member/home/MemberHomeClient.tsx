@@ -3,6 +3,7 @@
 import DashboardHero from "./components/DashboardHero";
 import BookingStatusPanel from "./components/BookingStatusPanel";
 import DailyFeed from "./components/DailyFeed";
+import AIStudyHub from "./components/AIStudyHub";
 import Link from "next/link";
 import {
   Search,
@@ -18,6 +19,11 @@ interface MemberHomeClientProps {
   userName: string;
   bookings: any[];
   merchants: any[];
+  aiStats: {
+    usedToday: number;
+    limit: number;
+    attempts: any[];
+  };
 }
 
 const QUICK_ACTIONS = [
@@ -34,6 +40,7 @@ export default function MemberHomeClient({
   userName,
   bookings,
   merchants,
+  aiStats
 }: MemberHomeClientProps) {
   // Defensive: always arrays
   const safeBookings = Array.isArray(bookings) ? bookings : [];
@@ -141,49 +148,13 @@ export default function MemberHomeClient({
           <BookingStatusPanel bookings={safeBookings} />
 
           {/* Placeholder for future: Notifications / Tips */}
-          <div
-            style={{
-              background: "var(--surface-1)",
-              borderRadius: "var(--radius-xl)",
-              border: "1px solid var(--border-color)",
-              padding: "2rem",
-              display: "flex",
-              flexDirection: "column",
-              gap: "1rem",
-            }}
-          >
-            <h3
-              style={{
-                fontSize: "1rem",
-                fontWeight: 800,
-                color: "var(--text-primary)",
-                margin: 0,
-              }}
-            >
-              📋 英國生活小貼士
-            </h3>
-            {[
-              "💡 記得每年更新您的 Boiler 年度服務，確保安全過冬。",
-              "📅 Self-assessment 稅務申報截止日為 1月 31 日。",
-              "🏠 租約到期前 2 個月通知房東，避免自動續約。",
-              "🚗 MOT 到期前可提早最多 1 個月進行測試，有效期不變。",
-            ].map((tip) => (
-              <div
-                key={tip}
-                style={{
-                  padding: "0.85rem 1rem",
-                  background: "var(--surface-2)",
-                  borderRadius: "0.75rem",
-                  fontSize: "0.85rem",
-                  fontWeight: 500,
-                  color: "var(--text-muted)",
-                  lineHeight: 1.5,
-                }}
-              >
-                {tip}
-              </div>
-            ))}
-          </div>
+          {/* AI Study Hub (right) - Replacing the placeholder tips or sitting next to it */}
+          <AIStudyHub 
+            usedToday={aiStats.usedToday} 
+            limit={aiStats.limit} 
+            recentAttempts={aiStats.attempts} 
+            bookings={bookings}
+          />
         </div>
 
         {/* ── Section 4: Daily Expert Feed ─────────────────────── */}

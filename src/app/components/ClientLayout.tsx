@@ -339,7 +339,7 @@ export function AppNavbar({ session: serverSession }: { session: any }) {
           </Link>
 
           {!session?.user && (
-            <Link href="/join" className="hover-bg fluid-nav-item" style={{ 
+            <Link href="/join" className="hover-bg fluid-nav-item hide-on-narrow-desktop" style={{ 
               color: obsidianGold, 
               fontWeight: 800, 
               textDecoration: 'none', 
@@ -355,7 +355,7 @@ export function AppNavbar({ session: serverSession }: { session: any }) {
           )}
           
           {session?.user?.role === 'MERCHANT' && (
-            <Link href="/merchant" className="hover-bg fluid-nav-item" style={{ 
+            <Link href="/merchant" className="hover-bg fluid-nav-item hide-on-tablet" style={{ 
               color: obsidianGold, 
               fontWeight: 800, 
               textDecoration: 'none', 
@@ -427,7 +427,9 @@ export function AppNavbar({ session: serverSession }: { session: any }) {
                   }}
                 >
                   <LogOut size={16} />
-                  {t?.nav?.logout || (locale === 'en' ? 'Sign Out' : '登出')}
+                  <span className="hide-on-tablet">
+                    {t?.nav?.logout || (locale === 'en' ? 'Sign Out' : '登出')}
+                  </span>
                 </button>
               )}
             </div>

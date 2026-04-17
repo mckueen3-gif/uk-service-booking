@@ -509,6 +509,14 @@ export const hi: any = {
     insured: "बीमाकृत",
     priceAudit: "AI मूल्य ऑडिट: उचित",
     defaultDesc: "पेशेवर सेवा प्रदाता",
+    recommendations: {
+      title: "स्मार्ट सिफारिशें",
+      subtitle: "आपके अनुरोध के लिए सबसे सही मिलान।",
+      topMatch: "सर्वश्रेष्ठ मिलान",
+      risingStar: "उदयीमान सितारा",
+      bestValue: "सर्वोत्तम मूल्य",
+      viewProfile: "प्रोफ़ाइल देखें"
+    },
   },
   booking: {
     steps: { details: "विवरण", schedule: "शेड्यूल", confirmation: "पुष्टि" },

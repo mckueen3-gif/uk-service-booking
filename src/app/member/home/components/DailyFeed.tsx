@@ -7,6 +7,7 @@ interface Merchant {
   id: string;
   companyName?: string | null;
   category?: string | null;
+  businessType?: string | null; // Added businessType
   city?: string | null;
   rating?: number | null;
   avatarUrl?: string | null;
@@ -20,6 +21,7 @@ interface DailyFeedProps {
 const CATEGORY_TIPS: Record<string, string> = {
   Plumbing: "💧 天氣轉涼，記得定期檢查水管保溫！",
   Education: "📚 現在預約功課輔導，準備好下學期！",
+  Tutor: "📚 現在預約功課輔導，準備好下學期！",
   Legal: "⚖️ 租約快到期？諮詢律師保障您的權益。",
   Accounting: "🧾 自僱人士稅務申報截止日即將到來。",
   Cleaning: "✨ 換季大掃除，讓家居煥然一新！",
@@ -29,15 +31,16 @@ const CATEGORY_TIPS: Record<string, string> = {
 };
 
 const FALLBACK_IMAGES: Record<string, string> = {
-  plumbing: "https://images.unsplash.com/photo-1581578731548-c744c843509c?q=80&w=400&auto=format&fit=crop",
-  education: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=400&auto=format&fit=crop",
-  legal: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=400&auto=format&fit=crop",
-  accounting: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=400&auto=format&fit=crop",
-  cleaning: "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=400&auto=format&fit=crop",
-  repairs: "https://images.unsplash.com/photo-1581094288338-2314dddb7bc3?q=80&w=400&auto=format&fit=crop",
-  renovation: "https://images.unsplash.com/photo-1503387762-592dea58ef23?q=80&w=400&auto=format&fit=crop",
-  commercial: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=400&auto=format&fit=crop",
-  default: "https://images.unsplash.com/photo-1581578731548-c744c843509c?q=80&w=400&auto=format&fit=crop",
+  plumbing: "/images/placeholders/plumbing.png",
+  education: "/images/placeholders/education.png",
+  tutor: "/images/placeholders/education.png",
+  legal: "/images/placeholders/legal.png",
+  accounting: "/images/placeholders/accounting.png",
+  cleaning: "/images/placeholders/plumbing.png",
+  repairs: "/images/placeholders/plumbing.png",
+  renovation: "/images/placeholders/legal.png",
+  commercial: "/images/placeholders/accounting.png",
+  default: "/images/placeholders/education.png",
 };
 
 export default function DailyFeed({ merchants }: DailyFeedProps) {
@@ -133,11 +136,30 @@ export default function DailyFeed({ merchants }: DailyFeedProps) {
           {safeMerchants.map((m, idx) => {
             const displayName =
               m.companyName ?? m.user?.name ?? "Expert Specialist";
-            const catKey = (m.category ?? "default").toLowerCase();
+            
+            // Smart Category Resolver: Guess category from name if missing or too generic
+            let resolvedType = m.businessType ?? m.category ?? "Specialist";
+            const isGeneric = !resolvedType || ["Specialist", "Limited Company", "Sole Trader", "Business"].includes(resolvedType);
+
+            if (isGeneric) {
+              const nameLower = displayName.toLowerCase();
+              if (nameLower.includes('plumb') || nameLower.includes('gas')) resolvedType = 'Plumbing';
+              else if (nameLower.includes('tutor') || nameLower.includes('academy') || nameLower.includes('math')) resolvedType = 'Education';
+              else if (nameLower.includes('tax') || nameLower.includes('acc') || nameLower.includes('audit')) resolvedType = 'Accounting';
+              else if (nameLower.includes('legal') || nameLower.includes('law') || nameLower.includes('advice') || nameLower.includes('regent')) resolvedType = 'Legal';
+              else if (nameLower.includes('fixer') || nameLower.includes('repair')) resolvedType = 'Repairs';
+              else if (nameLower.includes('build') || nameLower.includes('design') || nameLower.includes('renovate')) resolvedType = 'Renovation';
+            }
+
+            const catKey = resolvedType.toLowerCase();
+            
             const imgUrl =
-              m.avatarUrl ?? FALLBACK_IMAGES[catKey] ?? FALLBACK_IMAGES.default;
+              (m.avatarUrl && m.avatarUrl.length > 5) 
+                ? m.avatarUrl 
+                : (FALLBACK_IMAGES[catKey] ?? FALLBACK_IMAGES.default);
+                
             const tip =
-              CATEGORY_TIPS[m.category ?? ""] ?? "立即預約，享受頂級服務體驗。";
+              CATEGORY_TIPS[resolvedType] ?? "立即預約，享受頂級服務體驗。";
             const rating = m.rating ?? (4.5 + (idx % 5) * 0.1);
 
             return (
@@ -164,12 +186,13 @@ export default function DailyFeed({ merchants }: DailyFeedProps) {
                     (e.currentTarget as HTMLElement).style.boxShadow = "none";
                   }}
                 >
-                  {/* Image */}
+                  {/* Image Container with Fallback Background */}
                   <div
                     style={{
                       height: "140px",
                       position: "relative",
                       overflow: "hidden",
+                      background: "linear-gradient(45deg, var(--surface-2), var(--surface-1))",
                     }}
                   >
                     <img
@@ -179,13 +202,14 @@ export default function DailyFeed({ merchants }: DailyFeedProps) {
                         width: "100%",
                         height: "100%",
                         objectFit: "cover",
+                        display: "block",
                       }}
                       onError={(e) => {
                         (e.target as HTMLImageElement).src =
                           FALLBACK_IMAGES.default;
                       }}
                     />
-                    {/* Rating */}
+                    {/* Rating Overlay */}
                     <div
                       style={{
                         position: "absolute",
@@ -201,6 +225,7 @@ export default function DailyFeed({ merchants }: DailyFeedProps) {
                         fontSize: "0.8rem",
                         fontWeight: 800,
                         color: "white",
+                        zIndex: 2,
                       }}
                     >
                       <Star size={12} fill="#fbbf24" color="#fbbf24" />
@@ -220,7 +245,7 @@ export default function DailyFeed({ merchants }: DailyFeedProps) {
                         margin: "0 0 0.3rem",
                       }}
                     >
-                      {m.category ?? "Specialist"}
+                      {resolvedType}
                     </p>
                     <h4
                       style={{
@@ -269,5 +294,6 @@ export default function DailyFeed({ merchants }: DailyFeedProps) {
         </div>
       )}
     </div>
+
   );
 }

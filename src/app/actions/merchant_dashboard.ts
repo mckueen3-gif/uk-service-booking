@@ -31,7 +31,14 @@ export async function getMerchantDashboardStats() {
 
   const merchant = await (prisma as any).merchant.findUnique({
     where: { id: merchantId },
-    select: { averageRating: true, totalReviews: true, companyName: true, avatarUrl: true }
+    select: { 
+      averageRating: true, 
+      totalReviews: true, 
+      companyName: true, 
+      avatarUrl: true,
+      youtubeVideoUrl: true,
+      aiKnowledgeBase: true
+    }
   });
 
   return {
@@ -42,8 +49,31 @@ export async function getMerchantDashboardStats() {
     rating: merchant?.averageRating || 0,
     reviews: merchant?.totalReviews || 0,
     companyName: merchant?.companyName,
-    avatarUrl: merchant?.avatarUrl
+    avatarUrl: merchant?.avatarUrl,
+    youtubeVideoUrl: merchant?.youtubeVideoUrl,
+    aiKnowledgeBase: merchant?.aiKnowledgeBase,
+    isElite: merchant?.isElite || false,
+    baseHourlyRate: merchant?.baseHourlyRate || 0,
+    trialPrice: merchant?.trialPrice || 0,
+    isTrialAvailable: merchant?.isTrialAvailable || false,
+    pricingPackages: merchant?.pricingPackages || null
   };
+}
+
+export async function getAIPricingInsights() {
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant not found" };
+
+  const merchant = await prisma.merchant.findUnique({
+    where: { id: merchantId },
+    select: { baseHourlyRate: true, businessType: true }
+  });
+
+  const { analyzePriceHealth, getMonthlyTrend } = await import('@/lib/ai/pricing-advisor');
+  const health = await analyzePriceHealth(merchant?.baseHourlyRate || 50, merchant?.businessType || 'GCSE_MATHS');
+  const trend = await getMonthlyTrend(merchant?.businessType || 'GCSE_MATHS');
+
+  return { health, trend };
 }
 
 export async function getMerchantBookings() {
@@ -214,19 +244,35 @@ export async function disputeBooking(bookingId: string, reason: string) {
 
 import { createNotification } from "./notifications";
 
-export async function updateMerchantAvatar(avatarUrl: string) {
+export async function updateMerchantProfile(data: { 
+  avatarUrl?: string; 
+  youtubeVideoUrl?: string;
+  aiKnowledgeBase?: string;
+  bannerUrl?: string;
+  description?: string;
+  companyName?: string;
+  baseHourlyRate?: number;
+  trialPrice?: number;
+  isTrialAvailable?: boolean;
+  pricingPackages?: any;
+}) {
   const merchantId = await getMerchantId();
   if (!merchantId) return { error: "Merchant not found" };
   try {
     await (prisma as any).merchant.update({
       where: { id: merchantId },
-      data: { avatarUrl }
+      data
     });
     revalidatePath('/merchant');
+    revalidatePath(`/merchant/${merchantId}`);
     return { success: true };
   } catch (err: any) {
     return { error: err.message };
   }
+}
+
+export async function updateMerchantAvatar(avatarUrl: string) {
+  return updateMerchantProfile({ avatarUrl });
 }
 
 export async function rescheduleBooking(bookingId: string, newDate: string) {
@@ -357,4 +403,35 @@ export async function activateAccountingSubscription(): Promise<{ error?: string
     error: 'ALL_EXEMPT',
     message: 'Accounting tools and Premium platform features are entirely FREE for verified experts. All commission is charged as a markup on customer quotes.'
   };
+}
+
+/**
+ * NEW: Education Module - Google Meet Integration
+ */
+export async function updateBookingMeetingLink(bookingId: string, link: string) {
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant not found" };
+
+  try {
+    const booking = await prisma.booking.update({
+      where: { id: bookingId, merchantId },
+      data: { googleMeetLink: link }
+    });
+    
+    // Notify customer about the meeting link
+    await createNotification({
+      userId: (booking as any).customerId,
+      title: "🔗 課程會議連結已更新",
+      message: `您的預約 #${bookingId.slice(-6)} 的 Google Meet 連結已備妥。您可以從儀表板點擊進入。`,
+      type: 'SUCCESS',
+      link: `/member`
+    });
+
+    revalidatePath('/merchant');
+    revalidatePath('/member');
+    return { success: true };
+  } catch (err: any) {
+    console.error("Update Meeting Link Error:", err);
+    return { error: err.message };
+  }
 }

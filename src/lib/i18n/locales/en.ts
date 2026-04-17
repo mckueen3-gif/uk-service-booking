@@ -474,8 +474,9 @@ export const en: Dictionary = {
       title: "Smart Recommended",
       subtitle: "Best matches for your request.",
       topMatch: "Best Match",
-      closest: "Nearest",
-      earliest: "Available Soon"
+      risingStar: "Rising Star",
+      bestValue: "Best Value",
+      viewProfile: "View Profile"
     },
     searching: "Searching for professionals...",
     noResults: "No results found",

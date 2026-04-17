@@ -15,6 +15,7 @@ model User {
   password             String?
   role                 Role                @default(CUSTOMER)
   phone                String?
+  aiMemory             String?
   city                 String?
   addressLine1         String?
   addressLine2         String?
@@ -39,8 +40,64 @@ model User {
   referralsMade        Referral[]          @relation("Referrer")
   reviews              Review[]
   vehicles             Vehicle[]
+  
+  // AI Education Quotas
+  dailyAiLimitUsed     Int                 @default(0)
+  lastAiUsageDate      DateTime?
+  educationQuizzes     EducationQuiz[]
+  educationAttempts    EducationAttempt[]
+  favorites            Merchant[]          @relation("UserFavorites")
 
   @@index([city])
+}
+
+model EducationQuiz {
+  id          String              @id @default(cuid())
+  userId      String
+  title       String
+  subject     String
+  grade       String?
+  difficulty  String?
+  sourceType  String              @default("TEXT") // TEXT, IMAGE
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  user        User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  questions   EducationQuestion[]
+  attempts    EducationAttempt[]
+
+  @@index([userId])
+}
+
+model EducationQuestion {
+  id            String    @id @default(cuid())
+  quizId        String
+  questionText  String
+  questionType  String    @default("MCQ") // MCQ, SHORT_ANSWER
+  options       Json?     // Array of strings for MCQ
+  correctAnswer String
+  explanation   String?
+  quiz          EducationQuiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
+
+  @@index([quizId])
+}
+
+model EducationAttempt {
+  id             String        @id @default(cuid())
+  quizId         String
+  userId         String
+  score          Int
+  totalQuestions Int
+  answers        Json          // User's answers
+  aiDiagnosis    String?       // AI's analysis of weaknesses
+  sharedWithMerchantId String? // Added for sharing with tutor
+  createdAt      DateTime      @default(now())
+  quiz           EducationQuiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sharedWith     Merchant?     @relation("SharedAttempts", fields: [sharedWithMerchantId], references: [id])
+
+  @@index([quizId])
+  @@index([userId])
+  @@index([sharedWithMerchantId])
 }
 
 model Notification {
@@ -119,8 +176,16 @@ model Merchant {
   businessType       String?
   vatNumber          String?
   bannerUrl          String?
+  youtubeVideoUrl    String?
+  aiKnowledgeBase    String?
+  isElite            Boolean                @default(false)
+  baseHourlyRate     Float?
+  trialPrice         Float?
+  isTrialAvailable   Boolean                @default(false)
+  pricingPackages    Json?
   bookings           Booking[]
   conversations      Conversation[]         @relation("MerchantConversations")
+  sharedAttempts     EducationAttempt[]     @relation("SharedAttempts")
   user               User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
   availability       MerchantAvailability[]
   documents          MerchantDocument[]
@@ -130,6 +195,7 @@ model Merchant {
   reviews            Review[]
   services           Service[]
   withdrawals        WithdrawalRequest[]
+  favoredBy     User[]           @relation("UserFavorites")
 
   @@index([city])
   @@index([isVerified])
@@ -149,6 +215,17 @@ model PlatformSettings {
   officeAddress         String   @default("London, UK")
   twitterUrl            String   @default("https://twitter.com/conciergeai")
   vatRegistration       String   @default("GB123456789")
+}
+
+model MarketTrend {
+  id        String   @id @default(cuid())
+  category  String
+  avgPrice  Float
+  month     Int
+  year      Int
+  updatedAt DateTime @updatedAt
+
+  @@unique([category, month, year])
 }
 
 model PromoCode {
@@ -241,6 +318,7 @@ model Service {
   teachingMode                 TeachingMode?
   subjects                     String?
   aiMatchScore                 Float?
+  isTrial                      Boolean       @default(false)
   createdAt                    DateTime      @default(now())
   updatedAt                    DateTime      @updatedAt
   emergencyResponseTime        String?
@@ -272,6 +350,7 @@ model Booking {
   coolingOffUntil       DateTime?
   createdAt             DateTime      @default(now())
   updatedAt             DateTime      @updatedAt
+  googleMeetLink        String?
   vehicleReg            String?
   vehicleMake           String?
   vehicleModel          String?

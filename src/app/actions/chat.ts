@@ -11,14 +11,25 @@ import {
   Coffee, Users, Info
 } from 'lucide-react';
 
-import { getEliteMerchantContext, getUserTimelineContext } from '@/lib/ai/context-provider';
-import { buildConciergeSystemPrompt } from '@/lib/ai/personas';
+import { 
+  getEliteMerchantContext, 
+  getUserTimelineContext,
+  getSingleMerchantContext
+} from '@/lib/ai/context-provider';
+import { 
+  buildConciergeSystemPrompt, 
+  buildMerchantAISystemPrompt 
+} from '@/lib/ai/personas';
+import { updateAIChatMemory } from '@/lib/ai/memory-manager';
 
-export async function processChatMessage(
+export async function processChatMessage(params: {
   messages: { role: 'user' | 'assistant' | 'system'; content: string }[],
   city?: string,
-  category?: string
-) {
+  category?: string,
+  merchantId?: string,
+  locale?: string
+}) {
+  const { messages, city, category, merchantId, locale = 'en' } = params;
   // Move server-only imports inside the action to prevent client-side bundling issues
   const { prisma } = await import('@/lib/prisma');
   const { getServerSession } = await import("next-auth/next");
@@ -28,14 +39,23 @@ export async function processChatMessage(
   
   // 1. Gather User Context (Assets from Garage/Properties)
   let assetContext = "";
+  let userMemory = "";
+  
   if (session?.user?.id) {
-    const [vehicles, properties] = await Promise.all([
+    const [vehicles, properties, userRecord] = await Promise.all([
       (prisma as any).vehicle.findMany({ where: { userId: session.user.id } }),
-      (prisma as any).property.findMany({ where: { userId: session.user.id } })
+      (prisma as any).property.findMany({ where: { userId: session.user.id } }),
+      (prisma as any).user.findUnique({ 
+        where: { id: session.user.id },
+        select: { aiMemory: true, name: true }
+      })
     ]);
     
+    userMemory = userRecord?.aiMemory || "";
+    const userName = userRecord?.name || "";
+
     if (vehicles.length > 0) {
-      assetContext += `User's Garage: ${vehicles.map((v: any) => `${v.make} ${v.model} (${v.year})`).join('; ')}. `;
+      assetContext += `User (${userName}) Garage: ${vehicles.map((v: any) => `${v.make} ${v.model} (${v.year})`).join('; ')}. `;
     }
     if (properties.length > 0) {
       assetContext += `User's Properties: ${properties.map((p: any) => `${p.address} (${p.type})`).join('; ')}. `;
@@ -43,27 +63,38 @@ export async function processChatMessage(
   }
 
   // 2. Fetch Modular AI Contexts (Fail-safe)
-  const [timelineContext, merchantContext] = await Promise.all([
-    getUserTimelineContext(),
-    getEliteMerchantContext({ city, category })
-  ]);
+  let systemPrompt = "";
 
-  const dynamicContext = `
-    ASSET_CONTEXT: ${assetContext || 'No specific assets listed.'}
-    
-    ${timelineContext}
-    
-    ${merchantContext}
-  `;
+  if (merchantId) {
+    const merchantContext = await getSingleMerchantContext(merchantId);
+    systemPrompt = buildMerchantAISystemPrompt(merchantContext, locale);
+  } else {
+    const [timelineContext, mContext] = await Promise.all([
+      getUserTimelineContext(),
+      getEliteMerchantContext({ city, category })
+    ]);
 
-  // 3. Assemble Unified System Prompt
-  const systemPrompt = buildConciergeSystemPrompt(dynamicContext);
+    const dynamicContext = `
+      ASSET_CONTEXT: ${assetContext || 'No specific assets listed.'}
+      
+      ${timelineContext}
+      
+      ${mContext}
+    `;
+
+    // 3. Assemble Unified System Prompt
+    systemPrompt = buildConciergeSystemPrompt(dynamicContext, locale, userMemory);
+  }
 
   try {
     const aiText = await generateAIContent({
       messages,
       systemPrompt: systemPrompt
     });
+    if (aiText && session?.user?.id) {
+      // Trigger background memory update
+      updateAIChatMemory(session.user.id, messages[messages.length - 1].content, userMemory);
+    }
     
     return { success: true, message: { role: 'assistant', content: aiText } };
   } catch (error) {

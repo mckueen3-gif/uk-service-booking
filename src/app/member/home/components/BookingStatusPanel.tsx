@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar, Clock, CheckCircle2, AlertCircle, Loader2, ChevronRight } from "lucide-react";
+import { Calendar, Clock, CheckCircle2, AlertCircle, Loader2, ChevronRight, Video, ExternalLink } from "lucide-react";
 import Link from "next/link";
 
 type BookingStatus = "PENDING" | "CONFIRMED" | "COMPLETED" | "CANCELLED" | "DISPUTED";
@@ -12,6 +12,8 @@ interface Booking {
   service?: { name?: string } | null;
   merchant?: { companyName?: string; user?: { name?: string } | null } | null;
   totalAmount?: number | null;
+  googleMeetLink?: string | null;
+  isEducation?: boolean;
 }
 
 interface BookingStatusProps {
@@ -236,19 +238,63 @@ export default function BookingStatusPanel({ bookings }: BookingStatusProps) {
                   </p>
                 </div>
 
-                {/* Amount */}
-                {booking.totalAmount != null && (
-                  <span
-                    style={{
-                      fontSize: "0.9rem",
-                      fontWeight: 800,
-                      color: "var(--accent-color)",
-                      flexShrink: 0,
-                    }}
-                  >
-                    £{booking.totalAmount.toFixed(0)}
-                  </span>
-                )}
+                {/* Right Actions (Amount + Meet) */}
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.5rem' }}>
+                  {booking.totalAmount != null && (
+                    <span
+                      style={{
+                        fontSize: "1rem",
+                        fontWeight: 800,
+                        color: "var(--accent-color)",
+                        flexShrink: 0,
+                      }}
+                    >
+                      £{booking.totalAmount.toFixed(0)}
+                    </span>
+                  )}
+                  
+                  {/* 🎓 JOIN CLASSROOM BUTTON FOR EDUCATION - Time Window Check */}
+                  {booking.isEducation && booking.googleMeetLink && (() => {
+                    const startTime = new Date(booking.scheduledDate).getTime();
+                    const now = new Date().getTime();
+                    const fifteenMins = 15 * 60 * 1000;
+                    const twoHours = 2 * 60 * 60 * 1000;
+                    
+                    const isWindowActive = now >= (startTime - fifteenMins) && now <= (startTime + twoHours);
+                    
+                    if (!isWindowActive) return null;
+
+                    return (
+                      <a 
+                        href={booking.googleMeetLink} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        style={{ textDecoration: 'none' }}
+                      >
+                        <button
+                          className="hover-scale"
+                          style={{
+                            padding: "0.45rem 0.85rem",
+                            borderRadius: "10px",
+                            background: "linear-gradient(135deg, #d4af37, #f1c40f)",
+                            color: "#000",
+                            border: "none",
+                            fontSize: "0.75rem",
+                            fontWeight: 900,
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "6px",
+                            boxShadow: "0 4px 12px rgba(212, 175, 55, 0.2)"
+                          }}
+                        >
+                          <Video size={14} />
+                          進入教室
+                        </button>
+                      </a>
+                    );
+                  })()}
+                </div>
               </div>
             );
           })

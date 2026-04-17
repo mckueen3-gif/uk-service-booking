@@ -454,6 +454,14 @@ export const pa: any = {
     insured: "ਬੀਮਾਯੁਕਤ",
     priceAudit: "AI ਮੁੱਲ ਆਡਿਟ: ਉਚਿਤ",
     defaultDesc: "ਪੇਸ਼ੇਵਰ ਸੇਵਾ ਪ੍ਰਦਾਤਾ",
+    recommendations: {
+      title: "ਸਮਾਰਟ ਸਿਫਾਰਸ਼ਾਂ",
+      subtitle: "ਤੁਹਾਡੀ ਬੇਨਤੀ ਲਈ ਸਭ ਤੋਂ ਵਧੀਆ ਮੈਚ.",
+      topMatch: "ਸਭ ਤੋਂ ਵਧੀਆ ਮੈਚ",
+      risingStar: "ਉੱਡ ਰਿਹਾ ਤਾਰਾ",
+      bestValue: "ਸਭ ਤੋਂ ਵਧੀਆ ਮੁੱਲ",
+      viewProfile: "ਪ੍ਰੋਫਾਈਲ ਵੇਖੋ"
+    },
   },
   booking: {
     steps: { details: "ਵੇਰਵੇ", schedule: "ਸ਼ਡਿਊਲ", confirmation: "ਪੁਸ਼ਟੀ" },

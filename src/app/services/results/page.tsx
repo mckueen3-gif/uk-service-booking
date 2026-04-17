@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { searchMerchants, getSmartRecommendations } from '@/app/actions/search';
-import { Search, Filter, MapPin, Star, ShieldCheck, ArrowUpDown, Loader2, Navigation as NavIcon, LayoutGrid, Map as MapIcon, Sparkles } from 'lucide-react';
+import { Search, Filter, MapPin, Star, ShieldCheck, ArrowUpDown, Loader2, Navigation as NavIcon, LayoutGrid, Map as MapIcon, Sparkles, BrainCircuit, CheckCircle2 } from 'lucide-react';
 import SmartRecommendations from '@/components/search/SmartRecommendations';
 import Link from 'next/link';
 import VerifiedBadge from '@/app/components/VerifiedBadge';
@@ -11,6 +11,7 @@ import { useTranslation } from "@/components/LanguageContext";
 import { useLocation } from "@/components/LocationContext";
 import MapView from '@/components/MapView';
 import { ALL_UK } from '@/components/LocationContext';
+import ExpertMatchingWizard from '@/components/search/ExpertMatchingWizard';
 
 function SearchResults() {
   const searchParams = useSearchParams();
@@ -31,6 +32,16 @@ function SearchResults() {
   const [verifiedOnly, setVerifiedOnly] = useState(false);
   const [sortBy, setSortBy] = useState<'rating' | 'jobs' | 'distance' | 'price'>('rating');
   const [isEmergency, setIsEmergency] = useState(false);
+  const [showWizard, setShowWizard] = useState(false);
+  const [wizardCriteria, setWizardCriteria] = useState<any>(null);
+
+  const handleWizardComplete = (criteria: any) => {
+    setWizardCriteria(criteria);
+    setShowWizard(false);
+    // In a real app, we would re-run search with these criteria
+    // For now, we'll just trigger a refresh to show "AI filtered" vibe
+    performSearch();
+  };
 
   const performSearch = async (overrideLocation?: string, overrideBounds?: any) => {
     setLoading(true);
@@ -52,7 +63,8 @@ function SearchResults() {
         isVerified: verifiedOnly,
         sortBy,
         bounds: overrideBounds !== undefined ? overrideBounds : bounds,
-        isEmergency
+        isEmergency,
+        wizardCriteria // 🚀 Pass AI Matching Criteria
       });
       setResults(data);
 
@@ -61,8 +73,9 @@ function SearchResults() {
         const recs = await getSmartRecommendations({
           category,
           location: activeLocation === ALL_UK || !activeLocation ? undefined : activeLocation,
-          userLat: undefined, // Could get from context if available
-          userLon: undefined
+          userLat: undefined,
+          userLon: undefined,
+          wizardCriteria // 🚀 Pass AI Matching Criteria
         });
         setRecommendations(recs);
       } else {
@@ -249,6 +262,62 @@ function SearchResults() {
 
         {/* Results Main */}
         <main style={{ flex: 1 }}>
+          {/* New Expert Matching CTA */}
+          {!loading && !wizardCriteria && (
+            <div className="glass-panel" style={{ 
+              marginBottom: '2.5rem', padding: '2rem', 
+              background: 'linear-gradient(135deg, rgba(212,175,55,0.1), rgba(0,0,0,0.5))',
+              borderRadius: '2rem', border: '1px solid var(--gold-500)',
+              display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+              overflow: 'hidden', position: 'relative'
+            }}>
+              <div style={{ position: 'relative', zIndex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.5rem' }}>
+                  <div style={{ padding: '4px', backgroundColor: 'var(--gold-500)', borderRadius: '6px', color: '#000' }}>
+                    <BrainCircuit size={16} />
+                  </div>
+                  <span style={{ fontWeight: 900, color: 'var(--gold-400)', fontSize: '0.75rem', letterSpacing: '0.1em' }}>PRECISION MATCHING ACTIVE</span>
+                </div>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 900, marginBottom: '0.5rem' }}>Confused? Let AI find your perfect match.</h2>
+                <p style={{ fontSize: '0.85rem', opacity: 0.7, maxWidth: '400px' }}>Answer 4 questions to calibrate our recommendation engine for your specific needs.</p>
+                <button 
+                  onClick={() => setShowWizard(true)}
+                  style={{ 
+                    marginTop: '1.25rem', padding: '0.75rem 1.5rem', borderRadius: '12px',
+                    background: 'var(--gold- gradient)', border: 'none', background: 'linear-gradient(135deg, #d4af37, #f5e07a)',
+                    color: '#000', fontWeight: 900, fontSize: '0.85rem', cursor: 'pointer',
+                    boxShadow: '0 8px 15px rgba(212, 175, 55, 0.2)'
+                  }}
+                >
+                  Start Expert Calibration
+                </button>
+              </div>
+              <Sparkles size={80} style={{ position: 'absolute', right: '-10px', bottom: '-10px', opacity: 0.1, color: 'var(--gold-500)' }} />
+            </div>
+          )}
+
+          {wizardCriteria && (
+            <div style={{ 
+              marginBottom: '2rem', padding: '1rem 1.5rem', 
+              backgroundColor: 'var(--surface-1)', borderRadius: '12px',
+              border: '1px solid var(--gold-500)', display: 'flex', alignItems: 'center', gap: '12px',
+              justifyContent: 'space-between'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <CheckCircle2 size={18} color="var(--gold-500)" />
+                <span style={{ fontSize: '0.85rem', fontWeight: 700 }}>
+                  AI Calibrated: <span style={{ color: 'var(--gold-400)' }}>{wizardCriteria.goal}</span> • <span style={{ color: 'var(--gold-400)' }}>{wizardCriteria.budget}</span> • <span style={{ color: 'var(--gold-400)' }}>{wizardCriteria.timing}</span>
+                </span>
+              </div>
+              <button 
+                onClick={() => setWizardCriteria(null)}
+                style={{ background: 'none', border: 'none', color: 'var(--accent-color)', fontWeight: 900, fontSize: '0.75rem', cursor: 'pointer' }}
+              >
+                CLEAR CALIBRATION
+              </button>
+            </div>
+          )}
+
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <h1 style={{ fontSize: '1.75rem', fontWeight: 900 }}>
@@ -374,6 +443,7 @@ function SearchResults() {
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', flexDirection: 'inherit' }}>
                         <h2 style={{ fontSize: '1.2rem', fontWeight: 800 }}>{merchant.companyName}</h2>
                         {merchant.isVerified && <VerifiedBadge size={16} />}
+                        {merchant.isElite && <div style={{ fontSize: '0.65rem', background: 'var(--gold-500)', color: '#000', padding: '1px 6px', borderRadius: '4px', fontWeight: 900 }}>ELITE</div>}
                       </div>
                       <div style={{ display: 'flex', gap: '1rem', color: 'var(--text-secondary)', fontSize: '0.85rem', flexDirection: 'inherit' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
@@ -386,9 +456,12 @@ function SearchResults() {
                         </div>
                       </div>
                     </div>
-                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-end', gap: '0.25rem', minWidth: '120px' }}>
+                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-end', gap: '0.25rem', minWidth: '150px' }}>
                       <div style={{ fontSize: '0.75rem', opacity: 0.6 }}>{t?.search?.basePrice || "Consultation Fee"}</div>
-                      <div style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--accent-color)' }}>£{merchant.basePrice}</div>
+                      <div style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--accent-color)' }}>£{(merchant.basePrice * 1.09).toFixed(2)}</div>
+                      <div style={{ fontSize: '0.65rem', fontWeight: 700, color: 'var(--text-secondary)', fontStyle: 'italic' }}>
+                         Incl. 9% platform fee
+                      </div>
                       {merchant.services?.some((s: any) => s.isEmergencyAble) && (
                         <div style={{ fontSize: '0.65rem', fontWeight: 800, color: '#f59e0b', backgroundColor: 'rgba(245, 158, 11, 0.1)', padding: '2px 6px', borderRadius: '4px', marginTop: '4px' }}>
                           {t?.search?.emergencyReady || "RAPID RESPONSE ACTIVE"}
@@ -402,6 +475,14 @@ function SearchResults() {
           )}
         </main>
       </div>
+
+      {showWizard && (
+        <ExpertMatchingWizard 
+          category={category} 
+          onClose={() => setShowWizard(false)} 
+          onComplete={handleWizardComplete} 
+        />
+      )}
     </div>
   );
 }

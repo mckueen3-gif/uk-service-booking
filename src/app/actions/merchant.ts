@@ -4,11 +4,12 @@ import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { saveFileLocally } from '@/lib/storage';
 import { DocumentType, DocumentStatus } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 
 export async function createMerchantAction(data: any) {
   try {
     // 1. Validate mandatory fields
-    if (!data.businessName || !data.email || !data.sector) {
+    if (!data.businessName || !data.email || !data.sector || !data.password) {
       return { error: "Missing required fields." };
     }
 
@@ -42,12 +43,14 @@ export async function createMerchantAction(data: any) {
       }
     }
 
+    const hashedPassword = await bcrypt.hash(data.password, 10);
     let user = await prisma.user.findFirst({ where: { email: data.email } });
     
     if (!user) {
       user = await prisma.user.create({
         data: {
           email: data.email,
+          password: hashedPassword,
           name: data.businessName,
           role: 'MERCHANT',
           phone: data.phone || null
