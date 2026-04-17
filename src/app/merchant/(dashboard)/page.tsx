@@ -6,7 +6,8 @@ import {
   getMerchantBookings, 
   updateMerchantAvatar,
   updateMerchantProfile,
-  updateBookingMeetingLink
+  updateBookingMeetingLink,
+  getAIPricingInsights
 } from '@/app/actions/merchant_dashboard';
 import { 
   proposeVariation, 
