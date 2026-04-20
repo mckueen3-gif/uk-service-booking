@@ -6,15 +6,16 @@ import { prisma } from "@/lib/prisma";
 import { SearchFilters, searchMerchants } from "./search";
 import { generateAIContent } from "@/lib/ai-provider";
 
-export async function parseSearchIntent(query: string): Promise<SearchFilters> {
+export async function parseSearchIntent(query: string): Promise<SearchFilters & { urgency?: 'high' | 'medium' | 'low', detail?: string }> {
 
   const prompt = `
     Analyze the following user search query for a service marketplace.
     Extract the following entities as a JSON object:
-    1. "category": One of [Auto, Home, Accounting, Tires, MOT, Repair, Cleaning, Plumbing, Electrical].
-    2. "location": A city or region name if mentioned.
-    3. "problem": A specific keywords for the issue (e.g., "brake noise").
-    4. "intent": Describe the user's intent.
+    1. "category": One of [Auto, Home, Accounting, Tires, MOT, Repair, Cleaning, Plumbing, Electrical, Education, Legal].
+    2. "location": A city or region name if mentioned (default to undefined).
+    3. "problem": A specific keywords for the issue (e.g., "brake noise", "tax audit").
+    4. "urgency": Assessment of how urgent this is (high, medium, low).
+    5. "detail": A 1-sentence professional summary of the user's specific need.
     
     Query: "${query}"
     
@@ -33,11 +34,49 @@ export async function parseSearchIntent(query: string): Promise<SearchFilters> {
       category: aiResponse.category || undefined,
       location: aiResponse.location || undefined,
       query: aiResponse.problem || query,
-      sortBy: 'rating'
+      sortBy: 'rating',
+      urgency: aiResponse.urgency || 'medium',
+      detail: aiResponse.detail || undefined
     };
   } catch (error) {
     console.error("AI Search Intent Parsing failed:", error);
     return { query };
+  }
+}
+
+export async function matchLead(query: string, city?: string) {
+  try {
+    const intent = await parseSearchIntent(query);
+    
+    // Search for matches
+    const matches = await searchMerchants({
+      location: intent.location || city,
+      category: intent.category,
+      query: intent.query,
+      sortBy: 'rating'
+    });
+
+    // Generate a high-trust matching report
+    const reportPrompt = `
+      You are the ConciergeAI Matchmaker. Based on the user need and these results, write a very short, premium 2-sentence match report.
+      User Need: "${intent.detail || query}"
+      Top Match: "${matches[0]?.companyName || 'None'}"
+      
+      Response should be professional and encouraging. 
+    `;
+
+    const report = await generateAIContent({ prompt: reportPrompt });
+
+    return {
+      success: true,
+      intent,
+      matches: matches.slice(0, 3), 
+      report,
+      matchCount: matches.length
+    };
+  } catch (error) {
+    console.error("Lead Matching Error:", error);
+    return { success: false, error: "Matching engine timeout" };
   }
 }
 

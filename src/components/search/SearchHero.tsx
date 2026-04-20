@@ -35,7 +35,7 @@ export default function SearchHero() {
 
   const suggestions = [
     t?.home?.hero?.searchPlaceholder || "Search...",
-    ...(t?.home?.hero?.suggestions || [])
+    ...(Array.isArray(t?.home?.hero?.suggestions) ? t.home.hero.suggestions : [])
   ];
 
   useEffect(() => {
@@ -85,7 +85,7 @@ export default function SearchHero() {
         clearTimeout(typingTimeoutRef.current);
       }
     };
-  }, [(t?.home?.hero?.suggestions || []).join('|'), t?.home?.hero?.searchPlaceholder]);
+  }, [Array.isArray(t?.home?.hero?.suggestions) ? t.home.hero.suggestions.join('|') : '', t?.home?.hero?.searchPlaceholder]);
 
   const postcodeRegex = /^[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}$/i;
 
@@ -302,7 +302,7 @@ export default function SearchHero() {
           </button>
         </form>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '3rem', flexDirection: isRTL ? 'row-reverse' : 'row', flexWrap: 'wrap' }}>
-           {(t?.home?.hero?.popularTags || []).map((tag: string) => (
+           {Array.isArray(t?.home?.hero?.popularTags) && t.home.hero.popularTags.map((tag: string) => (
              <span key={tag} style={{ fontSize: '0.85rem', cursor: 'pointer', color: 'var(--text-muted)', border: '1px solid var(--border-color)', padding: '0.5rem 1rem', borderRadius: '1rem', background: 'var(--surface-1)' }} onClick={() => setQuery(tag)}>
                {!isRTL && `${t?.home?.hero?.popularLabel || "Hot"}: `} 
                <strong style={{ textDecoration: 'underline', color: 'var(--accent-color)' }}>{tag}</strong>

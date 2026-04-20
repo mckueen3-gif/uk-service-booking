@@ -742,6 +742,27 @@ export function AppFooter() {
               </nav>
            </div>
 
+           {/* For Specialists Column */}
+           <div>
+              <h4 style={{ fontWeight: 700, marginBottom: '1.5rem', fontSize: '1.1rem', color: isObsidianPage ? 'white' : 'inherit' }}>{t?.footer?.forPros || 'For Specialists'}</h4>
+              <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                 {[
+                   { name: t?.footer?.merchantRegistration || 'Specialist Join', href: "/join" },
+                   { name: t?.nav?.login || 'Specialist Login', href: "/auth/login" },
+                   { name: t?.footer?.merchantPortal || 'Merchant Portal', href: "/merchant" }
+                 ].map((link, idx) => (
+                   <Link key={idx} href={link.href} style={{ 
+                     color: isObsidianPage ? '#888' : 'var(--text-secondary)', 
+                     textDecoration: 'none', 
+                     fontSize: '0.9rem',
+                     transition: 'all 0.3s ease'
+                   }} className="link-hover">
+                     {link.name}
+                   </Link>
+                 ))}
+              </nav>
+           </div>
+
            {/* Contact & Support Column */}
            <div style={{ gridColumn: 'span 1' }}>
               <h4 style={{ fontWeight: 700, marginBottom: '1.5rem', fontSize: '1.1rem', color: isObsidianPage ? 'white' : 'inherit' }}>{t?.footer?.support || 'Support'}</h4>

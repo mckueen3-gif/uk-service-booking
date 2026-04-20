@@ -22,7 +22,7 @@ export const ro: any = {
       commission: {
         title: "Comision Platformă",
         others: "15% - 30% taxă de servicii",
-        concierge: "9% comision pentru toți comercianții experți"
+        concierge: "10% comision pentru toți comercianții experți"
       },
       client_calibre: {
         title: "Calitatea Clientului",
@@ -1128,7 +1128,7 @@ export const ro: any = {
       clauses: {
         platform_fee: {
           title: "1. Taxa de servicii",
-          body: "Platforma percepe un comision de 9% din task-urile finalizate cu succes.",
+          body: "Platforma percepe un comision de 10% din task-urile finalizate cu succes.",
         },
         payments: {
           title: "2. Escrow și Decontări",

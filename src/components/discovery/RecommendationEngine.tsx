@@ -24,7 +24,26 @@ const getCategoryIcon = (category: string) => {
   }
 };
 
-export default function RecommendationEngine() {
+export const AnimatedCounter = ({ target, duration = 2000 }: { target: number, duration?: number }) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let startTimestamp: number | null = null;
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      setCount(Math.floor(progress * target));
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }, [target, duration]);
+
+  return <span>{count.toLocaleString()}</span>;
+};
+
+export default function RecommendationEngine({ stats }: { stats?: { experts: number, customers: number } }) {
   const { t, format, isRTL } = useTranslation();
   const { city } = useLocation();
   const [recommendations, setRecommendations] = useState<any[]>([]);
@@ -76,6 +95,39 @@ export default function RecommendationEngine() {
             <p style={{ color: 'var(--text-muted)', fontWeight: 500, fontSize: '1.15rem', maxWidth: '650px', margin: '0 auto', lineHeight: 1.6 }}>
                {t?.home?.recommendation?.subtitle}
             </p>
+
+            {/* INTEGRATED DYNAMIC STATS */}
+            {stats && (
+              <div style={{ 
+                marginTop: '2.5rem', 
+                display: 'flex', 
+                gap: '3rem', 
+                justifyContent: 'center',
+                background: 'var(--surface-2)',
+                padding: '1.5rem 3rem',
+                borderRadius: '2rem',
+                border: '1px solid var(--border-color)',
+                boxShadow: 'var(--shadow-sm)'
+              }}>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ fontSize: '1.8rem', fontWeight: 900, color: 'var(--accent-color)' }}>
+                    <AnimatedCounter target={stats.experts} />+
+                  </div>
+                  <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '4px' }}>
+                    {t?.home?.stats?.expertsJoined || "Experts"}
+                  </div>
+                </div>
+                <div style={{ width: '1px', height: '40px', background: 'var(--border-color)', alignSelf: 'center' }}></div>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ fontSize: '1.8rem', fontWeight: 900, color: 'var(--accent-color)' }}>
+                    <AnimatedCounter target={stats.customers} />+
+                  </div>
+                  <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '4px' }}>
+                    {t?.home?.stats?.activeCustomers || "Users"}
+                  </div>
+                </div>
+              </div>
+            )}
          </div>
       </div>
 

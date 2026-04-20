@@ -47,10 +47,6 @@ const nextConfig: any = {
     // Vercel deployment block fix: ignore TypeScript errors during production builds
     ignoreBuildErrors: true,
   },
-  eslint: {
-    // Vercel deployment block fix: ignore ESLint errors during production builds
-    ignoreDuringBuilds: true,
-  },
   // 🚀 Turbopack compatibility with next-pwa
   turbopack: {},
 };

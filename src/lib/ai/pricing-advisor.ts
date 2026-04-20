@@ -25,7 +25,7 @@ export function getMarketGuidance(category: string): PricingGuidance {
 
 export async function analyzePriceHealth(price: number, category: string) {
   const guidance = getMarketGuidance(category);
-  const platformFee = 0.09;
+  const platformFee = 0.10;
   const totalRate = price * (1 + platformFee);
 
   let status: 'UNDERPRICED' | 'OPTIMAL' | 'HIGH' = 'OPTIMAL';

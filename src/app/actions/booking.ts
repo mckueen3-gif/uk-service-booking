@@ -56,7 +56,7 @@ export async function finalizeBooking(sessionId: string) {
     // 🚀 NEW: Update Merchant Wallet & Log Platform Fee
     const { recordInitialBookingPayment } = await import('@/lib/finance');
     const depositAmount = (session.amount_total || 0) / 100;
-    const { merchantPayout, platformFee } = await recordInitialBookingPayment(merchantId, depositAmount);
+    const { merchantPayout, platformFee } = await recordInitialBookingPayment(merchantId, depositAmount, customerId);
 
     const booking = await (prisma.booking as any).create({
       data: {
@@ -101,9 +101,9 @@ export async function finalizeBooking(sessionId: string) {
        }).catch(console.error);
 
        // ⚡ EMERGENCY SMS ALERT
-       if (urgentFlag && fullMerchant?.user?.phone) {
+       if (urgentFlag && (fullMerchant?.user as any)?.phone) {
          sendEmergencyAlert(
-           fullMerchant.user.phone, 
+           (fullMerchant.user as any).phone, 
            fullMerchant.companyName, 
            service.name
          ).catch(console.error);

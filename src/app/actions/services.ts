@@ -111,7 +111,7 @@ export const getServiceDetails = unstable_cache(
   { tags: ['services'], revalidate: 3600 }
 );
 
-export async function getMerchantDetails(merchantId: string) {
+export async function getMerchantDetails(merchantId: string): Promise<{ success: true; merchant: any } | { success: false; error: string }> {
   try {
     return await safeDbQuery(async () => {
       const merchant = await prisma.merchant.findUnique({

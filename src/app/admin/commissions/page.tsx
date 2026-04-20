@@ -120,7 +120,7 @@ export default async function AdminCommissionsPage() {
         <div>
           <h4 style={{ color: '#0f172a', fontWeight: 800, fontSize: '14px', margin: 0 }}>Commission Management Rules</h4>
           <p style={{ color: '#64748b', fontSize: '12px', lineHeight: 1.5, marginTop: '2px', margin: 0 }}>
-            Standard commission is locked at 8-9%. Changes take effect on the next Stripe checkout generation.
+            Standard commission is locked at 10%. Changes take effect on the next Stripe checkout generation.
           </p>
         </div>
       </div>

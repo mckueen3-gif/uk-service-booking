@@ -22,7 +22,7 @@ export const ar: any = {
       commission: {
         title: "عمولة المنصة",
         others: "15% - 30% رسوم خدمة",
-        concierge: "عمولة 9% لجميع الحرفيين الخبراء"
+        concierge: "عمولة 10% لجميع الحرفيين الخبراء"
       },
       client_calibre: {
         title: "جودة العملاء",
@@ -1156,7 +1156,7 @@ export const ar: any = {
       clauses: {
         platform_fee: {
           title: "1. رسوم الخدمة",
-          body: "تقتطع المنصة عمولة قدرها 9% على المهام المكتملة بنجاح.",
+          body: "تقتطع المنصة عمولة قدرها 10% على المهام المكتملة بنجاح.",
         },
         payments: {
           title: "2. الضمان والتسوية",

@@ -1037,7 +1037,7 @@ export const ko: any = {
       clauses: {
         platform_fee: {
           title: "1. 서비스 수수료",
-          body: "플랫폼은 성공적으로 완료된 작업에 대해 9%의 수수료를 청구합니다.",
+          body: "플랫폼은 성공적으로 완료된 작업에 대해 10%의 수수료를 청구합니다.",
         },
         payments: {
           title: "2. 에스크로 및 정산",

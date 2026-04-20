@@ -316,7 +316,7 @@ export async function getPayoutStats() {
     totalAssets: totalAssets._sum.totalAmount || 0,
     pendingPayouts: pendingPayouts.length,
     todayVolume: 2150, // Keep mock for now or calculate from recent COMPLETED
-    marketplaceFee: "9%",
+    marketplaceFee: "10%",
     platformFee: "0.5%",
     pendingRequests: pendingPayouts,
     processedPayouts: completedPayouts

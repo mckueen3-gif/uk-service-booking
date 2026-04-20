@@ -4,17 +4,19 @@ import { useEffect, useState } from "react";
 import { getPayoutStats } from "@/app/actions/admin_actions";
 import { processWithdrawal } from "@/app/actions/admin";
 import { 
+  Activity,
+  ShieldCheck,
+  Zap,
+  Globe,
   Wallet, 
   ArrowUpRight, 
   ArrowDownRight, 
   Clock, 
   CheckCircle2, 
   AlertCircle,
-  ShieldCheck,
   CreditCard,
   TrendingUp,
   Loader2,
-  Zap,
   DollarSign,
   XCircle,
   MinusCircle
@@ -60,13 +62,24 @@ export default function AdminPayouts() {
 
   return (
     <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem', padding: '1rem' }}
     >
-      <div style={{ padding: '0 0.5rem' }}>
-        <h2 style={{ fontSize: '2rem', fontWeight: 900, color: '#0f172a', margin: 0, letterSpacing: '-0.02em' }}>{t.admin.sidebar.payouts}</h2>
-        <p style={{ color: '#94a3b8', fontSize: '1rem', fontWeight: 500, margin: '0.25rem 0 0 0' }}>平台資金流動與費率結算中心</p>
+      {/* Infrastructure Header */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '-1rem' }}>
+        <div>
+          <h2 style={{ fontSize: '0.75rem', fontWeight: 900, color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.3em', margin: 0, opacity: 0.8 }}>
+            {t.admin.header.internal}
+          </h2>
+          <h1 style={{ fontSize: '2.5rem', fontWeight: 900, color: '#0f172a', margin: '0.5rem 0' }}>
+            {t.admin.payouts.title}
+          </h1>
+        </div>
+        <div style={{ textAlign: 'right' }}>
+           <p style={{ fontSize: '10px', fontWeight: 800, color: '#94a3b8', margin: 0, textTransform: 'uppercase' }}>{t.admin.header.node}</p>
+           <p style={{ fontSize: '14px', fontWeight: 900, color: '#0f172a', margin: 0 }}>FIN-X1-CLEARANCE</p>
+        </div>
       </div>
 
       {/* Financial Overview Cards */}
@@ -74,22 +87,22 @@ export default function AdminPayouts() {
          <FinancialBox 
            label={t.admin.payouts.snapshot} 
            value={`£${stats?.totalAssets?.toLocaleString() || "0"}`} 
-           sub="全平台資金流轉通量" 
+           sub={t.admin.payouts.snapshotSub} 
            accent="#d4af37" 
            icon={<Wallet size={24} />}
            trend="+12.5%"
          />
          <FinancialBox 
-           label="待處理清算" 
+           label={t.admin.payouts.pending} 
            value={`£${stats?.pendingPayouts?.toLocaleString() || "0"}`} 
-           sub={t.admin.payouts.pending} 
+           sub={t.admin.payouts.pendingSub} 
            accent="#0f172a" 
            icon={<Clock size={24} />}
          />
          <FinancialBox 
-           label="今日清算總額" 
+           label={t.admin.payouts.volume} 
            value={`£${stats?.todayVolume?.toLocaleString() || "0"}`} 
-           sub={t.admin.payouts.volume} 
+           sub={t.admin.payouts.volumeSub} 
            accent="#c5a02e" 
            icon={<TrendingUp size={24} />}
            trend="+5.2%"
@@ -105,25 +118,31 @@ export default function AdminPayouts() {
         <div style={{ 
           backgroundColor: '#ffffff', 
           borderRadius: '2.5rem', 
-          border: '1px solid rgba(184, 134, 11, 0.08)', 
+          border: '1px solid #e2e8f0', 
           overflow: 'hidden',
-          boxShadow: '0 30px 70px rgba(0,0,0,0.04)'
+          boxShadow: '0 30px 60px -12px rgba(0,0,0,0.05), 0 18px 36px -18px rgba(0,0,0,0.05)',
+          position: 'relative'
         }}>
-          <div style={{ padding: '2rem', borderBottom: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h3 style={{ fontSize: '11px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.2em', margin: 0 }}>{t.admin.payouts.adjudication}</h3>
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              gap: '8px', 
-              padding: '6px 14px', 
-              borderRadius: '99px', 
-              backgroundColor: 'rgba(16, 185, 129, 0.1)', 
-              color: '#10b981', 
-              fontSize: '11px', 
-              fontWeight: 900,
-              textTransform: 'uppercase'
-            }}>
-              <ShieldCheck size={14} />
+          {/* Decorative Grid Overlay */}
+          <div style={{ 
+            position: 'absolute', 
+            top: 0, 
+            left: 0, 
+            right: 0, 
+            bottom: 0, 
+            backgroundImage: 'radial-gradient(#e2e8f0 1px, transparent 1px)', 
+            backgroundSize: '30px 30px', 
+            opacity: 0.2, 
+            pointerEvents: 'none' 
+          }} />
+
+          <div style={{ padding: '2rem', borderBottom: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative', zIndex: 1 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <Activity className="animate-pulse" style={{ color: '#c5a02e' }} />
+              <span style={{ fontSize: '12px', fontWeight: 900, color: '#0f172a', letterSpacing: '0.15em', textTransform: 'uppercase' }}>{t.admin.payouts.adjudication}</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '6px 12px', background: 'linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(16,185,129,0.05) 100%)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '12px', fontSize: '10px', fontWeight: 900, color: '#059669', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              <div style={{ width: '6px', height: '6px', borderRadius: '99px', backgroundColor: '#10b981', boxShadow: '0 0 8px #10b981' }} />
               {t.admin.payouts.security}
             </div>
           </div>
@@ -131,8 +150,8 @@ export default function AdminPayouts() {
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
               <tr style={{ backgroundColor: '#fafbfc' }}>
-                <th style={{ padding: '1.5rem 2rem', fontSize: '11px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', borderBottom: '1px solid #f1f5f9' }}>收款專家</th>
-                <th style={{ padding: '1.5rem 2rem', fontSize: '11px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', borderBottom: '1px solid #f1f5f9' }}>清算金額</th>
+                <th style={{ padding: '1.5rem 2rem', fontSize: '11px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', borderBottom: '1px solid #f1f5f9' }}>{t.admin.payouts.merchant}</th>
+                <th style={{ padding: '1.5rem 2rem', fontSize: '11px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', borderBottom: '1px solid #f1f5f9' }}>{t.admin.payouts.amount}</th>
                 <th style={{ padding: '1.5rem 2rem', fontSize: '11px', fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', borderBottom: '1px solid #f1f5f9' }}>{t.admin.payouts.method}</th>
                 <th style={{ padding: '1.5rem 2rem', borderBottom: '1px solid #f1f5f9' }}></th>
               </tr>
@@ -157,8 +176,8 @@ export default function AdminPayouts() {
                       </td>
                       <td style={{ padding: '1.75rem 2rem' }}>
                          <div style={{ fontSize: '16px', fontWeight: 900, color: '#0f172a' }}>£{grossAmount.toFixed(2)}</div>
-                         <div style={{ fontSize: '11px', color: '#ef4444', fontWeight: 700 }}>Fee: -£{stripeFee.toFixed(2)}</div>
-                         <div style={{ fontSize: '13px', color: '#10b981', fontWeight: 800 }}>Net: £{netPayout.toFixed(2)}</div>
+                         <div style={{ fontSize: '11px', color: '#ef4444', fontWeight: 700 }}>{t.admin.payouts.fee}: -£{stripeFee.toFixed(2)}</div>
+                         <div style={{ fontSize: '13px', color: '#10b981', fontWeight: 800 }}>{t.admin.payouts.net}: £{netPayout.toFixed(2)}</div>
                       </td>
                       <td style={{ padding: '1.75rem 2rem' }}>
                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: 800, color: '#64748b' }}>
@@ -186,7 +205,7 @@ export default function AdminPayouts() {
                              }}
                            >
                              <MinusCircle size={14} />
-                             拒絕
+                             {t.admin.payouts.reject}
                            </button>
                            <button 
                              onClick={() => handleAction(req.id, 'COMPLETED')}
@@ -207,7 +226,7 @@ export default function AdminPayouts() {
                              }}
                            >
                              {isProcessing ? <Loader2 className="animate-spin" size={14} /> : <CheckCircle2 size={14} />}
-                             准予支付 £{netPayout.toFixed(2)}
+                             {t.admin.payouts.approve} £{netPayout.toFixed(2)}
                            </button>
                          </div>
                       </td>
@@ -217,7 +236,7 @@ export default function AdminPayouts() {
               ) : (
                 <tr>
                   <td colSpan={4} style={{ padding: '4rem', textAlign: 'center', color: '#94a3b8', fontWeight: 600 }}>
-                    暫無待處理的清算申請
+                    {t.admin.payouts.emptyState}
                   </td>
                 </tr>
               )}
@@ -230,25 +249,40 @@ export default function AdminPayouts() {
           padding: '3rem', 
           backgroundColor: '#ffffff', 
           borderRadius: '2.5rem', 
-          border: '1px solid rgba(184, 134, 11, 0.08)', 
-          boxShadow: '0 30px 70px rgba(0,0,0,0.04)',
+          border: '1px solid #e2e8f0', 
+          boxShadow: '0 30px 60px -12px rgba(0,0,0,0.05)',
           display: 'flex',
           flexDirection: 'column',
-          gap: '2.5rem'
+          gap: '2.5rem',
+          position: 'relative',
+          overflow: 'hidden'
         }}>
-           <div>
+           <div style={{ 
+            position: 'absolute', 
+            top: 0, 
+            left: 0, 
+            right: 0, 
+            bottom: 0, 
+            backgroundImage: 'radial-gradient(#e2e8f0 1px, transparent 1px)', 
+            backgroundSize: '20px 20px', 
+            opacity: 0.1, 
+            pointerEvents: 'none' 
+          }} />
+
+           <div style={{ position: 'relative', zIndex: 1 }}>
              <div style={{ 
                 display: 'inline-flex', 
                 alignItems: 'center', 
                 gap: '8px', 
                 padding: '8px 16px', 
                 borderRadius: '12px', 
-                backgroundColor: 'rgba(212,175,55,0.08)', 
+                background: 'linear-gradient(135deg, rgba(212,175,55,0.1) 0%, rgba(212,175,55,0.05) 100%)', 
+                border: '1px solid rgba(212,175,55,0.2)',
                 color: '#d4af37', 
                 marginBottom: '1.5rem'
              }}>
-               <Zap size={18} />
-               <span style={{ fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em' }}>費率配置中心</span>
+               <Zap size={18} className="animate-pulse" />
+               <span style={{ fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em' }}>{t.admin.commissions.config}</span>
              </div>
              <h3 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0f172a', margin: 0, letterSpacing: '-0.02em' }}>{t.admin.commissions.title}</h3>
              <p style={{ fontSize: '14px', color: '#64748b', fontWeight: 500, marginTop: '4px' }}>{t.admin.commissions.sub}</p>
@@ -260,19 +294,19 @@ export default function AdminPayouts() {
                     <DollarSign size={18} color="#d4af37" />
                     <span style={{ fontSize: '14px', fontWeight: 800, color: '#334155' }}>{t.admin.commissions.marketplaceFee}</span>
                  </div>
-                 <input type="text" defaultValue="9%" style={{ width: '70px', padding: '10px', borderRadius: '12px', border: '1px solid #e2e8f0', textAlign: 'center', fontSize: '14px', fontWeight: 900, backgroundColor: '#fafbfc' }} />
+                 <input type="text" defaultValue="10%" style={{ width: '70px', padding: '10px', borderRadius: '12px', border: '1px solid #e2e8f0', textAlign: 'center', fontSize: '14px', fontWeight: 900, backgroundColor: '#fafbfc' }} />
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <ShieldCheck size={18} color="#d4af37" />
-                    <span style={{ fontSize: '14px', fontWeight: 800, color: '#334155' }}>{t.admin.commissions.plateformFee}</span>
-                 </div>
-                 <input type="text" defaultValue="0.5%" style={{ width: '70px', padding: '10px', borderRadius: '12px', border: '1px solid #e2e8f0', textAlign: 'center', fontSize: '14px', fontWeight: 900, backgroundColor: '#fafbfc' }} />
+                    <span style={{ fontSize: '14px', fontWeight: 800, color: '#334155' }}>{t.admin.commissions.platformFee}</span>
+                  </div>
+                  <input type="text" defaultValue="0.5%" style={{ width: '70px', padding: '10px', borderRadius: '12px', border: '1px solid #e2e8f0', textAlign: 'center', fontSize: '14px', fontWeight: 900, backgroundColor: '#fafbfc' }} />
               </div>
               
               <div style={{ marginTop: '1rem', padding: '2rem', borderRadius: '2rem', border: '1px dashed rgba(184, 134, 11, 0.2)', backgroundColor: 'rgba(212,175,55,0.02)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-                   <p style={{ fontSize: '11px', fontWeight: 900, color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.1em', margin: 0 }}>目前加權總抽成率</p>
+                   <p style={{ fontSize: '11px', fontWeight: 900, color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.1em', margin: 0 }}>{t.admin.commissions.weightedAvg}</p>
                    <span style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0f172a' }}>8.2<span style={{ fontSize: '14px' }}>%</span></span>
                 </div>
                 <div style={{ height: '8px', width: '100%', backgroundColor: '#e2e8f0', borderRadius: '99px', overflow: 'hidden' }}>
@@ -281,7 +315,7 @@ export default function AdminPayouts() {
               </div>
            </div>
 
-           <button style={{ 
+            <button style={{ 
               marginTop: '1rem', 
               padding: '1.25rem', 
               borderRadius: '16px', 
@@ -296,7 +330,7 @@ export default function AdminPayouts() {
               boxShadow: '0 15px 30px rgba(15,23,42,0.15)',
               transition: 'all 0.2s'
            }}>
-             保存費率變更
+             {t.admin.commissions.save}
            </button>
         </div>
       </div>
@@ -306,15 +340,22 @@ export default function AdminPayouts() {
 
 function FinancialBox({ label, value, sub, accent, icon, trend }: any) {
   return (
-    <div style={{ 
-      padding: '2.5rem', 
-      borderRadius: '2.5rem', 
-      backgroundColor: '#ffffff', 
-      border: '1px solid rgba(184, 134, 11, 0.08)', 
-      boxShadow: '0 30px 70px rgba(0,0,0,0.04)',
-      position: 'relative',
-      overflow: 'hidden'
-    }}>
+    <motion.div 
+      whileHover={{ y: -5 }}
+      style={{ 
+        padding: '2.5rem', 
+        borderRadius: '2.5rem', 
+        backgroundColor: '#ffffff', 
+        border: '1px solid #e2e8f0', 
+        boxShadow: '0 10px 25px rgba(0,0,0,0.02)',
+        position: 'relative',
+        overflow: 'hidden',
+        minHeight: '200px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between'
+      }}
+    >
        <div style={{ 
           position: 'absolute', 
           right: '-20px', 
@@ -350,8 +391,8 @@ function FinancialBox({ label, value, sub, accent, icon, trend }: any) {
        <div style={{ height: '1px', width: '100%', backgroundColor: '#f1f5f9', marginBottom: '1.25rem' }} />
        <p style={{ fontSize: '13px', color: '#64748b', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>
           <AlertCircle size={14} style={{ opacity: 0.5 }} />
-          {sub}
+        {sub}
        </p>
-    </div>
+    </motion.div>
   );
 }

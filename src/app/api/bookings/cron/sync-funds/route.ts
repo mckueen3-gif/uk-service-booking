@@ -48,7 +48,7 @@ export async function GET(req: Request) {
           capture_method: 'manual',
           off_session: true,
           confirm: true,
-          application_fee_amount: Math.round(booking.balanceAmount * 0.09 * 100),
+          application_fee_amount: Math.round(booking.balanceAmount * 0.10 * 100),
           transfer_data: {
             destination: booking.merchant.stripeAccountId,
           },

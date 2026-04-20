@@ -22,7 +22,7 @@ export const ja: any = {
       commission: {
         title: "プラットフォーム手数料",
         others: "15% - 30% のサービス料",
-        concierge: "すべての専門業者に対して 9% の一律手数料"
+        concierge: "すべての専門業者に対して 10% の一律手数料"
       },
       client_calibre: {
         title: "顧客の質",
@@ -1153,7 +1153,7 @@ export const ja: any = {
       clauses: {
         platform_fee: {
           title: "1. サービス手数料",
-          body: "正常に完了したタスクに対し、9% の手数料が発生します。",
+          body: "正常に完了したタスクに対し、10% の手数料が発生します。",
         },
         payments: {
           title: "2. エスクローと決済",

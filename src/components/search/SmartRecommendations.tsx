@@ -10,9 +10,11 @@ interface RecProps {
     risingStar: any;
     bestValue: any;
   };
+  query?: string;
+  category?: string;
 }
 
-export default function SmartRecommendations({ merchants }: RecProps) {
+export default function SmartRecommendations({ merchants, query, category }: RecProps) {
   const { t, isRTL } = useTranslation();
   
   const items = [
@@ -152,10 +154,10 @@ export default function SmartRecommendations({ merchants }: RecProps) {
                      
                      <div style={{ marginTop: '0.5rem', display: 'flex', alignItems: 'baseline', gap: '4px' }}>
                         <span style={{ fontSize: '1.25rem', fontWeight: 950, color: '#fff' }}>
-                          £{(item.data.basePrice * 1.09).toFixed(2)}
+                          £{(item.data.basePrice * 1.10).toFixed(2)}
                         </span>
                         <span style={{ fontSize: '0.7rem', color: '#555', fontWeight: 600 }}>
-                          / {t?.common?.hr || 'hr'} (inc. 9% fee)
+                          / {t?.common?.hr || 'hr'} (inc. 10% fee)
                         </span>
                      </div>
                   </div>
@@ -193,7 +195,7 @@ export default function SmartRecommendations({ merchants }: RecProps) {
                   )}
                </div>
 
-               <Link href={`/merchant/${item.data.id}`} style={{ display: 'block' }}>
+               <Link href={`/merchant/${item.data.id}?q=${encodeURIComponent(query || "")}&cat=${encodeURIComponent(category || "")}`} style={{ display: 'block' }}>
                   <button className="btn" style={{ 
                     width: '100%', 
                     padding: '1rem', 

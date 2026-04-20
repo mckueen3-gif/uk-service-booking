@@ -6,7 +6,7 @@ import {
   Home, Calendar, Wallet, User, Settings, ShieldCheck, 
   Car, Home as HomeIcon, BarChart3, LayoutDashboard, ScrollText,
   MessageSquare, Clock, Briefcase, ChevronRight, LogOut, Sparkles,
-  Zap, Star, Calculator
+  Zap, Star, Calculator, Tag
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { useTheme } from "@/components/ThemeContext";
@@ -27,6 +27,10 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
 
   const mainItems = [
     { href: basePath, label: t?.sidebar?.labels?.overview || "Overview", icon: isMerchant ? LayoutDashboard : Home },
+    ...(isMerchant ? [
+      { href: "/merchant/ai-secretary", label: t?.sidebar?.labels?.ai_secretary || "AI Secretary", icon: Sparkles },
+      { href: "/merchant/toolkit", label: t?.sidebar?.labels?.toolkit_portal || "Modular Toolkit", icon: Zap }
+    ] : []),
     { href: "/member/bookings", label: t?.sidebar?.labels?.bookings || "My Bookings", icon: Calendar },
     { href: "/member/chat", label: t?.sidebar?.labels?.messages || "Live Messages", icon: MessageSquare },
   ];
@@ -38,6 +42,7 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
     { href: "/member/analytics", label: t?.sidebar?.labels?.analytics || "Performance Audit", icon: BarChart3 },
     { href: "/merchant/verification", label: t?.sidebar?.labels?.verification || "Expert Verification", icon: ShieldCheck },
     { href: "/merchant/accounting", label: t?.sidebar?.labels?.accounting || "Ledger & Tax", icon: Calculator },
+    { href: "/merchant/promotions", label: t?.sidebar?.labels?.promotions || "Promotion Hub", icon: Tag },
     { href: "/merchant/wallet", label: t?.sidebar?.labels?.wallet || "Earnings Wallet", icon: Wallet },
   ] : [
     { href: "/member/garage", label: t?.sidebar?.labels?.garage || "Private Garage", icon: Car },

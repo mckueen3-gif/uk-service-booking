@@ -36,7 +36,7 @@ export default function EarningsPage() {
   const jobs = data?.merchant?.completedJobsCount || 0;
 
   const getTierInfo = () => {
-    return { label: t?.earnings?.tierLabel || "Elite Merchant", rate: "9%", next: t?.earnings?.tierMaxed || "Reached standard rate" };
+    return { label: t?.earnings?.tierLabel || "Elite Merchant", rate: "10%", next: t?.earnings?.tierMaxed || "Reached standard rate" };
   };
 
   const tier = getTierInfo();

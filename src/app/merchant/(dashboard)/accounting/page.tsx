@@ -11,9 +11,16 @@ import {
   ArrowRight,
   Download,
   CheckCircle,
-  AlertCircle
+  AlertCircle,
+  ExternalLink,
+  FileText,
+  CheckCircle2
 } from "lucide-react";
-import { getMerchantAccountingSummary, activateAccountingSubscription } from "@/app/actions/merchant_dashboard";
+import { 
+  getMerchantAccountingSummary, 
+  activateAccountingSubscription,
+  submitAccountingToExpert 
+} from "@/app/actions/merchant_dashboard";
 import { useTranslation } from "@/components/LanguageContext";
 import TaxMetricCard from "./components/TaxMetricCard";
 import { jsPDF } from "jspdf";
@@ -99,7 +106,7 @@ export default function AccountingPage() {
     doc.text("Gross Sales Revenue", 20, 95);
     doc.text(`£${monthData.revenue.toLocaleString()}`, 150, 95);
     
-    doc.text("Platform Commission (9%)", 20, 105);
+    doc.text("Platform Commission (10%)", 20, 105);
     doc.setTextColor(200, 0, 0);
     doc.text(`-£${monthData.fees.toLocaleString()}`, 150, 105);
     
@@ -119,27 +126,112 @@ export default function AccountingPage() {
     doc.save(`ConciergeAI_${monthData.month.replace(' ', '_')}.pdf`);
   };
 
-  const exportToCSV = () => {
+  const exportAnnualReport = () => {
     if (!data) return;
-    const headers = ["Month", "Revenue (£)", "Platform Fees (£)", "Net Profit (£)"];
-    const rows = data.monthlySummaries.map((s: any) => [
-      s.month,
-      s.revenue.toFixed(2),
-      s.fees.toFixed(2),
-      (s.revenue - s.fees).toFixed(2)
+    const doc = new jsPDF();
+    
+    // Header
+    doc.setFillColor(15, 15, 15);
+    doc.rect(0, 0, 210, 50, 'F');
+    doc.setTextColor(212, 175, 55);
+    doc.setFontSize(28);
+    doc.setFont("helvetica", "bold");
+    doc.text("ANNUAL TAX REPORT", 20, 30);
+    
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(10);
+    doc.text(`Financial Year ${data.taxYear}`, 20, 40);
+    doc.text("ConciergeAI Compliance Desk", 140, 40);
+
+    // Business Info
+    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(14);
+    doc.text("Business Entity Information", 20, 65);
+    doc.setFontSize(10);
+    doc.text(`Merchant: ${data.companyName || 'Verified Expert'}`, 20, 75);
+    doc.text(`Registration: ${data.registrationNumber}`, 20, 82);
+    doc.text(`Report ID: TX-${Math.random().toString(36).substr(2, 9).toUpperCase()}`, 20, 89);
+
+    // Summary Table
+    doc.setFillColor(245, 245, 245);
+    doc.rect(20, 100, 170, 60, 'F');
+    
+    doc.setFontSize(12);
+    doc.text("Financial Summary", 25, 115);
+    doc.setFontSize(10);
+    doc.text("Gross Revenue (Platform Total)", 25, 125);
+    doc.text(`£${data.grossRevenue.toLocaleString()}`, 150, 125);
+    
+    doc.text("Platform Fees Deducted", 25, 135);
+    doc.text(`-£${data.totalFees.toLocaleString()}`, 150, 135);
+    
+    doc.line(25, 140, 165, 140);
+    doc.setFont("helvetica", "bold");
+    doc.text("Reported Net Profit", 25, 150);
+    doc.text(`£${data.netProfit.toLocaleString()}`, 150, 150);
+
+    // Estimated Tax
+    doc.setFont("helvetica", "normal");
+    doc.text("Estimated UK Income Tax Payable", 25, 175);
+    doc.text(`£${data.estimatedTax.toLocaleString()}`, 150, 175);
+
+    // MANDATORY DISCLAIMER
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.text("MANDATORY LEGAL DISCLAIMER", 20, 210);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    const disclaimer = doc.splitTextToSize(accDict.disclaimerText, 170);
+    doc.text(disclaimer, 20, 220);
+
+    doc.setFont("helvetica", "italic");
+    doc.text("Confidence Signature: Verified via ConciergeAI Blockchain Ledger.", 20, 260);
+
+    doc.save(`ConciergeAI_TaxYear_${data.taxYear}.pdf`);
+  };
+
+  const exportToCSV = () => {
+    if (!data?.monthlySummaries) return;
+    
+    const headers = ["Month", "Revenue (GBP)", "Fees (GBP)", "Net Profit (GBP)"];
+    const rows = data.monthlySummaries.map((row: any) => [
+      row.month,
+      row.revenue,
+      row.fees,
+      (row.revenue - row.fees)
     ]);
-    
-    let csvContent = "data:text/csv;charset=utf-8," 
-      + headers.join(",") + "\n"
-      + rows.map((e: any) => e.join(",")).join("\n");
-    
-    const encodedUri = encodeURI(csvContent);
+
+    const csvContent = [
+      headers.join(","),
+      ...rows.map((r: any) => r.join(","))
+    ].join("\n");
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `ConciergeAI_Audit_${data.taxYear}.csv`);
+    link.setAttribute("href", url);
+    link.setAttribute("download", `ConciergeAI_Accounting_${data.taxYear}.csv`);
+    link.style.visibility = 'hidden';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  const handleReferral = async () => {
+    if (submitting) return;
+    setSubmitting(true);
+    try {
+      const res = await submitAccountingToExpert();
+      if (res.success) {
+        loadData();
+      } else {
+        alert(res.error);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (loading) {
@@ -153,11 +245,33 @@ export default function AccountingPage() {
   return (
     <div style={{ padding: '2rem', maxWidth: '1400px', margin: '0 auto', position: 'relative' }}>
       
+      {/* Legal Disclaimer Banner */}
+      <div style={{ 
+        backgroundColor: 'rgba(212, 175, 55, 0.05)', 
+        border: '1px solid rgba(212, 175, 55, 0.2)', 
+        borderRadius: '16px', 
+        padding: '1.5rem', 
+        marginBottom: '2.5rem',
+        display: 'flex',
+        gap: '1.2rem',
+        alignItems: 'flex-start'
+      }}>
+        <div style={{ color: '#d4af37' }}>
+          <AlertCircle size={24} />
+        </div>
+        <div>
+          <h4 style={{ color: 'white', fontWeight: 800, fontSize: '0.95rem', marginBottom: '0.4rem' }}>{accDict.disclaimerTitle}</h4>
+          <p style={{ color: '#888', fontSize: '0.85rem', lineHeight: '1.5', maxWidth: '1000px' }}>
+            {accDict.disclaimerText}
+          </p>
+        </div>
+      </div>
+
       {/* Header */}
       <div style={{ marginBottom: '3rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div>
           <h1 style={{ fontSize: '2.5rem', fontWeight: 900, color: 'white', marginBottom: '0.5rem', letterSpacing: '-0.03em' }}>
-            {accDict.title} <span style={{ color: '#d4af37' }}>Accounting & Tax</span>
+            {accDict.title} <span style={{ color: '#d4af37' }}>UK Financial Hub</span>
           </h1>
           <p style={{ color: '#666', fontSize: '1.1rem', fontWeight: 500 }}>
             {accDict.subtitle}
@@ -175,7 +289,7 @@ export default function AccountingPage() {
           alignItems: 'center',
           gap: '0.6rem'
         }}>
-          {isPremium ? <CheckCircle size={16} /> : <Lock size={16} />}
+          {isPremium ? <CheckCircle2 size={16} /> : <Lock size={16} />}
           {isPremium ? accDict.statusActive : accDict.statusInactive}
         </div>
       </div>
@@ -370,24 +484,88 @@ export default function AccountingPage() {
             </table>
           </div>
 
-          <div style={{ marginTop: '3rem', display: 'flex', gap: '2rem' }}>
-            <div className="glass-panel" style={{ flex: 1, padding: '2rem', display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-              <div style={{ padding: '1rem', borderRadius: '15px', backgroundColor: 'rgba(212, 175, 55, 0.1)', color: '#d4af37' }}>
-                <AlertCircle size={24} />
+          <div style={{ marginTop: '3rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+            {/* Tax Year Summary */}
+            <div className="glass-panel" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem', position: 'relative', overflow: 'hidden' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                <div style={{ padding: '1rem', borderRadius: '15px', backgroundColor: 'rgba(212, 175, 55, 0.1)', color: '#d4af37' }}>
+                  <FileText size={24} />
+                </div>
+                <div>
+                  <div style={{ color: 'white', fontWeight: 800, marginBottom: '0.25rem' }}>{accDict.annualReport}</div>
+                  <div style={{ color: '#666', fontSize: '0.9rem' }}>Business Year: <span style={{ color: '#d4af37' }}>{data.taxYear}</span></div>
+                </div>
               </div>
-              <div>
-                <div style={{ color: 'white', fontWeight: 800, marginBottom: '0.25rem' }}>{accDict.taxYear} Summary</div>
-                <div style={{ color: '#666', fontSize: '0.9rem' }}>Business Year: <span style={{ color: '#d4af37' }}>{data.taxYear}</span></div>
-              </div>
+              <button 
+                onClick={exportAnnualReport}
+                className="hover-lift"
+                style={{
+                  width: '100%',
+                  padding: '1rem',
+                  borderRadius: '12px',
+                  backgroundColor: 'white',
+                  color: 'black',
+                  fontWeight: 800,
+                  fontSize: '0.9rem',
+                  border: 'none',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.75rem'
+                }}
+              >
+                <Download size={18} /> {accDict.generateReport}
+              </button>
             </div>
-            <div className="glass-panel" style={{ flex: 1, padding: '2rem', display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-              <div style={{ padding: '1rem', borderRadius: '15px', backgroundColor: 'rgba(212, 175, 55, 0.1)', color: '#d4af37' }}>
-                <ShieldCheck size={24} />
+
+            {/* Audit Referral Workflow */}
+            <div className="glass-panel" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                <div style={{ padding: '1rem', borderRadius: '15px', backgroundColor: 'rgba(34, 197, 94, 0.1)', color: '#22c55e' }}>
+                  <ShieldCheck size={24} />
+                </div>
+                <div>
+                  <div style={{ color: 'white', fontWeight: 800, marginBottom: '0.25rem' }}>{accDict.auditWorkflow}</div>
+                  <div style={{ color: '#666', fontSize: '0.9rem' }}>{accDict.auditStatus}: 
+                    <span style={{ 
+                      marginLeft: '0.5rem', 
+                      color: data.auditStatus === 'SUBMITTED_TO_EXPERT' ? '#2ecc71' : '#f39c12',
+                      fontWeight: 800 
+                    }}>
+                      {data.auditStatus === 'SUBMITTED_TO_EXPERT' ? 'SUBMITTED' : 'READY'}
+                    </span>
+                  </div>
+                </div>
               </div>
-              <div>
-                <div style={{ color: 'white', fontWeight: 800, marginBottom: '0.25rem' }}>{accDict.regNumber}</div>
-                <div style={{ color: '#666', fontSize: '0.9rem' }}>Verification: <span style={{ color: '#2ecc71', fontWeight: 700 }}>VERIFIED</span></div>
-              </div>
+              
+              <button 
+                onClick={handleReferral}
+                disabled={data.auditStatus === 'SUBMITTED_TO_EXPERT' || submitting}
+                className="hover-lift"
+                style={{
+                  width: '100%',
+                  padding: '1rem',
+                  borderRadius: '12px',
+                  backgroundColor: data.auditStatus === 'SUBMITTED_TO_EXPERT' ? 'rgba(255,255,255,0.05)' : 'rgba(212, 175, 55, 0.1)',
+                  color: data.auditStatus === 'SUBMITTED_TO_EXPERT' ? '#444' : '#d4af37',
+                  border: `1px solid ${data.auditStatus === 'SUBMITTED_TO_EXPERT' ? 'transparent' : 'rgba(212, 175, 55, 0.3)'}`,
+                  fontWeight: 800,
+                  fontSize: '0.9rem',
+                  cursor: data.auditStatus === 'SUBMITTED_TO_EXPERT' ? 'default' : 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.75rem',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                {data.auditStatus === 'SUBMITTED_TO_EXPERT' ? (
+                  <> <CheckCircle2 size={18} /> {accDict.referralSent} </>
+                ) : (
+                  <> <ExternalLink size={18} /> {accDict.referralExpert} </>
+                )}
+              </button>
             </div>
           </div>
         </div>

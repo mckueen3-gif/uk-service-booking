@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
 import Link from "next/link";
 import { 
   LayoutDashboard, 
@@ -12,7 +13,8 @@ import {
   BarChart3,
   CalendarDays,
   Gavel,
-  Newspaper
+  Newspaper,
+  Sparkles
 } from "lucide-react";
 import { getDictionary, dictionaries, Locale } from "@/lib/i18n/dictionary";
 import { cookies } from "next/headers";
@@ -69,7 +71,7 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   const cookieStore = await cookies();
   const locale = (cookieStore.get('user-locale')?.value as Locale) || 'zh-TW';
   const t = dictionaries[locale] || dictionaries['zh-TW'];
@@ -125,17 +127,18 @@ export default async function AdminLayout({
           gap: '2px', 
           overflowY: 'auto' 
         }}>
-           <div style={{ fontSize: '10px', fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.15em', padding: '0 1.25rem', marginBottom: '0.75rem' }}>核心工具</div>
+           <div style={{ fontSize: '10px', fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.15em', padding: '0 1.25rem', marginBottom: '0.75rem' }}>{t.admin.sidebar.groups.core}</div>
            <AdminNavLink href="/admin" icon={<LayoutDashboard size={18} />} label={t.admin.sidebar.overview} active />
            <AdminNavLink href="/admin/analytics" icon={<BarChart3 size={18} />} label={t.admin.sidebar.analytics} />
            <AdminNavLink href="/admin/bookings" icon={<CalendarDays size={18} />} label={t.admin.sidebar.bookings} />
            
-           <div style={{ fontSize: '10px', fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.15em', padding: '0 1.25rem', margin: '1.5rem 0 0.75rem' }}>審核與品質</div>
+           <div style={{ fontSize: '10px', fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.15em', padding: '0 1.25rem', margin: '1.5rem 0 0.75rem' }}>{t.admin.sidebar.groups.audit}</div>
            <AdminNavLink href="/admin/verifications" icon={<ShieldCheck size={18} />} label={t.admin.sidebar.verifications} badge="3" />
-           <AdminNavLink href="/admin/disputes" icon={<Gavel size={18} />} label={t.admin.sidebar.disputes} badge="需審核" />
+           <AdminNavLink href="/admin/disputes" icon={<Gavel size={18} />} label={t.admin.sidebar.disputes} badge={t.admin.sidebar.badges.needsReview} />
            
-           <div style={{ fontSize: '10px', fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.15em', padding: '0 1.25rem', margin: '1.5rem 0 0.75rem' }}>商務管理</div>
+           <div style={{ fontSize: '10px', fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.15em', padding: '0 1.25rem', margin: '1.5rem 0 0.75rem' }}>{t.admin.sidebar.groups.business}</div>
            <AdminNavLink href="/admin/merchants" icon={<Users size={18} />} label={t.admin.sidebar.labels.merchants} />
+           <AdminNavLink href="/admin/marketing" icon={<Sparkles size={18} />} label={t.admin.sidebar.labels.marketing} />
            <AdminNavLink href="/admin/payouts" icon={<CreditCard size={18} />} label={t.admin.sidebar.labels.payouts} />
            <AdminNavLink href="/admin/blog" icon={<Newspaper size={18} />} label={t.admin.sidebar.labels.blog} />
            <AdminNavLink href="/admin/settings" icon={<Settings size={18} />} label={t.admin.settings_mgr.title} />
@@ -166,7 +169,7 @@ export default async function AdminLayout({
               <span style={{ fontSize: '12px', fontWeight: 900, color: '#d4af37' }}>AD</span>
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <p style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a', margin: 0 }}>{session?.user?.name || "管理員"}</p>
+              <p style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a', margin: 0 }}>{session?.user?.name || t.admin.sidebar.adminLabel}</p>
               <p style={{ fontSize: '10px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 700, margin: 0 }}>{t?.admin?.sidebar?.terminal || "Terminal"}</p>
             </div>
             <Link href="/api/auth/signout" style={{ color: '#64748b', padding: '8px', borderRadius: '8px', display: 'flex', transition: 'background 0.2s' }}>

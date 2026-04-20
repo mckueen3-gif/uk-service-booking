@@ -20,7 +20,7 @@ export async function createMerchantAction(data: any) {
 
     // 3. Determine Free Orders & Commission Rate
     let freeOrders = 0;
-    let commissionRate = 0.09;
+    let commissionRate = 0.10;
 
     if (data.promoCode) {
       const promo = await prisma.promoCode.findUnique({

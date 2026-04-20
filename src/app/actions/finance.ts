@@ -11,10 +11,32 @@ export async function getEarningsStats() {
 
   const merchant = await prisma.merchant.findUnique({
     where: { userId: session.user.id },
-    include: { wallet: true }
+    include: { 
+      wallet: true,
+      user: {
+        select: {
+          id: true,
+          referralCode: true,
+          referralCredits: true
+        }
+      }
+    }
   });
 
   if (!merchant) return { error: "Merchant profile not found" };
+
+  // Count active referrals
+  const referralCount = await prisma.referral.count({
+    where: { referrerId: session.user.id }
+  });
+
+  // Recent referrals (optional, for the hub)
+  const recentReferrals = await prisma.referral.findMany({
+    where: { referrerId: session.user.id },
+    include: { referee: { select: { name: true, createdAt: true } } },
+    orderBy: { createdAt: 'desc' },
+    take: 5
+  });
 
   // Recent transactions (bookings)
   const recentBookings = await prisma.booking.findMany({
@@ -35,7 +57,10 @@ export async function getEarningsStats() {
     wallet: merchant.wallet,
     recentBookings,
     recentWithdrawals,
-    merchant
+    merchant,
+    user: merchant.user,
+    referralCount,
+    recentReferrals
   };
 }
 
@@ -95,4 +120,32 @@ export async function updateBankDetails(sortCode: string, accountNumber: string)
 
   revalidatePath('/dashboard/earnings/payout');
   return { success: true };
+}
+
+export async function getMerchantReceipts() {
+  const session = (await getServerSession(authOptions)) as any;
+  if (!session?.user?.id) return { error: "Unauthorized" };
+
+  const merchant = await prisma.merchant.findUnique({
+    where: { userId: session.user.id }
+  });
+
+  if (!merchant) return { error: "Merchant not found" };
+
+  return await prisma.receipt.findMany({
+    where: {
+      booking: {
+        merchantId: merchant.id
+      }
+    },
+    include: {
+      booking: {
+        include: {
+          customer: { select: { name: true, email: true } },
+          service: { select: { name: true } }
+        }
+      }
+    },
+    orderBy: { createdAt: 'desc' }
+  });
 }

@@ -192,7 +192,7 @@ export async function getSmartRecommendations(filters: SearchFilters) {
     orderBy: { averageRating: "desc" },
   });
 
-  if (merchants.length === 0) return { best: null, closest: null, earliest: null };
+  if (merchants.length === 0) return { topMatch: null, risingStar: null, bestValue: null };
 
   const processed = merchants.map((m) => {
     const distance = userLat && userLon && m.latitude && m.longitude

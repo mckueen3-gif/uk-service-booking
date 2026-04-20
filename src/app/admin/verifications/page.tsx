@@ -11,7 +11,10 @@ import {
   Loader2,
   User,
   Calendar,
-  Fingerprint
+  Fingerprint,
+  Activity,
+  Globe,
+  Zap
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTranslation } from "@/components/LanguageContext";
@@ -42,13 +45,24 @@ export default function AdminVerifications() {
 
   return (
     <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem', padding: '1rem' }}
     >
-      <div style={{ padding: '0 0.5rem' }}>
-        <h2 style={{ fontSize: '2rem', fontWeight: 900, color: '#0f172a', margin: 0, letterSpacing: '-0.02em' }}>{t.admin.verifications.title}</h2>
-        <p style={{ color: '#94a3b8', fontSize: '1rem', fontWeight: 500, margin: '0.25rem 0 0 0' }}>{t.admin.verifications.sub}</p>
+      {/* Infrastructure Header */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '-1rem' }}>
+        <div>
+          <h2 style={{ fontSize: '0.75rem', fontWeight: 900, color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.3em', margin: 0, opacity: 0.8 }}>
+            {t.admin.header.internal}
+          </h2>
+          <h1 style={{ fontSize: '2.5rem', fontWeight: 900, color: '#0f172a', margin: '0.5rem 0' }}>
+            {t.admin.verifications.title}
+          </h1>
+        </div>
+        <div style={{ textAlign: 'right' }}>
+           <p style={{ fontSize: '10px', fontWeight: 800, color: '#94a3b8', margin: 0, textTransform: 'uppercase' }}>{t.admin.header.node}</p>
+           <p style={{ fontSize: '14px', fontWeight: 900, color: '#0f172a', margin: 0 }}>SEC-Y2-TRUST-AUTH</p>
+        </div>
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -76,14 +90,27 @@ export default function AdminVerifications() {
           queues.map((item) => (
             <div key={item.id} style={{ 
               backgroundColor: '#ffffff', 
-              borderRadius: '2rem', 
-              border: '1px solid rgba(184, 134, 11, 0.08)', 
+              borderRadius: '2.5rem', 
+              border: '1px solid #e2e8f0', 
               overflow: 'hidden',
-              boxShadow: '0 20px 50px rgba(0,0,0,0.04)',
+              boxShadow: '0 30px 60px -12px rgba(0,0,0,0.05), 0 18px 36px -18px rgba(0,0,0,0.05)',
               display: 'grid',
               gridTemplateColumns: 'minmax(400px, 1.2fr) 0.8fr',
-              minHeight: '450px'
+              minHeight: '450px',
+              position: 'relative'
             }}>
+              {/* Decorative Grid Overlay for whole card */}
+              <div style={{ 
+                position: 'absolute', 
+                top: 0, 
+                left: 0, 
+                right: 0, 
+                bottom: 0, 
+                backgroundImage: 'radial-gradient(#e2e8f0 1px, transparent 1px)', 
+                backgroundSize: '30px 30px', 
+                opacity: 0.1, 
+                pointerEvents: 'none' 
+              }} />
               {/* Left: Document Gallery */}
               <div style={{ padding: '2.5rem', borderRight: '1px solid #f1f5f9', backgroundColor: '#fafbfc' }}>
                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>

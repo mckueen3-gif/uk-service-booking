@@ -56,13 +56,31 @@ export default function MerchantContract({ onAccept, accepted }: MerchantContrac
         }}
       >
         <div className="contract-content">
-          <h4 style={{ color: '#d4af37' }}>{t?.onboarding?.contract?.clauses?.platform_fee?.title || "1. Platform Fees"}</h4>
-          <p>{t?.onboarding?.contract?.clauses?.platform_fee?.body || "Standard platform commissions apply."}</p>
-          <h4 style={{ color: '#d4af37' }}>{t?.onboarding?.contract?.clauses?.payments?.title || "2. Payments"}</h4>
-          <p>{t?.onboarding?.contract?.clauses?.payments?.body || "Payouts are handled securely."}</p>
-          <h4 style={{ color: '#d4af37' }}>{t?.onboarding?.contract?.clauses?.conduct?.title || "3. Conduct"}</h4>
-          <p>{t?.onboarding?.contract?.clauses?.conduct?.body || "Professional conduct is mandatory."}</p>
-          <div className="contract-legal" style={{ borderTop: '1px solid rgba(212, 175, 55, 0.1)', color: '#666' }}>
+          {t?.onboarding?.contract?.content ? (
+            (t.onboarding.contract.content as {title: string, body: string}[]).map((section, idx) => (
+              <div key={idx} style={{ marginBottom: '24px' }}>
+                <h4 style={{ color: '#d4af37', marginTop: idx === 0 ? '0' : '24px', marginBottom: '8px', fontSize: '1.1rem', fontWeight: 800 }}>
+                  {section.title}
+                </h4>
+                {section.body.split('\n').map((line, i) => (
+                  <p key={i} style={{ color: '#aaa', margin: '4px 0', fontSize: '0.95rem', lineHeight: '1.6' }}>
+                    {line}
+                  </p>
+                ))}
+              </div>
+            ))
+          ) : (
+            <>
+              <h4 style={{ color: '#d4af37' }}>{t?.onboarding?.contract?.clauses?.platform_fee?.title || "1. Platform Fees"}</h4>
+              <p>{t?.onboarding?.contract?.clauses?.platform_fee?.body || "Standard platform commissions apply."}</p>
+              <h4 style={{ color: '#d4af37' }}>{t?.onboarding?.contract?.clauses?.payments?.title || "2. Payments"}</h4>
+              <p>{t?.onboarding?.contract?.clauses?.payments?.body || "Payouts are handled securely."}</p>
+              <h4 style={{ color: '#d4af37' }}>{t?.onboarding?.contract?.clauses?.conduct?.title || "3. Conduct"}</h4>
+              <p>{t?.onboarding?.contract?.clauses?.conduct?.body || "Professional conduct is mandatory."}</p>
+            </>
+          )}
+
+          <div className="contract-legal" style={{ borderTop: '1px solid rgba(212, 175, 55, 0.1)', color: '#666', marginTop: '32px', paddingTop: '24px' }}>
             <p><strong>{t?.onboarding?.contract?.legal_notice ? "" : "Additional Terms:"}</strong> {t?.onboarding?.contract?.legal_notice || "By joining ConciergeAI, you certify that all information provided is accurate and that you possess the necessary insurance and licenses required to practice in the United Kingdom."}</p>
             <p>{t?.onboarding?.contract?.copyright || "© 2026 ConciergeAI UK Limited. All Rights Reserved."}</p>
           </div>

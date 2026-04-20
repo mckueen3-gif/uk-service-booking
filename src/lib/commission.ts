@@ -8,21 +8,21 @@
  * ConciergeAI operates a STUDENT/CUSTOMER-PAYS model:
  *
  *  ✅ EDUCATION / TUTORING: 
- *     Platform commission (9%) is ADDED ON TOP of the tutor's base rate.
+ *     Platform commission (10%) is ADDED ON TOP of the tutor's base rate.
  *     The student pays the marked-up price, and the tutor receives exactly
  *     their requested rate. (100% payout guarantee to comply with UK guidelines).
  *
  *  ✅ OTHER SECTORS (Trades, Cleaning, etc.):
- *     Platform commission (9%) is DEDUCTED from the merchant's requested rate.
+ *     Platform commission (10%) is DEDUCTED from the merchant's requested rate.
  *     The customer pays exactly the quoted price.
  *
  * Example Education payout:
  *   Tutor sets rate: £100
- *   Student pays £109 → Platform retains £9 → Tutor receives £100
+ *   Student pays £110 → Platform retains £10 → Tutor receives £100
  *
  * Example Plumbing payout:
  *   Plumber quotes: £100
- *   Customer pays £100 → Platform retains £9 → Plumber receives £91
+ *   Customer pays £100 → Platform retains £10 → Plumber receives £90
  *
  * This mirrors the model used by MyTutor, Tutorful, and other compliant UK marketplaces.
  * Under this structure, no FCA Payment Institution licence is required as we use
@@ -41,12 +41,43 @@
  * The tutor/merchant receives the net amount after the platform fee is deducted.
  *
  * @param _merchant The merchant object (reserved for future tiered rates)
- * @returns The commission rate as a decimal (0.09 = 9%)
+ * @returns The commission rate as a decimal (0.10 = 10%)
  */
 export function getCommissionRate(_merchant?: { commissionRate: number }): number {
-  // Standardised at 9% across all service categories.
+  // Standardised at 10% across all service categories.
   // Always deducted from the customer payment — never charged to the tutor/merchant directly.
-  return 0.09;
+  return 0.10;
+}
+
+/**
+ * Calculates the dividend split for referrals.
+ * Returns { platformFee (8%), referralDividend (2%) } if eligible, 
+ * else { platformFee (10%), referralDividend (0) }.
+ */
+export async function calculateCommissionSplit(customerId: string, totalAmount: number) {
+  const { prisma } = await import('./prisma');
+  
+  const referral = await prisma.referral.findUnique({
+    where: { refereeId: customerId },
+    select: { createdAt: true, referrerId: true }
+  });
+
+  const FIVE_YEARS_MS = 5 * 365 * 24 * 60 * 60 * 1000;
+  const isEligible = referral && (Date.now() - new Date(referral.createdAt).getTime()) < FIVE_YEARS_MS;
+
+  if (isEligible) {
+    return {
+      platformFee: Math.round(totalAmount * 0.08 * 100) / 100,
+      referralDividend: Math.round(totalAmount * 0.02 * 100) / 100,
+      referrerId: referral.referrerId
+    };
+  }
+
+  return {
+    platformFee: Math.round(totalAmount * 0.10 * 100) / 100,
+    referralDividend: 0,
+    referrerId: null
+  };
 }
 
 /**
@@ -125,3 +156,4 @@ export function calculateCarRepairPayout(
     totalCustomerPrice: laborTotal + partsTotal
   };
 }
+

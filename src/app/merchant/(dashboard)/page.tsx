@@ -7,6 +7,7 @@ import {
   updateMerchantAvatar,
   updateMerchantProfile,
   updateBookingMeetingLink,
+  updateBookingStatus,
   getAIPricingInsights
 } from '@/app/actions/merchant_dashboard';
 import { 
@@ -18,7 +19,7 @@ import {
   TrendingUp, Wallet, CheckCircle2, 
   AlertCircle, ChevronRight, MoreHorizontal,
   PlusCircle, Camera, X, Cpu, Loader2,
-  Video, Link2, ExternalLink
+  Video, Link2, ExternalLink, Info, ShieldCheck
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -190,9 +191,26 @@ export default function MerchantDashboard() {
             <h1 style={{ fontSize: '2.2rem', fontWeight: 900, marginBottom: '0.25rem', color: 'var(--text-primary)' }}>
               ConciergeAI <span style={{ color: 'var(--accent-color)' }}>{t?.merchant?.expertTitle || "Expert"}</span>
             </h1>
-            <p style={{ color: 'var(--text-secondary)' }}>
-              {t?.merchant?.welcome?.replace('{name}', stats?.companyName || "Member") || "Welcome back"}
-            </p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <p style={{ color: 'var(--text-secondary)', margin: 0 }}>
+                {t?.merchant?.welcome?.replace('{name}', stats?.companyName || "Member") || "Welcome back"}
+              </p>
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '6px', 
+                backgroundColor: 'rgba(212, 175, 55, 0.1)', 
+                padding: '4px 10px', 
+                borderRadius: '8px',
+                border: '1px solid rgba(212, 175, 55, 0.2)',
+                cursor: 'help'
+              }} title={t?.merchant?.lead_fee_desc || "No lead fees"}>
+                <ShieldCheck size={12} color="#d4af37" />
+                <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  {t?.merchant?.zero_lead_fee || "£0 Lead Fee"}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
         <div style={{ display: 'flex', gap: '0.75rem' }}>
@@ -298,7 +316,12 @@ export default function MerchantDashboard() {
 
         <aside style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
            <div style={{ padding: '1.5rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)' }}>
-              <h3 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '1rem' }}>{t?.merchant?.quickLinks?.title || "Elite Actions"}</h3>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
+                <h3 style={{ fontSize: '1rem', fontWeight: 800 }}>{t?.merchant?.quickLinks?.title || "Elite Actions"}</h3>
+                <div title={t?.merchant_dashboard?.quick_links_hint} style={{ cursor: 'help', color: 'var(--text-secondary)', display: 'flex' }}>
+                   <Info size={14} />
+                </div>
+              </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                  <QuickLink label={t?.merchant?.availabilityLink || "Set Availability"} />
                  <QuickLink label={t?.merchant?.servicePricing || "Service Pricing"} />
@@ -307,113 +330,113 @@ export default function MerchantDashboard() {
            </div>
 
            {/* 🚀 NEW: Elite AI & Video Configuration */}
-           <div style={{ padding: '1.5rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', border: '1.5px solid var(--gold-500)', boxShadow: '0 0 20px rgba(212, 175, 55, 0.1)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1.25rem' }}>
-                <Cpu size={20} color="var(--gold-500)" />
-                <h3 style={{ fontSize: '1rem', fontWeight: 900, color: 'var(--gold-400)' }}>Elite AI & Video</h3>
-              </div>
-              
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)', marginBottom: '0.5rem', textTransform: 'uppercase' }}>Introduction Video (YouTube)</label>
-                  <input 
-                    type="text" 
-                    value={youtubeUrl}
-                    onChange={(e) => setYoutubeUrl(e.target.value)}
-                    placeholder="https://youtube.com/watch?v=..."
-                    style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: '0.85rem' }}
-                  />
-                </div>
-
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)', marginBottom: '0.5rem', textTransform: 'uppercase' }}>AI Expert Knowledge Base</label>
-                  <textarea 
-                    value={aiKnowledge}
-                    onChange={(e) => setAiKnowledge(e.target.value)}
-                    placeholder="Paste your specialized knowledge, experience, and service nuances here to power your AI Assistant..."
-                    style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: '0.85rem', height: '120px', resize: 'none' }}
-                  />
-                </div>
-
-                <button 
-                  onClick={handleSaveAdvanced}
-                  disabled={isSavingProfile}
-                  style={{ 
-                    width: '100%', padding: '0.85rem', borderRadius: '14px', 
-                    background: 'linear-gradient(135deg, #d4af37, #f5e07a)', 
-                    color: '#000', fontWeight: 900, border: 'none', cursor: 'pointer',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'
-                  }}
-                >
-                  {isSavingProfile ? <Loader2 size={18} className="animate-spin" /> : <><CheckCircle2 size={18} /> Update Profile</>}
-                </button>
-              </div>
-           </div>
-
-           {/* 💎 NEW: AI Pricing Intelligence Pulse */}
-           <div style={{ marginTop: '1.5rem', padding: '1.5rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', border: `1.5px solid ${pricingHealth?.color || 'var(--border-color)'}`, position: 'relative', overflow: 'hidden' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
-                <TrendingUp size={18} color={pricingHealth?.color} />
-                <h3 style={{ fontSize: '1rem', fontWeight: 900, color: pricingHealth?.color }}>AI Pricing Pulse</h3>
-              </div>
-              
-              <div style={{ background: 'rgba(255,255,255,0.03)', padding: '1rem', borderRadius: '16px', marginBottom: '1rem' }}>
-                 <p style={{ fontSize: '0.9rem', fontWeight: 800, marginBottom: '0.5rem' }}>
-                    Status: <span style={{ color: pricingHealth?.color }}>{pricingHealth?.status || 'OPTIMAL'}</span>
-                 </p>
-                 <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                    {pricingHealth?.message || 'Scanning market trends...'}
-                 </p>
-              </div>
-
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.75rem' }}>
-                 <span style={{ color: 'var(--text-secondary)' }}>Market Trend ({stats?.businessType || 'GCSE'}):</span>
-                 <span style={{ fontWeight: 800, color: '#10b981' }}>{marketTrend?.change || '+0.0%'}</span>
-              </div>
-           </div>
-
-           {/* 💰 NEW: Pricing & Packages Control */}
-           <div style={{ marginTop: '1.5rem', padding: '1.5rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)' }}>
-              <h3 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '1.25rem' }}>Pricing & Trial</h3>
-              
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <div>
-                   <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 800, color: 'var(--text-secondary)', marginBottom: '0.4rem' }}>BASE HOURLY RATE (£)</label>
+            <div style={{ padding: '1.5rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', border: '1.5px solid var(--gold-500)', boxShadow: '0 0 20px rgba(212, 175, 55, 0.1)' }}>
+               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1.25rem' }}>
+                 <Cpu size={20} color="var(--gold-500)" />
+                 <h3 style={{ fontSize: '1rem', fontWeight: 900, color: 'var(--gold-400)' }}>{t?.merchant_dashboard?.elite_ai?.title || "Elite AI & Video"}</h3>
+               </div>
+               
+               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                 <div>
+                   <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)', marginBottom: '0.5rem', textTransform: 'uppercase' }}>{t?.merchant_dashboard?.elite_ai?.video_label || "Introduction Video (YouTube)"}</label>
                    <input 
-                     type="number" 
-                     value={baseRate} 
-                     onChange={(e) => setBaseRate(e.target.value)}
-                     style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }} 
+                     type="text" 
+                     value={youtubeUrl}
+                     onChange={(e) => setYoutubeUrl(e.target.value)}
+                     placeholder="https://youtube.com/watch?v=..."
+                     style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: '0.85rem' }}
                    />
-                </div>
+                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.75rem', background: 'var(--bg-secondary)', borderRadius: '12px' }}>
-                   <span style={{ fontSize: '0.85rem', fontWeight: 600 }}>Enable Trial (30m)</span>
-                   <input 
-                     type="checkbox" 
-                     checked={isTrialAvailable} 
-                     onChange={(e) => setIsTrialAvailable(e.target.checked)}
-                     style={{ width: '20px', height: '20px', accentColor: 'var(--accent-color)' }}
+                 <div>
+                   <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)', marginBottom: '0.5rem', textTransform: 'uppercase' }}>{t?.merchant_dashboard?.elite_ai?.knowledge_label || "AI Expert Knowledge Base"}</label>
+                   <textarea 
+                     value={aiKnowledge}
+                     onChange={(e) => setAiKnowledge(e.target.value)}
+                     placeholder={t?.merchant_dashboard?.elite_ai?.knowledge_placeholder || "Paste your specialized knowledge, experience, and service nuances here to power your AI Assistant..."}
+                     style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: '0.85rem', height: '120px', resize: 'none' }}
                    />
-                </div>
+                 </div>
 
-                {isTrialAvailable && (
-                  <div className="animate-fade-in">
-                    <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 800, color: 'var(--text-secondary)', marginBottom: '0.4rem' }}>TRIAL PRICE (£)</label>
+                 <button 
+                   onClick={handleSaveAdvanced}
+                   disabled={isSavingProfile}
+                   style={{ 
+                     width: '100%', padding: '0.85rem', borderRadius: '14px', 
+                     background: 'linear-gradient(135deg, #d4af37, #f5e07a)', 
+                     color: '#000', fontWeight: 900, border: 'none', cursor: 'pointer',
+                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'
+                   }}
+                 >
+                   {isSavingProfile ? <Loader2 size={18} className="animate-spin" /> : <><CheckCircle2 size={18} /> {t?.merchant_dashboard?.elite_ai?.save_button || "Update Profile"}</>}
+                 </button>
+               </div>
+            </div>
+
+            {/* 💎 NEW: AI Pricing Intelligence Pulse */}
+            <div style={{ marginTop: '1.5rem', padding: '1.5rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', border: `1.5px solid ${pricingHealth?.color || 'var(--border-color)'}`, position: 'relative', overflow: 'hidden' }}>
+               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
+                 <TrendingUp size={18} color={pricingHealth?.color} />
+                 <h3 style={{ fontSize: '1rem', fontWeight: 900, color: pricingHealth?.color }}>{t?.merchant_dashboard?.pricing?.title || "AI Pricing Pulse"}</h3>
+               </div>
+               
+               <div style={{ background: 'rgba(255,255,255,0.03)', padding: '1rem', borderRadius: '16px', marginBottom: '1rem' }}>
+                  <p style={{ fontSize: '0.9rem', fontWeight: 800, marginBottom: '0.5rem' }}>
+                     {t?.merchant_dashboard?.pricing?.status || "Status"}: <span style={{ color: pricingHealth?.color }}>{pricingHealth?.status || t?.merchant_dashboard?.pricing?.optimal || 'OPTIMAL'}</span>
+                  </p>
+                  <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                     {pricingHealth?.message || t?.merchant_dashboard?.pricing?.message || 'Scanning market trends...'}
+                  </p>
+               </div>
+
+               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.75rem' }}>
+                  <span style={{ color: 'var(--text-secondary)' }}>{t?.merchant_dashboard?.pricing?.trend || "Market Trend"} ({stats?.businessType || 'GCSE'}):</span>
+                  <span style={{ fontWeight: 800, color: '#10b981' }}>{marketTrend?.change || '+0.0%'}</span>
+               </div>
+            </div>
+
+            {/* 💰 NEW: Pricing & Packages Control */}
+            <div style={{ marginTop: '1.5rem', padding: '1.5rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)' }}>
+               <h3 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '1.25rem' }}>{t?.merchant_dashboard?.pricing?.title || "Pricing & Trial"}</h3>
+               
+               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                 <div>
+                    <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 800, color: 'var(--text-secondary)', marginBottom: '0.4rem' }}>{t?.merchant_dashboard?.pricing?.baseRate || "BASE HOURLY RATE (£)"}</label>
                     <input 
                       type="number" 
-                      value={trialPrice} 
-                      onChange={(e) => setTrialPrice(e.target.value)}
-                      style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--accent-color)', fontWeight: 800 }} 
+                      value={baseRate} 
+                      onChange={(e) => setBaseRate(e.target.value)}
+                      style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }} 
                     />
-                  </div>
-                )}
+                 </div>
 
-                <p style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', textAlign: 'center', padding: '0.5rem' }}>
-                   * platform fee (9%) will be added to student total.
-                </p>
-              </div>
-           </div>
+                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.75rem', background: 'var(--bg-secondary)', borderRadius: '12px' }}>
+                    <span style={{ fontSize: '0.85rem', fontWeight: 600 }}>{t?.merchant_dashboard?.pricing?.trial || "Enable Trial (30m)"}</span>
+                    <input 
+                      type="checkbox" 
+                      checked={isTrialAvailable} 
+                      onChange={(e) => setIsTrialAvailable(e.target.checked)}
+                      style={{ width: '20px', height: '20px', accentColor: 'var(--accent-color)' }}
+                    />
+                 </div>
+
+                 {isTrialAvailable && (
+                   <div className="animate-fade-in">
+                     <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 800, color: 'var(--text-secondary)', marginBottom: '0.4rem' }}>{t?.merchant_dashboard?.pricing?.trialPrice || "TRIAL PRICE (£)"}</label>
+                     <input 
+                       type="number" 
+                       value={trialPrice} 
+                       onChange={(e) => setTrialPrice(e.target.value)}
+                       style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--accent-color)', fontWeight: 800 }} 
+                     />
+                   </div>
+                 )}
+
+                 <p style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', textAlign: 'center', padding: '0.5rem' }}>
+                    {t?.merchant_dashboard?.pricing?.feeNote || "* platform fee (10%) will be added to student total."}
+                 </p>
+               </div>
+            </div>
         </aside>
       </div>
 

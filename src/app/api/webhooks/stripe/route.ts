@@ -105,8 +105,8 @@ export async function POST(req: Request) {
             isEducation: isEduBool,
             coolingOffUntil,
             stripePaymentIntentId: paymentIntentId,
-            platformFee: depositAmount * 0.09, // 9% fee on what was just captured
-            merchantAmount: depositAmount * 0.91,
+            platformFee: depositAmount * 0.10, // 10% fee on what was just captured
+            merchantAmount: depositAmount * 0.90,
           }
         });
 

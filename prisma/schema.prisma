@@ -15,11 +15,9 @@ model User {
   password             String?
   role                 Role                @default(CUSTOMER)
   phone                String?
-  aiMemory             String?
   city                 String?
   addressLine1         String?
   addressLine2         String?
-  houseNumber          String?
   postcode             String?
   referralCode         String?             @unique
   referralCredits      Float               @default(0)
@@ -29,9 +27,15 @@ model User {
   mfaEnabled           Boolean             @default(false)
   mfaSecret            String?
   notificationSettings Json?               @default("{\"sms\": false, \"push\": true, \"email\": true}")
+  houseNumber          String?
+  aiMemory             String?
+  dailyAiLimitUsed     Int                 @default(0)
+  lastAiUsageDate      DateTime?
   bookings             Booking[]
   conversations        Conversation[]      @relation("CustomerConversations")
   creditTransactions   CreditTransaction[]
+  educationAttempts    EducationAttempt[]
+  educationQuizzes     EducationQuiz[]
   merchantProfile      Merchant?
   notifications        Notification[]
   properties           Property[]
@@ -40,40 +44,34 @@ model User {
   referralsMade        Referral[]          @relation("Referrer")
   reviews              Review[]
   vehicles             Vehicle[]
-  
-  // AI Education Quotas
-  dailyAiLimitUsed     Int                 @default(0)
-  lastAiUsageDate      DateTime?
-  educationQuizzes     EducationQuiz[]
-  educationAttempts    EducationAttempt[]
   favorites            Merchant[]          @relation("UserFavorites")
 
   @@index([city])
 }
 
 model EducationQuiz {
-  id          String              @id @default(cuid())
-  userId      String
-  title       String
-  subject     String
-  grade       String?
-  difficulty  String?
-  sourceType  String              @default("TEXT") // TEXT, IMAGE
-  createdAt   DateTime            @default(now())
-  updatedAt   DateTime            @updatedAt
-  user        User                @relation(fields: [userId], references: [id], onDelete: Cascade)
-  questions   EducationQuestion[]
-  attempts    EducationAttempt[]
+  id         String              @id @default(cuid())
+  userId     String
+  title      String
+  subject    String
+  grade      String?
+  difficulty String?
+  sourceType String              @default("TEXT")
+  createdAt  DateTime            @default(now())
+  updatedAt  DateTime            @updatedAt
+  attempts   EducationAttempt[]
+  questions  EducationQuestion[]
+  user       User                @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
 
 model EducationQuestion {
-  id            String    @id @default(cuid())
+  id            String        @id @default(cuid())
   quizId        String
   questionText  String
-  questionType  String    @default("MCQ") // MCQ, SHORT_ANSWER
-  options       Json?     // Array of strings for MCQ
+  questionType  String        @default("MCQ")
+  options       Json?
   correctAnswer String
   explanation   String?
   quiz          EducationQuiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
@@ -82,18 +80,18 @@ model EducationQuestion {
 }
 
 model EducationAttempt {
-  id             String        @id @default(cuid())
-  quizId         String
-  userId         String
-  score          Int
-  totalQuestions Int
-  answers        Json          // User's answers
-  aiDiagnosis    String?       // AI's analysis of weaknesses
-  sharedWithMerchantId String? // Added for sharing with tutor
-  createdAt      DateTime      @default(now())
-  quiz           EducationQuiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
-  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  sharedWith     Merchant?     @relation("SharedAttempts", fields: [sharedWithMerchantId], references: [id])
+  id                   String        @id @default(cuid())
+  quizId               String
+  userId               String
+  score                Int
+  totalQuestions       Int
+  answers              Json
+  aiDiagnosis          String?
+  createdAt            DateTime      @default(now())
+  sharedWithMerchantId String?
+  quiz                 EducationQuiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  sharedWith           Merchant?     @relation("SharedAttempts", fields: [sharedWithMerchantId], references: [id])
+  user                 User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([quizId])
   @@index([userId])
@@ -176,13 +174,13 @@ model Merchant {
   businessType       String?
   vatNumber          String?
   bannerUrl          String?
-  youtubeVideoUrl    String?
   aiKnowledgeBase    String?
-  isElite            Boolean                @default(false)
+  youtubeVideoUrl    String?
   baseHourlyRate     Float?
-  trialPrice         Float?
+  isElite            Boolean                @default(false)
   isTrialAvailable   Boolean                @default(false)
   pricingPackages    Json?
+  trialPrice         Float?
   bookings           Booking[]
   conversations      Conversation[]         @relation("MerchantConversations")
   sharedAttempts     EducationAttempt[]     @relation("SharedAttempts")
@@ -195,7 +193,7 @@ model Merchant {
   reviews            Review[]
   services           Service[]
   withdrawals        WithdrawalRequest[]
-  favoredBy     User[]           @relation("UserFavorites")
+  favoredBy          User[]                 @relation("UserFavorites")
 
   @@index([city])
   @@index([isVerified])
@@ -284,14 +282,15 @@ model MerchantWallet {
 }
 
 model WithdrawalRequest {
-  id         String   @id @default(cuid())
-  merchantId String
-  amount     Float
-  status     String   @default("PENDING")
-  stripeTransferId String?
+  id               String   @id @default(cuid())
+  merchantId       String
+  amount           Float
+  status           String   @default("PENDING")
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
-  merchant   Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  stripeTransferId String?
+  adminNotes       String?  @default("")
+  merchant         Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
 }
 
 model MerchantAvailability {
@@ -318,12 +317,12 @@ model Service {
   teachingMode                 TeachingMode?
   subjects                     String?
   aiMatchScore                 Float?
-  isTrial                      Boolean       @default(false)
   createdAt                    DateTime      @default(now())
   updatedAt                    DateTime      @updatedAt
   emergencyResponseTime        String?
   emergencySurchargePercentage Float         @default(0)
   isEmergencyAble              Boolean       @default(false)
+  isTrial                      Boolean       @default(false)
   bookings                     Booking[]
   merchant                     Merchant      @relation(fields: [merchantId], references: [id], onDelete: Cascade)
 
@@ -350,13 +349,13 @@ model Booking {
   coolingOffUntil       DateTime?
   createdAt             DateTime      @default(now())
   updatedAt             DateTime      @updatedAt
-  googleMeetLink        String?
   vehicleReg            String?
   vehicleMake           String?
   vehicleModel          String?
   vehicleYear           String?
   vehicleNotes          String?
   isUrgent              Boolean       @default(false)
+  googleMeetLink        String?
   customer              User          @relation(fields: [customerId], references: [id])
   merchant              Merchant      @relation(fields: [merchantId], references: [id])
   service               Service       @relation(fields: [serviceId], references: [id])
@@ -364,6 +363,7 @@ model Booking {
   payment               Payment?
   review                Review?
   variations            Variation[]
+  receipt               Receipt?
 
   @@index([customerId])
   @@index([merchantId])
@@ -447,6 +447,20 @@ model Evidence {
   description  String?
   createdAt    DateTime @default(now())
   dispute      Dispute  @relation(fields: [disputeId], references: [id], onDelete: Cascade)
+}
+
+model Receipt {
+  id               String   @id @default(cuid())
+  bookingId        String   @unique
+  fileUrl          String
+  receiptNumber    String   @unique
+  totalAmount      Float
+  taxAmount        Float    @default(0)
+  createdAt        DateTime @default(now())
+  booking          Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([bookingId])
+  @@index([receiptNumber])
 }
 
 model Referral {

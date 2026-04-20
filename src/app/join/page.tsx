@@ -7,6 +7,7 @@ import OnboardingHero from '@/components/joining/OnboardingHero';
 import SectorSelector from '@/components/joining/SectorSelector';
 import MerchantContract from '@/components/joining/MerchantContract';
 import LiveProfilePreview from '@/components/joining/LiveProfilePreview';
+import SuperpowerHighlights from '@/components/joining/SuperpowerHighlights';
 import { ChevronRight, ChevronLeft, CheckCircle2, Building2, Mail, Globe, User, Loader2, MapPin, Sparkles, Wand2, Calculator, Gift, ShieldCheck, Phone, Camera } from 'lucide-react';
 import MerchantComparisonTable from '@/components/joining/MerchantComparisonTable';
 import { createMerchantAction } from '@/app/actions/merchant';
@@ -90,7 +91,7 @@ function JoinPageContent() {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 5 * 1024 * 1024) { 
-        setError("文件大小不能超過 5MB (File size must be < 5MB)");
+        setError(t.onboarding.validation.file_size_error);
         return;
       }
       
@@ -196,6 +197,7 @@ function JoinPageContent() {
           password: formData.password,
           redirect: false
         });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         setStep(4);
       }
     } catch (err) {
@@ -229,13 +231,17 @@ function JoinPageContent() {
             <div className="step-0 flex-col" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '40px', paddingBottom: '60px' }}>
               <OnboardingHero />
               
-              <div style={{ maxWidth: '900px', width: '100%', margin: '0 auto' }}>
+              <div style={{ maxWidth: '1100px', width: '100%', margin: '0 auto' }}>
+                <SuperpowerHighlights />
                 <MerchantComparisonTable />
               </div>
 
               <button 
                 className="btn-premium"
-                onClick={() => setStep(1)}
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  setStep(1);
+                }}
                 style={{ marginTop: '20px' }}
               >
                 {t.onboarding.buttons.start} <ChevronRight size={20} />
@@ -400,7 +406,7 @@ function JoinPageContent() {
 
                     {/* 4. Contact Info */}
                     <div className="input-group">
-                      <label><Mail size={16} /> {t.merchant_profile.labels.email} <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>{t.onboarding.profile_form.credentials_required}</span></label>
+                      <label><Mail size={16} /> {t?.merchant_profile?.labels?.email || "Email Address"} <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>{t?.onboarding?.profile_form?.credentials_required || "Required"}</span></label>
                         <input 
                           type="email" 
                           name="email" 
@@ -410,7 +416,7 @@ function JoinPageContent() {
                         />
                     </div>
                     <div className="input-group">
-                      <label><Phone size={16} /> {t.merchant_profile.labels.phone} <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>{t.onboarding.profile_form.credentials_required}</span></label>
+                      <label><Phone size={16} /> {t?.merchant_profile?.labels?.phone || "Phone Number"} <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>{t?.onboarding?.profile_form?.credentials_required || "Required"}</span></label>
                         <input 
                           type="tel" 
                           name="phone" 
@@ -420,13 +426,13 @@ function JoinPageContent() {
                         />
                     </div>
                     <div className="input-group full">
-                      <label><Lock size={16} /> 設定登入密碼 (Set Login Password) <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>* {t.onboarding.profile_form.credentials_required}</span></label>
+                      <label><Lock size={16} /> {t?.onboarding?.profile_form?.password_label || "Set Password"} <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>* {t?.onboarding?.profile_form?.credentials_required || "Required"}</span></label>
                         <input 
                           type="password" 
                           name="password" 
                           value={formData.password} 
                           onChange={handleInputChange} 
-                          placeholder="請輸入至少 6 位數密碼 (Min. 6 characters)"
+                          placeholder={t.onboarding.profile_form.password_placeholder}
                         />
                     </div>
 
@@ -497,7 +503,7 @@ function JoinPageContent() {
                         {verifyingCredential && (
                           <div className="ai-review-loading" style={{ marginTop: '16px', display: 'flex', alignItems: 'center', gap: '12px', padding: '12px', background: 'rgba(255,255,255,0.02)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
                              <Loader2 className="animate-spin" size={18} color="#d4af37" />
-                             <span style={{ fontSize: '0.85rem', color: '#94a3b8' }}>AI 正在即時批核文件 (AI is verifying your document in real-time)...</span>
+                             <span style={{ fontSize: '0.85rem', color: '#94a3b8' }}>{t.onboarding.profile_form.ai_verifying}</span>
                           </div>
                         )}
 
@@ -516,8 +522,8 @@ function JoinPageContent() {
                             </div>
                             <div>
                               <div style={{ fontWeight: 800, fontSize: '0.9rem', marginBottom: '4px', color: 'white' }}>
-                                {credentialReview.status === 'verified' ? 'AI 驗證成功 (AI Verified)' : 
-                                 credentialReview.status === 'rejected' ? 'AI 驗證失敗 (AI Rejected)' : '等待人工審核 (Manual Review Required)'}
+                                {credentialReview.status === 'verified' ? t.onboarding.profile_form.ai_verified_success : 
+                                 credentialReview.status === 'rejected' ? t.onboarding.profile_form.ai_verified_failed : t.onboarding.profile_form.manual_review}
                               </div>
                               <p style={{ fontSize: '0.8rem', color: '#94a3b8', margin: 0, lineHeight: 1.5 }}>{credentialReview.reason}</p>
                               {(credentialReview as any).regulatoryBody && (
@@ -662,9 +668,9 @@ function JoinPageContent() {
         }
 
         .join-container {
-          max-width: 1200px;
+          max-width: 1440px;
           margin: 0 auto;
-          padding: 120px 20px 100px;
+          padding: 120px 40px 100px;
         }
 
         .step-0 {
@@ -735,8 +741,8 @@ function JoinPageContent() {
 
         .onboarding-grid {
           display: grid;
-          grid-template-columns: 1.6fr 1fr;
-          gap: 48px;
+          grid-template-columns: 1.8fr 1fr;
+          gap: 56px;
           align-items: start;
         }
 
@@ -779,7 +785,8 @@ function JoinPageContent() {
         .form-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 28px;
+          gap: 24px;
+          width: 100%;
         }
 
         .input-group.full {

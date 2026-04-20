@@ -22,7 +22,7 @@ export const pl: any = {
       commission: {
         title: "Prowizja Platformy",
         others: "15% - 30% opłaty serwisowej",
-        concierge: "9% prowizji dla wszystkich profesjonalnych partnerów"
+        concierge: "10% prowizji dla wszystkich profesjonalnych partnerów"
       },
       client_calibre: {
         title: "Jakość Klienta",
@@ -1206,7 +1206,7 @@ export const pl: any = {
       clauses: {
         platform_fee: {
           title: "1. Opłata serwisowa",
-          body: "Platforma pobiera 9% prowizji od pomyślnie zakończonych zadań.",
+          body: "Platforma pobiera 10% prowizji od pomyślnie zakończonych zadań.",
         },
         payments: {
           title: "2. Escrow i rozliczenia",

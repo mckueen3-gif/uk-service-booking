@@ -71,7 +71,7 @@ export async function getEliteMerchantContext(options: MerchantContextOptions = 
         verificationTag = "[ADMIN_REVIEW_PENDING: Documents are currently being manually verified for your safety]";
       }
 
-      return `- ${m.companyName} (${m.city}): Rated ${m.averageRating}/5. ${verificationTag}. Specializes in: ${topServices}.`;
+      return `- ${m.companyName} (${m.city}): Rated ${m.averageRating}/5. ${verificationTag}. Specializes in: ${topServices}. Description: ${m.description || 'No description available.'}`;
     }).join('\n');
 
     return `TOP RECOMMENDED EXPERTS & VERIFICATION STATUS:\n${context}`;
@@ -124,14 +124,37 @@ export async function getSingleMerchantContext(merchantId: string): Promise<stri
     const services = m.services.map(s => `- ${s.name}: £${s.price} (${s.category})`).join('\n');
     const recentReviews = m.reviews.map(r => `- Rating ${r.rating}/5: "${r.comment}"`).join('\n');
     
+    // Extract features and coupons from pricingPackages JSON
+    const packages = (m.pricingPackages as any) || {};
+    const features = packages.features || {};
+    const coupons = (packages.coupons || []) as any[];
+    const referralVoucher = packages.referralVoucher || null;
+    const aiSettings = packages.aiSettings || {};
+    
+    const activeCouponsStr = coupons.length > 0 
+      ? coupons.map((c: any) => `- CODE: ${c.code} (${c.discountType === 'PERCENT' ? c.value + '%' : '£' + c.value} discount)`).join('\n')
+      : "No active public coupons.";
+
+    const referralStr = (referralVoucher && referralVoucher.active)
+      ? `- FRIEND_REFERRAL_OFFER: ${referralVoucher.type === 'PERCENT' ? referralVoucher.amount + '%' : '£' + referralVoucher.amount} discount for the friend who was referred by an existing client.`
+      : "No referral offer active.";
+
+    const secretaryActive = !!features.aura_secretary;
+
     return `
+EXPERTS_AURA_SECRETARY_STATUS: ${secretaryActive ? 'ACTIVE (Introduce yourself as Aura AI)' : 'DISABLED (Do NOT refer to yourself as Aura AI Secretary)'}
+AURA_PERSONA_TONE: ${aiSettings.tone || 'Professional'}
 EXPERT PROFILE: ${m.companyName}
 BUSINESS TYPE: ${m.businessType}
 EXPERT KNOWLEDGE BASE:
 ${m.aiKnowledgeBase || "No specialized raw data provided yet, rely on bio and services."}
 
+ACTIVE PROMOTIONS:
+${activeCouponsStr}
+${referralStr}
+
 BIO/BACKGROUND: 
-${m.bio || m.description || "Top-tier expert on ConciergeAI."}
+${m.description || "Top-tier expert on ConciergeAI."}
 
 OFFERED SERVICES:
 ${services}

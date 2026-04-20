@@ -50,7 +50,7 @@ export async function POST(req: Request) {
     const isEducation = service?.category === 'Education';
     
     // 🛡️ UNIFIED COMMISSION LOGIC
-    // This ensures Education is MARKUP (+9%) and others are DEDUCTION (-9%)
+    // This ensures Education is MARKUP (+10%) and others are DEDUCTION (-10%)
     const { totalCustomerPayment, platformFee } = calculateNetPayout(priceAmount, merchant, isEducation);
 
     const totalCustomerPaysInPence = Math.round(totalCustomerPayment * 100);

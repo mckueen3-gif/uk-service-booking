@@ -1,11 +1,30 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from '../LanguageContext';
-import { Sparkles, Users, BadgePercent, Star } from 'lucide-react';
+import { Sparkles, Users, BadgePercent, Star, Target, CheckCircle2 } from 'lucide-react';
+import LiveActivityToast from '../ui/LiveActivityToast';
+import { AnimatedCounter } from '../discovery/RecommendationEngine';
 
 export default function OnboardingHero() {
   const { t } = useTranslation();
+  const [expertCount, setExpertCount] = useState(1200);
+
+  useEffect(() => {
+    async function fetchStats() {
+      try {
+        const { getPublicStats } = await import('@/app/actions/public-stats');
+        const result = await getPublicStats();
+        if (result.success) {
+          const EXPERT_BASE = 1200;
+          setExpertCount(EXPERT_BASE + result.actualExperts);
+        }
+      } catch (e) {
+        console.error("Stats fetch error:", e);
+      }
+    }
+    fetchStats();
+  }, []);
 
   return (
     <div className="onboarding-hero">
@@ -34,7 +53,7 @@ export default function OnboardingHero() {
               <Users size={20} color="#d4af37" />
             </div>
             <div className="stat-info">
-              <span className="stat-val">2,500+</span>
+              <span className="stat-val"><AnimatedCounter target={expertCount} />+</span>
               <span className="stat-lbl">{t?.onboarding?.hero?.stats?.active_pros || "Active Professionals"}</span>
             </div>
           </div>
@@ -43,7 +62,7 @@ export default function OnboardingHero() {
               <BadgePercent size={20} color="#d4af37" />
             </div>
             <div className="stat-info">
-              <span className="stat-val">9%</span>
+              <span className="stat-val">10%</span>
               <span className="stat-lbl">{t?.onboarding?.hero?.stats?.commission || "Platform Commission"}</span>
             </div>
           </div>
@@ -57,6 +76,8 @@ export default function OnboardingHero() {
             </div>
           </div>
         </div>
+        
+        <LiveActivityToast inline />
         
         <div className="step-indicator">
           {[0, 1, 2].map((step) => (

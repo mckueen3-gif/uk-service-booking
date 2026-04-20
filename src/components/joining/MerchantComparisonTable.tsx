@@ -11,7 +11,13 @@ const MerchantComparisonTable = () => {
     {
       feature: t?.comparison_table?.rows?.commission?.title || 'Commission Fees',
       others: t?.comparison_table?.rows?.commission?.others || '15% - 30% Per Job',
-      concierge: t?.comparison_table?.rows?.commission?.concierge || '9% Commission for All Experts',
+      concierge: t?.comparison_table?.rows?.commission?.concierge || '10% Commission for All Experts',
+      isHighlight: true
+    },
+    {
+      feature: t?.comparison_table?.rows?.response_fees?.title || 'Response / Lead Fees',
+      others: t?.comparison_table?.rows?.response_fees?.others || 'Paid Credits Required',
+      concierge: t?.comparison_table?.rows?.response_fees?.concierge || 'ALWAYS £0 (Free Responses)',
       isHighlight: true
     },
     {
