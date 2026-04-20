@@ -110,6 +110,9 @@ export async function processChatMessage(params: {
 /**
  * 🛠️ REAL-TIME CHAT ACTIONS (User-to-Merchant)
  */
+export async function getConversations() {
+  const session = (await getServerSession(authOptions)) as any;
+  if (!session?.user?.id) return { conversations: [] };
 
   const merchantId = await getMerchantId();
 
