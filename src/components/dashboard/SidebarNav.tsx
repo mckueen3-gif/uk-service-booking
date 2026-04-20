@@ -39,7 +39,6 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
     { href: "/merchant/services", label: t?.sidebar?.labels?.services || "Service Management", icon: ScrollText },
     { href: "/merchant/availability", label: t?.sidebar?.labels?.availability || "Availability", icon: Clock },
     { href: "/member/analytics", label: t?.sidebar?.labels?.analytics || "Performance Audit", icon: BarChart3 },
-    { href: "/merchant/verification", label: t?.sidebar?.labels?.verification || "Expert Verification", icon: ShieldCheck },
     { href: "/merchant/accounting", label: t?.sidebar?.labels?.accounting || "Ledger & Tax", icon: Calculator },
     { href: "/merchant/promotions", label: t?.sidebar?.labels?.promotions || "Promotion Hub", icon: Tag },
     { href: "/merchant/wallet", label: t?.sidebar?.labels?.wallet || "Earnings Wallet", icon: Wallet },

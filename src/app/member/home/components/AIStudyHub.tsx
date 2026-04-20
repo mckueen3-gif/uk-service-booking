@@ -15,6 +15,7 @@ import {
   Users
 } from 'lucide-react';
 import { generateQuizFromContext, saveQuizAttempt, shareResultWithTutor } from '@/app/actions/ai_education';
+import { useTranslation } from '@/components/LanguageContext';
 
 interface AIStudyHubProps {
   usedToday: number;
@@ -24,6 +25,7 @@ interface AIStudyHubProps {
 }
 
 export default function AIStudyHub({ usedToday, limit, recentAttempts, bookings }: AIStudyHubProps) {
+  const { t, format } = useTranslation();
   const [step, setStep] = useState<'idle' | 'generating' | 'quiz' | 'result'>('idle');
   const [showShareModal, setShowShareModal] = useState(false);
   const [selectedMerchantId, setSelectedMerchantId] = useState<string>('');
@@ -76,7 +78,7 @@ export default function AIStudyHub({ usedToday, limit, recentAttempts, bookings 
       setActiveQuiz(result.quiz);
       setStep('quiz');
     } catch (err: any) {
-      setError(err.message || '生成失敗，請稍後再試');
+      setError(err.message || t.member_dashboard.hero.errors.unknown);
       setStep('idle');
     } finally {
       setIsLoading(false);
@@ -94,7 +96,7 @@ export default function AIStudyHub({ usedToday, limit, recentAttempts, bookings 
       setLatestAttemptId(result.attempt.id);
       setStep('result');
     } catch (err: any) {
-      setError(err.message || '提交失敗');
+      setError(err.message || t.member_dashboard.hero.errors.unknown);
     } finally {
       setIsLoading(false);
     }
@@ -126,7 +128,7 @@ export default function AIStudyHub({ usedToday, limit, recentAttempts, bookings 
       .filter(b => b.isEducation && b.merchant)
       .map(b => ({
         id: b.merchant.id,
-        name: b.merchant.companyName || b.merchant.user?.name || "未知導師"
+        name: b.merchant.companyName || b.merchant.user?.name || t.common.status.unknown
       }))
       .map(t => JSON.stringify(t))
   )).map(t => JSON.parse(t));
@@ -156,8 +158,8 @@ export default function AIStudyHub({ usedToday, limit, recentAttempts, bookings 
     return (
       <div className="study-hub-card loading-state">
         <Loader2 className="animate-spin" size={48} color="var(--accent-color)" />
-        <h3>AI 正在分析內容並編寫題目...</h3>
-        <p>這大約需要 10-15 秒，請稍候</p>
+        <h3>{t.member_dashboard.study_hub.generating.title}</h3>
+        <p>{t.member_dashboard.study_hub.generating.sub}</p>
       </div>
     );
   }
@@ -197,7 +199,7 @@ export default function AIStudyHub({ usedToday, limit, recentAttempts, bookings 
           onClick={handleSubmitQuiz}
           disabled={Object.keys(userAnswers).length < activeQuiz.questions.length || isLoading}
         >
-          {isLoading ? <Loader2 className="animate-spin" /> : '完成測驗並查看 AI 診斷'}
+          {isLoading ? <Loader2 className="animate-spin" /> : t.member_dashboard.study_hub.quiz.complete}
         </button>
       </div>
     );
@@ -210,20 +212,20 @@ export default function AIStudyHub({ usedToday, limit, recentAttempts, bookings 
           <span className="score-num">{finalScore}</span>
           <span className="score-total">/ 5</span>
         </div>
-        <h3>測驗完成！</h3>
+        <h3>{t.member_dashboard.study_hub.quiz.finish}</h3>
         
         <div className="diagnosis-box">
-          <h4><Sparkles size={18} /> AI 學習診斷報告</h4>
+          <h4><Sparkles size={18} /> {t.member_dashboard.study_hub.quiz.report}</h4>
           <div className="diagnosis-content">
             {diagnosis}
           </div>
         </div>
 
         <div className="result-actions">
-          <button className="primary-btn" onClick={() => setStep('idle')}>回到學習中心</button>
+          <button className="primary-btn" onClick={() => setStep('idle')}>{t.member_dashboard.study_hub.quiz.back}</button>
           {tutors.length > 0 && (
             <button className="secondary-btn" onClick={() => setShowShareModal(true)}>
-              <Users size={16} /> 分享給我的導師
+              <Users size={16} /> {t.member_dashboard.study_hub.quiz.share}
             </button>
           )}
         </div>
@@ -234,31 +236,31 @@ export default function AIStudyHub({ usedToday, limit, recentAttempts, bookings 
               {shareSuccess ? (
                 <div className="share-success">
                   <CheckCircle2 size={48} color="#10b981" />
-                  <h4>分享成功！</h4>
-                  <p>導師現在可以在後台查看您的診斷報告。</p>
+                  <h4>{t.member_dashboard.study_hub.share.success}</h4>
+                  <p>{t.member_dashboard.study_hub.share.successDesc}</p>
                 </div>
               ) : (
                 <>
-                  <h4>分享至導師</h4>
-                  <p>選擇一位導師分享您的 AI 診斷報告，協助他們規劃下次教學：</p>
+                  <h4>{t.member_dashboard.study_hub.share.title}</h4>
+                  <p>{t.member_dashboard.study_hub.share.desc}</p>
                   <select 
                     className="share-select"
                     value={selectedMerchantId} 
                     onChange={(e) => setSelectedMerchantId(e.target.value)}
                   >
-                    <option value="">請選擇導師...</option>
+                    <option value="">{t.member_dashboard.study_hub.placeholders.selectTutor}</option>
                     {tutors.map((t: any) => (
                       <option key={t.id} value={t.id}>{t.name}</option>
                     ))}
                   </select>
                   <div className="modal-btns">
-                    <button className="cancel-btn" onClick={() => setShowShareModal(false)}>取消</button>
+                    <button className="cancel-btn" onClick={() => setShowShareModal(false)}>{t.member_dashboard.study_hub.share.cancel}</button>
                     <button 
                       className="confirm-share-btn" 
                       disabled={!selectedMerchantId || isLoading}
                       onClick={handleShare}
                     >
-                      {isLoading ? <Loader2 className="animate-spin" size={16} /> : '確認分享'}
+                      {isLoading ? <Loader2 className="animate-spin" size={16} /> : t.member_dashboard.study_hub.share.confirm}
                     </button>
                   </div>
                 </>
@@ -274,29 +276,29 @@ export default function AIStudyHub({ usedToday, limit, recentAttempts, bookings 
     <div className="study-hub-card idle-mode">
       <div className="hub-header">
         <div className="hub-title">
-          <GraduationCap className="hub-icon" />
-          <h3>AI 智能學習中心</h3>
+          <BookOpen className="hub-icon" />
+          <h3>{t.member_dashboard.study_hub.title}</h3>
         </div>
-        <div className={`quota-badge ${remaining === 0 ? 'out' : ''}`}>
-          今日餘額: {remaining} / {limit}
+        <div className={`quota-badge ${usedToday >= limit ? 'out' : ''}`}>
+          {format(t.member_dashboard.study_hub.quota, { remaining: Math.max(0, limit - usedToday), limit })}
         </div>
       </div>
 
       <div className="hub-content">
-        <p className="hub-intro">上傳課堂筆記、試卷照片或輸入主題，讓 AI 為您生成專屬練習題並診斷弱點。</p>
+        <p className="hub-intro">{t.member_dashboard.study_hub.intro}</p>
         
         <div className="source-tabs">
           <button 
             className={`tab-btn ${sourceType === 'text' ? 'active' : ''}`}
             onClick={() => setSourceType('text')}
           >
-            <FileText size={16} /> 文字輸入
+            <FileText size={16} /> {t.member_dashboard.study_hub.tabs.text}
           </button>
           <button 
             className={`tab-btn ${sourceType === 'image' ? 'active' : ''}`}
             onClick={() => setSourceType('image')}
           >
-            <Upload size={16} /> 照片識別
+            <Upload size={16} /> {t.member_dashboard.study_hub.tabs.photo}
           </button>
         </div>
 

@@ -2,6 +2,7 @@
 
 import { Calendar, Clock, CheckCircle2, AlertCircle, Loader2, ChevronRight, Video, ExternalLink } from "lucide-react";
 import Link from "next/link";
+import { useTranslation } from "@/components/LanguageContext";
 
 type BookingStatus = "PENDING" | "CONFIRMED" | "COMPLETED" | "CANCELLED" | "DISPUTED";
 
@@ -20,33 +21,33 @@ interface BookingStatusProps {
   bookings: Booking[];
 }
 
-const STATUS_CONFIG: Record<BookingStatus, { label: string; color: string; bg: string; icon: React.ReactNode }> = {
+const STATUS_MAP: Record<BookingStatus, { color: string; bg: string; icon: React.ReactNode; key: string }> = {
   PENDING: {
-    label: "待確認",
+    key: "pending",
     color: "#f59e0b",
     bg: "rgba(245,158,11,0.1)",
     icon: <Clock size={14} />,
   },
   CONFIRMED: {
-    label: "已確認",
+    key: "confirmed",
     color: "#10b981",
     bg: "rgba(16,185,129,0.1)",
     icon: <CheckCircle2 size={14} />,
   },
   COMPLETED: {
-    label: "已完成",
+    key: "completed",
     color: "var(--text-muted)",
     bg: "var(--surface-2)",
     icon: <CheckCircle2 size={14} />,
   },
   CANCELLED: {
-    label: "已取消",
+    key: "cancelled",
     color: "#ef4444",
     bg: "rgba(239,68,68,0.1)",
     icon: <AlertCircle size={14} />,
   },
   DISPUTED: {
-    label: "爭議中",
+    key: "disputed",
     color: "#ef4444",
     bg: "rgba(239,68,68,0.1)",
     icon: <AlertCircle size={14} />,
@@ -54,6 +55,7 @@ const STATUS_CONFIG: Record<BookingStatus, { label: string; color: string; bg: s
 };
 
 export default function BookingStatusPanel({ bookings }: BookingStatusProps) {
+  const { t, format, language } = useTranslation();
   // Defensive: ensure we always have an array
   const safeBookings = Array.isArray(bookings) ? bookings : [];
 
@@ -100,10 +102,10 @@ export default function BookingStatusPanel({ bookings }: BookingStatusProps) {
                 margin: 0,
               }}
             >
-              近期預約
+              {t.member_dashboard.bookings.title}
             </h3>
             <p style={{ fontSize: "0.8rem", color: "var(--text-muted)", margin: 0, fontWeight: 500 }}>
-              最近 {safeBookings.length} 筆
+              {format(t.member_dashboard.bookings.recentCount, { count: safeBookings.length })}
             </p>
           </div>
         </div>
@@ -123,7 +125,7 @@ export default function BookingStatusPanel({ bookings }: BookingStatusProps) {
               gap: "0.3rem",
             }}
           >
-            查看全部 <ChevronRight size={13} />
+            {t.member_dashboard.bookings.viewAll} <ChevronRight size={13} />
           </button>
         </Link>
       </div>
@@ -140,7 +142,7 @@ export default function BookingStatusPanel({ bookings }: BookingStatusProps) {
           >
             <Calendar size={32} style={{ opacity: 0.4, marginBottom: "0.75rem" }} />
             <p style={{ fontSize: "0.9rem", fontWeight: 600, margin: 0 }}>
-              暫無預約記錄
+              {t.member_dashboard.bookings.empty}
             </p>
             <Link href="/services" style={{ textDecoration: "none", display: "inline-block", marginTop: "1rem" }}>
               <button
@@ -155,27 +157,29 @@ export default function BookingStatusPanel({ bookings }: BookingStatusProps) {
                   cursor: "pointer",
                 }}
               >
-                立即預約服務
+                  {t.member_dashboard.bookings.bookNow}
               </button>
             </Link>
           </div>
         ) : (
           safeBookings.map((booking) => {
-            const cfg = STATUS_CONFIG[booking.status] ?? STATUS_CONFIG.PENDING;
+            const cfg = STATUS_MAP[booking.status] ?? STATUS_MAP.PENDING;
             const serviceName =
-              booking.service?.name ?? "服務預約";
+              booking.service?.name ?? t.common.status.unknown;
             const merchantName =
               booking.merchant?.companyName ??
               booking.merchant?.user?.name ??
-              "服務商";
+              t.member_dashboard.quick_actions.findExpert; // Fallback to a general term
             const dateStr = booking.scheduledDate
-              ? new Date(booking.scheduledDate).toLocaleDateString("zh-TW", {
+              ? new Date(booking.scheduledDate).toLocaleDateString(language === 'en' ? 'en-GB' : language, {
                   month: "short",
                   day: "numeric",
                   hour: "2-digit",
                   minute: "2-digit",
                 })
-              : "待確定";
+              : t.common.status.unknown;
+
+            const statusLabel = (t.member_dashboard.bookings.status as any)[cfg.key] || cfg.key;
 
             return (
               <div
@@ -208,7 +212,7 @@ export default function BookingStatusPanel({ bookings }: BookingStatusProps) {
                   }}
                 >
                   {cfg.icon}
-                  {cfg.label}
+                  {statusLabel}
                 </div>
 
                 {/* Info */}
@@ -289,7 +293,7 @@ export default function BookingStatusPanel({ bookings }: BookingStatusProps) {
                           }}
                         >
                           <Video size={14} />
-                          進入教室
+                          {t.member_dashboard.bookings.joinClass}
                         </button>
                       </a>
                     );

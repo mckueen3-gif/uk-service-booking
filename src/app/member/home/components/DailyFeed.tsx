@@ -2,6 +2,7 @@
 
 import { Star, MapPin, ChevronRight, TrendingUp } from "lucide-react";
 import Link from "next/link";
+import { useTranslation } from "@/components/LanguageContext";
 
 interface Merchant {
   id: string;
@@ -18,18 +19,7 @@ interface DailyFeedProps {
   merchants: Merchant[];
 }
 
-const CATEGORY_TIPS: Record<string, string> = {
-  Plumbing: "💧 天氣轉涼，記得定期檢查水管保溫！",
-  Education: "📚 現在預約功課輔導，準備好下學期！",
-  Tutor: "📚 現在預約功課輔導，準備好下學期！",
-  Legal: "⚖️ 租約快到期？諮詢律師保障您的權益。",
-  Accounting: "🧾 自僱人士稅務申報截止日即將到來。",
-  Cleaning: "✨ 換季大掃除，讓家居煥然一新！",
-  Repairs: "🔧 秋冬前最佳時機檢查電器安全。",
-  Renovation: "🏠 今年底前翻新，趕及年宵前完工！",
-  Commercial: "💼 Q4 財務規劃，立即諮詢商業顧問。",
-};
-
+// Use localized tips from dictionary instead
 const FALLBACK_IMAGES: Record<string, string> = {
   plumbing: "/images/placeholders/plumbing.png",
   education: "/images/placeholders/education.png",
@@ -44,6 +34,7 @@ const FALLBACK_IMAGES: Record<string, string> = {
 };
 
 export default function DailyFeed({ merchants }: DailyFeedProps) {
+  const { t } = useTranslation();
   // Defensive: ensure always array
   const safeMerchants = Array.isArray(merchants) ? merchants.slice(0, 6) : [];
 
@@ -82,10 +73,10 @@ export default function DailyFeed({ merchants }: DailyFeedProps) {
                 margin: 0,
               }}
             >
-              今日為您推薦
+              {t.member_dashboard.feed.title}
             </h3>
             <p style={{ fontSize: "0.8rem", color: "var(--text-muted)", margin: 0, fontWeight: 500 }}>
-              頂尖專家 · 每日精選
+              {t.member_dashboard.feed.subtitle}
             </p>
           </div>
         </div>
@@ -105,7 +96,8 @@ export default function DailyFeed({ merchants }: DailyFeedProps) {
               gap: "0.3rem",
             }}
           >
-            全部 <ChevronRight size={13} />
+          >
+            {t.member_dashboard.feed.viewAll} <ChevronRight size={13} />
           </button>
         </Link>
       </div>
@@ -123,7 +115,7 @@ export default function DailyFeed({ merchants }: DailyFeedProps) {
           }}
         >
           <TrendingUp size={32} style={{ opacity: 0.4, marginBottom: "0.75rem" }} />
-          <p style={{ margin: 0, fontWeight: 600 }}>正在載入推薦專家...</p>
+          <p style={{ margin: 0, fontWeight: 600 }}>{t.member_dashboard.feed.loading}</p>
         </div>
       ) : (
         <div
@@ -159,7 +151,7 @@ export default function DailyFeed({ merchants }: DailyFeedProps) {
                 : (FALLBACK_IMAGES[catKey] ?? FALLBACK_IMAGES.default);
                 
             const tip =
-              CATEGORY_TIPS[resolvedType] ?? "立即預約，享受頂級服務體驗。";
+              (t.member_dashboard.feed.tips as any)[catKey] || t.member_dashboard.feed.tips.default;
             const rating = m.rating ?? (4.5 + (idx % 5) * 0.1);
 
             return (

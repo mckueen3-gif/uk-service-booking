@@ -7,10 +7,11 @@ import { useTranslation } from "@/components/LanguageContext";
 import { useSession, signOut } from "next-auth/react";
 import { Globe, User, MapPin, ChevronRight, Navigation, PenTool, Sun, Moon, Droplets, Wrench, GraduationCap, Calculator, Scale, Briefcase, Sparkles, Car, ChevronDown, Star, Menu, X, Mail, Phone, Share2, MessageSquare, LogOut } from "lucide-react";
 import NavbarSearch from "@/app/components/NavbarSearch";
-import NotificationHub from "@/components/dashboard/NotificationHub";
+
 import { useLocation, ALL_UK } from "@/components/LocationContext";
 import { useTheme } from "@/components/ThemeContext";
 import { getDictionary } from "@/lib/i18n/dictionary";
+import NotificationHub from "@/components/dashboard/NotificationHub";
 
 export function AppNavbar({ session: serverSession }: { session: any }) {
   const { data: clientSession } = useSession();
@@ -402,7 +403,27 @@ export function AppNavbar({ session: serverSession }: { session: any }) {
           
           {session?.user ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+              
+              <Link 
+                href="/member/chat" 
+                className="hover-scale active-scale" 
+                title={t?.sidebar?.labels?.messages || "Messages"}
+                style={{ 
+                  color: obsidianGold, 
+                  padding: '0.4rem', 
+                  borderRadius: '0.75rem',
+                  backgroundColor: pathname === '/member/chat' ? 'var(--accent-soft)' : 'transparent',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 0.2s'
+                }}
+              >
+                 <MessageSquare size={22} />
+              </Link>
+
               <NotificationHub />
+
               <Link href={dashboardPath} style={{ color: obsidianGold, fontWeight: 600, textDecoration: 'none' }}>
 
                 <span style={{ 

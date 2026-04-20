@@ -58,13 +58,20 @@ export const zhTW = {
     specialist: "專家 (Specialist)",
     professional: "專業人士",
     expert: "專家",
+    viewProfile: "查看專家檔案",
     consultation: "諮詢",
     dark_mode: "深色模式",
     light_mode: "淺色模式",
     language: "語言",
     notifications: "通知",
     help: "說明與支援",
-    merchantPortal: "商家門戶"
+    merchantPortal: "專家管理中心",
+    online: "在線",
+    greetings: {
+      morning: "早安",
+      afternoon: "午安",
+      evening: "晚安"
+    }
   },
   location: {
     detecting: "正在偵測位置...",
@@ -578,7 +585,24 @@ export const zhTW = {
   },
   merchant: {
     title: "專家控制台",
-    welcome: "歡迎回來，",
+    expertTitle: "專家端",
+    welcome: "歡迎回來，{name}",
+    quick_links_hint: "提升專業成長的戰略快捷鍵。",
+    elite_ai: {
+      title: "頂級 AI 與影片配置",
+      video_label: "介紹影片 (YouTube)",
+      video_placeholder: "https://youtube.com/watch?v=...",
+      knowledge_label: "AI 專家知識庫",
+      knowledge_placeholder: "請在此處深度載入您的專業知識、服務細節與技術準則。這些數據將保持私有，並驅動您的專屬 AI 助手精準處理技術諮詢。",
+      save_button: "校準專家檔案"
+    },
+    pricing: {
+      title: "AI 定價脈搏",
+      status: "定價健康度",
+      optimal: "最佳狀態",
+      message: "偵測到市場校準後的費率。您目前的定價符合高信任度的頂尖標竿。",
+      trend: "市場平衡點"
+    },
     elite_perk: "精英專家特權",
     zero_lead_fee: "£0 響應費 (無限獲客)",
     lead_fee_desc: "與傳統平台不同，我們始終免費接單，不收取任何競標或響應費用。",
@@ -765,24 +789,6 @@ export const zhTW = {
     },
 
     quick_links_hint: "快速啟動您的專家工具箱",
-    elite_ai: {
-      title: "AI 精英檔案診斷",
-      video_label: "精選影片展示 (Meet/Vimeo)",
-      knowledge_label: "AI 專家知識實體",
-      knowledge_placeholder: "例：1930 年代倫敦水管修復專家...",
-      save_button: "同步至 AI 模型",
-    },
-    pricing: {
-      title: "實時價格脈搏",
-      status: "動態定價已啟動",
-      optimal: "最佳建議費率",
-      message: "當前地區需求正在波動。建議上調 +10% 以反映精英媒合狀態。",
-      trend: "需求趨勢：上升中",
-      baseRate: "基礎服務費率",
-      trial: "首次探索費率",
-      trialPrice: "首小時優惠",
-      feeNote: "平台服務協議費用已包含在最終報價中。",
-    },
     toolkit: {
       title: "AI 專家工具箱",
       subtitle: "為頂尖專家量身打造的模組化增長工具。",
@@ -1060,6 +1066,18 @@ export const zhTW = {
     booked: "剛剛預約了",
     verified: "官方驗證活動"
   },
+  merchant_messages: {
+    title: "實時訊息中心",
+    subtitle: "與您的服務提供者進行即時溝通。",
+    search: "搜尋聯絡人...",
+    empty: "尚未有對話紀錄",
+    targetName: "正在連線...",
+    inputPlaceholder: "輸入訊息...",
+    startPrompt: "尚未有訊息",
+    selectChat: "選擇一個對話以開始",
+    selectChatDesc: "溝通細節、上傳照片或詢問服務相關問題。",
+    initialPrompt: "您好，我對預約有相關疑問。",
+  },
   comparison_table: {
     header_features: "核心特色",
     header_others: "傳統轉介平台",
@@ -1141,6 +1159,7 @@ export const zhTW = {
       wellness: "身心健康",
       events: "活動管理"
     },
+    defaultCategory: "專家支援",
     hero: {
       aiMatch: "智慧精準匹配",
       badge: "驗證專家",
@@ -1290,6 +1309,39 @@ export const zhTW = {
       tipContent: "保持穩定的服務時效可顯著提升系統排名與曝光度。"
     },
   },
+  footer: {
+    tagline: "為您連結全英國最專業、且經過嚴格驗證的頂尖服務專家。",
+    explore: "探索",
+    legal: "法律資訊",
+    support: "客戶支援",
+    forPros: "專家專區",
+    rights: "版權所有。",
+    terms: "服務條款",
+    privacy: "隱私政策",
+    cookies: "Cookies 政策",
+    help: "幫助中心",
+    contact: "聯繫我們",
+    aiDiagnosis: "AI 診斷",
+    homeCleaning: "居家清潔",
+    plumbingServices: "水電維修",
+    automotiveServices: "汽車保養",
+    merchantRegistration: "專家入駐",
+    merchantPortal: "商家中心",
+    blog: "部落格",
+    trustSignal: "Trustpilot 評等：卓越",
+    address: "英國 倫敦",
+    phone: "+44 20 1234 5678",
+    email: "support@conciergeai.uk",
+    aboutUs: "ConciergeAI 為英國屋主與頂尖認證服務專家提供最高信任的對接平台。",
+    companyNo: "12345678",
+    vatNo: "GB123456789",
+    social: {
+      facebook: "https://facebook.com/conciergeai",
+      twitter: "https://twitter.com/conciergeai",
+      instagram: "https://instagram.com/conciergeai",
+      linkedin: "https://linkedin.com/company/conciergeai",
+    },
+  },
 
   aura: {
     welcome: "您好！我是 Aura，您的 Concierge 協調員。今天有什麼我可以幫您的嗎？",
@@ -1309,6 +1361,167 @@ export const zhTW = {
       bookingQuery: "我該如何預約附近的專家？",
     },
   },
+  merchant_dashboard: {
+    title: "專家控制台",
+    expertTitle: "專家端",
+    welcome: "歡迎回來，{name}",
+    quick_links_hint: "提升專業成長的戰略快捷鍵。",
+    elite_ai: {
+      title: "頂級 AI 與影片配置",
+      video_label: "介紹影片 (YouTube)",
+      video_placeholder: "https://youtube.com/watch?v=...",
+      knowledge_label: "AI 專家知識庫",
+      knowledge_placeholder: "請在此處深度載入您的專業知識、服務細節與技術準則。這些數據將保持私有，並驅動您的專屬 AI 助手精準處理技術諮詢。",
+      save_button: "校準專家檔案"
+    },
+    pricing: {
+      title: "AI 定價脈搏",
+      status: "定價健康度",
+      optimal: "最佳狀態",
+      message: "偵測到市場校準後的費率。您目前的定價符合高信任度的頂尖標竿。",
+      trend: "市場平衡點"
+    },
+    elite_perk: "精英專家特權",
+    zero_lead_fee: "£0 響應費 (無限獲客)",
+    lead_fee_desc: "與傳統平台不同，我們始終免費接單，不收取任何競標或響應費用。",
+    previewProfile: "查看公開檔案",
+    notifications: {
+      notifyExpertWhatsApp: "透過 WhatsApp 通知專家",
+      notifyExpertWhatsAppDesc: "建議使用以獲得更快的回覆",
+      bookingAlertEmailSubject: "【新訂單預約】請注意：有客戶預約了您的服務！",
+      expertWhatsAppMsg: "您好 {merchantName}，我剛剛在 ConciergeAI 預約了您的「{serviceName}」(日期：{date})。請前往控制面板確認！預約編號：#{bookingId}",
+    },
+    manageServices: "管理服務項目",
+    stats: {
+      totalBookings: "總預約數",
+      rating: "信任評等",
+      availableBalance: "可用餘額",
+      noPendingBalance: "無待決餘額",
+      noAvailableBalance: "無可用餘額",
+      merchantNotFound: "找不到商家帳照：請確認您的專家身分已驗證。",
+      notAuthorized: "授權失敗：您沒有訪問此資源的權限。",
+      pendingBalance: "待結算餘額",
+      availableNow: "目前可用",
+      totalJobs: "已完成項目",
+      escrowHeld: "託管中資金",
+      reviews: "客戶見證",
+    },
+    wallet: {
+      referralTitle: "推薦朋友並獲得 2% 獎勵",
+      referralDesc: "分享您的專屬代碼。當朋友預約首項服務時，您將獲得交易額 2% 的英國頂級零售商電子禮券。",
+      historyTitle: "交易歷史紀錄",
+      rewards: {
+        title: "兌換電子禮券",
+        subtitle: "* 獎勵僅限兌換零售禮券 (Tesco, Amazon)。不提供現金提領。24 小時內處理。",
+        myVault: "我的獎勵金庫",
+        redeemBtn: "領取獎勵",
+      },
+    },
+    accounting: {
+      title: "會計與稅務",
+      subtitle: "自動化英國財務中心：VAT 監測與稅務預測。",
+      statusActive: "訂閱生效中",
+      statusInactive: "訂閱未啟用",
+      grossRevenue: "總營收",
+      grossRevenueDesc: "來自 ConciergeAI 平台的總資金流入",
+      taxPayable: "預估應繳稅額",
+      taxPayableDesc: "根據 24/25 英國所得稅級距計算。",
+      vatRadar: "VAT 註冊雷達",
+      vatRadarDesc: "追蹤距離 £90,000 門檻的接近程度。",
+      monthlyBreakdown: "每月表現審計",
+    },
+  },
+  member_dashboard: {
+    hero: {
+      location: "英國",
+      helpTitle: "今天在 {location} 有什麼需要幫忙？",
+      aiAssistant: "AI 生活管家",
+      placeholder: "問 {model} 任何關於英國生活的問題... (Enter 發送)",
+      thinking: "正在思考...",
+      clearChat: "清除對話",
+      send: "發送",
+      errors: {
+        format: "回應格式錯誤",
+        unknown: "發生未知錯誤，請稍後再試。",
+        network: "網絡連接失敗，請檢查您的網絡後再試。"
+      },
+      prompts: {
+        travel: "今天最推薦的出行路線？",
+        dining: "附近推薦的餐廳",
+        study: "如何利用 AI 輔助學習？"
+      }
+    },
+    quick_actions: {
+      findExpert: "搜尋專家",
+      chat: "我的對話",
+      diagnosis: "AI 診斷",
+      history: "歷程記錄"
+    },
+    study_hub: {
+      title: "AI 智能學習中心",
+      quota: "今日餘額: {remaining} / {limit}",
+      intro: "上傳課堂筆記、試卷照片或輸入主題，讓 AI 為您生成專屬練習題並診斷弱點。",
+      tabs: {
+        text: "文字輸入",
+        photo: "照片識別"
+      },
+      placeholders: {
+        text: "粘貼您想要學習或翻譯的文本...",
+        analyze: "分析內容",
+        selectTutor: "請選擇導師..."
+      },
+      generating: {
+        title: "AI 正在分析內容並編寫題目...",
+        sub: "這大約需要 10-15 秒，請稍候"
+      },
+      quiz: {
+        complete: "完成測驗並查看 AI 診斷",
+        finish: "測驗完成！",
+        report: "AI 學習診斷報告",
+        back: "回到學習中心",
+        share: "分享給我的導師"
+      },
+      share: {
+        title: "分享至導師",
+        desc: "選擇一位導師分享您的 AI 診斷報告，協助他們規劃下次教學：",
+        success: "分享成功！",
+        successDesc: "導師現在可以在後台查看您的診斷報告。",
+        confirm: "確認分享",
+        cancel: "取消"
+      }
+    },
+    bookings: {
+      title: "近期預約",
+      recentCount: "最近 {count} 筆",
+      viewAll: "查看全部",
+      empty: "暫無預約記錄",
+      bookNow: "立即預約服務",
+      status: {
+        pending: "待確認",
+        confirmed: "已確認",
+        completed: "已完成",
+        cancelled: "已取消",
+        disputed: "爭議中"
+      },
+      joinClass: "進入教室"
+    },
+    feed: {
+      title: "今日為您推薦",
+      subtitle: "頂尖專家 · 每日精選",
+      all: "全部",
+      loading: "正在載入推薦專家...",
+      tips: {
+        plumbing: "💧 天氣轉涼，記得定期檢查水管保溫！",
+        education: "📚 現在預約功課輔導，準備好下學期！",
+        legal: "⚖️ 租約快到期？諮詢律師保障您的權益。",
+        accounting: "🧾 自僱人士稅務申報截止日即將到來。",
+        cleaning: "✨ 換季大掃除，讓家居煥然一新！",
+        repairs: "🔧 秋冬前最佳時機檢查電器安全。",
+        renovation: "🏠 今年底前翻新，趕及年宵前完工！",
+        commercial: "💼 Q4 財務規劃，立即諮詢商業顧問。",
+        default: "立即預約，享受頂級服務體驗。"
+      }
+    }
+  },
 };
 
-(zhTW as any).merchant_dashboard = zhTW.merchant;

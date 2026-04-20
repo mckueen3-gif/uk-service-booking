@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Send, Loader2, Sparkles, Zap, RotateCcw } from "lucide-react";
+import { useTranslation } from "@/components/LanguageContext";
 
 interface Message {
   role: "user" | "assistant";
@@ -15,6 +16,7 @@ interface DashboardHeroProps {
 }
 
 export default function DashboardHero({ userName, city }: DashboardHeroProps) {
+  const { t, format } = useTranslation();
   const [selectedModel, setSelectedModel] = useState<"gemini" | "grok">("gemini");
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
@@ -26,15 +28,14 @@ export default function DashboardHero({ userName, city }: DashboardHeroProps) {
   // Get greeting based on current hour
   const hour = new Date().getHours();
   const greeting =
-    hour < 12 ? "早安" : hour < 18 ? "下午好" : "晚上好";
+    hour < 12 ? t.common.greetings.morning : hour < 18 ? t.common.greetings.afternoon : t.common.greetings.evening;
 
-  const locationLabel = city && city !== "All UK" ? city : "英國";
+  const locationLabel = city && city !== "All UK" ? city : t.member_dashboard.hero.location;
 
   const quickPrompts = [
-    "倫敦租房有什麼要注意？",
-    "怎樣申請 Council Tax 減免？",
-    "我的水管漏水，應該怎辦？",
-    "英國報稅截止日期是幾時？",
+    t.member_dashboard.hero.prompts.travel,
+    t.member_dashboard.hero.prompts.dining,
+    t.member_dashboard.hero.prompts.study,
   ];
 
   useEffect(() => {
@@ -64,10 +65,10 @@ export default function DashboardHero({ userName, city }: DashboardHeroProps) {
         body: JSON.stringify({ message: text, model: selectedModel }),
       });
 
-      const data = await res.json().catch(() => ({ error: "回應格式錯誤" }));
+      const data = await res.json().catch(() => ({ error: t.member_dashboard.hero.errors.format }));
 
       if (!res.ok || data.error) {
-        setError(data.error || "發生未知錯誤，請稍後再試。");
+        setError(data.error || t.member_dashboard.hero.errors.unknown);
         // Remove the user message on hard error so they can retry
       } else {
         setMessages((prev) => [
@@ -76,7 +77,7 @@ export default function DashboardHero({ userName, city }: DashboardHeroProps) {
         ]);
       }
     } catch (err) {
-      setError("網絡連接失敗，請檢查您的網絡後再試。");
+      setError(t.member_dashboard.hero.errors.network);
     } finally {
       setIsLoading(false);
     }
@@ -129,7 +130,7 @@ export default function DashboardHero({ userName, city }: DashboardHeroProps) {
               marginBottom: "0.4rem",
             }}
           >
-            AI 生活管家
+            {t.member_dashboard.hero.aiAssistant}
           </p>
           <h2
             style={{
@@ -140,11 +141,11 @@ export default function DashboardHero({ userName, city }: DashboardHeroProps) {
               lineHeight: 1.2,
             }}
           >
-            {greeting}！
+            {greeting}!
             <span style={{ color: "var(--accent-color)" }}> {userName}</span>
             <br />
             <span style={{ fontSize: "1rem", fontWeight: 600, color: "var(--text-muted)" }}>
-              今天在 {locationLabel} 有什麼需要幫忙？
+              {format(t.member_dashboard.hero.helpTitle, { location: locationLabel })}
             </span>
           </h2>
         </div>
@@ -280,7 +281,7 @@ export default function DashboardHero({ userName, city }: DashboardHeroProps) {
               }}
             >
               <Loader2 size={16} style={{ animation: "spin 1s linear infinite" }} />
-              {selectedModel === "gemini" ? "Gemini" : "Grok"} 正在思考...
+              {selectedModel === "gemini" ? "Gemini" : "Grok"} {t.member_dashboard.hero.thinking}
             </div>
           </div>
         )}
@@ -361,7 +362,7 @@ export default function DashboardHero({ userName, city }: DashboardHeroProps) {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder={`問 ${selectedModel === "gemini" ? "Gemini" : "Grok"} 任何關於英國生活的問題... (Enter 發送)`}
+          placeholder={format(t.member_dashboard.hero.placeholder, { model: selectedModel === "gemini" ? "Gemini" : "Grok" })}
           rows={1}
           disabled={isLoading}
           style={{
@@ -388,7 +389,7 @@ export default function DashboardHero({ userName, city }: DashboardHeroProps) {
         {messages.length > 0 && (
           <button
             onClick={clearChat}
-            title="清除對話"
+            title={t.member_dashboard.hero.clearChat}
             style={{
               padding: "0.9rem",
               borderRadius: "1rem",
@@ -437,7 +438,7 @@ export default function DashboardHero({ userName, city }: DashboardHeroProps) {
           ) : (
             <Send size={18} />
           )}
-          發送
+          {t.member_dashboard.hero.send}
         </button>
       </div>
     </div>

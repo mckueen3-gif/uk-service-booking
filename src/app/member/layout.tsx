@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import SidebarNav from "@/components/dashboard/SidebarNav";
 import { dictionaries, Locale, Dictionary } from "@/lib/i18n/dictionary";
 import { cookies } from "next/headers";
+import Link from "next/link";
 
 export default async function MemberLayout({ children }: { children: React.ReactNode }) {
   const session = await getServerSession(authOptions);

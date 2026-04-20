@@ -58,13 +58,19 @@ export const en = {
     specialist: "Specialist",
     professional: "Professional",
     expert: "Expert",
+    viewProfile: "View Specialist Profile",
     consultation: "Consultation",
     dark_mode: "Dark Mode",
     light_mode: "Light Mode",
     language: "Language",
     notifications: "Notifications",
     help: "Help & Support",
-    merchantPortal: "Merchant Node"
+    merchantPortal: "Expert Portal",
+    greetings: {
+      morning: "Good Morning",
+      afternoon: "Good Afternoon",
+      evening: "Good Evening"
+    }
   },
   location: {
     detecting: "Detecting Location...",
@@ -82,7 +88,7 @@ export const en = {
   },
   search: {
     title: "Find a Service Specialist",
-    subtitle: "Connected to {count} verified professionals",
+    subtitle: "Connecting you with {count} verified specialists",
     placeholder: "Search for expertise (e.g. leaking pipe, VAT accounting...)",
     keyword: "Expertise",
     locationPlaceholder: "Enter city or postcode",
@@ -93,7 +99,7 @@ export const en = {
     minRating: "Experience Level",
     verifiedOnly: "Verified Professionals Only",
     urgentOnly: "Emergency Rapid Response",
-    apply: "Apply Optimization",
+    apply: "Apply Filters",
     clearFilters: "Clear All Filters",
     foundCount: "{count} matches found",
     searching: "Scanning network...",
@@ -121,7 +127,7 @@ export const en = {
       active: "AI CALIBRATED",
       title: "Confused? Let AI find your perfect match.",
       subtitle: "Answer a few questions to calibrate our recommendation engine for your specific needs.",
-      button: "Start Specialist Calibration",
+      button: "Find My Best Match",
       clear: "CLEAR CALIBRATION"
     }
   },
@@ -577,7 +583,24 @@ export const en = {
   },
   merchant: {
     title: "Specialist Dashboard",
-    welcome: "Welcome back, ",
+    expertTitle: "Expert",
+    welcome: "Welcome back, {name}",
+    quick_links_hint: "Strategic shortcuts for elite growth.",
+    elite_ai: {
+      title: "Elite AI & Video",
+      video_label: "Introduction Video (YouTube)",
+      video_placeholder: "https://youtube.com/watch?v=...",
+      knowledge_label: "AI Expert Knowledge Base",
+      knowledge_placeholder: "Deep-load your specific expertise, service nuances, and technical criteria here. This data remains private and powers your specialized AI Assistant to handle technical leads with precision.",
+      save_button: "Calibrate Expert Profile"
+    },
+    pricing: {
+      title: "AI Pricing Pulse",
+      status: "Pricing Health",
+      optimal: "OPTIMAL",
+      message: "Market-calibrated fees detected. Your current rates align with high-trust elite benchmarks.",
+      trend: "Market Equilibrium"
+    },
     elite_perk: "Elite Specialist Privilege",
     zero_lead_fee: "£0 Response Fee (Unlimited Leads)",
     lead_fee_desc: "Unlike legacy platforms, we never charge for bidding or responding.",
@@ -764,24 +787,6 @@ export const en = {
     },
 
     quick_links_hint: "Fast-track your specialist toolkit",
-    elite_ai: {
-      title: "AI Elite Profile Diagnosis",
-      video_label: "Featured Showreel (Meet/Vimeo)",
-      knowledge_label: "AI Expert Knowledge Entity",
-      knowledge_placeholder: "e.g. Master of 1930s London pipe renewals...",
-      save_button: "Sync to AI Model",
-    },
-    pricing: {
-      title: "Real-time Pricing Pulse",
-      status: "Dynamic Pricing Active",
-      optimal: "Optimal Suggested Rate",
-      message: "Current regional demand is fluctuating. Recommend adjusting +10% to reflect elite matching status.",
-      trend: "Demand Trend: Rising",
-      baseRate: "Base Service Rate",
-      trial: "First-time Discovery Rate",
-      trialPrice: "First Hour Offer",
-      feeNote: "Platform service protocol fees are integrated into the final quote.",
-    },
     toolkit: {
       title: "AI Specialist Toolkit",
       subtitle: "Modular growth tools designed for elite specialists.",
@@ -1149,6 +1154,7 @@ export const en = {
       wellness: "Wellness",
       events: "Events"
     },
+    defaultCategory: "Specialist Support",
     hero: {
       aiMatch: "Calculated Match",
       badge: "Verified Experts",
@@ -1277,6 +1283,39 @@ export const en = {
       id_btn: "Network Authorization ID",
     },
   },
+  footer: {
+    tagline: "Connecting you with elite, verified service specialists across the UK.",
+    explore: "Explore",
+    legal: "Legal",
+    support: "Support",
+    forPros: "For Specialists",
+    rights: "All rights reserved.",
+    terms: "Terms of Service",
+    privacy: "Privacy Policy",
+    cookies: "Cookies Policy",
+    help: "Help Center",
+    contact: "Contact Us",
+    aiDiagnosis: "AI Diagnosis",
+    homeCleaning: "Home Cleaning",
+    plumbingServices: "Plumbing Services",
+    automotiveServices: "Automotive Services",
+    merchantRegistration: "Join as Specialist",
+    merchantPortal: "Merchant Portal",
+    blog: "Blog",
+    trustSignal: "Trustpilot Rating: Excellent",
+    address: "London, UK",
+    phone: "+44 20 1234 5678",
+    email: "support@conciergeai.uk",
+    aboutUs: "ConciergeAI connects homeowners with high-trust, elite-tier certified service experts across the UK.",
+    companyNo: "12345678",
+    vatNo: "GB123456789",
+    social: {
+      facebook: "https://facebook.com/conciergeai",
+      twitter: "https://twitter.com/conciergeai",
+      instagram: "https://instagram.com/conciergeai",
+      linkedin: "https://linkedin.com/company/conciergeai",
+    },
+  },
 
   aura: {
     welcome: "Hello! I am Aura, your Concierge coordinator. How can I help you today?",
@@ -1296,6 +1335,167 @@ export const en = {
       bookingQuery: "How do I book a specialist near me?",
     },
   },
+  merchant_dashboard: {
+    title: "Specialist Dashboard",
+    expertTitle: "Expert",
+    welcome: "Welcome back, {name}",
+    quick_links_hint: "Strategic shortcuts for elite growth.",
+    elite_ai: {
+      title: "Elite AI & Video",
+      video_label: "Introduction Video (YouTube)",
+      video_placeholder: "https://youtube.com/watch?v=...",
+      knowledge_label: "AI Expert Knowledge Base",
+      knowledge_placeholder: "Deep-load your specific expertise, service nuances, and technical criteria here. This data remains private and powers your specialized AI Assistant to handle technical leads with precision.",
+      save_button: "Calibrate Expert Profile"
+    },
+    pricing: {
+      title: "AI Pricing Pulse",
+      status: "Pricing Health",
+      optimal: "OPTIMAL",
+      message: "Market-calibrated fees detected. Your current rates align with high-trust elite benchmarks.",
+      trend: "Market Equilibrium"
+    },
+    elite_perk: "Elite Specialist Privilege",
+    zero_lead_fee: "£0 Response Fee (Unlimited Leads)",
+    lead_fee_desc: "Unlike legacy platforms, we never charge for bidding or responding.",
+    previewProfile: "View Public Profile",
+    notifications: {
+      notifyExpertWhatsApp: "Notify Expert via WhatsApp",
+      notifyExpertWhatsAppDesc: "Recommended for faster response",
+      bookingAlertEmailSubject: "【New Order】Action Required: A customer has booked your service!",
+      expertWhatsAppMsg: "Hello {merchantName}, I've just booked your \"{serviceName}\" for {date} on ConciergeAI. Please confirm it in your dashboard! Booking ID: #{bookingId}",
+    },
+    manageServices: "Manage Services",
+    stats: {
+      totalBookings: "Total Bookings",
+      rating: "Trust Rating",
+      availableBalance: "Available Balance",
+      noPendingBalance: "No pending balance",
+      noAvailableBalance: "No available balance",
+      merchantNotFound: "Merchant license not found: Please ensure your professional profile is verified.",
+      notAuthorized: "Authorization failed: You do not have permission to access this resource.",
+      pendingBalance: "Pending Balance",
+      availableNow: "Available Now",
+      totalJobs: "Jobs Completed",
+      escrowHeld: "Held in Escrow",
+      reviews: "Client Reviews",
+    },
+    wallet: {
+      referralTitle: "Refer a Friend & Earn 2% Rewards",
+      referralDesc: "Share your code. When a friend books their first service, you'll receive 2% as e-vouchers for top UK retailers.",
+      historyTitle: "Transaction History",
+      rewards: {
+        title: "Redeem for E-Vouchers",
+        subtitle: "* Rewards are strictly for retail vouchers (Tesco, Amazon). No cash withdrawals. Processed within 24h.",
+        myVault: "My Rewards Vault",
+        redeemBtn: "Claim Rewards",
+      },
+    },
+    accounting: {
+      title: "Accounting & Tax",
+      subtitle: "Automated UK Financial Centre: VAT monitoring and tax forecasting.",
+      statusActive: "Subscription Active",
+      statusInactive: "Subscription Inactive",
+      grossRevenue: "Gross Revenue",
+      grossRevenueDesc: "Total inflow from ConciergeAI platforms",
+      taxPayable: "Estimated Tax Payable",
+      taxPayableDesc: "Calculated based on 24/25 UK Income Tax bands.",
+      vatRadar: "VAT Registration Radar",
+      vatRadarDesc: "Tracking proximity to the £90,000 threshold.",
+      monthlyBreakdown: "Monthly Performance Audit",
+    },
+  },
+  member_dashboard: {
+    hero: {
+      location: "United Kingdom",
+      helpTitle: "How can I help you today in {location}?",
+      aiAssistant: "AI Life Assistant",
+      placeholder: "Ask {model} anything about life in the UK... (Enter to send)",
+      thinking: "Thinking...",
+      clearChat: "Clear Chat",
+      send: "Send",
+      errors: {
+        format: "Response format error",
+        unknown: "An unknown error occurred, please try again later.",
+        network: "Network connection failed, please check your connection and try again."
+      },
+      prompts: {
+        travel: "Best travel routes today?",
+        dining: "Recommended restaurants nearby",
+        study: "How to use AI for learning?"
+      }
+    },
+    quick_actions: {
+      findExpert: "Find Experts",
+      chat: "My Chats",
+      diagnosis: "AI Diagnosis",
+      history: "History"
+    },
+    study_hub: {
+      title: "AI Intelligent Learning Center",
+      quota: "Remaining Today: {remaining} / {limit}",
+      intro: "Upload class notes, exam photos, or enter a subject to let AI generate personalized practice questions and diagnose weaknesses.",
+      tabs: {
+        text: "Text Input",
+        photo: "Photo Recognition"
+      },
+      placeholders: {
+        text: "Paste the text you want to learn or translate...",
+        analyze: "Analyze Content",
+        selectTutor: "Please select a tutor..."
+      },
+      generating: {
+        title: "AI is analyzing content and crafting questions...",
+        sub: "This usually takes 10-15 seconds, please wait..."
+      },
+      quiz: {
+        complete: "Complete Quiz & View AI Diagnosis",
+        finish: "Quiz Completed!",
+        report: "AI Learning Diagnostic Report",
+        back: "Back to Learning Center",
+        share: "Share with My Tutor"
+      },
+      share: {
+        title: "Share to Tutor",
+        desc: "Choose a tutor to share your AI diagnostic report and help them plan your next lesson:",
+        success: "Shared Successfully!",
+        successDesc: "Your tutor can now view your diagnostic report in their dashboard.",
+        confirm: "Confirm Share",
+        cancel: "Cancel"
+      }
+    },
+    bookings: {
+      title: "Recent Bookings",
+      recentCount: "Last {count} records",
+      viewAll: "View All",
+      empty: "No booking records yet",
+      bookNow: "Book a service now",
+      status: {
+        pending: "Pending",
+        confirmed: "Confirmed",
+        completed: "Completed",
+        cancelled: "Cancelled",
+        disputed: "Disputed"
+      },
+      joinClass: "Join Classroom"
+    },
+    feed: {
+      title: "Recommended for You",
+      subtitle: "Top Experts · Daily Picks",
+      all: "All",
+      loading: "Loading recommended experts...",
+      tips: {
+        plumbing: "💧 Weather is getting colder, remember to check pipe insulation!",
+        education: "📚 Book a tutor now and prepare for the next term!",
+        legal: "⚖️ Lease expiring? Consult a lawyer to protect your rights.",
+        accounting: "🧾 Self-employment tax filing deadline is approaching.",
+        cleaning: "✨ Seasonal cleaning to refresh your home!",
+        repairs: "🔧 Best time to check appliance safety before winter.",
+        renovation: "🏠 Renovate before year-end to finish before the holidays!",
+        commercial: "💼 Q4 financial planning, consult a business advisor now.",
+        default: "Book now to enjoy a premium service experience."
+      }
+    }
+  },
 };
 
-(en as any).merchant_dashboard = en.merchant;
