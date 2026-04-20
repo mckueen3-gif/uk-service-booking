@@ -590,6 +590,10 @@ export const pa: any = {
         escrowHeld: "ਐਸਕਰੋ ਵਿੱਚ",
         availableNow: "ਹੁਣ ਉਪਲਬਧ",
         reviews: "ਸਮੀਖਿਆਵਾਂ",
+        noPendingBalance: "ਕੋਈ ਬਕਾਇਆ ਨਹੀਂ",
+        noAvailableBalance: "ਕੋਈ ਉਪਲਬਧ ਬਕਾਇਆ ਨਹੀਂ",
+        merchantNotFound: "ਮਰਚੈਂਟ ਲਾਇਸੈਂਸ ਨਹੀਂ ਮਿਲਿਆ: ਕਿਰਪਾ ਕਰਕੇ ਪੱਕਾ ਕਰੋ ਕਿ ਤੁਹਾਡੀ ਪ੍ਰੋਫਾਈਲ ਜਾਰੀ ਹੈ।",
+        notAuthorized: "ਅਧਿਕਾਰ ਅਸਫਲ: ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਸਰੋਤ ਤੱਕ ਪਹੁੰਚ ਦੀ ਇਜਾਜ਼ਤ ਨਹੀਂ ਹੈ।"
       },
       syncStatus: "ਸਿੰਕ ਸਥਿਤੀ",
       lastSynced: "ਪਿਛਲਾ ਸਿੰਕ",
@@ -1457,4 +1461,5 @@ export const pa: any = {
       initializing: "ਸਿਸਟਮ ਸ਼ੁਰੂ ਹੋ ਰਿਹਾ ਹੈ...",
     },
   },
+  merchant_dashboard: (pa as any).merchant,
 };

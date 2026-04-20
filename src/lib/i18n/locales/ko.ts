@@ -459,8 +459,10 @@ export const ko: any = {
       stats: {
         totalBookings: "총 예약",
         rating: "평점",
-        pendingBalance: "정산 예정",
-        availableBalance: "출금 가능",
+        noPendingBalance: "대기 중인 잔액 없음",
+        noAvailableBalance: "사용 가능한 잔액 없음",
+        merchantNotFound: "상점 라이선스를 찾을 수 없습니다: 프로필 인증 여부를 확인하십시오.",
+        notAuthorized: "권한 없음: 이 리소스를 사용할 권한이 없습니다.",
         totalJobs: "총 완료 작업",
         escrowHeld: "에스크로 보관",
         availableNow: "현재 가용",
@@ -1311,4 +1313,5 @@ export const ko: any = {
       initializing: "시스템을 초기화하는 중...",
     },
   },
+  merchant_dashboard: (ko as any).merchant,
 };

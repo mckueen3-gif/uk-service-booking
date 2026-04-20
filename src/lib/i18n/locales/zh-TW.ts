@@ -588,6 +588,10 @@ export const zhTW = {
       totalBookings: "總預約數",
       rating: "信任評等",
       availableBalance: "可用餘額",
+      noPendingBalance: "無待決餘額",
+      noAvailableBalance: "無可用餘額",
+      merchantNotFound: "找不到商家帳照：請確認您的專家身分已驗證。",
+      notAuthorized: "授權失敗：您沒有訪問此資源的權限。",
       pendingBalance: "待結算餘額",
       availableNow: "目前可用",
       totalJobs: "已完成項目",
@@ -1265,5 +1269,6 @@ export const zhTW = {
       warrantyQuery: "透過平台預約的服務有保固嗎？",
       bookingQuery: "我該如何預約附近的專家？",
     },
-  }
+  },
+  merchant_dashboard: (zhTW as any).merchant,
 };

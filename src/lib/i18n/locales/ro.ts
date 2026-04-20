@@ -524,8 +524,10 @@ export const ro: any = {
       stats: {
         totalBookings: "Total rezervări",
         rating: "Rating",
-        pendingBalance: "Balanță în așteptare",
-        availableBalance: "Balanță disponibilă",
+        noPendingBalance: "Fără sold în așteptare",
+        noAvailableBalance: "Fără sold disponibil",
+        merchantNotFound: "Licența de comerciant nu a fost găsită: vă rugăm să vă asigurați că profilul este verificat.",
+        notAuthorized: "Autorizare eșuată: nu aveți permisiunea de a accesa această resursă.",
         totalJobs: "Total joburi",
         escrowHeld: "În escrow",
         availableNow: "Disponibil acum",
@@ -1402,4 +1404,5 @@ export const ro: any = {
       initializing: "Inițializăm sistemul...",
     },
   },
+  merchant_dashboard: (ro as any).merchant,
 };

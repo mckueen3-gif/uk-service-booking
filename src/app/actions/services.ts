@@ -4,16 +4,7 @@ import { prisma, safeDbQuery } from '@/lib/prisma';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { unstable_cache, revalidateTag, revalidatePath } from "next/cache";
-
-async function getMerchantId() {
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.email) return null;
-  const user = await prisma.user.findUnique({
-    where: { email: session.user.email },
-    include: { merchantProfile: true }
-  });
-  return user?.merchantProfile?.id;
-}
+import { getMerchantId } from '@/lib/merchant-utils';
 
 export async function getMerchantServices() {
   const session = await getServerSession(authOptions);

@@ -578,8 +578,10 @@ export const hi: any = {
       stats: {
         totalBookings: "कुल बुकिंग",
         rating: "रेटिंग",
-        pendingBalance: "लंबित शेष",
-        availableBalance: "उपलब्ध शेष",
+        noPendingBalance: "कोई लंबित शेष नहीं",
+        noAvailableBalance: "कोई उपलब्ध शेष नहीं",
+        merchantNotFound: "मर्चेंट लाइसेंस नहीं मिला: कृपया सुनिश्चित करें कि आपकी प्रोफ़ाइल सत्यापित है।",
+        notAuthorized: "प्राधिकरण विफल: आपके पास इस संसाधन तक पहुँचने की अनुमति नहीं है.",
         totalJobs: "कुल कार्य",
         escrowHeld: "एस्क्रो में",
         availableNow: "अभी उपलब्ध",
@@ -1448,4 +1450,5 @@ export const hi: any = {
       initializing: "सिस्टम शुरू हो रहा है...",
     },
   },
+  merchant_dashboard: (hi as any).merchant,
 };

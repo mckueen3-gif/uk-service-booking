@@ -5,15 +5,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 
-async function getMerchantId() {
-  const session = (await getServerSession(authOptions)) as any;
-  if (!session?.user?.id) return null;
-  
-  const merchant = await prisma.merchant.findUnique({
-    where: { userId: session.user.id }
-  });
-  return merchant?.id;
-}
+import { getMerchantId } from '@/lib/merchant-utils';
 
 export async function addPortfolioItem(data: { title: string, description?: string, imageUrl: string, category?: string }) {
   const merchantId = await getMerchantId();

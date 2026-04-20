@@ -589,8 +589,10 @@ export const ur: any = {
       stats: {
         totalBookings: "کل بکنگ",
         rating: "ریٹنگ",
-        pendingBalance: "زیر التوا بیلنس",
-        availableBalance: "دستیاب بیلنس",
+        noPendingBalance: "کوئی زیر التواء بیلنس نہیں ہے",
+        noAvailableBalance: "کوئی دستیابی بیلنس نہیں ہے",
+        merchantNotFound: "مرچنٹ لائسنس نہیں ملا: براہ کرم یقینی بنائیں کہ آپ کا پروفائل تصدیق شدہ ہے۔",
+        notAuthorized: "اجازت ناکام: آپ کو اس وسیلے تک رسائی کی اجازت نہیں ہے۔",
         totalJobs: "کل کام",
         escrowHeld: "ایسکرو میں",
         availableNow: "ابھی دستیاب",
@@ -1465,4 +1467,5 @@ export const ur: any = {
       initializing: "سسٹم شروع ہو رہا ہے...",
     },
   },
+  merchant_dashboard: (ur as any).merchant,
 };

@@ -601,8 +601,10 @@ export const pl: any = {
       stats: {
         totalBookings: "Suma rezerwacji",
         rating: "Ocena",
-        pendingBalance: "Oczekujące saldo",
-        availableBalance: "Dostępne saldo",
+        noPendingBalance: "Brak oczekujących środków",
+        noAvailableBalance: "Brak dostępnych środków",
+        merchantNotFound: "Nie znaleziono licencji handlowca: upewnij się, że Twój profil jest zweryfikowany.",
+        notAuthorized: "Błąd autoryzacji: nie masz uprawnień do dostępu do tego zasobu.",
         totalJobs: "Suma zleceń",
         escrowHeld: "W escrow",
         availableNow: "Dostępne teraz",
@@ -1484,4 +1486,5 @@ export const pl: any = {
       initializing: "Inicjalizacja systemu...",
     },
   },
+  merchant_dashboard: (pl as any).merchant,
 };

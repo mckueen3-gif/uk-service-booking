@@ -568,8 +568,10 @@ export const ar: any = {
       stats: {
         totalBookings: "إجمالي الحجوزات",
         rating: "التقييم",
-        pendingBalance: "الرصيد المعلق",
-        availableBalance: "الرصيد المتاح",
+        noPendingBalance: "لا يوجد رصيد معلق",
+        noAvailableBalance: "لا يوجد رصيد متاح",
+        merchantNotFound: "لم يتم العثور على رخصة التاجر: يرجى التأكد من توثيق ملفك الشخصي.",
+        notAuthorized: "فشل المصادقة: ليس لديك إذن للوصول إلى هذا المورد.",
         totalJobs: "إجمالي المهام",
         escrowHeld: "في الضمان",
         availableNow: "متاح الآن",
@@ -1435,4 +1437,5 @@ export const ar: any = {
       initializing: "جاري تشغيل النظام...",
     },
   },
+  merchant_dashboard: (ar as any).merchant,
 };

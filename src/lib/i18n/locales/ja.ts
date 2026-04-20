@@ -563,8 +563,10 @@ export const ja: any = {
       stats: {
         totalBookings: "総予約数",
         rating: "現在の評価",
-        pendingBalance: "保留中の残高",
-        availableBalance: "引き出し可能額",
+        noPendingBalance: "保留中の残高なし",
+        noAvailableBalance: "利用可能な残高なし",
+        merchantNotFound: "マーチャントライセンスが見つかりません：プロフィールが確認されているかご確認ください。",
+        notAuthorized: "認証失敗：このリソースにアクセスする権限がありません。",
         totalJobs: "総タスク完了数",
         escrowHeld: "エスクロー保持中",
         availableNow: "即時利用可能",
@@ -1428,4 +1430,5 @@ export const ja: any = {
       initializing: "システムを初期化中...",
     },
   },
+  merchant_dashboard: (ja as any).merchant,
 };

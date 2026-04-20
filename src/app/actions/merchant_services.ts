@@ -6,15 +6,7 @@ import { authOptions } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 import { SERVICE_TEMPLATES } from '@/lib/constants/service_templates';
 
-async function getMerchantId() {
-  const session = (await getServerSession(authOptions)) as any;
-  if (!session?.user?.id) return null;
-  
-  const merchant = await prisma.merchant.findUnique({
-    where: { userId: session.user.id }
-  });
-  return merchant?.id;
-}
+import { getMerchantId } from '@/lib/merchant-utils';
 
 /**
  * Fetches all services provided by the current merchant.

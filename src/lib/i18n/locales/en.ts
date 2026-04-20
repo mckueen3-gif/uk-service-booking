@@ -587,6 +587,10 @@ export const en = {
       totalBookings: "Total Bookings",
       rating: "Trust Rating",
       availableBalance: "Available Balance",
+      noPendingBalance: "No pending balance",
+      noAvailableBalance: "No available balance",
+      merchantNotFound: "Merchant license not found: Please ensure your professional profile is verified.",
+      notAuthorized: "Authorization failed: You do not have permission to access this resource.",
       pendingBalance: "Pending Balance",
       availableNow: "Available Now",
       totalJobs: "Jobs Completed",
@@ -1252,5 +1256,6 @@ export const en = {
       warrantyQuery: "Is there a warranty for services booked through the platform?",
       bookingQuery: "How do I book a specialist near me?",
     },
-  }
+  },
+  merchant_dashboard: (en as any).merchant,
 };
