@@ -588,6 +588,8 @@ export const zhTW = {
       totalBookings: "總預約數",
       rating: "信任評等",
       availableBalance: "可用餘額",
+      pendingBalance: "待結算餘額",
+      availableNow: "目前可用",
       totalJobs: "已完成項目",
       escrowHeld: "託管中資金",
       reviews: "客戶見證",

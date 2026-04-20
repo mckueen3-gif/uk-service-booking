@@ -40,7 +40,7 @@ export default function MerchantReferralPage() {
     load();
   }, []);
 
-  const rp = t.merchant_dashboard.referral_program;
+  const rp = t?.merchant_dashboard?.referral_program || t?.merchant?.referral_program || {};
 
   const handleSave = async () => {
     setSaving(true);

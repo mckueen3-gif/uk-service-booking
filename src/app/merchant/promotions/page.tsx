@@ -17,7 +17,7 @@ import { useTranslation } from '@/components/LanguageContext';
 
 export default function PromotionsPage() {
   const { t } = useTranslation();
-  const p = t.merchant_dashboard.promotions;
+  const p = t?.merchant_dashboard?.promotions || t?.merchant?.promotions || {};
 
   const [coupons, setCoupons] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);

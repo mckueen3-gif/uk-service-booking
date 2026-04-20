@@ -20,7 +20,7 @@ import { useTranslation } from "@/components/LanguageContext";
 
 export default function AISecretaryPage() {
   const { t } = useTranslation();
-  const tkDict = (t as any).merchant.toolkit;
+  const tkDict = (t as any)?.merchant?.toolkit || (t as any)?.merchant_dashboard?.toolkit || {};
   
   const [stats, setStats] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -85,7 +85,7 @@ export default function AISecretaryPage() {
   }
 
   const isActive = !!stats?.featureFlags?.aura_secretary;
-  const s = t.merchant_dashboard.ai_secretary;
+  const s = t?.merchant_dashboard?.ai_secretary || t?.merchant?.ai_secretary || {};
 
   return (
     <div style={{ padding: '2rem 1.5rem', maxWidth: '1000px', margin: '0 auto', color: 'var(--text-primary)' }}>

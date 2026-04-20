@@ -587,6 +587,8 @@ export const en = {
       totalBookings: "Total Bookings",
       rating: "Trust Rating",
       availableBalance: "Available Balance",
+      pendingBalance: "Pending Balance",
+      availableNow: "Available Now",
       totalJobs: "Jobs Completed",
       escrowHeld: "Held in Escrow",
       reviews: "Client Reviews",
