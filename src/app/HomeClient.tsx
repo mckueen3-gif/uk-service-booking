@@ -12,7 +12,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import SearchHero from '@/components/search/SearchHero';
 import RecommendationEngine from '@/components/discovery/RecommendationEngine';
 import AiMatchmaker from '@/components/discovery/AiMatchmaker';
-import LiveActivityToast from '@/components/ui/LiveActivityToast';
+
 import { useTranslation } from "@/components/LanguageContext";
 import { useLocation } from "@/components/LocationContext";
 import { useTheme } from "@/components/ThemeContext";
@@ -25,16 +25,7 @@ export default function HomeClient() {
   const router = useRouter();
   const pathname = usePathname();
 
-  // Super App Redirect: If logged in on the homepage, go to the member dashboard
-  useEffect(() => {
-    if (status === 'authenticated' && session?.user) {
-      if (session.user.role === 'MERCHANT' || session.user.role === 'ADMIN') {
-        router.replace('/merchant');
-      } else {
-        router.replace('/member/home');
-      }
-    }
-  }, [status, session, router]);
+
 
   const { t, locale, isRTL } = useTranslation();
   const { city } = useLocation();
@@ -133,7 +124,7 @@ export default function HomeClient() {
         <SearchHero />
       </div>
 
-      <LiveActivityToast />
+
 
       <div className="container reveal stagger-1" style={{ maxWidth: '1000px', marginTop: '-4rem', position: 'relative', zIndex: 5 }}>
         <RecommendationEngine stats={stats} />

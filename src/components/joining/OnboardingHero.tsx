@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from '../LanguageContext';
 import { Sparkles, Users, BadgePercent, Star, Target, CheckCircle2 } from 'lucide-react';
-import LiveActivityToast from '../ui/LiveActivityToast';
+
 import { AnimatedCounter } from '../discovery/RecommendationEngine';
 
 export default function OnboardingHero() {
@@ -77,7 +77,7 @@ export default function OnboardingHero() {
           </div>
         </div>
         
-        <LiveActivityToast inline />
+
         
         <div className="step-indicator">
           {[0, 1, 2].map((step) => (

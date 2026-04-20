@@ -23,7 +23,7 @@ export function AppNavbar({ session: serverSession }: { session: any }) {
   // Dynamic paths based on role
   const isMerchant = session?.user?.role === 'MERCHANT' || session?.user?.role === 'ADMIN';
   const dashboardPath = isMerchant ? '/merchant' : '/member/home';
-  const homePath = session?.user ? dashboardPath : '/';
+  const homePath = '/';
 
   const isObsidianPage = pathname?.startsWith('/join') || pathname?.includes('/merchant') || pathname?.startsWith('/member') || pathname?.startsWith('/admin');
   const obsidianBg = theme === 'dark' ? '#050505' : 'var(--bg-primary)';
@@ -602,7 +602,7 @@ export function AppFooter() {
   // Dynamic paths based on role
   const isMerchant = session?.user?.role === 'MERCHANT' || session?.user?.role === 'ADMIN';
   const dashboardPath = isMerchant ? '/merchant' : '/member/home';
-  const homePath = session?.user ? dashboardPath : '/';
+  const homePath = '/';
 
   const obsidianBg = theme === 'dark' ? '#050505' : 'var(--bg-secondary)';
   const obsidianGold = '#d4af37';

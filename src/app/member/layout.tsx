@@ -38,9 +38,11 @@ export default async function MemberLayout({ children }: { children: React.React
         flexDirection: 'column'
       }}>
         <div style={{ marginBottom: '2.5rem', paddingLeft: '1rem' }}>
-          <h1 style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--accent-color)', letterSpacing: '-0.03em' }}>
-            ConciergeAI<span style={{ color: 'var(--text-primary)' }}>.</span>
-          </h1>
+          <Link href="/" style={{ textDecoration: 'none' }}>
+            <h1 style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--accent-color)', letterSpacing: '-0.03em' }}>
+              ConciergeAI<span style={{ color: 'var(--text-primary)' }}>.</span>
+            </h1>
+          </Link>
           <p style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
             {isMerchant ? (t?.common?.specialistNode || "Specialist Node") : (t?.common?.premierMember || "Premier Member")}
           </p>
