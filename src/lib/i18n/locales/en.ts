@@ -911,6 +911,27 @@ export const en = {
       history: "Yield History",
       empty: "No referral dividends recorded yet. Start sharing to lock in passive income."
     },
+    merchant_availability: {
+      title: "Availability Control",
+      subtitle: "Configure your service window and daily capacity.",
+      save: "Sync Protocol",
+      saving: "Saving...",
+      saved: "Availability settings synchronized successfully.",
+      failed: "Failed to synchronize availability.",
+      start: "Start",
+      end: "End",
+      closedLabel: "Rest Day (Closed)",
+      closeBtn: "Mark Closed",
+      openBtn: "Mark Open",
+      settings: {
+        title: "Global Settings",
+        interval: "Time Interval (Min)",
+        maxDaily: "Max Daily Bookings",
+        hint: "Longer service windows help mitigate unforeseen UK traffic fluctuations."
+      },
+      tipTitle: "Expert Tip",
+      tipContent: "Maintaining consistent availability significantly increases your system ranking and visibility."
+    },
     onboarding_highlights: {
       title: "ConciergeAI Superpowers",
       subtitle: "The ultimate operating system for elite specialists.",

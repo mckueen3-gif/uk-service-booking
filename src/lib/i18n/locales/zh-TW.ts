@@ -1268,6 +1268,27 @@ export const zhTW = {
       refer_btn: "推薦專家並獲得分紅",
       id_btn: "網路授權 ID",
     },
+    merchant_availability: {
+      title: "交付時效控制",
+      subtitle: "配置您的服務時段與每日容量。",
+      save: "同步協定",
+      saving: "同步中...",
+      saved: "交付時效設置已成功校準同步。",
+      failed: "同步交付時效失敗。",
+      start: "開始",
+      end: "結束",
+      closedLabel: "休息日 (不接單)",
+      closeBtn: "標記為休息",
+      openBtn: "標記為營業",
+      settings: {
+        title: "全域設置",
+        interval: "預約時間間隔 (分鐘)",
+        maxDaily: "每日最高預約數",
+        hint: "較長的服務窗口有助於應對英國交通意外波動。"
+      },
+      tipTitle: "專家建議",
+      tipContent: "保持穩定的服務時效可顯著提升系統排名與曝光度。"
+    },
   },
 
   aura: {
