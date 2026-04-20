@@ -587,6 +587,7 @@ export async function getMerchantAccountingSummary() {
     monthlySummaries,
     vatProgress: (grossRevenue / 90000) * 100, // 90k UK Threshold
     auditStatus: packages.auditStatus || 'PENDING',
+    isAccountantConnected: packages.isAccountantConnected || false,
     aiStats: {
       influencedRevenue: grossRevenue * 0.15, // Simulated 15% ROI
       savingsManaged: grossRevenue * 0.05,    // Simulated 5% via Coupons
@@ -595,19 +596,20 @@ export async function getMerchantAccountingSummary() {
   };
 }
 
-export async function submitAccountingToExpert() {
+export async function authorizeAccountantAccess() {
   const merchantId = await getMerchantId();
   if (!merchantId) return { error: "Merchant not found" };
 
   try {
     const merchant = await (prisma as any).merchant.findUnique({
       where: { id: merchantId },
-      select: { companyName: true, pricingPackages: true }
+      select: { pricingPackages: true }
     });
 
     let packages = (merchant?.pricingPackages as any) || {};
-    packages.auditStatus = 'SUBMITTED_TO_EXPERT';
-    packages.auditLastSubmission = new Date().toISOString();
+    packages.isAccountantConnected = true;
+    packages.auditStatus = 'ACTIVE_GATEWAY';
+    packages.accountantAuthorizedAt = new Date().toISOString();
 
     await (prisma as any).merchant.update({
       where: { id: merchantId },

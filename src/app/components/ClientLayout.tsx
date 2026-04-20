@@ -20,6 +20,11 @@ export function AppNavbar({ session: serverSession }: { session: any }) {
   const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
 
+  // Dynamic paths based on role
+  const isMerchant = session?.user?.role === 'MERCHANT' || session?.user?.role === 'ADMIN';
+  const dashboardPath = isMerchant ? '/merchant' : '/member/home';
+  const homePath = session?.user ? dashboardPath : '/';
+
   const isObsidianPage = pathname?.startsWith('/join') || pathname?.includes('/merchant') || pathname?.startsWith('/member') || pathname?.startsWith('/admin');
   const obsidianBg = theme === 'dark' ? '#050505' : 'var(--bg-primary)';
   const obsidianGold = '#d4af37';
@@ -113,7 +118,7 @@ export function AppNavbar({ session: serverSession }: { session: any }) {
             {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
 
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+          <Link href={homePath} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
             <img 
               src="/images/logo_concierge_ai.png" 
               alt="ConciergeAI Logo" 
@@ -398,7 +403,7 @@ export function AppNavbar({ session: serverSession }: { session: any }) {
           {session?.user ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
               <NotificationHub />
-              <Link href="/member/home" style={{ color: obsidianGold, fontWeight: 600, textDecoration: 'none' }}>
+              <Link href={dashboardPath} style={{ color: obsidianGold, fontWeight: 600, textDecoration: 'none' }}>
 
                 <span style={{ 
                   backgroundColor: isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--accent-soft)', 
@@ -459,7 +464,7 @@ export function AppNavbar({ session: serverSession }: { session: any }) {
              {theme === 'light' ? <Moon size={22} /> : <Sun size={22} />}
           </button>
           {session?.user ? (
-            <Link href="/member/home" style={{ color: obsidianGold }}>
+            <Link href={dashboardPath} style={{ color: obsidianGold }}>
                <User size={22} />
             </Link>
 
@@ -589,9 +594,16 @@ export function AppNavbar({ session: serverSession }: { session: any }) {
 
 export function AppFooter() {
   const { t, isRTL } = useTranslation();
+  const { data: session } = useSession();
   const pathname = usePathname();
   const isObsidianPage = pathname?.startsWith('/join') || pathname?.includes('/merchant') || pathname?.startsWith('/member') || pathname?.startsWith('/admin');
   const { theme } = useTheme();
+  
+  // Dynamic paths based on role
+  const isMerchant = session?.user?.role === 'MERCHANT' || session?.user?.role === 'ADMIN';
+  const dashboardPath = isMerchant ? '/merchant' : '/member/home';
+  const homePath = session?.user ? dashboardPath : '/';
+
   const obsidianBg = theme === 'dark' ? '#050505' : 'var(--bg-secondary)';
   const obsidianGold = '#d4af37';
 
@@ -643,7 +655,8 @@ export function AppFooter() {
         }}>
            {/* Brand & About Column */}
            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', gridColumn: 'span 1' }}>
-              <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+              {/* Note: In Footer, we usually link back to home '/' or the dynamic homePath */}
+              <Link href={homePath} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
                 <img 
                   src="/images/logo_concierge_ai.png" 
                   alt="ConciergeAI" 
