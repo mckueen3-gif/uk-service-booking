@@ -2,8 +2,8 @@
 
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
-import { startOfDay, subDays, format, eachDayOfInterval } from "date-fns";
 import { authOptions } from "@/lib/auth";
+import { getMerchantId } from '@/lib/merchant-utils';
 
 async function ensureAdmin() {
   const session = await getServerSession(authOptions);
@@ -71,11 +71,11 @@ export async function getMarketplaceStats(days = 30) {
 // --- MERCHANT DASHBOARD ANALYTICS (FULLY RESTORED) ---
 
 export async function getMerchantAnalytics() {
-  const session = await getServerSession(authOptions);
-  if (!session || !session.user) return { error: "Unauthorized" };
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant not found" };
 
   const merchant = await prisma.merchant.findUnique({
-    where: { userId: (session.user as any).id }
+    where: { id: merchantId }
   });
 
   if (!merchant) return { error: "Merchant not found" };

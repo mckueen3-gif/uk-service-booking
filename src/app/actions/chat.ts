@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { revalidatePath } from 'next/cache';
 import { generateAIContent } from '@/lib/ai-provider';
+import { getMerchantId } from '@/lib/merchant-utils';
 import { 
   Calendar, Clock, Save, 
   Settings, Loader2, CheckCircle2, 
@@ -110,15 +111,13 @@ export async function processChatMessage(params: {
  * 🛠️ REAL-TIME CHAT ACTIONS (User-to-Merchant)
  */
 
-export async function getConversations() {
-  const session = (await getServerSession(authOptions)) as any;
-  if (!session?.user?.id) return { error: "Unauthorized" };
+  const merchantId = await getMerchantId();
 
   const conversations = await (prisma as any).conversation.findMany({
     where: {
       OR: [
         { customerId: session.user.id },
-        { merchant: { userId: session.user.id } }
+        { merchantId: merchantId || 'non-existent' }
       ]
     },
     include: {

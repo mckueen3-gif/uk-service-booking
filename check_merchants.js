@@ -1,33 +1,28 @@
 const { PrismaClient } = require('@prisma/client');
-const { Pool } = require('pg');
-const { PrismaPg } = require('@prisma/adapter-pg');
-const dotenv = require('dotenv');
-
-dotenv.config();
-
-const connectionString = process.env.DATABASE_URL;
+const prisma = new PrismaClient();
 
 async function main() {
-  const pool = new Pool({ connectionString });
-  const adapter = new PrismaPg(pool);
-  const prisma = new PrismaClient({ adapter });
-
   try {
     const merchants = await prisma.merchant.findMany({
       include: {
-        user: true,
+        user: {
+          select: {
+            email: true,
+            id: true
+          }
+        }
       }
     });
-    console.log('--- Current Merchants ---');
-    merchants.forEach(m => {
-      console.log(`ID: ${m.id}, Name: ${m.companyName}, UserID: ${m.userId}, Email: ${m.user.email}`);
-    });
-    console.log('-------------------------');
-  } catch (err) {
-    console.error(err);
+    console.log(JSON.stringify(merchants.map(m => ({
+      id: m.id,
+      company: m.companyName,
+      email: m.user?.email,
+      userId: m.userId
+    })), null, 2));
+  } catch (error) {
+    console.error(error);
   } finally {
     await prisma.$disconnect();
-    await pool.end();
   }
 }
 

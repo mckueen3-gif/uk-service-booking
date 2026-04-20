@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { revalidatePath } from 'next/cache';
+import { getMerchantId } from '@/lib/merchant-utils';
 
 export type AvailabilityInput = {
   dayOfWeek: number;
@@ -14,11 +15,11 @@ export type AvailabilityInput = {
 
 // 1. Fetch current merchant availability
 export async function getMerchantAvailability() {
-  const session = (await getServerSession(authOptions)) as any;
-  if (!session?.user?.id) return { error: "Unauthorized" };
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant profile not found" };
 
   const merchant = await (prisma.merchant as any).findUnique({
-    where: { userId: session.user.id },
+    where: { id: merchantId },
     include: { availability: true }
   });
 
@@ -29,11 +30,11 @@ export async function getMerchantAvailability() {
 
 // 2. Update merchant availability
 export async function updateMerchantAvailability(data: AvailabilityInput[], slotDuration: number, maxDaily: number) {
-  const session = (await getServerSession(authOptions)) as any;
-  if (!session?.user?.id) return { error: "Unauthorized" };
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant not found" };
 
   const merchant = await prisma.merchant.findUnique({
-    where: { userId: session.user.id }
+    where: { id: merchantId }
   });
 
   if (!merchant) return { error: "Merchant not found" };
@@ -60,11 +61,11 @@ export async function updateMerchantAvailability(data: AvailabilityInput[], slot
 
 // Custom Schedule Slots (Added dynamically by merchant)
 export async function getCustomScheduleSlots(dateStr: string) {
-  const session = (await getServerSession(authOptions)) as any;
-  if (!session?.user?.id) return { error: "Unauthorized", slots: [] };
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Not found", slots: [] };
 
   const merchant = await prisma.merchant.findUnique({
-    where: { userId: session.user.id }
+    where: { id: merchantId }
   });
 
   if (!merchant) return { error: "Not found", slots: [] };
@@ -97,11 +98,11 @@ export async function addCustomScheduleSlot(
     notes?: string;
   }
 ) {
-  const session = (await getServerSession(authOptions)) as any;
-  if (!session?.user?.id) return { error: "Unauthorized" };
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Not found" };
 
   const merchant = await prisma.merchant.findUnique({
-    where: { userId: session.user.id }
+    where: { id: merchantId }
   });
 
   if (!merchant) return { error: "Not found" };

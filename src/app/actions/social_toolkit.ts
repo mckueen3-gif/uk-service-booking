@@ -2,19 +2,20 @@
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { prisma } from '@/lib/prisma';
-import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { getMerchantId } from '@/lib/merchant-utils';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 export async function generateSocialPost(mode: 'viral' | 'luxury', reviewId?: string) {
   const session = await getServerSession(authOptions);
-  if (!session?.user?.id) return { error: "Unauthorized" };
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant not found" };
 
   try {
     const merchant = await prisma.merchant.findUnique({
-      where: { userId: session.user.id },
+      where: { id: merchantId },
       include: { 
         reviews: { take: 5, orderBy: { createdAt: 'desc' } }
       }

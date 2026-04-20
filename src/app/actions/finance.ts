@@ -4,13 +4,15 @@ import { prisma } from '@/lib/prisma';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { revalidatePath } from 'next/cache';
+import { getMerchantId } from '@/lib/merchant-utils';
 
 export async function getEarningsStats() {
   const session = (await getServerSession(authOptions)) as any;
-  if (!session?.user?.id) return { error: "Unauthorized" };
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant profile not found" };
 
   const merchant = await prisma.merchant.findUnique({
-    where: { userId: session.user.id },
+    where: { id: merchantId },
     include: { 
       wallet: true,
       user: {
@@ -65,11 +67,11 @@ export async function getEarningsStats() {
 }
 
 export async function requestWithdrawal(amount: number) {
-  const session = (await getServerSession(authOptions)) as any;
-  if (!session?.user?.id) return { error: "Unauthorized" };
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant profile not found" };
 
   const merchant = await prisma.merchant.findUnique({
-    where: { userId: session.user.id },
+    where: { id: merchantId },
     include: { wallet: true }
   });
 
@@ -107,11 +109,11 @@ export async function requestWithdrawal(amount: number) {
 }
 
 export async function updateBankDetails(sortCode: string, accountNumber: string) {
-  const session = (await getServerSession(authOptions)) as any;
-  if (!session?.user?.id) return { error: "Unauthorized" };
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant profile not found" };
 
   await (prisma as any).merchant.update({
-    where: { userId: session.user.id },
+    where: { id: merchantId },
     data: {
       bankSortCode: sortCode,
       bankAccountNumber: accountNumber
@@ -123,11 +125,11 @@ export async function updateBankDetails(sortCode: string, accountNumber: string)
 }
 
 export async function getMerchantReceipts() {
-  const session = (await getServerSession(authOptions)) as any;
-  if (!session?.user?.id) return { error: "Unauthorized" };
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant not found" };
 
   const merchant = await prisma.merchant.findUnique({
-    where: { userId: session.user.id }
+    where: { id: merchantId }
   });
 
   if (!merchant) return { error: "Merchant not found" };

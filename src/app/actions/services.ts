@@ -7,19 +7,19 @@ import { unstable_cache, revalidateTag, revalidatePath } from "next/cache";
 import { getMerchantId } from '@/lib/merchant-utils';
 
 export async function getMerchantServices() {
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.email) return { error: "Not authorized" };
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant not found" };
 
-  const user = await prisma.user.findUnique({
-    where: { email: session.user.email },
-    include: { merchantProfile: { include: { services: { orderBy: { createdAt: 'desc' as any } } } } }
+  const merchant = await prisma.merchant.findUnique({
+    where: { id: merchantId },
+    include: { services: { orderBy: { createdAt: 'desc' as any } } }
   });
-
-  if (!user?.merchantProfile) return { error: "Merchant not found" };
+  
+  if (!merchant) return { error: "Merchant profile not found" };
 
   return { 
-    services: user.merchantProfile.services,
-    city: user.merchantProfile.city
+    services: merchant.services,
+    city: merchant.city
   };
 }
 
