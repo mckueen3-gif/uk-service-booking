@@ -96,7 +96,6 @@ export default function DailyFeed({ merchants }: DailyFeedProps) {
               gap: "0.3rem",
             }}
           >
-          >
             {t.member_dashboard.feed.viewAll} <ChevronRight size={13} />
           </button>
         </Link>
