@@ -1270,5 +1270,6 @@ export const zhTW = {
       bookingQuery: "我該如何預約附近的專家？",
     },
   },
-  merchant_dashboard: (zhTW as any).merchant,
 };
+
+(zhTW as any).merchant_dashboard = zhTW.merchant;

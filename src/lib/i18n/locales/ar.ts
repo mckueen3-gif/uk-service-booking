@@ -1437,5 +1437,6 @@ export const ar: any = {
       initializing: "جاري تشغيل النظام...",
     },
   },
-  merchant_dashboard: (ar as any).merchant,
 };
+
+(ar as any).merchant_dashboard = ar.merchant;

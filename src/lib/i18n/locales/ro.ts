@@ -1404,5 +1404,6 @@ export const ro: any = {
       initializing: "Inițializăm sistemul...",
     },
   },
-  merchant_dashboard: (ro as any).merchant,
 };
+
+(ro as any).merchant_dashboard = ro.merchant;

@@ -1486,5 +1486,6 @@ export const pl: any = {
       initializing: "Inicjalizacja systemu...",
     },
   },
-  merchant_dashboard: (pl as any).merchant,
 };
+
+(pl as any).merchant_dashboard = pl.merchant;

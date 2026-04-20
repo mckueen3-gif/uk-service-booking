@@ -1430,5 +1430,6 @@ export const ja: any = {
       initializing: "システムを初期化中...",
     },
   },
-  merchant_dashboard: (ja as any).merchant,
 };
+
+(ja as any).merchant_dashboard = ja.merchant;

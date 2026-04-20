@@ -1450,5 +1450,6 @@ export const hi: any = {
       initializing: "सिस्टम शुरू हो रहा है...",
     },
   },
-  merchant_dashboard: (hi as any).merchant,
 };
+
+(hi as any).merchant_dashboard = hi.merchant;

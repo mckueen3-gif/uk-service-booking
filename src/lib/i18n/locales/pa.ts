@@ -1461,5 +1461,6 @@ export const pa: any = {
       initializing: "ਸਿਸਟਮ ਸ਼ੁਰੂ ਹੋ ਰਿਹਾ ਹੈ...",
     },
   },
-  merchant_dashboard: (pa as any).merchant,
 };
+
+(pa as any).merchant_dashboard = pa.merchant;

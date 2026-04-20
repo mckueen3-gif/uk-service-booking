@@ -1313,5 +1313,6 @@ export const ko: any = {
       initializing: "시스템을 초기화하는 중...",
     },
   },
-  merchant_dashboard: (ko as any).merchant,
 };
+
+(ko as any).merchant_dashboard = ko.merchant;

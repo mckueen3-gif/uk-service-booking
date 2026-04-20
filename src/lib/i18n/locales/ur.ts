@@ -1467,5 +1467,6 @@ export const ur: any = {
       initializing: "سسٹم شروع ہو رہا ہے...",
     },
   },
-  merchant_dashboard: (ur as any).merchant,
 };
+
+(ur as any).merchant_dashboard = ur.merchant;

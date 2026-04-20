@@ -1257,5 +1257,6 @@ export const en = {
       bookingQuery: "How do I book a specialist near me?",
     },
   },
-  merchant_dashboard: (en as any).merchant,
 };
+
+(en as any).merchant_dashboard = en.merchant;
