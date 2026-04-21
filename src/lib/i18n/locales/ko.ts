@@ -1,6 +1,65 @@
 import { Dictionary } from "../types";
 
 export const ko: any = {
+  common: {
+    back: "뒤로",
+    next: "다음",
+    save: "저장",
+    saveChanges: "설정 저장",
+    cancel: "취소",
+    confirm: "확인",
+    delete: "삭제",
+    edit: "편집",
+    loading: "로딩 중...",
+    noData: "데이터가 없습니다",
+    search: "검색",
+    filter: "필터",
+    sort: "정렬",
+    all: "전체",
+    status: "상태",
+    actions: "작업",
+    view: "보기",
+    details: "상세 정보",
+    success: "성공",
+    error: "오류",
+    warning: "경고",
+    info: "정보",
+    elite: "엘리트",
+    pro: "프로",
+    specialist: "전문가",
+    greetings: {
+      morning: "좋은 아침입니다",
+      afternoon: "좋은 오후입니다",
+      evening: "좋은 저녁입니다"
+    }
+  },
+  sidebar: {
+    labels: {
+      overview: "개요",
+      ai_secretary: "AI 비서",
+      bookings: "나의 예약",
+      messages: "AI 비서 메시지",
+      schedule: "서비스 일정",
+      services: "서비스 관리",
+      availability: "예약 가능 시간",
+      analytics: "성과 감사",
+      accounting: "회계 및 세무",
+      promotions: "프로모션 허브",
+      wallet: "수익 지갑",
+      garage: "개인 차고",
+      properties: "부동산 포트폴리오",
+      rewards: "엘리트 포인트",
+      profile: "프로필 설정",
+      logout: "로그아웃",
+      equipment: "장비 관리"
+    },
+    sections: {
+      main: "기능",
+      business: "비즈니스 노드",
+      assets: "자산 매트릭스",
+      account: "계정 프로토콜"
+    }
+  },
   nav: {
     browse: "서비스 탐색",
     join: "전문가로 가입",
@@ -1412,7 +1471,7 @@ export const ko: any = {
       synced: "지갑 동기화 완료",
       generating: "계정을 설정하고 있습니다...",
       referralTitle: "친구 추천하고 2% 상품권 리워드 받기",
-      referralDesc: "고유 코드를 공유하세요. 친구가 첫 서비스를 예약하면 2% 상당ของ 전자 상품권이 지급됩니다 (마트 및 리테일 매장용).",
+      referralDesc: "고유 코드를 공유하세요. 친구가 첫 서비스를 예약하면 2% 상당의 전자 상품권이 지급됩니다 (마트 및 리테일 매장용).",
       historyTitle: "거래 내역",
       historyEmpty: "거래 내역이 없습니다",
       type: "유형",
@@ -1566,7 +1625,8 @@ export const ko: any = {
       findExpert: "전문가 찾기",
       chat: "대화 목록",
       diagnosis: "AI 진단",
-      history: "히스토리"
+      equipment: "자산 및 장비 관리",
+      history: "이력"
     },
     study_hub: {
       title: "AI 지능형 학습 센터",

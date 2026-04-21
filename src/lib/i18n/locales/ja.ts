@@ -1,6 +1,65 @@
 import { Dictionary } from "../types";
 
 export const ja: any = {
+  common: {
+    back: "戻る",
+    next: "次へ",
+    save: "保存",
+    saveChanges: "変更を保存",
+    cancel: "キャンセル",
+    confirm: "確認",
+    delete: "削除",
+    edit: "編集",
+    loading: "読み込み中...",
+    noData: "データが見つかりません",
+    search: "検索",
+    filter: "フィルター",
+    sort: "並べ替え",
+    all: "すべて",
+    status: "ステータス",
+    actions: "アクション",
+    view: "表示",
+    details: "詳細",
+    success: "成功",
+    error: "エラー",
+    warning: "警告",
+    info: "情報",
+    elite: "エリート",
+    pro: "プロ",
+    specialist: "スペシャリスト",
+    greetings: {
+      morning: "おはようございます",
+      afternoon: "こんにちは",
+      evening: "こんばんは"
+    }
+  },
+  sidebar: {
+    labels: {
+      overview: "概要",
+      ai_secretary: "AI秘書",
+      bookings: "予約一覧",
+      messages: "AI秘書メッセージ",
+      schedule: "勤務スケジュール",
+      services: "サービス管理",
+      availability: "空き状況",
+      analytics: "パフォーマンス監査",
+      accounting: "帳簿と税務",
+      promotions: "プロモーション",
+      wallet: "収益ウォレット",
+      garage: "プライベートガレージ",
+      properties: "不動産ポートフォリオ",
+      rewards: "エリートポイント",
+      profile: "プロフィール設定",
+      logout: "ログアウト",
+      equipment: "設備管理"
+    },
+    sections: {
+      main: "メインコントロール",
+      business: "ビジネスノード",
+      assets: "アセットマトリックス",
+      account: "アカウントプロトコル"
+    }
+  },
   nav: {
     browse: "サービスを探す",
     join: "プロとして登録",
@@ -1665,10 +1724,10 @@ export const ja: any = {
     },
     quick_actions: {
       findExpert: "専門家を探す",
-      chat: "Nexusセキュアチャット",
-      diagnosis: "AI診斷",
+      chat: "Nexus安全チャット",
+      diagnosis: "AIインテリジェント診断",
       equipment: "資産・備品管理",
-      history: "履歴"
+      history: "履歴記録"
     },
     study_hub: {
       title: "AI インテリジェント学習センター",

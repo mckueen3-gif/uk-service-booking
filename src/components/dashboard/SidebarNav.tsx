@@ -61,7 +61,8 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
         textTransform: 'uppercase', 
         letterSpacing: '0.12em', 
         paddingLeft: '1rem', 
-        marginBottom: '0.75rem' 
+        marginBottom: '0.75rem',
+        fontFamily: 'var(--font-heading)'
       }}>{title}</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
         {items.map((item) => {
@@ -82,7 +83,8 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
                 fontWeight: isActive ? 800 : 500, 
                 textDecoration: 'none',
                 transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-                border: isActive ? '1px solid rgba(212, 175, 55, 0.2)' : '1px solid transparent'
+                border: isActive ? '1px solid rgba(212, 175, 55, 0.2)' : '1px solid transparent',
+                fontFamily: 'var(--font-heading)'
               }}
               className={isActive ? "" : "hover-sidebar-item"}
             >

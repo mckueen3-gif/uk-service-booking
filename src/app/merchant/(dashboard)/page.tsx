@@ -188,12 +188,13 @@ export default function MerchantDashboard() {
              </div>
           </div>
           <div>
-            <h1 style={{ fontSize: '2.2rem', fontWeight: 900, marginBottom: '0.25rem', color: 'var(--text-primary)' }}>
+            <h1 style={{ fontSize: '2.2rem', fontWeight: 900, marginBottom: '0.25rem', color: 'var(--text-primary)', fontFamily: 'var(--font-heading)', letterSpacing: '-0.02em' }}>
               ConciergeAI <span style={{ color: 'var(--accent-color)' }}>{t?.merchant?.expertTitle || "Expert"}</span>
             </h1>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <p style={{ color: 'var(--text-secondary)', margin: 0 }}>
-                {t?.merchant?.welcome?.replace('{name}', stats?.companyName || "Member") || "Welcome back"}
+              <p style={{ color: 'var(--text-secondary)', margin: 0, fontWeight: 600, fontSize: '1rem', fontFamily: 'var(--font-heading)' }}>
+                {t?.merchant?.welcome?.replace('{name}', '') || "Welcome back, "}
+                <span style={{ color: 'var(--accent-color)', fontWeight: 800 }}>{stats?.companyName || "Specialist"}</span>
               </p>
               <div style={{ 
                 display: 'flex', 
@@ -459,9 +460,9 @@ function StatCard({ title, value, icon, label }: any) {
   return (
     <div style={{ padding: '1.5rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)', position: 'relative', overflow: 'hidden' }}>
       <div style={{ opacity: 0.1, position: 'absolute', right: '-10px', top: '-10px', transform: 'scale(2.5)' }}>{icon}</div>
-      <p style={{ fontSize: '0.85rem', opacity: 0.6, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>{icon}{title}</p>
-      <p style={{ fontSize: '1.75rem', fontWeight: 900 }}>{value}</p>
-      <p style={{ fontSize: '0.7rem', opacity: 0.4, textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '0.5rem' }}>{label}</p>
+      <p style={{ fontSize: '0.85rem', opacity: 0.6, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-heading)', fontWeight: 600 }}>{icon}{title}</p>
+      <p style={{ fontSize: '1.75rem', fontWeight: 900, fontFamily: 'var(--font-heading)', letterSpacing: '-0.025em' }}>{value}</p>
+      <p style={{ fontSize: '0.7rem', opacity: 0.4, textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '0.5rem', fontFamily: 'var(--font-heading)', fontWeight: 800 }}>{label}</p>
     </div>
   );
 }
@@ -475,7 +476,7 @@ function StatusBadge({ status, t }: { status: string; t: any }) {
   };
   const style = styles[status] || styles.PENDING;
   return (
-    <span style={{ padding: '0.25rem 0.75rem', borderRadius: '20px', backgroundColor: style.bg, color: style.color, fontSize: '0.75rem', fontWeight: 800 }}>
+    <span style={{ padding: '0.25rem 0.75rem', borderRadius: '20px', backgroundColor: style.bg, color: style.color, fontSize: '0.75rem', fontWeight: 800, fontFamily: 'var(--font-heading)' }}>
       {style.label}
     </span>
   );
@@ -483,8 +484,8 @@ function StatusBadge({ status, t }: { status: string; t: any }) {
 
 function QuickLink({ label }: { label: string }) {
   return (
-    <button style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', padding: '0.75rem', border: '1px solid var(--border-color)', borderRadius: '12px', backgroundColor: 'transparent', color: 'var(--text-primary)', cursor: 'pointer' }}>
-      <span style={{ fontSize: '0.85rem', fontWeight: 600 }}>{label}</span>
+    <button style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', padding: '0.75rem', border: '1px solid var(--border-color)', borderRadius: '12px', backgroundColor: 'transparent', color: 'var(--text-primary)', cursor: 'pointer', fontFamily: 'var(--font-heading)' }}>
+      <span style={{ fontSize: '0.85rem', fontWeight: 700 }}>{label}</span>
       <ChevronRight size={16} />
     </button>
   );
@@ -496,23 +497,23 @@ function VariationModal({ isOpen, onClose, onSubmit, amount, setAmount, desc, se
     <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, backdropFilter: 'blur(12px)' }}>
        <div style={{ width: '100%', maxWidth: '480px', padding: '2.5rem', borderRadius: '32px', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-            <h3 style={{ fontSize: '1.5rem', fontWeight: 900 }}>{t?.merchant?.modal?.title || "Initialize Calibration"}</h3>
+            <h3 style={{ fontSize: '1.5rem', fontWeight: 900, fontFamily: 'var(--font-heading)' }}>{t?.merchant?.modal?.title || "Initialize Calibration"}</h3>
             <button onClick={onClose} style={{ color: '#fff', background: 'none', border: 'none', cursor: 'pointer' }}><X size={24} /></button>
           </div>
           <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, marginBottom: '0.5rem' }}>{t?.merchant?.modal?.amount || "Amount"}</label>
-              <input required type="number" step="0.01" value={amount} onChange={e => setAmount(e.target.value)} style={{ width: '100%', padding: '0.85rem', borderRadius: '12px', border: '1px solid var(--border-color)', backgroundColor: 'transparent', color: '#fff' }} />
+              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, marginBottom: '0.5rem', fontFamily: 'var(--font-heading)' }}>{t?.merchant?.modal?.amount || "Amount"}</label>
+              <input required type="number" step="0.01" value={amount} onChange={e => setAmount(e.target.value)} style={{ width: '100%', padding: '0.85rem', borderRadius: '12px', border: '1px solid var(--border-color)', backgroundColor: 'transparent', color: 'var(--text-primary)', fontFamily: 'var(--font-heading)' }} />
             </div>
             <div>
-              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, marginBottom: '0.5rem' }}>{t?.merchant?.modal?.reason || "Reasoning"}</label>
-              <textarea required value={desc} onChange={e => setDesc(e.target.value)} style={{ width: '100%', padding: '0.85rem', borderRadius: '12px', border: '1px solid var(--border-color)', backgroundColor: 'transparent', color: '#fff', height: '100px' }} />
+              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, marginBottom: '0.5rem', fontFamily: 'var(--font-heading)' }}>{t?.merchant?.modal?.reason || "Reasoning"}</label>
+              <textarea required value={desc} onChange={e => setDesc(e.target.value)} style={{ width: '100%', padding: '0.85rem', borderRadius: '12px', border: '1px solid var(--border-color)', backgroundColor: 'transparent', color: 'var(--text-primary)', height: '100px', fontFamily: 'var(--font-heading)' }} />
             </div>
             <div>
-              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, marginBottom: '0.5rem' }}>{t?.merchant?.modal?.photo || "Evidence URL"}</label>
-              <input required type="text" value={photo} onChange={e => setPhoto(e.target.value)} style={{ width: '100%', padding: '0.85rem', borderRadius: '12px', border: '1px solid var(--border-color)', backgroundColor: 'transparent', color: '#fff' }} />
+              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, marginBottom: '0.5rem', fontFamily: 'var(--font-heading)' }}>{t?.merchant?.modal?.photo || "Evidence URL"}</label>
+              <input required type="text" value={photo} onChange={e => setPhoto(e.target.value)} style={{ width: '100%', padding: '0.85rem', borderRadius: '12px', border: '1px solid var(--border-color)', backgroundColor: 'transparent', color: 'var(--text-primary)', fontFamily: 'var(--font-heading)' }} />
             </div>
-            <button disabled={loading} type="submit" style={{ padding: '1rem', backgroundColor: 'var(--accent-color)', color: '#000', borderRadius: '16px', border: 'none', fontWeight: 900, cursor: 'pointer' }}>
+            <button disabled={loading} type="submit" style={{ padding: '1rem', backgroundColor: 'var(--accent-color)', color: 'var(--text-contrast)', borderRadius: '16px', border: 'none', fontWeight: 900, cursor: 'pointer', fontFamily: 'var(--font-heading)' }}>
               {loading ? "Transmitting..." : (t?.merchant?.modal?.submit || "Push Change")}
             </button>
           </form>

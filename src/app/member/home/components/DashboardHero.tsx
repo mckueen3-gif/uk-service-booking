@@ -128,6 +128,7 @@ export default function DashboardHero({ userName, city }: DashboardHeroProps) {
               textTransform: "uppercase",
               letterSpacing: "0.12em",
               marginBottom: "0.4rem",
+              fontFamily: "var(--font-heading)"
             }}
           >
             {t.member_dashboard.hero.aiAssistant}
@@ -141,10 +142,10 @@ export default function DashboardHero({ userName, city }: DashboardHeroProps) {
               lineHeight: 1.2,
             }}
           >
-            {greeting}!
-            <span style={{ color: "var(--accent-color)" }}> {userName}</span>
+            {greeting}
+            <span style={{ color: "var(--accent-color)" }}>, {userName}</span>
             <br />
-            <span style={{ fontSize: "1rem", fontWeight: 600, color: "var(--text-muted)" }}>
+            <span style={{ fontSize: "1.1rem", fontWeight: 700, color: "var(--text-muted)", letterSpacing: "-0.01em" }}>
               {format(t.member_dashboard.hero.helpTitle, { location: locationLabel })}
             </span>
           </h2>
