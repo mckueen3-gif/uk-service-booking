@@ -24,6 +24,7 @@ import {
 import Link from 'next/link';
 
 import { useTranslation } from '@/components/LanguageContext';
+import MerchantTools from '@/components/merchant/MerchantTools';
 
 export default function MerchantDashboard() {
   const { t } = useTranslation();
@@ -189,11 +190,11 @@ export default function MerchantDashboard() {
           </div>
           <div>
             <h1 style={{ fontSize: '2.2rem', fontWeight: 900, marginBottom: '0.25rem', color: 'var(--text-primary)', fontFamily: 'var(--font-heading)', letterSpacing: '-0.02em' }}>
-              ConciergeAI <span style={{ color: 'var(--accent-color)' }}>{t?.merchant?.expertTitle || "Expert"}</span>
+              ConciergeAI <span style={{ color: 'var(--accent-color)' }}>{t?.merchant_dashboard?.expertTitle || "Specialist"}</span>
             </h1>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <p style={{ color: 'var(--text-secondary)', margin: 0, fontWeight: 600, fontSize: '1rem', fontFamily: 'var(--font-heading)' }}>
-                {t?.merchant?.welcome?.replace('{name}', '') || "Welcome back, "}
+                {t?.merchant_dashboard?.welcome?.replace('{name}', '') || "Welcome back, "}
                 <span style={{ color: 'var(--accent-color)', fontWeight: 800 }}>{stats?.companyName || "Specialist"}</span>
               </p>
               <div style={{ 
@@ -205,39 +206,43 @@ export default function MerchantDashboard() {
                 borderRadius: '8px',
                 border: '1px solid rgba(212, 175, 55, 0.2)',
                 cursor: 'help'
-              }} title={t?.merchant?.lead_fee_desc || "No lead fees"}>
+              }} title={t?.merchant_dashboard?.lead_fee_desc || "No lead fees"}>
                 <ShieldCheck size={12} color="#d4af37" />
                 <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                  {t?.merchant?.zero_lead_fee || "£0 Lead Fee"}
+                  {t?.merchant_dashboard?.zero_lead_fee || "£0 Lead Fee"}
                 </span>
               </div>
             </div>
           </div>
         </div>
         <div style={{ display: 'flex', gap: '0.75rem' }}>
-           <Link href="/services/results" style={{ padding: '0.6rem 1rem', fontSize: '0.9rem', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)', color: 'var(--accent-color)', borderRadius: '12px', textDecoration: 'none' }}>{t?.merchant?.previewProfile || "Preview Profile"}</Link>
-           <Link href="/merchant/services" style={{ padding: '0.6rem 1.2rem', fontSize: '0.9rem', textDecoration: 'none', backgroundColor: 'var(--accent-color)', color: 'var(--text-contrast)', borderRadius: '12px', fontWeight: 700 }}>{t?.merchant?.manageServices || "Manage Services"}</Link>
+           <Link href="/services/results" style={{ padding: '0.6rem 1rem', fontSize: '0.9rem', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)', color: 'var(--accent-color)', borderRadius: '12px', textDecoration: 'none' }}>{t?.merchant_dashboard?.previewProfile || "Preview Profile"}</Link>
+           <Link href="/merchant/services" style={{ padding: '0.6rem 1.2rem', fontSize: '0.9rem', textDecoration: 'none', backgroundColor: 'var(--accent-color)', color: 'var(--text-contrast)', borderRadius: '12px', fontWeight: 700 }}>{t?.merchant_dashboard?.manageServices || "Manage Services"}</Link>
         </div>
       </header>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
-        <StatCard title={t?.merchant?.stats?.totalBookings || "Total Bookings"} value={stats?.totalBookings || 0} icon={<Briefcase size={24} color="#d4af37" />} label={t?.merchant?.stats?.totalJobs || "Total Jobs"} />
-        <StatCard title={t?.merchant?.stats?.rating || "Rating"} value={stats?.rating?.toFixed(1) || "5.0"} icon={<Star size={24} color="#d4af37" fill="#d4af37" />} label={`${stats?.reviews || 0} ${t?.merchant?.stats?.reviews || "Reviews"}`} />
-        <StatCard title={t?.merchant?.stats?.pendingBalance || "Pending Balance"} value={`£${(stats?.pendingBalance || 0).toFixed(2)}`} icon={<Clock size={24} color="#d4af37" />} label={t?.merchant?.stats?.escrowHeld || "In Escrow"} />
-        <StatCard title={t?.merchant?.stats?.availableBalance || "Available Balance"} value={`£${(stats?.availableBalance || 0).toFixed(2)}`} icon={<Wallet size={24} color="#d4af37" />} label={t?.merchant?.stats?.availableNow || "Available Now"} />
+        <StatCard title={t?.merchant_dashboard?.stats?.totalBookings || "Total Bookings"} value={stats?.totalBookings || 0} icon={<Briefcase size={24} color="#d4af37" />} label={t?.merchant_dashboard?.stats?.totalJobs || "Total Jobs"} />
+        <StatCard title={t?.merchant_dashboard?.stats?.rating || "Rating"} value={stats?.rating?.toFixed(1) || "5.0"} icon={<Star size={24} color="#d4af37" fill="#d4af37" />} label={`${stats?.reviews || 0} ${t?.merchant_dashboard?.stats?.reviews || "Reviews"}`} />
+        <StatCard title={t?.merchant_dashboard?.stats?.pendingBalance || "Pending Balance"} value={`£${(stats?.pendingBalance || 0).toFixed(2)}`} icon={<Clock size={24} color="#d4af37" />} label={t?.merchant_dashboard?.stats?.escrowHeld || "In Escrow"} />
+        <StatCard title={t?.merchant_dashboard?.stats?.availableBalance || "Available Balance"} value={`£${(stats?.availableBalance || 0).toFixed(2)}`} icon={<Wallet size={24} color="#d4af37" />} label={t?.merchant_dashboard?.stats?.availableNow || "Available Now"} />
+      </div>
+
+      <div style={{ marginBottom: '2.5rem' }}>
+        <MerchantTools t={t} />
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '2rem' }}>
         <section style={{ padding: '1.5rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)' }}>{t?.merchant?.bookings?.title || "Bookings"}</h2>
-            <Link href="#" style={{ fontSize: '0.85rem', color: 'var(--accent-color)', fontWeight: 600, textDecoration: 'none' }}>{t?.merchant?.bookings?.viewAll || "View All"}</Link>
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)' }}>{t?.merchant_dashboard?.bookings?.title || "Bookings"}</h2>
+            <Link href="#" style={{ fontSize: '0.85rem', color: 'var(--accent-color)', fontWeight: 600, textDecoration: 'none' }}>{t?.merchant_dashboard?.bookings?.viewAll || "View All"}</Link>
           </div>
 
           {bookings.length === 0 ? (
              <div style={{ textAlign: 'center', padding: '4rem 0', opacity: 0.3 }}>
                <AlertCircle size={48} style={{ margin: '0 auto 1rem' }} />
-               <p>{t?.merchant?.bookings?.empty || "No missions found"}</p>
+               <p>{t?.merchant_dashboard?.bookings?.empty || "No missions found"}</p>
              </div>
           ) : (
              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
@@ -318,7 +323,7 @@ export default function MerchantDashboard() {
         <aside style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
            <div style={{ padding: '1.5rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
-                <h3 style={{ fontSize: '1rem', fontWeight: 800 }}>{t?.merchant?.quickLinks?.title || "Elite Actions"}</h3>
+                <h3 style={{ fontSize: '1rem', fontWeight: 800 }}>{t?.merchant_dashboard?.quick_links?.title || "Elite Actions"}</h3>
                 <div title={t?.merchant_dashboard?.quick_links_hint} style={{ cursor: 'help', color: 'var(--text-secondary)', display: 'flex' }}>
                    <Info size={14} />
                 </div>

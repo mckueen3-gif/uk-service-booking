@@ -1337,13 +1337,12 @@ export const en = {
   },
   merchant_dashboard: {
     title: "Specialist Dashboard",
-    expertTitle: "Expert",
+    expertTitle: "Elite Expert",
     welcome: "Welcome back, {name}",
     quick_links_hint: "Strategic shortcuts for elite growth.",
     elite_ai: {
       title: "Elite AI & Video",
-      video_label: "Introduction Video (YouTube)",
-      video_placeholder: "https://youtube.com/watch?v=...",
+      video_label: "Introduction Video (YouTube URL)",
       knowledge_label: "AI Expert Knowledge Base",
       knowledge_placeholder: "Deep-load your specific expertise, service nuances, and technical criteria here. This data remains private and powers your specialized AI Assistant to handle technical leads with precision.",
       save_button: "Calibrate Expert Profile"
@@ -1353,57 +1352,56 @@ export const en = {
       status: "Pricing Health",
       optimal: "OPTIMAL",
       message: "Market-calibrated fees detected. Your current rates align with high-trust elite benchmarks.",
-      trend: "Market Equilibrium"
+      trend: "Market Equilibrium",
+      baseRate: "Base Hourly Rate (£)",
+      trial: "Enable 30min Trial/Consultation",
+      trialPrice: "Trial Special Rate (£)",
+      feeNote: "* A 10% platform service fee will be automatically added to these rates."
     },
-    elite_perk: "Elite Specialist Privilege",
-    zero_lead_fee: "£0 Response Fee (Unlimited Leads)",
-    lead_fee_desc: "Unlike legacy platforms, we never charge for bidding or responding.",
-    previewProfile: "View Public Profile",
-    notifications: {
-      notifyExpertWhatsApp: "Notify Expert via WhatsApp",
-      notifyExpertWhatsAppDesc: "Recommended for faster response",
-      bookingAlertEmailSubject: "【New Order】Action Required: A customer has booked your service!",
-      expertWhatsAppMsg: "Hello {merchantName}, I've just booked your \"{serviceName}\" for {date} on ConciergeAI. Please confirm it in your dashboard! Booking ID: #{bookingId}",
-    },
-    manageServices: "Manage Services",
     stats: {
       totalBookings: "Total Bookings",
       rating: "Trust Rating",
       availableBalance: "Available Balance",
-      noPendingBalance: "No pending balance",
-      noAvailableBalance: "No available balance",
-      merchantNotFound: "Merchant license not found: Please ensure your professional profile is verified.",
-      notAuthorized: "Authorization failed: You do not have permission to access this resource.",
       pendingBalance: "Pending Balance",
       availableNow: "Available Now",
       totalJobs: "Jobs Completed",
       escrowHeld: "Held in Escrow",
-      reviews: "Client Reviews",
+      reviews: "Client Reviews"
     },
-    wallet: {
-      referralTitle: "Refer a Friend & Earn 2% Rewards",
-      referralDesc: "Share your code. When a friend books their first service, you'll receive 2% as e-vouchers for top UK retailers.",
-      historyTitle: "Transaction History",
-      rewards: {
-        title: "Redeem for E-Vouchers",
-        subtitle: "* Rewards are strictly for retail vouchers (Tesco, Amazon). No cash withdrawals. Processed within 24h.",
-        myVault: "My Rewards Vault",
-        redeemBtn: "Claim Rewards",
+    bookings: {
+      title: "Recent Bookings",
+      viewAll: "View All",
+      empty: "No booking records yet"
+    },
+    quick_links: {
+      title: "Elite Shortcuts",
+      hint: "Strategic shortcuts for professional growth"
+    },
+    tools: {
+      title: "Latest Available Items",
+      subtitle: "Curated growth tools for experts (All FREE)",
+      diagnosis: {
+        name: "AI Intelligent Diagnosis",
+        desc: "Visual damage assessment & lead capture system",
+        badge: "FREE"
       },
-    },
-    accounting: {
-      title: "Accounting & Tax",
-      subtitle: "Automated UK Financial Centre: VAT monitoring and tax forecasting.",
-      statusActive: "Subscription Active",
-      statusInactive: "Subscription Inactive",
-      grossRevenue: "Gross Revenue",
-      grossRevenueDesc: "Total inflow from ConciergeAI platforms",
-      taxPayable: "Estimated Tax Payable",
-      taxPayableDesc: "Calculated based on 24/25 UK Income Tax bands.",
-      vatRadar: "VAT Registration Radar",
-      vatRadarDesc: "Tracking proximity to the £90,000 threshold.",
-      monthlyBreakdown: "Monthly Performance Audit",
-    },
+      whatsapp: {
+        name: "WhatsApp Real-time Connect",
+        desc: "Instant notifications for new leads and queries",
+        badge: "FREE"
+      },
+      seo: {
+        name: "SEO Profile Optimization",
+        desc: "Boost Google rankings & optimize metadata",
+        badge: "FREE"
+      },
+      video: {
+        name: "Elite AI Video Config",
+        desc: "Professional video import & AI knowledge syncing",
+        badge: "FREE"
+      },
+      launch: "Launch Now"
+    }
   },
   member_dashboard: {
     hero: {

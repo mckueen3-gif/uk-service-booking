@@ -1362,14 +1362,13 @@ export const zhTW = {
     },
   },
   merchant_dashboard: {
-    title: "專家控制台",
-    expertTitle: "專家端",
+    title: "專家控制面板",
+    expertTitle: "Elite 專家體系",
     welcome: "歡迎回來，{name}",
-    quick_links_hint: "提升專業成長的戰略快捷鍵。",
+    quick_links_hint: "快速啟動您的專家工具箱",
     elite_ai: {
       title: "頂級 AI 與影片配置",
-      video_label: "介紹影片 (YouTube)",
-      video_placeholder: "https://youtube.com/watch?v=...",
+      video_label: "介紹影片 (YouTube URL)",
       knowledge_label: "AI 專家知識庫",
       knowledge_placeholder: "請在此處深度載入您的專業知識、服務細節與技術準則。這些數據將保持私有，並驅動您的專屬 AI 助手精準處理技術諮詢。",
       save_button: "校準專家檔案"
@@ -1379,57 +1378,56 @@ export const zhTW = {
       status: "定價健康度",
       optimal: "最佳狀態",
       message: "偵測到市場校準後的費率。您目前的定價符合高信任度的頂尖標竿。",
-      trend: "市場平衡點"
+      trend: "市場平衡點",
+      baseRate: "基礎時薪定價 (£)",
+      trial: "啟動 30 分鐘試聽/試用",
+      trialPrice: "試用優惠價 (£)",
+      feeNote: "* 系統將自動在此基礎上增加 10% 平台服務費。"
     },
-    elite_perk: "精英專家特權",
-    zero_lead_fee: "£0 響應費 (無限獲客)",
-    lead_fee_desc: "與傳統平台不同，我們始終免費接單，不收取任何競標或響應費用。",
-    previewProfile: "查看公開檔案",
-    notifications: {
-      notifyExpertWhatsApp: "透過 WhatsApp 通知專家",
-      notifyExpertWhatsAppDesc: "建議使用以獲得更快的回覆",
-      bookingAlertEmailSubject: "【新訂單預約】請注意：有客戶預約了您的服務！",
-      expertWhatsAppMsg: "您好 {merchantName}，我剛剛在 ConciergeAI 預約了您的「{serviceName}」(日期：{date})。請前往控制面板確認！預約編號：#{bookingId}",
-    },
-    manageServices: "管理服務項目",
     stats: {
       totalBookings: "總預約數",
       rating: "信任評等",
       availableBalance: "可用餘額",
-      noPendingBalance: "無待決餘額",
-      noAvailableBalance: "無可用餘額",
-      merchantNotFound: "找不到商家帳照：請確認您的專家身分已驗證。",
-      notAuthorized: "授權失敗：您沒有訪問此資源的權限。",
       pendingBalance: "待結算餘額",
       availableNow: "目前可用",
       totalJobs: "已完成項目",
       escrowHeld: "託管中資金",
-      reviews: "客戶見證",
+      reviews: "客戶見證"
     },
-    wallet: {
-      referralTitle: "推薦朋友並獲得 2% 獎勵",
-      referralDesc: "分享您的專屬代碼。當朋友預約首項服務時，您將獲得交易額 2% 的英國頂級零售商電子禮券。",
-      historyTitle: "交易歷史紀錄",
-      rewards: {
-        title: "兌換電子禮券",
-        subtitle: "* 獎勵僅限兌換零售禮券 (Tesco, Amazon)。不提供現金提領。24 小時內處理。",
-        myVault: "我的獎勵金庫",
-        redeemBtn: "領取獎勵",
+    bookings: {
+      title: "近期預約任務",
+      viewAll: "查看全部",
+      empty: "尚未發現待處理的任務"
+    },
+    quick_links: {
+      title: "精英操作鍵",
+      hint: "提升專業成長的戰略快捷鍵"
+    },
+    tools: {
+      title: "最新可用項目",
+      subtitle: "為專家精選的增長工具（全部免費）",
+      diagnosis: {
+        name: "AI 智能診斷",
+        desc: "視覺化損害評估與獲客引導系統",
+        badge: "免費"
       },
-    },
-    accounting: {
-      title: "會計與稅務",
-      subtitle: "自動化英國財務中心：VAT 監測與稅務預測。",
-      statusActive: "訂閱生效中",
-      statusInactive: "訂閱未啟用",
-      grossRevenue: "總營收",
-      grossRevenueDesc: "來自 ConciergeAI 平台的總資金流入",
-      taxPayable: "預估應繳稅額",
-      taxPayableDesc: "根據 24/25 英國所得稅級距計算。",
-      vatRadar: "VAT 註冊雷達",
-      vatRadarDesc: "追蹤距離 £90,000 門檻的接近程度。",
-      monthlyBreakdown: "每月表現審計",
-    },
+      whatsapp: {
+        name: "WhatsApp 實時對接",
+        desc: "即時獲取新訂單與客戶諮詢通知",
+        badge: "免費"
+      },
+      seo: {
+        name: "SEO 專家檔案優化",
+        desc: "提升 Google 排名並優化網頁標籤",
+        badge: "免費"
+      },
+      video: {
+        name: "頂級 AI 影片配置",
+        desc: "專業影片導入與 AI 知識庫同步",
+        badge: "免費"
+      },
+      launch: "立即啟動"
+    }
   },
   member_dashboard: {
     hero: {
