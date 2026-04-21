@@ -5,6 +5,18 @@ import BookingStatusPanel from "./components/BookingStatusPanel";
 import DailyFeed from "./components/DailyFeed";
 import AIStudyHub from "./components/AIStudyHub";
 import { useTranslation } from "@/components/LanguageContext";
+import Link from "next/link";
+import { 
+  Search, 
+  MessageSquare, 
+  Sparkles, 
+  Wrench, 
+  GraduationCap, 
+  Scale, 
+  Calculator,
+  Layout,
+  History
+} from "lucide-react";
 
 interface MemberHomeClientProps {
   userName: string;
@@ -29,7 +41,7 @@ export default function MemberHomeClient({
     { label: t.member_dashboard.quick_actions.findExpert, href: "/services", icon: <Search size={20} />, color: "var(--accent-color)" },
     { label: t.member_dashboard.quick_actions.chat, href: "/member/chat", icon: <MessageSquare size={20} />, color: "#10b981" },
     { label: t.member_dashboard.quick_actions.diagnosis, href: "/diagnosis", icon: <Sparkles size={20} />, color: "#8b5cf6" },
-    { label: t.home.categories.plumbing, href: "/services/results?cat=plumbing", icon: <Wrench size={20} />, color: "#3b82f6" },
+    { label: t.member_dashboard.quick_actions.equipment, href: "/member/equipment", icon: <Layout size={20} />, color: "#3b82f6" },
     { label: t.home.categories.education, href: "/services/results?cat=education", icon: <GraduationCap size={20} />, color: "#f59e0b" },
     { label: t.home.categories.legal, href: "/services/results?cat=legal", icon: <Scale size={20} />, color: "#ef4444" },
     { label: t.home.categories.accounting, href: "/services/results?cat=accounting", icon: <Calculator size={20} />, color: "#06b6d4" },

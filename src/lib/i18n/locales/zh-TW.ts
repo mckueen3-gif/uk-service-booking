@@ -1112,12 +1112,12 @@ export const zhTW = {
       marketing_support: {
         title: "行銷支援",
         others: "需付費賣廣告",
-        concierge: "AI 自動匹配派單 (探索模式)"
+        concierge: "AI 自動匹配派單 (探索模式 - 免費獲客)"
       },
       communication: {
         title: "溝通管道",
         others: "分散 (電話 / WhatsApp)",
-        concierge: "Nexus 安全即時通訊"
+        concierge: "Nexus 安全即時通訊 (管理端永久免費)"
       },
       booking_system: {
         title: "預約系統",
@@ -1127,7 +1127,7 @@ export const zhTW = {
       toolkit: {
         title: "營運工具",
         others: "基本訂單紀錄",
-        concierge: "AI 智能診斷及設備管理"
+        concierge: "AI 智能秘書及設備管理 (專業工具永久免費)"
       },
       data_sovereignty: {
         title: "數據主權",
@@ -1453,8 +1453,9 @@ export const zhTW = {
     },
     quick_actions: {
       findExpert: "搜尋專家",
-      chat: "我的對話",
-      diagnosis: "AI 診斷",
+      chat: "Nexus 安全聊天",
+      diagnosis: "AI 智能診斷",
+      equipment: "資產設備管理",
       history: "歷程記錄"
     },
     study_hub: {
@@ -1523,5 +1524,38 @@ export const zhTW = {
       }
     }
   },
+  nexus_chat: {
+    title: "Nexus 安全即時通訊",
+    subtitle: "高度加密的專業諮詢通道",
+    secureBanner: "已建立端到端加密通訊會話",
+    verifiedExpert: "已驗證的 Nexus 專家",
+    shareDiagnosis: "分享 AI 診斷報告",
+    bookExpert: "立即預約專家",
+    securityDesc: "此對話受 Nexus 協議加密保護。"
+  },
+  equipment_mgmt: {
+    title: "資產設備控制台",
+    subtitle: "為您的重要資產提供 AI 驅動的全生命週期管理",
+    addBtn: "登記新資產",
+    propertyTab: "房產管理",
+    vehicleTab: "車輛管理",
+    noAssets: "目前尚無登記資產。",
+    lastService: "上次維護時間",
+    nextService: "預計下次保養",
+    healthScore: "AI 設備健康評分",
+    diagnoseBtn: "啟動 AI 體檢",
+    details: "資產詳細規格",
+    tabs: {
+      overview: "概覽面版",
+      maintenance: "維護日誌",
+      diagnosis: "AI 診斷"
+    },
+    types: {
+      house: "住宅房產",
+      commercial: "商業空間",
+      car: "私人轎車",
+      van: "商用貨車"
+    }
+  }
 };
 

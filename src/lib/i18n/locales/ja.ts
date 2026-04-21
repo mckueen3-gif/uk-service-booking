@@ -1665,8 +1665,9 @@ export const ja: any = {
     },
     quick_actions: {
       findExpert: "専門家を探す",
-      chat: "チャット一覧",
-      diagnosis: "AI 診斷",
+      chat: "Nexusセキュアチャット",
+      diagnosis: "AI診斷",
+      equipment: "資産・備品管理",
       history: "履歴"
     },
     study_hub: {
@@ -1735,5 +1736,38 @@ export const ja: any = {
       }
     }
   },
+  nexus_chat: {
+    title: "Nexusセキュアメッセージング",
+    subtitle: "高度に暗号化された、専門的なコンサルテーションチャネル",
+    secureBanner: "エンドツーエンド暗号化セッションが確立されました",
+    verifiedExpert: "認証済みNexusスペシャリスト",
+    shareDiagnosis: "AI診断レポートを共有",
+    bookExpert: "スペシャリストを即時予約",
+    securityDesc: "この会話はNexusプロトコル暗号化によって保護されています。"
+  },
+  equipment_mgmt: {
+    title: "資産管理コントロールパネル",
+    subtitle: "大切な資産のためのAI駆動型ライフサイクル管理",
+    addBtn: "新規資産を登録",
+    propertyTab: "物件管理",
+    vehicleTab: "車両管理",
+    noAssets: "登録済みの資産はまだありません。",
+    lastService: "最終点検日",
+    nextService: "次回メンテナンス予定",
+    healthScore: "AI健康ステータス",
+    diagnoseBtn: "AIスキャンを開始",
+    details: "資産詳細仕様",
+    tabs: {
+      overview: "ダッシュボード",
+      maintenance: "メンテナンス履歴",
+      diagnosis: "AI診断"
+    },
+    types: {
+      house: "居住用物件",
+      commercial: "商業ユニット",
+      car: "乗用車",
+      van: "商用バン"
+    }
+  }
 };
 

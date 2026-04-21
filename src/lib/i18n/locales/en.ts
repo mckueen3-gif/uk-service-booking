@@ -1107,12 +1107,12 @@ export const en = {
       marketing_support: {
         title: "Marketing Support",
         others: "Paid Ads Required",
-        concierge: "Automated AI Discovery Matching"
+        concierge: "AI Auto-Matching (Discovery Mode - FREE Quality Leads)"
       },
       communication: {
         title: "Communication",
         others: "Scattered (Phone / WhatsApp)",
-        concierge: "Nexus Secure Real-time Chat"
+        concierge: "Nexus Secure Messaging (Completely FREE for Pros)"
       },
       booking_system: {
         title: "Booking System",
@@ -1122,7 +1122,7 @@ export const en = {
       toolkit: {
         title: "Technical Toolkit",
         others: "Basic Booking Records",
-        concierge: "AI Diagnosis & Asset Management"
+        concierge: "AI Secretary & Equipment Management (FREE Pro Toolkit)"
       },
       data_sovereignty: {
         title: "Data Sovereignty",
@@ -1427,8 +1427,9 @@ export const en = {
     },
     quick_actions: {
       findExpert: "Find Experts",
-      chat: "My Chats",
+      chat: "Nexus Secure Chat",
       diagnosis: "AI Diagnosis",
+      equipment: "Equipment Mgmt",
       history: "History"
     },
     study_hub: {
@@ -1497,5 +1498,38 @@ export const en = {
       }
     }
   },
+  nexus_chat: {
+    title: "Nexus Secure Messaging",
+    subtitle: "Highly encrypted, professional consultation channel",
+    secureBanner: "End-to-End Encrypted Session Established",
+    verifiedExpert: "Verified Nexus Specialist",
+    shareDiagnosis: "Share AI Diagnosis",
+    bookExpert: "Instantly Reserve Specialist",
+    securityDesc: "This conversation is protected by Nexus Protocol encryption."
+  },
+  equipment_mgmt: {
+    title: "Asset Control Panel",
+    subtitle: "AI-powered lifecycle management for your valuable assets",
+    addBtn: "Register New Asset",
+    propertyTab: "Properties",
+    vehicleTab: "Vehicles",
+    noAssets: "No registered assets yet.",
+    lastService: "Last Service",
+    nextService: "Predicted Next Maintenance",
+    healthScore: "AI Health Status",
+    diagnoseBtn: "Launch AI Scan",
+    details: "Asset Specifications",
+    tabs: {
+      overview: "Dashboard",
+      maintenance: "Maintenance Log",
+      diagnosis: "AI Diagnostics"
+    },
+    types: {
+      house: "Residential Property",
+      commercial: "Commercial Unit",
+      car: "Private Vehicle",
+      van: "Commercial Van"
+    }
+  }
 };
 
