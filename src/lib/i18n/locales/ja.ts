@@ -1,4 +1,4 @@
-﻿import { Dictionary } from "../types";
+import { Dictionary } from "../types";
 
 export const ja: any = {
   common: {
@@ -1668,6 +1668,11 @@ export const ja: any = {
       video: {
         name: "エリート AI 動画設定",
         desc: "プロフェッショナルな動画導入と AI ナレッジの同期",
+        badge: "無料"
+      },
+      ad_copy: {
+        name: "AI 広告コピー生成",
+        desc: "高転換率のソーシャルメディアと広告スローガンを自動生成",
         badge: "無料"
       },
       launch: "今すぐ起動"

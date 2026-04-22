@@ -1,4 +1,4 @@
-﻿export const zhTW = {
+export const zhTW = {
   site_metadata: {
     title: "ConciergeAI | 聘請全英國頂尖認證專家",
     description: "英國首屈一指的精英、經驗證服務專家和導師網絡。"
@@ -1584,6 +1584,11 @@
       video: {
         name: "AI 專家秘書對策",
         desc: "專業影片導入與 AI 知識庫同步",
+        badge: "免費"
+      },
+      ad_copy: {
+        name: "AI 廣告文案",
+        desc: "自動化生成高轉化率的社交媒體與廣告標語",
         badge: "免費"
       },
       launch: "立即啟動"

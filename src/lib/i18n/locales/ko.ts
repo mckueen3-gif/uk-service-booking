@@ -1,4 +1,4 @@
-﻿import { Dictionary } from "../types";
+import { Dictionary } from "../types";
 
 export const ko: any = {
   common: {
@@ -1632,6 +1632,11 @@ export const ko: any = {
       video: {
         name: "엘리트 AI 비디오 설정",
         desc: "전문적인 비디오 도입 및 AI 지식 베이스 동기화",
+        badge: "무료"
+      },
+      ad_copy: {
+        name: "AI 광고 문구 생성",
+        desc: "전환율이 높은 소셜 미디어 및 광고 슬로건 자동 생성",
         badge: "무료"
       },
       launch: "지금 실행"

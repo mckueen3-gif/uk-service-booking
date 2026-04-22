@@ -1647,6 +1647,11 @@ export const en = {
         desc: "Professional video import & AI knowledge syncing",
         badge: "FREE"
       },
+      ad_copy: {
+        name: "AI Ad Copy",
+        desc: "Generate high-converting social media & ad slogans automatically",
+        badge: "FREE"
+      },
       launch: "Launch Now"
     }
   },
