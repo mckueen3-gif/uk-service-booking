@@ -2,8 +2,8 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
-import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
+import { getMerchantId } from '@/lib/merchant-utils';
 import { DocumentType, DocumentStatus } from '@prisma/client';
 import { generateAIContent } from "@/lib/ai-provider";
 import { saveFileLocally } from '@/lib/storage';
@@ -11,12 +11,11 @@ import fs from 'fs';
 import path from 'path';
 
 export async function submitDocumentForVerification(fileUrl: string, type: DocumentType) {
-  const session = await getServerSession(authOptions);
-  if (!session?.user) throw new Error("Unauthorized");
+  const merchantId = await getMerchantId();
+  if (!merchantId) throw new Error("Merchant profile not found");
 
-  const userId = (session.user as any).id;
   const merchant = await prisma.merchant.findUnique({
-    where: { userId }
+    where: { id: merchantId }
   });
 
   if (!merchant) throw new Error("Merchant profile not found");
@@ -141,12 +140,11 @@ export async function submitDocumentForVerification(fileUrl: string, type: Docum
 }
 
 export async function getMerchantVerificationStatus() {
-  const session = await getServerSession(authOptions);
-  if (!session?.user) return null;
+  const merchantId = await getMerchantId();
+  if (!merchantId) return null;
 
-  const userId = (session.user as any).id;
   return await prisma.merchant.findUnique({
-    where: { userId },
+    where: { id: merchantId },
     include: {
       documents: {
         orderBy: { updatedAt: 'desc' }

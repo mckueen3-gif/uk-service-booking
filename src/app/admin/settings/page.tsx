@@ -245,35 +245,35 @@ export default function PlatformSettingsPage() {
 
       <SettingSection title={tm.companyInfo} icon={<Building2 size={20} />}>
         <InputField 
-          label="Office Address" 
+          label={tm.officeAddress} 
           value={address} 
           onChange={setAddress} 
           icon={<MapPin size={18} />} 
-          placeholder="Enter full physical address"
+          placeholder={tm.officeAddress}
         />
         <InputField 
-          label="Contact Phone" 
+          label={tm.contactPhone} 
           value={phone} 
           onChange={setPhone} 
           icon={<Phone size={18} />} 
           placeholder="+44 ..."
         />
         <InputField 
-          label="Contact Email" 
+          label={tm.contactEmail} 
           value={email} 
           onChange={setEmail} 
           icon={<Mail size={18} />} 
           placeholder="hello@company.com"
         />
         <InputField 
-          label="Company Registration No." 
+          label={tm.companyNo} 
           value={companyNo} 
           onChange={setCompanyNo} 
           icon={<FileText size={18} />} 
           placeholder="8-digit number"
         />
         <InputField 
-          label="VAT Registration No." 
+          label={tm.vatNo} 
           value={vatNo} 
           onChange={setVatNo} 
           icon={<Calculator size={18} />} 
@@ -283,28 +283,28 @@ export default function PlatformSettingsPage() {
 
       <SettingSection title={tm.socialLinks} icon={<Globe size={20} />}>
         <InputField 
-          label="Facebook URL" 
+          label={tm.facebook} 
           value={facebook} 
           onChange={setFacebook} 
           icon={<FacebookIcon />} 
           placeholder="https://facebook.com/..."
         />
         <InputField 
-          label="Twitter/X URL" 
+          label={tm.twitter} 
           value={twitter} 
           onChange={setTwitter} 
           icon={<TwitterIcon />} 
           placeholder="https://twitter.com/..."
         />
         <InputField 
-          label="Instagram URL" 
+          label={tm.instagram} 
           value={instagram} 
           onChange={setInstagram} 
           icon={<InstagramIcon />} 
           placeholder="https://instagram.com/..."
         />
         <InputField 
-          label="LinkedIn URL" 
+          label={tm.linkedin} 
           value={linkedin} 
           onChange={setLinkedin} 
           icon={<LinkedinIcon />} 
@@ -315,9 +315,9 @@ export default function PlatformSettingsPage() {
       <SettingSection title={tm.legalLinks} icon={<ShieldCheck size={20} />}>
         <div style={{ gridColumn: 'span 2', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
           {[
-            { label: 'Terms of Service', icon: <FileText size={18} />, url: '/legal/terms' },
-            { label: 'Privacy Policy', icon: <ShieldCheck size={18} />, url: '/legal/privacy' },
-            { label: 'Cookie Policy', icon: <Cookie size={18} />, url: '/legal/cookies' }
+            { label: tm.terms, icon: <FileText size={18} />, url: '/legal/terms' },
+            { label: tm.privacy, icon: <ShieldCheck size={18} />, url: '/legal/privacy' },
+            { label: tm.cookies, icon: <Cookie size={18} />, url: '/legal/cookies' }
           ].map((item, idx) => (
             <div key={idx} style={{ 
               padding: '1.25rem', 
@@ -347,7 +347,7 @@ export default function PlatformSettingsPage() {
         textAlign: 'center'
       }}>
         <p style={{ margin: 0, color: '#b8860b', fontSize: '0.9rem', fontWeight: 600 }}>
-          💡 Tip: Ensure all corporate information matches your filings at Companies House (UK).
+          {tm.tip}
         </p>
       </div>
 

@@ -29,10 +29,10 @@ export default function DiagnosisTool() {
   
   // Reactive categories to ensure language switching works instantly
   const CATEGORIES = [
-    { id: 'Plumbing', label: t.diagnosis?.tool?.categories?.plumbing || "水電工程", icon: '🚰' },
-    { id: 'Renovation', label: t.diagnosis?.tool?.categories?.renovation || "房屋裝修", icon: '🏠' },
-    { id: 'Electrical', label: t.diagnosis?.tool?.categories?.electrical || "電力工程", icon: '⚡' },
-    { id: 'Cleaning', label: t.diagnosis?.tool?.categories?.cleaning || "專業清潔", icon: '✨' },
+    { id: 'Plumbing', label: t.diagnosis?.tool?.categories?.plumbing || "水電與能源系統", icon: '🚰' },
+    { id: 'Renovation', label: t.diagnosis?.tool?.categories?.renovation || "物業與建築翻修", icon: '🏠' },
+    { id: 'Electrical', label: t.diagnosis?.tool?.categories?.electrical || "電力與網絡工程", icon: '⚡' },
+    { id: 'Cleaning', label: t.diagnosis?.tool?.categories?.cleaning || "專業環境維護", icon: '✨' },
   ];
 
   const { data: session, status } = useSession();
@@ -51,13 +51,13 @@ export default function DiagnosisTool() {
   // Technical Thinking Log State
   const [techLines, setTechLines] = useState<string[]>([]);
   const techLogMessages = [
-    t?.diagnosis?.tool?.logs?.init || "Initializing Quantum Vision core...",
-    t?.diagnosis?.tool?.logs?.decompress || "Decompressing visual telemetry data...",
-    t?.diagnosis?.tool?.logs?.mapping || "Mapping pixel density to material topology...",
+    t?.diagnosis?.tool?.logs?.init || "Initializing Quantum Vision reasoning core...",
+    t?.diagnosis?.tool?.logs?.decompress || "Decompressing visual telemetry data packets...",
+    t?.diagnosis?.tool?.logs?.mapping || "Mapping pixel density to material topology structures...",
     t?.diagnosis?.tool?.logs?.normals || "Resolving vertex normals for structural integrity...",
-    t?.diagnosis?.tool?.logs?.schemas || "Cross-referencing UK engineering schemas (BS-7671)...",
-    t?.diagnosis?.tool?.logs?.heuristics || "Executing heuristics for anomaly detection...",
-    t?.diagnosis?.tool?.logs?.resolution || "Finalizing diagnostic resolution..."
+    t?.diagnosis?.tool?.logs?.schemas || "Cross-referencing legal engineering specifications...",
+    t?.diagnosis?.tool?.logs?.heuristics || "Executing neural heuristics for anomaly detection...",
+    t?.diagnosis?.tool?.logs?.resolution || "Finalizing authoritative diagnostic resolution..."
   ];
 
   useEffect(() => {
@@ -239,32 +239,33 @@ export default function DiagnosisTool() {
   }
 
   return (
-    <div className="glass-panel reveal active" style={{ padding: '2.5rem', maxWidth: '800px', margin: '0 auto' }}>
-      <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-        <div style={{ display: 'inline-flex', padding: '1.25rem', borderRadius: '1.25rem', background: 'var(--accent-soft)', color: 'var(--accent-color)', marginBottom: '1.25rem', position: 'relative' }}>
-          <Sparkles size={36} strokeWidth={1.5} />
+    <div className="glass-panel reveal active" style={{ padding: '3.5rem', maxWidth: '900px', margin: '0 auto', border: '1px solid rgba(212, 175, 55, 0.2)', boxShadow: '0 32px 64px rgba(0,0,0,0.1)' }}>
+      <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+        <div style={{ display: 'inline-flex', padding: '1.5rem', borderRadius: '1.5rem', background: 'rgba(212, 175, 55, 0.1)', color: 'var(--amber-600)', marginBottom: '1.5rem', position: 'relative', border: '1px solid rgba(212, 175, 55, 0.2)' }}>
+          <Sparkles size={48} strokeWidth={1} />
           {remainingUses !== null && (
             <div style={{ 
               position: 'absolute', 
               top: '-15px', 
               left: '50%', 
               transform: 'translateX(-50%)',
-              background: 'var(--accent-color)', 
+              background: 'var(--amber-600)', 
               color: 'black', 
-              padding: '0.25rem 0.8rem', 
-              borderRadius: '1rem', 
-              fontSize: '0.75rem', 
-              fontWeight: 800, 
-              boxShadow: 'var(--shadow-md)', 
+              padding: '0.4rem 1rem', 
+              borderRadius: '2rem', 
+              fontSize: '0.7rem', 
+              fontWeight: 950, 
+              boxShadow: '0 4px 12px rgba(212, 175, 55, 0.3)', 
               whiteSpace: 'nowrap',
-              zIndex: 10
+              zIndex: 10,
+              letterSpacing: '0.05em'
             }}>
-              {t?.diagnosis?.tool?.remaining || "剩餘次數"}: {remainingUses} / 5
+              {t?.diagnosis?.tool?.remaining || "ACCESS QUOTA"}: {remainingUses} / 5
             </div>
           )}
         </div>
-        <h2 style={{ fontSize: '2.5rem', fontWeight: 950, marginBottom: '0.75rem', letterSpacing: '-0.02em' }}>{t?.diagnosis?.tool?.title || "AI 視覺診斷"}</h2>
-        <p style={{ color: 'var(--text-muted)', fontSize: '1.15rem', fontWeight: 500 }}>{t?.diagnosis?.tool?.subtitle || "上傳照片，獲取即時維修建議"}</p>
+        <h2 style={{ fontSize: '3rem', fontWeight: 950, marginBottom: '1rem', letterSpacing: '-0.03em', color: 'var(--text-primary)' }}>{t?.diagnosis?.tool?.title || "AI Visual Reasoner"}</h2>
+        <p style={{ color: 'var(--text-muted)', fontSize: '1.25rem', fontWeight: 500, maxWidth: '600px', margin: '0 auto' }}>{t?.diagnosis?.tool?.subtitle || "Upload high-fidelity assets for instant repair telemetry"}</p>
       </div>
 
       <div style={{ display: 'grid', gap: '2.5rem' }}>

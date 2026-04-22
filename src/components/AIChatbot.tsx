@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, Sparkles, User, MessageSquare, RotateCw } from 'lucide-react';
 import { useTranslation } from '@/components/LanguageContext';
+import { usePathname } from 'next/navigation';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -11,6 +12,7 @@ interface Message {
 
 export default function AIChatbot() {
   const { t, locale, isRTL } = useTranslation();
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -85,14 +87,26 @@ export default function AIChatbot() {
     }
   };
 
+  // 🚀 OVERLAP PREVENTION: Hide global chatbot on merchant profile pages 
+  // where MerchantAIBot is already providing specialized assistance.
+  if (pathname?.includes('/merchant/') || pathname?.includes('/book/')) {
+    return null;
+  }
+
   return (
-    <div style={{ position: 'fixed', bottom: '40px', right: rightPos, left: leftPos, zIndex: 1000 }}>
-      {/* Floating Toggle Button */}
+    <div style={{ 
+      position: 'fixed', 
+      bottom: 'clamp(16px, 3vw, 40px)', 
+      right: isRTL ? 'auto' : 'clamp(16px, 3vw, 40px)', 
+      left: isRTL ? 'clamp(16px, 3vw, 40px)' : 'auto', 
+      zIndex: 1000 
+    }}>
+      {/* Floating Toggle Button - Responsive Sizing */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         style={{
-          width: '80px',
-          height: '80px',
+          width: 'clamp(52px, 8vw, 72px)',
+          height: 'clamp(52px, 8vw, 72px)',
           borderRadius: '50%',
           backgroundColor: '#050505',
           color: 'white',
@@ -104,12 +118,12 @@ export default function AIChatbot() {
           cursor: 'pointer',
           transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
           overflow: 'hidden',
-          padding: '8px'
+          padding: 'clamp(6px, 1vw, 8px)'
         }}
         className={isOpen ? "rotate-90" : "hover-scale active-scale"}
       >
         {isOpen ? (
-          <X size={32} color="#d4af37" />
+          <X size={28} color="#d4af37" />
         ) : (
           <img 
             src="/images/logo_concierge_ai.png" 
@@ -124,17 +138,17 @@ export default function AIChatbot() {
         )}
       </button>
 
-      {/* Chat Window */}
+      {/* Chat Window - Responsive width */}
       {isOpen && (
         <div 
           className="animate-fade-up"
           style={{
             position: 'absolute',
-            bottom: '80px',
+            bottom: 'clamp(65px, 12vw, 90px)',
             right: isRTL ? 'auto' : 0,
             left: isRTL ? 0 : 'auto',
-            width: '380px',
-            height: '520px',
+            width: 'clamp(320px, 90vw, 380px)',
+            height: 'clamp(400px, 70vh, 520px)',
             backgroundColor: '#ffffff',
             borderRadius: '24px',
             boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',

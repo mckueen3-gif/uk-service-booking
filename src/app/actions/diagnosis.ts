@@ -14,6 +14,15 @@ export async function getAIDiagnosis(imageUrl: string, category: string, locale:
       return { error: "AUTH_REQUIRED", success: false };
     }
 
+    // 0. Get User Context (City for Market Pricing)
+    const user = await safeDbQuery(() => 
+      prisma.user.findUnique({
+        where: { id: userId },
+        select: { city: true }
+      })
+    );
+    const userCity = user?.city || "Unknown";
+
     // 0. Quota Check (5 per day)
     const startOfToday = new Date();
     startOfToday.setUTCHours(0, 0, 0, 0);
@@ -60,18 +69,24 @@ export async function getAIDiagnosis(imageUrl: string, category: string, locale:
     const prompt = `
       Analyze the provided image(s) of a "${category}" issue.
       USER DESCRIPTION: "${description || "No description provided"}"
+      USER LOCATION: "${userCity}"
 
-      TASK:
-      1. Identify the specific problem/issue visible in the photo.
-      2. Suggest a professional fix or necessary next steps.
-      3. Estimate a UK-based repair price range in GBP (£). 
-      4. Provide a confidence score (0.0 to 1.0).
+      STRICT DIAGNOSIS RULES:
+      1. IMAGE VALIDATION: If the image is blurry, irrelevant, or shows NO obvious physical issue (e.g., just a clean pipe or wall), state "NO_VISIBLE_ISSUE" in the issue field and explain what the user should check for (sounds, moisture, temperature).
+      2. REGIONAL PRICING: Provide an estimated price range for the repair in GBP (£).
+      3. MARKET COMPARISON: Research (internally) and provide local market rates for "${userCity}". If "${userCity}" is unknown, use UK national averages.
 
       Return a JSON response ONLY:
       {
-        "issue": "Specific problem in ${locale}",
-        "suggestedFix": "Detailed professional advice in ${locale}",
-        "estimatedPriceRange": "£150 - £250",
+        "issue": "Specific problem in ${locale} (or NO_VISIBLE_ISSUE)",
+        "suggestedFix": "Detailed professional advice in ${locale}. If NO_VISIBLE_ISSUE, suggest manual investigation steps.",
+        "estimatedPriceRange": "£[Min] - £[Max]",
+        "marketComparison": {
+          "region": "${userCity}",
+          "averageHourlyRate": "£45 - £95/hr",
+          "callOutFee": "£[Value]",
+          "notes": "Brief regional market insight (e.g. 'Higher callout fees in ${userCity} expected')"
+        },
         "confidence": 0.85
       }
     `;
@@ -100,6 +115,7 @@ export async function getAIDiagnosis(imageUrl: string, category: string, locale:
           issue: diagnosisData.issue,
           suggestedFix: diagnosisData.suggestedFix,
           estimatedPriceRange: diagnosisData.estimatedPriceRange,
+          marketComparison: diagnosisData.marketComparison,
           confidence: diagnosisData.confidence,
           rawAIResponse: `${modelName}: ${rawResponse}`
         }

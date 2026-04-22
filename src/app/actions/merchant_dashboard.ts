@@ -5,15 +5,120 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 
-async function getMerchantId() {
-  const session = (await getServerSession(authOptions)) as any;
-  if (!session?.user?.id) return null;
-  
-  const merchant = await prisma.merchant.findUnique({
-    where: { userId: session.user.id }
-  });
-  return merchant?.id;
+/**
+ * Modular Toolkit: Toggle Features
+ * Features are stored in Merchant.pricingPackages JSON field
+ */
+export async function updateFeatureToggle(featureName: string, status: boolean) {
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant not found" };
+
+  try {
+    const merchant = await prisma.merchant.findUnique({
+      where: { id: merchantId },
+      select: { pricingPackages: true }
+    });
+
+    let packages = (merchant?.pricingPackages as any) || {};
+    if (!packages.features) packages.features = {};
+    
+    packages.features[featureName] = status;
+
+    await prisma.merchant.update({
+      where: { id: merchantId },
+      data: { pricingPackages: packages }
+    });
+
+    revalidatePath('/merchant/toolkit');
+    revalidatePath('/merchant/accounting');
+    revalidatePath('/merchant/promotions');
+    revalidatePath('/merchant/ai-secretary');
+    
+    return { success: true, status };
+  } catch (error: any) {
+    console.error("Toggle Feature Error:", error);
+    return { error: error.message };
+  }
 }
+
+/**
+ * AI Secretary: Update Knowledge Base and Persona
+ */
+export async function updateAISettings(data: { aiKnowledgeBase?: string; aiTone?: string }) {
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant not found" };
+
+  try {
+    const merchant = await prisma.merchant.findUnique({
+      where: { id: merchantId },
+      select: { pricingPackages: true }
+    });
+
+    let packages = (merchant?.pricingPackages as any) || {};
+    if (!packages.aiSettings) packages.aiSettings = {};
+    
+    if (data.aiTone) packages.aiSettings.tone = data.aiTone;
+    
+    await prisma.merchant.update({
+      where: { id: merchantId },
+      data: { 
+        aiKnowledgeBase: data.aiKnowledgeBase,
+        pricingPackages: packages 
+      }
+    });
+
+    revalidatePath('/merchant/ai-secretary');
+    return { success: true };
+  } catch (err: any) {
+    return { error: err.message };
+  }
+}
+
+/**
+ * Referral Program: Merchant-led Voucher Logic
+ */
+export async function getReferralVoucher() {
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant not found" };
+
+  const merchant = await prisma.merchant.findUnique({
+    where: { id: merchantId },
+    select: { pricingPackages: true }
+  }) as any;
+
+  const packages = merchant?.pricingPackages || {};
+  return { referralVoucher: packages.referralVoucher || null };
+}
+
+export async function updateReferralVoucher(data: { amount: number; type: 'PERCENT' | 'FIXED'; active: boolean }) {
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant not found" };
+
+  try {
+    const merchant = await prisma.merchant.findUnique({
+      where: { id: merchantId },
+      select: { pricingPackages: true }
+    }) as any;
+
+    const packages = merchant?.pricingPackages || {};
+    const updatedPackages = {
+      ...packages,
+      referralVoucher: data
+    };
+
+    await (prisma as any).merchant.update({
+      where: { id: merchantId },
+      data: { pricingPackages: updatedPackages }
+    });
+
+    revalidatePath('/merchant/promotions/referral');
+    return { success: true };
+  } catch (err: any) {
+    return { error: err.message };
+  }
+}
+
+import { getMerchantId } from '@/lib/merchant-utils';
 
 export async function getMerchantDashboardStats() {
   const merchantId = await getMerchantId();
@@ -31,7 +136,19 @@ export async function getMerchantDashboardStats() {
 
   const merchant = await (prisma as any).merchant.findUnique({
     where: { id: merchantId },
-    select: { averageRating: true, totalReviews: true, companyName: true, avatarUrl: true }
+    select: { 
+      averageRating: true, 
+      totalReviews: true, 
+      companyName: true, 
+      avatarUrl: true,
+      youtubeVideoUrl: true,
+      aiKnowledgeBase: true,
+      isElite: true,
+      baseHourlyRate: true,
+      trialPrice: true,
+      isTrialAvailable: true,
+      pricingPackages: true
+    }
   });
 
   return {
@@ -41,9 +158,32 @@ export async function getMerchantDashboardStats() {
     pendingBalance: wallet?.pendingBalance || 0,
     rating: merchant?.averageRating || 0,
     reviews: merchant?.totalReviews || 0,
-    companyName: merchant?.companyName,
-    avatarUrl: merchant?.avatarUrl
+    companyName: merchant?.companyName || "Specialist",
+    avatarUrl: merchant?.avatarUrl || "",
+    youtubeVideoUrl: merchant?.youtubeVideoUrl,
+    aiKnowledgeBase: merchant?.aiKnowledgeBase,
+    isElite: merchant?.isElite || false,
+    baseHourlyRate: merchant?.baseHourlyRate || 0,
+    trialPrice: merchant?.trialPrice || 0,
+    isTrialAvailable: merchant?.isTrialAvailable || false,
+    pricingPackages: merchant?.pricingPackages || null
   };
+}
+
+export async function getAIPricingInsights() {
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant not found" };
+
+  const merchant = await prisma.merchant.findUnique({
+    where: { id: merchantId },
+    select: { baseHourlyRate: true, businessType: true }
+  });
+
+  const { analyzePriceHealth, getMonthlyTrend } = await import('@/lib/ai/pricing-advisor');
+  const health = await analyzePriceHealth(merchant?.baseHourlyRate || 50, merchant?.businessType || 'GCSE_MATHS');
+  const trend = await getMonthlyTrend(merchant?.businessType || 'GCSE_MATHS');
+
+  return { health, trend };
 }
 
 export async function getMerchantBookings() {
@@ -82,7 +222,7 @@ export async function updateBookingStatus(bookingId: string, newStatus: string) 
       const { completeBookingFunds } = await import('@/lib/finance');
       await completeBookingFunds(booking);
 
-      // 3. Referral Reward Logic (Passive Income: 2% of each order)
+      // 3. Referral Dividend Logic (Passive Yield: 2% of each order)
       try {
         const referral = await (prisma as any).referral.findUnique({
           where: { refereeId: (booking as any).customerId }
@@ -120,11 +260,11 @@ export async function updateBookingStatus(bookingId: string, newStatus: string) 
                     userId: referral.referrerId,
                     amount: rewardAmount,
                     type: 'EARNED_REFERRAL',
-                    description: `2% Referral Passive Income from Booking: ${booking.id}`
+                    description: `2% Referral Passive Yield from Booking: ${booking.id}`
                   }
                 })
               ]);
-              console.log(`Issued ${rewardAmount} passive credits to referrer ${referral.referrerId}`);
+              console.log(`Issued ${rewardAmount} passive dividends to referrer ${referral.referrerId}`);
             }
           }
         }
@@ -214,19 +354,121 @@ export async function disputeBooking(bookingId: string, reason: string) {
 
 import { createNotification } from "./notifications";
 
-export async function updateMerchantAvatar(avatarUrl: string) {
+export async function updateMerchantProfile(data: { 
+  avatarUrl?: string; 
+  youtubeVideoUrl?: string;
+  aiKnowledgeBase?: string;
+  bannerUrl?: string;
+  description?: string;
+  companyName?: string;
+  baseHourlyRate?: number;
+  trialPrice?: number;
+  isTrialAvailable?: boolean;
+  pricingPackages?: any;
+}) {
   const merchantId = await getMerchantId();
   if (!merchantId) return { error: "Merchant not found" };
   try {
     await (prisma as any).merchant.update({
       where: { id: merchantId },
-      data: { avatarUrl }
+      data
     });
+    revalidatePath('/merchant');
+    revalidatePath(`/merchant/${merchantId}`);
+    return { success: true };
+  } catch (err: any) {
+    return { error: err.message };
+  }
+}
+
+/**
+ * NEW: Merchant Coupon Management
+ * Stores coupons within the 'pricingPackages' JSON field for now to avoid DB migration.
+ */
+export async function getMerchantCoupons() {
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant not found" };
+
+  const merchant = await prisma.merchant.findUnique({
+    where: { id: merchantId },
+    select: { pricingPackages: true }
+  }) as any;
+
+  const packages = merchant?.pricingPackages || {};
+  return { coupons: packages.coupons || [] };
+}
+
+export async function createMerchantCoupon(data: { code: string; discountType: 'PERCENT' | 'FIXED'; value: number; expiry?: string }) {
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant not found" };
+
+  try {
+    const merchant = await prisma.merchant.findUnique({
+      where: { id: merchantId },
+      select: { pricingPackages: true }
+    }) as any;
+
+    const packages = merchant?.pricingPackages || {};
+    const coupons = packages.coupons || [];
+    
+    const newCoupon = {
+      id: Math.random().toString(36).substr(2, 9),
+      ...data,
+      active: true,
+      createdAt: new Date().toISOString()
+    };
+
+    const updatedPackages = {
+      ...packages,
+      coupons: [...coupons, newCoupon]
+    };
+
+    await (prisma as any).merchant.update({
+      where: { id: merchantId },
+      data: { pricingPackages: updatedPackages }
+    });
+
+    revalidatePath('/merchant');
+    return { success: true, coupon: newCoupon };
+  } catch (err: any) {
+    return { error: err.message };
+  }
+}
+
+export async function deleteMerchantCoupon(couponId: string) {
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant not found" };
+
+  try {
+    const merchant = await prisma.merchant.findUnique({
+      where: { id: merchantId },
+      select: { pricingPackages: true }
+    }) as any;
+
+    const packages = merchant?.pricingPackages || {};
+    const coupons = packages.coupons || [];
+    
+    const updatedCoupons = coupons.filter((c: any) => c.id !== couponId);
+
+    const updatedPackages = {
+      ...packages,
+      coupons: updatedCoupons
+    };
+
+    await (prisma as any).merchant.update({
+      where: { id: merchantId },
+      data: { pricingPackages: updatedPackages }
+    });
+
     revalidatePath('/merchant');
     return { success: true };
   } catch (err: any) {
     return { error: err.message };
   }
+}
+
+export async function updateMerchantAvatar(avatarUrl: string) {
+  return updateMerchantProfile({ avatarUrl });
 }
 
 export async function rescheduleBooking(bookingId: string, newDate: string) {
@@ -267,7 +509,7 @@ export async function getMerchantAccountingSummary() {
 
   const merchant = await prisma.merchant.findUnique({
     where: { id: merchantId },
-    select: { isAccountingActive: true, registrationNumber: true }
+    select: { isAccountingActive: true, registrationNumber: true, pricingPackages: true }
   });
 
   const now = new Date();
@@ -332,6 +574,8 @@ export async function getMerchantAccountingSummary() {
     };
   });
 
+  const packages = (merchant?.pricingPackages as any) || {};
+
   return {
     isAccountingActive: merchant?.isAccountingActive || false,
     registrationNumber: merchant?.registrationNumber || "NOT_SET",
@@ -341,8 +585,42 @@ export async function getMerchantAccountingSummary() {
     netProfit,
     estimatedTax,
     monthlySummaries,
-    vatProgress: (grossRevenue / 90000) * 100 // 90k UK Threshold
+    vatProgress: (grossRevenue / 90000) * 100, // 90k UK Threshold
+    auditStatus: packages.auditStatus || 'PENDING',
+    isAccountantConnected: packages.isAccountantConnected || false,
+    aiStats: {
+      influencedRevenue: grossRevenue * 0.15, // Simulated 15% ROI
+      savingsManaged: grossRevenue * 0.05,    // Simulated 5% via Coupons
+      dealCloses: Math.round(taxYearBookings.length * 0.12) || 0
+    }
   };
+}
+
+export async function authorizeAccountantAccess() {
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant not found" };
+
+  try {
+    const merchant = await (prisma as any).merchant.findUnique({
+      where: { id: merchantId },
+      select: { pricingPackages: true }
+    });
+
+    let packages = (merchant?.pricingPackages as any) || {};
+    packages.isAccountantConnected = true;
+    packages.auditStatus = 'ACTIVE_GATEWAY';
+    packages.accountantAuthorizedAt = new Date().toISOString();
+
+    await (prisma as any).merchant.update({
+      where: { id: merchantId },
+      data: { pricingPackages: packages }
+    });
+
+    revalidatePath('/merchant/accounting');
+    return { success: true };
+  } catch (err: any) {
+    return { error: err.message };
+  }
 }
 
 export async function activateAccountingSubscription(): Promise<{ error?: string; message?: string; url?: string }> {
@@ -357,4 +635,35 @@ export async function activateAccountingSubscription(): Promise<{ error?: string
     error: 'ALL_EXEMPT',
     message: 'Accounting tools and Premium platform features are entirely FREE for verified experts. All commission is charged as a markup on customer quotes.'
   };
+}
+
+/**
+ * NEW: Education Module - Google Meet Integration
+ */
+export async function updateBookingMeetingLink(bookingId: string, link: string) {
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant not found" };
+
+  try {
+    const booking = await prisma.booking.update({
+      where: { id: bookingId, merchantId },
+      data: { googleMeetLink: link }
+    });
+    
+    // Notify customer about the meeting link
+    await createNotification({
+      userId: (booking as any).customerId,
+      title: "🔗 課程會議連結已更新",
+      message: `您的預約 #${bookingId.slice(-6)} 的 Google Meet 連結已備妥。您可以從儀表板點擊進入。`,
+      type: 'SUCCESS',
+      link: `/member`
+    });
+
+    revalidatePath('/merchant');
+    revalidatePath('/member');
+    return { success: true };
+  } catch (err: any) {
+    console.error("Update Meeting Link Error:", err);
+    return { error: err.message };
+  }
 }

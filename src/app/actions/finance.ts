@@ -4,17 +4,41 @@ import { prisma } from '@/lib/prisma';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { revalidatePath } from 'next/cache';
+import { getMerchantId } from '@/lib/merchant-utils';
 
 export async function getEarningsStats() {
   const session = (await getServerSession(authOptions)) as any;
-  if (!session?.user?.id) return { error: "Unauthorized" };
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant profile not found" };
 
   const merchant = await prisma.merchant.findUnique({
-    where: { userId: session.user.id },
-    include: { wallet: true }
+    where: { id: merchantId },
+    include: { 
+      wallet: true,
+      user: {
+        select: {
+          id: true,
+          referralCode: true,
+          referralCredits: true
+        }
+      }
+    }
   });
 
   if (!merchant) return { error: "Merchant profile not found" };
+
+  // Count active referrals
+  const referralCount = await prisma.referral.count({
+    where: { referrerId: session.user.id }
+  });
+
+  // Recent referrals (optional, for the hub)
+  const recentReferrals = await prisma.referral.findMany({
+    where: { referrerId: session.user.id },
+    include: { referee: { select: { name: true, createdAt: true } } },
+    orderBy: { createdAt: 'desc' },
+    take: 5
+  });
 
   // Recent transactions (bookings)
   const recentBookings = await prisma.booking.findMany({
@@ -35,16 +59,19 @@ export async function getEarningsStats() {
     wallet: merchant.wallet,
     recentBookings,
     recentWithdrawals,
-    merchant
+    merchant,
+    user: merchant.user,
+    referralCount,
+    recentReferrals
   };
 }
 
 export async function requestWithdrawal(amount: number) {
-  const session = (await getServerSession(authOptions)) as any;
-  if (!session?.user?.id) return { error: "Unauthorized" };
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant profile not found" };
 
   const merchant = await prisma.merchant.findUnique({
-    where: { userId: session.user.id },
+    where: { id: merchantId },
     include: { wallet: true }
   });
 
@@ -82,11 +109,11 @@ export async function requestWithdrawal(amount: number) {
 }
 
 export async function updateBankDetails(sortCode: string, accountNumber: string) {
-  const session = (await getServerSession(authOptions)) as any;
-  if (!session?.user?.id) return { error: "Unauthorized" };
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant profile not found" };
 
   await (prisma as any).merchant.update({
-    where: { userId: session.user.id },
+    where: { id: merchantId },
     data: {
       bankSortCode: sortCode,
       bankAccountNumber: accountNumber
@@ -95,4 +122,32 @@ export async function updateBankDetails(sortCode: string, accountNumber: string)
 
   revalidatePath('/dashboard/earnings/payout');
   return { success: true };
+}
+
+export async function getMerchantReceipts() {
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant not found" };
+
+  const merchant = await prisma.merchant.findUnique({
+    where: { id: merchantId }
+  });
+
+  if (!merchant) return { error: "Merchant not found" };
+
+  return await prisma.receipt.findMany({
+    where: {
+      booking: {
+        merchantId: merchant.id
+      }
+    },
+    include: {
+      booking: {
+        include: {
+          customer: { select: { name: true, email: true } },
+          service: { select: { name: true } }
+        }
+      }
+    },
+    orderBy: { createdAt: 'desc' }
+  });
 }

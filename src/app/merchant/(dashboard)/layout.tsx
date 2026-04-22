@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import SidebarNav from "@/components/dashboard/SidebarNav";
+import Link from "next/link";
 
 export default async function MerchantLayout({ children }: { children: React.ReactNode }) {
   const session = await getServerSession(authOptions);
@@ -33,9 +34,11 @@ export default async function MerchantLayout({ children }: { children: React.Rea
         flexDirection: 'column'
       }}>
         <div style={{ marginBottom: '2.5rem', paddingLeft: '1rem' }}>
-          <h1 style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--accent-color)', letterSpacing: '-0.03em' }}>
-            ConciergeAI<span style={{ color: 'var(--text-primary)' }}>.</span>
-          </h1>
+          <Link href="/" style={{ textDecoration: 'none' }}>
+            <h1 style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--accent-color)', letterSpacing: '-0.03em' }}>
+              ConciergeAI<span style={{ color: 'var(--text-primary)' }}>.</span>
+            </h1>
+          </Link>
           <p style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
             Expert Dashboard
           </p>

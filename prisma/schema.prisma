@@ -27,9 +27,15 @@ model User {
   mfaEnabled           Boolean             @default(false)
   mfaSecret            String?
   notificationSettings Json?               @default("{\"sms\": false, \"push\": true, \"email\": true}")
+  houseNumber          String?
+  aiMemory             String?
+  dailyAiLimitUsed     Int                 @default(0)
+  lastAiUsageDate      DateTime?
   bookings             Booking[]
   conversations        Conversation[]      @relation("CustomerConversations")
   creditTransactions   CreditTransaction[]
+  educationAttempts    EducationAttempt[]
+  educationQuizzes     EducationQuiz[]
   merchantProfile      Merchant?
   notifications        Notification[]
   properties           Property[]
@@ -38,8 +44,58 @@ model User {
   referralsMade        Referral[]          @relation("Referrer")
   reviews              Review[]
   vehicles             Vehicle[]
+  favorites            Merchant[]          @relation("UserFavorites")
 
   @@index([city])
+}
+
+model EducationQuiz {
+  id         String              @id @default(cuid())
+  userId     String
+  title      String
+  subject    String
+  grade      String?
+  difficulty String?
+  sourceType String              @default("TEXT")
+  createdAt  DateTime            @default(now())
+  updatedAt  DateTime            @updatedAt
+  attempts   EducationAttempt[]
+  questions  EducationQuestion[]
+  user       User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model EducationQuestion {
+  id            String        @id @default(cuid())
+  quizId        String
+  questionText  String
+  questionType  String        @default("MCQ")
+  options       Json?
+  correctAnswer String
+  explanation   String?
+  quiz          EducationQuiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
+
+  @@index([quizId])
+}
+
+model EducationAttempt {
+  id                   String        @id @default(cuid())
+  quizId               String
+  userId               String
+  score                Int
+  totalQuestions       Int
+  answers              Json
+  aiDiagnosis          String?
+  createdAt            DateTime      @default(now())
+  sharedWithMerchantId String?
+  quiz                 EducationQuiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  sharedWith           Merchant?     @relation("SharedAttempts", fields: [sharedWithMerchantId], references: [id])
+  user                 User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([quizId])
+  @@index([userId])
+  @@index([sharedWithMerchantId])
 }
 
 model Notification {
@@ -118,8 +174,19 @@ model Merchant {
   businessType       String?
   vatNumber          String?
   bannerUrl          String?
+  aiKnowledgeBase    String?
+  youtubeVideoUrl    String?
+  baseHourlyRate     Float?
+  isElite            Boolean                @default(false)
+  isTrialAvailable   Boolean                @default(false)
+  isSocialPro        Boolean                @default(false)
+  socialCreditsUsed  Int                    @default(0)
+  lastSocialReset    DateTime?
+  pricingPackages    Json?
+  trialPrice         Float?
   bookings           Booking[]
   conversations      Conversation[]         @relation("MerchantConversations")
+  sharedAttempts     EducationAttempt[]     @relation("SharedAttempts")
   user               User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
   availability       MerchantAvailability[]
   documents          MerchantDocument[]
@@ -129,6 +196,7 @@ model Merchant {
   reviews            Review[]
   services           Service[]
   withdrawals        WithdrawalRequest[]
+  favoredBy          User[]                 @relation("UserFavorites")
 
   @@index([city])
   @@index([isVerified])
@@ -148,6 +216,17 @@ model PlatformSettings {
   officeAddress         String   @default("London, UK")
   twitterUrl            String   @default("https://twitter.com/conciergeai")
   vatRegistration       String   @default("GB123456789")
+}
+
+model MarketTrend {
+  id        String   @id @default(cuid())
+  category  String
+  avgPrice  Float
+  month     Int
+  year      Int
+  updatedAt DateTime @updatedAt
+
+  @@unique([category, month, year])
 }
 
 model PromoCode {
@@ -206,14 +285,15 @@ model MerchantWallet {
 }
 
 model WithdrawalRequest {
-  id         String   @id @default(cuid())
-  merchantId String
-  amount     Float
-  status     String   @default("PENDING")
-  adminNotes String?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  merchant   Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  id               String   @id @default(cuid())
+  merchantId       String
+  amount           Float
+  status           String   @default("PENDING")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  stripeTransferId String?
+  adminNotes       String?  @default("")
+  merchant         Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
 }
 
 model MerchantAvailability {
@@ -245,6 +325,7 @@ model Service {
   emergencyResponseTime        String?
   emergencySurchargePercentage Float         @default(0)
   isEmergencyAble              Boolean       @default(false)
+  isTrial                      Boolean       @default(false)
   bookings                     Booking[]
   merchant                     Merchant      @relation(fields: [merchantId], references: [id], onDelete: Cascade)
 
@@ -277,6 +358,7 @@ model Booking {
   vehicleYear           String?
   vehicleNotes          String?
   isUrgent              Boolean       @default(false)
+  googleMeetLink        String?
   customer              User          @relation(fields: [customerId], references: [id])
   merchant              Merchant      @relation(fields: [merchantId], references: [id])
   service               Service       @relation(fields: [serviceId], references: [id])
@@ -284,6 +366,7 @@ model Booking {
   payment               Payment?
   review                Review?
   variations            Variation[]
+  receipt               Receipt?
 
   @@index([customerId])
   @@index([merchantId])
@@ -367,6 +450,20 @@ model Evidence {
   description  String?
   createdAt    DateTime @default(now())
   dispute      Dispute  @relation(fields: [disputeId], references: [id], onDelete: Cascade)
+}
+
+model Receipt {
+  id               String   @id @default(cuid())
+  bookingId        String   @unique
+  fileUrl          String
+  receiptNumber    String   @unique
+  totalAmount      Float
+  taxAmount        Float    @default(0)
+  createdAt        DateTime @default(now())
+  booking          Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([bookingId])
+  @@index([receiptNumber])
 }
 
 model Referral {
@@ -471,6 +568,7 @@ model AiDiagnosis {
   issue               String
   suggestedFix        String
   estimatedPriceRange String
+  marketComparison    Json?
   confidence          Float
   rawAIResponse       String?
   createdAt           DateTime @default(now())

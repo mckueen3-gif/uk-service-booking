@@ -49,7 +49,7 @@ export async function POST(req: Request) {
           twitterUrl: body.twitterUrl,
           instagramUrl: body.instagramUrl,
           linkedinUrl: body.linkedinUrl,
-          defaultCommissionRate: body.defaultCommissionRate ? parseFloat(body.defaultCommissionRate) : 0.09,
+          defaultCommissionRate: body.defaultCommissionRate ? parseFloat(body.defaultCommissionRate) : 0.10,
         },
       })
     );

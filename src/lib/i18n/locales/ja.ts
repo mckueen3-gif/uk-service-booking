@@ -1,6 +1,90 @@
 import { Dictionary } from "../types";
 
 export const ja: any = {
+  common: {
+    back: "戻る",
+    next: "次へ",
+    save: "保存",
+    saveChanges: "変更を保存",
+    cancel: "キャンセル",
+    confirm: "確認",
+    delete: "削除",
+    edit: "編集",
+    loading: "読み込み中...",
+    noData: "データが見つかりません",
+    search: "検索",
+    filter: "フィルター",
+    sort: "並べ替え",
+    all: "すべて",
+    status: "ステータス",
+    actions: "アクション",
+    view: "表示",
+    details: "詳細",
+    success: "成功",
+    error: "エラー",
+    warning: "警告",
+    info: "情報",
+    elite: "エリート",
+    pro: "プロ",
+    specialist: "スペシャリスト",
+    greetings: {
+      morning: "おはようございます",
+      afternoon: "こんにちは",
+      evening: "こんばんは"
+    },
+    locations: {
+      all: "全英国",
+      london: "ロンドン",
+      manchester: "マンチェスター",
+      birmingham: "バーミンガム",
+      leeds: "リーズ",
+      glasgow: "グラスゴー",
+      camden: "カムデン",
+      united_kingdom: "イギリス"
+    },
+    subjects: {
+      math: "数学",
+      science: "初等科学",
+      physics: "物理学",
+      chemistry: "化学",
+      biology: "生物学",
+      english: "英文学",
+      alevel_math: "A-Level 数学",
+      gcse_math: "GCSE 数学"
+    },
+    modes: {
+      online: "オンライン",
+      hybrid: "ハイブリッド",
+      in_person: "対面"
+    }
+  },
+  sidebar: {
+    labels: {
+      overview: "概要",
+      ai_secretary: "AI秘書",
+      bookings: "予約一覧",
+      messages: "AI秘書メッセージ",
+      schedule: "勤務スケジュール",
+      services: "サービス管理",
+      availability: "空き状況",
+      analytics: "パフォーマンス監査",
+      accounting: "帳簿と税務",
+      promotions: "プロモーション",
+      wallet: "収益ウォレット",
+      garage: "プライベートガレージ",
+      properties: "不動産ポートフォリオ",
+      rewards: "エリートポイント",
+      profile: "プロフィール設定",
+      logout: "ログアウト",
+      equipment: "設備管理"
+    },
+    sections: {
+      main: "メインコントロール",
+      business: "ビジネスノード",
+      assets: "アセットマトリックス",
+      account: "アカウントプロトコル"
+    }
+  },
   nav: {
     browse: "サービスを探す",
     join: "プロとして登録",
@@ -13,11 +97,69 @@ export const ja: any = {
     quickActions: "クイックアクション",
     exploreServices: "サービスを探索",
   },
+  comparison_table: {
+    header_features: "サービス特典",
+    header_others: "標準的な予約プラットフォーム",
+    label_legacy: "標準的なプラットフォーム: ",
+    label_concierge: "ConciergeAI: ",
+    rows: {
+      commission: {
+        title: "プラットフォーム手数料",
+        others: "15% - 30% のサービス料",
+        concierge: "すべての専門業者に対して 10% の一律手数料"
+      },
+      client_calibre: {
+        title: "顧客の質",
+        others: "一般的な一般市場",
+        concierge: "より限定的で高品質な顧客層"
+      },
+      earnings_model: {
+        title: "収益モデル",
+        others: "一回限りの収入のみ",
+        concierge: "紹介収益分配 (5年間) キャッシュバウチャー"
+      },
+      verification: {
+        title: "検証システム",
+        others: "手動 / 低速",
+        concierge: "スマートAI (SMART AI)"
+      },
+      marketing_support: {
+        title: "マーケティング支援",
+        others: "広告費が必要",
+        concierge: "公平なプラットフォーム全体の自動精密マッチング (探索モード)"
+      },
+      communication: {
+        title: "インスタントメッセージ",
+        others: "外部チャネル (WhatsApp/電話) による断片的な管理",
+        concierge: "Nexus専用インスタントチャットハブ (暗号化済み)"
+      },
+      booking_system: {
+        title: "予約システム",
+        others: "手動スケジューリング / 時間の競合",
+        concierge: "完全自動のスケジューリング調整 (スマートスケジューリング)"
+      },
+      toolkit: {
+        title: "技術ツール",
+        others: "基本的なリストのみ",
+        concierge: "組み込みのAI診断と資産管理"
+      },
+      data_sovereignty: {
+        title: "データ主権",
+        others: "プラットフォームがデータを所有・管理",
+        concierge: "分散型プロ用プロフィール (Smart Bio)"
+      },
+      growth: {
+        title: "専門的な成長",
+        others: "トレーニングリソースなし",
+        concierge: "教育チャンネルと専門スキル研修"
+      }
+    }
+  },
   legal: { ui: { selectLanguage: "グローバル接続", close: "プロトコル完了" } },
   landing_pages: {
     plumbing: {
       hero: {
-        badge: "エリートの精度",
+        badge: "高品質な精度",
         title1: "優れたエンジニアリング",
         title2: "配管と動力",
         subtitle:
@@ -56,9 +198,9 @@ export const ja: any = {
       hero: {
         badge: "構造の完全性",
         title1: "ノードを復元",
-        title2: "エリートメンテナンス",
+        title2: "高品質なメンテナンス",
         subtitle:
-          "家具の組み立てから構造の修復まで。英国トップ1%のメンテナンスエキスパートが対応します。",
+          "家具の組み立てから構造の修復まで。英国の厳選された高品質なメンテナンスエキスパートが対応します。",
         searchPlaceholder: "家具組み立て、壁の修理...",
         searchBtn: "連絡を検索",
       },
@@ -92,7 +234,7 @@ export const ja: any = {
         title1: "居住空間を",
         title2: "再設計する",
         subtitle:
-          "英国のエリート改修スペシャリストと共にあなたの物件を変革しましょう。透明なテレメトリと品質保証の結果を提供します。",
+          "英国の厳選された高品質な改修スペシャリストと共にあなたの物件を変革しましょう。透明なテレメトリと品質保証の結果を提供します。",
         searchPlaceholder: "キッチン拡張、ロフト改造...",
         searchBtn: "プロジェクトを開始",
       },
@@ -129,7 +271,7 @@ export const ja: any = {
         title1: "キャピタルレジャー",
         title2: "をマスターする",
         subtitle:
-          "中小企業および専門家のための英国のエリート会計士および財務戦略家。運用のコンプライアンスと税務の最適化を保証します。",
+          "中小企業および専門家のための英国の厳選された高品質な会計士および財務戦略家。運用のコンプライアンスと税務の最適化を保証します。",
         searchPlaceholder: "確定申告、年次決算、給与計算...",
         searchBtn: "監査エキスパート",
       },
@@ -194,7 +336,7 @@ export const ja: any = {
         title1: "環境を",
         title2: "浄化する",
         subtitle:
-          "住宅および商業ノードのためのエリートクリーニングプロトコル。高整合性の除菌と細部への細心の注意。",
+          "住宅および商業ノードのための厳選された高品質なクリーニングプロトコル。高整合性の除菌と細部への細心の注意。",
         searchPlaceholder: "ディープクリーニング、退去時清掃...",
         searchBtn: "専門家を配置",
       },
@@ -282,24 +424,7 @@ export const ja: any = {
       },
     },
   },
-  common: {
-    viewProfile: "プロフィールを見る",
-    reviews: "件のレビュー",
-    hr: "時間",
-    copy: "コピー",
-    copied: "コピー完了!",
-    aiMatchingSub:
-      "AIキャリブレーションされたエキスパートがあなたのプロトコル要件にマッチ。",
-    exploreSub: "{category} セクター内の専門プロトコルを探索。",
-    escrow: {
-      title: "ConciergeAI エスクローにより保護",
-      subtitle:
-        "{category} セクターのすべてのセッションは、AI により品質保証と財務的完全性の監視が行われます。",
-      specialists: "検証済みスペシャリスト",
-      fees: "プラットフォームサービス料金",
-      support: "AI仲裁サポート",
-    },
-  },
+
   hero: {
     title: "最高級のサービス専門家を探す",
     subtitle: "お住まいの地域の認定プロフェッショナルと繋がります。",
@@ -376,7 +501,7 @@ export const ja: any = {
     },
   },
   footer: {
-    tagline: "英国トップクラスの認定専門家と繋がる。",
+    tagline: "英国の厳選された高品質な認定専門家と繋がる。",
     explore: "探す",
     legal: "法的情報",
     support: "サポート",
@@ -390,12 +515,15 @@ export const ja: any = {
     homeCleaning: "ハウスクリーニング",
     plumbingServices: "水道工事・配管",
     automotiveServices: "自動車整備",
+    forPros: "専門家の方へ",
+    merchantRegistration: "専門家として登録",
+    merchantPortal: "エキスパート管理センター",
+    blog: "ブログ",
     trustSignal: "Trustpilot 評価：エクセレント",
-    address: "London, UK",
+    address: "ロンドン、英国",
     phone: "+44 20 1234 5678",
     email: "support@conciergeai.uk",
-    aboutUs:
-      "ConciergeAIは、英国の住宅所有者と、英国トップ1%の認定サービス専門家を繋ぎます。",
+    aboutUs: "ConciergeAIは、英国の住宅所有者と、英国の厳選された高品質な認定サービス専門家を繋ぎます。",
     companyNo: "12345678",
     vatNo: "GB123456789",
     social: {
@@ -432,6 +560,14 @@ export const ja: any = {
     insured: "保険加入済み",
     priceAudit: "AI価格監査：適正",
     defaultDesc: "プロフェッショナル・サービスプロバイダー",
+    recommendations: {
+      title: "スマート推奨",
+      subtitle: "リクエストに最適なマッチ。",
+      topMatch: "最適マッチ",
+      risingStar: "新星",
+      bestValue: "最高の価値",
+      viewProfile: "プロフィールを見る"
+    },
   },
   booking: {
     steps: {
@@ -490,15 +626,34 @@ export const ja: any = {
     contactExpert: "専門家へ連絡",
     noReviews: "レビューなし",
     reply: "返信",
+    expertTitle: "エキスパート端",
     title: "加盟店ダッシュボード",
-      welcome: "おかえりなさい、",
-      previewProfile: "公開プロフィールを確認",
-      manageServices: "サービス管理",
+    welcome: "おかえりなさい、{name}",
+    quick_links_hint: "エリート成長のための戦略的ショートカット。",
+    elite_ai: {
+      title: "エリート AI & ビデオ設定",
+      video_label: "紹介ビデオ (YouTube)",
+      video_placeholder: "https://youtube.com/watch?v=...",
+      knowledge_label: "AI 専門家ナレッジベース",
+      knowledge_placeholder: "あなたの専門知識、サービスのニュアンス、技術基準をここにディープロードしてください。このデータは非公開のまま、専門の AI アシスタントを駆動して技術的な見込み客を正確に処理します。",
+      save_button: "専門家プロフィールを調整"
+    },
+    pricing: {
+      title: "AI 価格パルス",
+      status: "価格設定の健全性",
+      optimal: "最適",
+      message: "市場調整済みの料金を検出しました。現在のレートは高信頼性のエリートベンチマークと一致しています。",
+      trend: "市場均衡"
+    },
+    previewProfile: "公開プロフィールを確認",
+    manageServices: "サービス管理",
       stats: {
         totalBookings: "総予約数",
         rating: "現在の評価",
-        pendingBalance: "保留中の残高",
-        availableBalance: "引き出し可能額",
+        noPendingBalance: "保留中の残高なし",
+        noAvailableBalance: "利用可能な残高なし",
+        merchantNotFound: "マーチャントライセンスが見つかりません：プロフィールが確認されているかご確認ください。",
+        notAuthorized: "認証失敗：このリソースにアクセスする権限がありません。",
         totalJobs: "総タスク完了数",
         escrowHeld: "エスクロー保持中",
         availableNow: "即時利用可能",
@@ -576,7 +731,7 @@ export const ja: any = {
       tips: {
         title: "成長のヒント",
         growth:
-          "高品質なサービスを維持して、エリートとしての露出度と安定した依頼獲得を目指しましょう。",
+          "高品質なサービスを維持して、高品質なプロとしての露出度と安定した依頼獲得を目指しましょう。",
       },
       quickLinks: {
         title: "クイックリンク",
@@ -651,11 +806,11 @@ export const ja: any = {
   },
   education_sec: {
     hero: {
-      badge: "英国のエリート講師",
+      badge: "英国の厳選された高品質な講師",
       title1: "新しいスキルを",
       title2: "プロから学ぶ",
       subtitle:
-        "学業、語学、専門スキルのエリート講師と繋がる。あなたの成功のためのパーソナライズされた学習。",
+        "学業、語学、専門スキルの高品質な講師と繋がる。あなたの成功のためのパーソナライズされた学習。",
       searchPlaceholder: "何を学びたいですか？",
       searchBtn: "講師を探す",
     },
@@ -685,7 +840,7 @@ export const ja: any = {
           desc: "Portfolio, Piano, Design, Fine Arts",
         },
         finance: {
-          title: "Elite Certifications",
+          title: "高度な認定資格",
           desc: "CFA, ACCA, PMP, Professional Certs",
         },
         career: {
@@ -722,11 +877,6 @@ export const ja: any = {
       foundCount: "{{count}}名の講師が見つかりました",
       placeholder: "科目名や名前で検索",
     },
-    common: {
-      reviews: "件のレビュー",
-      hr: "時間",
-      bookTrial: "体験レッスンを予約",
-    },
     tutorCard: {
       demoDesc:
         "10年以上の経験を持つ情熱的な博士号取得講師。100人以上の生徒の目標達成をサポートしてきました。",
@@ -762,6 +912,12 @@ export const ja: any = {
         "講師に診断データが共有されました。これに基づいてカリキュラムを作成します！",
       bookFirstLesson: "初回レッスンを予約",
       tryAgain: "もう一度挑戦",
+      feeDisclosure: "ConciergeAIは安全な予約を提供します。プラットフォーム外での直接支払いは、100％満足保証の対象外となります。",
+      authPanel: {
+        title: "メンバー限定機能",
+        desc: "AI駆動の教育診断を最大限に活用するために、エリートメンバーネットワークにご参加ください。",
+        dismiss: "後で"
+      }
     },
     visitDashboard: "教育ハブを探索する",
   },
@@ -771,7 +927,7 @@ export const ja: any = {
       title1: "最高評価の",
       title2: "地元専門家を予約",
       subtitle:
-        "英国トップ1%の専門家に即時アクセス。全員が認定・保険加入済みで、AIによる品質管理が行われています。",
+        "英国の厳選された高品質な専門家に即時アクセス。全員が認定・保険加入済みで、AIによる品質管理が行われています。",
       searchPlaceholder: "必要なサービス...",
       locationPlaceholder: "ロンドン, 英国",
       aiMatch: "スマートマッチ",
@@ -1052,60 +1208,7 @@ export const ja: any = {
       findSpecialist: "今すぐ専門家に相談する",
     },
   },
-  onboarding: {
-    hero: {
-      title: "ConciergeAI でビジネスを拡大",
-      subtitle: "英国の一流認定専門家ネットワークに参加しましょう。",
-    },
-    steps: {
-      profile: "事業プロフィール",
-      credentials: "資格・認定",
-      contract: "サービス契約",
-    },
-    sectors: {
-      title: "専門分野を選択",
-      professional: {
-        title: "専門サービス",
-        desc: "会計、法律、コンサル",
-        industries: ["会計士", "税務専門", "法務", "戦略顧問"],
-      },
-      education: {
-        title: "教育プロジェクト",
-        desc: "講師、コーチ",
-        industries: ["講師", "語学コーチ", "スキル指導", "音楽講師"],
-      },
-      technical: {
-        title: "技術サービス",
-        desc: "職人、保守、エンジニアリング",
-        industries: ["水道屋", "電気技師", "メカニック", "リフォーム業者"],
-      },
-    },
-    contract: {
-      title: "標準サービス契約",
-      scrollingNotice: "規約に同意するには最後までスクロールしてください。",
-      agree: "ConciergeAI 基本契約を読み、同意しました。",
-      clauses: {
-        platform_fee: {
-          title: "1. サービス手数料",
-          body: "正常に完了したタスクに対し、9% の手数料が発生します。",
-        },
-        payments: {
-          title: "2. エスクローと決済",
-          body: "料金は安全なエスクローで保管されます。完了確定から48時間以内に資金がリリースされます。",
-        },
-        conduct: {
-          title: "3. プロとしての基準",
-          body: "平均評価 4.0 以上を維持してください。安全基準を満たさない場合、アカウント停止の対象となります。",
-        },
-      },
-    },
-    buttons: {
-      start: "今すぐ開始",
-      next: "次へ",
-      back: "戻る",
-      submit: "登録を完了",
-    },
-  },
+
   admin: {
     sidebar: {
       overview: "概要",
@@ -1240,6 +1343,48 @@ export const ja: any = {
       error: "プロトコルエラー",
     },
   },
+  merchant_public: {
+    verified_expert: "認証済みエキスパート",
+    reviews_count: "{count}件のレビュー",
+    member_since: "{year}年からのメンバー",
+    tabs: {
+      about: "概要",
+      services: "サービス",
+      reviews: "レビュー",
+      company: "会社情報"
+    },
+    about_title: "加盟店について",
+    about_fallback: "高品質な成果に献身的な専門サービスプロバイダー。豊富な経験と専門的な認証により、すべてのクライアントに最高レベルの満足を保証します。",
+    services_title: "サービス項目",
+    services_provided: "提供サービス",
+    your_search: "検索ワード",
+    customer_reviews: "カスタマーレビュー ({count})",
+    write_review: "レビューを書く",
+    review_summary_title: "AI分析サマリー",
+    review_summary_content: "顧客は一貫して仕事の高い品質と効率を賞賛しており、優れたコミュニケーション、時間の厳守、作業後の丁寧な清掃を高く評価しています。",
+    review_summary_note: "✦ カスタマーレビューからAIが生成。ConciergeAIはサマリー内容に責任を負いません。",
+    no_reviews: "レビューはまだありません",
+    consultation_title: "相談・予約",
+    book_now: "今すぐ予約",
+    send_message: "メッセージを送る",
+    call_now: "直接電話する ({phone})",
+    platform_tip: "セキュリティのヒント：安全と100%満足保証のため、ConciergeAI内部チャットでの連絡を必須としています。",
+    owner: "オーナー",
+    operates_in: "対応エリア",
+    nationwide: "全国対応",
+    business_type: "業種",
+    vat_registered: "VAT登録",
+    insurance: "保険",
+    insured_amount: "£{amount} 保険加入済み",
+    not_provided: "詳細はお問い合わせください",
+    yes: "はい",
+    no: "いいえ",
+    nearby: "および周辺地域",
+    quality: "仕事の質",
+    reliability: "信頼性",
+    communication: "コミュニケーション",
+    review_overview: "過去12ヶ月のレビューに基づく"
+  },
   auth: {
     login: {
       title: "アカウントにログイン",
@@ -1274,6 +1419,13 @@ export const ja: any = {
       loading: "処理中...",
       or: "または",
       google: "Googleで登録",
+      postcode_invalid: "無効な英国郵便番号です。もう一度お試しください。",
+      network_error: "ネットワークエラー。住所を手動で入力してください。",
+      phone_placeholder: "+44 7... (英国携帯電話)",
+      district_placeholder: "例：Camden",
+      city_placeholder: "例：ロンドン",
+      country_placeholder: "例：イギリス",
+      referral_placeholder: "例：ALPHA-99",
       navToLogin: "すでにアカウントをお持ちですか？",
       signIn: "ここからログイン",
       roles: { customer: "顧客", merchant: "専門家" },
@@ -1320,4 +1472,341 @@ export const ja: any = {
       initializing: "システムを初期化中...",
     },
   },
+
+  onboarding: {
+    hero: {
+      title: "ConciergeAI でビジネスを拡大",
+      subtitle: "英国最高の認定専門家ネットワークに参加しましょう。",
+      badge: "ConciergeAI エリートエキスパート",
+      stats: {
+        active_pros: "アクティブな専門家",
+        commission: "プラットフォーム手数料",
+        rating: "エキスパート評価"
+      }
+    },
+    sector_selection_title: "専門分野を選択",
+    sector_selection_subtitle: "あなたのプロフェッショナルなポートフォリオに最も適したドメインを選択してください",
+    profile_form: {
+      form_title: "プロフェッショナルプロフィール",
+      form_subtitle: "この情報は、公開スペシャリストプロフィールに表示されます。",
+      business_name: "屋号 / 取引名",
+      business_name_placeholder: "例：Smith & Partners LLP",
+      bio_label: "プロフェッショナル概要",
+      bio_placeholder: "あなたの専門知識、経験、サービスの独自性を説明してください...",
+      bio_optimize: "AI 最適化",
+      website_label: "ウェブサイト / ポートフォリオ",
+      ai_autofill: "AI 自動入力",
+      email_placeholder: "contact@yourbusiness.com",
+      phone_placeholder: "+44 7XXX XXXXXX",
+      password_label: "ログインパスワード設定",
+      password_placeholder: "6文字以上",
+      city_label: "サービス提供エリア",
+      city_placeholder: "主要サービスエリアを選択",
+      nationwide: "全英対応",
+      major_cities: "主要都市",
+      avatar_placeholder: "写真をアップロード",
+      banner_label: "カバーバナー",
+      banner_placeholder: "クリックしてプロフェッショナルなバナー画像をアップロード",
+      credentials_label: "公的資格・認定",
+      credentials_required: "必須",
+      credentials_hint_technical: "技術専門職の場合、Gas Safe / NICEIC / CHAS 認定が必須です。",
+      credentials_hint_standard: "ライセンス、認定証、または資格書類をアップロードしてください。",
+      ai_verifying: "AI がリアルタイムで書類を検証中...",
+      ai_verified_success: "AI 検証済み",
+      ai_verified_failed: "AI 却下",
+      manual_review: "手動審査が必要",
+      insurance_label: "公共責任保険 (PL保険)",
+      insurance_1m: "£1,000,000 補償",
+      insurance_2m: "£2,000,000 補償",
+      insurance_5m: "£5,000,000 補償",
+      insurance_10m: "£10,000,000 補償",
+      insurance_none: "現在未加入",
+      insurance_hint: "推奨：クライアント保護のため、最小 £1M の補償。",
+      promo_placeholder: "例：ELITE または FREE10",
+      promo_active: "コード適用済み！",
+      issuing_body: "発行機関"
+    },
+    validation: {
+      select_sector: "続行するには専門分野を選択してください。",
+      fill_required: "続行する前にすべての必須項目を入力してください。",
+      bio_short: "プロフェッショナル概要は20文字以上である必要があります。",
+      business_name_required: "屋号または取引名を入力してください。",
+      email_required: "有効なメールアドレスを入力してください。",
+      phone_required: "連絡先電話番号を入力してください。",
+      city_required: "サービス提供エリアを選択してください。",
+      file_size_error: "ファイルサイズは 5MB 未満である必要があります。",
+      ai_fallback: "AI検証が利用できません。手動審査のためにフラグが立てられました。",
+      password_short: "パスワードは6文字以上である必要があります。",
+      website_required: "まずウェブサイトのURLを入力してください。",
+      ai_fetch_error: "AIが情報を取得できませんでした。手動で入力してください。",
+      bio_regen_error_missing: "屋号と少なくとも1つのカテゴリーが入力されていることを確認してください。",
+      ai_bio_error: "AIが自己紹介文を生成できませんでした。",
+      unexpected_error: "予期しないエラーが発生しました。もう一度お試しください。"
+    },
+    ai_assistant: {
+      title: "AI 技能スマート識別",
+      map_title: "AI 技能スマート識別",
+      map_description: "あなたの技術、経験、提供サービスを説明してください。AI が当社のグローバルサービスカタログに自動的にマッピングします。",
+      map_placeholder: "例：ガス安全点検、ボイラー修理を担当し、空気熱源ヒートポンプの設置も行います...",
+      map_button: "技能を AI 自動マッピング",
+      map_processing: "専門分野を AI 分析中...",
+      matched_count: "識別された技能",
+      matched_error: "続行するには少なくとも 1 つの技能を選択してください。",
+      manual: "または手動で参照して選択",
+      search: "特定の技能を検索...",
+    },
+    preview: {
+      preview_label: "ライブプレビュー",
+      live_preview: "プロフィールプレビュー",
+      sector_placeholder: "分野未定",
+      business_name_placeholder: "あなたのビジネスまたは専門家名",
+      bio_placeholder: "プロフェッショナル概要がここに表示されます。これにより、クライアントはあなたの専門知識と価値観を理解できます...",
+      location_suffix: "イギリス",
+      insurance_suffix: "公共責任保険加入",
+      booking_button: "今すぐ予約",
+      ai_cert_hint: "AI が専門資格を即時に検証しました",
+      credentials_hint: "書類のアップロードに成功しました。最終確認待ちです",
+      commission_technical: "技術分野：完全な支払い処理、予約、紛争保護（10% プラットフォーム手数料）",
+      commission_education: "教育・家庭教師：高価値の生徒とのマッチングと安全な料金決済",
+      commission_standard: "プロフェッショナルサービス：安全な支払い処理と認定スペシャリストステータス",
+    },
+    success: {
+      title: "申し込みが送信されました！",
+      subtitle: "当チームがあなたの資格を確認し、まもなくエキスパートプロフィールを有効化します。",
+      next_steps: "次のステップ",
+      step_review: "プロフィール審査 (1〜2営業日)",
+      coming_soon: "ダッシュボード準備中",
+      enter_dashboard: "エキスパートダッシュボードに入る",
+      ai_tax_title: "AI 税務アシスタント",
+      ai_tax_desc: "HMRC コンプライアンスと VAT 申告の自動化 — すべての登録エキスパート向けに近日公開予定。",
+    },
+    steps: {
+      profile: "ビジネスプロフィール",
+      credentials: "資格・認定証",
+      contract: "サービス契約",
+    },
+    sectors: {
+      title: "専門分野を選択",
+      professional: {
+        title: "プロフェッショナルサービス",
+        desc: "公認会計士、法律顧問、戦略的企業コンサルタントに最適",
+        industries: ["税務・会計", "企業法務", "ビジネスコンサルティング", "財務計画", "マーケティング戦略", "人事"],
+      },
+      education: {
+        title: "学術・家庭教師",
+        desc: "受験講師、語学コーチ、スキルアップエキスパートに最適",
+        industries: ["数学", "科学", "物理", "化学", "生物", "英語", "A-Level 数学", "GCSE 数学", "その他"],
+      },
+      technical: {
+        title: "技術・職人サービス",
+        desc: "熟練の職人、家メンテナンス業者、エンジニアに最適",
+        industries: ["配管・水道", "電気技術", "ボイラー・暖房", "家電修理", "内装工事", "屋根修理"],
+      },
+    },
+  },
+
+  merchant_dashboard: {
+    title: "エキスパート管理パネル",
+    expertTitle: "Elite エキスパート体系",
+    welcome: "おかえりなさい、{name}",
+    quick_links_hint: "ツールボックスを迅速に起動",
+    elite_ai: {
+      title: "最先端 AI と動画設定",
+      video_label: "紹介動画 (YouTube URL)",
+      knowledge_label: "AI 専門家ナレッジベース",
+      knowledge_placeholder: "専門知識、提供サービスの詳細、技術基準をここにディープロードしてください。このデータは非公開のまま、技術的な相談に正確に対応する専用 AI アシスタントを駆動します。",
+      save_button: "専門家プロフィールの校正"
+    },
+    pricing: {
+      title: "AI 価格設定パルス",
+      status: "価格設定の健全性",
+      optimal: "最適",
+      message: "市場に合わせて調整された料金が検出されました。現在の価格設定は高信頼性のトップベンチマークに一致しています。",
+      trend: "市場平衡点",
+      baseRate: "基本自給設定 (£)",
+      trial: "30分間の無料相談/トライアルを有効化",
+      trialPrice: "トライアル特別価格 (£)",
+      feeNote: "* この基準額に、10% のプラットフォーム手数料が自動的に加算されます。"
+    },
+    stats: {
+      totalBookings: "総予約数",
+      rating: "信頼評価",
+      availableBalance: "利用可能な残高",
+      pendingBalance: "決済待ち残高",
+      availableNow: "現在利用可能",
+      totalJobs: "完了済みプロジェクト",
+      escrowHeld: "エスクロー保持中",
+      reviews: "クライアントの証言"
+    },
+    bookings: {
+      title: "最近の予約タスク",
+      viewAll: "すべて見る",
+      empty: "保留中のタスクはありません"
+    },
+    quick_links: {
+      title: "エリート操作キー",
+      hint: "専門的な成長を促進する戦略的ショートカット"
+    },
+    tools: {
+      title: "最新の利用可能アイテム",
+      subtitle: "エキスパート向け厳選成長ツール（すべて無料）",
+      diagnosis: {
+        name: "AI インテリジェント診断",
+        desc: "視覚的な損傷評価とリード獲得誘導システム",
+        badge: "無料"
+      },
+      whatsapp: {
+        name: "WhatsApp リアルタイム連携",
+        desc: "新規オーダーや顧客の問い合わせを即時に通知",
+        badge: "無料"
+      },
+      seo: {
+        name: "SEO プロフィール最適化",
+        desc: "Google 検索順位の向上とメタタグの最適化",
+        badge: "無料"
+      },
+      video: {
+        name: "エリート AI 動画設定",
+        desc: "プロフェッショナルな動画導入と AI ナレッジの同期",
+        badge: "無料"
+      },
+      ad_copy: {
+        name: "AI 広告コピー生成",
+        desc: "高転換率のソーシャルメディアと広告スローガンを自動生成",
+        badge: "無料"
+      },
+      launch: "今すぐ起動"
+    }
+  },
+  member_dashboard: {
+    hero: {
+      location: "イギリス",
+      helpTitle: "今日は {location} で何かお手伝いできることはありますか？",
+      aiAssistant: "AI 生活コンシェルジュ",
+      placeholder: "{model} にイギリス生活について何でも聞いてください... (Enter で送信)",
+      thinking: "考え中...",
+      clearChat: "チャットをクリア",
+      send: "送信",
+      errors: {
+        format: "レスポンス形式エラー",
+        unknown: "不明なエラーが発生しました。後でもう一度お試しください。",
+        network: "ネットワーク接続に失敗しました。接続を確認してやり直してください。"
+      },
+      prompts: {
+        travel: "今日の最適な移動ルートは？",
+        dining: "近くのおすすめレストラン",
+        study: "学習に AI を活用する方法は？"
+      }
+    },
+    quick_actions: {
+      findExpert: "専門家を探す",
+      chat: "Nexus安全チャット",
+      diagnosis: "AIインテリジェント診断",
+      equipment: "資産・備品管理",
+      history: "履歴記録"
+    },
+    study_hub: {
+      title: "AI インテリジェント学習センター",
+      quota: "今日の残り回数: {remaining} / {limit}",
+      intro: "授業ノートや試験写真のアップロード、またはテーマを入力することで、AIがパーソナライズされた練習問題を生成し、弱点を診断します。",
+      tabs: {
+        text: "テキスト入力",
+        photo: "画像認識"
+      },
+      placeholders: {
+        text: "学習または翻訳したいテキストを貼り付けてください...",
+        analyze: "內容を解析",
+        selectTutor: "講師を選択してください..."
+      },
+      generating: {
+        title: "AI が内容を分析し、問題を生成しています...",
+        sub: "これには 10 〜 15 秒ほどかかります。少々お待ちください"
+      },
+      quiz: {
+        complete: "クイズを完了して AI 診断を表示",
+        finish: "クイズ完了！",
+        report: "AI 学習診断レポート",
+        back: "学習センターに戻る",
+        share: "講師に共有する"
+      },
+      share: {
+        title: "講師に共有",
+        desc: "AI 診断レポートを共有する講師を選択し、次回のレッスン計画に役立ててください：",
+        success: "共有が成功しました！",
+        successDesc: "講師は管理画面であなたの診断レポートを確認できるようになりました。",
+        confirm: "共有を確認",
+        cancel: "キャンセル"
+      }
+    },
+    bookings: {
+      title: "最近の予約",
+      recentCount: "最近の {count} 件",
+      viewAll: "すべて見る",
+      empty: "予約履歴はありません",
+      bookNow: "今すぐサービスを予約",
+      status: {
+        pending: "確認待ち",
+        confirmed: "確定済み",
+        completed: "完了",
+        cancelled: "キャンセル済み",
+        disputed: "紛争中"
+      },
+      joinClass: "教室に入る"
+    },
+    feed: {
+      title: "今日のおすすめ",
+      subtitle: "トップエキスパート · 毎日厳選",
+      all: "すべて",
+      loading: "おすすめの専門家を読み込み中...",
+      tips: {
+        plumbing: "💧 寒くなってきました。水道管の凍結防止対策を忘れずに！",
+        education: "📚 家庭教師を予約して、次学期の準備を始めましょう！",
+        legal: "⚖️ 賃貸契約の更新時期ですか？弁護士に相談して権利を守りましょう。",
+        accounting: "🧾 個人事業主の確定申告期限が近づいています。",
+        cleaning: "✨ 季節の変わり目の大掃除で、お家をリフレッシュしましょう！",
+        repairs: "🔧 冬の前に電化製品の安全点検を行う絶好の機会です。",
+        renovation: "🏠 年末までにリフォームを済ませて、新年を迎えましょう！",
+        commercial: "💼 第4四半期の財務計画について、ビジネスアドバイザーにご相談ください。",
+        default: "今すぐ予約して、プレミアムなサービス体験を。"
+      }
+    }
+  },
+  nexus_chat: {
+    title: "Nexusセキュアメッセージング",
+    subtitle: "高度に暗号化された、専門的なコンサルテーションチャネル",
+    secureBanner: "エンドツーエンド暗号化セッションが確立されました",
+    verifiedExpert: "認証済みNexusスペシャリスト",
+    shareDiagnosis: "AI診断レポートを共有",
+    bookExpert: "スペシャリストを即時予約",
+    securityDesc: "この会話はNexusプロトコル暗号化によって保護されています。"
+  },
+  equipment_mgmt: {
+    title: "資産管理コントロールパネル",
+    subtitle: "大切な資産のためのAI駆動型ライフサイクル管理",
+    addBtn: "新規資産を登録",
+    propertyTab: "物件管理",
+    vehicleTab: "車両管理",
+    noAssets: "登録済みの資産はまだありません。",
+    lastService: "最終点検日",
+    nextService: "次回メンテナンス予定",
+    healthScore: "AI健康ステータス",
+    diagnoseBtn: "AIスキャンを開始",
+    details: "資産詳細仕様",
+    tabs: {
+      overview: "ダッシュボード",
+      maintenance: "メンテナンス履歴",
+      diagnosis: "AI診断"
+    },
+    types: {
+      house: "居住用物件",
+      commercial: "商業ユニット",
+      car: "乗用車",
+      van: "商用バン"
+    }
+  },
+  metadata: {
+    title: "ConciergeAI | イギリスのトップスペシャリスト・講師を予約",
+    description: "イギリスのトップクラスの認定専門家と講師がつながるプレミアネットワーク。"
+  }
 };
+

@@ -6,7 +6,7 @@ import { Booking } from '@prisma/client';
 /**
  * Calculates the platform commission based on the merchant's settings.
  */
-export async function calculateCommission(merchantId: string, amount: number) {
+export async function calculateCommission(merchantId: string, amount: number, customerId?: string) {
   const merchant = await prisma.merchant.findUnique({
     where: { id: merchantId },
     select: { 
@@ -15,16 +15,26 @@ export async function calculateCommission(merchantId: string, amount: number) {
     }
   });
 
-  if (!merchant) return { platformFee: 0, merchantPayout: amount, rate: 0 };
+  if (!merchant) return { platformFee: 0, merchantPayout: amount, rate: 0.10, referralDividend: 0, referrerId: null };
 
-  const rate = getCommissionRate(merchant);
-  const platformFee = amount * rate;
-  const merchantPayout = amount - platformFee;
+  const { calculateCommissionSplit } = await import('./commission');
+  
+  let split;
+  if (customerId) {
+    split = await calculateCommissionSplit(customerId, amount);
+  } else {
+    // Fallback if customerId not provided (e.g. general quoting)
+    split = { platformFee: amount * 0.10, referralDividend: 0, referrerId: null };
+  }
+
+  const merchantPayout = amount - (split.platformFee + split.referralDividend);
 
   return { 
-    platformFee, 
+    platformFee: split.platformFee, 
     merchantPayout, 
-    rate: rate * 100 // as percentage
+    referralDividend: split.referralDividend,
+    referrerId: split.referrerId,
+    rate: 0.10 // Base rate for UI display if needed
   };
 }
 
@@ -32,8 +42,22 @@ export async function calculateCommission(merchantId: string, amount: number) {
  * Updates the merchant wallet with new earnings (e.g. at booking creation or variation approval).
  * For variations, isPending is typically true until the entire job is completed.
  */
-export async function updateMerchantWallet(merchantId: string, amount: number, isPending: boolean = false) {
-  const { merchantPayout } = await calculateCommission(merchantId, amount);
+export async function updateMerchantWallet(merchantId: string, amount: number, isPending: boolean = false, customerId?: string) {
+  const { merchantPayout, referralDividend, referrerId } = await calculateCommission(merchantId, amount, customerId);
+
+  // If there's a referral dividend, credit the referrer immediately or track it
+  if (referralDividend > 0 && referrerId) {
+    await prisma.user.update({
+      where: { id: referrerId },
+      data: { referralCredits: { increment: referralDividend } as any }
+    });
+    
+    // Also update the referral record for history
+    await prisma.referral.update({
+      where: { refereeId: customerId! },
+      data: { earnedFromReferee: { increment: referralDividend } as any }
+    });
+  }
 
   return await prisma.merchantWallet.upsert({
     where: { merchantId },
@@ -91,11 +115,11 @@ export async function completeBookingFunds(booking: Booking & { isEducation?: bo
   // Fund Movement for Repairs:
   // 1. Net Deposit (commission applied) is in Pending.
   // 2. Net Balance (commission applied) is in Authorized.
-  const { merchantPayout: netDeposit } = await calculateCommission(booking.merchantId, booking.depositPaid);
-  const { merchantPayout: netBalance } = await calculateCommission(booking.merchantId, booking.balanceAmount || 0);
+  const { merchantPayout: netDeposit } = await calculateCommission(booking.merchantId, booking.depositPaid, booking.customerId);
+  const { merchantPayout: netBalance } = await calculateCommission(booking.merchantId, booking.balanceAmount || 0, booking.customerId);
 
   // Perform Atomic Wallet Update
-  return await prisma.merchantWallet.update({
+  const update = await prisma.merchantWallet.update({
     where: { merchantId: booking.merchantId },
     data: {
       pendingBalance: { decrement: netDeposit } as any,
@@ -104,14 +128,33 @@ export async function completeBookingFunds(booking: Booking & { isEducation?: bo
       totalEarned: { increment: netBalance } as any
     }
   });
+
+  // 🚀 AUTOMATED RECEIPT GENERATION
+  const { generateAndSaveReceipt } = await import('@/app/actions/receipts');
+  await generateAndSaveReceipt(booking.id);
+
+  return update;
 }
 
 /**
  * Standardized logic for recording the first payment (deposit) when a booking is created.
  * Ensures the merchant's pending balance is correctly credited.
  */
-export async function recordInitialBookingPayment(merchantId: string, depositAmount: number) {
-  const { merchantPayout, platformFee } = await calculateCommission(merchantId, depositAmount);
+export async function recordInitialBookingPayment(merchantId: string, depositAmount: number, customerId?: string) {
+  const { merchantPayout, platformFee, referralDividend, referrerId } = await calculateCommission(merchantId, depositAmount, customerId);
+
+  // Handle Dividends
+  if (referralDividend > 0 && referrerId) {
+    await prisma.user.update({
+      where: { id: referrerId },
+      data: { referralCredits: { increment: referralDividend } as any }
+    });
+    
+    await prisma.referral.update({
+      where: { refereeId: customerId! },
+      data: { earnedFromReferee: { increment: referralDividend } as any }
+    });
+  }
 
   await prisma.merchantWallet.upsert({
     where: { merchantId },
@@ -126,5 +169,5 @@ export async function recordInitialBookingPayment(merchantId: string, depositAmo
     }
   });
 
-  return { merchantPayout, platformFee };
+  return { merchantPayout, platformFee, referralDividend };
 }

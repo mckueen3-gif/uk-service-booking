@@ -6,7 +6,10 @@ import {
   User as UserIcon, MessageSquare, 
   Loader2, Check, CheckCheck, 
   ChevronLeft, MoreVertical, Phone,
-  Paperclip
+  Paperclip,
+  ShieldCheck,
+  Lock,
+  ArrowUpRight
 } from 'lucide-react';
 import { getMessages, sendMessage, getConversations } from "@/app/actions/chat";
 import { useSearchParams } from "next/navigation";
@@ -206,7 +209,10 @@ export default function ChatInterface({ initialConversationId }: ChatProps) {
       {/* Sidebar: Chat List */}
       <div style={{ width: '320px', borderRight: '1.5px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
         <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--border-color)' }}>
-           <h2 style={{ fontSize: '1.25rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '1rem' }}>{t?.merchant_messages?.title || "Messages"}</h2>
+           <h2 style={{ fontSize: '1.25rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+             <ShieldCheck size={24} color="#facc15" />
+             {t.nexus_chat?.title || "Nexus Secure"}
+           </h2>
            <div style={{ position: 'relative' }}>
               <Search style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }} size={16} />
               <input 
@@ -260,13 +266,14 @@ export default function ChatInterface({ initialConversationId }: ChatProps) {
                     <UserIcon size={18} />
                   </div>
                   <div>
-                    <div style={{ fontWeight: 800, color: 'var(--text-primary)' }}>
+                    <div style={{ fontWeight: 800, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '6px' }}>
                       {userId === activeConvo?.customerId 
                         ? (activeConvo?.merchant?.companyName || activeConvo?.merchant?.user?.name || t?.merchant_messages?.targetName || "Merchant")
                         : (activeConvo?.customer?.name || t?.merchant_messages?.targetName || "Connecting...")}
+                      {userId === activeConvo?.customerId && <span title={t.nexus_chat?.verifiedExpert}><ShieldCheck size={14} color="#facc15" /></span>}
                     </div>
-                    <div style={{ fontSize: '0.7rem', color: '#facc15', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                       <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#facc15' }}></div> {t?.common?.online || "Online"}
+                    <div style={{ fontSize: '0.7rem', color: '#10b981', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                       <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10b981' }}></div> {t?.common?.online || "Online"}
                     </div>
                   </div>
                </div>
@@ -277,6 +284,13 @@ export default function ChatInterface({ initialConversationId }: ChatProps) {
             </div>
 
             {/* Content */}
+            <div style={{ padding: '8px 1.5rem', backgroundColor: 'rgba(250, 204, 21, 0.05)', borderBottom: '1px solid rgba(250, 204, 21, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+              <Lock size={12} color="#facc15" />
+              <span style={{ fontSize: '0.7rem', fontWeight: 600, color: 'var(--text-secondary)', letterSpacing: '0.02em' }}>
+                {t.nexus_chat?.secureBanner || "End-to-End Encrypted Session Established"}
+              </span>
+            </div>
+            
             <div ref={scrollRef} style={{ flex: 1, overflowY: 'auto', padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                {(messages || []).map(m => (
                  <div key={m?.id} style={{ alignSelf: m?.senderId === userId ? 'flex-end' : 'flex-start', maxWidth: '70%' }}>

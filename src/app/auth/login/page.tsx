@@ -7,12 +7,15 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Mail, Lock, LogIn, AlertCircle, CheckCircle2 } from 'lucide-react';
 import '../auth.css';
 import { useTranslation } from '@/components/LanguageContext';
+import { useSession } from 'next-auth/react';
 
 function LoginForm() {
   const router = useRouter();
+  const { status } = useSession();
   const searchParams = useSearchParams();
   const isRegistered = searchParams.get('registered');
-  const callbackUrl = searchParams.get('callbackUrl') || '/';
+  const callbackUrl = searchParams.get('callbackUrl') || '/member/home';
+
   
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -20,8 +23,11 @@ function LoginForm() {
   const { t } = useTranslation();
 
   useEffect(() => {
+    if (status === 'authenticated') {
+      router.replace(callbackUrl);
+    }
     setTimeout(() => setRevealed(true), 100);
-  }, []);
+  }, [status, router, callbackUrl]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -52,9 +58,9 @@ function LoginForm() {
     <div className="auth-page-wrapper">
       <div className="auth-card">
         <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-          <h1 className="hero-title" style={{ fontSize: '2.5rem', marginBottom: '0.75rem', display: 'block' }}>{t?.auth?.login?.title || "Initialize Session"}</h1>
+          <h1 className="hero-title" style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>{t?.auth?.login?.title || "Welcome Back"}</h1>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
-            {t?.auth?.login?.subtitle || "Enter your credentials to access the mesh."}
+            {t?.auth?.login?.subtitle || "Enter your credentials to access the platform."}
           </p>
         </div>
         
@@ -74,7 +80,7 @@ function LoginForm() {
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
           <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '100ms' }}>
-            <label>{t?.auth?.login?.emailLabel || "Email Vector"}</label>
+            <label>{t?.auth?.login?.emailLabel || "Email Address"}</label>
             <div className="input-wrapper">
               <Mail className="input-icon" size={18} />
               <input type="email" name="email" className="premium-input" placeholder={t?.auth?.login?.emailPlaceholder || "your@email.com"} required disabled={loading} />
@@ -84,7 +90,7 @@ function LoginForm() {
           <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '150ms' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
               <label style={{ marginBottom: 0 }}>{t?.auth?.login?.passwordLabel || "Security Key"}</label>
-              <Link href="/auth/forgot-password" style={{ fontSize: '0.85rem', color: 'var(--accent-color)', fontWeight: 600 }}>{t?.auth?.login?.forgotPassword || "Reset Key"}</Link>
+              <Link href="/auth/forgot-password" style={{ fontSize: '0.85rem', color: 'var(--accent-color)', fontWeight: 600 }}>{t?.auth?.login?.forgotPassword || "Forgot Password?"}</Link>
             </div>
             <div className="input-wrapper">
               <Lock className="input-icon" size={18} />
@@ -98,7 +104,7 @@ function LoginForm() {
             disabled={loading} 
             style={{ width: '100%', padding: '1rem', marginTop: '0.5rem', animationDelay: '200ms' }}
           >
-            {loading ? (t?.auth?.login?.loading || "Verifying...") : (t?.auth?.login?.submit || "Enter Interface")}
+            {loading ? (t?.auth?.login?.loading || "Verifying...") : (t?.auth?.login?.submit || "Log In")}
             <LogIn size={20} />
           </button>
         </form>
@@ -122,7 +128,7 @@ function LoginForm() {
         </button>
         
         <div style={{ textAlign: 'center', fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '2rem' }}>
-          {t?.auth?.login?.navToRegister || "New to the platform?"} <Link href="/auth/register" style={{ color: 'var(--accent-color)', fontWeight: 800 }}>{t?.auth?.login?.createAccount || "Create Node"}</Link>
+          {t?.auth?.login?.navToRegister || "New to the platform?"} <Link href="/auth/register" style={{ color: 'var(--accent-color)', fontWeight: 800 }}>{t?.auth?.login?.createAccount || "Sign Up"}</Link>
         </div>
       </div>
     </div>
@@ -132,7 +138,7 @@ function LoginForm() {
 export default function LoginPage() {
   const { t } = useTranslation();
   return (
-    <Suspense fallback={<div className="auth-page-wrapper"><div className="auth-card" style={{ textAlign: 'center' }}>{t?.auth?.loading?.preparing || "Calibrating interface..."}</div></div>}>
+    <Suspense fallback={<div className="auth-page-wrapper"><div className="auth-card" style={{ textAlign: 'center' }}>{t?.auth?.loading?.preparing || "Preparing interface..."}</div></div>}>
       <LoginForm />
     </Suspense>
   );

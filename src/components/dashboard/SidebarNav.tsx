@@ -6,7 +6,7 @@ import {
   Home, Calendar, Wallet, User, Settings, ShieldCheck, 
   Car, Home as HomeIcon, BarChart3, LayoutDashboard, ScrollText,
   MessageSquare, Clock, Briefcase, ChevronRight, LogOut, Sparkles,
-  Zap, Star, Calculator
+  Zap, Star, Calculator, Tag
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { useTheme } from "@/components/ThemeContext";
@@ -27,6 +27,9 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
 
   const mainItems = [
     { href: basePath, label: t?.sidebar?.labels?.overview || "Overview", icon: isMerchant ? LayoutDashboard : Home },
+    ...(isMerchant ? [
+      { href: "/merchant/ai-secretary", label: t?.sidebar?.labels?.ai_secretary || "AI Secretary", icon: Sparkles }
+    ] : []),
     { href: "/member/bookings", label: t?.sidebar?.labels?.bookings || "My Bookings", icon: Calendar },
     { href: "/member/chat", label: t?.sidebar?.labels?.messages || "Live Messages", icon: MessageSquare },
   ];
@@ -36,8 +39,8 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
     { href: "/merchant/services", label: t?.sidebar?.labels?.services || "Service Management", icon: ScrollText },
     { href: "/merchant/availability", label: t?.sidebar?.labels?.availability || "Availability", icon: Clock },
     { href: "/member/analytics", label: t?.sidebar?.labels?.analytics || "Performance Audit", icon: BarChart3 },
-    { href: "/merchant/verification", label: t?.sidebar?.labels?.verification || "Expert Verification", icon: ShieldCheck },
     { href: "/merchant/accounting", label: t?.sidebar?.labels?.accounting || "Ledger & Tax", icon: Calculator },
+    { href: "/merchant/promotions", label: t?.sidebar?.labels?.promotions || "Promotion Hub", icon: Tag },
     { href: "/merchant/wallet", label: t?.sidebar?.labels?.wallet || "Earnings Wallet", icon: Wallet },
   ] : [
     { href: "/member/garage", label: t?.sidebar?.labels?.garage || "Private Garage", icon: Car },
@@ -58,7 +61,8 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
         textTransform: 'uppercase', 
         letterSpacing: '0.12em', 
         paddingLeft: '1rem', 
-        marginBottom: '0.75rem' 
+        marginBottom: '0.75rem',
+        fontFamily: 'var(--font-heading)'
       }}>{title}</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
         {items.map((item) => {
@@ -79,7 +83,8 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
                 fontWeight: isActive ? 800 : 500, 
                 textDecoration: 'none',
                 transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-                border: isActive ? '1px solid rgba(212, 175, 55, 0.2)' : '1px solid transparent'
+                border: isActive ? '1px solid rgba(212, 175, 55, 0.2)' : '1px solid transparent',
+                fontFamily: 'var(--font-heading)'
               }}
               className={isActive ? "" : "hover-sidebar-item"}
             >
@@ -111,39 +116,7 @@ export default function SidebarNav({ isMerchant, userName }: SidebarNavProps) {
       {/* Account Actions */}
       {renderNavSection(String(t?.sidebar?.sections?.account || "Account"), accountItems)}
 
-      {/* Pro Membership / Verification status footer card */}
-      <div style={{ 
-        marginTop: 'auto', 
-        padding: '1.25rem', 
-        backgroundColor: theme === 'dark' ? '#111' : 'var(--surface-1)', 
-        borderRadius: '20px', 
-        border: theme === 'dark' ? '1px solid #222' : '1px solid var(--border-color)',
-        marginBottom: '1rem',
-        boxShadow: theme === 'dark' ? '0 4px 12px rgba(0,0,0,0.2)' : 'var(--shadow-sm)'
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
-          <div style={{ backgroundColor: '#d4af37', padding: '0.5rem', borderRadius: '10px' }}>
-            <ShieldCheck size={18} color="#000" />
-          </div>
-          <div>
-            <p style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--text-primary)' }}>{t?.sidebar?.labels?.verified || "Verified Pro"}</p>
-            <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>{t?.sidebar?.labels?.expert || "ConciergeAI Expert"}</p>
-          </div>
-        </div>
-        <div style={{ 
-          backgroundColor: theme === 'dark' ? '#000' : 'var(--accent-soft)', 
-          padding: '0.5rem', 
-          borderRadius: '10px', 
-          fontSize: '0.75rem', 
-          color: '#d4af37', 
-          fontWeight: 800, 
-          textAlign: 'center',
-          cursor: 'pointer',
-          border: '1px solid rgba(212, 175, 55, 0.3)'
-        }} className="hover-lift">
-          <Zap size={14} style={{ marginRight: '4px', verticalAlign: 'middle' }} /> {t?.sidebar?.labels?.boost || "Boost Reach"}
-        </div>
-      </div>
+
 
       {/* Logout */}
       <button 

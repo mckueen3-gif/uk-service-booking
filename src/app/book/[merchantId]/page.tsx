@@ -194,6 +194,15 @@ export default function BookingPage() {
   }
 
   if (isSuccessUrl || isSuccess) {
+    const merchantPhone = merchant?.user?.phone?.replace(/\s+/g, '') || "";
+    // Build localized WhatsApp message
+    const rawMsg = t.merchant.notifications.expertWhatsAppMsg || "Hello! I've just booked your service on ConciergeAI.";
+    const whatsappMsg = rawMsg
+      .replace('{merchantName}', companyName)
+      .replace('{serviceName}', serviceName)
+      .replace('{date}', `${selectedDate} ${selectedTime}`)
+      .replace('{bookingId}', bookingDetails?.bookingId?.slice(-6).toUpperCase() || 'NEW');
+
     return (
       <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 'calc(100vh - 80px)', padding: '2rem 1rem', direction: isRTL ? 'rtl' : 'ltr' }}>
         <div className="glass-panel animate-fade-up" style={{ padding: '3rem 2rem', textAlign: 'center', maxWidth: '600px', width: '100%', borderRadius: '24px' }}>
@@ -201,9 +210,49 @@ export default function BookingPage() {
             <CheckCircle2 color="#facc15" fill="#ccfbf1" size={80} style={{ margin: '0 auto 1.5rem' }} />
           </div>
           <h1 style={{ fontSize: '2.2rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>{t.booking.titles.success}</h1>
-          <p style={{ color: 'var(--text-secondary)', marginBottom: '2.5rem', lineHeight: 1.6, fontSize: '1.1rem' }}>
+          <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', lineHeight: 1.6, fontSize: '1.1rem' }}>
             {t.booking.messages.contact24h}
           </p>
+
+          {/* WhatsApp Pulse Trigger */}
+          {merchantPhone && (
+            <div className="animate-fade-up" style={{ marginBottom: '2.5rem', animationDelay: '200ms' }}>
+              <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.75rem', fontWeight: 600 }}>
+                {t.merchant.notifications.notifyExpertWhatsAppDesc}
+              </p>
+              <a 
+                href={`https://wa.me/${merchantPhone}?text=${encodeURIComponent(whatsappMsg)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn"
+                style={{ 
+                  backgroundColor: '#25D366', 
+                  color: '#fff', 
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.75rem',
+                  fontWeight: 900,
+                  borderRadius: '16px',
+                  padding: '1.25rem',
+                  border: 'none',
+                  boxShadow: '0 8px 15px rgba(37, 211, 102, 0.2)',
+                  transition: 'transform 0.2s',
+                  fontSize: '1.1rem'
+                }}
+                onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
+                onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+              >
+                <div style={{ backgroundColor: 'rgba(255,255,255,0.2)', padding: '6px', borderRadius: '8px' }}>
+                  <MessageSquare size={20} />
+                </div>
+                {t.merchant.notifications.notifyExpertWhatsApp}
+              </a>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginTop: '1rem', color: '#16a34a', fontSize: '0.8rem', fontWeight: 700 }}>
+                <ShieldCheck size={14} /> Platform-Backed & Tax-Compliant Secured
+              </div>
+            </div>
+          )}
           
           <div style={{ backgroundColor: 'var(--bg-secondary)', borderRadius: '16px', padding: '1.5rem', textAlign: isRTL ? 'right' : 'left', marginBottom: '2.5rem', border: '1px solid var(--border-color)' }}>
             <h3 style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '1rem', fontWeight: 700 }}>{t.booking.labels.summary}</h3>
@@ -228,8 +277,8 @@ export default function BookingPage() {
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-            <Link href="/member" className="btn btn-primary" style={{ width: '100%' }}>{t.booking.buttons.dashboard}</Link>
-            <Link href="/" className="btn btn-secondary" style={{ width: '100%' }}>{t.booking.buttons.home}</Link>
+            <Link href="/member" className="btn btn-primary" style={{ width: '100%', borderRadius: '14px', fontWeight: 700 }}>{t.booking.buttons.dashboard}</Link>
+            <Link href="/" className="btn btn-secondary" style={{ width: '100%', borderRadius: '14px', fontWeight: 700 }}>{t.booking.buttons.home}</Link>
           </div>
         </div>
       </div>

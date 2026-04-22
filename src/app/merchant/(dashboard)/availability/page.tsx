@@ -184,7 +184,7 @@ export default function AvailabilityPage() {
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                  <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>{t.merchant.merchant_availability.settings.interval}</label>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>{mt?.settings?.interval || "Time Interval (Min)"}</label>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                        <Clock size={16} color="var(--text-secondary)" />
                        <input 
@@ -198,7 +198,7 @@ export default function AvailabilityPage() {
                  </div>
 
                  <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>{t.merchant.merchant_availability.settings.maxDaily}</label>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>{mt?.settings?.maxDaily || "Max Daily Bookings"}</label>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                        <Users size={16} color="var(--text-secondary)" />
                        <input 

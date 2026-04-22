@@ -7,20 +7,26 @@ import { unstable_cache } from "next/cache";
 export type SearchFilters = {
   query?: string;
   category?: string;
-  location?: string; // New: Explicit location filter
+  location?: string;
   minRating?: number;
   isVerified?: boolean;
   userLat?: number;
   userLon?: number;
   sortBy?: "rating" | "jobs" | "distance" | "price";
   isEmergency?: boolean;
+  wizardCriteria?: {
+    goal?: string;
+    budget?: string;
+    timing?: string;
+    style?: string;
+  };
   bounds?: {
     sw: { lat: number; lng: number };
     ne: { lat: number; lng: number };
   };
 };
 
-// Search Action Logic
+// Search Action Logic (Diversity & Budget Aware)
 export async function searchMerchants(filters: SearchFilters) {
   const {
     query,
@@ -33,14 +39,25 @@ export async function searchMerchants(filters: SearchFilters) {
     sortBy,
     bounds,
     isEmergency,
+    wizardCriteria,
   } = filters;
 
   try {
-    // 1. Build the where clause for Prisma
+    // 1. Build the where clause
     const where: any = {
       isVerified: isVerified ? true : undefined,
       averageRating: minRating ? { gte: minRating } : undefined,
     };
+
+    // Budget Handling
+    if (wizardCriteria?.budget && wizardCriteria.budget !== "No Limit") {
+       const budgetStr = wizardCriteria.budget.replace(/£/g, '').split('-');
+       if (budgetStr.length === 2) {
+          const min = parseFloat(budgetStr[0]);
+          const max = parseFloat(budgetStr[1]);
+          where.baseHourlyRate = { gte: min, lte: max };
+       }
+    }
 
     if ((category && category !== "All") || isEmergency) {
       where.services = {
@@ -74,7 +91,7 @@ export async function searchMerchants(filters: SearchFilters) {
       ];
     }
 
-    // 2. Fetch data (including base service for price context)
+    // 2. Fetch data
     let merchants = await prisma.merchant.findMany({
       where,
       include: {
@@ -87,39 +104,17 @@ export async function searchMerchants(filters: SearchFilters) {
       },
     });
 
-    // Fallback: If no results found with location + query, try searching without location
-    if (merchants.length === 0 && location && query) {
-      const fallbackWhere = { ...where };
-      delete fallbackWhere.city;
-      merchants = await prisma.merchant.findMany({
-        where: fallbackWhere,
-        include: {
-          user: true,
-          services: true,
-          portfolio: true,
-          documents: {
-            where: { status: "APPROVED" },
-          },
-        },
-      });
-    }
-
-    // 3. Post-process: Add distance and calculate base price
+    // 3. Post-process
     let results = merchants.map((m) => {
-      let distance =
-        userLat && userLon && m.latitude && m.longitude
+      let distance = userLat && userLon && m.latitude && m.longitude
           ? getDistance(userLat, userLon, m.latitude, m.longitude)
           : null;
 
-      const basePrice =
-        m.services.length > 0 ? Math.min(...m.services.map((s) => s.price)) : 0;
+      const basePrice = m.baseHourlyRate || (m.services.length > 0 ? Math.min(...m.services.map((s) => s.price)) : 0);
 
-      // AI Recommendation Scoring
-      // High rating + Verification + Proxmity = Higher Score
-      let score = m.averageRating * 10 + (m.isVerified ? 15 : 0);
-      if (distance !== null) {
-        score -= distance * 2; // Penalize distance slightly
-      }
+      // AI Score calculation for ranking
+      let score = m.averageRating * 10 + (m.isVerified ? 15 : 0) + (m.isElite ? 20 : 0);
+      if (distance !== null) score -= distance * 2;
 
       return {
         ...m,
@@ -130,7 +125,7 @@ export async function searchMerchants(filters: SearchFilters) {
       };
     });
 
-    // 4. Identify the "Best Match" (AI Recommended)
+    // 4. Identify the "Calibrated Match"
     if (results.length > 0) {
       const bestMatch = [...results].sort((a, b) => b.aiScore - a.aiScore)[0];
       results = results.map((r) => ({
@@ -141,17 +136,11 @@ export async function searchMerchants(filters: SearchFilters) {
 
     // 5. Sorting
     if (sortBy === "distance" && userLat && userLon) {
-      results.sort(
-        (a, b) => (a.distance || Infinity) - (b.distance || Infinity),
-      );
+      results.sort((a, b) => (a.distance || Infinity) - (b.distance || Infinity));
     } else if (sortBy === "rating") {
       results.sort((a, b) => b.averageRating - a.averageRating);
     } else if (sortBy === "jobs") {
-      results.sort(
-        (a, b) =>
-          ((b as any).completedJobsCount || 0) -
-          ((a as any).completedJobsCount || 0),
-      );
+      results.sort((a, b) => (b.completedJobsCount || 0) - (a.completedJobsCount || 0));
     } else if (sortBy === "price") {
       results.sort((a, b) => a.basePrice - b.basePrice);
     }
@@ -163,20 +152,29 @@ export async function searchMerchants(filters: SearchFilters) {
   }
 }
 
-// NEW: getSmartRecommendations
+// Diversity-Aware Recommendations
 export async function getSmartRecommendations(filters: SearchFilters) {
-  const { category, userLat, userLon } = filters;
+  const { category, userLat, userLon, wizardCriteria } = filters;
 
-  // 1. Fetch top candidates in the category
-  const merchants = await prisma.merchant.findMany({
-    where: {
-      isVerified: true,
-      services: {
-        some: {
-          category: category !== "All" ? category : undefined,
-        },
+  const where: any = {
+    isVerified: true,
+    services: {
+      some: {
+        category: category !== "All" ? category : undefined,
       },
     },
+  };
+
+  // Budget Filter for Recommendations too
+  if (wizardCriteria?.budget && wizardCriteria.budget !== "No Limit") {
+    const budgetStr = wizardCriteria.budget.replace(/£/g, '').split('-');
+    if (budgetStr.length === 2) {
+       where.baseHourlyRate = { gte: parseFloat(budgetStr[0]), lte: parseFloat(budgetStr[1]) };
+    }
+  }
+
+  const merchants = await prisma.merchant.findMany({
+    where,
     include: {
       services: true,
       availability: true,
@@ -185,71 +183,46 @@ export async function getSmartRecommendations(filters: SearchFilters) {
           status: { in: ["PENDING", "CONFIRMED"] },
           scheduledDate: {
             gte: new Date(),
-            lte: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // Next 7 days
+            lte: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
           },
         },
       },
     },
-    take: 15,
+    take: 30, // Get a larger pool for diversity
     orderBy: { averageRating: "desc" },
   });
 
-  if (merchants.length === 0)
-    return { best: null, closest: null, earliest: null };
+  if (merchants.length === 0) return { topMatch: null, risingStar: null, bestValue: null };
 
   const processed = merchants.map((m) => {
-    const distance =
-      userLat && userLon && m.latitude && m.longitude
+    const distance = userLat && userLon && m.latitude && m.longitude
         ? getDistance(userLat, userLon, m.latitude, m.longitude)
         : Infinity;
 
-    // AI Score calculation
-    const aiScore =
-      m.averageRating * 10 +
-      m.completedJobsCount * 0.5 -
-      (distance === Infinity ? 0 : distance);
+    const basePrice = m.baseHourlyRate || (m.services.length > 0 ? Math.min(...m.services.map((s) => s.price)) : 0);
+    const aiScore = m.averageRating * 10 + m.completedJobsCount * 0.5 - (distance === Infinity ? 0 : distance) + (m.isElite ? 20 : 0);
 
-    return { ...m, distance, aiScore };
+    return { ...m, distance, aiScore, basePrice };
   });
 
-  // 2. Identify Best Match (Highest AI Score)
+  // 🏛️ Diversity Algorithm: Top Match | Rising Star | Value Expert
+  
+  // 1. Top Match (Elite preference)
   const best = [...processed].sort((a, b) => b.aiScore - a.aiScore)[0];
 
-  // 3. Identify Closest
-  const closest =
-    userLat && userLon
-      ? [...processed].sort((a, b) => a.distance - b.distance)[0]
-      : null;
+  // 2. Rising Star (Verified but new on platform, prevents winner-takes-most)
+  const risingStar = [...processed]
+    .filter(m => m.id !== best.id && m.completedJobsCount < 5)
+    .sort((a, b) => b.averageRating - a.averageRating)[0];
 
-  // 4. Identify Earliest (Heuristic: check slot availability for tomorrow)
-  // For simplicity in this demo, we'll choose the one with the fewest bookings tomorrow
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  tomorrow.setHours(0, 0, 0, 0);
-  const endOfTomorrow = new Date(tomorrow);
-  endOfTomorrow.setHours(23, 59, 59, 999);
-
-  const earliest = [...processed].sort((a, b) => {
-    const aBookings = a.bookings.filter(
-      (bk) => bk.scheduledDate >= tomorrow && bk.scheduledDate <= endOfTomorrow,
-    ).length;
-    const bBookings = b.bookings.filter(
-      (bk) => bk.scheduledDate >= tomorrow && bk.scheduledDate <= endOfTomorrow,
-    ).length;
-    return aBookings - bBookings;
-  })[0];
+  // 3. Best Value (Lowest price in the pool)
+  const bestValue = [...processed]
+    .filter(m => m.id !== best.id && (!risingStar || m.id !== risingStar.id))
+    .sort((a, b) => a.basePrice - b.basePrice)[0];
 
   return {
-    best: best ? { ...best, reason: "topMatch" } : null,
-    closest:
-      closest && closest.id !== best.id
-        ? { ...closest, reason: "closest" }
-        : null,
-    earliest:
-      earliest &&
-      earliest.id !== best.id &&
-      (!closest || earliest.id !== closest.id)
-        ? { ...earliest, reason: "earliest" }
-        : null,
+    topMatch: best ? { ...best, reason: "topMatch" } : null,
+    risingStar: risingStar ? { ...risingStar, reason: "risingStar" } : null,
+    bestValue: bestValue ? { ...bestValue, reason: "bestValue" } : null,
   };
 }

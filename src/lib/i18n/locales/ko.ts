@@ -1,6 +1,90 @@
 import { Dictionary } from "../types";
 
 export const ko: any = {
+  common: {
+    back: "뒤로",
+    next: "다음",
+    save: "저장",
+    saveChanges: "설정 저장",
+    cancel: "취소",
+    confirm: "확인",
+    delete: "삭제",
+    edit: "편집",
+    loading: "로딩 중...",
+    noData: "데이터가 없습니다",
+    search: "검색",
+    filter: "필터",
+    sort: "정렬",
+    all: "전체",
+    status: "상태",
+    actions: "작업",
+    view: "보기",
+    details: "상세 정보",
+    success: "성공",
+    error: "오류",
+    warning: "경고",
+    info: "정보",
+    elite: "엘리트",
+    pro: "프로",
+    specialist: "전문가",
+    greetings: {
+      morning: "좋은 아침입니다",
+      afternoon: "좋은 오후입니다",
+      evening: "좋은 저녁입니다"
+    },
+    locations: {
+      all: "영국 전체",
+      london: "런던",
+      manchester: "맨체스터",
+      birmingham: "버밍엄",
+      leeds: "리즈",
+      glasgow: "글래스고",
+      camden: "캠든",
+      united_kingdom: "영국"
+    },
+    subjects: {
+      math: "수학",
+      science: "초급 과학",
+      physics: "물리",
+      chemistry: "화학",
+      biology: "생물",
+      english: "영문학",
+      alevel_math: "A-Level 수학",
+      gcse_math: "GCSE 수학"
+    },
+    modes: {
+      online: "온라인",
+      hybrid: "하이브리드",
+      in_person: "대면"
+    }
+  },
+  sidebar: {
+    labels: {
+      overview: "개요",
+      ai_secretary: "AI 비서",
+      bookings: "나의 예약",
+      messages: "AI 비서 메시지",
+      schedule: "서비스 일정",
+      services: "서비스 관리",
+      availability: "예약 가능 시간",
+      analytics: "성과 감사",
+      accounting: "회계 및 세무",
+      promotions: "프로모션 허브",
+      wallet: "수익 지갑",
+      garage: "개인 차고",
+      properties: "부동산 포트폴리오",
+      rewards: "엘리트 포인트",
+      profile: "프로필 설정",
+      logout: "로그아웃",
+      equipment: "장비 관리"
+    },
+    sections: {
+      main: "기능",
+      business: "비즈니스 노드",
+      assets: "자산 매트릭스",
+      account: "계정 프로토콜"
+    }
+  },
   nav: {
     browse: "서비스 탐색",
     join: "전문가로 가입",
@@ -55,7 +139,7 @@ export const ko: any = {
         title1: "노드 복구",
         title2: "엘리트 유지보수",
         subtitle:
-          "가구 조립부터 구조적 수리까지. 영국의 상위 1% 유지보수 전문가가 도와드립니다.",
+          "가구 조립부터 구조적 수리까지. 영국의 엄선된 고품질 유지보수 전문가가 도와드립니다.",
         searchPlaceholder: "가구 조립, 벽 수리...",
         searchBtn: "연락처 검색",
       },
@@ -83,7 +167,7 @@ export const ko: any = {
         title1: "생활 공간의",
         title2: "재설계",
         subtitle:
-          "영국의 엘리트 리노베이션 전문가와 함께 자산을 변화시키세요. 투명한 분석과 품질 보증 결과를 제공합니다.",
+          "영국의 엄선된 고품질 리노베이션 전문가와 함께 자산을 변화시키세요. 투명한 분석과 품질 보증 결과를 제공합니다.",
         searchPlaceholder: "주방 확장, 다락방 개조...",
         searchBtn: "프로젝트 시작",
       },
@@ -111,7 +195,7 @@ export const ko: any = {
         title1: "자본 장부",
         title2: "마스터하기",
         subtitle:
-          "SME 및 전문가를 위한 영국의 엘리트 회계사 및 재무 전략가. 운영 규정 준수 및 세무 최적화 보장.",
+          "SME 및 전문가를 위한 영국의 엄선된 고품질 회계사 및 재무 전략가. 운영 규정 준수 및 세무 최적화 보장.",
         searchPlaceholder: "세금 신고, 연차 결산, 급여 관리...",
         searchBtn: "감사 전문가",
       },
@@ -158,7 +242,7 @@ export const ko: any = {
         title1: "환경을",
         title2: "정화하세요",
         subtitle:
-          "주거 및 상업 노드를 위한 엘리트 청소 프로토콜. 고신뢰성 위생 및 세심한 주의.",
+          "주거 및 상업 노드를 위한 엄선된 고품질 청소 프로토콜. 고신뢰성 위생 및 세심한 주의.",
         searchPlaceholder: "딥 클리닝, 퇴거 청소...",
         searchBtn: "전문가 배포",
       },
@@ -237,23 +321,7 @@ export const ko: any = {
       },
     },
   },
-  common: {
-    viewProfile: "프로필 보기",
-    reviews: "개의 리뷰",
-    hr: "시간",
-    copy: "복사",
-    copied: "복사됨!",
-    aiMatchingSub: "AI 캘리브레이션 전문가, 프로토콜 요구사항과 일치.",
-    exploreSub: "{category} 부문 내 전문 프로토콜 탐색.",
-    escrow: {
-      title: "ConciergeAI 에스크로로 보호됨",
-      subtitle:
-        "{category} 부문의 모든 세션이 AI에 의해 품질 보증 및 재무 무결성을 위해 모니터링됩니다.",
-      specialists: "검증된 전문가",
-      fees: "플랫폼 서비스 수수료",
-      support: "AI 중재 지원",
-    },
-  },
+
   hero: {
     title: "최고의 서비스 전문가 찾기",
     subtitle: "거주 지역의 인증된 전문가와 연결해 드립니다.",
@@ -330,26 +398,29 @@ export const ko: any = {
     },
   },
   footer: {
-    tagline: "영국 최고의 인증 전문가와 연결하세요.",
+    tagline: "영국 전역의 엄선된 고품질 인증 전문가와 연결해 드립니다.",
     explore: "탐색",
     legal: "법적 정보",
-    support: "고객 지원",
+    support: "지원",
+    forPros: "전문가 포털",
     rights: "All rights reserved.",
-    terms: "이용약관",
+    terms: "이용 약관",
     privacy: "개인정보 처리방침",
     cookies: "쿠키 정책",
-    help: "헬프 센터",
+    help: "고객 센터",
     contact: "문의하기",
     aiDiagnosis: "AI 진단",
     homeCleaning: "홈 클리닝",
     plumbingServices: "배관 서비스",
     automotiveServices: "자동차 정비",
+    merchantRegistration: "전문가 등록",
+    merchantPortal: "전문가 관리 센터",
+    blog: "블로그",
     trustSignal: "Trustpilot 평점: 우수",
-    address: "London, UK",
+    address: "런던, 영국",
     phone: "+44 20 1234 5678",
     email: "support@conciergeai.uk",
-    aboutUs:
-      "ConciergeAI는 영국 주택 소유자와 영국 상위 1%의 인증된 서비스 전문가를 연결합니다.",
+    aboutUs: "ConciergeAI는 영국 주택 소유자와 엄선된 고품질 인증 서비스 전문가를 연결합니다.",
     companyNo: "12345678",
     vatNo: "GB123456789",
     social: {
@@ -385,11 +456,19 @@ export const ko: any = {
     verified: "인증됨",
     insured: "보험 가입됨",
     priceAudit: "AI 가격 감사: 적정",
-    defaultDesc: "전문 서비스 제공자",
+    defaultDesc: "전문 서비스 제공업체",
+    recommendations: {
+      title: "스마트 추천",
+      subtitle: "요청에 가장 적합한 매치.",
+      topMatch: "최적 매치",
+      risingStar: "라이징 스타",
+      bestValue: "최고 가치",
+      viewProfile: "프로필 보기"
+    },
   },
   booking: {
     steps: {
-      details: "작업 상세",
+      details: "상세 정보",
       schedule: "일정 선택",
       confirmation: "확인 및 결제",
     },
@@ -444,15 +523,42 @@ export const ko: any = {
     contactExpert: "전문가에게 문의",
     noReviews: "리뷰 없음",
     reply: "답변",
+    expertTitle: "전문가 단",
     title: "판매자 대시보드",
-      welcome: "다시 오신 것을 환영합니다, ",
-      previewProfile: "공개 프로필 미리보기",
-      manageServices: "서비스 관리",
+    welcome: "다시 오신 것을 환영합니다, {name}",
+    quick_links_hint: "전문적 성장을 위한 전략적 단축키.",
+    elite_ai: {
+      title: "엘리트 AI 및 비디오 설정",
+      video_label: "소개 비디오 (YouTube)",
+      video_placeholder: "https://youtube.com/watch?v=...",
+      knowledge_label: "AI 전문가 지식 베이스",
+      knowledge_placeholder: "귀하의 전문 지식, 서비스의 뉘앙스, 기술적 기준을 여기에 심층 로드하십시오. 이 데이터는 비공개로 유지되며 전담 AI 어시스턴트를 구동하여 기술 상담을 정밀하게 처리합니다.",
+      save_button: "전문가 프로필 보정"
+    },
+    pricing: {
+      title: "AI 가격 펄스",
+      status: "가격 책정 상태",
+      optimal: "최적",
+      message: "시장 보정된 요금이 감지되었습니다. 현재 요율은 신뢰도가 높은 엘리트 벤치마크와 일치합니다.",
+      trend: "시장 평형"
+    },
+    elite_perk: "엘리트 전문가 특권",
+    zero_lead_fee: "£0 응답비 (무제한 리드)",
+    lead_fee_desc: "기존 플랫폼과 달리 입찰이나 응답에 비용이 전혀 들지 않습니다.",
+    previewProfile: "공개 프로필 미리보기",
+    notifications: {
+      notifyExpertWhatsApp: "WhatsApp으로 전문가에게 알림",
+      notifyExpertWhatsAppDesc: "빠른 응답을 위해 권장됩니다",
+      bookingAlertEmailSubject: "【신규 예약】중요: 고객이 귀하의 서비스를 예약했습니다!",
+    },
+    manageServices: "서비스 관리",
       stats: {
         totalBookings: "총 예약",
         rating: "평점",
-        pendingBalance: "정산 예정",
-        availableBalance: "출금 가능",
+        noPendingBalance: "대기 중인 잔액 없음",
+        noAvailableBalance: "사용 가능한 잔액 없음",
+        merchantNotFound: "상점 라이선스를 찾을 수 없습니다: 프로필 인증 여부를 확인하십시오.",
+        notAuthorized: "권한 없음: 이 리소스를 사용할 권한이 없습니다.",
         totalJobs: "총 완료 작업",
         escrowHeld: "에스크로 보관",
         availableNow: "현재 가용",
@@ -604,11 +710,11 @@ export const ko: any = {
   },
   education_sec: {
     hero: {
-      badge: "영국 엘리트 튜터",
+      badge: "영국 엄선된 고품질 튜터",
       title1: "새로운 기술 습득",
       title2: "전문가와 함께",
       subtitle:
-        "학업, 언어 및 전문 기술을 위한 엘리트 튜터와 연결하세요. 성공을 위한 맞춤형 1:1 교육.",
+        "학업, 언어 및 전문 기술을 위한 고품질 튜터와 연결하세요. 성공을 위한 맞춤형 1:1 교육.",
       searchPlaceholder: "무엇을 배우고 싶으신가요?",
       searchBtn: "튜터 찾기",
     },
@@ -711,6 +817,12 @@ export const ko: any = {
         "튜터에게 진단 데이터가 공유되었습니다. 이를 바탕으로 맞춤 수업을 진행합니다!",
       bookFirstLesson: "첫 수업 예약하기",
       tryAgain: "다시 도전",
+      feeDisclosure: "ConciergeAI는 안전한 예약을 제공합니다. 플랫폼 외부에서의 직접 결제는 100% 만족 보장 정책의 적용을 받지 않습니다.",
+      authPanel: {
+        title: "멤버 전용 기능",
+        desc: "AI 기반 교육 진단을 최대한 활용하려면 엘리트 멤버 네트워크에 가입하세요.",
+        dismiss: "나중에 하기"
+      }
     },
     visitDashboard: "교육 허브 탐색",
   },
@@ -720,7 +832,7 @@ export const ko: any = {
       title1: "최고 평점의",
       title2: "현지 전문가 예약",
       subtitle:
-        "영국 상위 1% 전문가에게 즉시 액세스하세요. 모두 인증 및 보험에 가입되어 있으며 AI로 품질을 관리합니다.",
+        "영국의 엄선된 고품질 전문가에게 즉시 액세스하세요. 모두 인증 및 보험에 가입되어 있으며 AI로 품질을 관리합니다.",
       searchPlaceholder: "필요한 서비스...",
       locationPlaceholder: "런던, 영국",
       aiMatch: "스마트 매치",
@@ -907,6 +1019,74 @@ export const ko: any = {
       title: "이용 방법",
       subtitle: "AI 기반의 영국에서 가장 발전된 서비스 예약 프로토콜입니다.",
       step1Title: "AI 진단",
+      merchant_dashboard: {
+        title: "전문가 제어판",
+        expertTitle: "Elite 전문가 체계",
+        welcome: "다시 오신 것을 환영합니다, {name}",
+        quick_links_hint: "전문가 도구함을 빠르게 실행하세요",
+        elite_ai: {
+          title: "최첨단 AI 및 비디오 설정",
+          video_label: "소개 비디오 (YouTube URL)",
+          knowledge_label: "AI 전문가 지식 베이스",
+          knowledge_placeholder: "전문 지식, 서비스 상세 내용 및 기술 기준을 여기에 심층 로드하십시오. 이 데이터는 비공개로 유지되며, 기술 상담을 정교하게 처리하는 전담 AI 어시스턴트를 구동합니다.",
+          save_button: "전문가 프로필 보정"
+        },
+        pricing: {
+          title: "AI 가격 측정 펄스",
+          status: "가격 책정 건강도",
+          optimal: "최적 상태",
+          message: "시장 보정된 요금이 감지되었습니다. 현재 가격 설정은 신뢰도가 높은 최고 벤치마크와 일치합니다.",
+          trend: "시장 평형점",
+          baseRate: "기본 시급 설정 (£)",
+          trial: "30분 무료 상담/트라이얼 활성화",
+          trialPrice: "트라이얼 특가 (£)",
+          feeNote: "* 이 기준 금액에 10%의 플랫폼 서비스 수수료가 자동으로 추가됩니다。"
+        },
+        stats: {
+          totalBookings: "총 예약 수",
+          rating: "신뢰 등급",
+          availableBalance: "출금 가능 잔액",
+          pendingBalance: "결제 대기 잔액",
+          availableNow: "현재 이용 가능",
+          totalJobs: "완료된 프로젝트",
+          escrowHeld: "에스크로 예치금",
+          reviews: "고객 후기"
+        },
+        bookings: {
+          title: "최근 예약 업무",
+          viewAll: "전체 보기",
+          empty: "대기 중인 업무가 없습니다"
+        },
+        quick_links: {
+          title: "엘리트 조작 키",
+          hint: "전문적 성장을 촉진하는 전략적 단축키"
+        },
+        tools: {
+          title: "최신 가용 항목",
+          subtitle: "전문가를 위한 엄선된 성장 도구 (모두 무료)",
+          diagnosis: {
+            name: "AI 지능형 진단",
+            desc: "시각적 손상 평가 및 고객 유입 유도 시스템",
+            badge: "무료"
+          },
+          whatsapp: {
+            name: "WhatsApp 실시간 연동",
+            desc: "신규 주문 및 고객 문의 알림 즉시 수신",
+            badge: "무료"
+          },
+          seo: {
+            name: "SEO 전문가 프로필 최적화",
+            desc: "Google 검색 순위 향상 및 메타 태그 최적화",
+            badge: "무료"
+          },
+          video: {
+            name: "엘리트 AI 비디오 설정",
+            desc: "전문적인 비디오 도입 및 AI 지식 베이스 동기화",
+            badge: "무료"
+          },
+          launch: "지금 실행"
+        }
+      },
       step1Desc:
         "문제 사진을 업로드하여 즉각적인 고장 식별 및 정밀한 비용 예측을 받으세요.",
       step2Title: "스마트 매칭",
@@ -992,60 +1172,6 @@ export const ko: any = {
         "추천 전문가에게 직접 문의하거나 내일 다시 시도해 주세요.",
       remaining: "오늘 남은 횟수",
       findSpecialist: "지금 전문가에게 문의",
-    },
-  },
-  onboarding: {
-    hero: {
-      title: "ConciergeAI와 함께 비즈니스 확장",
-      subtitle: "영국 최고의 인증 서비스 전문가 네트워크에 합류하세요.",
-    },
-    steps: {
-      profile: "비즈니스 프로필",
-      credentials: "자격 증명",
-      contract: "서비스 계약",
-    },
-    sectors: {
-      title: "전문 분야 선택",
-      professional: {
-        title: "전문 서비스",
-        desc: "회계, 법률, 컨설팅",
-        industries: ["회계사", "세무 전문가", "법률 대리", "전략 컨설턴트"],
-      },
-      education: {
-        title: "교육 프로젝트",
-        desc: "튜터, 코치",
-        industries: ["학습 튜터", "언어 코치", "기술 강사", "음악 튜터"],
-      },
-      technical: {
-        title: "기술 서비스",
-        desc: "숙련공, 유지보수, 엔지니어링",
-        industries: ["배관공", "전기 기술자", "메카닉", "주택 수리 전문가"],
-      },
-    },
-    contract: {
-      title: "표준 서비스 계약",
-      scrollingNotice: "약관을 수락하려면 아래로 끝까지 스크롤하세요.",
-      agree: "ConciergeAI 마스터 계약을 읽었으며 이에 동의합니다.",
-      clauses: {
-        platform_fee: {
-          title: "1. 서비스 수수료",
-          body: "플랫폼은 성공적으로 완료된 작업에 대해 9%의 수수료를 청구합니다.",
-        },
-        payments: {
-          title: "2. 에스크로 및 정산",
-          body: "고객 결제 대금은 안전한 에스크로에 보관됩니다. 작업 완료 확인 후 48시간 이내에 정산됩니다.",
-        },
-        conduct: {
-          title: "3. 전문 표준 준수",
-          body: "전문가는 평점 4.0 이상을 유지해야 합니다. 안전 수칙 미준수 시 계정이 즉시 해지될 수 있습니다.",
-        },
-      },
-    },
-    buttons: {
-      start: "지금 시작하기",
-      next: "다음 단계",
-      back: "이전으로",
-      submit: "가입 완료",
     },
   },
   admin: {
@@ -1179,8 +1305,49 @@ export const ko: any = {
       save: "설정 업데이트",
       saving: "동기화 중...",
       success: "성공적으로 저장됨",
-      error: "프로토콜 오류",
     },
+  },
+  merchant_public: {
+    verified_expert: "인증된 전문가",
+    reviews_count: "{count}개의 리뷰",
+    member_since: "{year}년부터 활동 중",
+    tabs: {
+      about: "개요",
+      services: "서비스",
+      reviews: "리뷰",
+      company: "회사 정보"
+    },
+    about_title: "전문가 소개",
+    about_fallback: "고품질 결과를 제공하기 위해 헌신하는 전문 서비스 제공업체입니다. 풍부한 경험과 전문 자격증을 통해 모든 고객에게 최고 수준의 만족을 보장합니다.",
+    services_title: "서비스",
+    services_provided: "제공되는 서비스",
+    your_search: "검색어",
+    customer_reviews: "고객 리뷰 ({count})",
+    write_review: "리뷰 작성",
+    review_summary_title: "AI 분석 요약",
+    review_summary_content: "고객들은 일관되게 작업의 높은 품질과 효율성을 칭찬하며, 뛰어난 소통, 시간 엄수, 작업 후 청결 유지 등을 주요 장점으로 꼽고 있습니다.",
+    review_summary_note: "✦ 고객 리뷰를 바탕으로 AI가 생성한 요약입니다. ConciergeAI는 요약 내용이나 의견에 대해 책임을 지지 않습니다.",
+    no_reviews: "아직 리뷰가 없습니다",
+    consultation_title: "상담",
+    book_now: "지금 예약하기",
+    send_message: "메시지 보내기",
+    call_now: "직접 전화하기 ({phone})",
+    platform_tip: "보안 팁: 안전을 위해 ConciergeAI 내부 채팅을 통한 소통을 권장합니다.",
+    owner: "대표자",
+    operates_in: "활동 지역",
+    nationwide: "전국",
+    business_type: "사업 유형",
+    vat_registered: "부가가치세 등록",
+    insurance: "보험",
+    insured_amount: "£{amount} 보험 가입됨",
+    not_provided: "상세 정보 문의",
+    yes: "예",
+    no: "아니오",
+    nearby: "및 주변 지역",
+    quality: "작업 품질",
+    reliability: "신뢰성",
+    communication: "소통",
+    review_overview: "지난 12개월간의 리뷰 기준"
   },
   auth: {
     login: {
@@ -1216,6 +1383,13 @@ export const ko: any = {
       loading: "처리 중...",
       or: "또는",
       google: "Google로 가입",
+      postcode_invalid: "유효하지 않은 영국 우편번호입니다. 다시 시도해 주세요.",
+      network_error: "네트워크 오류. 주소를 수동으로 입력해 주세요.",
+      phone_placeholder: "+44 7... (영국 휴대폰)",
+      district_placeholder: "예: Camden",
+      city_placeholder: "예: 런던",
+      country_placeholder: "예: 영국",
+      referral_placeholder: "예: ALPHA-99",
       navToLogin: "이미 계정이 있으신가요?",
       signIn: "여기서 로그인",
       roles: { customer: "고객", merchant: "전문가" },
@@ -1262,4 +1436,308 @@ export const ko: any = {
       initializing: "시스템을 초기화하는 중...",
     },
   },
+
+  onboarding: {
+    hero: {
+      title: "ConciergeAI로 비즈니스 확장",
+      subtitle: "영국 최고의 인증 전문가 네트워크에 가입하세요.",
+      badge: "ConciergeAI 엘리트 전문가",
+      stats: {
+        active_pros: "활동 중인 전문가",
+        commission: "플랫폼 수수료",
+        rating: "전문가 평점"
+      }
+    },
+    sector_selection_title: "전문 분야 선택",
+    sector_selection_subtitle: "귀하의 전문 포트폴리오에 가장 적합한 도메인을 선택하세요",
+    profile_form: {
+      form_title: "전문가 프로필",
+      form_subtitle: "이 정보는 공개 전문가 프로필에 표시됩니다.",
+      business_name: "상호명 / 거래명",
+      business_name_placeholder: "예: Smith & Partners LLP",
+      bio_label: "전문가 요약",
+      bio_placeholder: "귀하의 전문 지식, 경험 및 서비스의 독특한 점을 설명하세요...",
+      bio_optimize: "AI 최적화",
+      website_label: "웹사이트 / 포트폴리오",
+      ai_autofill: "AI 자동 채우기",
+      email_placeholder: "contact@yourbusiness.com",
+      phone_placeholder: "+44 7XXX XXXXXX",
+      password_label: "로그인 비밀번호 설정",
+      password_placeholder: "최소 6자",
+      city_label: "서비스 지역",
+      city_placeholder: "주요 서비스 지역 선택",
+      nationwide: "영국 전역",
+      major_cities: "주요 도시",
+      avatar_placeholder: "사진 업로드",
+      banner_label: "커버 배너",
+      banner_placeholder: "클릭하여 전문적인 배너 이미지를 업로드하세요",
+      credentials_label: "공식 자격 및 인증",
+      credentials_required: "필수",
+      credentials_hint_technical: "기술직 전문가의 경우 Gas Safe / NICEIC / CHAS 인증이 필수입니다.",
+      credentials_hint_standard: "면허, 자격증 또는 자격 증명 서류를 업로드하세요.",
+      ai_verifying: "AI가 실시간으로 서류를 검증 중입니다...",
+      ai_verified_success: "AI 검증 완료",
+      ai_verified_failed: "AI 거부됨",
+      manual_review: "수동 검토 필요",
+      insurance_label: "배상책임보험 (PL 보험)",
+      insurance_1m: "£1,000,000 보장",
+      insurance_2m: "£2,000,000 보장",
+      insurance_5m: "£5,000,000 보장",
+      insurance_10m: "£10,000,000 보장",
+      insurance_none: "현재 미가입",
+      insurance_hint: "권장: 고객 보호를 위해 최소 £1M 보장.",
+      promo_placeholder: "예: ELITE 또는 FREE10",
+      promo_active: "코드 적용 완료!",
+      issuing_body: "발급 기관"
+    },
+    validation: {
+      select_sector: "계속하려면 전문 분야를 선택하세요.",
+      fill_required: "계속하기 전에 모든 필수 필드를 입력하세요.",
+      bio_short: "전문가 요약은 최소 20자 이상이어야 합니다.",
+      business_name_required: "상호명 또는 거래명을 입력하세요.",
+      email_required: "유효한 이매일 주소를 입력하세요.",
+      phone_required: "연락처 전화번호를 입력하세요.",
+      city_required: "서비스 지역을 선택하세요.",
+      file_size_error: "파일 크기는 5MB 미만이어야 합니다.",
+      ai_fallback: "AI 검증을 사용할 수 없습니다. 수동 검토를 위해 표시되었습니다.",
+      password_short: "비밀번호는 최소 6자 이상이어야 합니다.",
+      website_required: "먼저 웹사이트 URL을 입력하세요.",
+      ai_fetch_error: "AI가 정보를 가져올 수 없습니다. 수동으로 입력하세요.",
+      bio_regen_error_missing: "상호명과 최소 하나 이상의 카테고리가 입력되었는지 확인하세요.",
+      ai_bio_error: "AI가 자기소개를 생성할 수 없습니다.",
+      unexpected_error: "예기치 않은 오류가 발생했습니다. 다시 시도해 주세요."
+    },
+    ai_assistant: {
+      title: "AI 기술 스마트 식별",
+      map_title: "AI 기술 스마트 식별",
+      map_description: "귀하의 기술, 경험 및 제공 서비스를 설명해 주세요. AI가 당사 글로벌 서비스 카탈로그에 자동으로 매핑합니다.",
+      map_placeholder: "예: 가스 안전 점검, 보일러 수리를 담당하며 공기 열원 히트펌프 설치도 가능합니다...",
+      map_button: "AI 자동 기술 매핑",
+      map_processing: "전공 분야 AI 분석 중...",
+      matched_count: "식별된 기술",
+      matched_error: "계속하려면 최소 하나 이상의 기술을 선택해야 합니다.",
+      manual: "또는 수동으로 찾아보기 및 선택",
+      search: "특정 기술 검색...",
+    },
+    preview: {
+      preview_label: "실시간 미리보기",
+      live_preview: "프로필 미리보기",
+      sector_placeholder: "분야 미정",
+      business_name_placeholder: "귀하의 비즈니스 또는 전문가 성함",
+      bio_placeholder: "전문가 요약이 여기에 표시됩니다. 이를 통해 고객이 귀하의 전문 지식과 가치를 이해할 수 있습니다...",
+      location_suffix: "영국",
+      insurance_suffix: "배상책임보험 가입됨",
+      booking_button: "지금 예약",
+      ai_cert_hint: "AI가 전문 자격을 즉시 검증했습니다",
+      credentials_hint: "서류 업로드 성공. 최종 확인 대기 중",
+      commission_technical: "기술 분야: 전체 결제 처리, 예약 및 분쟁 보호 (10% 플랫폼 수수료)",
+      commission_education: "교육 및 튜터링: 고가치 학생 매칭 및 안전한 요금 결제",
+      commission_standard: "전문 서비스: 안전한 결제 처리 및 인증된 전문가 상태",
+    },
+    success: {
+      title: "신청서가 제출되었습니다!",
+      subtitle: "저희 팀이 귀하의 자격을 검토한 후 곧 전문가 프로필을 활성화하겠습니다.",
+      next_steps: "다음 단계",
+      step_review: "프로필 검토 (영업일 기준 1~2일)",
+      coming_soon: "대시보드 준비 중",
+      enter_dashboard: "전문가 대시보드 입장",
+      ai_tax_title: "AI 세무 어시스턴트",
+      ai_tax_desc: "HMRC 준수 및 VAT 신고 자동화 — 모든 등록 전문가를 위해 곧 출시됩니다.",
+    },
+    steps: {
+      profile: "비즈니스 프로필",
+      credentials: "자격 및 인증서",
+      contract: "서비스 계약",
+    },
+    sectors: {
+      title: "전문 분야 선택",
+      professional: {
+        title: "전문 서비스",
+        desc: "공인 회계사, 법률 고문, 전략적 기업 컨설턴트에게 적합",
+        industries: ["세무 및 회계", "기업 법무", "비즈니스 컨설팅", "재무 계획", "마케팅 전략", "인사"],
+      },
+      education: {
+        title: "학술 및 튜터링",
+        desc: "입시 튜터, 언어 코치, 기술 교육 전문가에게 적합",
+        industries: ["수학", "과학", "물리", "화학", "생물", "영어", "A-Level 수학", "GCSE 수학", "기타"],
+      },
+      technical: {
+        title: "기술 및 기술직 서비스",
+        desc: "숙련된 기술자, 주택 유지보수 업체, 엔지니어에게 적합",
+        industries: ["배관 및 수도", "전기 기술", "보일러 및 난방", "가전 수리", "인테리어", "지붕 수리"],
+      },
+    },
+  },
+
+  merchant_dashboard: {
+    title: "전문가 제어판",
+    expertTitle: "Elite 전문가 체계",
+    welcome: "다시 오신 것을 환영합니다, {name}",
+    quick_links_hint: "전문가 도구함을 빠르게 실행하세요",
+    elite_ai: {
+      title: "최첨단 AI 및 비디오 설정",
+      video_label: "소개 비디오 (YouTube URL)",
+      knowledge_label: "AI 전문가 지식 베이스",
+      knowledge_placeholder: "전문 지식, 서비스 상세 내용 및 기술 기준을 여기에 심층 로드하십시오. 이 데이터는 비공개로 유지되며, 기술 상담을 정교하게 처리하는 전담 AI 어시스턴트를 구동합니다.",
+      save_button: "전문가 프로필 보정"
+    },
+    pricing: {
+      title: "AI 가격 측정 펄스",
+      status: "가격 책정 건강도",
+      optimal: "최적 상태",
+      message: "시장 보정된 요금이 감지되었습니다. 현재 가격 설정은 신뢰도가 높은 최고 벤치마크와 일치합니다.",
+      trend: "시장 평형점",
+      baseRate: "기본 시급 설정 (£)",
+      trial: "30분 무료 상담/트라이얼 활성화",
+      trialPrice: "트라이얼 특가 (£)",
+      feeNote: "* 이 기준 금액에 10%의 플랫폼 서비스 수수료가 자동으로 추가됩니다。"
+    },
+    stats: {
+      totalBookings: "총 예약 수",
+      rating: "신뢰 등급",
+      availableBalance: "출금 가능 잔액",
+      pendingBalance: "결제 대기 잔액",
+      availableNow: "현재 이용 가능",
+      totalJobs: "완료된 프로젝트",
+      escrowHeld: "에스크로 예치금",
+      reviews: "고객 후기"
+    },
+    bookings: {
+      title: "최근 예약 업무",
+      viewAll: "전체 보기",
+      empty: "대기 중인 업무가 없습니다"
+    },
+    quick_links: {
+      title: "엘리트 조작 키",
+      hint: "전문적 성장을 촉진하는 전략적 단축키"
+    },
+    tools: {
+      title: "최신 가용 항목",
+      subtitle: "전문가를 위한 엄선된 성장 도구 (모두 무료)",
+      diagnosis: {
+        name: "AI 지능형 진단",
+        desc: "시각적 손상 평가 및 고객 유입 유도 시스템",
+        badge: "무료"
+      },
+      whatsapp: {
+        name: "WhatsApp 실시간 연동",
+        desc: "신규 주문 및 고객 문의 알림 즉시 수신",
+        badge: "무료"
+      },
+      seo: {
+        name: "SEO 전문가 프로필 최적화",
+        desc: "Google 검색 순위 향상 및 메타 태그 최적화",
+        badge: "무료"
+      },
+      video: {
+        name: "엘리트 AI 비디오 설정",
+        desc: "전문적인 비디오 도입 및 AI 지식 베이스 동기화",
+        badge: "무료"
+      },
+      ad_copy: {
+        name: "AI 광고 문구 생성",
+        desc: "전환율이 높은 소셜 미디어 및 광고 슬로건 자동 생성",
+        badge: "무료"
+      },
+      launch: "지금 실행"
+    }
+  },
+  member_dashboard: {
+    hero: {
+      location: "영국",
+      helpTitle: "오늘 {location}에서 무엇을 도와드릴까요?",
+      aiAssistant: "AI 생활 컨시어지",
+      placeholder: "영국 생활에 대해 {model}에게 무엇이든 물어보세요... (Enter로 전송)",
+      thinking: "생각 중...",
+      clearChat: "대화 삭제",
+      send: "전송",
+      errors: {
+        format: "응답 형식 오류",
+        unknown: "알 수 없는 오류가 발생했습니다. 나중에 다시 시도해 주세요.",
+        network: "네트워크 연결에 실패했습니다. 연결을 확인하고 다시 시도해 주세요."
+      },
+      prompts: {
+        travel: "오늘의 최적 이동 경로는?",
+        dining: "주변 추천 레스토랑",
+        study: "학습에 AI를 활용하는 방법은?"
+      }
+    },
+    quick_actions: {
+      findExpert: "전문가 찾기",
+      chat: "대화 목록",
+      diagnosis: "AI 진단",
+      equipment: "자산 및 장비 관리",
+      history: "이력"
+    },
+    study_hub: {
+      title: "AI 지능형 학습 센터",
+      quota: "오늘의 잔여 횟수: {remaining} / {limit}",
+      intro: "수업 노트, 시험지 사진을 업로드하거나 주제를 입력하면 AI가 개인 맞춤형 연습 문제를 생성하고 약점을 진단합니다.",
+      tabs: {
+        text: "텍스트 입력",
+        photo: "사진 인식"
+      },
+      placeholders: {
+        text: "학습하거나 번역하고 싶은 텍스트를 붙여넣으세요...",
+        analyze: "내용 분석",
+        selectTutor: "강사를 선택해 주세요..."
+      },
+      generating: {
+        title: "AI가 내용을 분석하고 문제를 생성 중입니다...",
+        sub: "약 10-15초정도 소요됩니다. 잠시만 기다려 주세요"
+      },
+      quiz: {
+        complete: "퀴즈를 완료하고 AI 진단 보기",
+        finish: "퀴즈 완료!",
+        report: "AI 학습 진단 보고서",
+        back: "학습 센터로 돌아가기",
+        share: "내 강사에게 공유하기"
+      },
+      share: {
+        title: "강사에게 공유",
+        desc: "AI 진단 보고서를 공유할 강사를 선택하여 다음 수업 계획을 돕습니다.",
+        success: "공유 성공!",
+        successDesc: "강사가 이제 대시보드에서 귀하의 진단 보고서를 확인할 수 있습니다.",
+        confirm: "공유 확인",
+        cancel: "취소"
+      }
+    },
+    bookings: {
+      title: "최근 예약",
+      recentCount: "최근 {count}건",
+      viewAll: "모두 보기",
+      empty: "예약 내역이 없습니다",
+      bookNow: "지금 서비스 예약하기",
+      status: {
+        pending: "확인 대기",
+        confirmed: "확정됨",
+        completed: "완료됨",
+        cancelled: "취소됨",
+        disputed: "분쟁 중"
+      },
+      joinClass: "강의실 입장"
+    },
+    feed: {
+      title: "오늘의 추천",
+      subtitle: "최고의 전문가 · 매일 엄선",
+      all: "전체",
+      loading: "추천 전문가를 불러오는 중...",
+      tips: {
+        plumbing: "💧 날씨가 추워지고 있습니다. 배관 동파 방지 점검을 잊지 마세요!",
+        education: "📚 지금 튜터를 예약하고 다음 학기를 준비하세요!",
+        legal: "⚖️ 임대 계약 만료가 다가오나요? 변호사와 상담하여 권리를 보호하세요.",
+        accounting: "🧾 자영업자 세금 신고 마감일이 다가오고 있습니다.",
+        cleaning: "✨ 계절 맞이 대청소로 집안을 새롭게 단장하세요!",
+        repairs: "🔧 겨울이 오기 전에 가전제품 안전 점검을 하기에 가장 좋은 시기입니다.",
+        renovation: "🏠 연말 전에 리모델링을 마쳐 새해를 맞이하세요!",
+        commercial: "💼 4분기 재무 계획, 지금 바로 비즈니스 어드바이저와 상담하세요.",
+        default: "지금 예약하고 프리미엄 서비스 경험을 누리세요."
+      }
+    }
+  },
+  metadata: {
+    title: "ConciergeAI | 영국 최고의 인증 전문가 및 튜터 고용",
+    description: "영국 최고의 엘리트 전문가 및 튜터 네트워킹 플랫폼."
+  }
 };
+

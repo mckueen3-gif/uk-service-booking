@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { MapPin, Star, Sparkles, BookOpen, Clock, Video, UserCheck, ShieldCheck, GraduationCap, Lock } from 'lucide-react';
+import { MapPin, Star, Sparkles, Clock, Video, UserCheck, ShieldCheck, GraduationCap, Lock } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslation } from '@/components/LanguageContext';
 import { useSession } from 'next-auth/react';
@@ -107,7 +107,7 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
     return (
       <div style={{ backgroundColor: 'var(--bg-secondary)', minHeight: '100vh', padding: '10rem 0', textAlign: 'center' }}>
         <h2 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '1rem' }}>Expert Not Found</h2>
-        <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>We couldn't find the tutor you're looking for.</p>
+        <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>We couldn&apos;t find the tutor you&apos;re looking for.</p>
         <Link href="/services/education/search" style={{ color: 'var(--accent-color)', fontWeight: 800 }}>Back to Search Results →</Link>
       </div>
     );
@@ -279,6 +279,9 @@ export default function TutorProfilePage({ params }: { params: Promise<{ id: str
             <button className="btn btn-primary" style={{ width: '100%', padding: '1rem', fontSize: '1.1rem', borderRadius: '12px' }}>
               {t?.education_sec?.tutorProfile?.bookNow || "Book Masterclass"}
             </button>
+            <p style={{ marginTop: '0.75rem', fontSize: '0.85rem', color: 'var(--text-secondary)', textAlign: 'center', lineHeight: 1.4 }}>
+              {t?.education_sec?.tutorProfile?.feeDisclosure}
+            </p>
           </div>
         </aside>
 

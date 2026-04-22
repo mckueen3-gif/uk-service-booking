@@ -25,6 +25,14 @@ export default withAuth(
       pathname === p || pathname.startsWith(p + "/")
     ) || pathname === "/merchant";
 
+    const isMemberRoot = pathname === "/member" || pathname === "/member/";
+    const isPublicHome = pathname === "/";
+
+    if (isMemberRoot) {
+      return NextResponse.redirect(new URL("/member/home", req.url));
+    }
+
+
     if (isMerchantDashboard) {
       // Must be logged in as MERCHANT or ADMIN
       if (token?.role !== "MERCHANT" && token?.role !== "ADMIN") {
@@ -40,9 +48,8 @@ export default withAuth(
         const path = req.nextUrl.pathname.replace(/\/$/, "");
 
         // Public routes — no login required
-        if (path === "/diagnosis") return true;
+        if (path === "" || path === "/diagnosis") return true;
         if (path === "/services" || path.startsWith("/services/")) return true;
-        if (path === "/book" || path.startsWith("/book/")) return true;
 
         // /merchant/[id] is a single segment — public profile page
         const merchantSegments = path.split("/").filter(Boolean);
@@ -66,5 +73,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ["/member/:path*", "/merchant/:path*", "/book/:path*"],
+  matcher: ["/", "/member/:path*", "/merchant/:path*", "/book/:path*"],
 };

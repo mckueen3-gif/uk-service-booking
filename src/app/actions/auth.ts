@@ -17,10 +17,16 @@ export async function registerUser(formData: FormData) {
   const lastName = formData.get("lastName") as string;
   const email = (formData.get("email") as string)?.toLowerCase();
   const password = formData.get("password") as string;
-  const role = formData.get("role") as "CUSTOMER" | "MERCHANT";
-  const referredBy = formData.get("referredBy") as string; // Optional referral code
+  const role = (formData.get("role") as "CUSTOMER" | "MERCHANT") || "CUSTOMER";
+  const referredBy = formData.get("referredBy") as string;
+  const phone = formData.get("phone") as string;
+  const postcode = formData.get("postcode") as string;
+  const houseNumber = formData.get("houseNumber") as string;
+  const city = formData.get("city") as string;
+  const district = formData.get("district") as string;
+  const country = formData.get("country") as string;
 
-  if (!email || !password || !firstName || !lastName || !role) {
+  if (!email || !password || !firstName || !lastName || !phone) {
     return { error: "missingFields" };
   }
 
@@ -49,7 +55,13 @@ export async function registerUser(formData: FormData) {
           password: hashedPassword,
           name,
           role,
-          referralCode, // Re-enabled
+          phone,
+          postcode,
+          houseNumber,
+          city,
+          addressLine1: district,
+          addressLine2: country,
+          referralCode,
         }
       });
 
@@ -70,16 +82,30 @@ export async function registerUser(formData: FormData) {
         }
       }
 
-      // If registering as a Merchant, create the Merchant profile record
+      // If registering as a Merchant, create the Merchant profile record with default availability
       if (role === 'MERCHANT') {
-        await tx.merchant.create({
+        const merchant = await tx.merchant.create({
           data: {
             userId: user.id,
-            companyName: name, // Default to user's name
-            city: "London",    // Default starting city for UK platform
+            companyName: name, 
+            city: "London",    
             isVerified: false,
           }
         });
+
+        // Add default availability: Mon-Fri, 09:00 - 17:00
+        const days = [1, 2, 3, 4, 5]; // Monday to Friday
+        await Promise.all(days.map(day => 
+          tx.merchantAvailability.create({
+            data: {
+              merchantId: merchant.id,
+              dayOfWeek: day,
+              startTime: "09:00",
+              endTime: "17:00",
+              isOpen: true
+            }
+          })
+        ));
       }
 
       return { success: true, userId: user.id };

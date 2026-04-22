@@ -1,4 +1,4 @@
-import { getDictionary } from './src/lib/i18n/dictionary';
+import { getDictionary } from '../src/lib/i18n/dictionary';
 
 async function test() {
     try {

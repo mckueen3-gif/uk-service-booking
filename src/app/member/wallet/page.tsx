@@ -21,7 +21,7 @@ export default async function WalletPage() {
       {/* 🚀 INSTANT SHELL HEADER: Renders immediately */}
       <div className="animate-fade-up" style={{ marginBottom: '0.5rem' }}>
         <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', fontWeight: 600 }}>
-          {t?.rewards_hub?.subtitle || "Rewards & Earnings Hub"}
+          {t?.rewards_hub?.subtitle || "Credits & Dividends Hub"}
         </p>
       </div>
 

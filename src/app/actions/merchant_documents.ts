@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { revalidatePath } from 'next/cache';
+import { getMerchantId } from '@/lib/merchant-utils';
 import { generateAIContent } from '@/lib/ai-provider';
 import { createNotification } from './notifications';
 
@@ -11,11 +12,11 @@ import { createNotification } from './notifications';
  * Merchant uploads a professional license for verification.
  */
 export async function uploadMerchantDocument(type: 'GAS_SAFE' | 'NICEIC' | 'PUBLIC_LIABILITY', fileUrl: string) {
-  const session = (await getServerSession(authOptions)) as any;
-  if (!session?.user?.id) return { error: "Unauthorized" };
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant profile not found" };
 
   const merchant = await prisma.merchant.findUnique({
-    where: { userId: session.user.id }
+    where: { id: merchantId }
   });
 
   if (!merchant) return { error: "Merchant profile not found" };
@@ -170,11 +171,11 @@ export async function processLicenseWithAI(documentId: string) {
  * Get merchant documents
  */
 export async function getMerchantDocuments() {
-  const session = (await getServerSession(authOptions)) as any;
-  if (!session?.user?.id) return { error: "Unauthorized" };
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant profile not found" };
 
   const merchant = await prisma.merchant.findUnique({
-    where: { userId: session.user.id }
+    where: { id: merchantId }
   });
 
   if (!merchant) return { error: "Merchant profile not found" };

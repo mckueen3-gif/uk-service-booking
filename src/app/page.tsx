@@ -1,15 +1,22 @@
 import { Metadata } from 'next';
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import HomeClient from './HomeClient';
+import StructuredData from '@/components/StructuredData';
 
 export const dynamic = 'force-dynamic';
-import StructuredData from '@/components/StructuredData';
 
 export const metadata: Metadata = {
   title: 'ConciergeAI | Hire Top Local Experts in the UK',
   description: 'Book verified electricians, plumbers, legal experts, and home cleaners instantly. Secure payments and AI-driven dispute resolution for a peace of mind.',
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const session = await getServerSession(authOptions);
+
+  // If logged in, prioritize the member/merchant experience
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",

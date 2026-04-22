@@ -16,6 +16,10 @@ export default function WithdrawForm({ availableBalance }: WithdrawFormProps) {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ text: string, type: 'success' | 'error' } | null>(null);
 
+  const numAmount = parseFloat(amount) || 0;
+  const stripeFee = numAmount > 0 ? (numAmount * 0.0025 + 0.25) : 0;
+  const netAmount = Math.max(0, numAmount - stripeFee);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const numAmount = parseFloat(amount);
@@ -97,6 +101,30 @@ export default function WithdrawForm({ availableBalance }: WithdrawFormProps) {
         </div>
       </div>
       
+      {numAmount > 0 && (
+        <div style={{ 
+          padding: '1.25rem', 
+          borderRadius: '16px', 
+          backgroundColor: 'rgba(255, 255, 255, 0.02)',
+          border: '1px solid rgba(212, 175, 55, 0.1)',
+          display: 'grid',
+          gap: '0.75rem'
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontSize: '0.85rem', color: '#94a3b8', fontWeight: 600 }}>{t?.merchant?.merchant_wallet?.payout?.feeLabel || "Stripe Payout Fee"}</span>
+            <span style={{ fontSize: '0.85rem', color: '#ef4444', fontWeight: 800 }}>- £{stripeFee.toFixed(2)}</span>
+          </div>
+          <div style={{ height: '1px', backgroundColor: 'rgba(212, 175, 55, 0.1)' }} />
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontSize: '0.95rem', color: '#fff', fontWeight: 800 }}>{t?.merchant?.merchant_wallet?.payout?.estimatedNet || "Estimated Net Payout"}</span>
+            <span style={{ fontSize: '1.25rem', color: '#10b981', fontWeight: 900 }}>£{netAmount.toFixed(2)}</span>
+          </div>
+          <p style={{ fontSize: '0.7rem', color: '#64748b', fontWeight: 500, marginTop: '4px', fontStyle: 'italic' }}>
+            {t?.merchant?.merchant_wallet?.payout?.feeWarning || "Fee deducted automatically by Stripe."}
+          </p>
+        </div>
+      )}
+
       <button 
         type="submit" 
         disabled={loading || !amount}

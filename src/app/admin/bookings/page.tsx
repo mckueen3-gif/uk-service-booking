@@ -62,25 +62,26 @@ export default function AdminBookings() {
                }} 
              />
            </div>
-           <button style={{ 
-             backgroundColor: '#0f172a', 
-             color: '#d4af37', 
-             padding: '0.875rem 1.75rem', 
-             borderRadius: '16px', 
-             fontSize: '13px', 
-             fontWeight: 900, 
-             textTransform: 'uppercase', 
-             letterSpacing: '0.08em', 
-             cursor: 'pointer', 
-             border: 'none', 
-             display: 'flex', 
-             alignItems: 'center', 
-             gap: '0.6rem',
-             boxShadow: '0 10px 25px rgba(15, 23, 42, 0.15)'
-           }}>
-             <Download size={18} />
-             數據導出
-           </button>
+            <button style={{ 
+              backgroundColor: '#0f172a', 
+              color: '#d4af37', 
+              padding: '0.875rem 1.75rem', 
+              borderRadius: '16px', 
+              fontSize: '13px', 
+              fontWeight: 900, 
+              textTransform: 'uppercase', 
+              letterSpacing: '0.08em', 
+              cursor: 'pointer', 
+              border: 'none', 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '0.6rem',
+              boxShadow: '0 10px 25px rgba(15, 23, 42, 0.15)',
+              minWidth: '160px'
+            }}>
+              <Download size={18} />
+              {t.admin.bookings.export}
+            </button>
         </div>
       </div>
 
@@ -111,7 +112,7 @@ export default function AdminBookings() {
                <tr>
                  <td colSpan={6} style={{ padding: '8rem 4rem', textAlign: 'center' }}>
                     <Package size={48} style={{ margin: '0 auto 1.5rem', color: '#d4af37', opacity: 0.2 }} />
-                    <p style={{ color: '#94a3b8', fontSize: '1.1rem', fontWeight: 500 }}>暫無預訂紀錄</p>
+                    <p style={{ color: '#94a3b8', fontSize: '1.1rem', fontWeight: 500 }}>{t.admin.bookings.empty}</p>
                  </td>
                </tr>
             ) : (
@@ -133,20 +134,20 @@ export default function AdminBookings() {
                     </div>
                   </td>
                   <td style={{ padding: '1.75rem 2rem' }}>
-                    <div style={{ fontSize: '15px', fontWeight: 900, color: '#0f172a' }}>{booking.customer?.name || "未知用戶"}</div>
+                    <div style={{ fontSize: '15px', fontWeight: 900, color: '#0f172a' }}>{booking.customer?.name || t.admin.bookings.unknownUser}</div>
                     <div style={{ fontSize: '12px', color: '#94a3b8', fontWeight: 600 }}>{booking.customer?.email}</div>
                   </td>
                   <td style={{ padding: '1.75rem 2rem' }}>
                     <div style={{ fontSize: '15px', fontWeight: 800, color: '#334155' }}>{booking.service?.name || booking.serviceName}</div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: '4px' }}>
-                        <span style={{ fontSize: '10px', color: '#d4af37', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Node: {booking.merchant?.companyName || booking.merchantId?.slice(0, 8)}</span>
+                        <span style={{ fontSize: '10px', color: '#d4af37', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{t.admin.bookings.nodeLabel} : {booking.merchant?.companyName || booking.merchantId?.slice(0, 8)}</span>
                     </div>
                   </td>
                   <td style={{ padding: '1.75rem 2rem' }}>
-                    <span style={{ fontSize: '16px', fontWeight: 900, color: '#0f172a' }}>£{booking.amount}</span>
+                    <span style={{ fontSize: '16px', fontWeight: 900, color: '#0f172a' }}>£{booking.totalAmount}</span>
                   </td>
                   <td style={{ padding: '1.75rem 2rem' }}>
-                    <StatusBadge status={booking.status} />
+                    <StatusBadge status={booking.status} t={t} />
                   </td>
                   <td style={{ padding: '1.75rem 2rem', textAlign: 'right' }}>
                     <button style={{ 
@@ -174,15 +175,16 @@ export default function AdminBookings() {
   );
 }
 
-function StatusBadge({ status }: { status: string }) {
+function StatusBadge({ status, t }: { status: string; t: any }) {
   const configs: any = {
-    COMPLETED: { color: '#10b981', bg: 'rgba(16, 185, 129, 0.08)', text: '已完成' },
-    PENDING: { color: '#f59e0b', bg: 'rgba(245, 158, 11, 0.08)', text: '處理中' },
-    CANCELLED: { color: '#ef4444', bg: 'rgba(239, 68, 68, 0.08)', text: '已取消' },
-    PAID: { color: '#d4af37', bg: 'rgba(212, 175, 55, 0.08)', text: '已付款' }
+    COMPLETED: { color: '#10b981', bg: 'rgba(16, 185, 129, 0.08)' },
+    PENDING: { color: '#f59e0b', bg: 'rgba(245, 158, 11, 0.08)' },
+    CANCELLED: { color: '#ef4444', bg: 'rgba(239, 68, 68, 0.08)' },
+    PAID: { color: '#d4af37', bg: 'rgba(212, 175, 55, 0.08)' }
   };
 
-  const config = configs[status] || { color: '#94a3b8', bg: '#f8fafc', text: status };
+  const config = configs[status] || { color: '#94a3b8', bg: '#f8fafc' };
+  const text = t.admin.bookings.statusText[status.toLowerCase()] || status;
 
   return (
     <span style={{ 
@@ -196,7 +198,7 @@ function StatusBadge({ status }: { status: string }) {
       textTransform: 'uppercase',
       letterSpacing: '0.05em'
     }}>
-      {config.text}
+      {text}
     </span>
   );
 }

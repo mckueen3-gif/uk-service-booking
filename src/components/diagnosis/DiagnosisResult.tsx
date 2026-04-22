@@ -15,6 +15,12 @@ interface AIDiagnosisResult {
   imageUrl: string;
   createdAt: Date;
   provider?: string;
+  marketComparison?: {
+    region: string;
+    averageHourlyRate: string;
+    callOutFee: string;
+    notes: string;
+  };
 }
 
 interface Props {
@@ -96,6 +102,27 @@ export default function DiagnosisResult({ diagnosis }: Props) {
                 <div style={{ fontSize: '0.9rem', color: 'var(--text-primary)', fontWeight: 600 }}>{t.diagnosis?.tool?.includesLabor || "包含工資與零件"}</div>
               </div>
             </div>
+
+            {diagnosis.marketComparison && (
+              <div className="glass-panel" style={{ border: '1px dashed var(--accent-color)', background: 'rgba(var(--accent-rgb), 0.03)', padding: '1.5rem', borderRadius: '1rem', marginBottom: '2rem' }}>
+                <h4 style={{ fontSize: '0.9rem', fontWeight: 800, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--accent-color)' }}>
+                  <MapPin size={16} /> {t.diagnosis?.tool?.marketInsights || "市場情報"}: {diagnosis.marketComparison.region}
+                </h4>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                  <div>
+                    <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{t.diagnosis?.tool?.avgHourlyRate || "平均工資"}</div>
+                    <div style={{ fontWeight: 700 }}>{diagnosis.marketComparison.averageHourlyRate}</div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{t.diagnosis?.tool?.avgCallOut || "出車費用"}</div>
+                    <div style={{ fontWeight: 700 }}>{diagnosis.marketComparison.callOutFee}</div>
+                  </div>
+                </div>
+                <p style={{ marginTop: '0.75rem', fontSize: '0.8rem', color: 'var(--text-secondary)', fontStyle: 'italic' }}>
+                  * {diagnosis.marketComparison.notes}
+                </p>
+              </div>
+            )}
 
             <div style={{ display: 'flex', gap: '1rem' }}>
               <Link href={`/services/results?q=${diagnosis.category}`} style={{ flex: 2 }}>

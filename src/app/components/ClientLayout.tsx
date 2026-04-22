@@ -4,18 +4,27 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from "@/components/LanguageContext";
-import { Globe, User, MapPin, ChevronRight, Navigation, PenTool, Sun, Moon, Droplets, Wrench, GraduationCap, Calculator, Scale, Briefcase, Sparkles, Car, ChevronDown, Star, Menu, X, Mail, Phone, Share2, MessageSquare } from "lucide-react";
+import { useSession, signOut } from "next-auth/react";
+import { Globe, User, MapPin, ChevronRight, Navigation, PenTool, Sun, Moon, Droplets, Wrench, GraduationCap, Calculator, Scale, Briefcase, ShieldCheck, Sparkles, Car, ChevronDown, Star, Menu, X, Mail, Phone, Share2, MessageSquare, LogOut } from "lucide-react";
 import NavbarSearch from "@/app/components/NavbarSearch";
-import NotificationHub from "@/components/dashboard/NotificationHub";
+
 import { useLocation, ALL_UK } from "@/components/LocationContext";
 import { useTheme } from "@/components/ThemeContext";
 import { getDictionary } from "@/lib/i18n/dictionary";
+import NotificationHub from "@/components/dashboard/NotificationHub";
 
-export function AppNavbar({ session }: { session: any }) {
+export function AppNavbar({ session: serverSession }: { session: any }) {
+  const { data: clientSession } = useSession();
+  const session = clientSession || serverSession;
   const { t, locale, setLocale, isRTL } = useTranslation();
   const { city, setCity, supportedCities, detectLocation, isLocating } = useLocation();
   const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
+
+  // Dynamic paths based on role
+  const isMerchant = session?.user?.role === 'MERCHANT' || session?.user?.role === 'ADMIN';
+  const dashboardPath = isMerchant ? '/merchant' : '/member/home';
+  const homePath = '/';
 
   const isObsidianPage = pathname?.startsWith('/join') || pathname?.includes('/merchant') || pathname?.startsWith('/member') || pathname?.startsWith('/admin');
   const obsidianBg = theme === 'dark' ? '#050505' : 'var(--bg-primary)';
@@ -110,7 +119,7 @@ export function AppNavbar({ session }: { session: any }) {
             {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
 
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+          <Link href={homePath} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
             <img 
               src="/images/logo_concierge_ai.png" 
               alt="ConciergeAI Logo" 
@@ -122,6 +131,7 @@ export function AppNavbar({ session }: { session: any }) {
               }} 
             />
           </Link>
+
 
           {/* Concise Language Switcher (Moved next to Logo) */}
           <div className="hide-on-mobile" style={{ position: 'relative', marginLeft: '0.2rem' }}>
@@ -334,19 +344,53 @@ export function AppNavbar({ session }: { session: any }) {
             <PenTool size={18} /> {t?.nav?.aiDiagnosis}
           </Link>
 
-          <Link href="/join" className="hover-bg fluid-nav-item" style={{ 
-            color: obsidianGold, 
-            fontWeight: 800, 
-            textDecoration: 'none', 
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.4rem',
-            padding: '0.5rem 0.75rem',
-            borderRadius: '0.75rem',
-            transition: '0.2s'
-          }}>
-            <Briefcase size={18} /> {t?.nav?.join}
-          </Link>
+          {!session?.user && (
+            <Link href="/join" className="hover-bg fluid-nav-item hide-on-narrow-desktop" style={{ 
+              color: obsidianGold, 
+              fontWeight: 800, 
+              textDecoration: 'none', 
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              padding: '0.5rem 0.75rem',
+              borderRadius: '0.75rem',
+              transition: '0.2s'
+            }}>
+              <Briefcase size={18} /> {t?.nav?.join}
+            </Link>
+          )}
+          
+          {(session?.user?.role === 'MERCHANT' || session?.user?.role === 'ADMIN') && (
+            <Link href="/merchant" className="hover-bg fluid-nav-item hide-on-tablet" style={{ 
+              color: obsidianGold, 
+              fontWeight: 800, 
+              textDecoration: 'none', 
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              padding: '0.5rem 0.75rem',
+              borderRadius: '0.75rem',
+              transition: '0.2s'
+            }}>
+              <Briefcase size={18} /> {t?.common?.merchantPortal || "Merchant Node"}
+            </Link>
+          )}
+
+          {session?.user?.role === 'ADMIN' && (
+            <Link href="/admin" className="hover-bg fluid-nav-item hide-on-narrow-desktop" style={{ 
+              color: obsidianGold, 
+              fontWeight: 800, 
+              textDecoration: 'none', 
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              padding: '0.5rem 0.75rem',
+              borderRadius: '0.75rem',
+              transition: '0.2s'
+            }}>
+              <ShieldCheck size={18} /> {t?.nav?.admin || "Admin Center"}
+            </Link>
+          )}
           
           <div className="fluid-search-container">
             <NavbarSearch />
@@ -375,8 +419,29 @@ export function AppNavbar({ session }: { session: any }) {
           
           {session?.user ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+              
+              <Link 
+                href="/member/chat" 
+                className="hover-scale active-scale" 
+                title={t?.sidebar?.labels?.messages || "Messages"}
+                style={{ 
+                  color: obsidianGold, 
+                  padding: '0.4rem', 
+                  borderRadius: '0.75rem',
+                  backgroundColor: pathname === '/member/chat' ? 'var(--accent-soft)' : 'transparent',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 0.2s'
+                }}
+              >
+                 <MessageSquare size={22} />
+              </Link>
+
               <NotificationHub />
-              <Link href={pathname?.includes('/merchant') ? "/merchant" : "/member"} style={{ color: obsidianGold, fontWeight: 600, textDecoration: 'none' }}>
+
+              <Link href={dashboardPath} style={{ color: obsidianGold, fontWeight: 600, textDecoration: 'none' }}>
+
                 <span style={{ 
                   backgroundColor: isObsidianPage ? 'rgba(212,175,55,0.1)' : 'var(--accent-soft)', 
                   padding: '0.4rem 0.8rem', borderRadius: '2rem', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem',
@@ -385,10 +450,29 @@ export function AppNavbar({ session }: { session: any }) {
                   <User size={16} /> {session.user.name} 
                 </span>
               </Link>
-              {isObsidianPage && pathname !== '/auth/login' && pathname !== '/auth/register' && (
-                <a href="/api/auth/signout" style={{ color: '#ef4444', fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none', whiteSpace: 'nowrap' }}>
-                  {t?.nav?.logout}
-                </a>
+              {pathname !== '/auth/login' && pathname !== '/auth/register' && (
+                <button 
+                  onClick={() => signOut({ callbackUrl: '/' })}
+                  className="hover-scale"
+                  style={{ 
+                    background: 'none',
+                    border: 'none',
+                    color: '#ef4444', 
+                    fontWeight: 700, 
+                    fontSize: '0.9rem', 
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.4rem',
+                    whiteSpace: 'nowrap',
+                    padding: '0.4rem'
+                  }}
+                >
+                  <LogOut size={16} />
+                  <span className="hide-on-tablet">
+                    {t?.nav?.logout || (locale === 'en' ? 'Sign Out' : '登出')}
+                  </span>
+                </button>
               )}
             </div>
           ) : (
@@ -417,9 +501,10 @@ export function AppNavbar({ session }: { session: any }) {
              {theme === 'light' ? <Moon size={22} /> : <Sun size={22} />}
           </button>
           {session?.user ? (
-            <Link href={pathname?.includes('/merchant') ? "/merchant" : "/member"} style={{ color: obsidianGold }}>
+            <Link href={dashboardPath} style={{ color: obsidianGold }}>
                <User size={22} />
             </Link>
+
           ) : (
             <Link href="/auth/login" style={{ color: obsidianGold }}>
                <User size={22} />
@@ -447,6 +532,15 @@ export function AppNavbar({ session }: { session: any }) {
                  }}>
                     <PenTool size={20} /> {t?.nav?.aiDiagnosis}
                  </Link>
+                 {session?.user?.role === 'ADMIN' && (
+                    <Link href="/admin" onClick={() => setMobileMenuOpen(false)} style={{ 
+                      display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem', borderRadius: '1rem',
+                      background: 'rgba(212, 175, 55, 0.1)', color: obsidianGold, textDecoration: 'none', fontWeight: 800,
+                      border: '1px solid rgba(212, 175, 55, 0.2)'
+                    }}>
+                       <ShieldCheck size={20} /> {t?.nav?.admin || "Admin Center"}
+                    </Link>
+                 )}
               </div>
            </div>
 
@@ -518,10 +612,12 @@ export function AppNavbar({ session }: { session: any }) {
 
            {/* Auth CTA Mobile */}
            <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-             <Link href="/join" onClick={() => setMobileMenuOpen(false)} style={{ 
-               width: '100%', padding: '1rem', textAlign: 'center', borderRadius: '1rem',
-               border: `1.5px solid ${obsidianGold}`, color: obsidianGold, fontWeight: 900, textDecoration: 'none'
-             }}>{t?.nav?.join}</Link>
+             {!session?.user && (
+               <Link href="/join" onClick={() => setMobileMenuOpen(false)} style={{ 
+                 width: '100%', padding: '1rem', textAlign: 'center', borderRadius: '1rem',
+                 border: `1.5px solid ${obsidianGold}`, color: obsidianGold, fontWeight: 900, textDecoration: 'none'
+               }}>{t?.nav?.join}</Link>
+             )}
              
              {!session?.user && (
                <div style={{ display: 'flex', gap: '0.75rem' }}>
@@ -544,9 +640,16 @@ export function AppNavbar({ session }: { session: any }) {
 
 export function AppFooter() {
   const { t, isRTL } = useTranslation();
+  const { data: session } = useSession();
   const pathname = usePathname();
   const isObsidianPage = pathname?.startsWith('/join') || pathname?.includes('/merchant') || pathname?.startsWith('/member') || pathname?.startsWith('/admin');
   const { theme } = useTheme();
+  
+  // Dynamic paths based on role
+  const isMerchant = session?.user?.role === 'MERCHANT' || session?.user?.role === 'ADMIN';
+  const dashboardPath = isMerchant ? '/merchant' : '/member/home';
+  const homePath = '/';
+
   const obsidianBg = theme === 'dark' ? '#050505' : 'var(--bg-secondary)';
   const obsidianGold = '#d4af37';
 
@@ -598,7 +701,8 @@ export function AppFooter() {
         }}>
            {/* Brand & About Column */}
            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', gridColumn: 'span 1' }}>
-              <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+              {/* Note: In Footer, we usually link back to home '/' or the dynamic homePath */}
+              <Link href={homePath} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
                 <img 
                   src="/images/logo_concierge_ai.png" 
                   alt="ConciergeAI" 
@@ -684,6 +788,27 @@ export function AppFooter() {
                    { name: t?.footer?.privacy || 'Privacy', href: "/legal/privacy" },
                    { name: t?.footer?.cookies || 'Cookies', href: "/legal/cookies" },
                    { name: "Sitemap", href: "/sitemap" }
+                 ].map((link, idx) => (
+                   <Link key={idx} href={link.href} style={{ 
+                     color: isObsidianPage ? '#888' : 'var(--text-secondary)', 
+                     textDecoration: 'none', 
+                     fontSize: '0.9rem',
+                     transition: 'all 0.3s ease'
+                   }} className="link-hover">
+                     {link.name}
+                   </Link>
+                 ))}
+              </nav>
+           </div>
+
+           {/* For Specialists Column */}
+           <div>
+              <h4 style={{ fontWeight: 700, marginBottom: '1.5rem', fontSize: '1.1rem', color: isObsidianPage ? 'white' : 'inherit' }}>{t?.footer?.forPros || 'For Specialists'}</h4>
+              <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                 {[
+                   { name: t?.footer?.merchantRegistration || 'Specialist Join', href: "/join" },
+                   { name: t?.nav?.login || 'Specialist Login', href: "/auth/login" },
+                   { name: t?.footer?.merchantPortal || 'Merchant Portal', href: "/merchant" }
                  ].map((link, idx) => (
                    <Link key={idx} href={link.href} style={{ 
                      color: isObsidianPage ? '#888' : 'var(--text-secondary)', 

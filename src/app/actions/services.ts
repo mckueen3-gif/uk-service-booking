@@ -4,31 +4,22 @@ import { prisma, safeDbQuery } from '@/lib/prisma';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { unstable_cache, revalidateTag, revalidatePath } from "next/cache";
-
-async function getMerchantId() {
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.email) return null;
-  const user = await prisma.user.findUnique({
-    where: { email: session.user.email },
-    include: { merchantProfile: true }
-  });
-  return user?.merchantProfile?.id;
-}
+import { getMerchantId } from '@/lib/merchant-utils';
 
 export async function getMerchantServices() {
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.email) return { error: "Not authorized" };
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Merchant not found" };
 
-  const user = await prisma.user.findUnique({
-    where: { email: session.user.email },
-    include: { merchantProfile: { include: { services: { orderBy: { createdAt: 'desc' as any } } } } }
+  const merchant = await prisma.merchant.findUnique({
+    where: { id: merchantId },
+    include: { services: { orderBy: { createdAt: 'desc' as any } } }
   });
-
-  if (!user?.merchantProfile) return { error: "Merchant not found" };
+  
+  if (!merchant) return { error: "Merchant profile not found" };
 
   return { 
-    services: user.merchantProfile.services,
-    city: user.merchantProfile.city
+    services: merchant.services,
+    city: merchant.city
   };
 }
 
@@ -111,7 +102,7 @@ export const getServiceDetails = unstable_cache(
   { tags: ['services'], revalidate: 3600 }
 );
 
-export async function getMerchantDetails(merchantId: string) {
+export async function getMerchantDetails(merchantId: string): Promise<{ success: true; merchant: any } | { success: false; error: string }> {
   try {
     return await safeDbQuery(async () => {
       const merchant = await prisma.merchant.findUnique({
@@ -135,11 +126,27 @@ export async function getMerchantDetails(merchantId: string) {
           }
         }
       });
-      return { success: true, merchant };
+      if (!merchant) {
+        return { success: false, error: "Merchant not found" };
+      }
+
+      return { 
+        success: true, 
+        merchant: {
+          ...merchant,
+          youtubeVideoUrl: merchant.youtubeVideoUrl,
+          aiKnowledgeBase: merchant.aiKnowledgeBase
+        } 
+      };
     });
   } catch (err: any) {
-    console.error(`[DB Error] getMerchantDetails(${merchantId}):`, err);
-    return { success: false, error: err.message };
+    console.error(`[DB Error] getMerchantDetails(${merchantId}):`, {
+      message: err.message,
+      stack: err.stack,
+      code: err.code,
+      timestamp: new Date().toISOString()
+    });
+    return { success: false, error: err.message || "Unknown database error" };
   }
 }
 

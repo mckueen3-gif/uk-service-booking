@@ -1,1 +1,0 @@
-const fs = require('fs'); const html = fs.readFileSync('temp_checkatrade.html', 'utf8'); const start = html.indexOf('Air Conditioning'); if (start > -1) { console.log(html.substring(start, start + 500)); } else { console.log('Not found'); }

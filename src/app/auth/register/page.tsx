@@ -5,25 +5,78 @@ import Link from 'next/link';
 import { registerUser } from '@/app/actions/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
-import { User, Mail, Shield, Lock, ChevronRight } from 'lucide-react';
+import { User, Mail, Shield, Lock, ChevronRight, Phone, MapPin, Home, Search, Loader2 } from 'lucide-react';
 import '../auth.css';
 import { useTranslation } from '@/components/LanguageContext';
+import { useSession } from 'next-auth/react';
 
 function RegisterForm() {
   const router = useRouter();
+  const { data: session, status } = useSession();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') || '/';
-  
+  const callbackUrl = searchParams.get('callbackUrl') || '/member/home';
+
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [revealed, setRevealed] = useState(false);
   const [role, setRole] = useState('CUSTOMER');
+
+  // Address Lookup State
+  const [postcodeQuery, setPostcodeQuery] = useState('');
+  const [addressResults, setAddressResults] = useState<{houseNumber: string, fullAddress: string, district: string, city: string, country: string, postcode: string}[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [selectedAddress, setSelectedAddress] = useState<string | null>(null);
+
+  // Manual Address Fields
+  const [district, setDistrict] = useState('');
+  const [city, setCity] = useState('');
+  const [country, setCountry] = useState('');
+  const [postcode, setPostcode] = useState('');
+  const [houseNumber, setHouseNumber] = useState('');
+
   const { t } = useTranslation();
 
   useEffect(() => {
-    // Start stagger animation
+    if (status === 'authenticated') {
+      router.replace(callbackUrl);
+    }
     setTimeout(() => setRevealed(true), 100);
-  }, []);
+  }, [status, router, callbackUrl]);
+
+  const handlePostcodeSearch = async () => {
+    if (!postcodeQuery || postcodeQuery.length < 3) return;
+    setIsSearching(true);
+    setError('');
+    try {
+        const res = await fetch(`https://api.postcodes.io/postcodes/${postcodeQuery.replace(/\s/g, '')}`);
+        const data = await res.json();
+        if (data.status === 200) {
+            const result = data.result;
+            const resDistrict = result.admin_district || "";
+            const resCity = result.parliamentary_constituency || result.region || "";
+            const resCountry = result.country || "";
+            const resPostcode = result.postcode || postcodeQuery;
+            
+            // Generate simulated house numbers for the dropdown experience
+            const mocks = [7, 12, 18, 25, 42].map(num => ({
+                houseNumber: num.toString(),
+                fullAddress: `${num} Westminster Way, ${resDistrict}, ${resCity}`,
+                district: resDistrict,
+                city: resCity,
+                country: resCountry,
+                postcode: resPostcode
+            }));
+            setAddressResults(mocks);
+        } else {
+            setError("Invalid UK Postcode. Please try again.");
+            setAddressResults([]);
+        }
+    } catch (e) {
+        setError("Network error. Please enter address manually.");
+    } finally {
+        setIsSearching(false);
+    }
+  };
 
   async function handleSubmit(formData: FormData) {
     setLoading(true);
@@ -31,44 +84,69 @@ function RegisterForm() {
     const res = await registerUser(formData);
     
     if ('error' in res && res.error) {
-        // Map server error key to dictionary string
         const errorKey = res.error as keyof typeof t.auth.errors;
         setError(t?.auth?.errors?.[errorKey] || t?.auth?.errors?.serverError || "Server Error");
         setLoading(false);
      } else {
-       const loginUrl = `/auth/login?registered=true${callbackUrl !== '/' ? `&callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`;
+       const loginUrl = `/auth/login?registered=true${callbackUrl !== '/member/home' ? `&callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`;
        router.push(loginUrl);
     }
   }
 
   return (
     <div className="auth-page-wrapper">
-      <div className="auth-card">
-        <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-          <h1 className="hero-title" style={{ fontSize: '2.5rem', marginBottom: '0.75rem', display: 'block' }}>{t?.auth?.register?.title || "Join Elite Network"}</h1>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
-            {t?.auth?.register?.subtitle || "Connect with certified UK professionals."}
+      <div className="auth-card" style={{ maxWidth: '540px', padding: '3rem' }}>
+        
+        {/* Expert Signup Redirect Button */}
+        <div style={{ marginBottom: '2rem' }}>
+          <Link href="/join" className="expert-link-banner" style={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center', 
+            gap: '12px',
+            padding: '12px 20px',
+            background: 'rgba(212, 175, 55, 0.08)',
+            border: '1px dashed rgba(212, 175, 55, 0.4)',
+            borderRadius: '16px',
+            color: '#d4af37',
+            textDecoration: 'none',
+            fontSize: '0.9rem',
+            fontWeight: 700,
+            transition: 'all 0.3s ease'
+          }}>
+            <Shield size={18} />
+            {t?.auth?.register?.expertSignupPrompt || "Register as an Expert"}
+            <ChevronRight size={16} />
+          </Link>
+        </div>
+
+        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+          <h1 className="hero-title" style={{ fontSize: '2.8rem', fontWeight: 900, marginBottom: '0.75rem', letterSpacing: '-0.02em' }}>
+            {t?.auth?.register?.title || "Create Account"}
+          </h1>
+          <p style={{ color: 'var(--text-muted)', fontSize: '1rem', fontWeight: 500 }}>
+            {t?.auth?.register?.subtitle || "Join the UK's top community of professionals."}
           </p>
         </div>
         
-        <form action={handleSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
+        <form action={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           
           {error && (
-            <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ backgroundColor: 'rgba(219, 39, 119, 0.05)', color: '#db2777', padding: '1rem', borderRadius: '12px', fontSize: '0.875rem', border: '1px solid rgba(219, 39, 119, 0.2)', marginBottom: '1.5rem' }}>
-              <Shield size={18} style={{ marginRight: '8px', display: 'inline' }} />
+            <div className={`input-group revealed`} style={{ backgroundColor: 'rgba(239, 68, 68, 0.05)', color: '#ef4444', padding: '1rem', borderRadius: '16px', fontSize: '0.85rem', border: '1px solid rgba(239, 68, 68, 0.2)', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <Shield size={18} />
               {error}
             </div>
           )}
 
-          <div style={{ display: 'flex', gap: '1rem' }}>
-             <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ flex: 1, animationDelay: '100ms' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+             <div className="input-group revealed">
                <label>{t?.auth?.register?.firstNameLabel || "First Name"}</label>
                <div className="input-wrapper">
                  <User className="input-icon" size={18} />
                  <input type="text" name="firstName" className="premium-input" placeholder={t?.auth?.register?.firstNameLabel || "First Name"} required disabled={loading} />
                </div>
              </div>
-             <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ flex: 1, animationDelay: '150ms' }}>
+             <div className="input-group revealed">
                <label>{t?.auth?.register?.lastNameLabel || "Last Name"}</label>
                <div className="input-wrapper">
                  <User className="input-icon" size={18} />
@@ -76,8 +154,8 @@ function RegisterForm() {
                </div>
              </div>
           </div>
-          
-          <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '200ms' }}>
+
+          <div className="input-group revealed">
             <label>{t?.auth?.register?.emailLabel || "Email Address"}</label>
             <div className="input-wrapper">
               <Mail className="input-icon" size={18} />
@@ -92,66 +170,180 @@ function RegisterForm() {
             </div>
           </div>
 
-          <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '250ms' }}>
-            <label>{t?.auth?.register?.accountTypeLabel || "Node Type"}</label>
+          {/* Account Type hidden as per user request */}
+          <input type="hidden" name="role" value={role} />
+
+          <div className="input-group revealed">
+            <label>{t?.auth?.register?.phoneLabel || "Phone Number"}</label>
             <div className="input-wrapper">
-              <Shield className="input-icon" size={18} />
-              <select 
-                name="role" 
+              <Phone className="input-icon" size={18} />
+              <input 
+                type="tel" 
+                name="phone" 
                 className="premium-input" 
+                placeholder="+44 7... (UK Mobile)" 
                 required 
-                value={role} 
-                onChange={(e) => setRole(e.target.value)}
                 disabled={loading} 
-                style={{ appearance: 'none', cursor: 'pointer' }}
-              >
-                <option value="CUSTOMER">{t?.auth?.register?.roles?.customer || "Customer"}</option>
-                <option value="MERCHANT">{t?.auth?.register?.roles?.merchant || "Merchant"}</option>
-              </select>
+              />
             </div>
-            {role === 'MERCHANT' && t?.auth?.register?.merchantDisclaimer && (
-              <div style={{ marginTop: '0.75rem', padding: '0.75rem', backgroundColor: 'rgba(234, 179, 8, 0.05)', borderRadius: '8px', border: '1px solid rgba(234, 179, 8, 0.3)', fontSize: '0.8rem', color: '#ca8a04', lineHeight: '1.4' }}>
-                <Shield size={14} style={{ display: 'inline', marginRight: '6px', verticalAlign: 'text-bottom' }} />
-                {t.auth.register.merchantDisclaimer}
-              </div>
-            )}
           </div>
+
+          {/* Advanced Address Search (Matches Image 2) */}
+          <div className="input-group revealed">
+             <label>{t?.auth?.register?.searchAddressLabel || "Search for your address"}</label>
+             <div className="input-wrapper" style={{ display: 'flex', gap: '8px' }}>
+                <div style={{ position: 'relative', flex: 1 }}>
+                   <MapPin className="input-icon" size={18} />
+                   <input 
+                      type="text" 
+                      className="premium-input" 
+                      placeholder={t?.auth?.register?.searchAddressPlaceholder || "NG15 7HU"} 
+                      value={postcodeQuery}
+                      onChange={(e) => setPostcodeQuery(e.target.value)}
+                      onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handlePostcodeSearch())}
+                   />
+                </div>
+                <button 
+                  type="button" 
+                  className="btn btn-primary" 
+                  style={{ width: '80px', height: '100%', borderRadius: '14px', background: 'var(--accent-color)' }}
+                  onClick={handlePostcodeSearch}
+                  disabled={isSearching}
+                >
+                  {isSearching ? <Loader2 className="animate-spin" size={16} /> : <Search size={18} />}
+                </button>
+             </div>
+
+             {/* Results Dropdown */}
+             {addressResults.length > 0 && (
+                <div className="address-results-dropdown fade-in" style={{
+                    marginTop: '8px',
+                    borderRadius: '16px',
+                    background: '#111',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    boxShadow: '0 15px 35px rgba(0,0,0,0.5)',
+                    overflow: 'hidden',
+                    zIndex: 10
+                }}>
+                   <div style={{ padding: '10px 16px', fontSize: '0.7rem', color: '#64748b', fontWeight: 700, borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      {t?.auth?.register?.addressResultHint || "Select matching address:"}
+                   </div>
+                   {addressResults.map((item, idx) => (
+                      <div 
+                        key={idx} 
+                        className="address-item"
+                        onClick={() => {
+                            setSelectedAddress(item.fullAddress);
+                            setPostcodeQuery(item.fullAddress);
+                            setDistrict(item.district);
+                            setCity(item.city);
+                            setCountry(item.country);
+                            setPostcode(item.postcode);
+                            setHouseNumber(item.houseNumber);
+                            setAddressResults([]);
+                        }}
+                        style={{
+                            padding: '14px 16px',
+                            fontSize: '0.9rem',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s',
+                            borderBottom: idx === addressResults.length - 1 ? 'none' : '1px solid rgba(255,255,255,0.03)'
+                        }}
+                      >
+                         <span style={{ fontWeight: 800, color: 'white' }}>{item.houseNumber} </span>
+                         <span style={{ color: '#94a3b8' }}>{item.fullAddress.split(',').slice(0).join(',')}</span>
+                      </div>
+                   ))}
+                </div>
+             )}
+          </div>
+
+          {/* New Granular Address Fields */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+             <div className="input-group revealed">
+                <label>{t?.auth?.register?.districtLabel || "District"}</label>
+                <div className="input-wrapper">
+                   <MapPin className="input-icon" size={18} />
+                   <input 
+                      type="text" 
+                      name="district" 
+                      className="premium-input" 
+                      value={district} 
+                      onChange={(e) => setDistrict(e.target.value)} 
+                      placeholder="e.g. Camden" 
+                   />
+                </div>
+             </div>
+             <div className="input-group revealed">
+                <label>{t?.auth?.register?.cityLabel || "City"}</label>
+                <div className="input-wrapper">
+                   <MapPin className="input-icon" size={18} />
+                   <input 
+                      type="text" 
+                      name="city" 
+                      className="premium-input" 
+                      value={city} 
+                      onChange={(e) => setCity(e.target.value)} 
+                      placeholder="e.g. London" 
+                   />
+                </div>
+             </div>
+          </div>
+
+          <div className="input-group revealed">
+             <label>{t?.auth?.register?.countryLabel || "Country"}</label>
+             <div className="input-wrapper">
+                <MapPin className="input-icon" size={18} />
+                <input 
+                   type="text" 
+                   name="country" 
+                   className="premium-input" 
+                   value={country} 
+                   onChange={(e) => setCountry(e.target.value)} 
+                   placeholder="e.g. United Kingdom" 
+                />
+             </div>
+          </div>
+
+          {/* Hidden inputs to maintain compatibility with the action */}
+          <input type="hidden" name="postcode" value={postcode} />
+          <input type="hidden" name="houseNumber" value={houseNumber} />
           
-          <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '300ms' }}>
-            <label>{t?.auth?.register?.passwordLabel || "Safe Protocol (Password)"}</label>
+          <div className="input-group revealed">
+            <label>{t?.auth?.register?.passwordLabel || "Password"}</label>
             <div className="input-wrapper">
               <Lock className="input-icon" size={18} />
               <input type="password" name="password" className="premium-input" placeholder={t?.auth?.register?.passwordHint || "Min 6 characters"} required minLength={6} disabled={loading} />
             </div>
           </div>
 
-          <div className={`input-group ${revealed ? 'revealed' : ''}`} style={{ animationDelay: '325ms' }}>
+          <div className="input-group revealed">
             <label>{t?.auth?.register?.referralLabel || "Referral Code (Optional)"}</label>
             <div className="input-wrapper">
               <User className="input-icon" size={18} />
-              <input type="text" name="referredBy" className="premium-input" placeholder={t?.auth?.register?.referralPlaceholder || "Elite Referral ID"} defaultValue={searchParams.get('ref') || ''} disabled={loading} />
+              <input type="text" name="referredBy" className="premium-input" placeholder={t?.auth?.register?.referralPlaceholder || "Referral Code"} defaultValue={searchParams.get('ref') || ''} disabled={loading} />
             </div>
           </div>
           
           <button 
             type="submit" 
-            className={`btn btn-primary ${revealed ? 'revealed' : ''}`} 
+            className="btn btn-primary revealed" 
             disabled={loading} 
-            style={{ width: '100%', padding: '1rem', marginTop: '1.5rem', animationDelay: '350ms' }}
+            style={{ width: '100%', padding: '1.25rem', marginTop: '1rem', background: 'var(--accent-color)', color: 'black', fontWeight: 900, borderRadius: '18px' }}
           >
-            {loading ? (t?.auth?.register?.loading || "Initializing...") : (t?.auth?.register?.submit || "Launch Terminal")}
+            {loading ? (t?.auth?.register?.loading || "Creating account...") : (t?.auth?.register?.submit || "Sign Up")}
             <ChevronRight size={20} />
           </button>
         </form>
 
         <div className="divider">
-          <span>{revealed ? (t?.auth?.register?.or || "OR") : ''}</span>
+          <span>{t?.auth?.register?.or || "OR"}</span>
         </div>
 
         <button 
           onClick={() => signIn('google', { callbackUrl })}
           className="btn-social"
-          style={{ opacity: revealed ? 1 : 0, transitionDelay: '400ms' }}
+          style={{ width: '100%', padding: '1rem', borderRadius: '16px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}
         >
           <svg width="20" height="20" viewBox="0 0 24 24">
             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -162,10 +354,23 @@ function RegisterForm() {
           {t?.auth?.register?.google || "Sign in with Google"}
         </button>
         
-        <div style={{ textAlign: 'center', fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '2rem' }}>
-          {t?.auth?.register?.navToLogin || "Already have a node?"} <Link href={`/auth/login${callbackUrl !== '/' ? `?callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`} style={{ color: 'var(--accent-color)', fontWeight: 800 }}>{t?.auth?.register?.signIn || "Sign In"}</Link>
+        <div style={{ textAlign: 'center', fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '2.5rem' }}>
+          {t?.auth?.register?.navToLogin || "Already have an account?"} <Link href={`/auth/login${callbackUrl !== '/member/home' ? `?callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`} style={{ color: 'var(--accent-color)', fontWeight: 800 }}>{t?.auth?.register?.signIn || "Sign In"}</Link>
         </div>
       </div>
+
+      <style jsx>{`
+        .address-item:hover {
+            background: rgba(212, 175, 55, 0.1);
+            padding-left: 20px;
+            color: #d4af37;
+        }
+        .expert-link-banner:hover {
+            background: rgba(212, 175, 55, 0.14);
+            transform: translateY(-2px);
+            border-color: #d4af37;
+        }
+      `}</style>
     </div>
   );
 }
@@ -173,7 +378,7 @@ function RegisterForm() {
 export default function RegisterPage() {
   const { t } = useTranslation();
   return (
-    <Suspense fallback={<div className="auth-page-wrapper"><div className="auth-card" style={{ textAlign: 'center' }}>{t?.auth?.loading?.initializing || "Telemetry Sync..."}</div></div>}>
+    <Suspense fallback={<div className="auth-page-wrapper"><div className="auth-card" style={{ textAlign: 'center' }}>{t?.auth?.loading?.preparing || "Preparing account..."}</div></div>}>
       <RegisterForm />
     </Suspense>
   );

@@ -8,6 +8,7 @@ interface LiveProfilePreviewProps {
   bio: string;
   city: string;
   sector: string;
+  rawSector?: string | null;
   avatar?: string | null;
   bannerUrl?: string | null;
   insuranceAmount?: string;
@@ -23,6 +24,9 @@ interface LiveProfilePreviewProps {
     location_suffix: string;
     ai_cert_hint: string;
     credentials_hint: string;
+    commission_technical?: string;
+    commission_education?: string;
+    commission_standard?: string;
   };
 }
 
@@ -30,7 +34,8 @@ export default function LiveProfilePreview({
   businessName, 
   bio, 
   city, 
-  sector, 
+  sector,
+  rawSector,
   avatar, 
   bannerUrl, 
   insuranceAmount,
@@ -38,6 +43,15 @@ export default function LiveProfilePreview({
   isAiVerified,
   labels
 }: LiveProfilePreviewProps) {
+  const getCommissionNote = () => {
+    if (rawSector === 'technical') return labels.commission_technical;
+    if (rawSector === 'education') return labels.commission_education;
+    if (rawSector) return labels.commission_standard;
+    return null;
+  };
+
+  const commissionNote = getCommissionNote();
+
   return (
     <div className="preview-sticky">
       <div className="preview-label">
@@ -108,7 +122,26 @@ export default function LiveProfilePreview({
           </div>
         </div>
 
-        <div className="card-footer">
+        {commissionNote && (
+          <div className="commission-disclaimer" style={{
+            fontSize: '0.75rem',
+            color: '#d4af37',
+            background: 'rgba(212, 175, 55, 0.05)',
+            border: '1px solid rgba(212, 175, 55, 0.1)',
+            padding: '10px 14px',
+            borderRadius: '12px',
+            marginBottom: '20px',
+            fontWeight: 700,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}>
+            <ShieldCheck size={14} />
+            <span>{commissionNote}</span>
+          </div>
+        )}
+
+        <div className="card-footer" style={{ borderTop: commissionNote ? 'none' : '1px solid rgba(255,255,255,0.05)' }}>
           <div className="btn-mock">{labels.booking_button}</div>
         </div>
         

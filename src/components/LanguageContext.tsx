@@ -1,12 +1,13 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Locale, Dictionary, dictionaries, getDictionary } from '@/lib/i18n/dictionary';
 import { interpolate } from '@/lib/i18n/interpolate';
 
 interface LanguageContextType {
   locale: Locale;
+  language: Locale; // Alias for backward compatibility
   t: Dictionary;
   format: (template: string, params: Record<string, string | number>) => string;
   setLocale: (locale: Locale) => void;
@@ -26,41 +27,44 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
  * the Proxy now informs React it is a valid element (a span) instead of crashing.
  */
 function createSafeDictionary(target: any, fallback: any = {}, path: string = ''): any {
-  // We use dummy objects for undefined targets
-  const proxyTarget = target || {};
+  // 🚀 FIXED: We use a function decoy as the Proxy target to enable the 'apply' trap (callability).
+  const proxyTarget = function() {};
+  
+  // Storage for the actual dictionary data
+  const data = target || {};
   const proxyFallback = fallback || {};
 
   return new Proxy(proxyTarget, {
-    get(obj: any, prop) {
+    get(_, prop) {
       // 1. Internal React/Next.js and standard JS safety
       if (prop === 'toString' || prop === Symbol.toPrimitive || prop === 'valueOf') {
-        const val = obj[prop] || proxyFallback[prop];
-        if (typeof val === 'function') return val.bind(obj);
+        const val = data[prop] || proxyFallback[prop];
+        if (typeof val === 'function') return val.bind(data);
         return () => val || path || ''; 
       }
       
       // 2. React child safety: If React tries to render this object directly, 
       // we tell it we are a <span> element displaying the path.
-      if (prop === '$$typeof') return obj[prop] || (typeof Symbol !== 'undefined' ? Symbol.for('react.element') : 0xeac7);
-      if (prop === 'type') return obj[prop] || 'span';
-      if (prop === 'props') return obj[prop] || { 
+      if (prop === '$$typeof') return data[prop] || (typeof Symbol !== 'undefined' ? Symbol.for('react.element') : 0xeac7);
+      if (prop === 'type') return data[prop] || 'span';
+      if (prop === 'props') return data[prop] || { 
         children: path || '...', 
         style: { color: '#ef4444', fontWeight: 'bold' },
         title: 'I18n Path Error'
       };
-      if (prop === 'ref') return obj[prop] || null;
-      if (prop === 'key') return obj[prop] || null;
+      if (prop === 'ref') return data[prop] || null;
+      if (prop === 'key') return data[prop] || null;
 
       // 3. Collection methods
       if (prop === Symbol.iterator || prop === 'map' || prop === 'forEach' || prop === 'filter' || prop === 'reduce') {
-        const val = obj[prop] !== undefined ? obj[prop] : proxyFallback[prop];
+        const val = data[prop] !== undefined ? data[prop] : proxyFallback[prop];
         return Array.isArray(val) ? val : (val === undefined ? [] : val);
       }
 
       // 4. Next.js/React standard internals
-      if (prop === 'toJSON' || prop === 'then') return obj[prop];
+      if (prop === 'toJSON' || prop === 'then') return data[prop];
 
-      const value = obj[prop];
+      const value = data[prop];
       const fallbackValue = proxyFallback[prop];
       const fullPath = path ? `${path}.${String(prop)}` : String(prop);
 
@@ -85,14 +89,63 @@ function createSafeDictionary(target: any, fallback: any = {}, path: string = ''
       }
 
       // 🚀 CRITICAL FIX: If BOTH are missing, return the path STRING.
-      // Returning a Proxy object to React for rendering causes a 500 "Objects are not valid as a React child" error.
       return fullPath;
+    },
+    // 🚀 NEW: Handle calling t('path.to.key') or t('Hardcoded String')
+    apply(_, thisArg, argumentsList) {
+      const input = argumentsList[0];
+      const options = argumentsList[1];
+      if (typeof input !== 'string') return path || '';
+
+      let result = '';
+
+      // Try to resolve as a nested path
+      const parts = input.split('.');
+      let current = data;
+      for (const part of parts) {
+        if (current && typeof current === 'object' && part in current) {
+          current = current[part];
+        } else {
+          current = undefined;
+          break;
+        }
+      }
+
+      if (typeof current === 'string') {
+        result = current;
+      } else {
+        // Try fallback dictionary
+        let fCurrent = proxyFallback;
+        for (const part of parts) {
+          if (fCurrent && typeof fCurrent === 'object' && part in fCurrent) {
+            fCurrent = fCurrent[part];
+          } else {
+            fCurrent = undefined;
+            break;
+          }
+        }
+
+        if (typeof fCurrent === 'string') {
+          result = fCurrent;
+        } else {
+          // If not a path, assume it's a literal string (standard fallback)
+          result = input;
+        }
+      }
+
+      // Apply interpolation if options are provided
+      if (options && typeof options === 'object') {
+        return interpolate(result, options);
+      }
+
+      return result;
     }
   });
 }
 
 export function LanguageProvider({ children, initialLocale = 'en' }: { children: React.ReactNode, initialLocale?: Locale }) {
   const [locale, setLocaleState] = useState<Locale>(initialLocale);
+  const router = useRouter();
 
   useEffect(() => {
     // Helper to validate and set locale
@@ -132,6 +185,9 @@ export function LanguageProvider({ children, initialLocale = 'en' }: { children:
     // Update document dir and lang for SEO and accessibility
     document.documentElement.lang = newLocale;
     document.documentElement.dir = (newLocale === 'ar' || newLocale === 'ur') ? 'rtl' : 'ltr';
+
+    // 🚀 CRITICAL: Force Next.js to re-fetch Server Components with the new cookie
+    router.refresh();
   };
 
   useEffect(() => {
@@ -141,6 +197,7 @@ export function LanguageProvider({ children, initialLocale = 'en' }: { children:
 
   const value = {
     locale,
+    language: locale, // Alias
     t: createSafeDictionary(getDictionary(locale), getDictionary('en')),
     format: interpolate,
     setLocale,

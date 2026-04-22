@@ -6,6 +6,7 @@ import { updateMerchantWallet, movePendingToAvailable } from '@/lib/finance';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { generateAIContent } from "@/lib/ai-provider";
+import { getMerchantId } from '@/lib/merchant-utils';
 
 export async function proposeVariation(formData: FormData) {
   const bookingId = formData.get('bookingId') as string;
@@ -223,17 +224,14 @@ export async function getBookingVariations(bookingId: string) {
 }
 
 export async function getDisputes() {
-  const session = (await getServerSession(authOptions)) as any;
-  if (!session?.user?.id) return { error: "Unauthorized" };
-
-  const userId = session.user.id;
-  const merchant = await prisma.merchant.findUnique({ where: { userId } });
+  const session = await getServerSession(authOptions);
+  const merchantId = await getMerchantId();
 
   const disputes = await prisma.dispute.findMany({
     where: {
       OR: [
-        { booking: { customerId: userId } },
-        { booking: { merchantId: merchant?.id || 'non-existent' } }
+        { booking: { customerId: (session?.user as any)?.id || 'non-existent' } },
+        { booking: { merchantId: merchantId || 'non-existent' } }
       ],
       status: 'RESOLVED'
     },

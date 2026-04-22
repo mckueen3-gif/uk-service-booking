@@ -31,7 +31,7 @@ export default function MerchantWalletPage() {
     );
   }
 
-  const { wallet, recentWithdrawals, merchant, error } = data || {};
+  const { wallet, recentWithdrawals, merchant, user, referralCount, error } = data || {};
 
   if (error || !merchant) {
     return (
@@ -150,9 +150,9 @@ export default function MerchantWalletPage() {
                <Clock size={28} color="#d4af37" />
              </div>
              <div style={{ flex: 1 }}>
-               <div style={{ fontSize: '0.75rem', color: '#555', fontWeight: 800, letterSpacing: '0.05em' }}>PENDING / COOLING-OFF</div>
+               <div style={{ fontSize: '0.75rem', color: '#555', fontWeight: 800, letterSpacing: '0.05em' }}>{t?.merchant?.merchant_wallet?.asset_status?.pending || "PENDING / COOLING-OFF"}</div>
                <div style={{ fontSize: '1.75rem', fontWeight: 900, color: '#fff' }}>£{wallet?.pendingBalance?.toFixed(2) || "0.00"}</div>
-               <div style={{ fontSize: '0.75rem', color: '#d4af37', fontWeight: 700 }}>Settling Assets</div>
+               <div style={{ fontSize: '0.75rem', color: '#d4af37', fontWeight: 700 }}>{t?.merchant?.merchant_wallet?.asset_status?.settling || "Settling Assets"}</div>
              </div>
           </div>
           {/* Authorized Card */}
@@ -161,10 +161,36 @@ export default function MerchantWalletPage() {
                <Landmark size={28} color="#d4af37" />
              </div>
              <div style={{ flex: 1 }}>
-               <div style={{ fontSize: '0.75rem', color: '#555', fontWeight: 800, letterSpacing: '0.05em' }}>AUTHORIZED / HELD</div>
+               <div style={{ fontSize: '0.75rem', color: '#555', fontWeight: 800, letterSpacing: '0.05em' }}>{t?.merchant?.merchant_wallet?.asset_status?.authorized || "AUTHORIZED / HELD"}</div>
                <div style={{ fontSize: '1.75rem', fontWeight: 900, color: '#fff' }}>£{wallet?.authorizedBalance?.toFixed(2) || "0.00"}</div>
-               <div style={{ fontSize: '0.75rem', color: '#d4af37', fontWeight: 700 }}>Escrowed for Repairs</div>
+               <div style={{ fontSize: '0.75rem', color: '#d4af37', fontWeight: 700 }}>{t?.merchant?.merchant_wallet?.asset_status?.escrowed || "Escrowed for Repairs"}</div>
              </div>
+          </div>
+        </div>
+
+        {/* 🚀 NEW: 5-Year Passive Yield Card */}
+        <div className="animate-fade-up delay-150" style={{ 
+          padding: '2.5rem', 
+          borderRadius: '32px', 
+          background: 'linear-gradient(135deg, #0a0a0a 0%, #000 100%)',
+          color: '#fff',
+          position: 'relative',
+          overflow: 'hidden',
+          border: '1px solid #d4af37',
+          boxShadow: '0 10px 40px rgba(212, 175, 55, 0.1)'
+        }}>
+          <div style={{ position: 'absolute', top: '-10%', right: '-10%', opacity: 0.1, color: '#d4af37' }}>
+            <Sparkles size={180} />
+          </div>
+          <div style={{ marginBottom: '1.5rem', opacity: 0.6, fontSize: '0.85rem', fontWeight: 800, letterSpacing: '0.1em', color: '#d4af37' }}>
+            {(t?.merchant?.referral_passive?.passive_title || "5-Year Passive Yield").toUpperCase()}
+          </div>
+          <div style={{ marginBottom: '2rem' }}>
+            <span style={{ fontSize: '1.5rem', fontWeight: 600, marginRight: '0.4rem', color: '#d4af37' }}>£</span>
+            <span style={{ fontSize: '4.5rem', fontWeight: 900 }}>{user?.referralCredits?.toFixed(2) || "0.00"}</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', fontWeight: 700, color: '#d4af37' }}>
+            <TrendingUp size={16} /> {t?.merchant?.referral_passive?.passive_dividend?.replace('{rate}', '2%')?.replace('{count}', referralCount || 0) || `2% Passive Dividends from ${referralCount || 0} Experts`}
           </div>
         </div>
       </div>
@@ -196,7 +222,7 @@ export default function MerchantWalletPage() {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                   <TrendingUp size={22} color="#d4af37" />
-                  <h2 style={{ fontSize: '1.2rem', fontWeight: 900, color: '#fff' }}>Yield & Premium Terms</h2>
+                  <h2 style={{ fontSize: '1.2rem', fontWeight: 900, color: '#fff' }}>{t?.merchant?.merchant_wallet?.terms?.yield_title || "Yield & Premium Terms"}</h2>
                 </div>
                 <div style={{ padding: '0.5rem 1rem', backgroundColor: '#d4af37', color: '#000', borderRadius: '12px', fontSize: '0.9rem', fontWeight: 900 }}>
                   FEE: {currentRate}%
@@ -225,11 +251,11 @@ export default function MerchantWalletPage() {
                 <div style={{ backgroundColor: '#050505', padding: '1.25rem', borderRadius: '16px', border: '1px solid #1a1a1a', opacity: 0.6 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', color: '#666' }}>
                     <History size={16} />
-                    <span style={{ fontWeight: 800, fontSize: '0.85rem' }}>Standard Customer Terms</span>
+                    <span style={{ fontWeight: 800, fontSize: '0.85rem' }}>{t?.merchant?.merchant_wallet?.terms?.customer_title || "Standard Customer Terms"}</span>
                   </div>
                   <ul style={{ fontSize: '0.8rem', color: '#555', paddingLeft: '1.2rem', margin: 0 }}>
-                    <li>14-day cooling-off period for academic services.</li>
-                    <li>20% non-refundable deposit for repair/technical work.</li>
+                    <li>{t?.merchant?.merchant_wallet?.terms?.cooling_off || "14-day cooling-off period for academic services."}</li>
+                    <li>{t?.merchant?.merchant_wallet?.terms?.deposit_rule || "20% non-refundable deposit for repair/technical work."}</li>
                   </ul>
                 </div>
             </div>

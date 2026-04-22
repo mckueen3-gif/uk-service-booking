@@ -7,9 +7,14 @@ import OnboardingHero from '@/components/joining/OnboardingHero';
 import SectorSelector from '@/components/joining/SectorSelector';
 import MerchantContract from '@/components/joining/MerchantContract';
 import LiveProfilePreview from '@/components/joining/LiveProfilePreview';
+import SuperpowerHighlights from '@/components/joining/SuperpowerHighlights';
 import { ChevronRight, ChevronLeft, CheckCircle2, Building2, Mail, Globe, User, Loader2, MapPin, Sparkles, Wand2, Calculator, Gift, ShieldCheck, Phone, Camera } from 'lucide-react';
+import MerchantComparisonTable from '@/components/joining/MerchantComparisonTable';
 import { createMerchantAction } from '@/app/actions/merchant';
 import { fetchBusinessInfoWithAI, generateSmartBio, verifyCredentialsWithAI } from '@/app/actions/ai_onboarding';
+import { signIn } from 'next-auth/react';
+import { Lock } from 'lucide-react';
+import ServiceMatrix from '@/components/joining/ServiceMatrix';
 
 function JoinPageContent() {
   const { t, locale } = useTranslation();
@@ -19,7 +24,7 @@ function JoinPageContent() {
   const [aiLoading, setAiLoading] = useState(false);
   const [bioLoading, setBioLoading] = useState(false);
   const [verifyingCredential, setVerifyingCredential] = useState(false);
-  const [credentialReview, setCredentialReview] = useState<{status: string, reason: string} | null>(null);
+
   const [error, setError] = useState<string | null>(null);
   const [selectedSector, setSelectedSector] = useState<string | null>(null);
   const [contractAccepted, setContractAccepted] = useState(false);
@@ -29,14 +34,16 @@ function JoinPageContent() {
     email: '',
     website: '',
     bio: '',
-    credentials: '',
+    credentials: [] as { name: string, dataUrl: string, review: any | null }[],
     city: 'London',
     promoCode: '',
     avatar: null as string | null,
     bannerUrl: null as string | null,
     phone: '',
+    password: '',
     insuranceAmount: '1,000,000',
-    suggestedCategories: [] as string[]
+    suggestedCategories: [] as string[],
+    selectedServiceIds: [] as string[]
   });
 
   const nextStep = () => {
@@ -44,8 +51,12 @@ function JoinPageContent() {
       setError(t.onboarding.validation.select_sector);
       return;
     }
-    if (step === 2) {
-      if (!formData.businessName || !formData.email || !formData.phone || !formData.bio || formData.suggestedCategories.length === 0) {
+    if (step === 2 && formData.selectedServiceIds.length === 0) {
+      setError(t.onboarding.ai_assistant.matched_error || "Please select at least one skill.");
+      return;
+    }
+    if (step === 3) {
+      if (!formData.businessName || !formData.email || !formData.phone || !formData.bio) {
         setError(t.onboarding.validation.fill_required);
         return;
       }
@@ -53,13 +64,8 @@ function JoinPageContent() {
         setError(t.onboarding.validation.bio_short);
         return;
       }
-      // Mandatory document upload for Technical (GAS/Electrical) sectors
-      if (selectedSector === 'technical' && !formData.credentials) {
-        setError(t.onboarding.validation.credentials_required);
-        return;
-      }
     }
-    if (step === 3 && !contractAccepted) return;
+    if (step === 4 && !contractAccepted) return;
     
     setError(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -87,34 +93,67 @@ function JoinPageContent() {
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = e.target;
+    
+    if (name === 'credentials' && e.target.files) {
+      const files = Array.from(e.target.files);
+      if (formData.credentials.length + files.length > 10) {
+        setError(t.onboarding.validation.file_size_error); // Reusing size error as generic error for now or custom message
+        return;
+      }
+      
+      setVerifyingCredential(true);
+      
+      const newCreds: { name: string, dataUrl: string, review: any | null }[] = [];
+      
+      for (const file of files) {
+        if (file.size > 5 * 1024 * 1024) continue;
+        
+        const dataUrl = await new Promise<string>((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result as string);
+          reader.readAsDataURL(file);
+        });
+        
+        let review = null;
+        if (selectedSector) {
+          try {
+            review = await verifyCredentialsWithAI(dataUrl, selectedSector, formData.suggestedCategories);
+          } catch (err) {
+            review = { status: 'manual_review', reason: t.onboarding.validation.ai_fallback };
+          }
+        }
+        newCreds.push({ name: file.name, dataUrl, review });
+      }
+      
+      setFormData(prev => ({ ...prev, credentials: [...prev.credentials, ...newCreds] }));
+      setVerifyingCredential(false);
+      
+      // Clear the file input so you can select the same file again if removed
+      e.target.value = '';
+      return;
+    }
+
+    // Avatar / Banner
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 5 * 1024 * 1024) { 
-        setError("文件大小不能超過 5MB (File size must be < 5MB)");
+        setError(t.onboarding.validation.file_size_error);
         return;
       }
       
       const reader = new FileReader();
       reader.onloadend = async () => {
         setFormData(prev => ({ ...prev, [name]: reader.result as string }));
-        
-        // Trigger AI Verification if it's a credential document
-        if (name === 'credentials' && selectedSector) {
-          setVerifyingCredential(true);
-          setCredentialReview(null);
-          try {
-            const fileDataUrl = reader.result as string;
-            const review = await verifyCredentialsWithAI(fileDataUrl, selectedSector, formData.suggestedCategories);
-            setCredentialReview(review);
-          } catch (err) {
-            setCredentialReview({ status: 'manual_review', reason: t.onboarding.validation.ai_fallback });
-          } finally {
-            setVerifyingCredential(false);
-          }
-        }
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const removeCredential = (index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      credentials: prev.credentials.filter((_, i) => i !== index)
+    }));
   };
 
   const removeAvatar = () => {
@@ -170,14 +209,14 @@ function JoinPageContent() {
     if (!formData.businessName) { setError(t.onboarding.validation.business_name_required); return; }
     if (!formData.email) { setError(t.onboarding.validation.email_required); return; }
     if (!formData.phone) { setError(t.onboarding.validation.phone_required); return; }
+    if (!formData.password || formData.password.length < 6) { 
+      setError("密碼長度至少需 6 個字元 (Password must be at least 6 characters)"); 
+      return; 
+    }
     if (!formData.bio || formData.bio.length < 20) { setError(t.onboarding.validation.bio_short); return; }
     if (!selectedSector) { setError(t.onboarding.validation.select_sector); return; }
-    if (formData.suggestedCategories.length === 0) { setError(t.onboarding.validation.category_required); return; }
     if (!formData.city) { setError(t.onboarding.validation.city_required); return; }
-    if (selectedSector === 'technical' && !formData.credentials) {
-      setError(t.onboarding.validation.credentials_required);
-      return;
-    }
+    // Technical sector credentials no longer strictly mandatory to align with UI tip "can review later"
 
     setLoading(true);
     setError(null);
@@ -190,7 +229,14 @@ function JoinPageContent() {
         setError(res.error);
         setLoading(false);
       } else {
-        setStep(4);
+        // Auto-login after successful registration
+        await signIn('credentials', {
+          email: formData.email,
+          password: formData.password,
+          redirect: false
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setStep(5);
       }
     } catch (err) {
       setError("An unexpected error occurred. Please try again.");
@@ -207,13 +253,18 @@ function JoinPageContent() {
         
         {/* Step Indicator Top Bar */}
         <div className="onboarding-stepper">
-          {[1, 2, 3].map((num) => (
+          {[1, 2, 3, 4].map((num) => (
             <React.Fragment key={num}>
               <div className={`step-item ${step >= num ? 'active' : ''}`}>
                 <div className="step-num">{num}</div>
-                <span>{num === 1 ? t.onboarding.steps.profile : num === 2 ? t.onboarding.steps.credentials : t.onboarding.steps.contract}</span>
+                <span>
+                  {num === 1 ? t.onboarding.steps.profile : 
+                   num === 2 ? t.onboarding.steps.services : 
+                   num === 3 ? t.onboarding.steps.credentials : 
+                   t.onboarding.steps.contract}
+                </span>
               </div>
-              {num < 3 && <div className={`line ${step > num ? 'active' : ''}`} />}
+              {num < 4 && <div className={`line ${step > num ? 'active' : ''}`} />}
             </React.Fragment>
           ))}
         </div>
@@ -223,17 +274,17 @@ function JoinPageContent() {
             <div className="step-0 flex-col" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '40px', paddingBottom: '60px' }}>
               <OnboardingHero />
               
-              <div style={{ maxWidth: '800px', width: '100%', margin: '0 auto' }}>
-                <img 
-                  src="/images/merchant-comparison.png" 
-                  alt="Merchant Comparison" 
-                  style={{ width: '100%', height: 'auto', borderRadius: '16px', border: '1px solid rgba(212, 175, 55, 0.2)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }} 
-                />
+              <div style={{ maxWidth: '1100px', width: '100%', margin: '0 auto' }}>
+                <SuperpowerHighlights />
+                <MerchantComparisonTable />
               </div>
 
               <button 
                 className="btn-premium"
-                onClick={() => setStep(1)}
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  setStep(1);
+                }}
                 style={{ marginTop: '20px' }}
               >
                 {t.onboarding.buttons.start} <ChevronRight size={20} />
@@ -263,6 +314,38 @@ function JoinPageContent() {
           )}
 
           {step === 2 && (
+            <div className="step-services reveal active">
+              <div className="section-header mb-12 text-center">
+                <h2 className="text-3xl font-black text-white mb-4 uppercase tracking-tighter italic">
+                  {t.onboarding.ai_assistant.title}
+                </h2>
+                <p className="text-gray-400 max-w-2xl mx-auto">
+                  {t.onboarding.ai_assistant.desc}
+                </p>
+              </div>
+
+              <ServiceMatrix 
+                selectedIds={formData.selectedServiceIds}
+                selectedSector={selectedSector}
+                onChange={(ids) => setFormData(prev => ({ ...prev, selectedServiceIds: ids }))}
+              />
+
+              <div className="controls mt-12">
+                <button className="btn-secondary" onClick={prevStep}>
+                  <ChevronLeft size={20} /> {t.onboarding.buttons.back}
+                </button>
+                <button 
+                  className={`btn-premium ${formData.selectedServiceIds.length === 0 ? 'disabled' : ''}`}
+                  onClick={nextStep}
+                  disabled={formData.selectedServiceIds.length === 0}
+                >
+                  {t.onboarding.buttons.next} <ChevronRight size={20} />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {step === 3 && (
             <div className="step-2 reveal active">
               <div className="onboarding-grid">
                 {/* Form Side */}
@@ -398,7 +481,7 @@ function JoinPageContent() {
 
                     {/* 4. Contact Info */}
                     <div className="input-group">
-                      <label><Mail size={16} /> {t.merchant_profile.labels.email} <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>{t.onboarding.profile_form.credentials_required}</span></label>
+                      <label><Mail size={16} /> {t?.merchant_profile?.labels?.email || "Email Address"} <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>{t?.onboarding?.profile_form?.credentials_required || "Required"}</span></label>
                         <input 
                           type="email" 
                           name="email" 
@@ -408,13 +491,23 @@ function JoinPageContent() {
                         />
                     </div>
                     <div className="input-group">
-                      <label><Phone size={16} /> {t.merchant_profile.labels.phone} <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>{t.onboarding.profile_form.credentials_required}</span></label>
+                      <label><Phone size={16} /> {t?.merchant_profile?.labels?.phone || "Phone Number"} <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>{t?.onboarding?.profile_form?.credentials_required || "Required"}</span></label>
                         <input 
                           type="tel" 
                           name="phone" 
                           value={formData.phone} 
                           onChange={handleInputChange} 
                           placeholder={t.onboarding.profile_form.phone_placeholder}
+                        />
+                    </div>
+                    <div className="input-group full">
+                      <label><Lock size={16} /> {t?.onboarding?.profile_form?.password_label || "Set Password"} <span style={{ color: '#d4af37', fontSize: '0.8rem' }}>* {t?.onboarding?.profile_form?.credentials_required || "Required"}</span></label>
+                        <input 
+                          type="password" 
+                          name="password" 
+                          value={formData.password} 
+                          onChange={handleInputChange} 
+                          placeholder={t.onboarding.profile_form.password_placeholder}
                         />
                     </div>
 
@@ -465,8 +558,9 @@ function JoinPageContent() {
                           <input 
                             type="file" 
                             name="credentials" 
+                            multiple
                             onChange={handleFileChange}
-                            className={`premium-file-input ${selectedSector === 'technical' && !formData.credentials ? 'error' : ''}`}
+                            className={`premium-file-input ${selectedSector === 'technical' && formData.credentials.length === 0 ? 'error' : ''}`}
                           />
                           {selectedSector === 'technical' ? (
                             <div className="validation-alert error">
@@ -479,43 +573,74 @@ function JoinPageContent() {
                               <span>{t.onboarding.profile_form.credentials_hint_standard}</span>
                             </div>
                           )}
+                          <div style={{ marginTop: '12px', fontSize: '0.8rem', color: '#64748b', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                            <Lock size={14} style={{ marginTop: '2px', flexShrink: 0, color: '#10b981' }} />
+                            <span>
+                              {locale === 'zh-TW' 
+                                ? '您的資料僅供平台驗證資格使用，絕不作其他用途，亦不會外流。'
+                                : 'Your uploaded documents are securely processed for verification purposes only and will not be shared or used elsewhere.'}
+                            </span>
+                          </div>
                         </div>
 
                         {/* Real-time AI Review Display */}
                         {verifyingCredential && (
                           <div className="ai-review-loading" style={{ marginTop: '16px', display: 'flex', alignItems: 'center', gap: '12px', padding: '12px', background: 'rgba(255,255,255,0.02)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
                              <Loader2 className="animate-spin" size={18} color="#d4af37" />
-                             <span style={{ fontSize: '0.85rem', color: '#94a3b8' }}>AI 正在即時批核文件 (AI is verifying your document in real-time)...</span>
+                             <span style={{ fontSize: '0.85rem', color: '#94a3b8' }}>{t.onboarding.profile_form.ai_verifying}</span>
                           </div>
                         )}
 
-                        {credentialReview && (
-                          <div className={`ai-review-result ${credentialReview.status}`} style={{ 
-                            marginTop: '16px', 
-                            padding: '16px', 
-                            borderRadius: '16px', 
-                            border: `1px solid ${credentialReview.status === 'verified' ? 'rgba(16, 185, 129, 0.2)' : credentialReview.status === 'rejected' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(245, 158, 11, 0.2)'}`,
-                            background: credentialReview.status === 'verified' ? 'rgba(16, 185, 129, 0.03)' : credentialReview.status === 'rejected' ? 'rgba(239, 68, 68, 0.03)' : 'rgba(245, 158, 11, 0.03)',
-                            display: 'flex',
-                            gap: '14px'
-                          }}>
-                            <div style={{ color: credentialReview.status === 'verified' ? '#10b981' : credentialReview.status === 'rejected' ? '#ef4444' : '#f59e0b' }}>
-                              {credentialReview.status === 'verified' ? <CheckCircle2 size={24} /> : <ShieldCheck size={24} />}
-                            </div>
-                            <div>
-                              <div style={{ fontWeight: 800, fontSize: '0.9rem', marginBottom: '4px', color: 'white' }}>
-                                {credentialReview.status === 'verified' ? 'AI 驗證成功 (AI Verified)' : 
-                                 credentialReview.status === 'rejected' ? 'AI 驗證失敗 (AI Rejected)' : '等待人工審核 (Manual Review Required)'}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '16px' }}>
+                          {formData.credentials.map((cred, idx) => (
+                            <div key={idx} style={{ padding: '16px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', background: 'rgba(255,255,255,0.02)' }}>
+                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                                <span style={{ color: '#e2e8f0', fontSize: '0.85rem', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '80%' }}>{cred.name}</span>
+                                <button type="button" onClick={() => removeCredential(idx)} style={{ background: 'transparent', border: 'none', color: '#ef4444', cursor: 'pointer', fontSize: '1.2rem', lineHeight: 1 }}>&times;</button>
                               </div>
-                              <p style={{ fontSize: '0.8rem', color: '#94a3b8', margin: 0, lineHeight: 1.5 }}>{credentialReview.reason}</p>
-                              {(credentialReview as any).regulatoryBody && (
-                                <div style={{ marginTop: '8px', fontSize: '0.7rem', fontWeight: 700, color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                  Issuing Body: {(credentialReview as any).regulatoryBody}
+                              {cred.review && (
+                                <div className={`ai-review-result ${cred.review.status}`} style={{ 
+                                  padding: '12px', 
+                                  borderRadius: '8px', 
+                                  border: `1px solid ${cred.review.status === 'verified' ? 'rgba(16, 185, 129, 0.2)' : cred.review.status === 'rejected' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(245, 158, 11, 0.2)'}`,
+                                  background: cred.review.status === 'verified' ? 'rgba(16, 185, 129, 0.03)' : cred.review.status === 'rejected' ? 'rgba(239, 68, 68, 0.03)' : 'rgba(245, 158, 11, 0.03)',
+                                  display: 'flex',
+                                  gap: '12px'
+                                }}>
+                                  <div style={{ color: cred.review.status === 'verified' ? '#10b981' : cred.review.status === 'rejected' ? '#ef4444' : '#f59e0b', marginTop: '2px' }}>
+                                    {cred.review.status === 'verified' ? <CheckCircle2 size={20} /> : <ShieldCheck size={20} />}
+                                  </div>
+                                  <div>
+                                    <div style={{ fontWeight: 800, fontSize: '0.85rem', marginBottom: '4px', color: 'white', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                      {cred.review.status === 'verified' ? t.onboarding.profile_form.ai_verified_success : 
+                                       cred.review.status === 'rejected' ? t.onboarding.profile_form.ai_verified_failed : t.onboarding.profile_form.manual_review}
+                                    </div>
+                                    <p style={{ fontSize: '0.75rem', color: '#94a3b8', margin: 0, lineHeight: 1.5 }}>{cred.review.reason}</p>
+                                    {(cred.review.regulatoryBody || cred.review.documentType || cred.review.expiryDate) && (
+                                      <div style={{ marginTop: '8px', display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                                        {cred.review.documentType && (
+                                          <span style={{ fontSize: '0.65rem', fontWeight: 700, color: '#d4af37', background: 'rgba(212,175,55,0.1)', padding: '2px 6px', borderRadius: '4px', textTransform: 'uppercase' }}>
+                                            {cred.review.documentType}
+                                          </span>
+                                        )}
+                                        {cred.review.regulatoryBody && (
+                                          <span style={{ fontSize: '0.65rem', fontWeight: 700, color: '#3b82f6', background: 'rgba(59,130,246,0.1)', padding: '2px 6px', borderRadius: '4px', textTransform: 'uppercase' }}>
+                                            {cred.review.regulatoryBody}
+                                          </span>
+                                        )}
+                                        {cred.review.expiryDate && (
+                                          <span style={{ fontSize: '0.65rem', fontWeight: 700, color: cred.review.status === 'rejected' ? '#ef4444' : '#10b981', background: cred.review.status === 'rejected' ? 'rgba(239,68,68,0.1)' : 'rgba(16,185,129,0.1)', padding: '2px 6px', borderRadius: '4px', textTransform: 'uppercase' }}>
+                                            EXP: {cred.review.expiryDate}
+                                          </span>
+                                        )}
+                                      </div>
+                                    )}
+                                  </div>
                                 </div>
                               )}
                             </div>
-                          </div>
-                        )}
+                          ))}
+                        </div>
                       </div>
                     </div>
 
@@ -569,11 +694,12 @@ function JoinPageContent() {
                       selectedSector === 'technical' ? t.onboarding.sectors.technical.title :
                       t.onboarding.preview.sector_placeholder
                     }
+                    rawSector={selectedSector}
                     avatar={formData.avatar}
                     bannerUrl={formData.bannerUrl}
                     insuranceAmount={formData.insuranceAmount}
-                    hasCredentials={!!formData.credentials}
-                    isAiVerified={credentialReview?.status === 'verified'}
+                    hasCredentials={formData.credentials.length > 0}
+                    isAiVerified={formData.credentials.some(c => c.review?.status === 'verified')}
                     labels={t.onboarding.preview}
                   />
                 </div>
@@ -581,7 +707,7 @@ function JoinPageContent() {
             </div>
           )}
 
-          {step === 3 && (
+          {step === 4 && (
             <div className="step-3 reveal active">
               <MerchantContract 
                 accepted={contractAccepted} 
@@ -605,7 +731,7 @@ function JoinPageContent() {
             </div>
           )}
 
-          {step === 4 && (
+          {step === 5 && (
             <div className="step-success reveal active">
               <div className="success-wrapper">
                 <div className="success-card">
@@ -649,9 +775,9 @@ function JoinPageContent() {
         }
 
         .join-container {
-          max-width: 1200px;
+          max-width: 1440px;
           margin: 0 auto;
-          padding: 120px 20px 100px;
+          padding: 120px 40px 100px;
         }
 
         .step-0 {
@@ -722,8 +848,8 @@ function JoinPageContent() {
 
         .onboarding-grid {
           display: grid;
-          grid-template-columns: 1.6fr 1fr;
-          gap: 48px;
+          grid-template-columns: 1.8fr 1fr;
+          gap: 56px;
           align-items: start;
         }
 
@@ -766,7 +892,8 @@ function JoinPageContent() {
         .form-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 28px;
+          gap: 24px;
+          width: 100%;
         }
 
         .input-group.full {

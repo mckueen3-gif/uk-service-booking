@@ -2,8 +2,9 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
-import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth/next";
+import { getMerchantId } from '@/lib/merchant-utils';
 
 export async function submitReview(bookingId: string, data: { rating: number; comment: string }) {
   const session = await getServerSession(authOptions);
@@ -57,16 +58,15 @@ export async function submitReview(bookingId: string, data: { rating: number; co
 }
 
 export async function submitReply(reviewId: string, reply: string) {
-  const session = (await getServerSession(authOptions)) as any;
-  if (!session?.user || session.user.role !== 'MERCHANT') throw new Error("Unauthorized");
+  const merchantId = await getMerchantId();
+  if (!merchantId) throw new Error("Unauthorized");
 
-  const existingReview = await (prisma.review as any).findUnique({
-    where: { id: reviewId },
-    include: { merchant: true }
+  const existingReview = await prisma.review.findUnique({
+    where: { id: reviewId }
   });
 
   if (!existingReview) throw new Error("Review not found");
-  if (existingReview.merchant.userId !== session.user.id) throw new Error("Unauthorized access to review");
+  if (existingReview.merchantId !== merchantId) throw new Error("Unauthorized access to review");
 
   const updated = await (prisma.review as any).update({
     where: { id: reviewId },
@@ -80,12 +80,12 @@ export async function submitReply(reviewId: string, reply: string) {
 }
 
 export async function getMerchantReviews() {
-  const session = (await getServerSession(authOptions)) as any;
-  if (!session?.user || session.user.role !== 'MERCHANT') return { error: "Unauthorized" };
+  const merchantId = await getMerchantId();
+  if (!merchantId) return { error: "Unauthorized" };
 
   try {
     const merchant = await prisma.merchant.findUnique({
-      where: { userId: session.user.id },
+      where: { id: merchantId },
       include: {
         reviews: {
           include: {

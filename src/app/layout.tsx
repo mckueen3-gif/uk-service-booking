@@ -57,6 +57,7 @@ export const viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
+  themeColor: "#d4af37",
 };
 
 export default async function RootLayout({
@@ -75,7 +76,15 @@ export default async function RootLayout({
   const initialLocale = (cookieStore.get('user-locale')?.value as any) || 'en';
 
   return (
-    <html lang="en" className={`${inter.variable} ${outfit.variable}`} data-concierge-version="4.4-OMEGA">
+    <html lang="en" className={`${inter.variable} ${outfit.variable}`} data-concierge-version="4.5-SUPERAPP">
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="ConciergeAI" />
+        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+      </head>
       <body>
         <ScrollProgress />
         <GoogleMapsProvider>
