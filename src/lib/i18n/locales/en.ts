@@ -2,6 +2,7 @@ import { LocaleDictionary } from '../types';
 
 export const en: LocaleDictionary = {
   common: {
+    merchantPortal: "Merchant Portal",
     back: "Back",
     next: "Next",
     save: "Save",

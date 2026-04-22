@@ -2,6 +2,7 @@ import { LocaleDictionary } from '../types';
 
 export const ko: LocaleDictionary = {
   common: {
+    merchantPortal: "판매자 포털",
     back: "뒤로",
     next: "다음",
     save: "저장",

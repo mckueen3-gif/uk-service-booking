@@ -26,9 +26,10 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
  * renders a translation branch (a Proxy) instead of a leaf (a string), 
  * the Proxy now informs React it is a valid element (a span) instead of crashing.
  */
-function createSafeDictionary(target: any, fallback: any = {}, path: string = ''): any {
-  // 🚀 FIXED: We use a function decoy as the Proxy target to enable the 'apply' trap (callability).
-  const proxyTarget = function() {};
+function createSafeDictionary(target: any, fallback: any = {}, path: string = '', isRoot: boolean = false): any {
+  // 🚀 FIXED: Use a function target ONLY for the root to allow t('key') calls.
+  // For branches, use an object target so React doesn't see them as 'functions' when rendered.
+  const proxyTarget = isRoot ? function() {} : {};
   
   // Storage for the actual dictionary data
   const data = target || {};
@@ -199,7 +200,7 @@ export function LanguageProvider({ children, initialLocale = 'en' }: { children:
   const value = {
     locale,
     language: locale, // Alias
-    t: createSafeDictionary(getDictionary(locale), getDictionary('en')),
+    t: createSafeDictionary(getDictionary(locale), getDictionary('en'), '', true),
     format: interpolate,
     setLocale,
     isRTL: locale === 'ar' || locale === 'ur'

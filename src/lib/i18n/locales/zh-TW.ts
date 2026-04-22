@@ -2,6 +2,7 @@ import { LocaleDictionary } from '../types';
 
 export const zhTW: LocaleDictionary = {
   common: {
+    merchantPortal: "商家控制台",
     welcome: "歡迎來到 ConciergeAI",
     loading: "載入中...",
     error: "發生錯誤",
