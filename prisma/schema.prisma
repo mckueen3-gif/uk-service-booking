@@ -179,6 +179,9 @@ model Merchant {
   baseHourlyRate     Float?
   isElite            Boolean                @default(false)
   isTrialAvailable   Boolean                @default(false)
+  isSocialPro        Boolean                @default(false)
+  socialCreditsUsed  Int                    @default(0)
+  lastSocialReset    DateTime?
   pricingPackages    Json?
   trialPrice         Float?
   bookings           Booking[]

@@ -14,12 +14,13 @@ import {
   proposeVariation, 
   getBookingVariations 
 } from '@/app/actions/dispute_arbiter';
+import AccountingPartnerDirectory from '@/components/merchant/AccountingPartnerDirectory';
 import { 
   Users, Briefcase, Star, Clock, 
   TrendingUp, Wallet, CheckCircle2, 
   AlertCircle, ChevronRight, MoreHorizontal,
   PlusCircle, Camera, X, Cpu, Loader2,
-  Video, Link2, ExternalLink, Info, ShieldCheck
+  Video, Link2, ExternalLink, Info, ShieldCheck, Bot
 } from 'lucide-react';
 import Link from 'next/link';
 

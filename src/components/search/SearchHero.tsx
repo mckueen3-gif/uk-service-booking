@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { parseSearchIntent } from '@/app/actions/ai-discovery';
 import { useTranslation } from "@/components/LanguageContext";
 import { useLocation } from "@/components/LocationContext";
+import { getLocalizedLocation } from '@/lib/i18n/utils';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 // Removed individual useEffect import
 
@@ -246,7 +247,7 @@ export default function SearchHero() {
              <MapPin size={22} style={{ position: 'absolute', [isRTL ? 'right' : 'left']: '1.5rem', color: 'var(--text-muted)' }} />
              <input 
                 type="text" 
-                value={city}
+                value={getLocalizedLocation(t, city)}
                 onChange={(e) => {
                   setCity(e.target.value);
                   handlePostcodeLookup(e.target.value);

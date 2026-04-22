@@ -70,6 +70,31 @@ export const en = {
       morning: "Good Morning",
       afternoon: "Good Afternoon",
       evening: "Good Evening"
+    },
+    locations: {
+      all: "All UK",
+      london: "London",
+      manchester: "Manchester",
+      birmingham: "Birmingham",
+      leeds: "Leeds",
+      glasgow: "Glasgow",
+      camden: "Camden",
+      united_kingdom: "United Kingdom"
+    },
+    subjects: {
+      math: "Mathematics",
+      science: "Primary Science",
+      physics: "Physics",
+      chemistry: "Chemistry",
+      biology: "Biology",
+      english: "English Literature",
+      alevel_math: "A-Level Mathematics",
+      gcse_math: "GCSE Mathematics"
+    },
+    modes: {
+      online: "Online",
+      hybrid: "Hybrid",
+      in_person: "In-person"
     }
   },
   location: {
@@ -212,9 +237,9 @@ export const en = {
       insurance_10m: "£10,000,000 coverage",
       insurance_none: "Not currently covered",
       insurance_hint: "Recommended: minimum £1M coverage for client protection.",
-      promo_label: "Promotional / Referral Code",
       promo_placeholder: "e.g. ELITE or FREE10",
       promo_active: "Code Applied!",
+      issuing_body: "Issuing Body"
     },
     validation: {
       select_sector: "Please select your specialist sector to continue.",
@@ -226,6 +251,12 @@ export const en = {
       city_required: "Please select your service location.",
       file_size_error: "File size must be < 5MB.",
       ai_fallback: "AI verification unavailable. Document flagged for manual review.",
+      password_short: "Password must be at least 6 characters",
+      website_required: "Please enter a website URL first.",
+      ai_fetch_error: "AI was unable to fetch information. Please fill manually.",
+      bio_regen_error_missing: "Please ensure Business Name and at least one category are present.",
+      ai_bio_error: "AI was unable to generate a bio.",
+      unexpected_error: "An unexpected error occurred. Please try again."
     },
     preview: {
       preview_label: "Live Preview",
@@ -1054,6 +1085,7 @@ export const en = {
       missingFields: "Please complete all required fields",
       passwordTooShort: "Password must be at least 6 characters",
       emailExists: "An account with this email already exists",
+      invalidCredentials: "Invalid email or password. Please try again.",
       serverError: "Service temporarily unavailable - please try again later"
     },
     forgotPassword: {
@@ -1317,6 +1349,129 @@ export const en = {
     },
   },
 
+  education_sec: {
+    hero: {
+      badge: "Elite UK Verified High-Quality Tutors",
+      title1: "Learn New Skills",
+      title2: "From the Professionals",
+      subtitle: "Connect with high-quality tutors for academic, language, and professional skills. Personalized learning for your success.",
+      searchPlaceholder: "What do you want to learn?",
+      searchBtn: "Find Tutors",
+    },
+    forYou: {
+      title: "Recommended for You",
+      match: "AI Match Score",
+      viewProfile: "View Profile",
+    },
+    categories: {
+      title: "Browse by Category",
+      browseBtn: "See All",
+      items: {
+        academic: {
+          title: "Academic Excellence",
+          desc: "GCSE, A-Levels, IB, 11+ Entrance Prep",
+        },
+        language: {
+          title: "Global Languages",
+          desc: "IELTS, Duolingo, Business English & more",
+        },
+        stem: {
+          title: "STEM & AI",
+          desc: "Python, Generative AI, Coding, Data Science",
+        },
+        arts: {
+          title: "Creative Arts",
+          desc: "Portfolio, Piano, Design, Fine Arts",
+        },
+        finance: {
+          title: "Professional Certifications",
+          desc: "CFA, ACCA, PMP, Professional Certs",
+        },
+        career: {
+          title: "Career Strategy",
+          desc: "Interview Prep, Leadership, MBA Strategy",
+        },
+        junior: {
+          title: "Junior Scholars",
+          desc: "Phonics, Logic, Talent Development",
+        },
+        masterclass: {
+          title: "Knowledge Workshops",
+          desc: "Investment, Lifestyle, Masterclasses",
+        },
+        sen: {
+          title: "Special Education (SEN)",
+          desc: "ADHD, Dyslexia, Autism, Mental Health",
+        },
+      },
+    },
+    search: {
+      filters: "Advanced Filters",
+      mode: "Teaching Mode",
+      online: "Online",
+      offline: "In-Person",
+      hybrid: "Hybrid",
+      priceRange: "Price Range",
+      level: "Tutor Level",
+      student: "Undergraduate",
+      pro: "Certified Professional",
+      expert: "Masters / PhD Level",
+      apply: "Apply Filters",
+      resultsTitle: "Available Specialists",
+      foundCount: "{{count}} tutors found",
+      placeholder: "Search by subject or name",
+    },
+    common: {
+      reviews: "reviews",
+      hr: "hr",
+      bookTrial: "Book Trial Lesson",
+    },
+    tutorCard: {
+      demoDesc: "Passionate PhD tutor with over 10 years of experience. Helped 100+ students achieve their academic goals.",
+    },
+    tutorProfile: {
+      verified: "Verified Specialist",
+      about: "About the Specialist",
+      education: "Education Background",
+      experience: "Tutoring Experience",
+      portfolio: "Success Cases",
+      reviews: "Student Testimonials",
+      availability: "Weekly Schedule",
+      bookNow: "Book Now",
+      aiTrial: "AI Diagnostic Test",
+      trialChallenge: "Learning Diagnostic Challenge",
+      startChallenge: "Start Challenge",
+      cancel: "Not Now",
+      loadingChallenge: "AI is preparing your challenge...",
+      analyzing: "Analyzing {subject} curriculum",
+      questionLabel: "Question",
+      of: "of",
+      explanation: "Explanation:",
+      nextQuestion: "Next Question",
+      finishChallenge: "Finish Challenge",
+      scoreResult: "Score Rate:",
+      assessment: "AI Assessment:",
+      not_found: "Expert Not Found",
+      academic_background: "Verified Academic Background",
+      assessmentLevels: {
+        excellent: "Very strong foundation",
+        progress: "Great growth potential",
+        starting: "First steps in learning",
+      },
+      assessmentDesc: "Diagnosis data shared with tutor. They will craft a curriculum based on this!",
+      bookFirstLesson: "Book First Lesson",
+      tryAgain: "Try Again",
+      feeDisclosure: "ConciergeAI provides secure booking. Direct payments outside the platform are not covered by our 100% Satisfaction Guarantee.",
+      match: "MATCH",
+      authPanel: {
+        title: "Enrich Your Experience",
+        desc: "Unlock the full power of AI-driven education diagnostics by joining our elite member network.",
+        dismiss: "Maybe Later"
+      }
+    },
+    visitDashboard: "Explore Education Hub",
+  },
+
   aura: {
     welcome: "Hello! I am Aura, your Concierge coordinator. How can I help you today?",
     offline: "Offline",
@@ -1341,7 +1496,7 @@ export const en = {
     welcome: "Welcome back, {name}",
     quick_links_hint: "Strategic shortcuts for elite growth.",
     elite_ai: {
-      title: "Elite AI & Video",
+      title: "Elite AI & AI Secretary",
       video_label: "Introduction Video (YouTube URL)",
       knowledge_label: "AI Expert Knowledge Base",
       knowledge_placeholder: "Deep-load your specific expertise, service nuances, and technical criteria here. This data remains private and powers your specialized AI Assistant to handle technical leads with precision.",
@@ -1528,6 +1683,41 @@ export const en = {
       car: "Private Vehicle",
       van: "Commercial Van"
     }
+  },
+  metadata: {
+    title: "ConciergeAI | Hire Top Local Experts in the UK",
+    description: "The UK's premier network for elite, verified service specialists and tutors."
+  },
+  social_studio: {
+    title: "Social Media Studio",
+    subtitle: "AI Multi-Platform Content Engine",
+    quota: "Monthly Quota",
+    left: "Remaining",
+    pro_active: "Pro Status Active",
+    upgrade_cta: "Upgrade for 60/mo Quota",
+    ai_optimize: "AI Optimize",
+    optimized_hint: "AI has re-optimized based on your edits.",
+    regenerate: "Regenerate All",
+    edit_mode: "Manual Edit",
+    copy_success: "Copied to Clipboard",
+    generate_all: "Generate Omnichannel Campaign",
+    optimization_instructions: "Optimization Brief (e.g., more professional, emojis, local slang...)",
+    discount_label: "Discount / Offer (Optional)",
+    discount_placeholder: "e.g. 20% off this week",
+    audience_label: "Target Audience (Optional)",
+    audience_placeholder: "e.g. London homeowners",
+    generate_cta: "✨ Generate My Campaign",
+    publish_to: "Publish To",
+    scheduled_success: "Campaign Scheduled! 🎉",
+    queued_note: "Your posts are queued via the Ayrshare network.",
+    publishing: "Publishing via Ayrshare...",
+    publish_cta: "🚀 Publish to {{count}} Platform",
+    ai_image_title: "AI-Generated Campaign Image",
+    ready_to_download: "READY TO DOWNLOAD",
+    painting_image: "AI is painting your image...",
+    open_full_size: "Open Full Size",
+    tab_campaign: "Campaign Creator",
+    tab_review: "Review Booster"
   }
 };
 

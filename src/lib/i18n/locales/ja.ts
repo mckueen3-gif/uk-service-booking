@@ -31,6 +31,31 @@ export const ja: any = {
       morning: "おはようございます",
       afternoon: "こんにちは",
       evening: "こんばんは"
+    },
+    locations: {
+      all: "全英国",
+      london: "ロンドン",
+      manchester: "マンチェスター",
+      birmingham: "バーミンガム",
+      leeds: "リーズ",
+      glasgow: "グラスゴー",
+      camden: "カムデン",
+      united_kingdom: "イギリス"
+    },
+    subjects: {
+      math: "数学",
+      science: "初等科学",
+      physics: "物理学",
+      chemistry: "化学",
+      biology: "生物学",
+      english: "英文学",
+      alevel_math: "A-Level 数学",
+      gcse_math: "GCSE 数学"
+    },
+    modes: {
+      online: "オンライン",
+      hybrid: "ハイブリッド",
+      in_person: "対面"
     }
   },
   sidebar: {
@@ -914,6 +939,12 @@ export const ja: any = {
         "講師に診断データが共有されました。これに基づいてカリキュラムを作成します！",
       bookFirstLesson: "初回レッスンを予約",
       tryAgain: "もう一度挑戦",
+      feeDisclosure: "ConciergeAIは安全な予約を提供します。プラットフォーム外での直接支払いは、100％満足保証の対象外となります。",
+      authPanel: {
+        title: "メンバー限定機能",
+        desc: "AI駆動の教育診断を最大限に活用するために、エリートメンバーネットワークにご参加ください。",
+        dismiss: "後で"
+      }
     },
     visitDashboard: "教育ハブを探索する",
   },
@@ -1468,6 +1499,13 @@ export const ja: any = {
       loading: "処理中...",
       or: "または",
       google: "Googleで登録",
+      postcode_invalid: "無効な英国郵便番号です。もう一度お試しください。",
+      network_error: "ネットワークエラー。住所を手動で入力してください。",
+      phone_placeholder: "+44 7... (英国携帯電話)",
+      district_placeholder: "例：Camden",
+      city_placeholder: "例：ロンドン",
+      country_placeholder: "例：イギリス",
+      referral_placeholder: "例：ALPHA-99",
       navToLogin: "すでにアカウントをお持ちですか？",
       signIn: "ここからログイン",
       roles: { customer: "顧客", merchant: "専門家" },
@@ -1514,6 +1552,127 @@ export const ja: any = {
       initializing: "システムを初期化中...",
     },
   },
+
+  onboarding: {
+    hero: {
+      title: "ConciergeAI でビジネスを拡大",
+      subtitle: "英国最高の認定専門家ネットワークに参加しましょう。",
+      badge: "ConciergeAI エリートエキスパート",
+      stats: {
+        active_pros: "アクティブな専門家",
+        commission: "プラットフォーム手数料",
+        rating: "エキスパート評価"
+      }
+    },
+    sector_selection_title: "専門分野を選択",
+    sector_selection_subtitle: "あなたのプロフェッショナルなポートフォリオに最も適したドメインを選択してください",
+    profile_form: {
+      form_title: "プロフェッショナルプロフィール",
+      form_subtitle: "この情報は、公開スペシャリストプロフィールに表示されます。",
+      business_name: "屋号 / 取引名",
+      business_name_placeholder: "例：Smith & Partners LLP",
+      bio_label: "プロフェッショナル概要",
+      bio_placeholder: "あなたの専門知識、経験、サービスの独自性を説明してください...",
+      bio_optimize: "AI 最適化",
+      website_label: "ウェブサイト / ポートフォリオ",
+      ai_autofill: "AI 自動入力",
+      email_placeholder: "contact@yourbusiness.com",
+      phone_placeholder: "+44 7XXX XXXXXX",
+      password_label: "ログインパスワード設定",
+      password_placeholder: "6文字以上",
+      city_label: "サービス提供エリア",
+      city_placeholder: "主要サービスエリアを選択",
+      nationwide: "全英対応",
+      major_cities: "主要都市",
+      avatar_placeholder: "写真をアップロード",
+      banner_label: "カバーバナー",
+      banner_placeholder: "クリックしてプロフェッショナルなバナー画像をアップロード",
+      credentials_label: "公的資格・認定",
+      credentials_required: "必須",
+      credentials_hint_technical: "技術専門職の場合、Gas Safe / NICEIC / CHAS 認定が必須です。",
+      credentials_hint_standard: "ライセンス、認定証、または資格書類をアップロードしてください。",
+      ai_verifying: "AI がリアルタイムで書類を検証中...",
+      ai_verified_success: "AI 検証済み",
+      ai_verified_failed: "AI 却下",
+      manual_review: "手動審査が必要",
+      insurance_label: "公共責任保険 (PL保険)",
+      insurance_1m: "£1,000,000 補償",
+      insurance_2m: "£2,000,000 補償",
+      insurance_5m: "£5,000,000 補償",
+      insurance_10m: "£10,000,000 補償",
+      insurance_none: "現在未加入",
+      insurance_hint: "推奨：クライアント保護のため、最小 £1M の補償。",
+      promo_placeholder: "例：ELITE または FREE10",
+      promo_active: "コード適用済み！",
+      issuing_body: "発行機関"
+    },
+    validation: {
+      select_sector: "続行するには専門分野を選択してください。",
+      fill_required: "続行する前にすべての必須項目を入力してください。",
+      bio_short: "プロフェッショナル概要は20文字以上である必要があります。",
+      business_name_required: "屋号または取引名を入力してください。",
+      email_required: "有効なメールアドレスを入力してください。",
+      phone_required: "連絡先電話番号を入力してください。",
+      city_required: "サービス提供エリアを選択してください。",
+      file_size_error: "ファイルサイズは 5MB 未満である必要があります。",
+      ai_fallback: "AI検証が利用できません。手動審査のためにフラグが立てられました。",
+      password_short: "パスワードは6文字以上である必要があります。",
+      website_required: "まずウェブサイトのURLを入力してください。",
+      ai_fetch_error: "AIが情報を取得できませんでした。手動で入力してください。",
+      bio_regen_error_missing: "屋号と少なくとも1つのカテゴリーが入力されていることを確認してください。",
+      ai_bio_error: "AIが自己紹介文を生成できませんでした。",
+      unexpected_error: "予期しないエラーが発生しました。もう一度お試しください。"
+    },
+    preview: {
+      preview_label: "ライブプレビュー",
+      live_preview: "プロフィールプレビュー",
+      sector_placeholder: "分野未定",
+      business_name_placeholder: "あなたのビジネスまたは専門家名",
+      bio_placeholder: "プロフェッショナル概要がここに表示されます。これにより、クライアントはあなたの専門知識と価値観を理解できます...",
+      location_suffix: "イギリス",
+      insurance_suffix: "公共責任保険加入",
+      booking_button: "今すぐ予約",
+      ai_cert_hint: "AI が専門資格を即時に検証しました",
+      credentials_hint: "書類のアップロードに成功しました。最終確認待ちです",
+      commission_technical: "技術分野：完全な支払い処理、予約、紛争保護（10% プラットフォーム手数料）",
+      commission_education: "教育・家庭教師：高価値の生徒とのマッチングと安全な料金決済",
+      commission_standard: "プロフェッショナルサービス：安全な支払い処理と認定スペシャリストステータス",
+    },
+    success: {
+      title: "申し込みが送信されました！",
+      subtitle: "当チームがあなたの資格を確認し、まもなくエキスパートプロフィールを有効化します。",
+      next_steps: "次のステップ",
+      step_review: "プロフィール審査 (1〜2営業日)",
+      coming_soon: "ダッシュボード準備中",
+      enter_dashboard: "エキスパートダッシュボードに入る",
+      ai_tax_title: "AI 税務アシスタント",
+      ai_tax_desc: "HMRC コンプライアンスと VAT 申告の自動化 — すべての登録エキスパート向けに近日公開予定。",
+    },
+    steps: {
+      profile: "ビジネスプロフィール",
+      credentials: "資格・認定証",
+      contract: "サービス契約",
+    },
+    sectors: {
+      title: "専門分野を選択",
+      professional: {
+        title: "プロフェッショナルサービス",
+        desc: "公認会計士、法律顧問、戦略的企業コンサルタントに最適",
+        industries: ["税務・会計", "企業法務", "ビジネスコンサルティング", "財務計画", "マーケティング戦略", "人事"],
+      },
+      education: {
+        title: "学術・家庭教師",
+        desc: "受験講師、語学コーチ、スキルアップエキスパートに最適",
+        industries: ["数学", "科学", "物理", "化学", "生物", "英語", "A-Level 数学", "GCSE 数学", "その他"],
+      },
+      technical: {
+        title: "技術・職人サービス",
+        desc: "熟練の職人、家メンテナンス業者、エンジニアに最適",
+        industries: ["配管・水道", "電気技術", "ボイラー・暖房", "家電修理", "内装工事", "屋根修理"],
+      },
+    },
+  },
+
   merchant_dashboard: {
     title: "エキスパート管理パネル",
     expertTitle: "Elite エキスパート体系",
@@ -1707,6 +1866,10 @@ export const ja: any = {
       car: "乗用車",
       van: "商用バン"
     }
+  },
+  metadata: {
+    title: "ConciergeAI | イギリスのトップスペシャリスト・講師を予約",
+    description: "イギリスのトップクラスの認定専門家と講師がつながるプレミアネットワーク。"
   }
 };
 

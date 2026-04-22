@@ -16,7 +16,37 @@ export async function createMerchantAction(data: any) {
     // 2. Handle File Physical Persistence (Mock Cloud Storage)
     const avatarUrl = data.avatar ? await saveFileLocally(data.avatar, 'avatars') : null;
     const bannerUrl = data.bannerUrl ? await saveFileLocally(data.bannerUrl, 'banners') : null;
-    const credentialUrl = data.credentials ? await saveFileLocally(data.credentials, 'credentials') : null;
+    
+    const credentialData: { url: string, type: DocumentType, status: DocumentStatus, expiryDate: Date | null, aiConfidence: number | null }[] = [];
+    if (data.credentials && Array.isArray(data.credentials)) {
+      for (const cred of data.credentials) {
+         const url = await saveFileLocally(cred.dataUrl, 'credentials');
+         
+         let docStatus = DocumentStatus.PENDING;
+         if (cred.review?.status === 'verified') docStatus = DocumentStatus.APPROVED;
+         else if (cred.review?.status === 'rejected') docStatus = DocumentStatus.REJECTED;
+
+         let docType = DocumentType.BUSINESS_LICENSE;
+         if (cred.review?.documentType && Object.values(DocumentType).includes(cred.review.documentType)) {
+             docType = cred.review.documentType as DocumentType;
+         } else if (data.sector !== 'technical') {
+             docType = DocumentType.PUBLIC_LIABILITY;
+         }
+
+         let expiryDate = null;
+         if (cred.review?.expiryDate) {
+            expiryDate = new Date(cred.review.expiryDate);
+         }
+         
+         credentialData.push({
+           url,
+           type: docType,
+           status: docStatus,
+           expiryDate: (expiryDate && !isNaN(expiryDate.getTime())) ? expiryDate : null,
+           aiConfidence: cred.review?.confidence || null
+         });
+      }
+    }
 
     // 3. Determine Free Orders & Commission Rate
     let freeOrders = 0;
@@ -74,22 +104,26 @@ export async function createMerchantAction(data: any) {
         freeOrdersLeft: freeOrders,
         avatarUrl,
         bannerUrl,
-        licenseUrl: credentialUrl,
+        licenseUrl: credentialData.length > 0 ? credentialData[0].url : null,
         insuranceAmount: data.insuranceAmount ? parseFloat(data.insuranceAmount.replace(/,/g, '')) : 0,
         businessType: data.suggestedCategories ? data.suggestedCategories.join(', ') : data.sector
       }
     });
 
-    // 4. Create initial document entry if uploaded
-    if (credentialUrl) {
-      await (prisma as any).merchantDocument.create({
-        data: {
-          merchantId: merchant.id,
-          fileUrl: credentialUrl,
-          type: data.sector === 'technical' ? DocumentType.BUSINESS_LICENSE : DocumentType.PUBLIC_LIABILITY,
-          status: DocumentStatus.PENDING
-        }
-      });
+    // 4. Create document entries
+    if (credentialData.length > 0) {
+      for (const cred of credentialData) {
+        await (prisma as any).merchantDocument.create({
+          data: {
+            merchantId: merchant.id,
+            fileUrl: cred.url,
+            type: cred.type,
+            status: cred.status,
+            aiConfidence: cred.aiConfidence,
+            expiryDate: cred.expiryDate
+          }
+        });
+      }
     }
 
     // Create a wallet

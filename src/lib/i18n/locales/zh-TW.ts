@@ -1,4 +1,41 @@
 export const zhTW = {
+  site_metadata: {
+    title: "ConciergeAI | 聘請全英國頂尖認證專家",
+    description: "英國首屈一指的精英、經驗證服務專家和導師網絡。"
+  },
+  nexus_chat: {
+    title: "Nexus 安全即時通訊",
+    subtitle: "高度加密的專業諮詢通道",
+    secureBanner: "已建立端到端加密通訊會話",
+    verifiedExpert: "已驗證的 Nexus 專家",
+    shareDiagnosis: "分享 AI 診斷報告",
+    bookExpert: "立即預約專家",
+    securityDesc: "此對話受 Nexus 協議加密保護。"
+  },
+  equipment_mgmt: {
+    title: "資產設備控制台",
+    subtitle: "為您的重要資產提供 AI 驅動的全生命週期管理",
+    addBtn: "登記新資產",
+    propertyTab: "房產管理",
+    vehicleTab: "車輛管理",
+    noAssets: "目前尚無登記資產。",
+    lastService: "上次維護時間",
+    nextService: "預計下次保養",
+    healthScore: "AI 設備健康評分",
+    diagnoseBtn: "啟動 AI 體檢",
+    details: "資產詳細規格",
+    tabs: {
+      overview: "概覽面版",
+      maintenance: "維護日誌",
+      diagnosis: "AI 診斷"
+    },
+    types: {
+      house: "住宅房產",
+      commercial: "商業空間",
+      car: "私人轎車",
+      van: "商用貨車"
+    }
+  },
   common: {
     back: "返回",
     next: "下一步",
@@ -71,6 +108,31 @@ export const zhTW = {
       morning: "早安",
       afternoon: "午安",
       evening: "晚安"
+    },
+    locations: {
+      all: "全英國",
+      london: "倫敦",
+      manchester: "曼徹斯特",
+      birmingham: "伯明翰",
+      leeds: "里茲",
+      glasgow: "格拉斯哥",
+      camden: "康登",
+      united_kingdom: "英國"
+    },
+    subjects: {
+      math: "數學",
+      science: "初級科學",
+      physics: "物理",
+      chemistry: "化學",
+      biology: "生物",
+      english: "英國文學",
+      alevel_math: "A-Level 數學",
+      gcse_math: "GCSE 數學"
+    },
+    modes: {
+      online: "線上教學",
+      hybrid: "混合模式",
+      in_person: "線下面授"
     }
   },
   location: {
@@ -164,6 +226,133 @@ export const zhTW = {
     completedProjects: "成功項目數"
   },
 
+  education_sec: {
+    hero: {
+      badge: "英國頂尖認證優質導師",
+      title1: "探索新知",
+      title2: "向專業學習",
+      subtitle: "連結學術、語言及專業技能領域的頂尖導師。量身定制的學習方案，助力您的成功。",
+      searchPlaceholder: "您想學習什麼內容？",
+      searchBtn: "尋找導師",
+    },
+    forYou: {
+      title: "為您推薦",
+      match: "AI 匹配指數",
+      viewProfile: "查看檔案",
+    },
+    categories: {
+      title: "按類別瀏覽",
+      browseBtn: "查看全部",
+      items: {
+        academic: {
+          title: "學術卓越",
+          desc: "GCSE, A-Levels, IB, 11+ 入學準備",
+        },
+        language: {
+          title: "全球語言",
+          desc: "IELTS, Duolingo, 商務英語等",
+        },
+        stem: {
+          title: "STEM 與 AI",
+          desc: "Python, 生成式 AI, 編程, 數據科學",
+        },
+        arts: {
+          title: "創意藝術",
+          desc: "作品集指導, 鋼琴, 設計, 美術",
+        },
+        finance: {
+          title: "專業認證",
+          desc: "CFA, ACCA, PMP, 職業證照",
+        },
+        career: {
+          title: "職涯策略",
+          desc: "面試準備, 領導力, MBA 策略",
+        },
+        junior: {
+          title: "幼兒啟蒙",
+          desc: "拼讀, 邏輯訓練, 天賦開發",
+        },
+        masterclass: {
+          title: "知識工作坊",
+          desc: "投資、生活方式、大師課",
+        },
+        sen: {
+          title: "特殊教育 (SEN)",
+          desc: "ADHD, 讀寫障礙, 自閉症, 心理健康",
+        },
+      },
+    },
+    search: {
+      filters: "進階篩選",
+      mode: "教學模式",
+      online: "線上教學",
+      offline: "線下面授",
+      hybrid: "混合模式",
+      priceRange: "價格範圍",
+      level: "導師資歷",
+      student: "在讀大學生",
+      pro: "認證專業導師",
+      expert: "碩博專家級",
+      apply: "應用篩選",
+      resultsTitle: "現有專家節點",
+      foundCount: "找到 {{count}} 位導師",
+      placeholder: "搜尋學科或姓名",
+    },
+    common: {
+      reviews: "條評價",
+      hr: "小時",
+      bookTrial: "預約試聽課",
+    },
+    tutorCard: {
+      demoDesc: "擁有超過 10 年教學經驗的博士導師。已幫助百餘名學生實現學術目標。",
+    },
+    tutorProfile: {
+      verified: "已驗證專家",
+      about: "關於這位專家",
+      social_credits_label: "每月 AI Secretary 額度：39 次",
+      social_reset_desc: "額度將在每月自動重置。AI Secretary 支持 AI 深度優化與多平台文案生成。",
+      social_no_credits: "今日額度已用完",
+      social_optimize_success: "文案優化成功！",
+      social_optimize_btn: "AI 再次優化 (AI Optimize)",
+      edit_mode_title: "編輯文案內容",
+      edit_mode_hint: "您可以直接修改下方內容，完成後可再次讓 AI 優化。",
+      education: "教育背景",
+      experience: "教學經驗",
+      portfolio: "成功案例",
+      reviews: "學生評價",
+      availability: "週課表",
+      bookNow: "立即預約",
+      aiTrial: "AI 診斷測試",
+      trialChallenge: "學習診斷挑戰",
+      startChallenge: "開始挑戰",
+      cancel: "暫時不要",
+      loadingChallenge: "AI 正在準備挑戰題目...",
+      analyzing: "正在分析 {subject} 課程大綱",
+      questionLabel: "問題",
+      of: "之",
+      explanation: "解析：",
+      nextQuestion: "下一題",
+      finishChallenge: "結束挑戰",
+      scoreResult: "得分率：",
+      assessment: "AI 評估：",
+      assessmentLevels: {
+        excellent: "基礎非常紮實",
+        progress: "具備極大成長空間",
+        starting: "學習起步階段",
+      },
+      assessmentDesc: "診斷數據已同步至導師實體。導師將根據此報告定制專屬課程方案！",
+      bookFirstLesson: "預約首堂課程",
+      tryAgain: "再次嘗試",
+      feeDisclosure: "ConciergeAI 提供安全預約保障。平台外的直接支付將不受我們的 100% 滿意保證政策保護。",
+      authPanel: { 
+        title: "專屬會員功能服務", 
+        desc: "解鎖 AI 驅動的教學診斷系統，加入我們的精英會員網絡以獲取完整分析報告。", 
+        dismiss: "稍後再說" 
+      }
+    },
+    visitDashboard: "進入教育中心",
+  },
+
   onboarding: {
     hero: {
       title: "使用 ConciergeAI 擴展您的業務",
@@ -216,6 +405,7 @@ export const zhTW = {
       promo_label: "推廣碼 / 推薦碼",
       promo_placeholder: "例：ELITE 或 FREE10",
       promo_active: "優惠碼已套用！",
+      issuing_body: "發證機構"
     },
     validation: {
       select_sector: "請選擇您的專業服務領域才能繼續。",
@@ -227,6 +417,12 @@ export const zhTW = {
       city_required: "請選擇您的服務地區。",
       file_size_error: "文件大小不能超過 5MB。",
       ai_fallback: "AI 即時驗證暫時不可用，文件已轉至人工審核。",
+      password_short: "密碼至少需要 6 個字元。",
+      website_required: "請先輸入網站網址。",
+      ai_fetch_error: "AI 無法獲取資訊。請手動填寫。",
+      bio_regen_error_missing: "請確保已填寫商家名稱及至少一個類別。",
+      ai_bio_error: "AI 無法生成簡介。",
+      unexpected_error: "發生非預期錯誤。請再試一次。"
     },
     preview: {
       preview_label: "即時預覽",
@@ -1028,6 +1224,13 @@ export const zhTW = {
       loading: "處理中",
       or: "或",
       google: "使用 Google 註冊",
+      postcode_invalid: "無效的英國郵遞區號。請再試一次。",
+      network_error: "網路錯誤。請手動輸入地址。",
+      phone_placeholder: "+44 7... (英國手機)",
+      district_placeholder: "例如：Camden",
+      city_placeholder: "例如：倫敦",
+      country_placeholder: "例如：英國",
+      referral_placeholder: "例如：ALPHA-99",
       navToLogin: "已經有帳戶了？",
       signIn: "在此登入",
       roles: { customer: "客戶", merchant: "專家" }
@@ -1367,11 +1570,11 @@ export const zhTW = {
     welcome: "歡迎回來，{name}",
     quick_links_hint: "快速啟動您的專家工具箱",
     elite_ai: {
-      title: "頂級 AI 與影片配置",
+      title: "頂級 AI 與影片對策",
       video_label: "介紹影片 (YouTube URL)",
-      knowledge_label: "AI 專家知識庫",
-      knowledge_placeholder: "請在此處深度載入您的專業知識、服務細節與技術準則。這些數據將保持私有，並驅動您的專屬 AI 助手精準處理技術諮詢。",
-      save_button: "校準專家檔案"
+      knowledge_label: "AI 專家秘書訓練",
+      knowledge_placeholder: "請在此處深度載入您的專業知識、服務細節與技術準則。這些數據將驅動您的「專屬 AI 秘書」精準處理技術諮詢與客戶問題。這不是普通客服，而是懂您的 AI 助手。",
+      save_button: "校準 AI 秘書檔案"
     },
     pricing: {
       title: "AI 定價脈搏",
@@ -1422,7 +1625,7 @@ export const zhTW = {
         badge: "免費"
       },
       video: {
-        name: "頂級 AI 影片配置",
+        name: "AI 專家秘書對策",
         desc: "專業影片導入與 AI 知識庫同步",
         badge: "免費"
       },
@@ -1520,40 +1723,37 @@ export const zhTW = {
         commercial: "💼 Q4 財務規劃，立即諮詢商業顧問。",
         default: "立即預約，享受頂級服務體驗。"
       }
-    }
-  },
-  nexus_chat: {
-    title: "Nexus 安全即時通訊",
-    subtitle: "高度加密的專業諮詢通道",
-    secureBanner: "已建立端到端加密通訊會話",
-    verifiedExpert: "已驗證的 Nexus 專家",
-    shareDiagnosis: "分享 AI 診斷報告",
-    bookExpert: "立即預約專家",
-    securityDesc: "此對話受 Nexus 協議加密保護。"
-  },
-  equipment_mgmt: {
-    title: "資產設備控制台",
-    subtitle: "為您的重要資產提供 AI 驅動的全生命週期管理",
-    addBtn: "登記新資產",
-    propertyTab: "房產管理",
-    vehicleTab: "車輛管理",
-    noAssets: "目前尚無登記資產。",
-    lastService: "上次維護時間",
-    nextService: "預計下次保養",
-    healthScore: "AI 設備健康評分",
-    diagnoseBtn: "啟動 AI 體檢",
-    details: "資產詳細規格",
-    tabs: {
-      overview: "概覽面版",
-      maintenance: "維護日誌",
-      diagnosis: "AI 診斷"
     },
-    types: {
-      house: "住宅房產",
-      commercial: "商業空間",
-      car: "私人轎車",
-      van: "商用貨車"
+    social_studio: {
+      title: "社交媒體推廣工作室",
+      subtitle: "跨平台 AI 內容生成與優化",
+      quota: "每月配額",
+      left: "剩餘",
+      pro_active: "專業版 Pro 已啟用",
+      upgrade_cta: "升級獲取每月 60 次配額",
+      ai_optimize: "AI 再優化",
+      optimized_hint: "AI 已經根據您的修改內容完成了再優化。",
+      regenerate: "重新生成全部",
+      edit_mode: "手動編輯",
+      copy_success: "已複製到剪貼簿",
+      generate_all: "一鍵生成全渠道推廣文案",
+      optimization_instructions: "優化指令 (如：更專業、更多 Emoji、加入粵語口語...)",
+      discount_label: "優惠 / 折扣 (選填)",
+      discount_placeholder: "例：本週八折優惠",
+      audience_label: "目標客群 (選填)",
+      audience_placeholder: "例：倫敦屋主",
+      generate_cta: "✨ 生成我的推廣企劃",
+      publish_to: "發布至",
+      scheduled_success: "企劃已成功排期！🎉",
+      queued_note: "您的貼文已加入 Ayrshare 網絡發布隊列。",
+      publishing: "正在透過 Ayrshare 發布...",
+      publish_cta: "🚀 發布至 {{count}} 個平台",
+      ai_image_title: "AI 生成的企劃圖片",
+      ready_to_download: "隨時可以下載",
+      painting_image: "AI 正在繪製您的圖片...",
+      open_full_size: "開啟原始尺寸",
+      tab_campaign: "企劃創作者",
+      tab_review: "評論推廣器"
     }
   }
 };
-

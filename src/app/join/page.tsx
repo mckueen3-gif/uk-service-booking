@@ -23,7 +23,7 @@ function JoinPageContent() {
   const [aiLoading, setAiLoading] = useState(false);
   const [bioLoading, setBioLoading] = useState(false);
   const [verifyingCredential, setVerifyingCredential] = useState(false);
-  const [credentialReview, setCredentialReview] = useState<{status: string, reason: string} | null>(null);
+
   const [error, setError] = useState<string | null>(null);
   const [selectedSector, setSelectedSector] = useState<string | null>(null);
   const [contractAccepted, setContractAccepted] = useState(false);
@@ -33,7 +33,7 @@ function JoinPageContent() {
     email: '',
     website: '',
     bio: '',
-    credentials: '',
+    credentials: [] as { name: string, dataUrl: string, review: any | null }[],
     city: 'London',
     promoCode: '',
     avatar: null as string | null,
@@ -88,6 +88,47 @@ function JoinPageContent() {
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = e.target;
+    
+    if (name === 'credentials' && e.target.files) {
+      const files = Array.from(e.target.files);
+      if (formData.credentials.length + files.length > 10) {
+        setError(t.onboarding.validation.file_size_error); // Reusing size error as generic error for now or custom message
+        return;
+      }
+      
+      setVerifyingCredential(true);
+      
+      const newCreds: { name: string, dataUrl: string, review: any | null }[] = [];
+      
+      for (const file of files) {
+        if (file.size > 5 * 1024 * 1024) continue;
+        
+        const dataUrl = await new Promise<string>((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result as string);
+          reader.readAsDataURL(file);
+        });
+        
+        let review = null;
+        if (selectedSector) {
+          try {
+            review = await verifyCredentialsWithAI(dataUrl, selectedSector, formData.suggestedCategories);
+          } catch (err) {
+            review = { status: 'manual_review', reason: t.onboarding.validation.ai_fallback };
+          }
+        }
+        newCreds.push({ name: file.name, dataUrl, review });
+      }
+      
+      setFormData(prev => ({ ...prev, credentials: [...prev.credentials, ...newCreds] }));
+      setVerifyingCredential(false);
+      
+      // Clear the file input so you can select the same file again if removed
+      e.target.value = '';
+      return;
+    }
+
+    // Avatar / Banner
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 5 * 1024 * 1024) { 
@@ -98,24 +139,16 @@ function JoinPageContent() {
       const reader = new FileReader();
       reader.onloadend = async () => {
         setFormData(prev => ({ ...prev, [name]: reader.result as string }));
-        
-        // Trigger AI Verification if it's a credential document
-        if (name === 'credentials' && selectedSector) {
-          setVerifyingCredential(true);
-          setCredentialReview(null);
-          try {
-            const fileDataUrl = reader.result as string;
-            const review = await verifyCredentialsWithAI(fileDataUrl, selectedSector, formData.suggestedCategories);
-            setCredentialReview(review);
-          } catch (err) {
-            setCredentialReview({ status: 'manual_review', reason: t.onboarding.validation.ai_fallback });
-          } finally {
-            setVerifyingCredential(false);
-          }
-        }
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const removeCredential = (index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      credentials: prev.credentials.filter((_, i) => i !== index)
+    }));
   };
 
   const removeAvatar = () => {
@@ -483,8 +516,9 @@ function JoinPageContent() {
                           <input 
                             type="file" 
                             name="credentials" 
+                            multiple
                             onChange={handleFileChange}
-                            className={`premium-file-input ${selectedSector === 'technical' && !formData.credentials ? 'error' : ''}`}
+                            className={`premium-file-input ${selectedSector === 'technical' && formData.credentials.length === 0 ? 'error' : ''}`}
                           />
                           {selectedSector === 'technical' ? (
                             <div className="validation-alert error">
@@ -497,6 +531,14 @@ function JoinPageContent() {
                               <span>{t.onboarding.profile_form.credentials_hint_standard}</span>
                             </div>
                           )}
+                          <div style={{ marginTop: '12px', fontSize: '0.8rem', color: '#64748b', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                            <Lock size={14} style={{ marginTop: '2px', flexShrink: 0, color: '#10b981' }} />
+                            <span>
+                              {locale === 'zh' 
+                                ? '您的資料僅供平台驗證資格使用，絕不作其他用途，亦不會外流。'
+                                : 'Your uploaded documents are securely processed for verification purposes only and will not be shared or used elsewhere.'}
+                            </span>
+                          </div>
                         </div>
 
                         {/* Real-time AI Review Display */}
@@ -507,33 +549,56 @@ function JoinPageContent() {
                           </div>
                         )}
 
-                        {credentialReview && (
-                          <div className={`ai-review-result ${credentialReview.status}`} style={{ 
-                            marginTop: '16px', 
-                            padding: '16px', 
-                            borderRadius: '16px', 
-                            border: `1px solid ${credentialReview.status === 'verified' ? 'rgba(16, 185, 129, 0.2)' : credentialReview.status === 'rejected' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(245, 158, 11, 0.2)'}`,
-                            background: credentialReview.status === 'verified' ? 'rgba(16, 185, 129, 0.03)' : credentialReview.status === 'rejected' ? 'rgba(239, 68, 68, 0.03)' : 'rgba(245, 158, 11, 0.03)',
-                            display: 'flex',
-                            gap: '14px'
-                          }}>
-                            <div style={{ color: credentialReview.status === 'verified' ? '#10b981' : credentialReview.status === 'rejected' ? '#ef4444' : '#f59e0b' }}>
-                              {credentialReview.status === 'verified' ? <CheckCircle2 size={24} /> : <ShieldCheck size={24} />}
-                            </div>
-                            <div>
-                              <div style={{ fontWeight: 800, fontSize: '0.9rem', marginBottom: '4px', color: 'white' }}>
-                                {credentialReview.status === 'verified' ? t.onboarding.profile_form.ai_verified_success : 
-                                 credentialReview.status === 'rejected' ? t.onboarding.profile_form.ai_verified_failed : t.onboarding.profile_form.manual_review}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '16px' }}>
+                          {formData.credentials.map((cred, idx) => (
+                            <div key={idx} style={{ padding: '16px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', background: 'rgba(255,255,255,0.02)' }}>
+                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                                <span style={{ color: '#e2e8f0', fontSize: '0.85rem', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '80%' }}>{cred.name}</span>
+                                <button type="button" onClick={() => removeCredential(idx)} style={{ background: 'transparent', border: 'none', color: '#ef4444', cursor: 'pointer', fontSize: '1.2rem', lineHeight: 1 }}>&times;</button>
                               </div>
-                              <p style={{ fontSize: '0.8rem', color: '#94a3b8', margin: 0, lineHeight: 1.5 }}>{credentialReview.reason}</p>
-                              {(credentialReview as any).regulatoryBody && (
-                                <div style={{ marginTop: '8px', fontSize: '0.7rem', fontWeight: 700, color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                  Issuing Body: {(credentialReview as any).regulatoryBody}
+                              {cred.review && (
+                                <div className={`ai-review-result ${cred.review.status}`} style={{ 
+                                  padding: '12px', 
+                                  borderRadius: '8px', 
+                                  border: `1px solid ${cred.review.status === 'verified' ? 'rgba(16, 185, 129, 0.2)' : cred.review.status === 'rejected' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(245, 158, 11, 0.2)'}`,
+                                  background: cred.review.status === 'verified' ? 'rgba(16, 185, 129, 0.03)' : cred.review.status === 'rejected' ? 'rgba(239, 68, 68, 0.03)' : 'rgba(245, 158, 11, 0.03)',
+                                  display: 'flex',
+                                  gap: '12px'
+                                }}>
+                                  <div style={{ color: cred.review.status === 'verified' ? '#10b981' : cred.review.status === 'rejected' ? '#ef4444' : '#f59e0b', marginTop: '2px' }}>
+                                    {cred.review.status === 'verified' ? <CheckCircle2 size={20} /> : <ShieldCheck size={20} />}
+                                  </div>
+                                  <div>
+                                    <div style={{ fontWeight: 800, fontSize: '0.85rem', marginBottom: '4px', color: 'white', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                      {cred.review.status === 'verified' ? t.onboarding.profile_form.ai_verified_success : 
+                                       cred.review.status === 'rejected' ? t.onboarding.profile_form.ai_verified_failed : t.onboarding.profile_form.manual_review}
+                                    </div>
+                                    <p style={{ fontSize: '0.75rem', color: '#94a3b8', margin: 0, lineHeight: 1.5 }}>{cred.review.reason}</p>
+                                    {(cred.review.regulatoryBody || cred.review.documentType || cred.review.expiryDate) && (
+                                      <div style={{ marginTop: '8px', display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                                        {cred.review.documentType && (
+                                          <span style={{ fontSize: '0.65rem', fontWeight: 700, color: '#d4af37', background: 'rgba(212,175,55,0.1)', padding: '2px 6px', borderRadius: '4px', textTransform: 'uppercase' }}>
+                                            {cred.review.documentType}
+                                          </span>
+                                        )}
+                                        {cred.review.regulatoryBody && (
+                                          <span style={{ fontSize: '0.65rem', fontWeight: 700, color: '#3b82f6', background: 'rgba(59,130,246,0.1)', padding: '2px 6px', borderRadius: '4px', textTransform: 'uppercase' }}>
+                                            {cred.review.regulatoryBody}
+                                          </span>
+                                        )}
+                                        {cred.review.expiryDate && (
+                                          <span style={{ fontSize: '0.65rem', fontWeight: 700, color: cred.review.status === 'rejected' ? '#ef4444' : '#10b981', background: cred.review.status === 'rejected' ? 'rgba(239,68,68,0.1)' : 'rgba(16,185,129,0.1)', padding: '2px 6px', borderRadius: '4px', textTransform: 'uppercase' }}>
+                                            EXP: {cred.review.expiryDate}
+                                          </span>
+                                        )}
+                                      </div>
+                                    )}
+                                  </div>
                                 </div>
                               )}
                             </div>
-                          </div>
-                        )}
+                          ))}
+                        </div>
                       </div>
                     </div>
 
@@ -591,8 +656,8 @@ function JoinPageContent() {
                     avatar={formData.avatar}
                     bannerUrl={formData.bannerUrl}
                     insuranceAmount={formData.insuranceAmount}
-                    hasCredentials={!!formData.credentials}
-                    isAiVerified={credentialReview?.status === 'verified'}
+                    hasCredentials={formData.credentials.length > 0}
+                    isAiVerified={formData.credentials.some(c => c.review?.status === 'verified')}
                     labels={t.onboarding.preview}
                   />
                 </div>

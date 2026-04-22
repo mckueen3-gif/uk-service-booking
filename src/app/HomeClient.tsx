@@ -12,6 +12,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import SearchHero from '@/components/search/SearchHero';
 import RecommendationEngine from '@/components/discovery/RecommendationEngine';
 import AiMatchmaker from '@/components/discovery/AiMatchmaker';
+import { getLocalizedLocation, getLocalizedData } from '@/lib/i18n/utils';
 
 import { useTranslation } from "@/components/LanguageContext";
 import { useLocation } from "@/components/LocationContext";
@@ -786,7 +787,7 @@ function SpecialistCard({ specialist, idx, city }: { specialist: any, idx: numbe
           letterSpacing: '0.1em', 
           marginBottom: '0.5rem' 
         }}>
-          {(specialist.category && t?.home?.categories?.[specialist.category.toLowerCase()]) || specialist.category || t?.home?.defaultCategory}
+          {getLocalizedData(t, specialist.category || "default", "subjects")}
         </div>
         <h3 style={{ 
           fontSize: '1.4rem', 
@@ -800,7 +801,7 @@ function SpecialistCard({ specialist, idx, city }: { specialist: any, idx: numbe
             : specialist.companyName || (specialist.user?.name && (specialist.user.name.length > 20 ? `${specialist.user.name.substring(0, 20)}...` : specialist.user.name)) || "Elite Specialist"}
         </h3>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem', fontWeight: 500 }}>
-          <MapPin size={16} /> {specialist.city || city || "London, UK"}
+          <MapPin size={16} /> {getLocalizedLocation(t, specialist.city || city || "London")}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginTop: 'auto' }}>
            <Link href={`/merchant/${specialist.id}`} style={{ flex: 1, textDecoration: 'none' }}>

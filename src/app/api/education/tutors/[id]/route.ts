@@ -15,9 +15,14 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
       return NextResponse.json({ error: "Missing tutor ID" }, { status: 400 });
     }
 
-    // 🛡️ Comprehensive safe lookup
-    const merchant = await safeDbQuery(() => (prisma.merchant as any).findUnique({
-      where: { userId },
+    // 🛡️ Comprehensive safe lookup - supports both userId and potential companyName slugs
+    const merchant = await safeDbQuery(() => (prisma.merchant as any).findFirst({
+      where: {
+        OR: [
+          { userId: userId },
+          { companyName: userId }
+        ]
+      },
       include: {
         user: {
           select: {

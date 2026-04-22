@@ -10,7 +10,8 @@ import {
   TrendingUp, 
   Clock,
   CheckCircle2,
-  Sparkles
+  Sparkles,
+  Bot
 } from 'lucide-react';
 import { useTranslation } from '@/components/LanguageContext';
 
@@ -27,10 +28,10 @@ const SuperpowerHighlights = () => {
       accent: "#d4af37"
     },
     {
-      icon: <Wand2 size={32} color="#38bdf8" />,
-      title: hDict.ai_assistant_title,
-      desc: hDict.ai_assistant_desc,
-      detail: "+15% Deal Closure Automation",
+      icon: <Bot size={32} color="#38bdf8" />,
+      title: "AI 專家秘書 (AI Secretary)",
+      desc: "深度學習您的專業知識，精準代您處理初步諮詢與技術問答，24/7 全天候守護。",
+      detail: "+25% Lead Response Velocity",
       accent: "#38bdf8"
     },
     {

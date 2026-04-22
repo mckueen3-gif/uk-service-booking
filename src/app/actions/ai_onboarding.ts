@@ -155,34 +155,36 @@ export async function verifyCredentialsWithAI(fileDataUrl: string, sector: strin
   const base64Image = fileDataUrl.split(',')[1];
 
   const prompt = `
-    You are an expert UK Professional Compliance Auditor. 
+    You are an elite UK Professional Compliance Auditor. 
     Analyze this uploaded document for a merchant joining in the "${sector}" sector (Categories: ${categories.join(", ")}).
 
-    Task:
-    1. Determine if this is a genuine professional certificate/license.
-    2. Check if it is a specific UK mandate:
-       - Gas Safe Register (Plumbing/Heating)
-       - NICEIC/NAPIT (Electrical)
-       - ACCA/ICAEW (Accounting)
-       - SRA/Law Society (Legal)
-       - SIA (Security)
-    3. Verify the issuing body name and country (must be UK/Global).
-    4. Estimate the expiry date if visible.
-    
-    UK Regulatory Requirement Check:
-    - If sector is "technical", look for Gas Safe or NICEIC badges/watermarks.
-    - If sector is "professional", look for regulatory membership headers.
+    CRITICAL TASKS:
+    1. EXAMINE FOR FRAUD: Check for watermarks, official registry seals, or any signs of digital manipulation (P-shopped/fake). If suspicious, reject immediately.
+    2. CHECK EXPIRY DATE: Extract the precise expiry date or calculate it from the issue date if standard duration applies. IF IT IS EXPIRED, reject immediately.
+    3. CATEGORIZE EXACTLY: Determine precisely what this document is. Map it STRICTLY to one of these types:
+       - GAS_SAFE
+       - NICEIC
+       - PUBLIC_LIABILITY (Insurance document)
+       - BUSINESS_LICENSE (General trade license or registry)
+       - SIA_LICENSE (Security)
+       - FOOD_HYGIENE
+       - CQC_REG
+       - DVLA_CPC
+       - DBS_CHECK
+       - OTHER_PROFESSIONAL_CERT
 
-    Instructions:
-    - If it's a placeholder, sample, or generic photo (e.g. cat, building exterior), return "rejected".
-    - If it's a valid certificate with high confidence, return "verified".
-    - If it's a blurry but likely valid document, return "manual_review".
+    Instructions for Status:
+    - If it's a generic photo, irrelevant, obviously fake/forged, or EXPIRED, return "rejected".
+    - If it's a valid, unexpired certificate/insurance policy with high confidence, return "verified".
+    - If it's blurry but looks plausible, return "manual_review".
 
-    Return JSON ONLY:
+    Return JSON ONLY matching this format EXACTLY:
     {
       "status": "verified" | "manual_review" | "rejected",
-      "reason": "Clear explanation in Traditional Chinese & English",
-      "regulatoryBody": "Name of UK body recognized",
+      "reason": "Clear explanation in Traditional Chinese & English. Mention if it is expired or looks fake.",
+      "regulatoryBody": "Name of UK body recognized (e.g., Gas Safe, Hiscox Insurance, etc.)",
+      "documentType": "GAS_SAFE" | "NICEIC" | "PUBLIC_LIABILITY" | "BUSINESS_LICENSE" | "SIA_LICENSE" | "FOOD_HYGIENE" | "CQC_REG" | "DVLA_CPC" | "DBS_CHECK" | "OTHER_PROFESSIONAL_CERT",
+      "expiryDate": "YYYY-MM-DD" | null,
       "confidence": 0-1
     }
   `;

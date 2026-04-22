@@ -31,6 +31,31 @@ export const ko: any = {
       morning: "좋은 아침입니다",
       afternoon: "좋은 오후입니다",
       evening: "좋은 저녁입니다"
+    },
+    locations: {
+      all: "영국 전체",
+      london: "런던",
+      manchester: "맨체스터",
+      birmingham: "버밍엄",
+      leeds: "리즈",
+      glasgow: "글래스고",
+      camden: "캠든",
+      united_kingdom: "영국"
+    },
+    subjects: {
+      math: "수학",
+      science: "초급 과학",
+      physics: "물리",
+      chemistry: "화학",
+      biology: "생물",
+      english: "영문학",
+      alevel_math: "A-Level 수학",
+      gcse_math: "GCSE 수학"
+    },
+    modes: {
+      online: "온라인",
+      hybrid: "하이브리드",
+      in_person: "대면"
     }
   },
   sidebar: {
@@ -813,6 +838,12 @@ export const ko: any = {
         "튜터에게 진단 데이터가 공유되었습니다. 이를 바탕으로 맞춤 수업을 진행합니다!",
       bookFirstLesson: "첫 수업 예약하기",
       tryAgain: "다시 도전",
+      feeDisclosure: "ConciergeAI는 안전한 예약을 제공합니다. 플랫폼 외부에서의 직접 결제는 100% 만족 보장 정책의 적용을 받지 않습니다.",
+      authPanel: {
+        title: "멤버 전용 기능",
+        desc: "AI 기반 교육 진단을 최대한 활용하려면 엘리트 멤버 네트워크에 가입하세요.",
+        dismiss: "나중에 하기"
+      }
     },
     visitDashboard: "교육 허브 탐색",
   },
@@ -1427,6 +1458,13 @@ export const ko: any = {
       loading: "처리 중...",
       or: "또는",
       google: "Google로 가입",
+      postcode_invalid: "유효하지 않은 영국 우편번호입니다. 다시 시도해 주세요.",
+      network_error: "네트워크 오류. 주소를 수동으로 입력해 주세요.",
+      phone_placeholder: "+44 7... (영국 휴대폰)",
+      district_placeholder: "예: Camden",
+      city_placeholder: "예: 런던",
+      country_placeholder: "예: 영국",
+      referral_placeholder: "예: ALPHA-99",
       navToLogin: "이미 계정이 있으신가요?",
       signIn: "여기서 로그인",
       roles: { customer: "고객", merchant: "전문가" },
@@ -1473,6 +1511,127 @@ export const ko: any = {
       initializing: "시스템을 초기화하는 중...",
     },
   },
+
+  onboarding: {
+    hero: {
+      title: "ConciergeAI로 비즈니스 확장",
+      subtitle: "영국 최고의 인증 전문가 네트워크에 가입하세요.",
+      badge: "ConciergeAI 엘리트 전문가",
+      stats: {
+        active_pros: "활동 중인 전문가",
+        commission: "플랫폼 수수료",
+        rating: "전문가 평점"
+      }
+    },
+    sector_selection_title: "전문 분야 선택",
+    sector_selection_subtitle: "귀하의 전문 포트폴리오에 가장 적합한 도메인을 선택하세요",
+    profile_form: {
+      form_title: "전문가 프로필",
+      form_subtitle: "이 정보는 공개 전문가 프로필에 표시됩니다.",
+      business_name: "상호명 / 거래명",
+      business_name_placeholder: "예: Smith & Partners LLP",
+      bio_label: "전문가 요약",
+      bio_placeholder: "귀하의 전문 지식, 경험 및 서비스의 독특한 점을 설명하세요...",
+      bio_optimize: "AI 최적화",
+      website_label: "웹사이트 / 포트폴리오",
+      ai_autofill: "AI 자동 채우기",
+      email_placeholder: "contact@yourbusiness.com",
+      phone_placeholder: "+44 7XXX XXXXXX",
+      password_label: "로그인 비밀번호 설정",
+      password_placeholder: "최소 6자",
+      city_label: "서비스 지역",
+      city_placeholder: "주요 서비스 지역 선택",
+      nationwide: "영국 전역",
+      major_cities: "주요 도시",
+      avatar_placeholder: "사진 업로드",
+      banner_label: "커버 배너",
+      banner_placeholder: "클릭하여 전문적인 배너 이미지를 업로드하세요",
+      credentials_label: "공식 자격 및 인증",
+      credentials_required: "필수",
+      credentials_hint_technical: "기술직 전문가의 경우 Gas Safe / NICEIC / CHAS 인증이 필수입니다.",
+      credentials_hint_standard: "면허, 자격증 또는 자격 증명 서류를 업로드하세요.",
+      ai_verifying: "AI가 실시간으로 서류를 검증 중입니다...",
+      ai_verified_success: "AI 검증 완료",
+      ai_verified_failed: "AI 거부됨",
+      manual_review: "수동 검토 필요",
+      insurance_label: "배상책임보험 (PL 보험)",
+      insurance_1m: "£1,000,000 보장",
+      insurance_2m: "£2,000,000 보장",
+      insurance_5m: "£5,000,000 보장",
+      insurance_10m: "£10,000,000 보장",
+      insurance_none: "현재 미가입",
+      insurance_hint: "권장: 고객 보호를 위해 최소 £1M 보장.",
+      promo_placeholder: "예: ELITE 또는 FREE10",
+      promo_active: "코드 적용 완료!",
+      issuing_body: "발급 기관"
+    },
+    validation: {
+      select_sector: "계속하려면 전문 분야를 선택하세요.",
+      fill_required: "계속하기 전에 모든 필수 필드를 입력하세요.",
+      bio_short: "전문가 요약은 최소 20자 이상이어야 합니다.",
+      business_name_required: "상호명 또는 거래명을 입력하세요.",
+      email_required: "유효한 이매일 주소를 입력하세요.",
+      phone_required: "연락처 전화번호를 입력하세요.",
+      city_required: "서비스 지역을 선택하세요.",
+      file_size_error: "파일 크기는 5MB 미만이어야 합니다.",
+      ai_fallback: "AI 검증을 사용할 수 없습니다. 수동 검토를 위해 표시되었습니다.",
+      password_short: "비밀번호는 최소 6자 이상이어야 합니다.",
+      website_required: "먼저 웹사이트 URL을 입력하세요.",
+      ai_fetch_error: "AI가 정보를 가져올 수 없습니다. 수동으로 입력하세요.",
+      bio_regen_error_missing: "상호명과 최소 하나 이상의 카테고리가 입력되었는지 확인하세요.",
+      ai_bio_error: "AI가 자기소개를 생성할 수 없습니다.",
+      unexpected_error: "예기치 않은 오류가 발생했습니다. 다시 시도해 주세요."
+    },
+    preview: {
+      preview_label: "실시간 미리보기",
+      live_preview: "프로필 미리보기",
+      sector_placeholder: "분야 미정",
+      business_name_placeholder: "귀하의 비즈니스 또는 전문가 성함",
+      bio_placeholder: "전문가 요약이 여기에 표시됩니다. 이를 통해 고객이 귀하의 전문 지식과 가치를 이해할 수 있습니다...",
+      location_suffix: "영국",
+      insurance_suffix: "배상책임보험 가입됨",
+      booking_button: "지금 예약",
+      ai_cert_hint: "AI가 전문 자격을 즉시 검증했습니다",
+      credentials_hint: "서류 업로드 성공. 최종 확인 대기 중",
+      commission_technical: "기술 분야: 전체 결제 처리, 예약 및 분쟁 보호 (10% 플랫폼 수수료)",
+      commission_education: "교육 및 튜터링: 고가치 학생 매칭 및 안전한 요금 결제",
+      commission_standard: "전문 서비스: 안전한 결제 처리 및 인증된 전문가 상태",
+    },
+    success: {
+      title: "신청서가 제출되었습니다!",
+      subtitle: "저희 팀이 귀하의 자격을 검토한 후 곧 전문가 프로필을 활성화하겠습니다.",
+      next_steps: "다음 단계",
+      step_review: "프로필 검토 (영업일 기준 1~2일)",
+      coming_soon: "대시보드 준비 중",
+      enter_dashboard: "전문가 대시보드 입장",
+      ai_tax_title: "AI 세무 어시스턴트",
+      ai_tax_desc: "HMRC 준수 및 VAT 신고 자동화 — 모든 등록 전문가를 위해 곧 출시됩니다.",
+    },
+    steps: {
+      profile: "비즈니스 프로필",
+      credentials: "자격 및 인증서",
+      contract: "서비스 계약",
+    },
+    sectors: {
+      title: "전문 분야 선택",
+      professional: {
+        title: "전문 서비스",
+        desc: "공인 회계사, 법률 고문, 전략적 기업 컨설턴트에게 적합",
+        industries: ["세무 및 회계", "기업 법무", "비즈니스 컨설팅", "재무 계획", "마케팅 전략", "인사"],
+      },
+      education: {
+        title: "학술 및 튜터링",
+        desc: "입시 튜터, 언어 코치, 기술 교육 전문가에게 적합",
+        industries: ["수학", "과학", "물리", "화학", "생물", "영어", "A-Level 수학", "GCSE 수학", "기타"],
+      },
+      technical: {
+        title: "기술 및 기술직 서비스",
+        desc: "숙련된 기술자, 주택 유지보수 업체, 엔지니어에게 적합",
+        industries: ["배관 및 수도", "전기 기술", "보일러 및 난방", "가전 수리", "인테리어", "지붕 수리"],
+      },
+    },
+  },
+
   merchant_dashboard: {
     title: "전문가 제어판",
     expertTitle: "Elite 전문가 체계",
@@ -1634,5 +1793,9 @@ export const ko: any = {
       }
     }
   },
+  metadata: {
+    title: "ConciergeAI | 영국 최고의 인증 전문가 및 튜터 고용",
+    description: "영국 최고의 엘리트 전문가 및 튜터 네트워킹 플랫폼."
+  }
 };
 

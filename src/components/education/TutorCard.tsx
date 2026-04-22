@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { MapPin, Star, Sparkles, BookOpen, Clock, Video } from 'lucide-react';
 import { useTranslation } from '@/components/LanguageContext';
+import { getLocalizedSubject, getLocalizedLocation, getLocalizedMode } from '@/lib/i18n/utils';
 
 export default function TutorCard({ tutor, isAIMatch = false }: { tutor: any, isAIMatch?: boolean }) {
   const { t } = useTranslation();
@@ -96,12 +97,12 @@ export default function TutorCard({ tutor, isAIMatch = false }: { tutor: any, is
             backgroundColor: 'rgba(99, 102, 241, 0.08)', borderRadius: '6px',
             marginBottom: '0.75rem'
           }}>
-            {subjects}
+            {getLocalizedSubject(t, subjects)}
           </div>
           <div style={{ display: 'flex', gap: '12px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-            <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><MapPin size={14} /> {location}</span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><MapPin size={14} /> {getLocalizedLocation(t, location)}</span>
             <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-              {mode === 'Online' ? <Video size={14} /> : <BookOpen size={14} />} {mode}
+              {mode === 'Online' ? <Video size={14} /> : <BookOpen size={14} />} {getLocalizedMode(t, mode)}
             </span>
           </div>
         </div>
@@ -122,7 +123,7 @@ export default function TutorCard({ tutor, isAIMatch = false }: { tutor: any, is
           </div>
         </div>
         
-        <Link href={`/education/tutor/${id}`} style={{ textDecoration: 'none' }}>
+        <Link href={`/services/education/tutor/${id}`} style={{ textDecoration: 'none' }}>
           <button className="btn btn-primary" style={{ 
             padding: '0.75rem 1.75rem', borderRadius: '14px', fontSize: '0.95rem',
             fontWeight: 800, letterSpacing: '0.02em', boxShadow: '0 4px 12px rgba(99, 102, 241, 0.2)'
