@@ -13,6 +13,7 @@ import {
   Megaphone,
   ChevronRight
 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface Tool {
   id: string;
@@ -103,9 +104,17 @@ export default function MerchantTools({ t }: MerchantToolsProps) {
         gap: '1.25rem',
         marginTop: '0.5rem'
       }}>
-        {tools.map((tool) => (
-          <div 
+        {tools.map((tool, index) => (
+          <motion.div 
             key={tool.id}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, delay: index * 0.1 }}
+            whileHover={{ 
+              scale: 1.02,
+              borderColor: 'var(--accent-color)',
+              boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(212, 175, 55, 0.1)'
+            }}
             className="tool-card"
             style={{ 
               backgroundColor: 'var(--surface-1)', 
@@ -114,23 +123,27 @@ export default function MerchantTools({ t }: MerchantToolsProps) {
               padding: '1.5rem',
               display: 'flex',
               flexDirection: 'column',
-              transition: 'all 0.3s ease',
+              transition: 'border-color 0.3s, box-shadow 0.3s',
               position: 'relative',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              cursor: 'pointer'
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.25rem' }}>
-              <div style={{ 
-                backgroundColor: tool.iconBg, 
-                padding: '0.75rem', 
-                borderRadius: '16px',
-                color: tool.color,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
+              <motion.div 
+                whileHover={{ rotate: 10 }}
+                style={{ 
+                  backgroundColor: tool.iconBg, 
+                  padding: '0.75rem', 
+                  borderRadius: '16px',
+                  color: tool.color,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
                 {tool.icon}
-              </div>
+              </motion.div>
               <span style={{ 
                 fontSize: '0.65rem', 
                 fontWeight: 900, 
@@ -145,7 +158,7 @@ export default function MerchantTools({ t }: MerchantToolsProps) {
                 {tool.badge}
               </span>
             </div>
-
+ 
             <h3 style={{ 
               fontSize: '1.1rem', 
               fontWeight: 800, 
@@ -162,36 +175,49 @@ export default function MerchantTools({ t }: MerchantToolsProps) {
             }}>
               {tool.description}
             </p>
-
-            <button style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              gap: '6px', 
-              fontSize: '0.85rem', 
-              fontWeight: 700, 
-              color: 'var(--accent-color)',
-              background: 'none',
-              border: 'none',
-              padding: 0,
-              cursor: 'pointer',
-              transition: 'all 0.2s'
-            }} className="launch-btn">
+ 
+            <motion.button 
+              whileTap={{ scale: 0.95 }}
+              style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '6px', 
+                fontSize: '0.85rem', 
+                fontWeight: 700, 
+                color: 'var(--accent-color)',
+                background: 'none',
+                border: 'none',
+                padding: 0,
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }} className="launch-btn">
               {t?.merchant_dashboard?.tools?.launch || "Launch Now"}
               <ChevronRight size={16} />
-            </button>
-
+            </motion.button>
+ 
             {/* Subtle Gradient Glow */}
-            <div style={{
-              position: 'absolute',
-              bottom: '-20px',
-              right: '-20px',
-              width: '60px',
-              height: '60px',
-              borderRadius: '50%',
-              background: `radial-gradient(circle, ${tool.color}22 0%, transparent 70%)`,
-              zIndex: 0
-            }} />
-          </div>
+            <motion.div 
+              animate={{ 
+                opacity: [0.1, 0.3, 0.1],
+                scale: [1, 1.2, 1]
+              }}
+              transition={{ 
+                duration: 4, 
+                repeat: Infinity,
+                ease: "easeInOut" 
+              }}
+              style={{
+                position: 'absolute',
+                bottom: '-20px',
+                right: '-20px',
+                width: '60px',
+                height: '60px',
+                borderRadius: '50%',
+                background: `radial-gradient(circle, ${tool.color}44 0%, transparent 70%)`,
+                zIndex: 0
+              }} 
+            />
+          </motion.div>
         ))}
       </div>
 

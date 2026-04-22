@@ -26,6 +26,7 @@ import Link from 'next/link';
 
 import { useTranslation } from '@/components/LanguageContext';
 import MerchantTools from '@/components/merchant/MerchantTools';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function MerchantDashboard() {
   const { t } = useTranslation();
@@ -160,8 +161,55 @@ export default function MerchantDashboard() {
 
   if (loading) {
     return (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '80vh', backgroundColor: 'var(--bg-primary)' }}>
-        <div className="animate-spin" style={{ width: '40px', height: '40px', border: '4px solid var(--accent-soft)', borderTopColor: 'var(--accent-color)', borderRadius: '50%' }} />
+      <div style={{ 
+        display: 'flex', 
+        flexDirection: 'column',
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        minHeight: '100vh', 
+        backgroundColor: '#000',
+        gap: '2rem'
+      }}>
+        <div style={{ position: 'relative', width: '100px', height: '100px' }}>
+          <div className="pulse-ring" style={{ 
+            position: 'absolute', 
+            inset: 0, 
+            border: '2px solid var(--accent-color)', 
+            borderRadius: '50%',
+            animation: 'pulse 2s infinite' 
+          }} />
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            width: '100%', 
+            height: '100%',
+            backgroundColor: 'var(--surface-1)',
+            borderRadius: '50%',
+            border: '1px solid var(--border-color)',
+            boxShadow: '0 0 30px rgba(212, 175, 55, 0.2)'
+          }}>
+            <Bot size={40} color="var(--accent-color)" />
+          </div>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <h2 style={{ fontSize: '1.2rem', fontWeight: 900, color: 'var(--accent-color)', marginBottom: '0.5rem', letterSpacing: '0.1em' }}>
+            CONCIERGE AI
+          </h2>
+          <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
+            {t?.merchant_dashboard?.loading?.message || "Syncing Expert Intelligence..."}
+          </p>
+        </div>
+        <style jsx>{`
+          @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 0; }
+          }
+          .pulse-ring {
+            box-shadow: 0 0 15px var(--accent-color);
+          }
+        `}</style>
       </div>
     );
   }
@@ -223,10 +271,10 @@ export default function MerchantDashboard() {
       </header>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
-        <StatCard title={t?.merchant_dashboard?.stats?.totalBookings || "Total Bookings"} value={stats?.totalBookings || 0} icon={<Briefcase size={24} color="#d4af37" />} label={t?.merchant_dashboard?.stats?.totalJobs || "Total Jobs"} />
-        <StatCard title={t?.merchant_dashboard?.stats?.rating || "Rating"} value={stats?.rating?.toFixed(1) || "5.0"} icon={<Star size={24} color="#d4af37" fill="#d4af37" />} label={`${stats?.reviews || 0} ${t?.merchant_dashboard?.stats?.reviews || "Reviews"}`} />
-        <StatCard title={t?.merchant_dashboard?.stats?.pendingBalance || "Pending Balance"} value={`£${(stats?.pendingBalance || 0).toFixed(2)}`} icon={<Clock size={24} color="#d4af37" />} label={t?.merchant_dashboard?.stats?.escrowHeld || "In Escrow"} />
-        <StatCard title={t?.merchant_dashboard?.stats?.availableBalance || "Available Balance"} value={`£${(stats?.availableBalance || 0).toFixed(2)}`} icon={<Wallet size={24} color="#d4af37" />} label={t?.merchant_dashboard?.stats?.availableNow || "Available Now"} />
+        <StatCard index={0} title={t?.merchant_dashboard?.stats?.totalBookings || "Total Bookings"} value={stats?.totalBookings || 0} icon={<Briefcase size={24} color="#d4af37" />} label={t?.merchant_dashboard?.stats?.totalJobs || "Total Jobs"} />
+        <StatCard index={1} title={t?.merchant_dashboard?.stats?.rating || "Rating"} value={stats?.rating?.toFixed(1) || "5.0"} icon={<Star size={24} color="#d4af37" fill="#d4af37" />} label={`${stats?.reviews || 0} ${t?.merchant_dashboard?.stats?.reviews || "Reviews"}`} />
+        <StatCard index={2} title={t?.merchant_dashboard?.stats?.pendingBalance || "Pending Balance"} value={`£${(stats?.pendingBalance || 0).toFixed(2)}`} icon={<Clock size={24} color="#d4af37" />} label={t?.merchant_dashboard?.stats?.escrowHeld || "In Escrow"} />
+        <StatCard index={3} title={t?.merchant_dashboard?.stats?.availableBalance || "Available Balance"} value={`£${(stats?.availableBalance || 0).toFixed(2)}`} icon={<Wallet size={24} color="#d4af37" />} label={t?.merchant_dashboard?.stats?.availableNow || "Available Now"} />
       </div>
 
       <div style={{ marginBottom: '2.5rem' }}>
@@ -462,14 +510,26 @@ export default function MerchantDashboard() {
   );
 }
 
-function StatCard({ title, value, icon, label }: any) {
+function StatCard({ title, value, icon, label, index = 0 }: any) {
   return (
-    <div style={{ padding: '1.5rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)', position: 'relative', overflow: 'hidden' }}>
-      <div style={{ opacity: 0.1, position: 'absolute', right: '-10px', top: '-10px', transform: 'scale(2.5)' }}>{icon}</div>
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      whileHover={{ y: -5, transition: { duration: 0.2 } }}
+      style={{ padding: '1.5rem', borderRadius: '24px', backgroundColor: 'var(--surface-1)', border: '1px solid var(--border-color)', position: 'relative', overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}
+    >
+      <div style={{ opacity: 0.08, position: 'absolute', right: '-10px', top: '-10px', transform: 'scale(2.5)' }}>{icon}</div>
       <p style={{ fontSize: '0.85rem', opacity: 0.6, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-heading)', fontWeight: 600 }}>{icon}{title}</p>
-      <p style={{ fontSize: '1.75rem', fontWeight: 900, fontFamily: 'var(--font-heading)', letterSpacing: '-0.025em' }}>{value}</p>
+      <motion.p 
+        initial={{ scale: 0.8 }}
+        animate={{ scale: 1 }}
+        style={{ fontSize: '1.75rem', fontWeight: 900, fontFamily: 'var(--font-heading)', letterSpacing: '-0.025em' }}
+      >
+        {value}
+      </motion.p>
       <p style={{ fontSize: '0.7rem', opacity: 0.4, textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '0.5rem', fontFamily: 'var(--font-heading)', fontWeight: 800 }}>{label}</p>
-    </div>
+    </motion.div>
   );
 }
 
