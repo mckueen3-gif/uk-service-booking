@@ -1,4 +1,4 @@
-export const zhTW = {
+﻿export const zhTW = {
   site_metadata: {
     title: "ConciergeAI | 聘請全英國頂尖認證專家",
     description: "英國首屈一指的精英、經驗證服務專家和導師網絡。"
@@ -298,11 +298,6 @@ export const zhTW = {
       foundCount: "找到 {{count}} 位導師",
       placeholder: "搜尋學科或姓名",
     },
-    common: {
-      reviews: "條評價",
-      hr: "小時",
-      bookTrial: "預約試聽課",
-    },
     tutorCard: {
       demoDesc: "擁有超過 10 年教學經驗的博士導師。已幫助百餘名學生實現學術目標。",
     },
@@ -424,6 +419,18 @@ export const zhTW = {
       ai_bio_error: "AI 無法生成簡介。",
       unexpected_error: "發生非預期錯誤。請再試一次。"
     },
+    ai_assistant: {
+      title: "AI 技能智慧識別",
+      map_title: "AI 技能智慧識別",
+      map_description: "描述您掌握的技術、經驗與提供的服務。我們的 AI 將自動將其映射到我們的全球服務目錄中。",
+      map_placeholder: "例如：我負責房東瓦斯安全檢查、鍋爐維修，並會安裝空氣源熱泵...",
+      map_button: "AI 自動映射技能",
+      map_processing: "AI 正在分析您的專業領域...",
+      matched_count: "已識別技能",
+      matched_error: "請至少選擇一項技能以繼續。",
+      manual: "或手動瀏覽並選擇",
+      search: "搜尋特定技能...",
+    },
     preview: {
       preview_label: "即時預覽",
       live_preview: "專家檔案預覽",
@@ -451,6 +458,7 @@ export const zhTW = {
     },
     steps: {
       profile: "商業簡介",
+      services: "技能映射",
       credentials: "資格與認證",
       contract: "服務合約",
     },
@@ -715,6 +723,92 @@ export const zhTW = {
       cookies: "追蹤行為政策",
       tip: "💡 提示：請確保所有實體信息與英國 Companies House 的官方備案數據一致。"
     },
+    service_catalog: {
+      // Utilities
+      elec_rewire: "全屋電力重鋪 (Rewiring)",
+      elec_pat: "PAT 電器安全檢測",
+      elec_eicr: "EICR 電力安全認證",
+      elec_consumer_unit: "配電盤與保險絲盒更換",
+      elec_ev_charger: "電動車 (EV) 充電樁安裝",
+      elec_lighting: "室內與室外照明工程",
+      elec_alarms: "火警與安全報警系統",
+      elec_smart_home: "智慧家居與 CCTV 監控",
+      gas_boiler_install: "鍋爐安裝工程 (Boiler)",
+      gas_boiler_service: "鍋爐保養與緊急維修",
+      gas_safety_cp12: "瓦斯安全證書 (CP12)",
+      gas_power_flush: "暖氣系統動力沖洗 (Power Flush)",
+      gas_radiators: "散熱器與暖氣閥門維修",
+      gas_underfloor: "地暖系統安裝與維護",
+      gas_air_source: "空氣源熱泵 (Air Source)",
+      plumb_emergency: "緊急水管維修 (漏水處理)",
+      plumb_drainage: "排水管疏通與下水道清理",
+      plumb_taps_toilets: "水龍頭與馬桶維修更換",
+      plumb_bathroom_fit: "整套浴室設施安裝",
+      plumb_leak_detect: "專業儀器漏水偵測 (Leak Detection)",
+      plumb_tanks: "水箱與熱水缸維護",
+      ac_install: "冷暖氣空調安裝",
+      ac_service: "空調保養與冷媒填充 (Regas)",
+      // Renovation
+      roof_repair: "屋瓦與石板屋頂修復",
+      roof_flat: "平頂屋頂工程 (EPDM/Felt)",
+      roof_gutters: "水槽、封簷板與落水管維護",
+      roof_chimney: "煙囪修復與防水處理",
+      roof_leadwork: "專業鉛工工程 (Leadwork)",
+      roof_cleaning: "屋頂深層清潔與除苔",
+      roof_survey: "專業屋頂勘測 (無人機/人工測試)",
+      ext_cladding: "外牆包覆與保護工程 (Cladding)",
+      ext_rendering: "外牆抹灰與批盪 (K-Rend)",
+      ext_repointing: "磚牆勾縫修復 (Repointing)",
+      ext_damp: "防潮與冷凝水處理",
+      joinery_kitchen: "櫥櫃設計與廚房安裝",
+      joinery_wardrobe: "訂製衣櫃與收納空間",
+      joinery_doors: "門扇安裝與踢腳線工程",
+      joinery_stairs: "樓梯與扶手修復",
+      win_glazing: "雙層玻璃安裝與修復",
+      win_bifold: "折疊門與落地窗安裝",
+      win_composite: "高品質複合門與 uPVC 入戶門",
+      dec_interior: "室內油漆與居家裝飾",
+      dec_exterior: "室外牆面與磚石粉刷",
+      dec_wallpaper: "壁紙鋪設與特色牆設計",
+      dec_spraying: "uPVC 與廚房家具翻新噴漆",
+      floor_hardwood: "實木與人字拼地板工程",
+      floor_laminate: "複合地板與塑膠地板 (LVT)",
+      floor_carpet: "地毯鋪設與墊層換新",
+      floor_sanding: "舊地板打磨與翻新噴漆",
+      floor_tiles: "牆面與地面磁磚鋪設",
+      land_paving: "車道與後院地坪鋪設 (Paving)",
+      land_fencing: "圍欄、大門與柵欄安裝",
+      land_grass: "草皮鋪設與人工草皮工程",
+      land_decking: "木質與複合材料露台 (Decking)",
+      // Professional
+      acc_vat: "VAT 增值稅申報管理",
+      acc_payroll: "薪資核算與養老金管理",
+      acc_self_assessment: "個人自助報稅 (Self-Assessment)",
+      acc_bookkeeping: "專業會計簿記服務",
+      acc_corp_tax: "公司稅務申報與年報製作",
+      leg_conveyancing: "房產轉讓與法律手續",
+      leg_wills: "遺囑、遺產承辦與信託",
+      leg_family: "離婚與家庭法律諮詢",
+      leg_business: "商業法律與合約擬定",
+      dig_seo: "SEO 搜尋引擎優化與排名",
+      dig_social: "社交媒體管理與廣告投放",
+      dig_web: "網頁設計與系統開發",
+      // Home Services
+      clean_regular: "日常居家清潔服務",
+      clean_deep: "退租/進駐深層清潔 (Deep Clean)",
+      clean_oven: "專業烤箱清潔服務",
+      clean_carpet: "地毯與沙發深層洗滌",
+      clean_window: "窗戶清潔與水柱刷洗",
+      maint_handyman: "萬能工 (Handyman) 與居家雜項",
+      maint_locksmith: "緊急鎖匠與安全鎖更新",
+      maint_pest: "害蟲防治 (鼠類/昆蟲)",
+      maint_waste: "持牌廢棄物清理與清場",
+      edu_math: "GCSE/A-Level 數學家教",
+      edu_science: "科學 (物理/化學/生物) 教學",
+      edu_english: "英國文學與語言教學",
+      edu_languages: "多國語言家教 (西語/法語等)",
+      edu_ai_coding: "青少年 AI 與 Python 編程",
+    }
   },
   diagnosis: {
     badge: "精密視覺運算引擎",
@@ -984,148 +1078,11 @@ export const zhTW = {
       approved: "調整已核准",
     },
 
-    quick_links_hint: "快速啟動您的專家工具箱",
-    toolkit: {
-      title: "AI 專家工具箱",
-      subtitle: "為頂尖專家量身打造的模組化增長工具。",
-      back: "返回工具箱",
-      enable: "開啟服務",
-      disable: "關閉服務",
-      active: "運行中",
-      inactive: "已暫停",
-      configure: "配置模組",
-      privacy: {
-        title: "精英隱私框架",
-        desc: "ConciergeAI 僅在您啟用這些模組時才會啟動 AI 專業上下文。您的內部業務邏輯始終保持加密和隔離。",
-      },
-      modules: {
-        aura_secretary: {
-          title: "Aura AI 秘書",
-          desc: "利用您的業務背景進行自動化客戶支援與主動成交。",
-          impact: "提升 +15% 預約轉換率"
-        },
-        promotion_hub: {
-          title: "推廣中心",
-          desc: "創建 Aura 可以提供給客戶以促成交易的優惠券和折扣。",
-          impact: "自定義營收增長"
-        },
-        accounting_ledger: {
-          title: "會計與稅務審計",
-          desc: "自動化業務績效追踪，並提供符合稅務規範的財務導出。",
-          impact: "稅務合規邏輯"
-        },
-        social_toolkit: {
-          title: "社群媒體工具箱",
-          desc: "利用您的業務基因，生成病毒式擴散的社群貼文與文案。",
-          impact: "一鍵品牌增長",
-          modes: {
-            label: "增長策略模式",
-            viral: "爆紅流量模式",
-            luxury: "靜奢專業模式"
-          },
-          reviews: {
-            title: "口碑轉貼 AI",
-            subtitle: "選擇一條 5 星好評，AI 將為您轉化為極具吸引力的行銷素材。"
-          },
-          preview: {
-            title: "貼文預覽",
-            expertTip: "專家建議",
-            copyBtn: "複製文案",
-            copied: "已複製！",
-            shareHint: "將此內容發佈至您的 Instagram 動態或 WhatsApp，吸引更多潛在客戶。"
-          }
-        },
-        audit_vault: {
-          title: "審計保險庫",
-          desc: "專業追蹤您的專家紀錄，並提供符合稅務規範的數據導出。",
-          impact: "稅務合規邏輯"
-        }
-      }
-    },
-    ai_secretary: {
-      title: "Aura",
-      subtitle: "AI 智能秘書",
-      desc: "Aura 是您的 24/7 業務經理，在您專注於工作時，負責處理客戶諮詢並確保預約。",
-      status_label: "系統狀態",
-      online: "線上運行中",
-      offline: "離線 / 待機",
-      knowledge_base_title: "業務內部知識庫",
-      knowledge_base_desc: "為 Aura 提供有關您的專業知識、定價邏輯、服務流程或常見客戶問題的具體細節。Aura 了解得越多，成交率就越高。",
-      knowledge_placeholder: "例如：'我專門負責全屋重新佈線。基本出勤費為 £80。週日不工作。對於緊急維修，我通常在 1 小時內到達...'",
-      persona_title: "AI 人格設定與語氣",
-      persona_professional: "專業穩重",
-      persona_friendly: "親切友善",
-      persona_concise: "簡潔高效",
-      deploy_button: "部署 AI 更新",
-      impact_title: "AI 業務影響力",
-      impact_inquiries: "已處理諮詢",
-      impact_revenue: "AI 影響營收",
-      impact_conversion: "轉化率已優化",
-      security_policy_title: "安全第一政策",
-      security_policy_desc: "Aura 的訓練數據歸您的商家節點所有。我們絕不會使用您的業務邏輯為競爭對手訓練模型。",
-      success_update: "AI 大腦更新成功。Aura 正在重新學習您的業務語境。"
-    },
-    promotions: {
-      title: "促銷",
-      hub: "中心",
-      desc: "創建專屬優惠和優惠券。我們的 AI 秘書將在客戶諮詢期間主動使用這些優惠來促成交易。",
-      referral_btn: "推薦計畫",
-      active_coupons: "活動中優惠券",
-      no_coupons: "目前沒有活動中的優惠券。立即開始您的第一次促銷以提升預約量！",
-      new_promo: "新增促銷",
-      code_label: "優惠碼",
-      code_placeholder: "例如：SAVE20",
-      type_label: "折扣類型",
-      type_percent: "百分比折扣",
-      type_fixed: "固定金額 £",
-      value_label: "數值",
-      publish_btn: "發佈促銷",
-      ai_info: "AI 助手將分析客戶意圖，並在能增加預約機會時提供此優惠券。",
-      success_create: "優惠券創建成功！AI 秘書現在已了解此項優惠。"
-    },
-    referral_program: {
-      title: "商家",
-      subtitle: "推薦計畫",
-      desc: "透過給予現有客戶向其社交網絡分享您服務的理由，來提升客戶忠誠度。",
-      campaign_title: "首單激勵措施",
-      campaign_status: "活動狀態",
-      campaign_status_note: "啟用此項以開始獎勵推薦。",
-      voucher_value: "代金券價值",
-      incentive_type: "激勵類型",
-      how_it_works_title: "運作方式：",
-      how_it_works_desc: "當新客戶透過推薦連結訪問您的個人檔案時，Aura (AI) 將偵測到該連結並在他們的首單預約中提供此折扣。",
-      deploy_btn: "部署活動更新",
-      perf_title: "推薦成效",
-      perf_clicks: "推薦連結點擊數",
-      perf_conversion: "轉化率",
-      perf_avg: "高於行業平均值",
-      link_title: "您的公開推薦連結",
-      success_update: "推薦活動更新成功！AI 秘書現在將向被推薦的訪客推介此項計畫。"
-    },
-    referral_passive: {
-      passive_title: "5 年期被動分紅計畫",
-      title: "5 年期被動分紅計畫",
-      passive_dividend: "{rate} 來自 {count} 位專家的被動分紅",
-      description: "鎖定終身回報。當您推薦客戶入駐，您將在未來 5 年內獲得該客戶在全平台（即使預約其他專家）消費額的 2% 分紅。",
-      referral_code: "我的病毒式推薦碼",
-      referred_count: "已鎖定受薦人",
-      total_yield: "預計未來分紅總值",
-      active_period: "5 年有效期內",
-      cross_service_active: "跨平台服務分紅已啟動",
-      history: "分紅歷史紀錄",
-      empty: "目前尚無分紅紀錄。立即分享您的連結以鎖定被動收入。"
-    },
-    onboarding_highlights: {
-      title: "ConciergeAI 專家超能力",
-      subtitle: "精英專家的終極操作系統。",
-      lead_fee_title: "£0 響應費 / 接單費",
-      lead_fee_desc: "保留 100% 的報價。我們從不收取獲客或競標費用。",
-      leads_comparison: "與傳統平台相比，每單可節省 £5-15。",
-      ai_assistant_title: "24/7 AI 秘書",
-      ai_assistant_desc: "當您在現場施工時，Aura 會幫您處理詢問並促成交易。",
-      financial_tools_title: "自動化賬本",
-      financial_tools_desc: "內建實時收益追踪與年度稅務總結。"
-    }
+
+
+
+
+
   },
   merchant_public: {
     verified_expert: "已驗證專家",

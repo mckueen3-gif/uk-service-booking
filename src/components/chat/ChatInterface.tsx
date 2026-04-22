@@ -270,7 +270,7 @@ export default function ChatInterface({ initialConversationId }: ChatProps) {
                       {userId === activeConvo?.customerId 
                         ? (activeConvo?.merchant?.companyName || activeConvo?.merchant?.user?.name || t?.merchant_messages?.targetName || "Merchant")
                         : (activeConvo?.customer?.name || t?.merchant_messages?.targetName || "Connecting...")}
-                      {userId === activeConvo?.customerId && <ShieldCheck size={14} color="#facc15" title={t.nexus_chat?.verifiedExpert} />}
+                      {userId === activeConvo?.customerId && <span title={t.nexus_chat?.verifiedExpert}><ShieldCheck size={14} color="#facc15" /></span>}
                     </div>
                     <div style={{ fontSize: '0.7rem', color: '#10b981', display: 'flex', alignItems: 'center', gap: '4px' }}>
                        <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10b981' }}></div> {t?.common?.online || "Online"}

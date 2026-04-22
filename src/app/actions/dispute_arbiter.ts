@@ -224,12 +224,13 @@ export async function getBookingVariations(bookingId: string) {
 }
 
 export async function getDisputes() {
+  const session = await getServerSession(authOptions);
   const merchantId = await getMerchantId();
 
   const disputes = await prisma.dispute.findMany({
     where: {
       OR: [
-        { booking: { customerId: session.user.id } },
+        { booking: { customerId: (session?.user as any)?.id || 'non-existent' } },
         { booking: { merchantId: merchantId || 'non-existent' } }
       ],
       status: 'RESOLVED'

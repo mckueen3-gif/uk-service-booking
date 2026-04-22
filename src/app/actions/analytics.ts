@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { getMerchantId } from '@/lib/merchant-utils';
+import { startOfDay, subDays, eachDayOfInterval, format } from 'date-fns';
 
 async function ensureAdmin() {
   const session = await getServerSession(authOptions);

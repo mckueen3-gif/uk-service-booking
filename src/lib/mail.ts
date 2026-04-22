@@ -1,6 +1,13 @@
 import { Resend } from 'resend';
 
+interface MailOptions {
+  to: string | string[];
+  subject: string;
+  html: string;
+}
+
 const apiKey = process.env.RESEND_API_KEY;
+const resend = apiKey ? new Resend(apiKey) : null;
 const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
 
 export async function sendEmail({ to, subject, html }: MailOptions) {

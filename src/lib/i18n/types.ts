@@ -1,4 +1,5 @@
 export type Dictionary = {
+  (path: string, options?: any): string;
   [key: string]: any;
 };
 

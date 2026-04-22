@@ -1,4 +1,4 @@
-import { Dictionary } from "../types";
+﻿import { Dictionary } from "../types";
 
 export const ko: any = {
   common: {
@@ -321,28 +321,7 @@ export const ko: any = {
       },
     },
   },
-  common: {
-    viewProfile: "프로필 보기",
-    reviews: "개의 리뷰",
-    hr: "시간",
-    copy: "복사",
-    copied: "복사됨!",
-    aiMatchingSub: "AI 캘리브레이션 전문가, 프로토콜 요구사항과 일치.",
-    exploreSub: "{category} 부문 내 전문 프로토콜 탐색.",
-    escrow: {
-      title: "ConciergeAI 에스크로로 보호됨",
-      subtitle:
-        "{category} 부문의 모든 세션이 AI에 의해 품질 보증 및 재무 무결성을 위해 모니터링됩니다.",
-      specialists: "검증된 전문가",
-      fees: "플랫폼 서비스 수수료",
-      support: "AI 중재 지원",
-    },
-    greetings: {
-      morning: "좋은 아침입니다",
-      afternoon: "좋은 오후입니다",
-      evening: "좋은 저녁입니다"
-    }
-  },
+
   hero: {
     title: "최고의 서비스 전문가 찾기",
     subtitle: "거주 지역의 인증된 전문가와 연결해 드립니다.",
@@ -1195,60 +1174,6 @@ export const ko: any = {
       findSpecialist: "지금 전문가에게 문의",
     },
   },
-  onboarding: {
-    hero: {
-      title: "ConciergeAI와 함께 비즈니스 확장",
-      subtitle: "영국 최고의 인증 서비스 전문가 네트워크에 합류하세요.",
-    },
-    steps: {
-      profile: "비즈니스 프로필",
-      credentials: "자격 증명",
-      contract: "서비스 계약",
-    },
-    sectors: {
-      title: "전문 분야 선택",
-      professional: {
-        title: "전문 서비스",
-        desc: "회계, 법률, 컨설팅",
-        industries: ["회계사", "세무 전문가", "법률 대리", "전략 컨설턴트"],
-      },
-      education: {
-        title: "교육 프로젝트",
-        desc: "튜터, 코치",
-        industries: ["학습 튜터", "언어 코치", "기술 강사", "음악 튜터"],
-      },
-      technical: {
-        title: "기술 서비스",
-        desc: "숙련공, 유지보수, 엔지니어링",
-        industries: ["배관공", "전기 기술자", "메카닉", "주택 수리 전문가"],
-      },
-    },
-    contract: {
-      title: "표준 서비스 계약",
-      scrollingNotice: "약관을 수락하려면 아래로 끝까지 스크롤하세요.",
-      agree: "ConciergeAI 마스터 계약을 읽었으며 이에 동의합니다.",
-      clauses: {
-        platform_fee: {
-          title: "1. 서비스 수수료",
-          body: "플랫폼은 성공적으로 완료된 작업에 대해 10%의 수수료를 청구합니다.",
-        },
-        payments: {
-          title: "2. 에스크로 및 정산",
-          body: "고객 결제 대금은 안전한 에스크로에 보관됩니다. 작업 완료 확인 후 48시간 이내에 정산됩니다.",
-        },
-        conduct: {
-          title: "3. 전문 표준 준수",
-          body: "전문가는 평점 4.0 이상을 유지해야 합니다. 안전 수칙 미준수 시 계정이 즉시 해지될 수 있습니다.",
-        },
-      },
-    },
-    buttons: {
-      start: "지금 시작하기",
-      next: "다음 단계",
-      back: "이전으로",
-      submit: "가입 완료",
-    },
-  },
   admin: {
     sidebar: {
       overview: "개요",
@@ -1581,6 +1506,18 @@ export const ko: any = {
       bio_regen_error_missing: "상호명과 최소 하나 이상의 카테고리가 입력되었는지 확인하세요.",
       ai_bio_error: "AI가 자기소개를 생성할 수 없습니다.",
       unexpected_error: "예기치 않은 오류가 발생했습니다. 다시 시도해 주세요."
+    },
+    ai_assistant: {
+      title: "AI 기술 스마트 식별",
+      map_title: "AI 기술 스마트 식별",
+      map_description: "귀하의 기술, 경험 및 제공 서비스를 설명해 주세요. AI가 당사 글로벌 서비스 카탈로그에 자동으로 매핑합니다.",
+      map_placeholder: "예: 가스 안전 점검, 보일러 수리를 담당하며 공기 열원 히트펌프 설치도 가능합니다...",
+      map_button: "AI 자동 기술 매핑",
+      map_processing: "전공 분야 AI 분석 중...",
+      matched_count: "식별된 기술",
+      matched_error: "계속하려면 최소 하나 이상의 기술을 선택해야 합니다.",
+      manual: "또는 수동으로 찾아보기 및 선택",
+      search: "특정 기술 검색...",
     },
     preview: {
       preview_label: "실시간 미리보기",

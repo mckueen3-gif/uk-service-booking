@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from "@/components/LanguageContext";
 import { useSession, signOut } from "next-auth/react";
-import { Globe, User, MapPin, ChevronRight, Navigation, PenTool, Sun, Moon, Droplets, Wrench, GraduationCap, Calculator, Scale, Briefcase, Sparkles, Car, ChevronDown, Star, Menu, X, Mail, Phone, Share2, MessageSquare, LogOut } from "lucide-react";
+import { Globe, User, MapPin, ChevronRight, Navigation, PenTool, Sun, Moon, Droplets, Wrench, GraduationCap, Calculator, Scale, Briefcase, ShieldCheck, Sparkles, Car, ChevronDown, Star, Menu, X, Mail, Phone, Share2, MessageSquare, LogOut } from "lucide-react";
 import NavbarSearch from "@/app/components/NavbarSearch";
 
 import { useLocation, ALL_UK } from "@/components/LocationContext";
@@ -360,7 +360,7 @@ export function AppNavbar({ session: serverSession }: { session: any }) {
             </Link>
           )}
           
-          {session?.user?.role === 'MERCHANT' && (
+          {(session?.user?.role === 'MERCHANT' || session?.user?.role === 'ADMIN') && (
             <Link href="/merchant" className="hover-bg fluid-nav-item hide-on-tablet" style={{ 
               color: obsidianGold, 
               fontWeight: 800, 
@@ -373,6 +373,22 @@ export function AppNavbar({ session: serverSession }: { session: any }) {
               transition: '0.2s'
             }}>
               <Briefcase size={18} /> {t?.common?.merchantPortal || "Merchant Node"}
+            </Link>
+          )}
+
+          {session?.user?.role === 'ADMIN' && (
+            <Link href="/admin" className="hover-bg fluid-nav-item hide-on-narrow-desktop" style={{ 
+              color: obsidianGold, 
+              fontWeight: 800, 
+              textDecoration: 'none', 
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              padding: '0.5rem 0.75rem',
+              borderRadius: '0.75rem',
+              transition: '0.2s'
+            }}>
+              <ShieldCheck size={18} /> {t?.nav?.admin || "Admin Center"}
             </Link>
           )}
           
@@ -516,6 +532,15 @@ export function AppNavbar({ session: serverSession }: { session: any }) {
                  }}>
                     <PenTool size={20} /> {t?.nav?.aiDiagnosis}
                  </Link>
+                 {session?.user?.role === 'ADMIN' && (
+                    <Link href="/admin" onClick={() => setMobileMenuOpen(false)} style={{ 
+                      display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem', borderRadius: '1rem',
+                      background: 'rgba(212, 175, 55, 0.1)', color: obsidianGold, textDecoration: 'none', fontWeight: 800,
+                      border: '1px solid rgba(212, 175, 55, 0.2)'
+                    }}>
+                       <ShieldCheck size={20} /> {t?.nav?.admin || "Admin Center"}
+                    </Link>
+                 )}
               </div>
            </div>
 

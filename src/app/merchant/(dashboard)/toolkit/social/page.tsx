@@ -137,15 +137,17 @@ export default function SocialToolkitPage() {
     const res = await generateOmnichannelCampaign(topic, discount || undefined, targetAudience || undefined, currentLocale);
     
     if (!('error' in res) || !res.error) {
-      setCampaign(res.campaign);
-      // Initialize editables
-      setEditableTexts({
-        igfb: res.campaign.igFbPost,
-        x: res.campaign.xPost,
-        reddit: res.campaign.redditPost,
-        wechat: res.campaign.wechatMoments,
-        hashtags: res.campaign.hashtags
-      });
+      if (res.campaign) {
+        setCampaign(res.campaign);
+        // Initialize editables
+        setEditableTexts({
+          igfb: res.campaign.igFbPost,
+          x: res.campaign.xPost,
+          reddit: res.campaign.redditPost,
+          wechat: res.campaign.wechatMoments,
+          hashtags: res.campaign.hashtags
+        });
+      }
       // Deduct credit in DB
       await incrementSocialUsage();
       loadStatus();
@@ -165,7 +167,7 @@ export default function SocialToolkitPage() {
     const res = await optimizeExistingContent(currentText, platformKey, currentLocale);
     
     if (res.success && res.optimizedText) {
-      setEditableTexts(prev => ({ ...prev, [platformKey]: res.optimizedText }));
+      setEditableTexts((prev: any) => ({ ...prev, [platformKey]: res.optimizedText }));
     } else {
       alert("Optimization failed. Please try again.");
     }
@@ -236,7 +238,7 @@ export default function SocialToolkitPage() {
   };
 
   const togglePlatform = (key: PlatformKey) => {
-    setSelectedPlatforms(prev => {
+    setSelectedPlatforms((prev: Set<PlatformKey>) => {
       const next = new Set(prev);
       if (next.has(key)) { next.delete(key); } else { next.add(key); }
       return next;
@@ -465,7 +467,7 @@ export default function SocialToolkitPage() {
                       <div style={{ position: 'relative', marginBottom: '1rem' }}>
                         <textarea
                           value={editableTexts[p.key]}
-                          onChange={(e) => setEditableTexts(prev => ({ ...prev, [p.key]: e.target.value }))}
+                          onChange={(e) => setEditableTexts((prev: any) => ({ ...prev, [p.key]: e.target.value }))}
                           style={{ width: '100%', minHeight: '220px', background: 'var(--bg-secondary)', borderRadius: '16px', padding: '1.25rem', fontSize: '0.9rem', lineHeight: 1.7, color: 'var(--text-primary)', border: `1px solid ${p.color}44`, outline: 'none', resize: 'vertical', fontFamily: 'inherit' }}
                         />
                         <div style={{ position: 'absolute', top: '12px', right: '12px', display: 'flex', gap: '8px' }}>
@@ -513,7 +515,7 @@ export default function SocialToolkitPage() {
                           </div>
                           <textarea
                             value={editableTexts.hashtags}
-                            onChange={(e) => setEditableTexts(prev => ({ ...prev, hashtags: e.target.value }))}
+                            onChange={(e) => setEditableTexts((prev: any) => ({ ...prev, hashtags: e.target.value }))}
                             style={{ width: '100%', border: 'none', background: 'transparent', fontSize: '0.8rem', color: 'var(--text-secondary)', fontStyle: 'italic', outline: 'none', resize: 'none', fontFamily: 'inherit', minHeight: '40px' }}
                           />
                           <button 

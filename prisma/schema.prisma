@@ -568,6 +568,7 @@ model AiDiagnosis {
   issue               String
   suggestedFix        String
   estimatedPriceRange String
+  marketComparison    Json?
   confidence          Float
   rawAIResponse       String?
   createdAt           DateTime @default(now())

@@ -3,6 +3,7 @@
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth/next";
 import { getMerchantId } from '@/lib/merchant-utils';
 
 export async function submitReview(bookingId: string, data: { rating: number; comment: string }) {
@@ -60,6 +61,11 @@ export async function submitReply(reviewId: string, reply: string) {
   const merchantId = await getMerchantId();
   if (!merchantId) throw new Error("Unauthorized");
 
+  const existingReview = await prisma.review.findUnique({
+    where: { id: reviewId }
+  });
+
+  if (!existingReview) throw new Error("Review not found");
   if (existingReview.merchantId !== merchantId) throw new Error("Unauthorized access to review");
 
   const updated = await (prisma.review as any).update({

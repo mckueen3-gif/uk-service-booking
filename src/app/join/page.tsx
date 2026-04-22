@@ -14,6 +14,7 @@ import { createMerchantAction } from '@/app/actions/merchant';
 import { fetchBusinessInfoWithAI, generateSmartBio, verifyCredentialsWithAI } from '@/app/actions/ai_onboarding';
 import { signIn } from 'next-auth/react';
 import { Lock } from 'lucide-react';
+import ServiceMatrix from '@/components/joining/ServiceMatrix';
 
 function JoinPageContent() {
   const { t, locale } = useTranslation();
@@ -41,7 +42,8 @@ function JoinPageContent() {
     phone: '',
     password: '',
     insuranceAmount: '1,000,000',
-    suggestedCategories: [] as string[]
+    suggestedCategories: [] as string[],
+    selectedServiceIds: [] as string[]
   });
 
   const nextStep = () => {
@@ -49,7 +51,11 @@ function JoinPageContent() {
       setError(t.onboarding.validation.select_sector);
       return;
     }
-    if (step === 2) {
+    if (step === 2 && formData.selectedServiceIds.length === 0) {
+      setError(t.onboarding.ai_assistant.matched_error || "Please select at least one skill.");
+      return;
+    }
+    if (step === 3) {
       if (!formData.businessName || !formData.email || !formData.phone || !formData.bio) {
         setError(t.onboarding.validation.fill_required);
         return;
@@ -58,9 +64,8 @@ function JoinPageContent() {
         setError(t.onboarding.validation.bio_short);
         return;
       }
-      // Technical sector credentials no longer strictly mandatory to align with UI tip "can review later"
     }
-    if (step === 3 && !contractAccepted) return;
+    if (step === 4 && !contractAccepted) return;
     
     setError(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -231,7 +236,7 @@ function JoinPageContent() {
           redirect: false
         });
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        setStep(4);
+        setStep(5);
       }
     } catch (err) {
       setError("An unexpected error occurred. Please try again.");
@@ -248,13 +253,18 @@ function JoinPageContent() {
         
         {/* Step Indicator Top Bar */}
         <div className="onboarding-stepper">
-          {[1, 2, 3].map((num) => (
+          {[1, 2, 3, 4].map((num) => (
             <React.Fragment key={num}>
               <div className={`step-item ${step >= num ? 'active' : ''}`}>
                 <div className="step-num">{num}</div>
-                <span>{num === 1 ? t.onboarding.steps.profile : num === 2 ? t.onboarding.steps.credentials : t.onboarding.steps.contract}</span>
+                <span>
+                  {num === 1 ? t.onboarding.steps.profile : 
+                   num === 2 ? t.onboarding.steps.services : 
+                   num === 3 ? t.onboarding.steps.credentials : 
+                   t.onboarding.steps.contract}
+                </span>
               </div>
-              {num < 3 && <div className={`line ${step > num ? 'active' : ''}`} />}
+              {num < 4 && <div className={`line ${step > num ? 'active' : ''}`} />}
             </React.Fragment>
           ))}
         </div>
@@ -304,6 +314,38 @@ function JoinPageContent() {
           )}
 
           {step === 2 && (
+            <div className="step-services reveal active">
+              <div className="section-header mb-12 text-center">
+                <h2 className="text-3xl font-black text-white mb-4 uppercase tracking-tighter italic">
+                  {t.onboarding.ai_assistant.title}
+                </h2>
+                <p className="text-gray-400 max-w-2xl mx-auto">
+                  {t.onboarding.ai_assistant.desc}
+                </p>
+              </div>
+
+              <ServiceMatrix 
+                selectedIds={formData.selectedServiceIds}
+                selectedSector={selectedSector}
+                onChange={(ids) => setFormData(prev => ({ ...prev, selectedServiceIds: ids }))}
+              />
+
+              <div className="controls mt-12">
+                <button className="btn-secondary" onClick={prevStep}>
+                  <ChevronLeft size={20} /> {t.onboarding.buttons.back}
+                </button>
+                <button 
+                  className={`btn-premium ${formData.selectedServiceIds.length === 0 ? 'disabled' : ''}`}
+                  onClick={nextStep}
+                  disabled={formData.selectedServiceIds.length === 0}
+                >
+                  {t.onboarding.buttons.next} <ChevronRight size={20} />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {step === 3 && (
             <div className="step-2 reveal active">
               <div className="onboarding-grid">
                 {/* Form Side */}
@@ -534,7 +576,7 @@ function JoinPageContent() {
                           <div style={{ marginTop: '12px', fontSize: '0.8rem', color: '#64748b', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
                             <Lock size={14} style={{ marginTop: '2px', flexShrink: 0, color: '#10b981' }} />
                             <span>
-                              {locale === 'zh' 
+                              {locale === 'zh-TW' 
                                 ? '您的資料僅供平台驗證資格使用，絕不作其他用途，亦不會外流。'
                                 : 'Your uploaded documents are securely processed for verification purposes only and will not be shared or used elsewhere.'}
                             </span>
@@ -665,7 +707,7 @@ function JoinPageContent() {
             </div>
           )}
 
-          {step === 3 && (
+          {step === 4 && (
             <div className="step-3 reveal active">
               <MerchantContract 
                 accepted={contractAccepted} 
@@ -689,7 +731,7 @@ function JoinPageContent() {
             </div>
           )}
 
-          {step === 4 && (
+          {step === 5 && (
             <div className="step-success reveal active">
               <div className="success-wrapper">
                 <div className="success-card">

@@ -22,11 +22,11 @@ export async function createMerchantAction(data: any) {
       for (const cred of data.credentials) {
          const url = await saveFileLocally(cred.dataUrl, 'credentials');
          
-         let docStatus = DocumentStatus.PENDING;
+         let docStatus: DocumentStatus = DocumentStatus.PENDING;
          if (cred.review?.status === 'verified') docStatus = DocumentStatus.APPROVED;
          else if (cred.review?.status === 'rejected') docStatus = DocumentStatus.REJECTED;
 
-         let docType = DocumentType.BUSINESS_LICENSE;
+         let docType: DocumentType = DocumentType.BUSINESS_LICENSE;
          if (cred.review?.documentType && Object.values(DocumentType).includes(cred.review.documentType)) {
              docType = cred.review.documentType as DocumentType;
          } else if (data.sector !== 'technical') {
@@ -89,7 +89,10 @@ export async function createMerchantAction(data: any) {
     } else {
       user = await prisma.user.update({
         where: { id: user.id },
-        data: { role: 'MERCHANT', phone: data.phone || user.phone }
+        data: { 
+          role: user.role === 'ADMIN' ? 'ADMIN' : 'MERCHANT', 
+          phone: data.phone || user.phone 
+        }
       });
     }
 
@@ -106,9 +109,30 @@ export async function createMerchantAction(data: any) {
         bannerUrl,
         licenseUrl: credentialData.length > 0 ? credentialData[0].url : null,
         insuranceAmount: data.insuranceAmount ? parseFloat(data.insuranceAmount.replace(/,/g, '')) : 0,
-        businessType: data.suggestedCategories ? data.suggestedCategories.join(', ') : data.sector
+        businessType: data.selectedServiceIds ? data.selectedServiceIds.join(', ') : (data.suggestedCategories ? data.suggestedCategories.join(', ') : data.sector)
       }
     });
+
+    // 4. Pre-seed Services from Skill Mapping
+    if (data.selectedServiceIds && Array.isArray(data.selectedServiceIds)) {
+      const { SERVICE_CATALOG } = await import('@/lib/constants/service-catalog');
+      for (const serviceId of data.selectedServiceIds) {
+        // Find the service name from catalog (optional, but better for UI)
+        let serviceName = serviceId.split('_').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        
+        // Try to find more precise name in catalog if needed, but simple transform works for now
+        
+        await prisma.service.create({
+          data: {
+            merchantId: merchant.id,
+            category: data.sector,
+            name: serviceName,
+            description: `Professional ${serviceName} services.`,
+            price: data.sector === 'education' ? 45 : 60, // Default UK hourly rates
+          }
+        });
+      }
+    }
 
     // 4. Create document entries
     if (credentialData.length > 0) {

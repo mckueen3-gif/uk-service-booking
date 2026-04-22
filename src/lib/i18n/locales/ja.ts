@@ -1,4 +1,4 @@
-import { Dictionary } from "../types";
+﻿import { Dictionary } from "../types";
 
 export const ja: any = {
   common: {
@@ -424,29 +424,7 @@ export const ja: any = {
       },
     },
   },
-  common: {
-    viewProfile: "プロフィールを見る",
-    reviews: "件のレビュー",
-    hr: "時間",
-    copy: "コピー",
-    copied: "コピー完了!",
-    aiMatchingSub:
-      "AIキャリブレーションされたエキスパートがあなたのプロトコル要件にマッチ。",
-    exploreSub: "{category} セクター内の専門プロトコルを探索。",
-    escrow: {
-      title: "ConciergeAI エスクローにより保護",
-      subtitle:
-        "{category} セクターのすべてのセッションは、AI により品質保証と財務的完全性の監視が行われます。",
-      specialists: "検証済みスペシャリスト",
-      fees: "プラットフォームサービス料金",
-      support: "AI仲裁サポート",
-    },
-    greetings: {
-      morning: "おはようございます",
-      afternoon: "こんにちは",
-      evening: "こんばんは"
-    }
-  },
+
   hero: {
     title: "最高級のサービス専門家を探す",
     subtitle: "お住まいの地域の認定プロフェッショナルと繋がります。",
@@ -899,11 +877,6 @@ export const ja: any = {
       foundCount: "{{count}}名の講師が見つかりました",
       placeholder: "科目名や名前で検索",
     },
-    common: {
-      reviews: "件のレビュー",
-      hr: "時間",
-      bookTrial: "体験レッスンを予約",
-    },
     tutorCard: {
       demoDesc:
         "10年以上の経験を持つ情熱的な博士号取得講師。100人以上の生徒の目標達成をサポートしてきました。",
@@ -1235,60 +1208,7 @@ export const ja: any = {
       findSpecialist: "今すぐ専門家に相談する",
     },
   },
-  onboarding: {
-    hero: {
-      title: "ConciergeAI でビジネスを拡大",
-      subtitle: "英国の一流認定専門家ネットワークに参加しましょう。",
-    },
-    steps: {
-      profile: "事業プロフィール",
-      credentials: "資格・認定",
-      contract: "サービス契約",
-    },
-    sectors: {
-      title: "専門分野を選択",
-      professional: {
-        title: "専門サービス",
-        desc: "会計、法律、コンサル",
-        industries: ["会計士", "税務専門", "法務", "戦略顧問"],
-      },
-      education: {
-        title: "教育プロジェクト",
-        desc: "講師、コーチ",
-        industries: ["講師", "語学コーチ", "スキル指導", "音楽講師"],
-      },
-      technical: {
-        title: "技術サービス",
-        desc: "職人、保守、エンジニアリング",
-        industries: ["水道屋", "電気技師", "メカニック", "リフォーム業者"],
-      },
-    },
-    contract: {
-      title: "標準サービス契約",
-      scrollingNotice: "規約に同意するには最後までスクロールしてください。",
-      agree: "ConciergeAI 基本契約を読み、同意しました。",
-      clauses: {
-        platform_fee: {
-          title: "1. サービス手数料",
-          body: "正常に完了したタスクに対し、10% の手数料が発生します。",
-        },
-        payments: {
-          title: "2. エスクローと決済",
-          body: "料金は安全なエスクローで保管されます。完了確定から48時間以内に資金がリリースされます。",
-        },
-        conduct: {
-          title: "3. プロとしての基準",
-          body: "平均評価 4.0 以上を維持してください。安全基準を満たさない場合、アカウント停止の対象となります。",
-        },
-      },
-    },
-    buttons: {
-      start: "今すぐ開始",
-      next: "次へ",
-      back: "戻る",
-      submit: "登録を完了",
-    },
-  },
+
   admin: {
     sidebar: {
       overview: "概要",
@@ -1622,6 +1542,18 @@ export const ja: any = {
       bio_regen_error_missing: "屋号と少なくとも1つのカテゴリーが入力されていることを確認してください。",
       ai_bio_error: "AIが自己紹介文を生成できませんでした。",
       unexpected_error: "予期しないエラーが発生しました。もう一度お試しください。"
+    },
+    ai_assistant: {
+      title: "AI 技能スマート識別",
+      map_title: "AI 技能スマート識別",
+      map_description: "あなたの技術、経験、提供サービスを説明してください。AI が当社のグローバルサービスカタログに自動的にマッピングします。",
+      map_placeholder: "例：ガス安全点検、ボイラー修理を担当し、空気熱源ヒートポンプの設置も行います...",
+      map_button: "技能を AI 自動マッピング",
+      map_processing: "専門分野を AI 分析中...",
+      matched_count: "識別された技能",
+      matched_error: "続行するには少なくとも 1 つの技能を選択してください。",
+      manual: "または手動で参照して選択",
+      search: "特定の技能を検索...",
     },
     preview: {
       preview_label: "ライブプレビュー",
