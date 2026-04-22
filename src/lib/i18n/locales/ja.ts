@@ -803,7 +803,86 @@ export const ja: any = {
       addError: "追加に失敗しました。",
       aiError: "AI生成に失敗しました。手動で入力してください。",
     },
+    toolkit: {
+      title: "成長ツールキット",
+      subtitle: "エリートマーチャント向けプレミアム AI ツール。",
+      privacy: {
+        title: "エリート・プライバシー・フレームワーク",
+        desc: "ConciergeAI は、これらのモジュールを有効にした場合にのみ AI 専用コンテキストをアクティブにします。ビジネスロジックは常に暗号化され、隔離されます。",
+      },
+      modules: {
+        aura_secretary: {
+          title: "Aura AI 秘書",
+          desc: "ビジネスコンテキストを使用した自動カスタマーサポート and プロアクティブな成約。",
+          impact: "+15% 成約率向上"
+        },
+        promotion_hub: {
+          title: "プロモーションハブ",
+          desc: "成約のために Aura が顧客に提供できるクーポンや割引を作成します。",
+          impact: "カスタム収益成長"
+        },
+        accounting_ledger: {
+          title: "元帳と税務監査",
+          desc: "自動化されたビジネスパフォーマンス追跡と税務対応の財務エクスポート。",
+          impact: "HMRC 準拠ロジック"
+        },
+        social_toolkit: {
+          title: "ソーシャルメディアツールキット",
+          desc: "あなたのビジネスDNAを搭載したバズる投稿やキャプションを生成。",
+          impact: "ワンクリックでのブランド成長"
+        },
+        ai_diagnosis: {
+          title: "AI 知能診断",
+          desc: "視覚的損傷評価とリード獲得システム",
+          impact: "自律型リード生成"
+        },
+        whatsapp_connect: {
+          title: "WhatsApp リアルタイム連携",
+          desc: "新規注文や問い合わせの即時通知。",
+          impact: "100% のレスポンス率"
+        },
+        seo_expert: {
+          title: "SEO エキスパート",
+          desc: "検索エンジンの可視性を高めるためのプロフィール最適化。",
+          impact: "オーガニック成長"
+        },
+        audit_vault: {
+          title: "監査ボルト",
+          desc: "すべての専門家資格と認定の集中管理。",
+          impact: "高信頼性検証済みステータス"
+        }
+      }
+    }
   },
+  merchant_dashboard: {
+    tools: {
+      diagnosis: {
+        name: "AI 知能診断",
+        desc: "視覚的損傷評価とリード獲得システム",
+        badge: "無料"
+      },
+      whatsapp: {
+        name: "WhatsApp リアルタイム連携",
+        desc: "新規注文や問い合わせの即時通知",
+        badge: "無料"
+      },
+      seo: {
+        name: "SEO 専門家プロフィール最適化",
+        desc: "Google ランキングの向上とメタデータの最適化",
+        badge: "無料"
+      },
+      ad_copy: {
+        name: "AI 広告コピー",
+        desc: "高コンバージョンのSNS投稿や広告スローガンを自動生成",
+        badge: "無料"
+      },
+      video: {
+        name: "エリート AI ビデオ設定",
+        desc: "プロフェッショナルなビデオインポートと AI 知識の同期",
+        badge: "無料"
+      }
+    }
+  }
   education_sec: {
     hero: {
       badge: "英国の厳選された高品質な講師",

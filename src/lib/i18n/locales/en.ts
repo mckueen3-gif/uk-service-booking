@@ -6,7 +6,6 @@ export const en = {
     saveChanges: "Save Changes",
     cancel: "Cancel",
     confirm: "Confirm",
-<<<<<<< HEAD
     success: "Success",
     viewProfile: "View Profile",
     reviews: "Reviews",
@@ -768,6 +767,36 @@ export const en = {
       welcome: "Welcome back",
       avatar: { hint: "Update Photo", errorSize: "File too large (Max 2MB)", success: "Photo Updated", upload: "Upload" },
       tips: { growth: "Updating your portfolio with high-quality photos can increase bookings by 30%." },
+      tools: {
+        title: "Latest Available Items",
+        subtitle: "Curated growth tools for experts (All FREE)",
+        diagnosis: {
+          name: "AI Intelligent Diagnosis",
+          desc: "Visual damage assessment & lead capture system",
+          badge: "FREE"
+        },
+        whatsapp: {
+          name: "WhatsApp Real-time Connect",
+          desc: "Instant notifications for new leads and queries",
+          badge: "FREE"
+        },
+        seo: {
+          name: "SEO Profile Optimization",
+          desc: "Boost Google rankings & optimize metadata",
+          badge: "FREE"
+        },
+        video: {
+          name: "Elite AI Video Config",
+          desc: "Professional video import & AI knowledge syncing",
+          badge: "FREE"
+        },
+        ad_copy: {
+          name: "AI Ad Copy",
+          desc: "Generate high-converting social media & ad slogans automatically",
+          badge: "FREE"
+        },
+        launch: "Launch Now"
+      }
     },
   },
   merchant_profile: {
@@ -1820,27 +1849,22 @@ export const en = {
       approved: "Adjustment Approved",
     },
     toolkit: {
-      title: "AI Specialist Toolkit",
-      subtitle: "Modular growth tools designed for elite specialists.",
+      title: "Growth Toolkit",
+      subtitle: "Premium AI-powered tools for elite merchants.",
       back: "Back to Toolkit",
-      enable: "Enable Service",
-      disable: "Disable",
-      active: "ACTIVE",
-      inactive: "PAUSED",
-      configure: "Configure Module",
       privacy: {
         title: "Elite Privacy Framework",
-        desc: "ConciergeAI only activates AI specialized context when you enable these modules. Your internal business logic remains encrypted and isolated at all times.",
+        desc: "ConciergeAI only activates AI-exclusive contexts when you enable these modules. Business logic is always encrypted and siloed.",
       },
       modules: {
         aura_secretary: {
           title: "Aura AI Secretary",
-          desc: "Automated customer support and proactive deal-closing using your business context.",
+          desc: "Automated customer support and proactive closing using your business context.",
           impact: "+15% Booking Conversion"
         },
         promotion_hub: {
           title: "Promotion Hub",
-          desc: "Create coupons and discounts that Aura can offer customers to close the deal.",
+          desc: "Create coupons and discounts that Aura can offer to customers to close deals.",
           impact: "Custom Revenue Growth"
         },
         accounting_ledger: {
@@ -1851,29 +1875,73 @@ export const en = {
         social_toolkit: {
           title: "Social Media Toolkit",
           desc: "Generate viral social posts and captions powered by your business DNA.",
-          impact: "One-Click Brand Growth",
-          modes: {
-            label: "Growth Strategy",
-            viral: "Viral Hype",
-            luxury: "Quiet Luxury"
-          },
-          reviews: {
-            title: "Review-to-Post AI",
-            subtitle: "Select a 5-star review to turn into a viral marketing asset."
-          },
-          preview: {
-            title: "Post Preview",
-            expertTip: "Expert Tip",
-            copyBtn: "Copy Caption",
-            copied: "Copied!",
-            shareHint: "Share this to your stories or WhatsApp to attract new customers."
-          }
+          impact: "1-Click Brand Growth"
+        },
+        ai_diagnosis: {
+          title: "AI Intelligent Diagnosis",
+          desc: "Visual damage assessment & lead capture system",
+          impact: "Autonomous Lead Gen"
+        },
+        whatsapp_connect: {
+          title: "WhatsApp Real-time Connect",
+          desc: "Instant notifications for new orders and customer queries.",
+          impact: "100% Response Rate"
+        },
+        seo_expert: {
+          title: "SEO Expert",
+          desc: "Profile optimization to boost your search engine visibility.",
+          impact: "Organic Growth"
         },
         audit_vault: {
           title: "Audit Vault",
-          desc: "Professional tracking of your specialist records and tax-ready exports.",
-          impact: "HMRC Compliant Logic"
+          desc: "Centralized management of all professional credentials and certifications.",
+          impact: "High-Trust Verified Status"
         }
+      },
+      diagnosis: {
+        title: "AI Intelligent Diagnosis",
+        desc: "Visual damage assessment & lead capture system",
+      },
+      whatsapp: {
+        title: "WhatsApp Real-time Connect",
+        desc: "Instant notifications for new leads and queries",
+        gateway_active: "Gateway Active",
+        init_connection: "Initialize Connection",
+        active_desc: "Your WhatsApp node is successfully linked. You will now receive instant push notifications for every high-intent lead.",
+        init_desc: "Link your business WhatsApp account to receive real-time updates and customer inquiry notifications directly on your phone.",
+        syncing: "Synchronizing...",
+        link_now: "Link WhatsApp Now",
+        secured: "Connection Secured",
+        features: {
+          alerts: { title: "Instant Lead Alerts", desc: "Get notified the second a customer expresses interest in your service." },
+          mobile: { title: "Mobile Management", desc: "Reply to inquiries directly through WhatsApp without logging into the dashboard." },
+          sync: { title: "AI Response Sync", desc: "Aura AI can draft responses for you to review and send with one click." }
+        },
+        elite_title: "Elite Expert Integration",
+        elite_desc: "WhatsApp Connect is an exclusive feature for verified ConciergeAI experts. It allows you to maintain a 100% response rate, which significantly boosts your ranking in our search algorithm.",
+        view_docs: "View Documentation"
+      },
+      seo: {
+        title: "SEO Profile Optimization",
+        desc: "Boost Google rankings & optimize metadata",
+        hero_title: "Rank Higher. Grow Faster.",
+        hero_desc: "Our AI SEO Expert analyzes your profile and services to ensure they are fully optimized for Google search and ConciergeAI's internal ranking algorithm.",
+        analyzing: "Analyzing Profile Data...",
+        run_audit: "Run AI SEO Audit",
+        score_title: "Search Visibility Score",
+        scores: {
+          completion: "Profile Completion",
+          density: "Keyword Density",
+          images: "Image Optimization",
+          engagement: "Customer Engagement"
+        },
+        checklist_title: "Optimization Checklist",
+        auto_title: "AI Auto-Calibrate",
+        auto_desc: "Let our AI automatically update your profile metadata to match current search trends in your sector.",
+        apply_auto: "Apply Auto-Optimizations",
+        global_title: "Global Reach",
+        indexed: "Indexed on Google UK",
+        traffic: "+12% Traffic last 30d"
       }
     },
     ai_secretary: {
@@ -2718,7 +2786,34 @@ export const en = {
     open_full_size: "Open Full Size",
     tab_campaign: "Campaign Creator",
     tab_review: "Review Booster"
-  }
+  },
+  merchant_dashboard: {
+    tools: {
+      diagnosis: {
+        name: "AI Intelligent Diagnosis",
+        desc: "Visual damage assessment & lead capture system",
+        badge: "FREE"
+      },
+      whatsapp: {
+        name: "WhatsApp Real-time Connect",
+        desc: "Instant notifications for new leads and queries",
+        badge: "FREE"
+      },
+      seo: {
+        name: "SEO Profile Optimization",
+        desc: "Boost Google rankings & optimize metadata",
+        badge: "FREE"
+      },
+      ad_copy: {
+        name: "AI Ad Copy",
+        desc: "Generate high-converting social media & ad slogans automatically",
+        badge: "FREE"
+      },
+      video: {
+        name: "Elite AI Video Config",
+        desc: "Professional video import & AI knowledge syncing",
+        badge: "FREE"
+      }
+    }
   }
 };
-

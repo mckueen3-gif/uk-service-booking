@@ -14,6 +14,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 interface Tool {
   id: string;
@@ -23,6 +24,7 @@ interface Tool {
   badge: string;
   color: string;
   iconBg: string;
+  href: string;
 }
 
 interface MerchantToolsProps {
@@ -38,7 +40,8 @@ export default function MerchantTools({ t }: MerchantToolsProps) {
       icon: <Wand2 size={24} />,
       badge: t?.merchant_dashboard?.tools?.diagnosis?.badge || "FREE",
       color: "#3b82f6",
-      iconBg: "rgba(59, 130, 246, 0.1)"
+      iconBg: "rgba(59, 130, 246, 0.1)",
+      href: "/merchant/toolkit/diagnosis"
     },
     {
       id: 'whatsapp',
@@ -47,7 +50,8 @@ export default function MerchantTools({ t }: MerchantToolsProps) {
       icon: <MessageSquare size={24} />,
       badge: t?.merchant_dashboard?.tools?.whatsapp?.badge || "FREE",
       color: "#10b981",
-      iconBg: "rgba(16, 185, 129, 0.1)"
+      iconBg: "rgba(16, 185, 129, 0.1)",
+      href: "/merchant/toolkit/whatsapp"
     },
     {
       id: 'seo',
@@ -56,7 +60,8 @@ export default function MerchantTools({ t }: MerchantToolsProps) {
       icon: <Search size={24} />,
       badge: t?.merchant_dashboard?.tools?.seo?.badge || "FREE",
       color: "#f59e0b",
-      iconBg: "rgba(245, 158, 11, 0.1)"
+      iconBg: "rgba(245, 158, 11, 0.1)",
+      href: "/merchant/toolkit/seo"
     },
     {
       id: 'ad_copy',
@@ -65,7 +70,8 @@ export default function MerchantTools({ t }: MerchantToolsProps) {
       icon: <Megaphone size={24} />,
       badge: t?.merchant_dashboard?.tools?.ad_copy?.badge || "FREE",
       color: "#ec4899",
-      iconBg: "rgba(236, 72, 153, 0.1)"
+      iconBg: "rgba(236, 72, 153, 0.1)",
+      href: "/merchant/toolkit/social"
     },
     {
       id: 'video',
@@ -74,7 +80,8 @@ export default function MerchantTools({ t }: MerchantToolsProps) {
       icon: <Video size={24} />,
       badge: t?.merchant_dashboard?.tools?.video?.badge || "FREE",
       color: "#8b5cf6",
-      iconBg: "rgba(139, 92, 246, 0.1)"
+      iconBg: "rgba(139, 92, 246, 0.1)",
+      href: "/merchant/ai-secretary"
     }
   ];
 
@@ -100,124 +107,113 @@ export default function MerchantTools({ t }: MerchantToolsProps) {
 
       <div style={{ 
         display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', 
-        gap: '1.25rem',
-        marginTop: '0.5rem'
+        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+        gap: '1.25rem' 
       }}>
-        {tools.map((tool, index) => (
-          <motion.div 
-            key={tool.id}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: index * 0.1 }}
-            whileHover={{ 
-              scale: 1.02,
-              borderColor: 'var(--accent-color)',
-              boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(212, 175, 55, 0.1)'
-            }}
-            className="tool-card"
-            style={{ 
-              backgroundColor: 'var(--surface-1)', 
-              borderRadius: '24px', 
-              border: '1px solid var(--border-color)',
-              padding: '1.5rem',
-              display: 'flex',
-              flexDirection: 'column',
-              transition: 'border-color 0.3s, box-shadow 0.3s',
-              position: 'relative',
-              overflow: 'hidden',
-              cursor: 'pointer'
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.25rem' }}>
-              <motion.div 
-                whileHover={{ rotate: 10 }}
-                style={{ 
+        {tools.map((tool) => (
+          <Link key={tool.id} href={tool.href} style={{ textDecoration: 'none' }}>
+            <motion.div 
+              whileHover={{ y: -5 }}
+              style={{ 
+                backgroundColor: 'var(--surface-1)', 
+                borderRadius: '24px', 
+                padding: '1.75rem', 
+                border: '1px solid var(--border-color)',
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%',
+                position: 'relative',
+                overflow: 'hidden',
+                transition: 'all 0.2s',
+                cursor: 'pointer'
+              }} className="tool-card">
+              
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                alignItems: 'flex-start',
+                marginBottom: '1.5rem'
+              }}>
+                <div style={{ 
+                  width: '52px', 
+                  height: '52px', 
+                  borderRadius: '16px', 
                   backgroundColor: tool.iconBg, 
-                  padding: '0.75rem', 
-                  borderRadius: '16px',
                   color: tool.color,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center'
-                }}
-              >
-                {tool.icon}
-              </motion.div>
-              <span style={{ 
-                fontSize: '0.65rem', 
-                fontWeight: 900, 
-                color: 'var(--accent-color)',
-                backgroundColor: 'rgba(212, 175, 55, 0.1)',
-                padding: '4px 10px',
-                borderRadius: '8px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.05em',
-                border: '1px solid rgba(212, 175, 55, 0.2)'
+                }}>
+                  {tool.icon}
+                </div>
+                <span style={{ 
+                  fontSize: '0.7rem', 
+                  fontWeight: 900, 
+                  color: 'var(--accent-color)',
+                  backgroundColor: 'rgba(212, 175, 55, 0.1)',
+                  padding: '4px 10px',
+                  borderRadius: '8px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                  border: '1px solid rgba(212, 175, 55, 0.2)'
+                }}>
+                  {tool.badge}
+                </span>
+              </div>
+
+              <h3 style={{ 
+                fontSize: '1.1rem', 
+                fontWeight: 800, 
+                marginBottom: '0.5rem',
+                color: 'var(--text-primary)'
+              }}>{tool.name}</h3>
+              
+              <p style={{ 
+                fontSize: '0.85rem', 
+                color: 'var(--text-secondary)', 
+                lineHeight: 1.5, 
+                marginBottom: '1.5rem',
+                flexGrow: 1
               }}>
-                {tool.badge}
-              </span>
-            </div>
- 
-            <h3 style={{ 
-              fontSize: '1.1rem', 
-              fontWeight: 800, 
-              marginBottom: '0.5rem',
-              color: 'var(--text-primary)'
-            }}>{tool.name}</h3>
-            
-            <p style={{ 
-              fontSize: '0.85rem', 
-              color: 'var(--text-secondary)', 
-              lineHeight: 1.5, 
-              marginBottom: '1.5rem',
-              flexGrow: 1
-            }}>
-              {tool.description}
-            </p>
- 
-            <motion.button 
-              whileTap={{ scale: 0.95 }}
-              style={{ 
+                {tool.description}
+              </p>
+
+              <div style={{ 
                 display: 'flex', 
                 alignItems: 'center', 
                 gap: '6px', 
                 fontSize: '0.85rem', 
                 fontWeight: 700, 
                 color: 'var(--accent-color)',
-                background: 'none',
-                border: 'none',
-                padding: 0,
-                cursor: 'pointer',
-                transition: 'all 0.2s'
               }} className="launch-btn">
-              {t?.merchant_dashboard?.tools?.launch || "Launch Now"}
-              <ChevronRight size={16} />
-            </motion.button>
- 
-            {/* Subtle Gradient Glow */}
-            <motion.div 
-              animate={{ 
-                opacity: [0.1, 0.3, 0.1],
-                scale: [1, 1.2, 1]
-              }}
-              transition={{ 
-                duration: 4, 
-                repeat: Infinity,
-                ease: "easeInOut" 
-              }}
-              style={{
-                position: 'absolute',
-                bottom: '-20px',
-                right: '-20px',
-                width: '60px',
-                height: '60px',
-                borderRadius: '50%',
-                background: `radial-gradient(circle, ${tool.color}44 0%, transparent 70%)`,
-                zIndex: 0
-              }} 
-            />
-          </motion.div>
+                {t?.merchant_dashboard?.tools?.launch || "Launch Now"}
+                <ChevronRight size={16} />
+              </div>
+
+              {/* Subtle Gradient Glow */}
+              <motion.div 
+                animate={{ 
+                  opacity: [0.1, 0.3, 0.1],
+                  scale: [1, 1.2, 1]
+                }}
+                transition={{ 
+                  duration: 4, 
+                  repeat: Infinity,
+                  ease: "easeInOut" 
+                }}
+                style={{
+                  position: 'absolute',
+                  bottom: '-20px',
+                  right: '-20px',
+                  width: '60px',
+                  height: '60px',
+                  borderRadius: '50%',
+                  background: `radial-gradient(circle, ${tool.color}44 0%, transparent 70%)`,
+                  zIndex: 0
+                }} 
+              />
+            </motion.div>
+          </Link>
         ))}
       </div>
 
@@ -226,13 +222,11 @@ export default function MerchantTools({ t }: MerchantToolsProps) {
           box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
         .tool-card:hover {
-          transform: translateY(-4px);
           border-color: var(--accent-color) !important;
           box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(212, 175, 55, 0.05);
         }
         .launch-btn:hover {
           gap: 10px !important;
-          opacity: 0.8;
         }
       `}</style>
     </div>

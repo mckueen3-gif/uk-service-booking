@@ -707,7 +707,86 @@ export const ko: any = {
       addError: "추가 실패.",
       aiError: "AI 생성 실패, 직접 입력해 주세요.",
     },
+    toolkit: {
+      title: "성장 툴킷",
+      subtitle: "엘리트 상인을 위한 프리미엄 AI 기반 도구.",
+      privacy: {
+        title: "엘리트 개인정보 보호 프레임워크",
+        desc: "ConciergeAI는 이러한 모듈을 활성화할 때만 AI 전용 컨텍스트를 활성화합니다. 비즈니스 로직은 항상 암호화되어 격리됩니다.",
+      },
+      modules: {
+        aura_secretary: {
+          title: "Aura AI 비서",
+          desc: "비즈니스 컨텍스트를 사용한 자동 고객 지원 및 선제적 거래 성사.",
+          impact: "+15% 예약 전환율 향상"
+        },
+        promotion_hub: {
+          title: "프로모션 허브",
+          desc: "Aura가 거래를 성사시키기 위해 고객에게 제공할 수 있는 쿠폰과 할인을 생성합니다.",
+          impact: "맞춤형 수익 성장"
+        },
+        accounting_ledger: {
+          title: "장부 및 세무 감사",
+          desc: "자동화된 비즈니스 성과 추적 및 세무용 재무 데이터 내보내기.",
+          impact: "HMRC 준수 로직"
+        },
+        social_toolkit: {
+          title: "소셜 미디어 툴킷",
+          desc: "비즈니스 DNA를 기반으로 한 바이럴 소셜 게시물 및 캡션 생성.",
+          impact: "클릭 한 번으로 브랜드 성장"
+        },
+        ai_diagnosis: {
+          title: "AI 지능형 진단",
+          desc: "시각적 손상 평가 및 리드 캡처 시스템",
+          impact: "자율 리드 생성"
+        },
+        whatsapp_connect: {
+          title: "WhatsApp 실시간 연결",
+          desc: "새 주문 및 고객 문의에 대한 즉시 알림.",
+          impact: "100% 응답률"
+        },
+        seo_expert: {
+          title: "SEO 전문가",
+          desc: "검색 엔진 가시성을 높이기 위한 프로필 최적화.",
+          impact: "유기적 성장"
+        },
+        audit_vault: {
+          title: "감사 보관함",
+          desc: "모든 전문가 자격 및 인증의 중앙 관리.",
+          impact: "고신뢰 인증 상태"
+        }
+      }
+    }
   },
+  merchant_dashboard: {
+    tools: {
+      diagnosis: {
+        name: "AI 지능형 진단",
+        desc: "시각적 손상 평가 및 리드 캡처 시스템",
+        badge: "무료"
+      },
+      whatsapp: {
+        name: "WhatsApp 실시간 연결",
+        desc: "새 주문 및 고객 문의에 대한 즉시 알림",
+        badge: "무료"
+      },
+      seo: {
+        name: "SEO 전문가 프로필 최적화",
+        desc: "Google 순위 향상 및 메타데이터 최적화",
+        badge: "무료"
+      },
+      ad_copy: {
+        name: "AI 광고 카피",
+        desc: "높은 전환율의 소셜 미디어 및 광고 문구 자동 생성",
+        badge: "무료"
+      },
+      video: {
+        name: "엘리트 AI 비디오 설정",
+        desc: "전문적인 비디오 가져오기 및 AI 지식 동기화",
+        badge: "무료"
+      }
+    }
+  }
   education_sec: {
     hero: {
       badge: "영국 엄선된 고품질 튜터",

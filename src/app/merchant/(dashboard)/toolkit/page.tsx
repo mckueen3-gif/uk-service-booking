@@ -13,7 +13,9 @@ import {
   CheckCircle2,
   AlertCircle,
   Sparkles,
-  Share2
+  Share2,
+  MessageSquare,
+  Search
 } from "lucide-react";
 import { getMerchantDashboardStats, updateFeatureToggle } from "@/app/actions/merchant_dashboard";
 import { useTranslation } from "@/components/LanguageContext";
@@ -101,6 +103,36 @@ export default function ToolkitPortal() {
       color: "#f472b6",
       active: !!stats?.featureFlags?.social_toolkit,
       link: "/merchant/toolkit/social"
+    },
+    {
+      id: "ai_diagnosis",
+      icon: <Sparkles size={24} />,
+      title: tkDict.modules.ai_diagnosis.title,
+      desc: tkDict.modules.ai_diagnosis.desc,
+      impact: tkDict.modules.ai_diagnosis.impact,
+      color: "#3b82f6",
+      active: true,
+      link: "/merchant/toolkit/diagnosis"
+    },
+    {
+      id: "whatsapp_connect",
+      icon: <MessageSquare size={24} />,
+      title: tkDict.modules.whatsapp_connect.title,
+      desc: tkDict.modules.whatsapp_connect.desc,
+      impact: tkDict.modules.whatsapp_connect.impact,
+      color: "#10b981",
+      active: true,
+      link: "/merchant/toolkit/whatsapp"
+    },
+    {
+      id: "seo_expert",
+      icon: <Search size={24} />,
+      title: tkDict.modules.seo_expert.title,
+      desc: tkDict.modules.seo_expert.desc,
+      impact: tkDict.modules.seo_expert.impact,
+      color: "#f59e0b",
+      active: true,
+      link: "/merchant/toolkit/seo"
     },
     {
       id: "audit_vault",
