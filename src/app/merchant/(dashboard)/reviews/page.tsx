@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Star, MessageSquare, TrendingUp, TrendingDown, Loader2 } from "lucide-react";
-import ReviewManager from "@/components/merchant/ReviewManager";
+import ReviewManager from "@/components/dashboard/merchant/ReviewManager";
 import { getMerchantReviews } from "@/app/actions/review";
 import { useTranslation } from "@/components/LanguageContext";
 

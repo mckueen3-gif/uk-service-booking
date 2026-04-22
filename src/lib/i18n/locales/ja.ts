@@ -1,6 +1,6 @@
-import { Dictionary } from "../types";
+import { LocaleDictionary } from '../types';
 
-export const ja: any = {
+export const ja: LocaleDictionary = {
   common: {
     back: "戻る",
     next: "次へ",
@@ -855,7 +855,32 @@ export const ja: any = {
     }
   },
   merchant_dashboard: {
+    title: "エキスパートダッシュボード",
+    welcome: "{name}さん、おかえりなさい",
+    stats: {
+      active_jobs: "進行中のタスク",
+      monthly_revenue: "今月の収益",
+      rating: "成功率",
+      completion: "完了率",
+      pending_leads: "新規リード",
+      active_services: "公開中のサービス",
+      earnings: "総収益",
+      client_rating: "クライアント評価"
+    },
+    bookings: {
+      title: "最近の相談",
+      view_all: "すべての記録を表示",
+      no_data: "記録が見つかりません"
+    },
+    quick_links: {
+      profile: "プロフィールの設定",
+      services: "サービスの管理",
+      schedule: "空き状況の管理",
+      wallet: "ウォレットと支払い"
+    },
     tools: {
+      title: "最新のツール",
+      subtitle: "専門家のための成長ツール（すべて無料）",
       diagnosis: {
         name: "AI 知能診断",
         desc: "視覚的損傷評価とリード獲得システム",
@@ -880,9 +905,10 @@ export const ja: any = {
         name: "エリート AI ビデオ設定",
         desc: "プロフェッショナルなビデオインポートと AI 知識の同期",
         badge: "無料"
-      }
+      },
+      launch: "今すぐ起動"
     }
-  }
+  },
   education_sec: {
     hero: {
       badge: "英国の厳選された高品質な講師",
@@ -1682,80 +1708,6 @@ export const ja: any = {
         industries: ["配管・水道", "電気技術", "ボイラー・暖房", "家電修理", "内装工事", "屋根修理"],
       },
     },
-  },
-
-  merchant_dashboard: {
-    title: "エキスパート管理パネル",
-    expertTitle: "Elite エキスパート体系",
-    welcome: "おかえりなさい、{name}",
-    quick_links_hint: "ツールボックスを迅速に起動",
-    elite_ai: {
-      title: "最先端 AI と動画設定",
-      video_label: "紹介動画 (YouTube URL)",
-      knowledge_label: "AI 専門家ナレッジベース",
-      knowledge_placeholder: "専門知識、提供サービスの詳細、技術基準をここにディープロードしてください。このデータは非公開のまま、技術的な相談に正確に対応する専用 AI アシスタントを駆動します。",
-      save_button: "専門家プロフィールの校正"
-    },
-    pricing: {
-      title: "AI 価格設定パルス",
-      status: "価格設定の健全性",
-      optimal: "最適",
-      message: "市場に合わせて調整された料金が検出されました。現在の価格設定は高信頼性のトップベンチマークに一致しています。",
-      trend: "市場平衡点",
-      baseRate: "基本自給設定 (£)",
-      trial: "30分間の無料相談/トライアルを有効化",
-      trialPrice: "トライアル特別価格 (£)",
-      feeNote: "* この基準額に、10% のプラットフォーム手数料が自動的に加算されます。"
-    },
-    stats: {
-      totalBookings: "総予約数",
-      rating: "信頼評価",
-      availableBalance: "利用可能な残高",
-      pendingBalance: "決済待ち残高",
-      availableNow: "現在利用可能",
-      totalJobs: "完了済みプロジェクト",
-      escrowHeld: "エスクロー保持中",
-      reviews: "クライアントの証言"
-    },
-    bookings: {
-      title: "最近の予約タスク",
-      viewAll: "すべて見る",
-      empty: "保留中のタスクはありません"
-    },
-    quick_links: {
-      title: "エリート操作キー",
-      hint: "専門的な成長を促進する戦略的ショートカット"
-    },
-    tools: {
-      title: "最新の利用可能アイテム",
-      subtitle: "エキスパート向け厳選成長ツール（すべて無料）",
-      diagnosis: {
-        name: "AI インテリジェント診断",
-        desc: "視覚的な損傷評価とリード獲得誘導システム",
-        badge: "無料"
-      },
-      whatsapp: {
-        name: "WhatsApp リアルタイム連携",
-        desc: "新規オーダーや顧客の問い合わせを即時に通知",
-        badge: "無料"
-      },
-      seo: {
-        name: "SEO プロフィール最適化",
-        desc: "Google 検索順位の向上とメタタグの最適化",
-        badge: "無料"
-      },
-      video: {
-        name: "エリート AI 動画設定",
-        desc: "プロフェッショナルな動画導入と AI ナレッジの同期",
-        badge: "無料"
-      },
-      ad_copy: {
-        name: "AI 広告コピー生成",
-        desc: "高転換率のソーシャルメディアと広告スローガンを自動生成",
-        badge: "無料"
-      },
-      launch: "今すぐ起動"
-    }
   },
   member_dashboard: {
     hero: {

@@ -1,6 +1,6 @@
-import { Dictionary } from "../types";
+import { LocaleDictionary } from '../types';
 
-export const ko: any = {
+export const ko: LocaleDictionary = {
   common: {
     back: "뒤로",
     next: "다음",
@@ -759,7 +759,32 @@ export const ko: any = {
     }
   },
   merchant_dashboard: {
+    title: "전문가 대시보드",
+    welcome: "{name}님, 다시 오신 것을 환영합니다",
+    stats: {
+      active_jobs: "진행 중인 작업",
+      monthly_revenue: "이번 달 수익",
+      rating: "성공률",
+      completion: "완료율",
+      pending_leads: "새 리드",
+      active_services: "활성 서비스",
+      earnings: "총 수익",
+      client_rating: "고객 평점"
+    },
+    bookings: {
+      title: "최근 상담",
+      view_all: "모든 기록 보기",
+      no_data: "기록이 없습니다"
+    },
+    quick_links: {
+      profile: "프로필 설정",
+      services: "서비스 관리",
+      schedule: "예약 가능 시간 관리",
+      wallet: "지갑 및 출금"
+    },
     tools: {
+      title: "최신 도구",
+      subtitle: "전문가를 위한 성장 도구 (모두 무료)",
       diagnosis: {
         name: "AI 지능형 진단",
         desc: "시각적 손상 평가 및 리드 캡처 시스템",
@@ -772,7 +797,7 @@ export const ko: any = {
       },
       seo: {
         name: "SEO 전문가 프로필 최적화",
-        desc: "Google 순위 향상 및 메타데이터 최적화",
+        desc: "궁극적인 Google 순위 향상 및 메타데이터 최적화",
         badge: "무료"
       },
       ad_copy: {
@@ -784,9 +809,10 @@ export const ko: any = {
         name: "엘리트 AI 비디오 설정",
         desc: "전문적인 비디오 가져오기 및 AI 지식 동기화",
         badge: "무료"
-      }
+      },
+      launch: "지금 시작"
     }
-  }
+  },
   education_sec: {
     hero: {
       badge: "영국 엄선된 고품질 튜터",
@@ -1646,80 +1672,6 @@ export const ko: any = {
         industries: ["배관 및 수도", "전기 기술", "보일러 및 난방", "가전 수리", "인테리어", "지붕 수리"],
       },
     },
-  },
-
-  merchant_dashboard: {
-    title: "전문가 제어판",
-    expertTitle: "Elite 전문가 체계",
-    welcome: "다시 오신 것을 환영합니다, {name}",
-    quick_links_hint: "전문가 도구함을 빠르게 실행하세요",
-    elite_ai: {
-      title: "최첨단 AI 및 비디오 설정",
-      video_label: "소개 비디오 (YouTube URL)",
-      knowledge_label: "AI 전문가 지식 베이스",
-      knowledge_placeholder: "전문 지식, 서비스 상세 내용 및 기술 기준을 여기에 심층 로드하십시오. 이 데이터는 비공개로 유지되며, 기술 상담을 정교하게 처리하는 전담 AI 어시스턴트를 구동합니다.",
-      save_button: "전문가 프로필 보정"
-    },
-    pricing: {
-      title: "AI 가격 측정 펄스",
-      status: "가격 책정 건강도",
-      optimal: "최적 상태",
-      message: "시장 보정된 요금이 감지되었습니다. 현재 가격 설정은 신뢰도가 높은 최고 벤치마크와 일치합니다.",
-      trend: "시장 평형점",
-      baseRate: "기본 시급 설정 (£)",
-      trial: "30분 무료 상담/트라이얼 활성화",
-      trialPrice: "트라이얼 특가 (£)",
-      feeNote: "* 이 기준 금액에 10%의 플랫폼 서비스 수수료가 자동으로 추가됩니다。"
-    },
-    stats: {
-      totalBookings: "총 예약 수",
-      rating: "신뢰 등급",
-      availableBalance: "출금 가능 잔액",
-      pendingBalance: "결제 대기 잔액",
-      availableNow: "현재 이용 가능",
-      totalJobs: "완료된 프로젝트",
-      escrowHeld: "에스크로 예치금",
-      reviews: "고객 후기"
-    },
-    bookings: {
-      title: "최근 예약 업무",
-      viewAll: "전체 보기",
-      empty: "대기 중인 업무가 없습니다"
-    },
-    quick_links: {
-      title: "엘리트 조작 키",
-      hint: "전문적 성장을 촉진하는 전략적 단축키"
-    },
-    tools: {
-      title: "최신 가용 항목",
-      subtitle: "전문가를 위한 엄선된 성장 도구 (모두 무료)",
-      diagnosis: {
-        name: "AI 지능형 진단",
-        desc: "시각적 손상 평가 및 고객 유입 유도 시스템",
-        badge: "무료"
-      },
-      whatsapp: {
-        name: "WhatsApp 실시간 연동",
-        desc: "신규 주문 및 고객 문의 알림 즉시 수신",
-        badge: "무료"
-      },
-      seo: {
-        name: "SEO 전문가 프로필 최적화",
-        desc: "Google 검색 순위 향상 및 메타 태그 최적화",
-        badge: "무료"
-      },
-      video: {
-        name: "엘리트 AI 비디오 설정",
-        desc: "전문적인 비디오 도입 및 AI 지식 베이스 동기화",
-        badge: "무료"
-      },
-      ad_copy: {
-        name: "AI 광고 문구 생성",
-        desc: "전환율이 높은 소셜 미디어 및 광고 슬로건 자동 생성",
-        badge: "무료"
-      },
-      launch: "지금 실행"
-    }
   },
   member_dashboard: {
     hero: {
