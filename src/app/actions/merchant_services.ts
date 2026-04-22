@@ -54,7 +54,7 @@ export async function addServiceFromTemplate(templateId: string, customPrice?: n
         description: template.description + (template.isMonthly ? " (按月收費 Per Month)" : "")
       }
     });
-    revalidatePath('/dashboard/merchant/services');
+    revalidatePath('/merchant/services');
     return { success: true, service };
   } catch (err: any) {
     return { error: err.message };
@@ -80,7 +80,7 @@ export async function upsertService(data: { id?: string, name: string, category:
            subjects: data.subjects
          }
        });
-       revalidatePath('/dashboard/merchant/services');
+       revalidatePath('/merchant/services');
        return { success: true, service };
     } else {
        const service = await prisma.service.create({
@@ -93,7 +93,7 @@ export async function upsertService(data: { id?: string, name: string, category:
            subjects: data.subjects
          }
        });
-       revalidatePath('/dashboard/merchant/services');
+       revalidatePath('/merchant/services');
        return { success: true, service };
     }
   } catch (err: any) {
@@ -112,7 +112,7 @@ export async function deleteService(serviceId: string) {
     await prisma.service.delete({
       where: { id: serviceId, merchantId }
     });
-    revalidatePath('/dashboard/merchant/services');
+    revalidatePath('/merchant/services');
     return { success: true };
   } catch (err: any) {
     return { error: err.message };

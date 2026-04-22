@@ -52,7 +52,7 @@ export async function submitReview(bookingId: string, data: { rating: number; co
 
   revalidatePath(`/dashboard/repair/${bookingId}`);
   revalidatePath(`/dashboard/repair/${bookingId}/review`);
-  revalidatePath(`/dashboard/merchant/reviews`);
+  revalidatePath(`/merchant/reviews`);
   return { success: true, review };
 }
 
@@ -73,7 +73,7 @@ export async function submitReply(reviewId: string, reply: string) {
     data: { reply }
   });
 
-  revalidatePath(`/dashboard/merchant/reviews`);
+  revalidatePath(`/merchant/reviews`);
   revalidatePath(`/book/${existingReview.merchantId}`);
   
   return { success: true, review: updated };

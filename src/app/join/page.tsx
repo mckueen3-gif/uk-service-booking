@@ -630,7 +630,7 @@ function JoinPageContent() {
                     <div className="coming-soon-badge">{t.onboarding.success.coming_soon}</div>
                   </div>
 
-                  <button className="btn-premium wide" onClick={() => window.location.href = '/dashboard/merchant'}>
+                  <button className="btn-premium wide" onClick={() => window.location.href = '/merchant'}>
                     {t.onboarding.success.enter_dashboard} <ChevronRight size={20} />
                   </button>
                 </div>

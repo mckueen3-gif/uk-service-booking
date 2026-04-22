@@ -32,7 +32,7 @@ export async function uploadMerchantDocument(type: 'GAS_SAFE' | 'NICEIC' | 'PUBL
   // Automatically trigger AI Audit
   processLicenseWithAI(document.id);
 
-  revalidatePath('/dashboard/merchant/verification');
+  revalidatePath('/merchant/verification');
   return { success: true, documentId: document.id };
 }
 
@@ -150,7 +150,7 @@ export async function processLicenseWithAI(documentId: string) {
       title: notifTitle,
       message: notifMessage,
       type: notifType as any,
-      link: '/dashboard/merchant/verification'
+      link: '/merchant/verification'
     });
 
     // If Gas Safe/NICEIC is approved, mark merchant as partially verified
