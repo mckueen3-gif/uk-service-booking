@@ -47,6 +47,26 @@ export const zhTW: LocaleDictionary = {
     diagnosis: "AI 診斷"
   },
   merchant: {
+    labels: {
+      overview: '概覽',
+      ai_secretary: 'AI 秘書',
+      promotions: '促銷中心',
+      referral_program: '推薦計劃',
+      toolkit_portal: '專家工具箱',
+      bookings: '我的預約',
+      messages: '即時訊息',
+      schedule: '服務排程',
+      services: '服務管理',
+      availability: '空檔設置',
+      analytics: '數據審計',
+      verification: '專家認證',
+      accounting: '帳本與稅務',
+      wallet: '收益錢包',
+      verified: '認證專家',
+      expert: 'ConciergeAI 專家',
+      profile: '個人資料設置',
+      logout: '退出登錄'
+    },
     dashboard: {
       title: "商家控制台",
       welcome: "歡迎回來",
@@ -808,56 +828,54 @@ export const zhTW: LocaleDictionary = {
   },
   merchant_dashboard: {
     title: "專家控制台",
-    expertTitle: "精英專家",
     welcome: "歡迎回來，{name}",
     stats: {
-      totalBookings: "總預約數",
-      rating: "信任評分",
-      availableBalance: "可用餘額",
-      pendingBalance: "待處理餘額",
-      availableNow: "立即提現",
-      totalJobs: "已完成工作",
-      escrowHeld: "託管中資金",
-      reviews: "客戶評論"
+      active_jobs: "Active Tasks",
+      monthly_revenue: "Monthly Revenue",
+      rating: "Success Rate",
+      completion: "Completion",
+      pending_leads: "New Leads",
+      active_services: "Active Services",
+      earnings: "Total Earnings",
+      client_rating: "Client Rating"
     },
-    bookings: {
-      title: "近期預約",
-      viewAll: "查看全部",
-      empty: "尚無預約記錄"
+    ai_secretary: {
+      title: "Aura",
+      subtitle: "AI 秘書",
+      desc: "Aura 擔任您的 24/7 業務經理，處理客戶諮詢並確保預約，讓您專注於工作。",
+      status_label: "系統狀態",
+      online: "在線並啟用",
+      offline: "離線 / 待命",
+      knowledge_base_title: "業務內部知識",
+      knowledge_base_desc: "向 Aura 提供有關您的專業知識、定價邏輯、服務流程或常見客戶問題的具體詳情。",
+      knowledge_placeholder: "例如：「我擅長全屋重新配線...」",
+      persona_title: "AI 人格與語氣",
+      persona_professional: "專業",
+      persona_friendly: "親切",
+      persona_concise: "簡潔快速",
+      deploy_button: "部署 AI 更新",
+      impact_title: "AI 業務影響",
+      impact_inquiries: "已處理諮詢",
+      impact_revenue: "AI 影響收入",
+      impact_conversion: "優化轉換率",
+      security_policy_title: "安全第一政策",
+      security_policy_desc: "Aura 的訓練數據歸您的商家節點所有。",
+      success_update: "AI 大腦更新成功。"
     },
-    quick_links: {
-      title: "精英快捷方式",
-      hint: "專業成長的戰略快捷方式"
+    promotions: {
+      title: "促銷中心",
+      hub: "總覽",
+      desc: "創建優惠券和折扣，Aura 可以提供給客戶以促成交易。",
+      referral_btn: "推薦計劃設定",
+      success_create: "優惠券創建成功"
     },
     tools: {
       title: "最新可用項目",
-      subtitle: "為專家精心挑選的成長工具（全部免費）",
-      diagnosis: {
-        name: "AI 智能診斷",
-        desc: "視覺損傷評估與線索採集系統",
-        badge: "免費"
-      },
-      whatsapp: {
-        name: "WhatsApp 即時連接",
-        desc: "新線導致諮詢的即時通知",
-        badge: "免費"
-      },
-      seo: {
-        name: "SEO 個人資料優化",
-        desc: "提升 Google 排名並優化元數據",
-        badge: "免費"
-      },
-      video: {
-        name: "精英 AI 影片配置",
-        desc: "專業影片導入與 AI 知識同步",
-        badge: "免費"
-      },
-      ad_copy: {
-        name: "AI 廣告文案",
-        desc: "自動生成高轉換率的社群媒體與廣告標語",
-        badge: "免費"
-      },
-      launch: "立即啟動"
+      diagnosis: { name: "AI 智能診斷", desc: "視覺化損害評估與獲客引導系統", badge: "FREE" },
+      whatsapp: { name: "WhatsApp 實時對接", desc: "即時獲取新訂單與客戶諮詢通知", badge: "FREE" },
+      seo: { name: "SEO 專家檔案優化", desc: "提升 Google 排名並優化元數據", badge: "FREE" },
+      ad_copy: { name: "AI 廣告文案", desc: "自動生成高轉換率的廣告標語", badge: "FREE" },
+      video: { name: "精英影片剪輯", desc: "專業影片導入與 AI 知識同步", badge: "FREE" }
     }
   },
   member_dashboard: {

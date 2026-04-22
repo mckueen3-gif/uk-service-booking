@@ -651,6 +651,26 @@ export const en: LocaleDictionary = {
     },
   },
   merchant: {
+    labels: {
+      overview: 'Overview',
+      ai_secretary: 'AI Secretary',
+      promotions: 'Promotion Hub',
+      referral_program: 'Referral Program',
+      toolkit_portal: 'Modular Toolkit',
+      bookings: 'My Bookings',
+      messages: 'Live Messages',
+      schedule: 'Service Schedule',
+      services: 'Service Management',
+      availability: 'Availability',
+      analytics: 'Performance Audit',
+      verification: 'Expert Verification',
+      accounting: 'Ledger & Tax',
+      wallet: 'Earnings Wallet',
+      verified: 'Verified Pro',
+      expert: 'ConciergeAI Expert',
+      profile: 'Profile Preferences',
+      logout: 'Exit Protocol'
+    },
     title: "Specialist Dashboard",
     expertTitle: "Expert",
     welcome: "Welcome back, {name}",
@@ -1573,46 +1593,43 @@ export const en: LocaleDictionary = {
       earnings: "Total Earnings",
       client_rating: "Client Rating"
     },
-    bookings: {
-      title: "Recent Consultations",
-      view_all: "View All Records",
-      no_data: "No records found"
+    ai_secretary: {
+      title: "Aura",
+      subtitle: "AI Secretary",
+      desc: "Aura acts as your 24/7 business manager, handling client inquiries and securing bookings while you focus on the work.",
+      status_label: "System Status",
+      online: "ONLINE & ACTIVE",
+      offline: "OFFLINE / STANDBY",
+      knowledge_base_title: "Business Internal Knowledge",
+      knowledge_base_desc: "Provide Aura with specific details about your expertise, pricing logic, service procedures, or common client questions.",
+      knowledge_placeholder: "e.g. 'I specialize in full-home rewiring...'",
+      persona_title: "AI Persona & Tone",
+      persona_professional: "Professional",
+      persona_friendly: "Friendly",
+      persona_concise: "Concise & Fast",
+      deploy_button: "Deploy AI Updates",
+      impact_title: "AI Business Impact",
+      impact_inquiries: "Inquiries Managed",
+      impact_revenue: "AI Influenced Revenue",
+      impact_conversion: "Conversion optimized",
+      security_policy_title: "Security First Policy",
+      security_policy_desc: "Aura's training data is proprietary to your merchant node.",
+      success_update: "AI Brain updated successfully."
     },
-    quick_links: {
-      profile: "Profile Setup",
-      services: "Manage Services",
-      schedule: "Availability",
-      wallet: "Wallet & Payouts"
+    promotions: {
+      title: "Promotion Hub",
+      hub: "Overview",
+      desc: "Create coupons and discounts that Aura can offer to clients to close deals.",
+      referral_btn: "Referral Program Settings",
+      success_create: "Coupon created successfully"
     },
     tools: {
       title: "Latest Available Items",
-      subtitle: "Curated growth tools for experts (All FREE)",
-      diagnosis: {
-        name: "AI Intelligent Diagnosis",
-        desc: "Visual damage assessment & lead capture system",
-        badge: "FREE"
-      },
-      whatsapp: {
-        name: "WhatsApp Real-time Connect",
-        desc: "Instant notifications for new leads and queries",
-        badge: "FREE"
-      },
-      seo: {
-        name: "SEO Profile Optimization",
-        desc: "Boost Google rankings & optimize metadata",
-        badge: "FREE"
-      },
-      video: {
-        name: "Elite AI Video Config",
-        desc: "Professional video import & AI knowledge syncing",
-        badge: "FREE"
-      },
-      ad_copy: {
-        name: "AI Ad Copy",
-        desc: "Generate high-converting social media & ad slogans automatically",
-        badge: "FREE"
-      },
-      launch: "Launch Now"
+      diagnosis: { name: "AI Diagnosis", desc: "Visual damage assessment system", badge: "FREE" },
+      whatsapp: { name: "WhatsApp", desc: "Instant notifications for new leads", badge: "FREE" },
+      seo: { name: "SEO", desc: "Boost Google rankings & optimize metadata", badge: "FREE" },
+      ad_copy: { name: "AI Ad Copy", desc: "Generate high-converting ad slogans", badge: "FREE" },
+      video: { name: "Elite Video", desc: "Professional video knowledge syncing", badge: "FREE" }
     }
   },
   member_dashboard: {

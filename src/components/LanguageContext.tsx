@@ -88,8 +88,9 @@ function createSafeDictionary(target: any, fallback: any = {}, path: string = ''
         return createSafeDictionary(undefined, fallbackValue, fullPath);
       }
 
-      // 🚀 CRITICAL FIX: If BOTH are missing, return the path STRING.
-      return fullPath;
+      // 🚀 CRITICAL FIX: If BOTH are missing, return a recursive Proxy 
+      // instead of a string to prevent "cannot read property of undefined" crashes.
+      return createSafeDictionary(undefined, undefined, fullPath);
     },
     // 🚀 NEW: Handle calling t('path.to.key') or t('Hardcoded String')
     apply(_, thisArg, argumentsList) {

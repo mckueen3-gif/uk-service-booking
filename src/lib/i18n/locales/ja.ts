@@ -612,6 +612,26 @@ export const ja: LocaleDictionary = {
     },
   },
   merchant: {
+    labels: {
+      overview: '概要',
+      ai_secretary: 'AI 秘書',
+      promotions: 'プロモーションハブ',
+      referral_program: '紹介プログラム',
+      toolkit_portal: 'モジュール式ツールキット',
+      bookings: 'マイ予約',
+      messages: 'ライブメッセージ',
+      schedule: 'サービススケジュール',
+      services: 'サービス管理',
+      availability: '空き状況',
+      analytics: 'パフォーマンス監査',
+      verification: 'エキスパート認証',
+      accounting: '帳簿と税金',
+      wallet: '収益ウォレット',
+      verified: '認証済みプロ',
+      expert: 'ConciergeAI エキスパート',
+      profile: 'プロフィール設定',
+      logout: 'ログアウト'
+    },
     verified: "認定エクスパート",
     background: "犯罪歴調査済み",
     portfolio: "実績ポートフォリオ",
@@ -858,55 +878,52 @@ export const ja: LocaleDictionary = {
     title: "エキスパートダッシュボード",
     welcome: "{name}さん、おかえりなさい",
     stats: {
-      active_jobs: "進行中のタスク",
-      monthly_revenue: "今月の収益",
-      rating: "成功率",
-      completion: "完了率",
-      pending_leads: "新規リード",
-      active_services: "公開中のサービス",
-      earnings: "総収益",
-      client_rating: "クライアント評価"
+      active_jobs: "Active Tasks",
+      monthly_revenue: "Monthly Revenue",
+      rating: "Success Rate",
+      completion: "Completion",
+      pending_leads: "New Leads",
+      active_services: "Active Services",
+      earnings: "Total Earnings",
+      client_rating: "Client Rating"
     },
-    bookings: {
-      title: "最近の相談",
-      view_all: "すべての記録を表示",
-      no_data: "記録が見つかりません"
+    ai_secretary: {
+      title: "Aura",
+      subtitle: "AI 秘書",
+      desc: "Aura は 24 時間 365 日体制のビジネス マネージャーとして機能し、お客様が仕事に専念している間にクライアントからの問い合わせに対応し、予約を確保します。",
+      status_label: "システムステータス",
+      online: "オンライン & アクティブ",
+      offline: "オフライン / スタンバイ",
+      knowledge_base_title: "ビジネス内部知識",
+      knowledge_base_desc: "お客様の専門知識、価格設定ロジック、サービス手順、または一般的なクライアントの質問に関する詳細を Aura に提供してください。",
+      knowledge_placeholder: "例: 「私は住宅の全面配線工事を専門としています...」",
+      persona_title: "AI ペルソナ & トーン",
+      persona_professional: "プロフェッショナル",
+      persona_friendly: "フレンドリー",
+      persona_concise: "簡潔 & スピーディー",
+      deploy_button: "AI アップデートをデプロイ",
+      impact_title: "AI ビジネスへの影響",
+      impact_inquiries: "管理された問い合わせ",
+      impact_revenue: "AI による収益への影響",
+      impact_conversion: "最適化されたコンバージョン",
+      security_policy_title: "セキュリティ第一ポリシー",
+      security_policy_desc: "Aura のトレーニング データは、お客様のマーチャント ノードに固有のものです。",
+      success_update: "AI ブレインが正常に更新されました。"
     },
-    quick_links: {
-      profile: "プロフィールの設定",
-      services: "サービスの管理",
-      schedule: "空き状況の管理",
-      wallet: "ウォレットと支払い"
+    promotions: {
+      title: "プロモーションハブ",
+      hub: "概要",
+      desc: "クーポンや割引を作成します。Aura はこれらを顧客に提案して成約を促すことができます。",
+      referral_btn: "紹介プログラム設定",
+      success_create: "クーポンが作成されました"
     },
     tools: {
       title: "最新のツール",
-      subtitle: "専門家のための成長ツール（すべて無料）",
-      diagnosis: {
-        name: "AI 知能診断",
-        desc: "視覚的損傷評価とリード獲得システム",
-        badge: "無料"
-      },
-      whatsapp: {
-        name: "WhatsApp リアルタイム連携",
-        desc: "新規注文や問い合わせの即時通知",
-        badge: "無料"
-      },
-      seo: {
-        name: "SEO 専門家プロフィール最適化",
-        desc: "Google ランキングの向上とメタデータの最適化",
-        badge: "無料"
-      },
-      ad_copy: {
-        name: "AI 広告コピー",
-        desc: "高コンバージョンのSNS投稿や広告スローガンを自動生成",
-        badge: "無料"
-      },
-      video: {
-        name: "エリート AI ビデオ設定",
-        desc: "プロフェッショナルなビデオインポートと AI 知識の同期",
-        badge: "無料"
-      },
-      launch: "今すぐ起動"
+      diagnosis: { name: "AI 診断", desc: "視覚的な損傷評価システム", badge: "FREE" },
+      whatsapp: { name: "WhatsApp 連携", desc: "新しいリードの即時通知", badge: "FREE" },
+      seo: { name: "SEO プロファイル最適化", desc: "Google検索順位の向上", badge: "FREE" },
+      ad_copy: { name: "AI 広告コピー", desc: "高コンバージョンな広告を自動生成", badge: "FREE" },
+      video: { name: "エリートビデオ編集", desc: "プロフェッショナルなビデオ同期", badge: "FREE" }
     }
   },
   education_sec: {

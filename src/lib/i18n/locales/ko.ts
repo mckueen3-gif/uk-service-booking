@@ -509,6 +509,26 @@ export const ko: LocaleDictionary = {
     },
   },
   merchant: {
+    labels: {
+      overview: '개요',
+      ai_secretary: 'AI 비서',
+      promotions: '프로모션 허브',
+      referral_program: '추천 프로그램',
+      toolkit_portal: '모듈형 툴킷',
+      bookings: '나의 예약',
+      messages: '라이브 메시지',
+      schedule: '서비스 일정',
+      services: '서비스 관리',
+      availability: '가용성',
+      analytics: '성과 감사',
+      verification: '전문가 인증',
+      accounting: '장부 및 세금',
+      wallet: '수익 지갑',
+      verified: '인증된 프로',
+      expert: 'ConciergeAI 전문가',
+      profile: '프로필 설정',
+      logout: '로그아웃'
+    },
     verified: "인증된 전문가",
     background: "신원 확인 완료",
     portfolio: "포트폴리오",
@@ -762,55 +782,52 @@ export const ko: LocaleDictionary = {
     title: "전문가 대시보드",
     welcome: "{name}님, 다시 오신 것을 환영합니다",
     stats: {
-      active_jobs: "진행 중인 작업",
-      monthly_revenue: "이번 달 수익",
-      rating: "성공률",
-      completion: "완료율",
-      pending_leads: "새 리드",
-      active_services: "활성 서비스",
-      earnings: "총 수익",
-      client_rating: "고객 평점"
+      active_jobs: "Active Tasks",
+      monthly_revenue: "Monthly Revenue",
+      rating: "Success Rate",
+      completion: "Completion",
+      pending_leads: "New Leads",
+      active_services: "Active Services",
+      earnings: "Total Earnings",
+      client_rating: "Client Rating"
     },
-    bookings: {
-      title: "최근 상담",
-      view_all: "모든 기록 보기",
-      no_data: "기록이 없습니다"
+    ai_secretary: {
+      title: "Aura",
+      subtitle: "AI 비서",
+      desc: "Aura는 24/7 비즈니스 관리자로서 귀하가 업무에 집중하는 동안 고객 문의를 처리하고 예약을 확보합니다.",
+      status_label: "시스템 상태",
+      online: "온라인 및 활성",
+      offline: "오프라인 / 대기",
+      knowledge_base_title: "비즈니스 내부 지식",
+      knowledge_base_desc: "전문 지식, 가격 책정 로직, 서비스 절차 또는 일반적인 고객 질문에 대한 구체적인 내용을 Aura에 제공하세요.",
+      knowledge_placeholder: "예: '저는 주택 전체 배선 전문입니다...'",
+      persona_title: "AI 페르소나 및 톤",
+      persona_professional: "전문적",
+      persona_friendly: "친절함",
+      persona_concise: "간결하고 빠름",
+      deploy_button: "AI 업데이트 배포",
+      impact_title: "AI 비즈니스 영향",
+      impact_inquiries: "관리된 문의",
+      impact_revenue: "AI 영향 수익",
+      impact_conversion: "최적화된 전환",
+      security_policy_title: "보안 우선 정책",
+      security_policy_desc: "Aura의 교육 데이터는 귀하의 상점 노드에 고유합니다.",
+      success_update: "AI 브레인이 성공적으로 업데이트되었습니다."
     },
-    quick_links: {
-      profile: "프로필 설정",
-      services: "서비스 관리",
-      schedule: "예약 가능 시간 관리",
-      wallet: "지갑 및 출금"
+    promotions: {
+      title: "프로모션 허브",
+      hub: "개요",
+      desc: "쿠폰과 할인을 생성하세요. Aura는 이를 고객에게 제공하여 거래를 성사시킬 수 있습니다.",
+      referral_btn: "추천 프로그램 설정",
+      success_create: "쿠폰이 생성되었습니다"
     },
     tools: {
       title: "최신 도구",
-      subtitle: "전문가를 위한 성장 도구 (모두 무료)",
-      diagnosis: {
-        name: "AI 지능형 진단",
-        desc: "시각적 손상 평가 및 리드 캡처 시스템",
-        badge: "무료"
-      },
-      whatsapp: {
-        name: "WhatsApp 실시간 연결",
-        desc: "새 주문 및 고객 문의에 대한 즉시 알림",
-        badge: "무료"
-      },
-      seo: {
-        name: "SEO 전문가 프로필 최적화",
-        desc: "궁극적인 Google 순위 향상 및 메타데이터 최적화",
-        badge: "무료"
-      },
-      ad_copy: {
-        name: "AI 광고 카피",
-        desc: "높은 전환율의 소셜 미디어 및 광고 문구 자동 생성",
-        badge: "무료"
-      },
-      video: {
-        name: "엘리트 AI 비디오 설정",
-        desc: "전문적인 비디오 가져오기 및 AI 지식 동기화",
-        badge: "무료"
-      },
-      launch: "지금 시작"
+      diagnosis: { name: "AI 진단", desc: "시각적 손상 평가 시스템", badge: "FREE" },
+      whatsapp: { name: "WhatsApp 연동", desc: "새로운 리드에 대한 즉각적인 알림", badge: "FREE" },
+      seo: { name: "SEO 프로필 최적화", desc: "Google 검색 순위 향상", badge: "FREE" },
+      ad_copy: { name: "AI 광고 카피", desc: "고전환 광고 문구를 자동으로 생성", badge: "FREE" },
+      video: { name: "엘리트 비디오 편집", desc: "전문 비디오 지식 동기화", badge: "FREE" }
     }
   },
   education_sec: {
