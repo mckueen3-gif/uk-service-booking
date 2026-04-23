@@ -2,7 +2,7 @@ import { LocaleDictionary } from '../types';
 
 export const ja: LocaleDictionary = {
   common: {
-    merchantPortal: "マーチャントポータル",
+    merchantPortal: { displayName: "マーチャントポータル" },
     back: "戻る",
     next: "次へ",
     save: "保存",
@@ -518,7 +518,7 @@ export const ja: LocaleDictionary = {
     automotiveServices: "自動車整備",
     forPros: "専門家の方へ",
     merchantRegistration: "専門家として登録",
-    merchantPortal: "エキスパート管理センター",
+    merchantPortal: { displayName: "エキスパート管理センター" },
     blog: "ブログ",
     trustSignal: "Trustpilot 評価：エクセレント",
     address: "ロンドン、英国",
@@ -612,7 +612,50 @@ export const ja: LocaleDictionary = {
       replyFromMaster: "専門家からの返信",
     },
   },
-  merchant: {
+  merchant_dashboard: {
+    ai_secretary: {
+      title: "Aura",
+      subtitle: "AI Secretary",
+      desc: "Aura acts as your 24/7 business manager, handling client inquiries and securing bookings while you focus on the work.",
+      status_label: "System Status",
+      online: "ONLINE & ACTIVE",
+      offline: "OFFLINE / STANDBY",
+      knowledge_base_title: "Business Internal Knowledge",
+      knowledge_base_desc: "Provide Aura with specific details about your expertise, pricing logic, service procedures, or common client questions.",
+      knowledge_placeholder: "e.g. 'I specialize in full-home rewiring...'",
+      persona_title: "AI Persona & Tone",
+      persona_professional: "Professional",
+      persona_friendly: "Friendly",
+      persona_concise: "Concise & Fast",
+      deploy_button: "Deploy AI Updates",
+      impact_title: "AI Business Impact",
+      impact_inquiries: "Inquiries Managed",
+      impact_revenue: "AI Influenced Revenue",
+      impact_conversion: "Conversion optimized",
+      security_policy_title: "Security First Policy",
+      security_policy_desc: "Aura's training data is proprietary to your merchant node.",
+      success_update: "AI Brain updated successfully."
+    },
+    promotions: {
+      title: "Promotion Hub",
+      hub: "Overview",
+      desc: "Create coupons and discounts that Aura can offer to clients to close deals.",
+      referral_btn: "Referral Program Settings",
+      success_create: "Coupon created successfully"
+    },
+    tools: {
+      title: "Latest Available Items",
+      subtitle: "Modular growth toolkit",
+      launch: "Launch Tool",
+      diagnosis: { name: "AI Diagnosis", desc: "Visual damage assessment system", badge: "FREE" },
+      whatsapp: { name: "WhatsApp", desc: "Instant notifications for new leads", badge: "FREE" },
+      seo: { name: "SEO", desc: "Boost Google rankings & optimize metadata", badge: "FREE" },
+      ad_copy: { name: "AI Ad Copy", desc: "Generate high-converting ad slogans", badge: "FREE" },
+      video: { name: "Elite Video", desc: "Professional video knowledge syncing", badge: "FREE" }
+    },
+    zero_lead_fee: "£0 返信手数料 (無制限)",
+    previewProfile: "プロフィールをプレビュー",
+    manageServices: "サービス管理",
     labels: {
       overview: '概要',
       ai_secretary: 'AI 秘書',
@@ -875,58 +918,7 @@ export const ja: LocaleDictionary = {
       }
     }
   },
-  merchant_dashboard: {
-    title: "エキスパートダッシュボード",
-    welcome: "{name}さん、おかえりなさい",
-    stats: {
-      active_jobs: "Active Tasks",
-      monthly_revenue: "Monthly Revenue",
-      rating: "Success Rate",
-      completion: "Completion",
-      pending_leads: "New Leads",
-      active_services: "Active Services",
-      earnings: "Total Earnings",
-      client_rating: "Client Rating"
-    },
-    ai_secretary: {
-      title: "Aura",
-      subtitle: "AI 秘書",
-      desc: "Aura は 24 時間 365 日体制のビジネス マネージャーとして機能し、お客様が仕事に専念している間にクライアントからの問い合わせに対応し、予約を確保します。",
-      status_label: "システムステータス",
-      online: "オンライン & アクティブ",
-      offline: "オフライン / スタンバイ",
-      knowledge_base_title: "ビジネス内部知識",
-      knowledge_base_desc: "お客様の専門知識、価格設定ロジック、サービス手順、または一般的なクライアントの質問に関する詳細を Aura に提供してください。",
-      knowledge_placeholder: "例: 「私は住宅の全面配線工事を専門としています...」",
-      persona_title: "AI ペルソナ & トーン",
-      persona_professional: "プロフェッショナル",
-      persona_friendly: "フレンドリー",
-      persona_concise: "簡潔 & スピーディー",
-      deploy_button: "AI アップデートをデプロイ",
-      impact_title: "AI ビジネスへの影響",
-      impact_inquiries: "管理された問い合わせ",
-      impact_revenue: "AI による収益への影響",
-      impact_conversion: "最適化されたコンバージョン",
-      security_policy_title: "セキュリティ第一ポリシー",
-      security_policy_desc: "Aura のトレーニング データは、お客様のマーチャント ノードに固有のものです。",
-      success_update: "AI ブレインが正常に更新されました。"
-    },
-    promotions: {
-      title: "プロモーションハブ",
-      hub: "概要",
-      desc: "クーポンや割引を作成します。Aura はこれらを顧客に提案して成約を促すことができます。",
-      referral_btn: "紹介プログラム設定",
-      success_create: "クーポンが作成されました"
-    },
-    tools: {
-      title: "最新のツール",
-      diagnosis: { name: "AI 診断", desc: "視覚的な損傷評価システム", badge: "FREE" },
-      whatsapp: { name: "WhatsApp 連携", desc: "新しいリードの即時通知", badge: "FREE" },
-      seo: { name: "SEO プロファイル最適化", desc: "Google検索順位の向上", badge: "FREE" },
-      ad_copy: { name: "AI 広告コピー", desc: "高コンバージョンな広告を自動生成", badge: "FREE" },
-      video: { name: "エリートビデオ編集", desc: "プロフェッショナルなビデオ同期", badge: "FREE" }
-    }
-  },
+  
   education_sec: {
     hero: {
       badge: "英国の厳選された高品質な講師",

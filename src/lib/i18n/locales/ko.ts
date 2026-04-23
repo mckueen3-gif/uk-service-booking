@@ -2,7 +2,7 @@ import { LocaleDictionary } from '../types';
 
 export const ko: LocaleDictionary = {
   common: {
-    merchantPortal: "판매자 포털",
+    merchantPortal: { displayName: "판매자 포털" },
     back: "뒤로",
     next: "다음",
     save: "저장",
@@ -415,7 +415,7 @@ export const ko: LocaleDictionary = {
     plumbingServices: "배관 서비스",
     automotiveServices: "자동차 정비",
     merchantRegistration: "전문가 등록",
-    merchantPortal: "전문가 관리 센터",
+    merchantPortal: { displayName: "전문가 관리 센터" },
     blog: "블로그",
     trustSignal: "Trustpilot 평점: 우수",
     address: "런던, 영국",
@@ -509,7 +509,47 @@ export const ko: LocaleDictionary = {
       replyFromMaster: "전문가의 답변",
     },
   },
-  merchant: {
+  merchant_dashboard: {
+    ai_secretary: {
+      title: "Aura",
+      subtitle: "AI Secretary",
+      desc: "Aura acts as your 24/7 business manager, handling client inquiries and securing bookings while you focus on the work.",
+      status_label: "System Status",
+      online: "ONLINE & ACTIVE",
+      offline: "OFFLINE / STANDBY",
+      knowledge_base_title: "Business Internal Knowledge",
+      knowledge_base_desc: "Provide Aura with specific details about your expertise, pricing logic, service procedures, or common client questions.",
+      knowledge_placeholder: "e.g. 'I specialize in full-home rewiring...'",
+      persona_title: "AI Persona & Tone",
+      persona_professional: "Professional",
+      persona_friendly: "Friendly",
+      persona_concise: "Concise & Fast",
+      deploy_button: "Deploy AI Updates",
+      impact_title: "AI Business Impact",
+      impact_inquiries: "Inquiries Managed",
+      impact_revenue: "AI Influenced Revenue",
+      impact_conversion: "Conversion optimized",
+      security_policy_title: "Security First Policy",
+      security_policy_desc: "Aura's training data is proprietary to your merchant node.",
+      success_update: "AI Brain updated successfully."
+    },
+    promotions: {
+      title: "Promotion Hub",
+      hub: "Overview",
+      desc: "Create coupons and discounts that Aura can offer to clients to close deals.",
+      referral_btn: "Referral Program Settings",
+      success_create: "Coupon created successfully"
+    },
+    tools: {
+      title: "Latest Available Items",
+      subtitle: "Modular growth toolkit",
+      launch: "Launch Tool",
+      diagnosis: { name: "AI Diagnosis", desc: "Visual damage assessment system", badge: "FREE" },
+      whatsapp: { name: "WhatsApp", desc: "Instant notifications for new leads", badge: "FREE" },
+      seo: { name: "SEO", desc: "Boost Google rankings & optimize metadata", badge: "FREE" },
+      ad_copy: { name: "AI Ad Copy", desc: "Generate high-converting ad slogans", badge: "FREE" },
+      video: { name: "Elite Video", desc: "Professional video knowledge syncing", badge: "FREE" }
+    },
     labels: {
       overview: '개요',
       ai_secretary: 'AI 비서',
@@ -779,58 +819,7 @@ export const ko: LocaleDictionary = {
       }
     }
   },
-  merchant_dashboard: {
-    title: "전문가 대시보드",
-    welcome: "{name}님, 다시 오신 것을 환영합니다",
-    stats: {
-      active_jobs: "Active Tasks",
-      monthly_revenue: "Monthly Revenue",
-      rating: "Success Rate",
-      completion: "Completion",
-      pending_leads: "New Leads",
-      active_services: "Active Services",
-      earnings: "Total Earnings",
-      client_rating: "Client Rating"
-    },
-    ai_secretary: {
-      title: "Aura",
-      subtitle: "AI 비서",
-      desc: "Aura는 24/7 비즈니스 관리자로서 귀하가 업무에 집중하는 동안 고객 문의를 처리하고 예약을 확보합니다.",
-      status_label: "시스템 상태",
-      online: "온라인 및 활성",
-      offline: "오프라인 / 대기",
-      knowledge_base_title: "비즈니스 내부 지식",
-      knowledge_base_desc: "전문 지식, 가격 책정 로직, 서비스 절차 또는 일반적인 고객 질문에 대한 구체적인 내용을 Aura에 제공하세요.",
-      knowledge_placeholder: "예: '저는 주택 전체 배선 전문입니다...'",
-      persona_title: "AI 페르소나 및 톤",
-      persona_professional: "전문적",
-      persona_friendly: "친절함",
-      persona_concise: "간결하고 빠름",
-      deploy_button: "AI 업데이트 배포",
-      impact_title: "AI 비즈니스 영향",
-      impact_inquiries: "관리된 문의",
-      impact_revenue: "AI 영향 수익",
-      impact_conversion: "최적화된 전환",
-      security_policy_title: "보안 우선 정책",
-      security_policy_desc: "Aura의 교육 데이터는 귀하의 상점 노드에 고유합니다.",
-      success_update: "AI 브레인이 성공적으로 업데이트되었습니다."
-    },
-    promotions: {
-      title: "프로모션 허브",
-      hub: "개요",
-      desc: "쿠폰과 할인을 생성하세요. Aura는 이를 고객에게 제공하여 거래를 성사시킬 수 있습니다.",
-      referral_btn: "추천 프로그램 설정",
-      success_create: "쿠폰이 생성되었습니다"
-    },
-    tools: {
-      title: "최신 도구",
-      diagnosis: { name: "AI 진단", desc: "시각적 손상 평가 시스템", badge: "FREE" },
-      whatsapp: { name: "WhatsApp 연동", desc: "새로운 리드에 대한 즉각적인 알림", badge: "FREE" },
-      seo: { name: "SEO 프로필 최적화", desc: "Google 검색 순위 향상", badge: "FREE" },
-      ad_copy: { name: "AI 광고 카피", desc: "고전환 광고 문구를 자동으로 생성", badge: "FREE" },
-      video: { name: "엘리트 비디오 편집", desc: "전문 비디오 지식 동기화", badge: "FREE" }
-    }
-  },
+  
   education_sec: {
     hero: {
       badge: "영국 엄선된 고품질 튜터",
@@ -1142,88 +1131,16 @@ export const ko: LocaleDictionary = {
       title: "이용 방법",
       subtitle: "AI 기반의 영국에서 가장 발전된 서비스 예약 프로토콜입니다.",
       step1Title: "AI 진단",
-      merchant_dashboard: {
-        title: "전문가 제어판",
-        expertTitle: "Elite 전문가 체계",
-        welcome: "다시 오신 것을 환영합니다, {name}",
-        quick_links_hint: "전문가 도구함을 빠르게 실행하세요",
-        elite_ai: {
-          title: "최첨단 AI 및 비디오 설정",
-          video_label: "소개 비디오 (YouTube URL)",
-          knowledge_label: "AI 전문가 지식 베이스",
-          knowledge_placeholder: "전문 지식, 서비스 상세 내용 및 기술 기준을 여기에 심층 로드하십시오. 이 데이터는 비공개로 유지되며, 기술 상담을 정교하게 처리하는 전담 AI 어시스턴트를 구동합니다.",
-          save_button: "전문가 프로필 보정"
-        },
-        pricing: {
-          title: "AI 가격 측정 펄스",
-          status: "가격 책정 건강도",
-          optimal: "최적 상태",
-          message: "시장 보정된 요금이 감지되었습니다. 현재 가격 설정은 신뢰도가 높은 최고 벤치마크와 일치합니다.",
-          trend: "시장 평형점",
-          baseRate: "기본 시급 설정 (£)",
-          trial: "30분 무료 상담/트라이얼 활성화",
-          trialPrice: "트라이얼 특가 (£)",
-          feeNote: "* 이 기준 금액에 10%의 플랫폼 서비스 수수료가 자동으로 추가됩니다。"
-        },
-        stats: {
-          totalBookings: "총 예약 수",
-          rating: "신뢰 등급",
-          availableBalance: "출금 가능 잔액",
-          pendingBalance: "결제 대기 잔액",
-          availableNow: "현재 이용 가능",
-          totalJobs: "완료된 프로젝트",
-          escrowHeld: "에스크로 예치금",
-          reviews: "고객 후기"
-        },
-        bookings: {
-          title: "최근 예약 업무",
-          viewAll: "전체 보기",
-          empty: "대기 중인 업무가 없습니다"
-        },
-        quick_links: {
-          title: "엘리트 조작 키",
-          hint: "전문적 성장을 촉진하는 전략적 단축키"
-        },
-        tools: {
-          title: "최신 가용 항목",
-          subtitle: "전문가를 위한 엄선된 성장 도구 (모두 무료)",
-          diagnosis: {
-            name: "AI 지능형 진단",
-            desc: "시각적 손상 평가 및 고객 유입 유도 시스템",
-            badge: "무료"
-          },
-          whatsapp: {
-            name: "WhatsApp 실시간 연동",
-            desc: "신규 주문 및 고객 문의 알림 즉시 수신",
-            badge: "무료"
-          },
-          seo: {
-            name: "SEO 전문가 프로필 최적화",
-            desc: "Google 검색 순위 향상 및 메타 태그 최적화",
-            badge: "무료"
-          },
-          video: {
-            name: "엘리트 AI 비디오 설정",
-            desc: "전문적인 비디오 도입 및 AI 지식 베이스 동기화",
-            badge: "무료"
-          },
-          launch: "지금 실행"
-        }
-      },
-      step1Desc:
-        "문제 사진을 업로드하여 즉각적인 고장 식별 및 정밀한 비용 예측을 받으세요.",
-      step2Title: "스마트 매칭",
-      step2Desc:
-        "당사의 네트워크가 귀하의 특정 문제에 최적화된 상위 1% 전문가를 찾아냅니다.",
-      step3Title: "에스크로 보안",
-      step3Desc:
-        "작업 성공을 확인할 때까지 대금은 안전한 에스크로 계좌에 보관됩니다.",
-      step4Title: "서비스 보장",
-      step4Desc:
-        "모든 세션은 품질 보증 및 분쟁 해결 지원을 위해 AI에 의해 모니터링됩니다.",
+      step1Desc: "즉각적인 분석과 정밀한 견적을 위해 사진을 업로드하세요.",
+      step2Title: "엘리트 매칭",
+      step2Desc: "영국 최고의 인증된 전문가 네트워크와 연결됩니다.",
+      step3Title: "안전한 에스크로",
+      step3Desc: "최종 승인 전까지 자금이 안전하게 보호됩니다.",
+      step4Title: "디지털 금고",
+      step4Desc: "자동화된 기록 및 전문적인 감사 준비 문서."
     },
   },
-  location: {
+location: {
     selectCity: "도시 선택",
     detecting: "위치 확인 중...",
     switch: "변경",

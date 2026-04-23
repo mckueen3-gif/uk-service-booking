@@ -2,7 +2,7 @@ import { LocaleDictionary } from '../types';
 
 export const en: LocaleDictionary = {
   common: {
-    merchantPortal: "Merchant Portal",
+    merchantPortal: { displayName: "Merchant Portal" },
     back: "Back",
     next: "Next",
     save: "Save",
@@ -651,7 +651,47 @@ export const en: LocaleDictionary = {
       errorUnexpected: "Telemetry Error: "
     },
   },
-  merchant: {
+  merchant_dashboard: {
+    ai_secretary: {
+      title: "Aura",
+      subtitle: "AI Secretary",
+      desc: "Aura acts as your 24/7 business manager, handling client inquiries and securing bookings while you focus on the work.",
+      status_label: "System Status",
+      online: "ONLINE & ACTIVE",
+      offline: "OFFLINE / STANDBY",
+      knowledge_base_title: "Business Internal Knowledge",
+      knowledge_base_desc: "Provide Aura with specific details about your expertise, pricing logic, service procedures, or common client questions.",
+      knowledge_placeholder: "e.g. 'I specialize in full-home rewiring...'",
+      persona_title: "AI Persona & Tone",
+      persona_professional: "Professional",
+      persona_friendly: "Friendly",
+      persona_concise: "Concise & Fast",
+      deploy_button: "Deploy AI Updates",
+      impact_title: "AI Business Impact",
+      impact_inquiries: "Inquiries Managed",
+      impact_revenue: "AI Influenced Revenue",
+      impact_conversion: "Conversion optimized",
+      security_policy_title: "Security First Policy",
+      security_policy_desc: "Aura's training data is proprietary to your merchant node.",
+      success_update: "AI Brain updated successfully."
+    },
+    promotions: {
+      title: "Promotion Hub",
+      hub: "Overview",
+      desc: "Create coupons and discounts that Aura can offer to clients to close deals.",
+      referral_btn: "Referral Program Settings",
+      success_create: "Coupon created successfully"
+    },
+    tools: {
+      title: "Latest Available Items",
+      subtitle: "Modular growth toolkit",
+      launch: "Launch Tool",
+      diagnosis: { name: "AI Diagnosis", desc: "Visual damage assessment system", badge: "FREE" },
+      whatsapp: { name: "WhatsApp", desc: "Instant notifications for new leads", badge: "FREE" },
+      seo: { name: "SEO", desc: "Boost Google rankings & optimize metadata", badge: "FREE" },
+      ad_copy: { name: "AI Ad Copy", desc: "Generate high-converting ad slogans", badge: "FREE" },
+      video: { name: "Elite Video", desc: "Professional video knowledge syncing", badge: "FREE" }
+    },
     labels: {
       overview: 'Overview',
       ai_secretary: 'AI Secretary',
@@ -706,6 +746,8 @@ export const en: LocaleDictionary = {
       totalBookings: "Total Bookings",
       rating: "Trust Rating",
       availableBalance: "Available Balance",
+      escrowHeld: "In Escrow",
+      reviews: "Reviews",
       noPendingBalance: "No pending balance",
       noAvailableBalance: "No available balance",
       merchantNotFound: "Merchant license not found: Please ensure your professional profile is verified.",
@@ -1428,7 +1470,7 @@ export const en: LocaleDictionary = {
     plumbingServices: "Plumbing Services",
     automotiveServices: "Automotive Services",
     merchantRegistration: "Join as Specialist",
-    merchantPortal: "Merchant Portal",
+    merchantPortal: { displayName: "Merchant Portal" },
     blog: "Blog",
     trustSignal: "Trustpilot Rating: Excellent",
     address: "London, UK",
@@ -1581,58 +1623,7 @@ export const en: LocaleDictionary = {
       bookingQuery: "How do I book a specialist near me?",
     },
   },
-  merchant_dashboard: {
-    title: "Expert Dashboard",
-    welcome: "Welcome back, {name}",
-    stats: {
-      active_jobs: "Active Tasks",
-      monthly_revenue: "Monthly Revenue",
-      rating: "Success Rate",
-      completion: "Completion",
-      pending_leads: "New Leads",
-      active_services: "Active Services",
-      earnings: "Total Earnings",
-      client_rating: "Client Rating"
-    },
-    ai_secretary: {
-      title: "Aura",
-      subtitle: "AI Secretary",
-      desc: "Aura acts as your 24/7 business manager, handling client inquiries and securing bookings while you focus on the work.",
-      status_label: "System Status",
-      online: "ONLINE & ACTIVE",
-      offline: "OFFLINE / STANDBY",
-      knowledge_base_title: "Business Internal Knowledge",
-      knowledge_base_desc: "Provide Aura with specific details about your expertise, pricing logic, service procedures, or common client questions.",
-      knowledge_placeholder: "e.g. 'I specialize in full-home rewiring...'",
-      persona_title: "AI Persona & Tone",
-      persona_professional: "Professional",
-      persona_friendly: "Friendly",
-      persona_concise: "Concise & Fast",
-      deploy_button: "Deploy AI Updates",
-      impact_title: "AI Business Impact",
-      impact_inquiries: "Inquiries Managed",
-      impact_revenue: "AI Influenced Revenue",
-      impact_conversion: "Conversion optimized",
-      security_policy_title: "Security First Policy",
-      security_policy_desc: "Aura's training data is proprietary to your merchant node.",
-      success_update: "AI Brain updated successfully."
-    },
-    promotions: {
-      title: "Promotion Hub",
-      hub: "Overview",
-      desc: "Create coupons and discounts that Aura can offer to clients to close deals.",
-      referral_btn: "Referral Program Settings",
-      success_create: "Coupon created successfully"
-    },
-    tools: {
-      title: "Latest Available Items",
-      diagnosis: { name: "AI Diagnosis", desc: "Visual damage assessment system", badge: "FREE" },
-      whatsapp: { name: "WhatsApp", desc: "Instant notifications for new leads", badge: "FREE" },
-      seo: { name: "SEO", desc: "Boost Google rankings & optimize metadata", badge: "FREE" },
-      ad_copy: { name: "AI Ad Copy", desc: "Generate high-converting ad slogans", badge: "FREE" },
-      video: { name: "Elite Video", desc: "Professional video knowledge syncing", badge: "FREE" }
-    }
-  },
+  
   member_dashboard: {
     hero: {
       location: "United Kingdom",
