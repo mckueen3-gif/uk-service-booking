@@ -111,7 +111,7 @@ export default function ProfileContent({ initialUser }: { initialUser: any }) {
                    marginTop: '1rem', background: 'var(--accent-color)', color: 'white', padding: '0.8rem', 
                    borderRadius: '12px', textAlign: 'center', textDecoration: 'none', fontWeight: 700, fontSize: '0.9rem' 
                  }}>
-                   {t?.common?.merchantPortal || "Merchant Dashboard"}
+                   {t?.common?.merchantPortal?.displayName || t?.common?.merchantPortal || "Merchant Dashboard"}
                  </Link>
                )}
             </div>

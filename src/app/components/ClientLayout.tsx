@@ -372,7 +372,7 @@ export function AppNavbar({ session: serverSession }: { session: any }) {
               borderRadius: '0.75rem',
               transition: '0.2s'
             }}>
-              <Briefcase size={18} /> {t?.common?.merchantPortal || "Merchant Node"}
+              <Briefcase size={18} /> {t?.common?.merchantPortal?.displayName || t?.common?.merchantPortal || "Merchant Node"}
             </Link>
           )}
 
@@ -808,7 +808,7 @@ export function AppFooter() {
                  {[
                    { name: t?.footer?.merchantRegistration || 'Specialist Join', href: "/join" },
                    { name: t?.nav?.login || 'Specialist Login', href: "/auth/login" },
-                   { name: t?.footer?.merchantPortal || 'Merchant Portal', href: "/merchant" }
+                   { name: t?.footer?.merchantPortal?.displayName || t?.footer?.merchantPortal || 'Merchant Portal', href: "/merchant" }
                  ].map((link, idx) => (
                    <Link key={idx} href={link.href} style={{ 
                      color: isObsidianPage ? '#888' : 'var(--text-secondary)', 

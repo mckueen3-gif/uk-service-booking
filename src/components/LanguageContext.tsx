@@ -37,33 +37,20 @@ function createSafeDictionary(target: any, fallback: any = {}, path: string = ''
 
   return new Proxy(proxyTarget, {
     get(_, prop) {
-      // 1. Internal React/Next.js and standard JS safety
-      if (prop === 'toString' || prop === Symbol.toPrimitive || prop === 'valueOf') {
-        const val = data[prop] || proxyFallback[prop];
-        if (typeof val === 'function') return val.bind(data);
-        return () => val || path || ''; 
-      }
+      // 1. Standard JS/React protection
+      if (prop === '$$typeof') return data[prop];
+      if (prop === 'toJSON' || prop === 'then') return data[prop];
+      if (prop === 'ref' || prop === 'key') return data[prop] || null;
       
-      // 2. React child safety: If React tries to render this object directly, 
-      // we tell it we are a <span> element displaying the path.
-      if (prop === '$$typeof') return data[prop] || (typeof Symbol !== 'undefined' ? Symbol.for('react.element') : 0xeac7);
-      if (prop === 'type') return data[prop] || 'span';
-      if (prop === 'props') return data[prop] || { 
-        children: path || '...', 
-        style: { color: '#ef4444', fontWeight: 'bold' },
-        title: 'I18n Path Error'
-      };
-      if (prop === 'ref') return data[prop] || null;
-      if (prop === 'key') return data[prop] || null;
+      if (prop === 'toString' || prop === Symbol.toPrimitive || prop === 'valueOf') {
+        return () => path || ''; 
+      }
 
-      // 3. Collection methods
-      if (prop === Symbol.iterator || prop === 'map' || prop === 'forEach' || prop === 'filter' || prop === 'reduce') {
+      // 2. Collection methods safety
+      if (prop === Symbol.iterator || prop === 'map' || prop === 'forEach') {
         const val = data[prop] !== undefined ? data[prop] : proxyFallback[prop];
         return Array.isArray(val) ? val : (val === undefined ? [] : val);
       }
-
-      // 4. Next.js/React standard internals
-      if (prop === 'toJSON' || prop === 'then') return data[prop];
 
       const value = data[prop];
       const fallbackValue = proxyFallback[prop];
