@@ -1038,4 +1038,30 @@ export const zhTW: LocaleDictionary = {
       save: "更新資料"
     }
   },
+  sidebar: {
+    sections: {
+      main: "主功能",
+      business: "業務管理",
+      assets: "資產",
+      account: "個人帳戶"
+    },
+    labels: {
+      overview: "總覽",
+      ai_secretary: "AI 秘書",
+      bookings: "我的預約",
+      messages: "即時訊息",
+      schedule: "服務排程",
+      services: "服務管理",
+      availability: "空檔設定",
+      analytics: "表現審計",
+      accounting: "帳務與稅務",
+      promotions: "促銷中心",
+      wallet: "收入錢包",
+      garage: "私人車庫",
+      properties: "物業組合",
+      rewards: "精英積分",
+      profile: "個人資料設定",
+      logout: "登出協議"
+    }
+  }
 };

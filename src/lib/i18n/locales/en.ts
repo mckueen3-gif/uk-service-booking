@@ -1826,4 +1826,30 @@ export const en: LocaleDictionary = {
       save: "Update Node"
     }
   },
+  sidebar: {
+    sections: {
+      main: "Main",
+      business: "Business",
+      assets: "Assets",
+      account: "Account"
+    },
+    labels: {
+      overview: "Overview",
+      ai_secretary: "AI Secretary",
+      bookings: "My Bookings",
+      messages: "Live Messages",
+      schedule: "Service Schedule",
+      services: "Service Management",
+      availability: "Availability",
+      analytics: "Performance Audit",
+      accounting: "Ledger & Tax",
+      promotions: "Promotion Hub",
+      wallet: "Earnings Wallet",
+      garage: "Private Garage",
+      properties: "Property Portfolio",
+      rewards: "Elite Points",
+      profile: "Profile Preferences",
+      logout: "Exit Protocol"
+    }
+  }
 };
