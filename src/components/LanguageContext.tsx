@@ -46,6 +46,12 @@ function createSafeDictionary(target: any, fallback: any = {}, path: string = ''
         return () => path || ''; 
       }
 
+      // 3. String method safety (prevents crashes when calling .replace(), .split() etc on missing keys)
+      const stringMethods = ['replace', 'split', 'includes', 'toLowerCase', 'toUpperCase', 'substring', 'charAt'];
+      if (stringMethods.includes(prop as string)) {
+        return (...args: any[]) => (path || '').toString()[prop as any](...args);
+      }
+
       // 2. Collection methods safety
       if (prop === Symbol.iterator || prop === 'map' || prop === 'forEach') {
         const val = data[prop] !== undefined ? data[prop] : proxyFallback[prop];
