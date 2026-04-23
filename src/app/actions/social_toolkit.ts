@@ -6,6 +6,9 @@ import { authOptions } from "@/lib/auth";
 import { getMerchantId } from '@/lib/merchant-utils';
 import { getServerSession } from "next-auth/next";
 import { generateAIContent } from "@/lib/ai-provider";
+import { generateGrokImage } from "@/lib/grok";
+import { generateOpenAIImage } from "@/lib/openai";
+import OpenAI from "openai";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
@@ -184,12 +187,6 @@ export async function publishSocialPosts(payload: any) {
     message: "Successfully scheduled via Ayrshare",
     trackingId: "ayr_" + Math.random().toString(36).substring(7)
   };
-}
-
-import { generateGrokImage, getGrokDiagnosis } from "@/lib/grok";
-import { generateOpenAIImage } from "@/lib/openai";
-import OpenAI from "openai";
-
 export async function generateVisualPost(
   prompt: string, 
   locale: string = "en", 
@@ -199,7 +196,7 @@ export async function generateVisualPost(
   const session = await getServerSession(authOptions);
   if (!session || !session.user) return { error: "Not logged in" };
 
-  const platformName = platform === 'igfb' ? 'Instagram/Facebook' : platform === 'x' ? 'X (Twitter)' : platform === 'linkedin' ? 'LinkedIn' : 'Reddit';
+  const platformName = platform === 'igfb' ? 'Instagram/Facebook' : platform === 'x' ? 'X (Twitter)' : platform === 'linkedin' ? 'LinkedIn' : 'WeChat';
 
   try {
     const aiPrompt = `

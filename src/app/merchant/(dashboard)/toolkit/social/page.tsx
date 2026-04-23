@@ -39,13 +39,13 @@ import { getMerchantReviews } from "@/app/actions/review";
 import { getSocialAccountStatus, incrementSocialUsage, upgradeToPro } from "@/app/actions/social_persistence";
 import Link from "next/link";
 
-type PlatformKey = 'igfb' | 'x' | 'reddit' | 'wechat';
+type PlatformKey = 'igfb' | 'x' | 'linkedin' | 'wechat';
 
 const PLATFORMS = [
   { key: 'igfb' as PlatformKey, label: 'Instagram / Facebook', icon: <InstagramIcon size={16} />, color: '#e1306c', bg: 'rgba(225,48,108,0.1)' },
   { key: 'x' as PlatformKey, label: 'X (Twitter)', icon: <XIcon size={16} />, color: '#1d9bf0', bg: 'rgba(29,155,240,0.1)' },
-  { key: 'reddit' as PlatformKey, label: 'Reddit', icon: <RedditIcon size={16} />, color: '#ff4500', bg: 'rgba(255,69,0,0.1)' },
-  { key: 'wechat' as PlatformKey, label: 'WeChat Moments', icon: <WeChatIcon size={16} />, color: '#07c160', bg: 'rgba(7,193,96,0.1)' },
+  { key: 'linkedin' as PlatformKey, label: 'LinkedIn', icon: <Briefcase size={16} />, color: '#0a66c2', bg: 'rgba(10,102,194,0.1)' },
+  { key: 'wechat' as PlatformKey, label: 'WeChat Moments', icon: <MessageCircle size={16} />, color: '#07c160', bg: 'rgba(7,193,96,0.1)' },
 ];
 
 export default function SocialToolkitPage() {
