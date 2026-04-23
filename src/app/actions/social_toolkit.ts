@@ -188,17 +188,24 @@ export async function publishSocialPosts(payload: any) {
 import { generateGrokImage, getGrokDiagnosis } from "@/lib/grok";
 import OpenAI from "openai";
 
-export async function generateVisualPost(prompt: string, locale: string = "en") {
+export async function generateVisualPost(prompt: string, locale: string = "en", platform: string = "igfb") {
   const session = await getServerSession(authOptions);
   if (!session || !session.user) return { error: "Not logged in" };
+
+  const platformName = platform === 'igfb' ? 'Instagram/Facebook' : platform === 'x' ? 'X (Twitter)' : platform === 'linkedin' ? 'LinkedIn' : 'Reddit';
 
   try {
     const aiPrompt = `
       You are a world-class "Visual Content Director" for ConciergeAI. 
-      Based on this user prompt: "${prompt}", create a social media post and an image description.
+      Based on this user prompt: "${prompt}", create a high-conversion social media post for ${platformName}.
 
       LANGUAGE REQUIREMENT:
       - The caption MUST be in ${locale === 'zh-TW' ? 'Traditional Chinese (繁體中文)' : 'British English'}.
+
+      PLATFORM SPECIFICS:
+      - Platform: ${platformName}
+      - Style: Tailor the tone and emojis for ${platformName} users. 
+      - Image Specs: Describe a cinematic image suitable for a ${platform === 'igfb' ? 'Square (1:1)' : 'Landscape (16:9)'} post.
 
       YOUR TASK:
       1. Create a high-conversion social media caption. Engaging, uses emojis.

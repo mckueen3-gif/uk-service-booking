@@ -6,7 +6,7 @@ import {
   MessageSquare, ArrowLeft, Loader2, Star, Quote,
   Globe, Zap, ImageIcon,
   ChevronRight, CheckCircle2, Send, PenLine,
-  Megaphone, Tag, Users, RefreshCw
+  Megaphone, Tag, Users, RefreshCw, Briefcase, MessageCircle
 } from "lucide-react";
 
 const InstagramIcon = ({ size = 16 }: { size?: number }) => (
@@ -91,9 +91,9 @@ export default function SocialToolkitPage() {
   const [view, setView] = useState<'campaign' | 'review' | 'magic'>('campaign');
 
   // Visual Magic state
-  const [magicPrompt, setMagicPrompt] = useState('');
-  const [magicPost, setMagicPost] = useState<any>(null);
   const [magicGenerating, setMagicGenerating] = useState(false);
+  const [magicPlatform, setMagicPlatform] = useState('igfb');
+  const [magicPost, setMagicPost] = useState<any>(null);
   const [magicImageLoaded, setMagicImageLoaded] = useState(false);
 
   const phases = [
@@ -202,7 +202,7 @@ export default function SocialToolkitPage() {
     setMagicPost(null);
     setMagicImageLoaded(false);
 
-    const res = await generateVisualPost(magicPrompt, locale);
+    const res = await generateVisualPost(magicPrompt, locale, magicPlatform);
 
     if (res.success && res.post) {
       setMagicPost(res.post);
@@ -608,6 +608,39 @@ export default function SocialToolkitPage() {
                 placeholder={t?.merchant?.toolkit?.social?.visual_magic?.prompt_placeholder || "e.g. A futuristic plumber fixing a gold pipe..."}
                 style={{ width: '100%', minHeight: '120px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: '16px', padding: '1rem', color: 'var(--text-primary)', fontSize: '0.95rem', lineHeight: 1.6, resize: 'vertical', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' }}
               />
+
+              <label style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '8px', display: 'block', marginTop: '1.5rem' }}>
+                {t?.merchant?.toolkit?.social?.target_platform || "Target Platform"}
+              </label>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px', marginBottom: '1.5rem' }}>
+                {PLATFORMS.map(p => (
+                  <button
+                    key={p.key}
+                    onClick={() => setMagicPlatform(p.key)}
+                    style={{ 
+                      padding: '10px 4px', 
+                      borderRadius: '12px', 
+                      border: magicPlatform === p.key ? `2px solid ${p.color}` : '1px solid var(--border-color)', 
+                      background: magicPlatform === p.key ? p.bg : 'var(--bg-secondary)',
+                      color: magicPlatform === p.key ? p.color : 'var(--text-muted)',
+                      cursor: 'pointer',
+                      fontSize: '0.65rem',
+                      fontWeight: 800,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      gap: '4px',
+                      transition: 'all 0.2s'
+                    }}
+                  >
+                    {p.key === 'igfb' && <InstagramIcon size={14} />}
+                    {p.key === 'x' && <XIcon size={14} />}
+                    {p.key === 'linkedin' && <Briefcase size={14} />}
+                    {p.key === 'wechat' && <MessageCircle size={14} />}
+                    {p.label.split(' ')[0]}
+                  </button>
+                ))}
+              </div>
 
               <button 
                 onClick={handleGenerateMagic}
