@@ -1915,6 +1915,15 @@ export const en: LocaleDictionary = {
           expert_tip: "💡 Expert Tip",
           empty_state: "Select a style and click Generate to create a post based on your reviews."
         },
+        visual_magic: {
+          tab_label: "Visual Magic",
+          title: "AI Visual Content Generator",
+          desc: "Describe your post and our AI will create a stunning image and perfectly tailored caption.",
+          prompt_label: "What's the post about?",
+          prompt_placeholder: "e.g. A futuristic plumber fixing a gold pipe in a luxury London apartment...",
+          generate_btn: "Generate Visual Post",
+          empty_state: "Enter a prompt and let the AI build your next viral post."
+        },
         upgrade: {
           title: "Unlock Unlimited Studio",
           desc: "Reached your free limit? Upgrade to **Concierge Social Pro** for maximum exposure.",

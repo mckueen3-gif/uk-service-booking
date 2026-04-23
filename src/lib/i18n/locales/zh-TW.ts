@@ -1100,6 +1100,15 @@ export const zhTW: LocaleDictionary = {
           expert_tip: "💡 專家提示",
           empty_state: "選擇一種風格並點擊生成，以根據您的評論創建貼文。"
         },
+        visual_magic: {
+          tab_label: "視覺魔法",
+          title: "AI 視覺內容生成器",
+          desc: "描述您的貼文，我們的 AI 將創建驚豔的圖片和量身定制的文案。",
+          prompt_label: "貼文內容是什麼？",
+          prompt_placeholder: "例如：一位未來的工人在倫敦豪宅修理金色水管...",
+          generate_btn: "生成視覺貼文",
+          empty_state: "輸入提示語，讓 AI 打造您的下一篇熱門貼文。"
+        },
         upgrade: {
           title: "解鎖無限工作室",
           desc: "已達到免費上限？升級至 **Concierge Social Pro** 以獲得最大曝光。",

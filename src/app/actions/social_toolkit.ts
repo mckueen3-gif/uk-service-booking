@@ -185,6 +185,50 @@ export async function publishSocialPosts(payload: any) {
   };
 }
 
+export async function generateVisualPost(prompt: string, locale: string = "en") {
+  const session = await getServerSession(authOptions);
+  if (!session || !session.user) return { error: "Not logged in" };
+
+  try {
+    const aiPrompt = `
+      You are a world-class "Visual Content Director". 
+      Based on this user prompt: "${prompt}", create two things:
+      1. A high-conversion social media caption (British English if locale is en, Traditional Chinese if zh-TW).
+      2. A descriptive AI image prompt for a cinematic, hyper-realistic photo.
+
+      Requirements:
+      - Caption: Engaging, uses emojis, includes the ConciergeAI brand vibe.
+      - Image Prompt: Detailed, mentions lighting, camera angle, and "ConciergeAI style".
+      
+      Return JSON:
+      {
+        "caption": "...",
+        "imagePrompt": "..."
+      }
+    `;
+
+    const result = await model.generateContent(aiPrompt);
+    const response = await result.response;
+    const text = response.text();
+    
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      const data = JSON.parse(jsonMatch[0]);
+      return {
+        success: true,
+        post: {
+          caption: data.caption,
+          imageUrl: `https://pollinations.ai/p/${encodeURIComponent(data.imagePrompt)}?width=1024&height=1024&seed=${Math.floor(Math.random() * 1000000)}&model=flux`
+        }
+      };
+    }
+    return { error: "AI failed to format output" };
+  } catch (error) {
+    console.error("Visual Magic Error:", error);
+    return { error: "Failed to generate visual content" };
+  }
+}
+
 /**
  * AI 優化現有文案
  */

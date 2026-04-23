@@ -34,7 +34,7 @@ const WeChatIcon = ({ size = 20 }: { size?: number }) => (
 );
 
 import { useTranslation } from "@/components/LanguageContext";
-import { generateOmnichannelCampaign, publishSocialPosts, generateSocialPost, optimizeExistingContent } from "@/app/actions/social_toolkit";
+import { generateOmnichannelCampaign, publishSocialPosts, generateSocialPost, optimizeExistingContent, generateVisualPost } from "@/app/actions/social_toolkit";
 import { getMerchantReviews } from "@/app/actions/review";
 import { getSocialAccountStatus, incrementSocialUsage, upgradeToPro } from "@/app/actions/social_persistence";
 import Link from "next/link";
@@ -88,7 +88,13 @@ export default function SocialToolkitPage() {
   const [legacyCopied, setLegacyCopied] = useState(false);
   const [legacyGenerating, setLegacyGenerating] = useState(false);
   const [loadingReviews, setLoadingReviews] = useState(true);
-  const [view, setView] = useState<'campaign' | 'review'>('campaign');
+  const [view, setView] = useState<'campaign' | 'review' | 'magic'>('campaign');
+
+  // Visual Magic state
+  const [magicPrompt, setMagicPrompt] = useState('');
+  const [magicPost, setMagicPost] = useState<any>(null);
+  const [magicGenerating, setMagicGenerating] = useState(false);
+  const [magicImageLoaded, setMagicImageLoaded] = useState(false);
 
   const phases = [
     'Analysing your business context...',
@@ -185,6 +191,30 @@ export default function SocialToolkitPage() {
       alert(res.error || "Upgrade failed.");
     }
     setUpgrading(false);
+  };
+  
+  const handleGenerateMagic = async () => {
+    if (!magicPrompt.trim()) return;
+    if (accountStatus.remaining <= 0) {
+      setShowUpgradeModal(true);
+      return;
+    }
+
+    setMagicGenerating(true);
+    setMagicPost(null);
+    setMagicImageLoaded(false);
+
+    const currentLocale = typeof window !== 'undefined' ? (localStorage.getItem('language') || 'en') : 'en';
+    const res = await generateVisualPost(magicPrompt, currentLocale);
+
+    if (res.success && res.post) {
+      setMagicPost(res.post);
+      await incrementSocialUsage();
+      loadStatus();
+    } else {
+      alert(res.error || "Generation failed.");
+    }
+    setMagicGenerating(false);
   };
 
   const handleNativeShare = async () => {
@@ -312,11 +342,12 @@ export default function SocialToolkitPage() {
         {/* View Toggle */}
         <div style={{ display: 'flex', gap: '8px', marginTop: '1.75rem', background: 'var(--surface-1)', padding: '6px', borderRadius: '16px', border: '1px solid var(--border-color)', width: 'fit-content' }}>
           {[
-            { key: 'campaign', label: t('social_studio.tab_campaign'), icon: <Megaphone size={15} /> },
-            { key: 'review', label: t('social_studio.tab_review'), icon: <Star size={15} /> }
+            { key: 'campaign', label: t?.merchant?.toolkit?.social?.tab_campaign || "Campaign Creator", icon: <Megaphone size={15} /> },
+            { key: 'magic', label: t?.merchant?.toolkit?.social?.visual_magic?.tab_label || "Visual Magic", icon: <Sparkles size={15} /> },
+            { key: 'review', label: t?.merchant?.toolkit?.social?.tab_review || "Review Booster", icon: <Star size={15} /> }
           ].map(v => (
             <button key={v.key} onClick={() => setView(v.key as any)} style={{ padding: '0.6rem 1.25rem', borderRadius: '12px', border: 'none', background: view === v.key ? 'linear-gradient(135deg, #e1306c, #f472b6)' : 'transparent', color: view === v.key ? 'white' : 'var(--text-secondary)', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', transition: 'all 0.2s' }}>
-              {v.icon} {v.key === 'campaign' ? (t?.merchant?.toolkit?.social?.tab_campaign || "Campaign Creator") : (t?.merchant?.toolkit?.social?.tab_review || "Review Booster")}
+              {v.icon} {v.label}
             </button>
           ))}
         </div>
@@ -553,6 +584,90 @@ export default function SocialToolkitPage() {
                   </div>
                 ))}
               </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ─── VISUAL MAGIC VIEW ─── */}
+      {view === 'magic' && (
+        <div style={{ display: 'grid', gridTemplateColumns: magicPost ? '420px 1fr' : '1fr', gap: '2.5rem', transition: 'all 0.4s' }}>
+          {/* Left Input */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <div style={{ background: 'var(--surface-1)', borderRadius: '24px', border: '1px solid var(--border-color)', padding: '1.75rem', boxShadow: '0 4px 20px rgba(0,0,0,0.06)' }}>
+              <h3 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-primary)' }}>
+                <Sparkles size={18} color="#f472b6" /> {t?.merchant?.toolkit?.social?.visual_magic?.title || "AI Visual Content Generator"}
+              </h3>
+              <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '1.25rem', lineHeight: 1.5 }}>
+                {t?.merchant?.toolkit?.social?.visual_magic?.desc || "Describe your post and our AI will create a stunning image and perfectly tailored caption."}
+              </p>
+              
+              <label style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '8px', display: 'block' }}>
+                {t?.merchant?.toolkit?.social?.visual_magic?.prompt_label || "What's the post about?"}
+              </label>
+              <textarea
+                value={magicPrompt}
+                onChange={e => setMagicPrompt(e.target.value)}
+                placeholder={t?.merchant?.toolkit?.social?.visual_magic?.prompt_placeholder || "e.g. A futuristic plumber fixing a gold pipe..."}
+                style={{ width: '100%', minHeight: '120px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: '16px', padding: '1rem', color: 'var(--text-primary)', fontSize: '0.95rem', lineHeight: 1.6, resize: 'vertical', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' }}
+              />
+
+              <button 
+                onClick={handleGenerateMagic}
+                disabled={magicGenerating || !magicPrompt.trim()}
+                style={{ marginTop: '1.5rem', width: '100%', padding: '1.1rem', borderRadius: '16px', background: magicPrompt.trim() ? 'linear-gradient(135deg, #e1306c, #f472b6)' : 'var(--surface-2)', color: magicPrompt.trim() ? 'white' : 'var(--text-muted)', border: 'none', fontWeight: 800, fontSize: '1rem', cursor: magicPrompt.trim() ? 'pointer' : 'not-allowed', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', boxShadow: magicPrompt.trim() ? '0 10px 25px rgba(225,48,108,0.3)' : 'none', transition: 'all 0.3s' }}
+              >
+                {magicGenerating ? <><Loader2 className="animate-spin" size={20} /> {t?.merchant?.toolkit?.social?.painting || "AI is painting..."}</> : <><Sparkles size={20} /> {t?.merchant?.toolkit?.social?.visual_magic?.generate_btn || "Generate Visual Post"}</>}
+              </button>
+            </div>
+          </div>
+
+          {/* Right Result */}
+          {magicPost ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              <div style={{ background: 'var(--surface-1)', borderRadius: '24px', border: '1px solid var(--border-color)', overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}>
+                <div style={{ position: 'relative', background: 'var(--bg-secondary)', aspectRatio: '1/1' }}>
+                   {!magicImageLoaded && (
+                    <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <Loader2 className="animate-spin" size={32} color="#f472b6" />
+                    </div>
+                  )}
+                  <img 
+                    src={magicPost.imageUrl} 
+                    alt="Magic AI Image" 
+                    onLoad={() => setMagicImageLoaded(true)}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: magicImageLoaded ? 1 : 0, transition: 'opacity 0.5s' }}
+                  />
+                </div>
+                <div style={{ padding: '1.75rem' }}>
+                   <div style={{ background: 'var(--bg-secondary)', borderRadius: '16px', padding: '1.25rem', border: '1px solid var(--border-color)', marginBottom: '1.5rem' }}>
+                    <p style={{ fontSize: '1rem', lineHeight: 1.6, color: 'var(--text-primary)', whiteSpace: 'pre-wrap', margin: 0 }}>
+                      {magicPost.caption}
+                    </p>
+                  </div>
+                  <div style={{ display: 'flex', gap: '10px' }}>
+                    <button 
+                      onClick={() => handleCopy('magic', magicPost.caption)}
+                      style={{ flex: 1, padding: '0.9rem', borderRadius: '12px', background: 'var(--text-primary)', color: 'var(--surface-1)', border: 'none', fontWeight: 700, fontSize: '0.9rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
+                    >
+                      {copiedPlatform === 'magic' ? <CheckCircle2 size={18} /> : <Copy size={18} />}
+                      {copiedPlatform === 'magic' ? t?.merchant?.toolkit?.social?.done || "Done" : t?.merchant?.toolkit?.social?.copy_text || "Copy Text"}
+                    </button>
+                    <a 
+                      href={magicPost.imageUrl} 
+                      target="_blank" 
+                      download 
+                      style={{ padding: '0.9rem 1.25rem', borderRadius: '12px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    >
+                      <ImageIcon size={18} />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : !magicGenerating && (
+            <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px dashed var(--border-color)', borderRadius: '24px', color: 'var(--text-muted)', fontSize: '0.95rem' }}>
+              {t?.merchant?.toolkit?.social?.visual_magic?.empty_state || "Enter a prompt and let the AI build your next viral post."}
             </div>
           )}
         </div>
