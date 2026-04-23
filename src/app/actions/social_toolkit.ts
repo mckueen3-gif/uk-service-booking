@@ -191,16 +191,17 @@ export async function generateVisualPost(prompt: string, locale: string = "en") 
 
   try {
     const aiPrompt = `
-      You are a world-class "Visual Content Director". 
-      Based on this user prompt: "${prompt}", create two things:
-      1. A high-conversion social media caption (British English if locale is en, Traditional Chinese if zh-TW).
-      2. A descriptive AI image prompt for a cinematic, hyper-realistic photo.
+      You are a world-class "Visual Content Director" for ConciergeAI. 
+      Based on this user prompt: "${prompt}", create a social media post and an image description.
 
-      Requirements:
-      - Caption: Engaging, uses emojis, includes the ConciergeAI brand vibe.
-      - Image Prompt: Detailed, mentions lighting, camera angle, and "ConciergeAI style".
-      
-      Return JSON:
+      LANGUAGE REQUIREMENT:
+      - The caption MUST be in ${locale === 'zh-TW' ? 'Traditional Chinese (繁體中文)' : 'British English'}.
+
+      YOUR TASK:
+      1. Create a high-conversion social media caption. Engaging, uses emojis.
+      2. Create a descriptive AI image prompt for a cinematic, hyper-realistic photo that illustrates the topic.
+
+      Return ONLY a JSON object:
       {
         "caption": "...",
         "imagePrompt": "..."
@@ -211,21 +212,26 @@ export async function generateVisualPost(prompt: string, locale: string = "en") 
     const response = await result.response;
     const text = response.text();
     
+    // Defensive JSON extraction
     const jsonMatch = text.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
-      const data = JSON.parse(jsonMatch[0]);
-      return {
-        success: true,
-        post: {
-          caption: data.caption,
-          imageUrl: `https://pollinations.ai/p/${encodeURIComponent(data.imagePrompt)}?width=1024&height=1024&seed=${Math.floor(Math.random() * 1000000)}&model=flux`
-        }
-      };
+      try {
+        const data = JSON.parse(jsonMatch[0]);
+        return {
+          success: true,
+          post: {
+            caption: data.caption,
+            imageUrl: `https://pollinations.ai/p/${encodeURIComponent(data.imagePrompt)}?width=1024&height=1024&seed=${Math.floor(Math.random() * 1000000)}&model=flux`
+          }
+        };
+      } catch (e) {
+        return { error: "AI response format error" };
+      }
     }
-    return { error: "AI failed to format output" };
-  } catch (error) {
+    return { error: "AI failed to generate a valid response. Please try a different prompt." };
+  } catch (error: any) {
     console.error("Visual Magic Error:", error);
-    return { error: "Failed to generate visual content" };
+    return { error: `AI Error: ${error.message || "Unknown error"}` };
   }
 }
 

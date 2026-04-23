@@ -49,7 +49,7 @@ const PLATFORMS = [
 ];
 
 export default function SocialToolkitPage() {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
 
   // Campaign Creator state
   const [topic, setTopic] = useState('');
@@ -139,8 +139,7 @@ export default function SocialToolkitPage() {
     }
     
     // Pass current site language to AI
-    const currentLocale = typeof window !== 'undefined' ? (localStorage.getItem('language') || 'en') : 'en';
-    const res = await generateOmnichannelCampaign(topic, discount || undefined, targetAudience || undefined, currentLocale);
+    const res = await generateOmnichannelCampaign(topic, discount || undefined, targetAudience || undefined, locale);
     
     if (!('error' in res) || !res.error) {
       if (res.campaign) {
@@ -169,8 +168,7 @@ export default function SocialToolkitPage() {
     if (!currentText) return;
 
     setOptimizingPlatform(platformKey);
-    const currentLocale = typeof window !== 'undefined' ? (localStorage.getItem('language') || 'en') : 'en';
-    const res = await optimizeExistingContent(currentText, platformKey, currentLocale);
+    const res = await optimizeExistingContent(currentText, platformKey, locale);
     
     if (res.success && res.optimizedText) {
       setEditableTexts((prev: any) => ({ ...prev, [platformKey]: res.optimizedText }));
@@ -204,8 +202,7 @@ export default function SocialToolkitPage() {
     setMagicPost(null);
     setMagicImageLoaded(false);
 
-    const currentLocale = typeof window !== 'undefined' ? (localStorage.getItem('language') || 'en') : 'en';
-    const res = await generateVisualPost(magicPrompt, currentLocale);
+    const res = await generateVisualPost(magicPrompt, locale);
 
     if (res.success && res.post) {
       setMagicPost(res.post);
