@@ -1785,5 +1785,45 @@ export const en: LocaleDictionary = {
     tab_campaign: "Campaign Creator",
     tab_review: "Review Booster"
   },
-
+  profile: {
+    verified: "Verified",
+    roles: {
+      admin: "System Admin",
+      merchant: "Verified Pro",
+      member: "Elite Member"
+    },
+    summary: "Account Summary",
+    memberSince: "Member Since",
+    status: "Account Status",
+    active: "Active"
+  },
+  merchant: {
+    profile: {
+      sections: {
+        basic: "Identity",
+        address: "Geofence",
+        business: "Specialist Node"
+      },
+      labels: {
+        name: "Full Name",
+        placeholderName: "Your Name",
+        phone: "Liaison #",
+        placeholderPhone: "e.g. +44 7XXX XXXXXX",
+        emailReadOnly: "Email Access",
+        city: "Node City",
+        postcode: "Grid Postcode",
+        addressLine1: "Primary Vector",
+        addressLine2: "Secondary Vector",
+        businessName: "Service Brand",
+        businessNamePlaceholder: "e.g. London Tech Solutions",
+        bio: "Node Protocol / Bio",
+        bioPlaceholder: "Describe your expertise..."
+      },
+      status: {
+        saving: "Syncing...",
+        success: "Node Persistent"
+      },
+      save: "Update Node"
+    }
+  },
 };

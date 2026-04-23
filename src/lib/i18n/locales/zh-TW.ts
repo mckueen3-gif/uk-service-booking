@@ -95,22 +95,13 @@ export const zhTW: LocaleDictionary = {
     },
     tools: {
       title: "精英工具箱",
-      aura_secretary: {
-        title: "Aura AI 秘書",
-        desc: "自動化客戶支援與預約管理。",
-      },
-      promotion_hub: {
-        title: "促銷中心",
-        desc: "創建優惠券以提升成交率。",
-      },
-      audit_vault: {
-        title: "審計保險庫",
-        desc: "稅務就緒的財務記錄管理。",
-      },
-      social_studio: {
-        title: "社群工作室",
-        desc: "AI 驅動的社群媒體內容生成。",
-      }
+      subtitle: "模組化成長工具箱",
+      launch: "啟動工具",
+      diagnosis: { name: "AI 視覺診斷", desc: "即時視覺損壞評估系統", badge: "免費" },
+      whatsapp: { name: "WhatsApp 助手", desc: "新潛在客戶的即時通知", badge: "免費" },
+      seo: { name: "SEO 優化", desc: "提升 Google 排名與優化元數據", badge: "免費" },
+      ad_copy: { name: "AI 廣告文案", desc: "生成高轉化的廣告標語", badge: "免費" },
+      video: { name: "精英影片", desc: "專業影片知識同步", badge: "免費" }
     },
     setup: {
       title: "專家認證",
@@ -1006,4 +997,45 @@ export const zhTW: LocaleDictionary = {
     tab_campaign: "活動創建器",
     tab_review: "評論助推器"
   },
-  };
+  profile: {
+    verified: "已驗證",
+    roles: {
+      admin: "系統管理員",
+      merchant: "認證專家",
+      member: "精英會員"
+    },
+    summary: "帳戶總覽",
+    memberSince: "註冊時間",
+    status: "帳戶狀態",
+    active: "活躍"
+  },
+  merchant: {
+    profile: {
+      sections: {
+        basic: "身份資訊",
+        address: "服務地區",
+        business: "專家節點"
+      },
+      labels: {
+        name: "全名",
+        placeholderName: "您的姓名",
+        phone: "聯絡電話",
+        placeholderPhone: "例如：+44 7XXX XXXXXX",
+        emailReadOnly: "登入電子郵件",
+        city: "服務城市",
+        postcode: "郵遞區號",
+        addressLine1: "詳細地址 1",
+        addressLine2: "詳細地址 2",
+        businessName: "服務品牌",
+        businessNamePlaceholder: "例如：倫敦科技解決方案",
+        bio: "專業簡介 / 背景",
+        bioPlaceholder: "描述您的專業知識、經驗等..."
+      },
+      status: {
+        saving: "同步中...",
+        success: "更新成功"
+      },
+      save: "更新資料"
+    }
+  },
+};
