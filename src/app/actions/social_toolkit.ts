@@ -5,6 +5,7 @@ import { prisma } from '@/lib/prisma';
 import { authOptions } from "@/lib/auth";
 import { getMerchantId } from '@/lib/merchant-utils';
 import { getServerSession } from "next-auth/next";
+import { generateAIContent } from "@/lib/ai-provider";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
@@ -188,7 +189,12 @@ export async function publishSocialPosts(payload: any) {
 import { generateGrokImage, getGrokDiagnosis } from "@/lib/grok";
 import OpenAI from "openai";
 
-export async function generateVisualPost(prompt: string, locale: string = "en", platform: string = "igfb") {
+export async function generateVisualPost(
+  prompt: string, 
+  locale: string = "en", 
+  platform: string = "igfb",
+  referenceImage?: { base64: string; mimeType: string }
+) {
   const session = await getServerSession(authOptions);
   if (!session || !session.user) return { error: "Not logged in" };
 
@@ -198,6 +204,8 @@ export async function generateVisualPost(prompt: string, locale: string = "en", 
     const aiPrompt = `
       You are a world-class "Visual Content Director" for ConciergeAI. 
       Based on this user prompt: "${prompt}", create a high-conversion social media post for ${platformName}.
+
+      ${referenceImage ? "VISUAL REFERENCE: An image has been provided. Analyze its style, mood, colors, and subject matter. Your caption and imagePrompt should reflect or complement this reference to maintain brand consistency." : ""}
 
       LANGUAGE REQUIREMENT:
       - The caption MUST be in ${locale === 'zh-TW' ? 'Traditional Chinese (繁體中文)' : 'British English'}.
@@ -220,30 +228,22 @@ export async function generateVisualPost(prompt: string, locale: string = "en", 
 
     let data: { caption: string, imagePrompt: string } | null = null;
 
-    // Try Grok for text generation first (Higher quality)
-    if (process.env.XAI_API_KEY) {
-      try {
-        const client = new OpenAI({
-          apiKey: process.env.XAI_API_KEY,
-          baseURL: "https://api.x.ai/v1",
-        });
-        const response = await client.chat.completions.create({
-          model: "grok-beta",
-          messages: [{ role: "user", content: aiPrompt }],
-          response_format: { type: "json_object" }
-        });
-        const content = response.choices[0].message.content;
-        if (content) data = JSON.parse(content);
-      } catch (err) {
-        console.error("[Social Toolkit] Grok text failed:", err);
-      }
-    }
-
-    // Fallback to Gemini for text if Grok failed or not configured
-    if (!data) {
+    // Use unified AI provider (Grok Primary with Vision support)
+    try {
+      const responseText = await generateAIContent({
+        prompt: aiPrompt,
+        systemPrompt: "You are a world-class Visual Content Director for ConciergeAI.",
+        image: referenceImage, // If provided, Grok Vision or Gemini Vision will analyze it
+        jsonMode: true
+      });
+      
+      const cleanJson = responseText.replace(/```json|```/g, "").trim();
+      data = JSON.parse(cleanJson);
+    } catch (err) {
+      console.error("[Social Toolkit] Unified AI generation failed:", err);
+      // Fallback for safety if the provider fails completely
       const result = await model.generateContent(aiPrompt);
-      const response = await result.response;
-      const text = response.text();
+      const text = (await result.response).text();
       const jsonMatch = text.match(/\{[\s\S]*\}/);
       if (jsonMatch) data = JSON.parse(jsonMatch[0]);
     }

@@ -94,6 +94,8 @@ export default function SocialToolkitPage() {
   const [magicGenerating, setMagicGenerating] = useState(false);
   const [magicPlatform, setMagicPlatform] = useState('igfb');
   const [magicPost, setMagicPost] = useState<any>(null);
+  const [magicReferenceImage, setMagicReferenceImage] = useState<string | null>(null);
+  const [magicReferenceImageMime, setMagicReferenceImageMime] = useState<string>('image/jpeg');
   const [magicImageLoaded, setMagicImageLoaded] = useState(false);
 
   const phases = [
@@ -199,10 +201,12 @@ export default function SocialToolkitPage() {
     }
 
     setMagicGenerating(true);
-    setMagicPost(null);
-    setMagicImageLoaded(false);
+    const refImageData = magicReferenceImage ? { 
+      base64: magicReferenceImage.split(',')[1], 
+      mimeType: magicReferenceImageMime 
+    } : undefined;
 
-    const res = await generateVisualPost(magicPrompt, locale, magicPlatform);
+    const res = await generateVisualPost(magicPrompt, locale, magicPlatform, refImageData);
 
     if (res.success && res.post) {
       setMagicPost(res.post);
@@ -606,8 +610,51 @@ export default function SocialToolkitPage() {
                 value={magicPrompt}
                 onChange={e => setMagicPrompt(e.target.value)}
                 placeholder={t?.merchant?.toolkit?.social?.visual_magic?.prompt_placeholder || "e.g. A futuristic plumber fixing a gold pipe..."}
-                style={{ width: '100%', minHeight: '120px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: '16px', padding: '1rem', color: 'var(--text-primary)', fontSize: '0.95rem', lineHeight: 1.6, resize: 'vertical', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' }}
+                style={{ width: '100%', minHeight: '100px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: '16px', padding: '1rem', color: 'var(--text-primary)', fontSize: '0.95rem', lineHeight: 1.6, resize: 'vertical', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' }}
               />
+
+              {/* Reference Image Upload */}
+              <div style={{ marginTop: '1.25rem' }}>
+                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '8px', display: 'block' }}>
+                  {t?.merchant?.toolkit?.social?.visual_magic?.ref_label || "Reference Image (Optional)"}
+                </label>
+                {!magicReferenceImage ? (
+                  <div 
+                    onClick={() => document.getElementById('magic-ref-upload')?.click()}
+                    style={{ height: '80px', border: '2px dashed var(--border-color)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', color: 'var(--text-muted)', cursor: 'pointer', background: 'var(--bg-secondary)', transition: 'all 0.2s' }}
+                    onMouseOver={e => e.currentTarget.style.borderColor = '#f472b6'}
+                    onMouseOut={e => e.currentTarget.style.borderColor = 'var(--border-color)'}
+                  >
+                    <ImageIcon size={20} />
+                    <span style={{ fontSize: '0.85rem' }}>Upload Reference Graphic</span>
+                    <input 
+                      id="magic-ref-upload" 
+                      type="file" 
+                      accept="image/*" 
+                      hidden 
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          setMagicReferenceImageMime(file.type);
+                          const reader = new FileReader();
+                          reader.onloadend = () => setMagicReferenceImage(reader.result as string);
+                          reader.readAsDataURL(file);
+                        }
+                      }}
+                    />
+                  </div>
+                ) : (
+                  <div style={{ position: 'relative', width: '120px', height: '80px', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-color)' }}>
+                    <img src={magicReferenceImage} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <button 
+                      onClick={() => setMagicReferenceImage(null)}
+                      style={{ position: 'absolute', top: '4px', right: '4px', background: 'rgba(0,0,0,0.5)', color: 'white', border: 'none', borderRadius: '50%', width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: '10px' }}
+                    >
+                      ✕
+                    </button>
+                  </div>
+                )}
+              </div>
 
               <label style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '8px', display: 'block', marginTop: '1.5rem' }}>
                 {t?.merchant?.toolkit?.social?.target_platform || "Target Platform"}
