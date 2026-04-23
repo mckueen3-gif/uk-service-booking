@@ -87,3 +87,23 @@ export async function getGrokDiagnosis(
     return null;
   }
 }
+
+/**
+ * Generate an image using Grok's image generation model
+ */
+export async function generateGrokImage(prompt: string): Promise<string | null> {
+  if (!process.env.XAI_API_KEY) return null;
+
+  try {
+    const client = await getGrokClient();
+    const response = await client.images.generate({
+      model: "grok-beta", 
+      prompt: prompt,
+    });
+
+    return response.data[0]?.url || null;
+  } catch (error) {
+    console.error("[Grok Image Error]:", error);
+    return null;
+  }
+}

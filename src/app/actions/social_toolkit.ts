@@ -185,6 +185,8 @@ export async function publishSocialPosts(payload: any) {
   };
 }
 
+import { generateGrokImage } from "@/lib/grok";
+
 export async function generateVisualPost(prompt: string, locale: string = "en") {
   const session = await getServerSession(authOptions);
   if (!session || !session.user) return { error: "Not logged in" };
@@ -217,11 +219,21 @@ export async function generateVisualPost(prompt: string, locale: string = "en") 
     if (jsonMatch) {
       try {
         const data = JSON.parse(jsonMatch[0]);
+        
+        // Try generating image with Grok first
+        let imageUrl = await generateGrokImage(data.imagePrompt);
+        
+        // Fallback to Pollinations if Grok fails
+        if (!imageUrl) {
+          console.log("[Social Toolkit] Grok image failed, falling back to Pollinations");
+          imageUrl = `https://pollinations.ai/p/${encodeURIComponent(data.imagePrompt)}?width=1024&height=1024&seed=${Math.floor(Math.random() * 1000000)}&model=flux`;
+        }
+
         return {
           success: true,
           post: {
             caption: data.caption,
-            imageUrl: `https://pollinations.ai/p/${encodeURIComponent(data.imagePrompt)}?width=1024&height=1024&seed=${Math.floor(Math.random() * 1000000)}&model=flux`
+            imageUrl: imageUrl
           }
         };
       } catch (e) {
