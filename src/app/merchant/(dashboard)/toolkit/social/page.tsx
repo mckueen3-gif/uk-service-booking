@@ -276,7 +276,7 @@ export default function SocialToolkitPage() {
       {/* Header */}
       <div style={{ marginBottom: '2.5rem' }}>
         <Link href="/merchant/toolkit" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'var(--text-secondary)', textDecoration: 'none', marginBottom: '1.5rem', fontSize: '0.9rem', fontWeight: 600, transition: 'color 0.2s' }}>
-          <ArrowLeft size={16} /> Back to Toolkit
+          <ArrowLeft size={16} /> {t?.merchant?.toolkit?.back || "Back to Toolkit"}
         </Link>
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
           <div style={{ width: 52, height: 52, borderRadius: 16, background: 'linear-gradient(135deg, #e1306c, #f472b6)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 24px rgba(225,48,108,0.4)' }}>
@@ -284,19 +284,19 @@ export default function SocialToolkitPage() {
           </div>
           <div>
             <h1 style={{ fontSize: '2rem', fontWeight: 900, margin: 0, background: 'linear-gradient(135deg, #e1306c, #f472b6, #d4af37)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              Social Media Campaign Studio
+              {t?.merchant?.toolkit?.social?.title || "Social Media Campaign Studio"}
             </h1>
             <p style={{ color: 'var(--text-secondary)', margin: '4px 0 0', fontSize: '0.95rem' }}>
-              AI-powered omnichannel promotions — crafted, imaged, and published in seconds.
+              {t?.merchant?.toolkit?.social?.desc || "AI-powered omnichannel promotions — crafted, imaged, and published in seconds."}
             </p>
           </div>
 
           {/* Usage Tracker */}
           <div style={{ marginLeft: 'auto', background: 'var(--surface-1)', padding: '0.75rem 1.25rem', borderRadius: '18px', border: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '15px' }}>
             <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: '0.7rem', fontWeight: 900, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '2px' }}>{t('Monthly Quota')}</div>
+              <div style={{ fontSize: '0.7rem', fontWeight: 900, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '2px' }}>{t?.merchant?.toolkit?.social?.monthly_quota || "Monthly Quota"}</div>
               <div style={{ fontSize: '0.95rem', fontWeight: 800, color: accountStatus.remaining > 0 ? '#10b981' : '#ef4444' }}>
-                {accountStatus.remaining} / {accountStatus.limit} {t('Left')}
+                {t?.merchant?.toolkit?.social?.quota_left?.replace('{count}', accountStatus.remaining.toString()) || `${accountStatus.remaining} / ${accountStatus.limit} Left`}
               </div>
             </div>
             <div style={{ width: '1px', height: '30px', background: 'var(--border-color)' }}></div>
@@ -304,7 +304,7 @@ export default function SocialToolkitPage() {
               onClick={() => !accountStatus.isPro && setShowUpgradeModal(true)}
               style={{ background: accountStatus.isPro ? 'rgba(212,175,55,0.1)' : 'linear-gradient(135deg, #d4af37, #f59e0b)', border: accountStatus.isPro ? '1px solid #d4af37' : 'none', color: accountStatus.isPro ? '#d4af37' : 'white', padding: '0.5rem 1rem', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 800, cursor: accountStatus.isPro ? 'default' : 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
             >
-              <Crown size={14} /> {accountStatus.isPro ? t('social_studio.pro_active') : `${t('social_studio.upgrade_cta')}`}
+              <Crown size={14} /> {accountStatus.isPro ? (t?.merchant?.toolkit?.social?.pro_status || "PRO STATUS ACTIVE") : (t?.merchant?.toolkit?.social?.upgrade_plan || "Upgrade Plan")}
             </button>
           </div>
         </div>
@@ -316,7 +316,7 @@ export default function SocialToolkitPage() {
             { key: 'review', label: t('social_studio.tab_review'), icon: <Star size={15} /> }
           ].map(v => (
             <button key={v.key} onClick={() => setView(v.key as any)} style={{ padding: '0.6rem 1.25rem', borderRadius: '12px', border: 'none', background: view === v.key ? 'linear-gradient(135deg, #e1306c, #f472b6)' : 'transparent', color: view === v.key ? 'white' : 'var(--text-secondary)', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', transition: 'all 0.2s' }}>
-              {v.icon} {v.label}
+              {v.icon} {v.key === 'campaign' ? (t?.merchant?.toolkit?.social?.tab_campaign || "Campaign Creator") : (t?.merchant?.toolkit?.social?.tab_review || "Review Booster")}
             </button>
           ))}
         </div>
@@ -332,27 +332,27 @@ export default function SocialToolkitPage() {
             {/* Topic Input */}
             <div style={{ background: 'var(--surface-1)', borderRadius: '24px', border: '1px solid var(--border-color)', padding: '1.75rem', boxShadow: '0 4px 20px rgba(0,0,0,0.06)' }}>
               <h3 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-primary)' }}>
-                <PenLine size={18} color="#f472b6" /> {t('social_studio.title')}
+                <PenLine size={18} color="#f472b6" /> {t?.merchant?.toolkit?.social?.title || "Social Media Campaign Studio"}
               </h3>
               <textarea
                 value={topic}
                 onChange={e => setTopic(e.target.value)}
-                placeholder={t('social_studio.topic_placeholder')}
+                placeholder={t?.merchant?.toolkit?.social?.topic_placeholder || "Describe what you want to promote..."}
                 style={{ width: '100%', minHeight: '140px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: '16px', padding: '1rem', color: 'var(--text-primary)', fontSize: '0.95rem', lineHeight: 1.6, resize: 'vertical', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' }}
               />
               
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '1rem' }}>
                 <div>
                   <label style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px' }}>
-                    <Tag size={13} /> {t('social_studio.discount_label')}
+                    <Tag size={13} /> {t?.merchant?.toolkit?.social?.discount_label || "Discount / Offer (Optional)"}
                   </label>
-                  <input type="text" value={discount} onChange={e => setDiscount(e.target.value)} placeholder={t('social_studio.discount_placeholder')} style={{ width: '100%', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: '12px', padding: '0.75rem', color: 'var(--text-primary)', fontSize: '0.875rem', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' }} />
+                  <input type="text" value={discount} onChange={e => setDiscount(e.target.value)} placeholder={t?.merchant?.toolkit?.social?.discount_placeholder || "e.g. 20% off this week"} style={{ width: '100%', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: '12px', padding: '0.75rem', color: 'var(--text-primary)', fontSize: '0.875rem', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' }} />
                 </div>
                 <div>
                   <label style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px' }}>
-                    <Users size={13} /> {t('social_studio.audience_label')}
+                    <Users size={13} /> {t?.merchant?.toolkit?.social?.audience_label || "Target Audience (Optional)"}
                   </label>
-                  <input type="text" value={targetAudience} onChange={e => setTargetAudience(e.target.value)} placeholder={t('social_studio.audience_placeholder')} style={{ width: '100%', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: '12px', padding: '0.75rem', color: 'var(--text-primary)', fontSize: '0.875rem', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' }} />
+                  <input type="text" value={targetAudience} onChange={e => setTargetAudience(e.target.value)} placeholder={t?.merchant?.toolkit?.social?.audience_placeholder || "e.g. London homeowners"} style={{ width: '100%', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: '12px', padding: '0.75rem', color: 'var(--text-primary)', fontSize: '0.875rem', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' }} />
                 </div>
               </div>
             </div>
@@ -363,14 +363,14 @@ export default function SocialToolkitPage() {
               disabled={generating || !topic.trim()}
               style={{ padding: '1.1rem', borderRadius: '18px', background: !topic.trim() ? 'var(--surface-1)' : 'linear-gradient(135deg, #e1306c, #f472b6)', color: !topic.trim() ? 'var(--text-muted)' : 'white', border: !topic.trim() ? '1px solid var(--border-color)' : 'none', fontSize: '1rem', fontWeight: 800, cursor: !topic.trim() ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', boxShadow: topic.trim() ? '0 8px 24px rgba(225,48,108,0.4)' : 'none', transition: 'all 0.3s' }}
             >
-              {generating ? <><Loader2 className="animate-spin" size={20} /> {generatingPhase}</> : <><Sparkles size={20} /> {t('social_studio.generate_cta')}</>}
+              {generating ? <><Loader2 className="animate-spin" size={20} /> {generatingPhase}</> : <><Sparkles size={20} /> {t?.merchant?.toolkit?.social?.generate_cta || "✨ Generate My Campaign"}</>}
             </button>
 
             {/* Platform Selector (shown when campaign exists) */}
             {campaign && (
               <div style={{ background: 'var(--surface-1)', borderRadius: '24px', border: '1px solid var(--border-color)', padding: '1.5rem', boxShadow: '0 4px 20px rgba(0,0,0,0.06)' }}>
                 <h3 style={{ fontSize: '0.95rem', fontWeight: 800, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Send size={16} color="#f472b6" /> {t('social_studio.publish_to')}
+                  <Send size={16} color="#f472b6" /> {t?.merchant?.toolkit?.social?.publish_to || "Publish To"}
                 </h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                   {PLATFORMS.map(p => (
@@ -385,13 +385,13 @@ export default function SocialToolkitPage() {
                   <div style={{ marginTop: '1.25rem', padding: '1rem', background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.25)', borderRadius: '14px', display: 'flex', alignItems: 'center', gap: '10px', color: '#10b981' }}>
                     <CheckCircle2 size={20} />
                     <div>
-                      <div style={{ fontWeight: 800, fontSize: '0.9rem' }}>{t('social_studio.scheduled_success')}</div>
-                      <div style={{ fontSize: '0.75rem', opacity: 0.8, marginTop: '2px' }}>{t('social_studio.queued_note')}</div>
+                      <div style={{ fontWeight: 800, fontSize: '0.9rem' }}>{t?.merchant?.toolkit?.social?.success || "Campaign Scheduled! 🎉"}</div>
+                      <div style={{ fontSize: '0.75rem', opacity: 0.8, marginTop: '2px' }}>{t?.merchant?.toolkit?.social?.ayrshare_note || "Your posts are queued via the Ayrshare network."}</div>
                     </div>
                   </div>
                 ) : (
                   <button onClick={handlePublish} disabled={publishing || selectedPlatforms.size === 0} style={{ marginTop: '1.25rem', width: '100%', padding: '1rem', borderRadius: '14px', background: selectedPlatforms.size > 0 ? 'linear-gradient(135deg, #7c3aed, #a855f7)' : 'var(--surface-2)', color: selectedPlatforms.size > 0 ? 'white' : 'var(--text-muted)', border: 'none', fontWeight: 800, fontSize: '0.95rem', cursor: selectedPlatforms.size > 0 ? 'pointer' : 'not-allowed', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', boxShadow: selectedPlatforms.size > 0 ? '0 8px 24px rgba(124,58,237,0.35)' : 'none', transition: 'all 0.3s' }}>
-                    {publishing ? <><Loader2 className="animate-spin" size={18} /> {t('social_studio.publishing')}</> : <><Rocket size={18} /> {t('social_studio.publish_cta', { count: selectedPlatforms.size })}</>}
+                    {publishing ? <><Loader2 className="animate-spin" size={18} /> {t?.merchant?.toolkit?.social?.ayrshare_status || "Publishing via Ayrshare..."}</> : <><Rocket size={18} /> {t?.merchant?.toolkit?.social?.publish_cta?.replace('{count}', selectedPlatforms.size.toString()) || `🚀 Publish to ${selectedPlatforms.size} Platforms`}</>}
                   </button>
                 )}
               </div>
@@ -406,15 +406,15 @@ export default function SocialToolkitPage() {
               <div style={{ background: 'var(--surface-1)', borderRadius: '24px', border: '1px solid var(--border-color)', overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}>
                 <div style={{ padding: '1.25rem 1.5rem', borderBottom: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <h3 style={{ fontSize: '0.95rem', fontWeight: 800, margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <ImageIcon size={16} color="#f472b6" /> {t('social_studio.ai_image_title')}
+                    <ImageIcon size={16} color="#f472b6" /> {t?.merchant?.toolkit?.social?.ai_image || "AI-Generated Campaign Image"}
                   </h3>
-                  <span style={{ fontSize: '0.7rem', background: 'rgba(212,175,55,0.1)', color: '#d4af37', padding: '3px 8px', borderRadius: '6px', fontWeight: 700 }}>{t('social_studio.ready_to_download')}</span>
+                  <span style={{ fontSize: '0.7rem', background: 'rgba(212,175,55,0.1)', color: '#d4af37', padding: '3px 8px', borderRadius: '6px', fontWeight: 700 }}>{t?.merchant?.toolkit?.social?.ready || "READY TO DOWNLOAD"}</span>
                 </div>
                 <div style={{ position: 'relative', background: 'var(--bg-secondary)', aspectRatio: '1/1', overflow: 'hidden' }}>
                   {!imageLoaded && (
                     <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '12px' }}>
                       <Loader2 className="animate-spin" size={32} color="#f472b6" />
-                      <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{t('social_studio.painting_image')}</span>
+                      <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{t?.merchant?.toolkit?.social?.painting || "AI is painting your image..."}</span>
                     </div>
                   )}
                   {campaign.imageUrl && (
@@ -434,7 +434,7 @@ export default function SocialToolkitPage() {
                     download="campaign-image.jpg"
                     style={{ flex: 1, padding: '0.75rem', borderRadius: '12px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontWeight: 700, fontSize: '0.875rem', textAlign: 'center', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', cursor: 'pointer' }}
                   >
-                    <ImageIcon size={16} /> {t('social_studio.open_full_size')}
+                    <ImageIcon size={16} /> {t?.merchant?.toolkit?.social?.full_size || "Open Full Size"}
                   </a>
                   <button onClick={handleGenerate} style={{ padding: '0.75rem', borderRadius: '12px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', cursor: 'pointer', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }} title="Regenerate">
                     <RefreshCw size={16} />
@@ -477,7 +477,7 @@ export default function SocialToolkitPage() {
                             style={{ fontSize: '0.7rem', background: 'rgba(124,58,237,0.1)', color: '#7c3aed', padding: '4px 10px', borderRadius: '20px', fontWeight: 800, border: '1px solid #7c3aed33', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
                           >
                             {optimizingPlatform === p.key ? <Loader2 className="animate-spin" size={12} /> : <Sparkles size={12} />}
-                            {t('social_studio.ai_optimize')}
+                            {t?.merchant?.toolkit?.social?.ai_optimize || "AI Optimize"}
                           </button>
                           <span style={{ fontSize: '0.65rem', fontWeight: 700, color: p.color, background: p.bg, padding: '4px 10px', borderRadius: '20px', textTransform: 'uppercase', border: `1px solid ${p.color}22` }}>
                             {p.label}
@@ -490,13 +490,13 @@ export default function SocialToolkitPage() {
                           onClick={handleNativeShare}
                           style={{ flex: 1.5, padding: '0.85rem', borderRadius: '12px', background: 'linear-gradient(135deg, #e1306c, #f472b6)', color: 'white', border: 'none', fontWeight: 800, fontSize: '0.875rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', boxShadow: '0 4px 12px rgba(225,48,108,0.2)' }}
                         >
-                          <Share2 size={16} /> {t('Post to')} {p.key === 'igfb' ? 'Instagram' : p.key === 'x' ? 'X (Twitter)' : p.key === 'wechat' ? 'WeChat' : 'Reddit'}
+                          <Share2 size={16} /> {t?.merchant?.toolkit?.social?.post_to || "Post to"} {p.key === 'igfb' ? 'Instagram' : p.key === 'x' ? 'X (Twitter)' : p.key === 'wechat' ? 'WeChat' : 'Reddit'}
                         </button>
                         <button
                           onClick={() => handleCopy(p.key, editableTexts[p.key])}
                           style={{ flex: 1, padding: '0.85rem', borderRadius: '12px', background: copiedPlatform === p.key ? 'rgba(16,185,129,0.1)' : 'var(--bg-secondary)', border: `1px solid ${copiedPlatform === p.key ? 'rgba(16,185,129,0.25)' : 'var(--border-color)'}`, color: copiedPlatform === p.key ? '#10b981' : 'var(--text-primary)', fontWeight: 700, fontSize: '0.875rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
                         >
-                          {copiedPlatform === p.key ? <><Check size={16} /> {t('Done')}</> : <><Copy size={16} /> {t('Copy Text')}</>}
+                          {copiedPlatform === p.key ? <><Check size={16} /> {t?.merchant?.toolkit?.social?.done || "Done"}</> : <><Copy size={16} /> {t?.merchant?.toolkit?.social?.copy_text || "Copy Text"}</>}
                         </button>
                         <button
                           onClick={downloadImage}
@@ -511,7 +511,7 @@ export default function SocialToolkitPage() {
                       {editableTexts.hashtags && (
                         <div style={{ marginTop: '1.25rem', padding: '1rem', background: 'rgba(212,175,55,0.05)', borderRadius: '14px', border: '1px solid rgba(212,175,55,0.15)' }}>
                           <div style={{ fontSize: '0.7rem', fontWeight: 900, color: '#d4af37', textTransform: 'uppercase', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                            <Tag size={12} /> {t('Suggested SEO Hashtags')}
+                            <Tag size={12} /> {t?.merchant?.toolkit?.social?.suggested_hashtags || "Suggested SEO Hashtags"}
                           </div>
                           <textarea
                             value={editableTexts.hashtags}
@@ -522,7 +522,7 @@ export default function SocialToolkitPage() {
                             onClick={() => { navigator.clipboard.writeText(editableTexts.hashtags); alert(t("Hashtags copied!")); }}
                             style={{ marginTop: '8px', background: 'transparent', border: 'none', color: '#d4af37', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', padding: 0 }}
                           >
-                            {t('Copy Hashtags Only')}
+                            {t?.merchant?.toolkit?.social?.copy_hashtags || "Copy Hashtags Only"}
                           </button>
                         </div>
                       )}
@@ -570,13 +570,13 @@ export default function SocialToolkitPage() {
               {/* Mode Selector */}
               <div style={{ background: 'var(--surface-1)', borderRadius: '24px', border: '1px solid var(--border-color)', padding: '1.5rem' }}>
                 <h3 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Rocket size={18} color="#f472b6" /> Content Style
+                  <Rocket size={18} color="#f472b6" /> {t?.merchant?.toolkit?.social?.review_booster?.style_title || "Content Style"}
                 </h3>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                   {(['viral', 'luxury'] as const).map(m => (
                     <button key={m} onClick={() => setMode(m)} style={{ padding: '1.25rem', borderRadius: '20px', border: mode === m ? `2px solid ${m === 'viral' ? '#f472b6' : '#d4af37'}` : '1px solid var(--border-color)', backgroundColor: mode === m ? `rgba(${m === 'viral' ? '244,114,182' : '212,175,55'},0.1)` : 'var(--surface-1)', color: mode === m ? (m === 'viral' ? '#f472b6' : '#d4af37') : 'var(--text-primary)', cursor: 'pointer', textAlign: 'left', transition: 'all 0.2s' }}>
-                      <div style={{ fontWeight: 800, fontSize: '1rem', marginBottom: '0.25rem' }}>{m === 'viral' ? '⚡ Viral Hype' : '👑 Quiet Luxury'}</div>
-                      <div style={{ fontSize: '0.75rem', opacity: 0.7 }}>{m === 'viral' ? 'High energy, emoji-rich, bold hooks.' : 'Sophisticated, professional, premium.'}</div>
+                      <div style={{ fontWeight: 800, fontSize: '1rem', marginBottom: '0.25rem' }}>{m === 'viral' ? (t?.merchant?.toolkit?.social?.review_booster?.viral_title || '⚡ Viral Hype') : (t?.merchant?.toolkit?.social?.review_booster?.luxury_title || '👑 Quiet Luxury')}</div>
+                      <div style={{ fontSize: '0.75rem', opacity: 0.7 }}>{m === 'viral' ? (t?.merchant?.toolkit?.social?.review_booster?.viral_desc || 'High energy, emoji-rich, bold hooks.') : (t?.merchant?.toolkit?.social?.review_booster?.luxury_desc || 'Sophisticated, professional, premium.')}</div>
                     </button>
                   ))}
                 </div>
@@ -585,9 +585,9 @@ export default function SocialToolkitPage() {
               {/* Reviews */}
               <div style={{ background: 'var(--surface-1)', borderRadius: '24px', border: '1px solid var(--border-color)', padding: '1.5rem' }}>
                 <h3 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Star size={18} color="#f472b6" /> Amplify a 5-Star Review
+                  <Star size={18} color="#f472b6" /> {t?.merchant?.toolkit?.social?.review_booster?.amplify_title || "Amplify a 5-Star Review"}
                 </h3>
-                <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '1.25rem' }}>Select a review to base the post on (optional)</p>
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '1.25rem' }}>{t?.merchant?.toolkit?.social?.review_booster?.amplify_desc || "Select a review to base the post on (optional)"}</p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', maxHeight: '300px', overflowY: 'auto' }}>
                   {reviews.filter(r => r.rating >= 4).map(r => (
                     <div key={r.id} onClick={() => setSelectedReview(selectedReview === r.id ? null : r.id)} style={{ padding: '1rem', borderRadius: '14px', border: selectedReview === r.id ? '1px solid #f472b6' : '1px solid var(--border-color)', background: selectedReview === r.id ? 'rgba(244,114,182,0.05)' : 'var(--bg-secondary)', cursor: 'pointer', transition: 'all 0.2s' }}>
@@ -604,7 +604,7 @@ export default function SocialToolkitPage() {
 
               <button onClick={handleLegacyGenerate} disabled={legacyGenerating} style={{ padding: '1rem', borderRadius: '18px', background: 'linear-gradient(135deg, #e1306c, #f472b6)', color: 'white', border: 'none', fontSize: '1rem', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', boxShadow: '0 8px 24px rgba(225,48,108,0.35)', transition: 'all 0.2s' }}>
                 {legacyGenerating ? <Loader2 className="animate-spin" size={20} /> : <Sparkles size={20} />}
-                Generate Social Post
+                {t?.merchant?.toolkit?.social?.review_booster?.generate_btn || "Generate Social Post"}
               </button>
             </section>
 
@@ -612,7 +612,7 @@ export default function SocialToolkitPage() {
               <div style={{ background: 'var(--surface-1)', borderRadius: '24px', border: '1px solid var(--border-color)', overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}>
                 <div style={{ padding: '1.25rem 1.5rem', borderBottom: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <Crown size={18} color="#f472b6" />
-                  <span style={{ fontWeight: 800, fontSize: '0.95rem' }}>Your Generated Post</span>
+                  <span style={{ fontWeight: 800, fontSize: '0.95rem' }}>{t?.merchant?.toolkit?.social?.review_booster?.result_title || "Your Generated Post"}</span>
                 </div>
                 {legacyPost ? (
                   <div style={{ padding: '1.75rem' }}>
@@ -626,7 +626,7 @@ export default function SocialToolkitPage() {
                     </div>
                     {legacyPost.expertTip && (
                       <div style={{ background: 'rgba(212,175,55,0.05)', border: '1px solid rgba(212,175,55,0.2)', padding: '1rem', borderRadius: '14px', marginBottom: '1.25rem' }}>
-                        <div style={{ fontSize: '0.7rem', fontWeight: 900, color: '#d4af37', textTransform: 'uppercase', marginBottom: '4px' }}>💡 Expert Tip</div>
+                        <div style={{ fontSize: '0.7rem', fontWeight: 900, color: '#d4af37', textTransform: 'uppercase', marginBottom: '4px' }}>{t?.merchant?.toolkit?.social?.review_booster?.expert_tip || "💡 Expert Tip"}</div>
                         <div style={{ fontSize: '0.85rem', fontStyle: 'italic', color: 'var(--text-secondary)' }}>{legacyPost.expertTip}</div>
                       </div>
                     )}
@@ -642,7 +642,7 @@ export default function SocialToolkitPage() {
                 ) : (
                   <div style={{ padding: '6rem 2rem', textAlign: 'center', color: 'var(--text-muted)' }}>
                     <Sparkles size={48} color="var(--border-color)" style={{ marginBottom: '1.5rem' }} />
-                    <p>Select a style and click Generate to create a post based on your reviews.</p>
+                    <p>{t?.merchant?.toolkit?.social?.review_booster?.empty_state || "Select a style and click Generate to create a post based on your reviews."}</p>
                   </div>
                 )}
               </div>
@@ -658,17 +658,17 @@ export default function SocialToolkitPage() {
             <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'rgba(212,175,55,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
               <Crown size={32} color="#d4af37" />
             </div>
-            <h2 style={{ fontSize: '1.75rem', fontWeight: 900, marginBottom: '0.5rem' }}>Unlock Unlimited Studio</h2>
+            <h2 style={{ fontSize: '1.75rem', fontWeight: 900, marginBottom: '0.5rem' }}>{t?.merchant?.toolkit?.social?.upgrade?.title || "Unlock Unlimited Studio"}</h2>
             <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>
-              Reached your free limit? Upgrade to **Concierge Social Pro** for maximum exposure.
+              {t?.merchant?.toolkit?.social?.upgrade?.desc || "Reached your free limit? Upgrade to **Concierge Social Pro** for maximum exposure."}
             </p>
             <div style={{ background: 'var(--bg-secondary)', borderRadius: '20px', padding: '1.5rem', marginBottom: '2rem', border: '1px solid var(--border-color)' }}>
               <div style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--text-primary)' }}>£5.00<span style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-muted)' }}>/mo</span></div>
               <ul style={{ textAlign: 'left', marginTop: '1rem', fontSize: '0.85rem', color: 'var(--text-secondary)', listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Check size={14} color="#10b981" /> 60 AI Campaigns/Month</li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Check size={14} color="#10b981" /> AI Video Animation Unlocked</li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Check size={14} color="#10b981" /> Enhanced Image Upscaling</li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Check size={14} color="#10b981" /> Custom Platform Branding</li>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Check size={14} color="#10b981" /> {t?.merchant?.toolkit?.social?.upgrade?.feature1 || "60 AI Campaigns/Month"}</li>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Check size={14} color="#10b981" /> {t?.merchant?.toolkit?.social?.upgrade?.feature2 || "AI Video Animation Unlocked"}</li>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Check size={14} color="#10b981" /> {t?.merchant?.toolkit?.social?.upgrade?.feature3 || "Enhanced Image Upscaling"}</li>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Check size={14} color="#10b981" /> {t?.merchant?.toolkit?.social?.upgrade?.feature4 || "Custom Platform Branding"}</li>
               </ul>
             </div>
             <button 
@@ -677,9 +677,9 @@ export default function SocialToolkitPage() {
               style={{ width: '100%', padding: '1.1rem', borderRadius: '16px', background: 'linear-gradient(135deg, #d4af37, #f59e0b)', color: 'white', border: 'none', fontWeight: 800, fontSize: '1rem', cursor: upgrading ? 'not-allowed' : 'pointer', boxShadow: '0 8px 24px rgba(212,175,55,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
             >
               {upgrading ? <Loader2 className="animate-spin" size={18} /> : null}
-              {t('Upgrade Now for £5.00')}
+              {t?.merchant?.toolkit?.social?.upgrade?.cta || "Upgrade Now for £5.00"}
             </button>
-            <p style={{ marginTop: '1rem', fontSize: '0.75rem', color: 'var(--text-muted)' }}>{t('Cancel anytime. High-trust professional AI tools.')}</p>
+            <p style={{ marginTop: '1rem', fontSize: '0.75rem', color: 'var(--text-muted)' }}>{t?.merchant?.toolkit?.social?.upgrade?.note || "Cancel anytime. High-trust professional AI tools."}</p>
           </div>
         </div>
       )}

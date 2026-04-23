@@ -1036,6 +1036,127 @@ export const zhTW: LocaleDictionary = {
         success: "更新成功"
       },
       save: "更新資料"
+    },
+    notifications: {
+      expertWhatsAppMsg: "您好！我剛剛預約了 {merchantName} 的 {serviceName} 服務，時間是 {date}。預約 ID: {bookingId}",
+      notifyExpertWhatsApp: "透過 WhatsApp 通知專家",
+      notifyExpertWhatsAppDesc: "發送即時通知給專家，以加快您的預約確認速度。",
+    },
+    fastResponse: "快速響應",
+    toolkit: {
+      title: "專家工具箱",
+      subtitle: "為精英專家設計的模組化成長工具。",
+      back: "返回工具箱",
+      privacy: {
+        title: "精英隱私框架",
+        desc: "ConciergeAI 僅在您啟用這些模組時才會激活 AI 專業上下文。您的內部業務邏輯始終保持加密和隔離。",
+      },
+      social: {
+        title: "社群媒體活動工作室",
+        desc: "AI 驅動的多通路促銷 — 在數秒內完成文案、生成圖片並發布。",
+        monthly_quota: "每月配額",
+        quota_left: "剩餘 {count}",
+        pro_status: "專業版狀態啟用中",
+        upgrade_plan: "升級至 60/月",
+        generate_all: "生成全通路活動",
+        regenerate: "全部重新生成",
+        edit_manually: "手動編輯",
+        optimizing: "AI 正在根據您的編輯進行重新優化。",
+        optimization_hint: "優化指令（例如：更專業、加入表情符號、在地俚語...）",
+        discount_label: "折扣 / 優惠（可選）",
+        discount_placeholder: "例如：本週 8 折",
+        audience_label: "目標受眾（可選）",
+        audience_placeholder: "例如：倫敦業主",
+        generate_cta: "✨ 生成我的活動",
+        publish_to: "發布至",
+        publish_cta: "🚀 發布至 {count} 個平台",
+        success: "活動已排程！ 🎉",
+        ayrshare_note: "您的貼文已透過 Ayrshare 網絡排入隊列。",
+        ayrshare_status: "正在透過 Ayrshare 發布...",
+        ai_image: "AI 生成活動圖片",
+        ready: "準備下載",
+        painting: "AI 正在繪製您的圖片...",
+        full_size: "開啟全尺寸",
+        tab_campaign: "活動創建器",
+        tab_review: "評論助推器",
+        topic_placeholder: "描述您想要促銷的內容（例如：「我正在為北倫敦居民提供未來 48 小時內所有鍋爐維修服務的 85 折優惠」）",
+        done: "完成",
+        copy_text: "複製文字",
+        post_to: "發布至",
+        suggested_hashtags: "建議的 SEO 標籤",
+        copy_hashtags: "僅複製標籤",
+        hashtags_copied: "標籤已複製！",
+        review_booster: {
+          style_title: "內容風格",
+          viral_title: "⚡ 病毒式推廣",
+          viral_desc: "高能量、富有表情符號、大膽的鉤子。",
+          luxury_title: "👑 低調奢華",
+          luxury_desc: "精緻、專業、高級。",
+          amplify_title: "放大 5 星評論",
+          amplify_desc: "選擇一個評論作為貼文基礎（可選）",
+          generate_btn: "生成社群貼文",
+          result_title: "您生成的貼文",
+          expert_tip: "💡 專家提示",
+          empty_state: "選擇一種風格並點擊生成，以根據您的評論創建貼文。"
+        },
+        upgrade: {
+          title: "解鎖無限工作室",
+          desc: "已達到免費上限？升級至 **Concierge Social Pro** 以獲得最大曝光。",
+          feature1: "每月 60 個 AI 活動",
+          feature2: "解鎖 AI 影片動畫",
+          feature3: "增強型圖片放大",
+          feature4: "自定義平台品牌",
+          cta: "現在升級只需 £5.00",
+          note: "隨時取消。高信任度的專業 AI 工具。"
+        }
+      },
+      whatsapp: {
+        title: "WhatsApp 即時連線",
+        desc: "新潛在客戶與諮詢的即時通知",
+        gateway_active: "網關已啟動",
+        active_desc: "您的 WhatsApp 節點已成功連結。您現在將收到每個高意向客戶的即時推送通知。",
+        init_connection: "初始化連線",
+        init_desc: "連結您的業務 WhatsApp 帳戶，直接在手機上接收即時更新和客戶諮詢通知。",
+        syncing: "同步中...",
+        link_now: "立即連結 WhatsApp",
+        secured: "連線已加密",
+        elite_title: "精英專家集成",
+        elite_desc: "WhatsApp Connect 是已驗證 ConciergeAI 專家的獨家功能。它允許您保持 100% 的回覆率，這將顯著提升您在我們搜尋算法中的排名。",
+        view_docs: "查看文檔",
+        features: {
+          alerts: { title: "即時線索警報", desc: "在客戶表達對您服務感興趣的瞬間獲得通知。" },
+          mobile: { title: "移動管理", desc: "直接透過 WhatsApp 回覆諮詢，無需登入控制台。" },
+          sync: { title: "AI 回覆同步", desc: "Aura AI 可以為您起草回覆，供您一鍵審核並發送。" }
+        }
+      },
+      seo: {
+        title: "SEO 個人資料優化",
+        desc: "提升 Google 排名並優化元數據",
+        hero_title: "排名更高，成長更快。",
+        hero_desc: "我們的 AI SEO 專家會分析您的個人資料和服務，確保它們針對 Google 搜尋和 ConciergeAI 的內部排名算法進行了全面優化。",
+        analyzing: "正在分析個人資料數據...",
+        run_audit: "執行 AI SEO 審計",
+        score_title: "搜尋曝光率評分",
+        checklist_title: "優化清單",
+        auto_title: "AI 自動校準",
+        auto_desc: "讓我們的 AI 自動更新您的個人資料元數據，以匹配您所在行業的當前搜尋趨勢。",
+        apply_auto: "應用自動優化",
+        global_title: "全球觸及",
+        indexed: "已在 Google UK 索引",
+        traffic: "過去 30 天流量 +12%",
+        scores: {
+          completion: "資料完整度",
+          density: "關鍵字密度",
+          images: "圖片優化",
+          engagement: "客戶互動"
+        },
+        checklist: [
+          "在您的簡介中增加 3 個以上的專業關鍵字。",
+          "啟用「Aura AI 秘書」以提升互動指標。",
+          "為「水電維修」類別請求 2 個以上的評論。",
+          "更新您的服務區域郵遞區號以優化本地 SEO。"
+        ]
+      }
     }
   },
   sidebar: {

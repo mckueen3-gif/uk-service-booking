@@ -207,12 +207,12 @@ export default function SEOExpertPage() {
             >
               <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '1.5rem' }}>{t?.merchant?.toolkit?.seo?.checklist_title || "Optimization Checklist"}</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                {[
+                {(t?.merchant?.toolkit?.seo?.checklist || [
                   "Add 3 more technical keywords to your bio.",
                   "Enable 'Aura AI Secretary' to improve engagement metrics.",
                   "Request 2 more reviews for the 'Plumbing' category.",
                   "Update your service area postcodes for local SEO."
-                ].map((text, i) => (
+                ]).map((text: string, i: number) => (
                   <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '1rem', backgroundColor: 'var(--bg-secondary)', borderRadius: '16px', border: '1px solid var(--border-color)' }}>
                     <div style={{ color: '#f59e0b' }}><TrendingUp size={18} /></div>
                     <span style={{ fontSize: '0.9rem', fontWeight: 500 }}>{text}</span>
