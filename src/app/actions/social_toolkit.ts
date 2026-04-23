@@ -7,7 +7,7 @@ import { getMerchantId } from '@/lib/merchant-utils';
 import { getServerSession } from "next-auth/next";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
 export async function generateSocialPost(mode: 'viral' | 'luxury', reviewId?: string) {
   const session = await getServerSession(authOptions);
@@ -185,7 +185,8 @@ export async function publishSocialPosts(payload: any) {
   };
 }
 
-import { generateGrokImage } from "@/lib/grok";
+import { generateGrokImage, getGrokDiagnosis } from "@/lib/grok";
+import OpenAI from "openai";
 
 export async function generateVisualPost(prompt: string, locale: string = "en") {
   const session = await getServerSession(authOptions);
@@ -210,36 +211,55 @@ export async function generateVisualPost(prompt: string, locale: string = "en") 
       }
     `;
 
-    const result = await model.generateContent(aiPrompt);
-    const response = await result.response;
-    const text = response.text();
-    
-    // Defensive JSON extraction
-    const jsonMatch = text.match(/\{[\s\S]*\}/);
-    if (jsonMatch) {
-      try {
-        const data = JSON.parse(jsonMatch[0]);
-        
-        // Try generating image with Grok first
-        let imageUrl = await generateGrokImage(data.imagePrompt);
-        
-        // Fallback to Pollinations if Grok fails
-        if (!imageUrl) {
-          console.log("[Social Toolkit] Grok image failed, falling back to Pollinations");
-          imageUrl = `https://pollinations.ai/p/${encodeURIComponent(data.imagePrompt)}?width=1024&height=1024&seed=${Math.floor(Math.random() * 1000000)}&model=flux`;
-        }
+    let data: { caption: string, imagePrompt: string } | null = null;
 
-        return {
-          success: true,
-          post: {
-            caption: data.caption,
-            imageUrl: imageUrl
-          }
-        };
-      } catch (e) {
-        return { error: "AI response format error" };
+    // Try Grok for text generation first (Higher quality)
+    if (process.env.XAI_API_KEY) {
+      try {
+        const client = new OpenAI({
+          apiKey: process.env.XAI_API_KEY,
+          baseURL: "https://api.x.ai/v1",
+        });
+        const response = await client.chat.completions.create({
+          model: "grok-beta",
+          messages: [{ role: "user", content: aiPrompt }],
+          response_format: { type: "json_object" }
+        });
+        const content = response.choices[0].message.content;
+        if (content) data = JSON.parse(content);
+      } catch (err) {
+        console.error("[Social Toolkit] Grok text failed:", err);
       }
     }
+
+    // Fallback to Gemini for text if Grok failed or not configured
+    if (!data) {
+      const result = await model.generateContent(aiPrompt);
+      const response = await result.response;
+      const text = response.text();
+      const jsonMatch = text.match(/\{[\s\S]*\}/);
+      if (jsonMatch) data = JSON.parse(jsonMatch[0]);
+    }
+
+    if (data) {
+      // Try generating image with Grok first
+      let imageUrl = await generateGrokImage(data.imagePrompt);
+      
+      // Fallback to Pollinations if Grok fails
+      if (!imageUrl) {
+        console.log("[Social Toolkit] Grok image failed, falling back to Pollinations");
+        imageUrl = `https://pollinations.ai/p/${encodeURIComponent(data.imagePrompt)}?width=1024&height=1024&seed=${Math.floor(Math.random() * 1000000)}&model=flux`;
+      }
+
+      return {
+        success: true,
+        post: {
+          caption: data.caption,
+          imageUrl: imageUrl
+        }
+      };
+    }
+    
     return { error: "AI failed to generate a valid response. Please try a different prompt." };
   } catch (error: any) {
     console.error("Visual Magic Error:", error);
