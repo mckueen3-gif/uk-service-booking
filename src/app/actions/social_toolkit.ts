@@ -187,6 +187,7 @@ export async function publishSocialPosts(payload: any) {
 }
 
 import { generateGrokImage, getGrokDiagnosis } from "@/lib/grok";
+import { generateOpenAIImage } from "@/lib/openai";
 import OpenAI from "openai";
 
 export async function generateVisualPost(
@@ -249,12 +250,18 @@ export async function generateVisualPost(
     }
 
     if (data) {
-      // Try generating image with Grok first
-      let imageUrl = await generateGrokImage(data.imagePrompt);
-      
-      // Fallback to Pollinations if Grok fails
+      // Priority 1: OpenAI DALL-E 3 (User requested GPT-Image-2)
+      let imageUrl = await generateOpenAIImage(data.imagePrompt);
+
+      // Priority 2: Grok Image (Secondary)
       if (!imageUrl) {
-        console.log("[Social Toolkit] Grok image failed, falling back to Pollinations");
+        console.log("[Social Toolkit] OpenAI image failed, trying Grok...");
+        imageUrl = await generateGrokImage(data.imagePrompt);
+      }
+      
+      // Priority 3: Fallback to Pollinations (Tertiary)
+      if (!imageUrl) {
+        console.log("[Social Toolkit] All high-tier image providers failed, falling back to Pollinations");
         imageUrl = `https://pollinations.ai/p/${encodeURIComponent(data.imagePrompt)}?width=1024&height=1024&seed=${Math.floor(Math.random() * 1000000)}&model=flux`;
       }
 
