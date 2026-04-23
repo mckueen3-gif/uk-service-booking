@@ -1086,6 +1086,7 @@ export const zhTW: LocaleDictionary = {
         suggested_hashtags: "建議的 SEO 標籤",
         copy_hashtags: "僅複製標籤",
         hashtags_copied: "標籤已複製！",
+        upgrade_plan: "升級取得每月 60 個配額",
         review_booster: {
           style_title: "內容風格",
           viral_title: "⚡ 病毒式推廣",

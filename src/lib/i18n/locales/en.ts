@@ -1872,7 +1872,7 @@ export const en: LocaleDictionary = {
         monthly_quota: "Monthly Quota",
         quota_left: "{count} left",
         pro_status: "PRO STATUS ACTIVE",
-        upgrade_plan: "Upgrade for 60/mo",
+        upgrade_plan: "Upgrade for 60/mo Quota",
         generate_all: "Generate Omnichannel Campaign",
         regenerate: "Regenerate All",
         edit_manually: "Edit Manually",
@@ -1901,6 +1901,7 @@ export const en: LocaleDictionary = {
         suggested_hashtags: "Suggested SEO Hashtags",
         copy_hashtags: "Copy Hashtags Only",
         hashtags_copied: "Hashtags copied!",
+        upgrade_plan: "Upgrade for 60/mo Quota",
         review_booster: {
           style_title: "Content Style",
           viral_title: "⚡ Viral Hype",
