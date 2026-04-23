@@ -355,6 +355,7 @@ export const ar: any = {
     },
   },
   common: {
+    merchantPortal: "Merchant Portal",
     viewProfile: "عرض الملف الشخصي",
     reviews: "تقييمات",
     hr: "ساعة",

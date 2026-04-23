@@ -89,9 +89,9 @@ function createSafeDictionary(target: any, fallback: any = {}, path: string = ''
         return createSafeDictionary(undefined, fallbackValue, fullPath);
       }
 
-      // 🚀 CRITICAL FIX: If BOTH are missing, return a recursive Proxy 
-      // instead of a string to prevent "cannot read property of undefined" crashes.
-      return createSafeDictionary(undefined, undefined, fullPath);
+      // 🚀 CRITICAL FIX: If BOTH are missing, return the path as a STRING.
+      // This prevents React from crashing if it tries to render a missing translation.
+      return fullPath;
     },
     // 🚀 NEW: Handle calling t('path.to.key') or t('Hardcoded String')
     apply(_, thisArg, argumentsList) {

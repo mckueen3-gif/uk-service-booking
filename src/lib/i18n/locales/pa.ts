@@ -309,6 +309,7 @@ export const pa: any = {
     },
   },
   common: {
+    merchantPortal: "Merchant Portal",
     viewProfile: "ਪ੍ਰੋਫਾਈਲ ਦੇਖੋ",
     reviews: "ਸਮੀਖਿਆਵਾਂ",
     hr: "ਘੰਟਾ",

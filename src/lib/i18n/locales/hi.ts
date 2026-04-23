@@ -364,6 +364,7 @@ export const hi: any = {
     },
   },
   common: {
+    merchantPortal: "Merchant Portal",
     viewProfile: "प्रोफ़ाइल देखें",
     reviews: "समीक्षाएं",
     hr: "घंटा",

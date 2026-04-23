@@ -374,6 +374,7 @@ export const pl: any = {
     },
   },
   common: {
+    merchantPortal: "Merchant Portal",
     viewProfile: "Zobacz profil",
     reviews: "opinie",
     hr: "godz",

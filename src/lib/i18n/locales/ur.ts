@@ -310,6 +310,7 @@ export const ur: any = {
     },
   },
   common: {
+    merchantPortal: "Merchant Portal",
     viewProfile: "پروفائل دیکھیں",
     reviews: "تبصرے",
     hr: "گھنٹہ",

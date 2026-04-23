@@ -302,6 +302,7 @@ export const ro: any = {
     },
   },
   common: {
+    merchantPortal: "Merchant Portal",
     viewProfile: "Vezi profil",
     reviews: "recenzii",
     hr: "oră",
